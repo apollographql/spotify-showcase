@@ -1,0 +1,7 @@
+type Query {
+  artist(id: ID!): Artist
+}
+
+type Artist {
+  id: ID!
+}

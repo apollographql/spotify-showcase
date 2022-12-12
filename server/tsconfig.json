@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "typeRoots": ["node_modules/@types", "src/@types"],
     "rootDirs": ["src"],
     "outDir": "dist",
     "lib": ["es2020", "esnext"],
