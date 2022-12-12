@@ -1,0 +1,21 @@
+{
+  "name": "react-apollo-spotify-demo",
+  "private": true,
+  "scripts": {
+    "setup:client": "cd client && npm install",
+    "setup:server": "cd server && npm install",
+    "postinstall": "concurrently \"npm:setup:*\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "prettier": "^2.8.1"
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5"
+  }
+}
