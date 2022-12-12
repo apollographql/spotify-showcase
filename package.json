@@ -2,6 +2,9 @@
   "name": "react-apollo-spotify-demo",
   "private": true,
   "scripts": {
+    "start": "concurrently \"npm:start:*\"",
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
     "setup:client": "cd client && npm install",
     "setup:server": "cd server && npm install",
     "postinstall": "concurrently \"npm:setup:*\""
