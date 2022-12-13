@@ -1,26 +1,10 @@
 import express, { Request } from 'express';
 import fetch from 'node-fetch';
 import config from '../config/spotify';
+import { OAUTH_SCOPES } from '../constants';
+import { Spotify } from '../dataSources/spotify.types';
 
 const router = express.Router();
-
-const SCOPES = [
-  'streaming',
-  'user-follow-modify',
-  'user-follow-read',
-  'playlist-read-private',
-  'playlist-modify-private',
-  'playlist-read-collaborative',
-  'playlist-modify-public',
-  'user-modify-playback-state',
-  'user-read-email',
-  'user-read-currently-playing',
-  'user-read-playback-state',
-  'user-library-read',
-  'user-library-modify',
-  'user-top-read',
-  'user-read-recently-played',
-].join(' ');
 
 router.get('/init', (_req, res) => {
   const query = new URLSearchParams();
@@ -28,7 +12,7 @@ router.get('/init', (_req, res) => {
   query.set('response_type', 'code');
   query.set('client_id', config.clientId);
   query.set('redirect_uri', config.redirectURI);
-  query.set('scope', SCOPES);
+  query.set('scope', OAUTH_SCOPES.join(' '));
 
   res.redirect(`https://accounts.spotify.com/authorize?${query}`);
 });
@@ -53,17 +37,17 @@ router.get(
       `${config.clientId}:${config.clientSecret}`
     ).toString('base64');
 
-    const response = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        authorization: `Basic ${credentials}`,
-        'content-type': 'application/x-www-form-urlencoded',
-      },
-      body,
-    });
-
-    const { access_token } =
-      (await response.json()) as Spotify.Response.Path['/api/token'];
+    const { access_token } = await fetch(
+      'https://accounts.spotify.com/api/token',
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Basic ${credentials}`,
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        body,
+      }
+    ).then((res) => res.json() as Promise<Spotify.Response.Path['/api/token']>);
 
     const params = new URLSearchParams();
     params.set('token', access_token);
