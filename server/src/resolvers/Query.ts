@@ -1,20 +1,16 @@
-import { Resolver } from '../types';
+import { QueryResolvers } from './types';
 
-interface RecommendationSeedInput {
-  seedGenres?: string[];
-}
+const resolvers: QueryResolvers = {
+  genres: async (_, __, { dataSources }) => {
+    const { genres } = await dataSources.spotify.getGenres();
 
-export const genres: Resolver = async (_, __, { dataSources }) => {
-  const { genres } = await dataSources.spotify.getGenres();
-
-  return genres;
+    return genres;
+  },
+  recommendations: async (_, { seeds }, { dataSources }) => {
+    return dataSources.spotify.getRecommendations({
+      seed_genres: seeds.seedGenres,
+    });
+  },
 };
 
-export const recommendations: Resolver<
-  any,
-  { seeds: RecommendationSeedInput }
-> = async (_, { seeds }, { dataSources }) => {
-  return dataSources.spotify.getRecommendations({
-    seed_genres: seeds.seedGenres,
-  });
-};
+export default resolvers;

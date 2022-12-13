@@ -6,8 +6,14 @@ const config: CodegenConfig = {
     './src/resolvers/types.ts': {
       config: {
         useIndexSignature: true,
+        contextType: 'ContextValue',
+        defaultScalarType: 'unknown',
       },
-      plugins: ['typescript', 'typescript-resolvers'],
+      plugins: [
+        { add: { content: "import { ContextValue } from '../types';" } },
+        'typescript',
+        'typescript-resolvers',
+      ],
     },
   },
 };
