@@ -62,6 +62,10 @@ declare namespace Spotify {
         seeds: Spotify.Object.RecommendationSeed[];
         tracks: Spotify.Object.TrackSimplified[];
       };
+
+      '/recommendations/available-genre-seeds': {
+        genres: string[];
+      };
     }
   }
 

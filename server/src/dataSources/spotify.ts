@@ -13,6 +13,12 @@ export default class SpotifyAPI extends RESTDataSource {
     this.token = options.token;
   }
 
+  async getGenres() {
+    return this.get<
+      Spotify.Response.Path['/recommendations/available-genre-seeds']
+    >('/recommendations/available-genre-seeds');
+  }
+
   getRecommendations(params: Spotify.Request.Params['/recommendations']) {
     return this.get<Spotify.Response.Path['/recommendations']>(
       'recommendations',

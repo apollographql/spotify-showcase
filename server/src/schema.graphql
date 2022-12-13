@@ -1,4 +1,5 @@
 type Query {
+  genres: [String!]!
   recommendations(seeds: RecommendationSeedInput!): Recommendations
 }
 
