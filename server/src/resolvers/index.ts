@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 const importResolver = (filename: string) =>
-  require(path.resolve(__dirname, filename)).default;
+  require(path.resolve(__dirname, filename));
 
 const resolverName = (filename: string) =>
   path.basename(filename, path.extname(filename));

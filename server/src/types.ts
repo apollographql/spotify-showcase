@@ -7,7 +7,8 @@ export interface ContextValue {
   };
 }
 
-export type GraphQLObjectResolver = Record<
-  string,
-  GraphQLFieldResolver<unknown, ContextValue, any, any>
->;
+export type Resolver<
+  TSource = any,
+  TArgs = unknown,
+  TResult = any
+> = GraphQLFieldResolver<TSource, ContextValue, TArgs, TResult>;
