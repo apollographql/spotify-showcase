@@ -5,9 +5,10 @@ const config: CodegenConfig = {
   generates: {
     './src/resolvers/types.ts': {
       config: {
-        useIndexSignature: true,
         contextType: 'ContextValue',
         defaultScalarType: 'unknown',
+        enumsAsTypes: true,
+        useIndexSignature: true,
       },
       plugins: [
         { add: { content: "import { ContextValue } from '../types';" } },

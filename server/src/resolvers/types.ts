@@ -54,11 +54,10 @@ export type RecommendationSeedInput = {
   seedGenres?: InputMaybe<Array<Scalars['String']>>;
 };
 
-export enum RecommendationSeedType {
-  Artist = 'ARTIST',
-  Genre = 'GENRE',
-  Track = 'TRACK'
-}
+export type RecommendationSeedType =
+  | 'ARTIST'
+  | 'GENRE'
+  | 'TRACK';
 
 export type Recommendations = {
   __typename?: 'Recommendations';

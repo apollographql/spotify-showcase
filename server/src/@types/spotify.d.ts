@@ -19,7 +19,7 @@ declare namespace Spotify {
       href: string;
       id: string;
       initialPoolSize: number;
-      type: 'artist' | 'track' | 'genre';
+      type: 'ARTIST' | 'TRACK' | 'GENRE';
     }
 
     interface TrackSimplified {

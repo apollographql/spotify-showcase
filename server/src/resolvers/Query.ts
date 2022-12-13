@@ -1,3 +1,4 @@
+import camelize from 'camelize';
 import { QueryResolvers } from './types';
 
 const resolvers: QueryResolvers = {
@@ -7,9 +8,11 @@ const resolvers: QueryResolvers = {
     return genres;
   },
   recommendations: async (_, { seeds }, { dataSources }) => {
-    return dataSources.spotify.getRecommendations({
-      seed_genres: seeds.seedGenres,
+    const data = await dataSources.spotify.getRecommendations({
+      seed_genres: seeds.seedGenres ?? undefined,
     });
+
+    return camelize(data);
   },
 };
 
