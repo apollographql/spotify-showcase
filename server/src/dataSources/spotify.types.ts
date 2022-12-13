@@ -72,6 +72,7 @@ export namespace Spotify {
         height: number | null;
         weight: number | null;
       }[];
+      product: RestrictScope<string, 'user-read-private'>;
       type: 'user';
       uri: string;
     }

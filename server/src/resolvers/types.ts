@@ -32,6 +32,7 @@ export type ExternalUrl = {
 export type Query = {
   __typename?: 'Query';
   genres: Array<Scalars['String']>;
+  me?: Maybe<User>;
   recommendations?: Maybe<Recommendations>;
 };
 
@@ -70,6 +71,34 @@ export type TrackSimplified = {
   artists: Array<Artist>;
   id: Scalars['ID'];
   name: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  country?: Maybe<Scalars['String']>;
+  displayName?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
+  externalUrls: ExternalUrl;
+  followers: UserFollowers;
+  href: Scalars['String'];
+  id: Scalars['ID'];
+  images: Array<UserProfileImage>;
+  product?: Maybe<Scalars['String']>;
+  type: Scalars['String'];
+  uri: Scalars['String'];
+};
+
+export type UserFollowers = {
+  __typename?: 'UserFollowers';
+  href?: Maybe<Scalars['String']>;
+  total: Scalars['Int'];
+};
+
+export type UserProfileImage = {
+  __typename?: 'UserProfileImage';
+  height?: Maybe<Scalars['Int']>;
+  url: Scalars['String'];
+  width?: Maybe<Scalars['Int']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -154,6 +183,9 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Recommendations>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TrackSimplified: ResolverTypeWrapper<TrackSimplified>;
+  User: ResolverTypeWrapper<User>;
+  UserFollowers: ResolverTypeWrapper<UserFollowers>;
+  UserProfileImage: ResolverTypeWrapper<UserProfileImage>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -169,6 +201,9 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Recommendations;
   String: Scalars['String'];
   TrackSimplified: TrackSimplified;
+  User: User;
+  UserFollowers: UserFollowers;
+  UserProfileImage: UserProfileImage;
 }>;
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
@@ -187,6 +222,7 @@ export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends 
 
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
 }>;
 
@@ -213,6 +249,34 @@ export type TrackSimplifiedResolvers<ContextType = ContextValue, ParentType exte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  followers?: Resolver<ResolversTypes['UserFollowers'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['UserProfileImage']>, ParentType, ContextType>;
+  product?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UserFollowersResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UserFollowers'] = ResolversParentTypes['UserFollowers']> = ResolversObject<{
+  href?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UserProfileImageResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UserProfileImage'] = ResolversParentTypes['UserProfileImage']> = ResolversObject<{
+  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Artist?: ArtistResolvers<ContextType>;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
@@ -220,5 +284,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   RecommendationSeed?: RecommendationSeedResolvers<ContextType>;
   Recommendations?: RecommendationsResolvers<ContextType>;
   TrackSimplified?: TrackSimplifiedResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  UserFollowers?: UserFollowersResolvers<ContextType>;
+  UserProfileImage?: UserProfileImageResolvers<ContextType>;
 }>;
 

@@ -1,6 +1,7 @@
 type Query {
   genres: [String!]!
   recommendations(seeds: RecommendationSeedInput!): Recommendations
+  me: User
 }
 
 type Artist {
@@ -39,6 +40,31 @@ type TrackSimplified {
   id: ID!
   artists: [Artist!]!
   name: String!
+}
+
+type User {
+  id: ID!
+  country: String
+  displayName: String
+  email: String!
+  externalUrls: ExternalUrl!
+  followers: UserFollowers!
+  href: String!
+  images: [UserProfileImage!]!
+  product: String
+  type: String!
+  uri: String!
+}
+
+type UserFollowers {
+  href: String
+  total: Int!
+}
+
+type UserProfileImage {
+  url: String!
+  height: Int
+  width: Int
 }
 
 input RecommendationSeedInput {
