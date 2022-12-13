@@ -34,8 +34,6 @@ server.start().then(async () => {
       context: async ({ req }) => {
         const { cache } = server;
 
-        console.log(req.headers);
-
         return {
           dataSources: {
             spotify: new SpotifyAPI({
