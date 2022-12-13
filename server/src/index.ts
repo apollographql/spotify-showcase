@@ -11,11 +11,13 @@ import { json } from 'body-parser';
 import schema from './schema.graphql';
 import resolvers from './resolvers';
 import routes from './routes';
+import SpotifyAPI from './dataSources/spotify';
+import { ContextValue } from './types';
 
 const app = express();
 const httpServer = http.createServer(app);
 
-const server = new ApolloServer({
+const server = new ApolloServer<ContextValue>({
   typeDefs: schema,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
@@ -24,7 +26,27 @@ const server = new ApolloServer({
 app.use(routes);
 
 server.start().then(async () => {
-  app.use('/graphql', cors(), json(), expressMiddleware(server));
+  app.use(
+    '/graphql',
+    cors(),
+    json(),
+    expressMiddleware(server, {
+      context: async ({ req }) => {
+        const { cache } = server;
+
+        console.log(req.headers);
+
+        return {
+          dataSources: {
+            spotify: new SpotifyAPI({
+              cache,
+              token: req.get('x-api-token') ?? '',
+            }),
+          },
+        };
+      },
+    })
+  );
 
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: 4000 }, resolve)

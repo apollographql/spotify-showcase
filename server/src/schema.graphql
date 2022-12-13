@@ -1,7 +1,45 @@
 type Query {
-  artist(id: ID!): Artist
+  recommendations(seeds: RecommendationSeedInput!): Recommendations
 }
 
 type Artist {
   id: ID!
+  externalUrls: [ExternalUrl!]!
+  name: String!
+  href: String!
+  uri: String
+}
+
+type ExternalUrl {
+  spotify: String
+}
+
+type Recommendations {
+  seeds: [RecommendationSeed!]!
+  tracks: [TrackSimplified!]!
+}
+
+type RecommendationSeed {
+  id: ID!
+  afterFilteringSize: Int!
+  afterRelinkingSize: Int!
+  href: String!
+  initialPoolSize: Int!
+  type: RecommendationSeedType!
+}
+
+enum RecommendationSeedType {
+  ARTIST
+  TRACK
+  GENRE
+}
+
+type TrackSimplified {
+  id: ID!
+  artists: [Artist!]!
+  name: String!
+}
+
+input RecommendationSeedInput {
+  seedGenres: [String!]
 }
