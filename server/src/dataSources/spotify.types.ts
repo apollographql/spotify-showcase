@@ -1,5 +1,11 @@
-declare namespace Spotify {
-  namespace Object {
+import { OAUTH_SCOPES } from '../constants';
+
+type Scope = typeof OAUTH_SCOPES[number];
+
+type RestrictScope<T, TScope extends string> = TScope extends Scope ? T : never;
+
+export namespace Spotify {
+  export namespace Object {
     interface Artist {
       external_urls: ExternalUrl[];
       href: string;
@@ -9,11 +15,11 @@ declare namespace Spotify {
       uri: string;
     }
 
-    interface ExternalUrl {
+    export interface ExternalUrl {
       spotify: string;
     }
 
-    interface RecommendationSeed {
+    export interface RecommendationSeed {
       afterFilteringSize: number;
       afterRelinkingSize: number;
       href: string;
@@ -22,7 +28,7 @@ declare namespace Spotify {
       type: 'ARTIST' | 'TRACK' | 'GENRE';
     }
 
-    interface TrackSimplified {
+    export interface TrackSimplified {
       artists: Artist[];
       available_markets: string[];
       disc_number: number;
@@ -42,6 +48,33 @@ declare namespace Spotify {
       uri: string;
       is_local: boolean;
     }
+
+    export interface User {
+      country: RestrictScope<string, 'user-read-private'>;
+      display_name: string | null;
+      email: RestrictScope<string, 'user-read-email'>;
+      explicit_content: RestrictScope<
+        {
+          filter_enabled: boolean;
+          filter_locked: boolean;
+        },
+        'user-read-private'
+      >;
+      external_urls: ExternalUrl;
+      followers: {
+        href: string | null;
+        total: number;
+      };
+      href: string;
+      id: string;
+      images: {
+        url: string;
+        height: number | null;
+        weight: number | null;
+      }[];
+      type: 'user';
+      uri: string;
+    }
   }
 
   export namespace Response {
@@ -57,6 +90,8 @@ declare namespace Spotify {
         scope: string;
         token_type: 'Bearer';
       };
+
+      '/me': Spotify.Object.User | null;
 
       '/recommendations': {
         seeds: Spotify.Object.RecommendationSeed[];

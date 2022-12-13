@@ -3,6 +3,7 @@ import {
   RESTDataSource,
   WillSendRequestOptions,
 } from '@apollo/datasource-rest';
+import { Spotify } from './spotify.types';
 
 export default class SpotifyAPI extends RESTDataSource {
   override baseURL = 'https://api.spotify.com/v1';
