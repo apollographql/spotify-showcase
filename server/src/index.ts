@@ -1,11 +1,30 @@
 import 'graphql-import-node';
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
+import { json } from 'body-parser';
+
 import schema from './schema.graphql';
 import resolvers from './resolvers';
 
-const server = new ApolloServer({ typeDefs: schema, resolvers });
+const app = express();
+const httpServer = http.createServer(app);
 
-startStandaloneServer(server, { listen: { port: 4000 } }).then(({ url }) => {
-  console.log(`🚀 Server ready at: ${url}`);
+const server = new ApolloServer({
+  typeDefs: schema,
+  resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+});
+
+server.start().then(async () => {
+  app.use('/graphql', cors(), json(), expressMiddleware(server));
+
+  await new Promise<void>((resolve) =>
+    httpServer.listen({ port: 4000 }, resolve)
+  );
+
+  console.log(`🚀 Server ready at: http://localhost:4000`);
 });
