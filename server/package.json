@@ -4,10 +4,14 @@
   "version": "1.0.0",
   "scripts": {
     "ts-node": "ts-node",
-    "start": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
+    "start": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
+    "generate": "graphql-codegen"
   },
   "author": "Jerel Miller",
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.16.1",
+    "@graphql-codegen/typescript": "^2.8.5",
+    "@graphql-codegen/typescript-resolvers": "^2.7.10",
     "@types/cors": "^2.8.13",
     "@types/node": "^18.11.13",
     "@types/node-fetch": "^2.6.2",
