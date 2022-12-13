@@ -1,7 +1,7 @@
 type Query {
   genres: [String!]!
   recommendations(seeds: RecommendationSeedInput!): Recommendations
-  me: User
+  me: CurrentUser
 }
 
 type Artist {
@@ -10,6 +10,20 @@ type Artist {
   name: String!
   href: String!
   uri: String
+}
+
+type CurrentUser implements UserOutline {
+  id: ID!
+  country: String
+  displayName: String
+  email: String!
+  externalUrls: ExternalUrl!
+  followers: UserFollowers!
+  href: String!
+  images: [UserProfileImage!]!
+  product: String
+  type: String!
+  uri: String!
 }
 
 type ExternalUrl {
@@ -42,16 +56,13 @@ type TrackSimplified {
   name: String!
 }
 
-type User {
+type User implements UserOutline {
   id: ID!
-  country: String
   displayName: String
-  email: String!
   externalUrls: ExternalUrl!
   followers: UserFollowers!
   href: String!
   images: [UserProfileImage!]!
-  product: String
   type: String!
   uri: String!
 }
@@ -65,6 +76,17 @@ type UserProfileImage {
   url: String!
   height: Int
   width: Int
+}
+
+interface UserOutline {
+  id: ID!
+  displayName: String
+  externalUrls: ExternalUrl!
+  followers: UserFollowers!
+  href: String!
+  images: [UserProfileImage!]!
+  type: String!
+  uri: String!
 }
 
 input RecommendationSeedInput {
