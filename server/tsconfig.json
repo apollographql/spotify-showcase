@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "typeRoots": ["node_modules/@types", "src/@types"],
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "rootDirs": ["src"],
     "outDir": "dist",
     "lib": ["es2020", "esnext"],
@@ -14,5 +14,8 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "files": true
+  }
 }

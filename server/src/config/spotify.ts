@@ -11,6 +11,6 @@ const readEnv = (key: string) => {
 export default {
   clientId: readEnv('SPOTIFY_CLIENT_ID'),
   clientSecret: readEnv('SPOTIFY_CLIENT_SECRET'),
-  redirectURI: 'http://localhost:4000',
+  redirectURI: 'http://localhost:4000/oauth/finalize',
   clientURI: 'http://localhost:3000',
 };
