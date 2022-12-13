@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+const IGNORED_FILES = [path.basename(__filename), 'types.ts'];
+
 const importResolver = (filename: string) =>
   require(path.resolve(__dirname, filename)).default;
 
@@ -9,7 +11,7 @@ const resolverName = (filename: string) =>
 
 const resolvers = fs
   .readdirSync(__dirname)
-  .filter((filename) => filename !== path.basename(__filename))
+  .filter((filename) => !IGNORED_FILES.includes(filename))
   .reduce(
     (resolvers, filename) => ({
       ...resolvers,
