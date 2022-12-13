@@ -24,7 +24,7 @@ type RecommendationSeed {
   id: ID!
   afterFilteringSize: Int!
   afterRelinkingSize: Int!
-  href: String!
+  href: String
   initialPoolSize: Int!
   type: RecommendationSeedType!
 }

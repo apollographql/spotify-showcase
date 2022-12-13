@@ -44,7 +44,7 @@ export type RecommendationSeed = {
   __typename?: 'RecommendationSeed';
   afterFilteringSize: Scalars['Int'];
   afterRelinkingSize: Scalars['Int'];
-  href: Scalars['String'];
+  href?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   initialPoolSize: Scalars['Int'];
   type: RecommendationSeedType;
@@ -193,7 +193,7 @@ export type QueryResolvers<ContextType = ContextValue, ParentType extends Resolv
 export type RecommendationSeedResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RecommendationSeed'] = ResolversParentTypes['RecommendationSeed']> = ResolversObject<{
   afterFilteringSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   afterRelinkingSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  href?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   initialPoolSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['RecommendationSeedType'], ParentType, ContextType>;
