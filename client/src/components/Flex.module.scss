@@ -1,0 +1,22 @@
+$alignItems: start, center, end;
+$justifyContent: start, center, end;
+
+.Flex {
+  display: flex;
+}
+
+.inline {
+  display: inline-flex;
+}
+
+@each $value in $alignItems {
+  .alignItems-#{$value} {
+    align-items: $value;
+  }
+}
+
+@each $value in $alignItems {
+  .justifyContent-#{$value} {
+    justify-content: $value;
+  }
+}
