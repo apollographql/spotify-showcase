@@ -1,14 +1,14 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Button from '../Button';
 import useNavigationStack from '../../hooks/useNavigationStack';
+import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';
 import styles from './Header.module.scss';
+import { LOGIN_URL } from '../../constants';
 
-interface HeaderProps {
-  children: ReactNode;
-}
-
-const Header = ({ children }: HeaderProps) => {
+const Header = () => {
+  const isLoggedIn = useIsLoggedIn();
   const { back, forward, canGoBack, canGoForward } = useNavigationStack();
 
   return (
@@ -25,7 +25,19 @@ const Header = ({ children }: HeaderProps) => {
           <ChevronRight size={20} />
         </NavButton>
       </Flex>
-      <Flex gap="1rem">{children}</Flex>
+      <Flex gap="1rem">
+        {!isLoggedIn && (
+          <Button
+            as="a"
+            className={styles.loginButton}
+            size="sm"
+            variant="primary"
+            href={LOGIN_URL}
+          >
+            Log in
+          </Button>
+        )}
+      </Flex>
     </header>
   );
 };

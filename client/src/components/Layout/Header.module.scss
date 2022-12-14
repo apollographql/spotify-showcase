@@ -1,15 +1,21 @@
 .header {
-  grid-area: header;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   color: var(--text-color--base);
   background: transparent;
   padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  height: var(--main-header--height);
+  width: 100%;
+  pointer-events: none;
 }
 
 .headerNavButton {
   --size: 2rem;
 
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,4 +32,8 @@
     opacity: 0.2;
     cursor: not-allowed;
   }
+}
+
+.loginButton {
+  pointer-events: auto;
 }

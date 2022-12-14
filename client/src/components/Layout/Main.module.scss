@@ -1,10 +1,13 @@
 .main {
+  --main-header--height: 80px;
+
   grid-area: main-view;
   display: flex;
   flex-direction: column;
   color: var(--text-color--base);
   height: 100%;
   overflow-y: auto;
+  position: relative;
 }
 
 .mainContent {
