@@ -2,14 +2,13 @@ import Button from '../components/Button';
 import Layout from '../components/Layout';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
+import { LOGIN_URL } from '../constants';
 
 const Index = () => {
   const isLoggedIn = useIsLoggedIn();
 
   return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };
-
-const LOGIN_URL = `${process.env.REACT_APP_SERVER_HOST}/oauth/init`;
 
 const LoggedIn = () => {
   return (
