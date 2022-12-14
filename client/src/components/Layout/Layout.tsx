@@ -21,7 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className={styles.layout}>
       <div
-        className={cx(styles.backdrop, styles.withGradient)}
+        className={cx(styles.layoutBackdrop, styles.withGradient)}
         style={{ '--backdrop-color': backgroundColor } as BackdropStyle}
       />
       {children}

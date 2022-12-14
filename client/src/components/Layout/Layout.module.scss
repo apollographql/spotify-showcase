@@ -6,7 +6,7 @@
   height: 100%;
 }
 
-.backdrop {
+.layoutBackdrop {
   background: var(--backdrop-color);
   position: fixed;
   transition: background 0.3s ease-in;
@@ -26,74 +26,5 @@
     background: linear-gradient(rgba(255, 255, 255, 0), #04060b);
     transition: opacity 0.3s ease-in-out;
     opacity: 1;
-  }
-}
-
-.sidebar {
-  grid-area: sidebar;
-  background: rgba(var(--background--base--rgba), 0.5);
-  color: var(--text-color--base);
-  overflow: auto;
-  padding: 1rem 1.5rem;
-}
-
-.sidebarLogo {
-  padding-bottom: 1.5rem;
-}
-
-.sidebarLinks {
-  list-style: none;
-  padding: 0;
-}
-
-.navLink {
-  line-height: 1;
-  padding: 0.75rem 0;
-
-  & > a {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.875rem;
-  }
-}
-
-.main {
-  grid-area: main-view;
-  display: flex;
-  flex-direction: column;
-  color: var(--text-color--base);
-  padding: 2rem;
-  height: 100%;
-  overflow-y: auto;
-}
-
-.header {
-  grid-area: header;
-  display: flex;
-  justify-content: space-between;
-  color: var(--text-color--base);
-  background: transparent;
-  padding: 1rem 2rem;
-}
-
-.headerNavButton {
-  --size: 2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  width: var(--size);
-  height: var(--size);
-  border-radius: 50%;
-  outline: none;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--color--white);
-
-  &:disabled {
-    opacity: 0.2;
-    cursor: not-allowed;
   }
 }

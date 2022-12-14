@@ -5,7 +5,7 @@ import Flex from '../Flex';
 import ApolloLogo from '../ApolloLogo';
 import SpotifyLogo from '../SpotifyLogo';
 import NavLink from './NavLink';
-import styles from './Layout.module.scss';
+import styles from './Sidebar.module.scss';
 
 interface SidebarProps {
   children?: ReactNode;

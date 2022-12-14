@@ -1,0 +1,9 @@
+.main {
+  grid-area: main-view;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color--base);
+  padding: 2rem;
+  height: 100%;
+  overflow-y: auto;
+}

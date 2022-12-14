@@ -1,0 +1,29 @@
+.header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color--base);
+  background: transparent;
+  padding: 1rem 2rem;
+}
+
+.headerNavButton {
+  --size: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color--white);
+
+  &:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+}

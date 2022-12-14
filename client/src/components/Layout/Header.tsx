@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import useNavigationStack from '../../hooks/useNavigationStack';
 import Flex from '../Flex';
-import styles from './Layout.module.scss';
+import styles from './Header.module.scss';
 
 interface HeaderProps {
   children: ReactNode;
