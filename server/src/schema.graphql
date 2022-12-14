@@ -90,5 +90,38 @@ interface UserOutline {
 }
 
 input RecommendationSeedInput {
+  """
+  A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for seed artists. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
+
+  Example value: ["4NHQUGzhtTLFvgF5SZesLK"]
+  """
+  seedArtists: [ID!]
+
+  """
+  A list of any genres in the set of available genre seeds. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
+
+  Example value: ["classical", "country"]
+  """
   seedGenres: [String!]
+
+  """
+  A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for a seed track. Up to 5 seed values may be provided in any combination of
+  `seedArtists`, `seedTracks` and `seedGenres`.
+
+  Example value: ["0c6xIDDpzE81m2q797ordA"]
+  """
+  seedTracks: [ID!]
+
+  """
+  The target size of the list of recommended tracks. For seeds with unusually
+  small pools or when highly restrictive filtering is applied, it may be
+  impossible to generate the requested number of recommended tracks. Debugging
+  information for such cases is available in the response.
+
+  Default value: 20.
+  Minimum value: 1.
+  Maximum value: 100.
+  """
+  limit: Int
 }

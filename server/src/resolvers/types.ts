@@ -67,7 +67,37 @@ export type RecommendationSeed = {
 };
 
 export type RecommendationSeedInput = {
+  /**
+   * The target size of the list of recommended tracks. For seeds with unusually
+   * small pools or when highly restrictive filtering is applied, it may be
+   * impossible to generate the requested number of recommended tracks. Debugging
+   * information for such cases is available in the response.
+   *
+   * Default value: 20.
+   * Minimum value: 1.
+   * Maximum value: 100.
+   */
+  limit?: InputMaybe<Scalars['Int']>;
+  /**
+   * A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for seed artists. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
+   *
+   * Example value: ["4NHQUGzhtTLFvgF5SZesLK"]
+   */
+  seedArtists?: InputMaybe<Array<Scalars['ID']>>;
+  /**
+   * A list of any genres in the set of available genre seeds. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
+   *
+   * Example value: ["classical", "country"]
+   */
   seedGenres?: InputMaybe<Array<Scalars['String']>>;
+  /**
+   * A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for a seed track. Up to 5 seed values may be provided in any combination of
+   * `seedArtists`, `seedTracks` and `seedGenres`.
+   *
+   * Example value: ["0c6xIDDpzE81m2q797ordA"]
+   */
+  seedTracks?: InputMaybe<Array<Scalars['ID']>>;
 };
 
 export type RecommendationSeedType =

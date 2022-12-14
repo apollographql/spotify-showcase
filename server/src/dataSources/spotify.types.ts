@@ -1,5 +1,6 @@
 import { OAUTH_SCOPES } from '../constants';
 
+type Maybe<T> = T | null;
 type Scope = typeof OAUTH_SCOPES[number];
 
 type RestrictScope<T, TScope extends string> = TScope extends Scope ? T : never;
@@ -108,7 +109,10 @@ export namespace Spotify {
   export namespace Request {
     export interface Params {
       '/recommendations': {
-        seed_genres?: string[];
+        seed_artists?: Maybe<string>;
+        seed_genres?: Maybe<string>;
+        seed_tracks?: Maybe<string>;
+        limit?: Maybe<number>;
       };
     }
   }

@@ -23,7 +23,7 @@ export default class SpotifyAPI extends RESTDataSource {
   getRecommendations(params: Spotify.Request.Params['/recommendations']) {
     return this.get<Spotify.Response.Path['/recommendations']>(
       'recommendations',
-      { params }
+      { params: this.normalizeParams(params) }
     );
   }
 
@@ -35,5 +35,23 @@ export default class SpotifyAPI extends RESTDataSource {
     request.headers['Accept'] = 'application/json';
     request.headers['Authorization'] = `Bearer ${this.token}`;
     request.headers['Content-Type'] = 'application/json';
+  }
+
+  private normalizeParams(
+    params: Record<string, string | number | null | undefined> | undefined
+  ) {
+    if (!params) {
+      return;
+    }
+
+    const urlParams = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value != null) {
+        urlParams.set(key, String(value));
+      }
+    }
+
+    return urlParams;
   }
 }
