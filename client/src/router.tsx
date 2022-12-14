@@ -1,6 +1,7 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import Login from './routes/login';
+import Logout from './routes/logout';
 import Index from './routes/index';
 import Root from './routes/root';
 import SetToken from './routes/set-token';
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/logout',
+    element: <Logout />,
   },
   {
     path: '/',
