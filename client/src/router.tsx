@@ -2,15 +2,26 @@ import { Outlet, createBrowserRouter, redirect } from 'react-router-dom';
 
 import Index from './routes/index';
 import Root from './routes/root';
-import SetToken from './routes/set-token';
-import { logout } from './auth';
+import { logout, login } from './auth';
 
 import RequireAuth from './components/RequireAuth';
 
 import { LOGIN_URL } from './constants';
 
 const router = createBrowserRouter([
-  { path: '/set-token', element: <SetToken /> },
+  {
+    path: '/set-token',
+    loader: ({ request }) => {
+      const url = new URL(request.url);
+      const token = url.searchParams.get('token');
+
+      if (token) {
+        login(token);
+      }
+
+      return redirect('/');
+    },
+  },
   {
     path: '/login',
     loader: () => redirect(LOGIN_URL),
