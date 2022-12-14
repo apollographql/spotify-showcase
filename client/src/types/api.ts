@@ -12,39 +12,151 @@ export type Scalars = {
   Float: number;
 };
 
+/** Spotify catalog information for an artist. */
 export type Artist = {
   readonly __typename: 'Artist';
+  /** Known external URLs for this artist. */
   readonly externalUrls: ReadonlyArray<ExternalUrl>;
+  /** A link to the Web API endpoint providing full details of the artist. */
   readonly href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the artist.
+   */
   readonly id: Scalars['ID'];
+  /** The name of the artist. */
   readonly name: Scalars['String'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the artist.
+   */
   readonly uri: Maybe<Scalars['String']>;
 };
 
-export type CurrentUser = UserOutline & {
+export type CurrentUser = {
   readonly __typename: 'CurrentUser';
-  readonly country: Maybe<Scalars['String']>;
-  readonly displayName: Maybe<Scalars['String']>;
-  readonly email: Scalars['String'];
-  readonly externalUrls: ExternalUrl;
-  readonly followers: UserFollowers;
-  readonly href: Scalars['String'];
-  readonly id: Scalars['ID'];
-  readonly images: ReadonlyArray<UserProfileImage>;
-  readonly product: Maybe<Scalars['String']>;
-  readonly type: Scalars['String'];
-  readonly uri: Scalars['String'];
+  /** Playlists owned or followed by the current Spotify user. */
+  readonly playlists: Maybe<PlaylistConnection>;
+  /** Detailed profile information about the current user. */
+  readonly user: User;
+};
+
+
+export type CurrentUserPlaylistsArgs = {
+  limit: InputMaybe<Scalars['Int']>;
+  offset: InputMaybe<Scalars['Int']>;
 };
 
 export type ExternalUrl = {
   readonly __typename: 'ExternalUrl';
+  /**
+   * The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the object.
+   */
   readonly spotify: Maybe<Scalars['String']>;
+};
+
+export type Followers = {
+  readonly __typename: 'Followers';
+  /** The total number of followers. */
+  readonly total: Scalars['Int'];
+};
+
+export type Image = {
+  readonly __typename: 'Image';
+  /** The image height in pixels. */
+  readonly height: Maybe<Scalars['Int']>;
+  /** The source URL of the image. */
+  readonly url: Scalars['String'];
+  /** The image width in pixels. */
+  readonly width: Maybe<Scalars['Int']>;
+};
+
+export type PageInfo = {
+  readonly __typename: 'PageInfo';
+  /** Whether there is a next page of items. */
+  readonly hasNextPage: Scalars['Boolean'];
+  /** Whether there is a previous page of items. */
+  readonly hasPreviousPage: Scalars['Boolean'];
+  /** The maximum number of items in the response (as set in the query or default) */
+  readonly limit: Scalars['Int'];
+  /** The offset of the items returned (as set in the query or default) */
+  readonly offset: Scalars['Int'];
+  /** The total number of items returned for the page. */
+  readonly total: Scalars['Int'];
+};
+
+/** Information about a playlist owned by a Spotify user */
+export type Playlist = {
+  readonly __typename: 'Playlist';
+  /** `true` if the owner allows other users to modify the playlist. */
+  readonly collaborative: Scalars['Boolean'];
+  /**
+   * The playlist description. _Only returned for modified, verified playlists,
+   * otherwise `null`_.
+   */
+  readonly description: Maybe<Scalars['String']>;
+  /** Known external URLs for this playlist. */
+  readonly externalUrls: ExternalUrl;
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the playlist.
+   */
+  readonly id: Scalars['ID'];
+  /**
+   * Images for the playlist. The array may be empty or contain up to three images.
+   * The images are returned by size in descending order.
+   * See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/).
+   * **Note**: If returned, the source URL for the image (`url`) is temporary and
+   * will expire in less than a day.
+   */
+  readonly images: Maybe<ReadonlyArray<Image>>;
+  /** The name of the playlist. */
+  readonly name: Scalars['String'];
+  /** The user who owns the playlist. */
+  readonly owner: User;
+  /**
+   * The playlist's public/private status: `true` the playlist is public, `false`
+   * the playlist is private, `null` the playlist status is not relevant. For more
+   * about public/private status, see [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/)
+   */
+  readonly public: Maybe<Scalars['Boolean']>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) *\/
+   * for the playlist.
+   */
+  readonly uri: Scalars['String'];
+};
+
+/** A paged set of playlists */
+export type PlaylistConnection = {
+  readonly __typename: 'PlaylistConnection';
+  /** The set of playlists */
+  readonly nodes: ReadonlyArray<Playlist>;
+  /** Pagination information for the set of playlists */
+  readonly pageInfo: PageInfo;
 };
 
 export type Query = {
   readonly __typename: 'Query';
+  /**
+   * A list of available genres seed parameter values for
+   * [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
+   */
   readonly genres: ReadonlyArray<Scalars['String']>;
+  /** Information about the current logged-in user. */
   readonly me: Maybe<CurrentUser>;
+  /**
+   * Recommendations for the current user.
+   *
+   * Recommendations are generated based on the available information for a given
+   * seed entity and matched against similar artists and tracks. If there is
+   * sufficient information about the provided seeds, a list of tracks will be
+   * returned together with pool size details.
+   *
+   * For artists and tracks that are very new or obscure there might not be enough
+   * data to generate a list of tracks.
+   */
   readonly recommendations: Maybe<Recommendations>;
 };
 
@@ -53,13 +165,31 @@ export type QueryRecommendationsArgs = {
   seeds: RecommendationSeedInput;
 };
 
+/** Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
 export type RecommendationSeed = {
   readonly __typename: 'RecommendationSeed';
+  /**
+   * The number of tracks available after min_* and max_* filters have been
+   * applied.
+   */
   readonly afterFilteringSize: Scalars['Int'];
+  /** The number of tracks available after relinking for regional availability. */
   readonly afterRelinkingSize: Scalars['Int'];
+  /**
+   * A link to the full track or artist data for this seed. For tracks this will
+   * be a link to a [Track Object](https://developer.spotify.com/documentation/web-api/reference/#object-trackobject).
+   * For artists a link to an [Artist Object](https://developer.spotify.com/documentation/web-api/reference/#object-artistobject).
+   * For genre seeds, this value will be `null`.
+   */
   readonly href: Maybe<Scalars['String']>;
+  /**
+   * The id used to select this seed. This will be the same as the string used in
+   * the `seedArtists`, `seedTracks` or `seedGenres` parameter.
+   */
   readonly id: Scalars['ID'];
+  /** The number of recommended tracks available for this seed. */
   readonly initialPoolSize: Scalars['Int'];
+  /** The entity type of this seed. */
   readonly type: RecommendationSeedType;
 };
 
@@ -97,18 +227,26 @@ export type RecommendationSeedInput = {
   readonly seedTracks: InputMaybe<ReadonlyArray<Scalars['ID']>>;
 };
 
+/** Available entity types for recommendation seeds. */
 export enum RecommendationSeedType {
   Artist = 'ARTIST',
   Genre = 'GENRE',
   Track = 'TRACK'
 }
 
+/** Information about recommendations for the current user */
 export type Recommendations = {
   readonly __typename: 'Recommendations';
+  /** An array of recommendation [seed objects](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
   readonly seeds: ReadonlyArray<RecommendationSeed>;
+  /**
+   * An array of [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject)
+   * ordered according to the parameters supplied.
+   */
   readonly tracks: ReadonlyArray<TrackSimplified>;
 };
 
+/** Information about a [track (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject) object */
 export type TrackSimplified = {
   readonly __typename: 'TrackSimplified';
   readonly artists: ReadonlyArray<Artist>;
@@ -116,43 +254,29 @@ export type TrackSimplified = {
   readonly name: Scalars['String'];
 };
 
-export type User = UserOutline & {
+/** Public profile information about a Spotify user. */
+export type User = {
   readonly __typename: 'User';
+  /** The name displayed on the user's profile. `null` if not available. */
   readonly displayName: Maybe<Scalars['String']>;
+  /** Known public external URLs for this user. */
   readonly externalUrls: ExternalUrl;
-  readonly followers: UserFollowers;
+  /** Information about the followers of this user. */
+  readonly followers: Followers;
+  /** A link to the Web API endpoint for this user. */
   readonly href: Scalars['String'];
+  /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
   readonly id: Scalars['ID'];
-  readonly images: ReadonlyArray<UserProfileImage>;
-  readonly type: Scalars['String'];
+  /** The user's profile image. */
+  readonly images: ReadonlyArray<Image>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for this user.
+   */
   readonly uri: Scalars['String'];
 };
 
-export type UserFollowers = {
-  readonly __typename: 'UserFollowers';
-  readonly href: Maybe<Scalars['String']>;
-  readonly total: Scalars['Int'];
-};
-
-export type UserOutline = {
-  readonly displayName: Maybe<Scalars['String']>;
-  readonly externalUrls: ExternalUrl;
-  readonly followers: UserFollowers;
-  readonly href: Scalars['String'];
-  readonly id: Scalars['ID'];
-  readonly images: ReadonlyArray<UserProfileImage>;
-  readonly type: Scalars['String'];
-  readonly uri: Scalars['String'];
-};
-
-export type UserProfileImage = {
-  readonly __typename: 'UserProfileImage';
-  readonly height: Maybe<Scalars['Int']>;
-  readonly url: Scalars['String'];
-  readonly width: Maybe<Scalars['Int']>;
-};
-
-export type RootQueryVariables = Exact<{ [key: string]: never; }>;
+export type SidebarPlaylistsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RootQuery = { readonly me: { readonly __typename: 'CurrentUser', readonly id: string } | null };
+export type SidebarPlaylistsQuery = { readonly me: { readonly __typename: 'CurrentUser', readonly playlists: { readonly __typename: 'PlaylistConnection', readonly nodes: ReadonlyArray<{ readonly __typename: 'Playlist', readonly id: string, readonly name: string }> } | null } | null };

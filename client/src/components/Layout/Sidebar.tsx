@@ -1,3 +1,8 @@
+import { Suspense } from 'react';
+import {
+  gql,
+  useSuspenseQuery_experimental as useSuspenseQuery,
+} from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { Library, Home, Search, Heart } from 'lucide-react';
 import cx from 'classnames';
@@ -8,6 +13,10 @@ import SpotifyLogo from '../SpotifyLogo';
 import NavLink from './NavLink';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import styles from './Sidebar.module.scss';
+import {
+  SidebarPlaylistsQuery,
+  SidebarPlaylistsQueryVariables,
+} from '../../types/api';
 
 const Sidebar = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -48,7 +57,9 @@ const Sidebar = () => {
         {isLoggedIn && (
           <>
             <hr className={styles.sidebarDivider} />
-            <Playlists />
+            <Suspense fallback="Loading...">
+              <Playlists />
+            </Suspense>
           </>
         )}
       </nav>
@@ -56,13 +67,32 @@ const Sidebar = () => {
   );
 };
 
+const PLAYLISTS_QUERY = gql`
+  query SidebarPlaylistsQuery {
+    me {
+      playlists {
+        nodes {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
 const Playlists = () => {
+  const { data } = useSuspenseQuery<
+    SidebarPlaylistsQuery,
+    SidebarPlaylistsQueryVariables
+  >(PLAYLISTS_QUERY);
+
   return (
     <ul className={cx(styles.sidebarNavSection, styles.sidebarPlaylists)}>
-      <NavLink to="/playlists/1">Daily Mix 1</NavLink>
-      <NavLink to="/playlists/2">Daily Mix 2</NavLink>
-      <NavLink to="/playlists/3">Daily Mix 3</NavLink>
-      <NavLink to="/playlists/4">Daily Mix 4</NavLink>
+      {data.me?.playlists?.nodes.map((playlist) => (
+        <NavLink key={playlist.id} to={`/playlists/${playlist.id}`}>
+          {playlist.name}
+        </NavLink>
+      ))}
     </ul>
   );
 };
