@@ -161,9 +161,15 @@
   --color--theme: var(--color--green);
   --color--theme--light: var(--color--green--light);
 
+  --font-size--base: 1rem;
   --font-size--xs: 0.625rem;
   --font-size--sm: 0.75rem;
   --font-size--md: 1rem;
+  --font-size--lg: 1.25rem;
+
+  --font-weight--bold: 700;
+  --font-weight--black: 900;
+  --font-weight--normal: 400;
 
   --background--base: #121212;
   --background--base--rgba: 18, 18, 18;
@@ -180,11 +186,23 @@ body {
   font-family: CircularSp, 'Helvetica Neue', Helvetica, Arial,
     'Hiragino Kaku Gothic Pro', Meiryo, 'MS Gothic', sans-serif;
   overscroll-behavior-y: none;
+  font-size: 16px;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: CircularSpTitle, 'Helvetica Neue', Helvetica, Arial,
+    'Hiragino Kaku Gothic Pro', Meiryo, 'MS Gothic', sans-serif;
+  font-weight: var(--font-weight--bold);
 }
 
 #root {
