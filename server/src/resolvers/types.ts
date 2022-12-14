@@ -24,30 +24,59 @@ export type Artist = {
   uri?: Maybe<Scalars['String']>;
 };
 
-export type CurrentUser = UserOutline & {
-  __typename?: 'CurrentUser';
-  country?: Maybe<Scalars['String']>;
-  displayName?: Maybe<Scalars['String']>;
-  email: Scalars['String'];
-  externalUrls: ExternalUrl;
-  followers: UserFollowers;
-  href: Scalars['String'];
-  id: Scalars['ID'];
-  images: Array<UserProfileImage>;
-  product?: Maybe<Scalars['String']>;
-  type: Scalars['String'];
-  uri: Scalars['String'];
-};
-
 export type ExternalUrl = {
   __typename?: 'ExternalUrl';
   spotify?: Maybe<Scalars['String']>;
 };
 
+export type Image = {
+  __typename?: 'Image';
+  /** The image height in pixels. */
+  height?: Maybe<Scalars['Int']>;
+  /** The source URL of the image. */
+  url: Scalars['String'];
+  /** The image width in pixels. */
+  width?: Maybe<Scalars['Int']>;
+};
+
+export type Playlist = {
+  __typename?: 'Playlist';
+  /** `true` if the owner allows other users to modify the playlist. */
+  collaborative: Scalars['Boolean'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the playlist.
+   */
+  id: Scalars['ID'];
+  /**
+   * Images for the playlist. The array may be empty or contain up to three images.
+   * The images are returned by size in descending order.
+   * See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/).
+   * **Note**: If returned, the source URL for the image (`url`) is temporary and
+   * will expire in less than a day.
+   */
+  images?: Maybe<Array<Image>>;
+  /** The name of the playlist. */
+  name: Scalars['String'];
+  /** The user who owns the playlist. */
+  owner: User;
+  /**
+   * The playlist's public/private status: `true` the playlist is public, `false`
+   * the playlist is private, `null` the playlist status is not relevant. For more
+   * about public/private status, see [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/)
+   */
+  public?: Maybe<Scalars['Boolean']>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) *\/
+   * for the playlist.
+   */
+  uri: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   genres: Array<Scalars['String']>;
-  me?: Maybe<CurrentUser>;
+  me?: Maybe<User>;
   recommendations?: Maybe<Recommendations>;
 };
 
@@ -118,14 +147,14 @@ export type TrackSimplified = {
   name: Scalars['String'];
 };
 
-export type User = UserOutline & {
+export type User = {
   __typename?: 'User';
   displayName?: Maybe<Scalars['String']>;
   externalUrls: ExternalUrl;
   followers: UserFollowers;
   href: Scalars['String'];
   id: Scalars['ID'];
-  images: Array<UserProfileImage>;
+  images: Array<Image>;
   type: Scalars['String'];
   uri: Scalars['String'];
 };
@@ -134,24 +163,6 @@ export type UserFollowers = {
   __typename?: 'UserFollowers';
   href?: Maybe<Scalars['String']>;
   total: Scalars['Int'];
-};
-
-export type UserOutline = {
-  displayName?: Maybe<Scalars['String']>;
-  externalUrls: ExternalUrl;
-  followers: UserFollowers;
-  href: Scalars['String'];
-  id: Scalars['ID'];
-  images: Array<UserProfileImage>;
-  type: Scalars['String'];
-  uri: Scalars['String'];
-};
-
-export type UserProfileImage = {
-  __typename?: 'UserProfileImage';
-  height?: Maybe<Scalars['Int']>;
-  url: Scalars['String'];
-  width?: Maybe<Scalars['Int']>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -226,10 +237,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Artist: ResolverTypeWrapper<Artist>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  CurrentUser: ResolverTypeWrapper<CurrentUser>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Playlist: ResolverTypeWrapper<Playlist>;
   Query: ResolverTypeWrapper<{}>;
   RecommendationSeed: ResolverTypeWrapper<RecommendationSeed>;
   RecommendationSeedInput: RecommendationSeedInput;
@@ -239,18 +251,17 @@ export type ResolversTypes = ResolversObject<{
   TrackSimplified: ResolverTypeWrapper<TrackSimplified>;
   User: ResolverTypeWrapper<User>;
   UserFollowers: ResolverTypeWrapper<UserFollowers>;
-  UserOutline: ResolversTypes['CurrentUser'] | ResolversTypes['User'];
-  UserProfileImage: ResolverTypeWrapper<UserProfileImage>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Artist: Artist;
   Boolean: Scalars['Boolean'];
-  CurrentUser: CurrentUser;
   ExternalUrl: ExternalUrl;
   ID: Scalars['ID'];
+  Image: Image;
   Int: Scalars['Int'];
+  Playlist: Playlist;
   Query: {};
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;
@@ -259,8 +270,6 @@ export type ResolversParentTypes = ResolversObject<{
   TrackSimplified: TrackSimplified;
   User: User;
   UserFollowers: UserFollowers;
-  UserOutline: ResolversParentTypes['CurrentUser'] | ResolversParentTypes['User'];
-  UserProfileImage: UserProfileImage;
 }>;
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
@@ -272,29 +281,32 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
-  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
-  followers?: Resolver<ResolversTypes['UserFollowers'], ParentType, ContextType>;
-  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Array<ResolversTypes['UserProfileImage']>, ParentType, ContextType>;
-  product?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl']> = ResolversObject<{
   spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ImageResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = ResolversObject<{
+  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PlaylistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = ResolversObject<{
+  collaborative?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  owner?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  public?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;
+  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
 }>;
 
@@ -327,7 +339,7 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
   followers?: Resolver<ResolversTypes['UserFollowers'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Array<ResolversTypes['UserProfileImage']>, ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -339,36 +351,16 @@ export type UserFollowersResolvers<ContextType = ContextValue, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type UserOutlineResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UserOutline'] = ResolversParentTypes['UserOutline']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'CurrentUser' | 'User', ParentType, ContextType>;
-  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
-  followers?: Resolver<ResolversTypes['UserFollowers'], ParentType, ContextType>;
-  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Array<ResolversTypes['UserProfileImage']>, ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-}>;
-
-export type UserProfileImageResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UserProfileImage'] = ResolversParentTypes['UserProfileImage']> = ResolversObject<{
-  height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Artist?: ArtistResolvers<ContextType>;
-  CurrentUser?: CurrentUserResolvers<ContextType>;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
+  Image?: ImageResolvers<ContextType>;
+  Playlist?: PlaylistResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RecommendationSeed?: RecommendationSeedResolvers<ContextType>;
   Recommendations?: RecommendationsResolvers<ContextType>;
   TrackSimplified?: TrackSimplifiedResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UserFollowers?: UserFollowersResolvers<ContextType>;
-  UserOutline?: UserOutlineResolvers<ContextType>;
-  UserProfileImage?: UserProfileImageResolvers<ContextType>;
 }>;
 

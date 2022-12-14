@@ -1,7 +1,7 @@
 type Query {
   genres: [String!]!
   recommendations(seeds: RecommendationSeedInput!): Recommendations
-  me: CurrentUser
+  me: User
 }
 
 type Artist {
@@ -12,22 +12,70 @@ type Artist {
   uri: String
 }
 
-type CurrentUser implements UserOutline {
-  id: ID!
-  country: String
-  displayName: String
-  email: String!
-  externalUrls: ExternalUrl!
-  followers: UserFollowers!
-  href: String!
-  images: [UserProfileImage!]!
-  product: String
-  type: String!
-  uri: String!
-}
-
 type ExternalUrl {
   spotify: String
+}
+
+type Image {
+  """
+  The source URL of the image.
+  """
+  url: String!
+
+  """
+  The image height in pixels.
+  """
+  height: Int
+
+  """
+  The image width in pixels.
+  """
+  width: Int
+}
+
+type Playlist {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the playlist.
+  """
+  id: ID!
+
+  """
+  `true` if the owner allows other users to modify the playlist.
+  """
+  collaborative: Boolean!
+
+  """
+  Images for the playlist. The array may be empty or contain up to three images.
+  The images are returned by size in descending order.
+  See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/).
+  **Note**: If returned, the source URL for the image (`url`) is temporary and
+  will expire in less than a day.
+  """
+  images: [Image!]
+
+  """
+  The name of the playlist.
+  """
+  name: String!
+
+  """
+  The user who owns the playlist.
+  """
+  owner: User!
+
+  """
+  The playlist's public/private status: `true` the playlist is public, `false`
+  the playlist is private, `null` the playlist status is not relevant. For more
+  about public/private status, see [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/)
+  """
+  public: Boolean
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) */
+  for the playlist.
+  """
+  uri: String!
 }
 
 type Recommendations {
@@ -56,13 +104,13 @@ type TrackSimplified {
   name: String!
 }
 
-type User implements UserOutline {
+type User {
   id: ID!
   displayName: String
   externalUrls: ExternalUrl!
   followers: UserFollowers!
   href: String!
-  images: [UserProfileImage!]!
+  images: [Image!]!
   type: String!
   uri: String!
 }
@@ -70,23 +118,6 @@ type User implements UserOutline {
 type UserFollowers {
   href: String
   total: Int!
-}
-
-type UserProfileImage {
-  url: String!
-  height: Int
-  width: Int
-}
-
-interface UserOutline {
-  id: ID!
-  displayName: String
-  externalUrls: ExternalUrl!
-  followers: UserFollowers!
-  href: String!
-  images: [UserProfileImage!]!
-  type: String!
-  uri: String!
 }
 
 input RecommendationSeedInput {
