@@ -68,9 +68,9 @@ const Sidebar = () => {
 };
 
 const PLAYLISTS_QUERY = gql`
-  query SidebarPlaylistsQuery {
+  query SidebarPlaylistsQuery($offset: Int, $limit: Int!) {
     me {
-      playlists {
+      playlists(offset: $offset, limit: $limit) {
         nodes {
           id
           name
@@ -84,7 +84,7 @@ const Playlists = () => {
   const { data } = useSuspenseQuery<
     SidebarPlaylistsQuery,
     SidebarPlaylistsQueryVariables
-  >(PLAYLISTS_QUERY);
+  >(PLAYLISTS_QUERY, { variables: { limit: 50 } });
 
   return (
     <ul className={cx(styles.sidebarNavSection, styles.sidebarPlaylists)}>
