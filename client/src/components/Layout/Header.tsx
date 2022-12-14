@@ -25,7 +25,7 @@ const Header = ({ children }: HeaderProps) => {
           <ChevronRight size={20} />
         </NavButton>
       </Flex>
-      {children}
+      <Flex gap="1rem">{children}</Flex>
     </header>
   );
 };
