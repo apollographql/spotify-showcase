@@ -164,6 +164,11 @@
   --font-size--xs: 0.625rem;
   --font-size--sm: 0.75rem;
   --font-size--md: 1rem;
+
+  --background--base: #121212;
+  --background--base--rgba: 18, 18, 18;
+
+  --text-color--base: var(--color--white);
 }
 
 body {
@@ -182,4 +187,5 @@ a {
 
 #root {
   min-height: 100vh;
+  height: 100%;
 }
