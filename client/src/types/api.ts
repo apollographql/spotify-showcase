@@ -43,8 +43,8 @@ export type CurrentUser = {
 
 
 export type CurrentUserPlaylistsArgs = {
-  limit: InputMaybe<Scalars['Int']>;
-  offset: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 export type ExternalUrl = {
@@ -204,19 +204,19 @@ export type RecommendationSeedInput = {
    * Minimum value: 1.
    * Maximum value: 100.
    */
-  readonly limit: InputMaybe<Scalars['Int']>;
+  readonly limit?: InputMaybe<Scalars['Int']>;
   /**
    * A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for seed artists. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
    *
    * Example value: ["4NHQUGzhtTLFvgF5SZesLK"]
    */
-  readonly seedArtists: InputMaybe<ReadonlyArray<Scalars['ID']>>;
+  readonly seedArtists?: InputMaybe<ReadonlyArray<Scalars['ID']>>;
   /**
    * A list of any genres in the set of available genre seeds. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
    *
    * Example value: ["classical", "country"]
    */
-  readonly seedGenres: InputMaybe<ReadonlyArray<Scalars['String']>>;
+  readonly seedGenres?: InputMaybe<ReadonlyArray<Scalars['String']>>;
   /**
    * A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for a seed track. Up to 5 seed values may be provided in any combination of
@@ -224,7 +224,7 @@ export type RecommendationSeedInput = {
    *
    * Example value: ["0c6xIDDpzE81m2q797ordA"]
    */
-  readonly seedTracks: InputMaybe<ReadonlyArray<Scalars['ID']>>;
+  readonly seedTracks?: InputMaybe<ReadonlyArray<Scalars['ID']>>;
 };
 
 /** Available entity types for recommendation seeds. */
@@ -276,7 +276,10 @@ export type User = {
   readonly uri: Scalars['String'];
 };
 
-export type SidebarPlaylistsQueryVariables = Exact<{ [key: string]: never; }>;
+export type SidebarPlaylistsQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']>;
+  limit: Scalars['Int'];
+}>;
 
 
 export type SidebarPlaylistsQuery = { readonly me: { readonly __typename: 'CurrentUser', readonly playlists: { readonly __typename: 'PlaylistConnection', readonly nodes: ReadonlyArray<{ readonly __typename: 'Playlist', readonly id: string, readonly name: string }> } | null } | null };

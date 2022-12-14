@@ -6,7 +6,12 @@ const config: CodegenConfig = {
   generates: {
     './src/types/api.ts': {
       config: {
-        avoidOptionals: true,
+        avoidOptionals: {
+          field: true,
+          inputValue: false,
+          object: false,
+          defaultValue: false,
+        },
         dedupeOperationSuffix: true,
         defaultScalarType: 'unknown',
         immutableTypes: true,
