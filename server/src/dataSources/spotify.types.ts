@@ -1,9 +1,12 @@
 import { OAUTH_SCOPES } from '../constants';
+import { NullifyOptionalProperties } from '../utils';
 
-type Maybe<T> = T | null;
-type Scope = typeof OAUTH_SCOPES[number];
+type RestrictScope<
+  T,
+  TScope extends string
+> = TScope extends typeof OAUTH_SCOPES[number] ? T : never;
 
-type RestrictScope<T, TScope extends string> = TScope extends Scope ? T : never;
+type InputParams<T> = NullifyOptionalProperties<T>;
 
 export namespace Spotify {
   export namespace Object {
@@ -108,12 +111,12 @@ export namespace Spotify {
 
   export namespace Request {
     export interface Params {
-      '/recommendations': {
-        seed_artists?: Maybe<string>;
-        seed_genres?: Maybe<string>;
-        seed_tracks?: Maybe<string>;
-        limit?: Maybe<number>;
-      };
+      '/recommendations': InputParams<{
+        seed_artists?: string;
+        seed_genres?: string;
+        seed_tracks?: string;
+        limit?: number;
+      }>;
     }
   }
 }

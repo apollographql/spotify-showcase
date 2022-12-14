@@ -14,7 +14,7 @@ const resolvers: QueryResolvers = {
   },
   recommendations: async (_, { seeds }, { dataSources }) => {
     const data = await dataSources.spotify.getRecommendations({
-      ...camelize(seeds),
+      ...seeds,
       seed_artists: seeds.seedArtists?.join(','),
       seed_genres: seeds.seedGenres?.join(','),
       seed_tracks: seeds.seedTracks?.join(','),
