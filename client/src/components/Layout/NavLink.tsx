@@ -1,17 +1,20 @@
-import { ElementType } from 'react';
-import { LucideProps } from 'lucide-react';
+import { cloneElement, ReactElement } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 import styles from './NavLink.module.scss';
 
-interface NavLinkProps extends LinkProps {
-  icon?: ElementType<LucideProps>;
+interface IconProps {
+  size: string;
 }
 
-const NavLink = ({ children, icon: Icon, ...props }: NavLinkProps) => {
+interface NavLinkProps extends LinkProps {
+  icon?: ReactElement<IconProps>;
+}
+
+const NavLink = ({ children, icon, ...props }: NavLinkProps) => {
   return (
     <li className={styles.navLink}>
       <Link {...props}>
-        {Icon && <Icon size="1.5rem" />}
+        {icon && cloneElement(icon, { size: '1.5rem' })}
         {children}
       </Link>
     </li>

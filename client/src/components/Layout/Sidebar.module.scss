@@ -13,4 +13,8 @@
 .sidebarLinks {
   list-style: none;
   padding: 0;
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
 }

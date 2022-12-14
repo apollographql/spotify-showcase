@@ -1,0 +1,10 @@
+.gradientIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 0.125rem;
+  background: var(--gradient-icon--background-color);
+  width: var(--gradient-icon--size);
+  height: var(--gradient-icon--size);
+}

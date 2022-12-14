@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Library, Home, Search } from 'lucide-react';
+import { Library, Home, Search, Heart } from 'lucide-react';
 import Flex from '../Flex';
 import ApolloLogo from '../ApolloLogo';
+import GradientIcon from '../GradientIcon';
 import SpotifyLogo from '../SpotifyLogo';
 import NavLink from './NavLink';
 import styles from './Sidebar.module.scss';
@@ -22,14 +23,27 @@ const Sidebar = ({ children }: SidebarProps) => {
           </Flex>
         </div>
         <ul className={styles.sidebarLinks}>
-          <NavLink icon={Home} to="/">
+          <NavLink icon={<Home />} to="/">
             Home
           </NavLink>
-          <NavLink icon={Search} to="/search">
+          <NavLink icon={<Search />} to="/search">
             Search
           </NavLink>
-          <NavLink icon={Library} to="/collection">
+          <NavLink icon={<Library />} to="/collection">
             Your Library
+          </NavLink>
+        </ul>
+        <ul className={styles.sidebarLinks}>
+          <NavLink
+            icon={
+              <GradientIcon
+                backgroundColor="linear-gradient(135deg,#450af5,#c4efd9)"
+                lucideIcon={Heart}
+              />
+            }
+            to="/collection"
+          >
+            Liked Songs
           </NavLink>
         </ul>
         {children}
