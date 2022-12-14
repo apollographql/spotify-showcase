@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import client from './apollo';
+import './reset.scss';
 import './index.scss';
 
 const root = ReactDOM.createRoot(

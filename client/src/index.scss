@@ -1,17 +1,3 @@
-:root {
-  --color--green: hsl(140, 63%, 44%);
-  --color--green--light: hsl(140, 63%, 54%);
-  --color--offwhite: #b3b3b3;
-  --color--white: #fff;
-
-  --color--theme: var(--color--green);
-  --color--theme--light: var(--color--green--light);
-
-  --font-size--xs: 0.625rem;
-  --font-size--sm: 0.75rem;
-  --font-size--md: 1rem;
-}
-
 @font-face {
   font-display: swap;
   font-family: CircularSpTitle;
@@ -166,29 +152,34 @@
     u+ffff;
 }
 
-* {
-  box-sizing: border-box;
-}
+:root {
+  --color--green: hsl(140, 63%, 44%);
+  --color--green--light: hsl(140, 63%, 54%);
+  --color--offwhite: #b3b3b3;
+  --color--white: #fff;
 
-body,
-button,
-input,
-select,
-textarea {
-  font-family: CircularSp, 'Helvetica Neue', Helvetica, Arial,
-    'Hiragino Kaku Gothic Pro', Meiryo, 'MS Gothic', sans-serif;
+  --color--theme: var(--color--green);
+  --color--theme--light: var(--color--green--light);
+
+  --font-size--xs: 0.625rem;
+  --font-size--sm: 0.75rem;
+  --font-size--md: 1rem;
 }
 
 body {
-  margin: 0;
   padding: 0;
-  line-height: 1.5;
   letter-spacing: 0.015rem;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: CircularSp, 'Helvetica Neue', Helvetica, Arial,
+    'Hiragino Kaku Gothic Pro', Meiryo, 'MS Gothic', sans-serif;
+  overscroll-behavior-y: none;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+#root {
+  min-height: 100vh;
 }
