@@ -1,6 +1,6 @@
-import { ComponentPropsWithoutRef, ReactNode, useState } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import useNavigationStack from '../../hooks/useNavigationStack';
 import Flex from '../Flex';
 import styles from './Layout.module.scss';
 
@@ -9,26 +9,18 @@ interface HeaderProps {
 }
 
 const Header = ({ children }: HeaderProps) => {
-  const [historyStack] = useState([]);
-  const [backStack] = useState([]);
-  const navigate = useNavigate();
+  const { back, forward, canGoBack, canGoForward } = useNavigationStack();
 
   return (
     <header className={styles.header}>
       <Flex gap="1rem">
-        <NavButton
-          disabled={historyStack.length === 0}
-          aria-label="Go back"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
+        <NavButton aria-label="Go back" disabled={!canGoBack} onClick={back}>
           <ChevronLeft size={20} />
         </NavButton>
         <NavButton
           aria-label="Go forward"
-          disabled={backStack.length === 0}
-          onClick={() => navigate(1)}
+          disabled={!canGoForward}
+          onClick={forward}
         >
           <ChevronRight size={20} />
         </NavButton>
