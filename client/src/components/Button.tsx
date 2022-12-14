@@ -15,7 +15,7 @@ const Button = <TButtonElement extends ElementType = 'button'>({
   as,
   children,
   className,
-  size,
+  size = 'md',
   variant,
   ...props
 }: ButtonProps<TButtonElement>) => {
