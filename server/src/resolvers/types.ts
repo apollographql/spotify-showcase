@@ -15,12 +15,24 @@ export type Scalars = {
   Float: number;
 };
 
+/** Spotify catalog information for an artist. */
 export type Artist = {
   __typename?: 'Artist';
+  /** Known external URLs for this artist. */
   externalUrls: Array<ExternalUrl>;
+  /** A link to the Web API endpoint providing full details of the artist. */
   href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the artist.
+   */
   id: Scalars['ID'];
+  /** The name of the artist. */
   name: Scalars['String'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the artist.
+   */
   uri?: Maybe<Scalars['String']>;
 };
 

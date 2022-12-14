@@ -24,11 +24,35 @@ type Query {
   me: CurrentUser
 }
 
+"""
+Spotify catalog information for an artist.
+"""
 type Artist {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the artist.
+  """
   id: ID!
+
+  """
+  Known external URLs for this artist.
+  """
   externalUrls: [ExternalUrl!]!
+
+  """
+  The name of the artist.
+  """
   name: String!
+
+  """
+  A link to the Web API endpoint providing full details of the artist.
+  """
   href: String!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the artist.
+  """
   uri: String
 }
 
