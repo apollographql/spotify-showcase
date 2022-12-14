@@ -3,6 +3,7 @@ $justifyContent: start, center, end;
 
 .Flex {
   display: flex;
+  gap: var(--gap, 0);
 }
 
 .inline {

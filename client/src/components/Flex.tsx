@@ -1,4 +1,9 @@
-import { ComponentPropsWithoutRef, ReactNode, ElementType } from 'react';
+import {
+  CSSProperties,
+  ComponentPropsWithoutRef,
+  ReactNode,
+  ElementType,
+} from 'react';
 import cx from 'classnames';
 import styles from './Flex.module.scss';
 
@@ -8,9 +13,14 @@ type FlexProps<TElement extends ElementType> =
     alignItems?: 'start' | 'center' | 'end';
     children?: ReactNode;
     className?: string;
+    gap?: CSSProperties['gap'];
     inline?: boolean;
     justifyContent?: 'start' | 'center' | 'end';
   };
+
+interface FlexStyle extends CSSProperties {
+  '--gap': CSSProperties['gap'];
+}
 
 const Flex = <TElement extends ElementType = 'div'>({
   as,
@@ -18,6 +28,7 @@ const Flex = <TElement extends ElementType = 'div'>({
   className,
   children,
   inline,
+  gap,
   justifyContent,
   ...props
 }: FlexProps<TElement>) => {
@@ -26,6 +37,7 @@ const Flex = <TElement extends ElementType = 'div'>({
   return (
     <Element
       {...props}
+      style={{ '--gap': gap } as FlexStyle}
       className={cx(styles.Flex, className, {
         [styles[`alignItems-${alignItems}`]]: alignItems,
         [styles[`justifyContent-${justifyContent}`]]: justifyContent,
