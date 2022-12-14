@@ -1,5 +1,8 @@
 import Button from '../components/Button';
 import Layout from '../components/Layout';
+import Flex from '../components/Flex';
+import ApolloLogo from '../components/ApolloLogo';
+import SpotifyLogo from '../components/SpotifyLogo';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
 
@@ -24,7 +27,12 @@ const LoggedIn = () => {
 const LoggedOut = () => {
   return (
     <Layout>
-      <Layout.Sidebar>Nav content</Layout.Sidebar>
+      <Layout.Sidebar>
+        <Flex inline alignItems="end" direction="column">
+          <ApolloLogo size="225px" />
+          <SpotifyLogo size="100px" />
+        </Flex>
+      </Layout.Sidebar>
       <Layout.Header>
         <Button as="a" size="sm" variant="primary" href={LOGIN_URL}>
           Log in
