@@ -5,6 +5,7 @@ import styles from './Layout.module.scss';
 import Header from './Header';
 import Main from './Main';
 import Sidebar from './Sidebar';
+import useBackgroundColor from '../../hooks/useBackgroundColor';
 
 interface LayoutProps {
   children: ReactNode;
@@ -15,13 +16,13 @@ interface BackdropStyle extends CSSProperties {
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const [backgroundColor] = useBackgroundColor();
+
   return (
     <div className={styles.layout}>
       <div
         className={cx(styles.backdrop, styles.withGradient)}
-        style={
-          { '--backdrop-color': 'var(--background--base)' } as BackdropStyle
-        }
+        style={{ '--backdrop-color': backgroundColor } as BackdropStyle}
       />
       {children}
     </div>

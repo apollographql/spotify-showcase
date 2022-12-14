@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { ApolloProvider, SuspenseCache } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
+import BackgroundColorProvider from './components/BackgroundColorProvider';
 import router from './router';
 import client from './apollo';
 import './reset.scss';
@@ -15,9 +16,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client} suspenseCache={new SuspenseCache()}>
-      <Suspense fallback="Loading.....">
-        <RouterProvider router={router} />
-      </Suspense>
+      <BackgroundColorProvider>
+        <Suspense fallback="Loading.....">
+          <RouterProvider router={router} />
+        </Suspense>
+      </BackgroundColorProvider>
     </ApolloProvider>
   </React.StrictMode>
 );
