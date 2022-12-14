@@ -1,9 +1,4 @@
-import {
-  CSSProperties,
-  ComponentPropsWithoutRef,
-  ReactNode,
-  ElementType,
-} from 'react';
+import { ComponentPropsWithoutRef, ReactNode, ElementType } from 'react';
 import cx from 'classnames';
 import styles from './Flex.module.scss';
 
