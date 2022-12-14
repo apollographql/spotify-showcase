@@ -1,7 +1,6 @@
 .layout {
   display: grid;
   grid-template-columns: var(--sidebar--width) 1fr;
-  grid-template-rows: auto 1fr;
   grid-template-areas: 'sidebar main-view';
   height: 100%;
 }
