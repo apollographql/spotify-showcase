@@ -1,9 +1,9 @@
 import { Outlet, createBrowserRouter, redirect } from 'react-router-dom';
 
-import Logout from './routes/logout';
 import Index from './routes/index';
 import Root from './routes/root';
 import SetToken from './routes/set-token';
+import { logout } from './auth';
 
 import RequireAuth from './components/RequireAuth';
 
@@ -17,7 +17,10 @@ const router = createBrowserRouter([
   },
   {
     path: '/logout',
-    element: <Logout />,
+    loader: () => {
+      logout();
+      return redirect('/');
+    },
   },
   {
     path: '/',
