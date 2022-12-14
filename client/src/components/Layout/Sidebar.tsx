@@ -41,7 +41,7 @@ const Sidebar = ({ children }: SidebarProps) => {
                 lucideIcon={Heart}
               />
             }
-            to="/collection"
+            to="/collection/tracks"
           >
             Liked Songs
           </NavLink>
