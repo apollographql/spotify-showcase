@@ -1,9 +1,11 @@
 $alignItems: start, center, end;
 $justifyContent: start, center, end;
+$directions: row, column;
 
 .Flex {
   display: flex;
   gap: var(--gap, 0);
+  flex: var(--flex);
 }
 
 .inline {
@@ -19,5 +21,11 @@ $justifyContent: start, center, end;
 @each $value in $alignItems {
   .justifyContent-#{$value} {
     justify-content: $value;
+  }
+}
+
+@each $value in $directions {
+  .direction-#{$value} {
+    flex-direction: $value;
   }
 }

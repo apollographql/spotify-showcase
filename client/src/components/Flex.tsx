@@ -13,6 +13,8 @@ type FlexProps<TElement extends ElementType> =
     alignItems?: 'start' | 'center' | 'end';
     children?: ReactNode;
     className?: string;
+    direction?: 'row' | 'column';
+    flex?: CSSProperties['flex'];
     gap?: CSSProperties['gap'];
     inline?: boolean;
     justifyContent?: 'start' | 'center' | 'end';
@@ -20,6 +22,7 @@ type FlexProps<TElement extends ElementType> =
 
 interface FlexStyle extends CSSProperties {
   '--gap': CSSProperties['gap'];
+  '--flex': CSSProperties['flex'];
 }
 
 const Flex = <TElement extends ElementType = 'div'>({
@@ -27,6 +30,8 @@ const Flex = <TElement extends ElementType = 'div'>({
   alignItems,
   className,
   children,
+  direction,
+  flex,
   inline,
   gap,
   justifyContent,
@@ -37,8 +42,9 @@ const Flex = <TElement extends ElementType = 'div'>({
   return (
     <Element
       {...props}
-      style={{ '--gap': gap } as FlexStyle}
+      style={{ '--gap': gap, '--flex': flex } as FlexStyle}
       className={cx(styles.Flex, className, {
+        [styles[`direction-${direction}`]]: direction,
         [styles[`alignItems-${alignItems}`]]: alignItems,
         [styles[`justifyContent-${justifyContent}`]]: justifyContent,
         [styles.inline]: inline,
