@@ -5,12 +5,14 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import { isLoggedInVar } from './vars';
+import { readAuthToken } from './utils';
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_SERVER_HOST}/graphql`,
   headers: {
     get 'x-api-token'() {
-      return localStorage.getItem('token');
+      return readAuthToken();
     },
   },
 });
@@ -18,6 +20,7 @@ const httpLink = createHttpLink({
 const removeTokenLink = onError(({ graphQLErrors }) => {
   graphQLErrors?.forEach((error) => {
     if (error.extensions.code === 'UNAUTHENTICATED') {
+      isLoggedInVar(false);
       localStorage.removeItem('token');
     }
   });

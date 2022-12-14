@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { writeAuthToken } from '../utils';
+import { isLoggedInVar } from '../vars';
 
 const SetToken = () => {
   const [params] = useSearchParams();
@@ -8,11 +10,10 @@ const SetToken = () => {
   useEffect(() => {
     const token = params.get('token');
 
-    if (!token) {
-      return navigate('/login');
+    if (token) {
+      writeAuthToken(token);
+      isLoggedInVar(true);
     }
-
-    localStorage.setItem('token', token);
 
     navigate('/');
   }, [params, navigate]);
