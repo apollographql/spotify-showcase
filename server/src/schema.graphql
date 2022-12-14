@@ -1,7 +1,27 @@
 type Query {
+  """
+  A list of available genres seed parameter values for
+  [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
+  """
   genres: [String!]!
+
+  """
+  Recommendations for the current user.
+
+  Recommendations are generated based on the available information for a given
+  seed entity and matched against similar artists and tracks. If there is
+  sufficient information about the provided seeds, a list of tracks will be
+  returned together with pool size details.
+
+  For artists and tracks that are very new or obscure there might not be enough
+  data to generate a list of tracks.
+  """
   recommendations(seeds: RecommendationSeedInput!): Recommendations
-  me: User
+
+  """
+  Information about the current logged-in user.
+  """
+  me: CurrentUser
 }
 
 type Artist {
@@ -12,8 +32,24 @@ type Artist {
   uri: String
 }
 
+type CurrentUser {
+  """
+  Detailed profile information about the current user.
+  """
+  user: User!
+}
+
 type ExternalUrl {
+  """
+  The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the object.
+  """
   spotify: String
+}
+
+type Followers {
+  "The total number of followers."
+  total: Int!
 }
 
 type Image {
@@ -33,6 +69,26 @@ type Image {
   width: Int
 }
 
+type PageInfo {
+  "Whether there is a next page of items."
+  hasNextPage: Boolean!
+
+  "Whether there is a previous page of items."
+  hasPreviousPage: Boolean!
+
+  """
+  The maximum number of items in the response (as set in the query or default)
+  """
+  limit: Int!
+
+  "The offset of the items returned (as set in the query or default)"
+  offset: Int!
+
+  "The total number of items returned for the page."
+  total: Int!
+}
+
+"Information about a playlist owned by a Spotify user"
 type Playlist {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -78,46 +134,112 @@ type Playlist {
   uri: String!
 }
 
+"A paged set of playlists"
+type PlaylistConnection {
+  "The set of playlists"
+  nodes: [Playlist!]!
+
+  "Pagination information for the set of playlists"
+  pageInfo: PageInfo!
+}
+
+"Information about recommendations for the current user"
 type Recommendations {
+  """
+  An array of recommendation [seed objects](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject).
+  """
   seeds: [RecommendationSeed!]!
+
+  """
+  An array of [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject)
+  ordered according to the parameters supplied.
+  """
   tracks: [TrackSimplified!]!
 }
 
+"""
+Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject).
+"""
 type RecommendationSeed {
+  """
+  The id used to select this seed. This will be the same as the string used in
+  the `seedArtists`, `seedTracks` or `seedGenres` parameter.
+  """
   id: ID!
+
+  """
+  The number of tracks available after min_* and max_* filters have been
+  applied.
+  """
   afterFilteringSize: Int!
+
+  "The number of tracks available after relinking for regional availability."
   afterRelinkingSize: Int!
+
+  """
+  A link to the full track or artist data for this seed. For tracks this will
+  be a link to a [Track Object](https://developer.spotify.com/documentation/web-api/reference/#object-trackobject).
+  For artists a link to an [Artist Object](https://developer.spotify.com/documentation/web-api/reference/#object-artistobject).
+  For genre seeds, this value will be `null`.
+  """
   href: String
+
+  "The number of recommended tracks available for this seed."
   initialPoolSize: Int!
+
+  "The entity type of this seed."
   type: RecommendationSeedType!
 }
 
+"Available entity types for recommendation seeds."
 enum RecommendationSeedType {
   ARTIST
   TRACK
   GENRE
 }
 
+"Information about a [track (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject) object"
 type TrackSimplified {
   id: ID!
   artists: [Artist!]!
   name: String!
 }
 
+"Public profile information about a Spotify user."
 type User {
+  """
+  The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
+  """
   id: ID!
-  displayName: String
-  externalUrls: ExternalUrl!
-  followers: UserFollowers!
-  href: String!
-  images: [Image!]!
-  type: String!
-  uri: String!
-}
 
-type UserFollowers {
-  href: String
-  total: Int!
+  """
+  The name displayed on the user's profile. `null` if not available.
+  """
+  displayName: String
+
+  """
+  Known public external URLs for this user.
+  """
+  externalUrls: ExternalUrl!
+
+  """
+  Information about the followers of this user.
+  """
+  followers: Followers!
+
+  """
+  A link to the Web API endpoint for this user.
+  """
+  href: String!
+
+  "The user's profile image."
+  images: [Image!]!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for this user.
+  """
+  uri: String!
 }
 
 input RecommendationSeedInput {

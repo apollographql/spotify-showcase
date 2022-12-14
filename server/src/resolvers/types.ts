@@ -24,9 +24,25 @@ export type Artist = {
   uri?: Maybe<Scalars['String']>;
 };
 
+export type CurrentUser = {
+  __typename?: 'CurrentUser';
+  /** Detailed profile information about the current user. */
+  user: User;
+};
+
 export type ExternalUrl = {
   __typename?: 'ExternalUrl';
+  /**
+   * The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the object.
+   */
   spotify?: Maybe<Scalars['String']>;
+};
+
+export type Followers = {
+  __typename?: 'Followers';
+  /** The total number of followers. */
+  total: Scalars['Int'];
 };
 
 export type Image = {
@@ -39,6 +55,21 @@ export type Image = {
   width?: Maybe<Scalars['Int']>;
 };
 
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  /** Whether there is a next page of items. */
+  hasNextPage: Scalars['Boolean'];
+  /** Whether there is a previous page of items. */
+  hasPreviousPage: Scalars['Boolean'];
+  /** The maximum number of items in the response (as set in the query or default) */
+  limit: Scalars['Int'];
+  /** The offset of the items returned (as set in the query or default) */
+  offset: Scalars['Int'];
+  /** The total number of items returned for the page. */
+  total: Scalars['Int'];
+};
+
+/** Information about a playlist owned by a Spotify user */
 export type Playlist = {
   __typename?: 'Playlist';
   /** `true` if the owner allows other users to modify the playlist. */
@@ -73,10 +104,35 @@ export type Playlist = {
   uri: Scalars['String'];
 };
 
+/** A paged set of playlists */
+export type PlaylistConnection = {
+  __typename?: 'PlaylistConnection';
+  /** The set of playlists */
+  nodes: Array<Playlist>;
+  /** Pagination information for the set of playlists */
+  pageInfo: PageInfo;
+};
+
 export type Query = {
   __typename?: 'Query';
+  /**
+   * A list of available genres seed parameter values for
+   * [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
+   */
   genres: Array<Scalars['String']>;
-  me?: Maybe<User>;
+  /** Information about the current logged-in user. */
+  me?: Maybe<CurrentUser>;
+  /**
+   * Recommendations for the current user.
+   *
+   * Recommendations are generated based on the available information for a given
+   * seed entity and matched against similar artists and tracks. If there is
+   * sufficient information about the provided seeds, a list of tracks will be
+   * returned together with pool size details.
+   *
+   * For artists and tracks that are very new or obscure there might not be enough
+   * data to generate a list of tracks.
+   */
   recommendations?: Maybe<Recommendations>;
 };
 
@@ -85,13 +141,31 @@ export type QueryRecommendationsArgs = {
   seeds: RecommendationSeedInput;
 };
 
+/** Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
 export type RecommendationSeed = {
   __typename?: 'RecommendationSeed';
+  /**
+   * The number of tracks available after min_* and max_* filters have been
+   * applied.
+   */
   afterFilteringSize: Scalars['Int'];
+  /** The number of tracks available after relinking for regional availability. */
   afterRelinkingSize: Scalars['Int'];
+  /**
+   * A link to the full track or artist data for this seed. For tracks this will
+   * be a link to a [Track Object](https://developer.spotify.com/documentation/web-api/reference/#object-trackobject).
+   * For artists a link to an [Artist Object](https://developer.spotify.com/documentation/web-api/reference/#object-artistobject).
+   * For genre seeds, this value will be `null`.
+   */
   href?: Maybe<Scalars['String']>;
+  /**
+   * The id used to select this seed. This will be the same as the string used in
+   * the `seedArtists`, `seedTracks` or `seedGenres` parameter.
+   */
   id: Scalars['ID'];
+  /** The number of recommended tracks available for this seed. */
   initialPoolSize: Scalars['Int'];
+  /** The entity type of this seed. */
   type: RecommendationSeedType;
 };
 
@@ -129,17 +203,25 @@ export type RecommendationSeedInput = {
   seedTracks?: InputMaybe<Array<Scalars['ID']>>;
 };
 
+/** Available entity types for recommendation seeds. */
 export type RecommendationSeedType =
   | 'ARTIST'
   | 'GENRE'
   | 'TRACK';
 
+/** Information about recommendations for the current user */
 export type Recommendations = {
   __typename?: 'Recommendations';
+  /** An array of recommendation [seed objects](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
   seeds: Array<RecommendationSeed>;
+  /**
+   * An array of [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject)
+   * ordered according to the parameters supplied.
+   */
   tracks: Array<TrackSimplified>;
 };
 
+/** Information about a [track (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject) object */
 export type TrackSimplified = {
   __typename?: 'TrackSimplified';
   artists: Array<Artist>;
@@ -147,22 +229,26 @@ export type TrackSimplified = {
   name: Scalars['String'];
 };
 
+/** Public profile information about a Spotify user. */
 export type User = {
   __typename?: 'User';
+  /** The name displayed on the user's profile. `null` if not available. */
   displayName?: Maybe<Scalars['String']>;
+  /** Known public external URLs for this user. */
   externalUrls: ExternalUrl;
-  followers: UserFollowers;
+  /** Information about the followers of this user. */
+  followers: Followers;
+  /** A link to the Web API endpoint for this user. */
   href: Scalars['String'];
+  /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
   id: Scalars['ID'];
+  /** The user's profile image. */
   images: Array<Image>;
-  type: Scalars['String'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for this user.
+   */
   uri: Scalars['String'];
-};
-
-export type UserFollowers = {
-  __typename?: 'UserFollowers';
-  href?: Maybe<Scalars['String']>;
-  total: Scalars['Int'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -237,11 +323,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Artist: ResolverTypeWrapper<Artist>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  CurrentUser: ResolverTypeWrapper<CurrentUser>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
+  Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  PageInfo: ResolverTypeWrapper<PageInfo>;
   Playlist: ResolverTypeWrapper<Playlist>;
+  PlaylistConnection: ResolverTypeWrapper<PlaylistConnection>;
   Query: ResolverTypeWrapper<{}>;
   RecommendationSeed: ResolverTypeWrapper<RecommendationSeed>;
   RecommendationSeedInput: RecommendationSeedInput;
@@ -250,18 +340,21 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   TrackSimplified: ResolverTypeWrapper<TrackSimplified>;
   User: ResolverTypeWrapper<User>;
-  UserFollowers: ResolverTypeWrapper<UserFollowers>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Artist: Artist;
   Boolean: Scalars['Boolean'];
+  CurrentUser: CurrentUser;
   ExternalUrl: ExternalUrl;
+  Followers: Followers;
   ID: Scalars['ID'];
   Image: Image;
   Int: Scalars['Int'];
+  PageInfo: PageInfo;
   Playlist: Playlist;
+  PlaylistConnection: PlaylistConnection;
   Query: {};
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;
@@ -269,7 +362,6 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   TrackSimplified: TrackSimplified;
   User: User;
-  UserFollowers: UserFollowers;
 }>;
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
@@ -281,8 +373,18 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl']> = ResolversObject<{
   spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type FollowersResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Followers'] = ResolversParentTypes['Followers']> = ResolversObject<{
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -290,6 +392,15 @@ export type ImageResolvers<ContextType = ContextValue, ParentType extends Resolv
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PageInfoResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -304,9 +415,15 @@ export type PlaylistResolvers<ContextType = ContextValue, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type PlaylistConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistConnection'] = ResolversParentTypes['PlaylistConnection']> = ResolversObject<{
+  nodes?: Resolver<Array<ResolversTypes['Playlist']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  me?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;
   recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
 }>;
 
@@ -336,31 +453,27 @@ export type TrackSimplifiedResolvers<ContextType = ContextValue, ParentType exte
 export type UserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
-  followers?: Resolver<ResolversTypes['UserFollowers'], ParentType, ContextType>;
+  followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type UserFollowersResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UserFollowers'] = ResolversParentTypes['UserFollowers']> = ResolversObject<{
-  href?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Artist?: ArtistResolvers<ContextType>;
+  CurrentUser?: CurrentUserResolvers<ContextType>;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
+  Followers?: FollowersResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
+  PageInfo?: PageInfoResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
+  PlaylistConnection?: PlaylistConnectionResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RecommendationSeed?: RecommendationSeedResolvers<ContextType>;
   Recommendations?: RecommendationsResolvers<ContextType>;
   TrackSimplified?: TrackSimplifiedResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
-  UserFollowers?: UserFollowersResolvers<ContextType>;
 }>;
 
