@@ -10,7 +10,12 @@ const config: CodegenConfig = {
         enumsAsTypes: true,
         useIndexSignature: true,
         mappers: {
-          CurrentUser: '../dataSources/spotify.types#Spotify#Object.User',
+          CurrentUser:
+            '../dataSources/spotify.types#Spotify#Object.CurrentUser',
+          Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
+          PlaylistConnection:
+            '../dataSources/spotify.types#Spotify#Object.PagedPlaylists',
+          User: '../dataSources/spotify.types#Spotify#Object.User',
         },
       },
       plugins: [

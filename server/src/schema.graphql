@@ -150,6 +150,11 @@ type Playlist {
   description: String
 
   """
+  Known external URLs for this playlist.
+  """
+  externalUrls: ExternalUrl!
+
+  """
   Images for the playlist. The array may be empty or contain up to three images.
   The images are returned by size in descending order.
   See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/).

@@ -100,6 +100,8 @@ export type Playlist = {
    * otherwise `null`_.
    */
   description?: Maybe<Scalars['String']>;
+  /** Known external URLs for this playlist. */
+  externalUrls: ExternalUrl;
   /**
    * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the playlist.
@@ -349,15 +351,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Artist: ResolverTypeWrapper<Artist>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  CurrentUser: ResolverTypeWrapper<Spotify.Object.User>;
+  CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   PageInfo: ResolverTypeWrapper<PageInfo>;
-  Playlist: ResolverTypeWrapper<Playlist>;
-  PlaylistConnection: ResolverTypeWrapper<PlaylistConnection>;
+  Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
+  PlaylistConnection: ResolverTypeWrapper<Spotify.Object.PagedPlaylists>;
   Query: ResolverTypeWrapper<{}>;
   RecommendationSeed: ResolverTypeWrapper<RecommendationSeed>;
   RecommendationSeedInput: RecommendationSeedInput;
@@ -365,29 +367,29 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Recommendations>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TrackSimplified: ResolverTypeWrapper<TrackSimplified>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Artist: Artist;
   Boolean: Scalars['Boolean'];
-  CurrentUser: Spotify.Object.User;
+  CurrentUser: Spotify.Object.CurrentUser;
   ExternalUrl: ExternalUrl;
   Followers: Followers;
   ID: Scalars['ID'];
   Image: Image;
   Int: Scalars['Int'];
   PageInfo: PageInfo;
-  Playlist: Playlist;
-  PlaylistConnection: PlaylistConnection;
+  Playlist: Spotify.Object.Playlist;
+  PlaylistConnection: Spotify.Object.PagedPlaylists;
   Query: {};
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;
   Recommendations: Recommendations;
   String: Scalars['String'];
   TrackSimplified: TrackSimplified;
-  User: User;
+  User: Spotify.Object.User;
 }>;
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
@@ -434,6 +436,7 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
 export type PlaylistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = ResolversObject<{
   collaborative?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

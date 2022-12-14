@@ -1,8 +1,8 @@
-export type OptionalKeysOf<T> = Exclude<
-  { [K in keyof T]: T extends Record<K, T[K]> ? never : K }[keyof T],
-  undefined
->;
+import { OptionalKeysOf } from 'type-fest';
 
-export type NullifyOptionalProperties<T> = Omit<T, OptionalKeysOf<T>> & {
+export type NullifyOptionalProperties<T extends object> = Omit<
+  T,
+  OptionalKeysOf<T>
+> & {
   [K in OptionalKeysOf<T>]?: T[K] | null;
 };

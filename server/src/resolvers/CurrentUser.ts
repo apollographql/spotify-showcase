@@ -1,8 +1,11 @@
-import camelize from 'camelize';
 import { CurrentUserResolvers } from './types';
+import { itself } from './helpers';
 
 const resolvers: CurrentUserResolvers = {
-  user: (currentUser) => camelize(currentUser),
+  user: itself(),
+  playlists: (_, args, { dataSources }) => {
+    return dataSources.spotify.currentUserPlaylists(args);
+  },
 };
 
 export default resolvers;
