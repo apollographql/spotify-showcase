@@ -40,7 +40,7 @@ export type Artist = {
 export type CurrentUser = {
   __typename?: 'CurrentUser';
   /** Playlists owned or followed by the current Spotify user. */
-  playlists: PlaylistConnection;
+  playlists?: Maybe<PlaylistConnection>;
   /** Detailed profile information about the current user. */
   user: User;
 };
@@ -95,6 +95,11 @@ export type Playlist = {
   __typename?: 'Playlist';
   /** `true` if the owner allows other users to modify the playlist. */
   collaborative: Scalars['Boolean'];
+  /**
+   * The playlist description. _Only returned for modified, verified playlists,
+   * otherwise `null`_.
+   */
+  description?: Maybe<Scalars['String']>;
   /**
    * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the playlist.
@@ -395,7 +400,7 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
 }>;
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
-  playlists?: Resolver<ResolversTypes['PlaylistConnection'], ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
+  playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -428,6 +433,7 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
 
 export type PlaylistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = ResolversObject<{
   collaborative?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

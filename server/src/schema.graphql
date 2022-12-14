@@ -78,7 +78,7 @@ type CurrentUser {
     Use with `limit` to get the next set of playlists.
     """
     offset: Int
-  ): PlaylistConnection!
+  ): PlaylistConnection
 }
 
 type ExternalUrl {
@@ -142,6 +142,12 @@ type Playlist {
   `true` if the owner allows other users to modify the playlist.
   """
   collaborative: Boolean!
+
+  """
+  The playlist description. _Only returned for modified, verified playlists,
+  otherwise `null`_.
+  """
+  description: String
 
   """
   Images for the playlist. The array may be empty or contain up to three images.
