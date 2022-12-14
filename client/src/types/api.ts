@@ -146,6 +146,8 @@ export type Query = {
   readonly genres: ReadonlyArray<Scalars['String']>;
   /** Information about the current logged-in user. */
   readonly me: Maybe<CurrentUser>;
+  /** A playlist owned by a Spotify user. */
+  readonly playlist: Maybe<Playlist>;
   /**
    * Recommendations for the current user.
    *
@@ -158,6 +160,11 @@ export type Query = {
    * data to generate a list of tracks.
    */
   readonly recommendations: Maybe<Recommendations>;
+};
+
+
+export type QueryPlaylistArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -283,3 +290,10 @@ export type SidebarPlaylistsQueryVariables = Exact<{
 
 
 export type SidebarPlaylistsQuery = { readonly me: { readonly __typename: 'CurrentUser', readonly playlists: { readonly __typename: 'PlaylistConnection', readonly nodes: ReadonlyArray<{ readonly __typename: 'Playlist', readonly id: string, readonly name: string }> } | null } | null };
+
+export type PlaylistQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type PlaylistQuery = { readonly playlist: { readonly __typename: 'Playlist', readonly id: string, readonly name: string } | null };

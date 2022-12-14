@@ -14,13 +14,13 @@ export default class SpotifyAPI extends RESTDataSource {
     this.token = options.token;
   }
 
-  async getGenres() {
+  async genres() {
     return this.get<
       Spotify.Response.Path['/recommendations/available-genre-seeds']
     >('/recommendations/available-genre-seeds');
   }
 
-  getRecommendations(params: Spotify.Request.Params['/recommendations']) {
+  recommendations(params: Spotify.Request.Params['/recommendations']) {
     return this.get<Spotify.Response.Path['/recommendations']>(
       'recommendations',
       { params: this.normalizeParams(params) }
@@ -35,6 +35,12 @@ export default class SpotifyAPI extends RESTDataSource {
     return this.get<Spotify.Response.Path['/me/playlists']>('/me/playlists', {
       params: this.normalizeParams(params),
     });
+  }
+
+  playlist(id: string) {
+    return this.get<Spotify.Response.Path['/playlists/:id']>(
+      `/playlists/${id}`
+    );
   }
 
   override willSendRequest(request: WillSendRequestOptions) {

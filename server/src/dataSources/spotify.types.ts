@@ -146,7 +146,10 @@ export namespace Spotify {
       };
 
       '/me': Spotify.Object.CurrentUser;
-      '/me/playlists': Spotify.Object.PagedPlaylists;
+      '/me/playlists': Spotify.Object.PaginatedPlaylists;
+
+      '/playlists/:id': Spotify.Object.Playlist;
+
       '/recommendations': Spotify.Object.Recommendations;
 
       '/recommendations/available-genre-seeds': {

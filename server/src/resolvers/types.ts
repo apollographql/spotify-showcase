@@ -150,6 +150,8 @@ export type Query = {
   genres: Array<Scalars['String']>;
   /** Information about the current logged-in user. */
   me?: Maybe<CurrentUser>;
+  /** A playlist owned by a Spotify user. */
+  playlist?: Maybe<Playlist>;
   /**
    * Recommendations for the current user.
    *
@@ -162,6 +164,11 @@ export type Query = {
    * data to generate a list of tracks.
    */
   recommendations?: Maybe<Recommendations>;
+};
+
+
+export type QueryPlaylistArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -455,6 +462,7 @@ export type PlaylistConnectionResolvers<ContextType = ContextValue, ParentType e
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;
+  playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<QueryPlaylistArgs, 'id'>>;
   recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
 }>;
 

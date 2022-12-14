@@ -22,6 +22,11 @@ type Query {
   Information about the current logged-in user.
   """
   me: CurrentUser
+
+  """
+  A playlist owned by a Spotify user.
+  """
+  playlist(id: ID!): Playlist
 }
 
 """
