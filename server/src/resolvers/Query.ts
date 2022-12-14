@@ -7,11 +7,7 @@ const resolvers: QueryResolvers = {
 
     return genres;
   },
-  me: async (_, __, { dataSources }) => {
-    const user = await dataSources.spotify.me();
-
-    return user ? { user: camelize(user) } : null;
-  },
+  me: (_, __, { dataSources }) => dataSources.spotify.me(),
   recommendations: async (_, { seeds }, { dataSources }) => {
     const data = await dataSources.spotify.getRecommendations({
       ...seeds,

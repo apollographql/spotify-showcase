@@ -1,5 +1,6 @@
 import { ContextValue } from '../types';
 import { GraphQLResolveInfo } from 'graphql';
+import { Spotify } from '../dataSources/spotify.types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -38,8 +39,16 @@ export type Artist = {
 
 export type CurrentUser = {
   __typename?: 'CurrentUser';
+  /** Playlists owned or followed by the current Spotify user. */
+  playlists: PlaylistConnection;
   /** Detailed profile information about the current user. */
   user: User;
+};
+
+
+export type CurrentUserPlaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 export type ExternalUrl = {
@@ -335,7 +344,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Artist: ResolverTypeWrapper<Artist>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  CurrentUser: ResolverTypeWrapper<CurrentUser>;
+  CurrentUser: ResolverTypeWrapper<Spotify.Object.User>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -358,7 +367,7 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Artist: Artist;
   Boolean: Scalars['Boolean'];
-  CurrentUser: CurrentUser;
+  CurrentUser: Spotify.Object.User;
   ExternalUrl: ExternalUrl;
   Followers: Followers;
   ID: Scalars['ID'];
@@ -386,6 +395,7 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
 }>;
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
+  playlists?: Resolver<ResolversTypes['PlaylistConnection'], ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

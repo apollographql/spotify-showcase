@@ -61,6 +61,24 @@ type CurrentUser {
   Detailed profile information about the current user.
   """
   user: User!
+
+  """
+  Playlists owned or followed by the current Spotify user.
+  """
+  playlists(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first playlist to return. Default: 0 (the first object).
+    Maximum offset: 100.000.
+
+    Use with `limit` to get the next set of playlists.
+    """
+    offset: Int
+  ): PlaylistConnection!
 }
 
 type ExternalUrl {

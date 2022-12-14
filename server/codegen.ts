@@ -9,6 +9,9 @@ const config: CodegenConfig = {
         defaultScalarType: 'unknown',
         enumsAsTypes: true,
         useIndexSignature: true,
+        mappers: {
+          CurrentUser: '../dataSources/spotify.types#Spotify#Object.User',
+        },
       },
       plugins: [
         { add: { content: "import { ContextValue } from '../types';" } },
