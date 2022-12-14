@@ -357,9 +357,9 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  PageInfo: ResolverTypeWrapper<PageInfo>;
+  PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
-  PlaylistConnection: ResolverTypeWrapper<Spotify.Object.PagedPlaylists>;
+  PlaylistConnection: ResolverTypeWrapper<Spotify.Object.PaginatedPlaylists>;
   Query: ResolverTypeWrapper<{}>;
   RecommendationSeed: ResolverTypeWrapper<RecommendationSeed>;
   RecommendationSeedInput: RecommendationSeedInput;
@@ -380,9 +380,9 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID'];
   Image: Image;
   Int: Scalars['Int'];
-  PageInfo: PageInfo;
+  PageInfo: Spotify.Object.Paginated;
   Playlist: Spotify.Object.Playlist;
-  PlaylistConnection: Spotify.Object.PagedPlaylists;
+  PlaylistConnection: Spotify.Object.PaginatedPlaylists;
   Query: {};
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;

@@ -12,9 +12,10 @@ const config: CodegenConfig = {
         mappers: {
           CurrentUser:
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
+          PageInfo: '../dataSources/spotify.types#Spotify#Object.Paginated',
           Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
           PlaylistConnection:
-            '../dataSources/spotify.types#Spotify#Object.PagedPlaylists',
+            '../dataSources/spotify.types#Spotify#Object.PaginatedPlaylists',
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
       },

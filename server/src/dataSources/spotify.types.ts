@@ -88,8 +88,8 @@ export namespace Spotify {
       is_local: boolean;
     }
 
-    export interface PagedPlaylists {
-      items: Playlist[];
+    export interface Paginated<T = any> {
+      items: T[];
       href: string;
       limit: number;
       next: string | null;
@@ -97,6 +97,8 @@ export namespace Spotify {
       previous: string | null;
       total: number;
     }
+
+    export type PaginatedPlaylists = Paginated<Playlist>;
 
     export interface Playlist {
       id: string;
