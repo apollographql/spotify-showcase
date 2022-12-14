@@ -38,6 +38,11 @@ const LoggedOut = () => {
             Apollo features to understand how Apollo can be used in a moderately
             complex app.
           </p>
+          <p>
+            <strong>NOTE:</strong> For security and simplicity, the backend does
+            not store the OAuth refresh token upon logging in. This means your
+            logged in session will expire when the access token expires (~1 hr).
+          </p>
           <h2>Getting started</h2>
           <p>
             To use this demo app, you will first need a Spotify developer token.
