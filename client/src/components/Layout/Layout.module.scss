@@ -36,7 +36,28 @@
   background: rgba(var(--background--base--rgba), 0.5);
   color: var(--text-color--base);
   overflow: auto;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
+}
+
+.sidebarLogo {
+  padding-bottom: 1.5rem;
+}
+
+.sidebarLinks {
+  list-style: none;
+  padding: 0;
+}
+
+.navLink {
+  line-height: 1;
+  padding: 0.75rem 0;
+
+  & > a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+  }
 }
 
 .main {

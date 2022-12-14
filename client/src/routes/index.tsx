@@ -1,8 +1,5 @@
 import Button from '../components/Button';
 import Layout from '../components/Layout';
-import Flex from '../components/Flex';
-import ApolloLogo from '../components/ApolloLogo';
-import SpotifyLogo from '../components/SpotifyLogo';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
 
@@ -17,7 +14,7 @@ const LOGIN_URL = `${process.env.REACT_APP_SERVER_HOST}/oauth/init`;
 const LoggedIn = () => {
   return (
     <Layout>
-      <Layout.Sidebar>Nav content</Layout.Sidebar>
+      <Layout.Sidebar />
       <Layout.Header>Stuff in the header</Layout.Header>
       <Layout.Main>Hello!</Layout.Main>
     </Layout>
@@ -27,12 +24,7 @@ const LoggedIn = () => {
 const LoggedOut = () => {
   return (
     <Layout>
-      <Layout.Sidebar>
-        <Flex inline alignItems="end" direction="column">
-          <ApolloLogo size="225px" />
-          <SpotifyLogo size="100px" />
-        </Flex>
-      </Layout.Sidebar>
+      <Layout.Sidebar />
       <Layout.Header>
         <Button as="a" size="sm" variant="primary" href={LOGIN_URL}>
           Log in
