@@ -284,20 +284,14 @@ export type Recommendations = {
    * An array of [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject)
    * ordered according to the parameters supplied.
    */
-  tracks: Array<TrackSimplified>;
+  tracks: Array<Track>;
 };
 
 /** Spotify catalog information for a track. */
 export type Track = {
   __typename?: 'Track';
-  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
-  id: Scalars['ID'];
-};
-
-/** Information about a [track (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject) object */
-export type TrackSimplified = {
-  __typename?: 'TrackSimplified';
   artists: Array<Artist>;
+  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
   id: Scalars['ID'];
   name: Scalars['String'];
 };
@@ -414,10 +408,9 @@ export type ResolversTypes = ResolversObject<{
   RecommendationSeed: ResolverTypeWrapper<RecommendationSeed>;
   RecommendationSeedInput: RecommendationSeedInput;
   RecommendationSeedType: RecommendationSeedType;
-  Recommendations: ResolverTypeWrapper<Recommendations>;
+  Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Track: ResolverTypeWrapper<Track>;
-  TrackSimplified: ResolverTypeWrapper<TrackSimplified>;
+  Track: ResolverTypeWrapper<Spotify.Object.Track>;
   User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
@@ -442,10 +435,9 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;
-  Recommendations: Recommendations;
+  Recommendations: Spotify.Object.Recommendations;
   String: Scalars['String'];
-  Track: Track;
-  TrackSimplified: TrackSimplified;
+  Track: Spotify.Object.Track;
   User: Spotify.Object.User;
 }>;
 
@@ -555,16 +547,11 @@ export type RecommendationSeedResolvers<ContextType = ContextValue, ParentType e
 
 export type RecommendationsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Recommendations'] = ResolversParentTypes['Recommendations']> = ResolversObject<{
   seeds?: Resolver<Array<ResolversTypes['RecommendationSeed']>, ParentType, ContextType>;
-  tracks?: Resolver<Array<ResolversTypes['TrackSimplified']>, ParentType, ContextType>;
+  tracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type TrackSimplifiedResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TrackSimplified'] = ResolversParentTypes['TrackSimplified']> = ResolversObject<{
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -600,7 +587,6 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   RecommendationSeed?: RecommendationSeedResolvers<ContextType>;
   Recommendations?: RecommendationsResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
-  TrackSimplified?: TrackSimplifiedResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
 

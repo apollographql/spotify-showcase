@@ -10,13 +10,18 @@ type InputParams<T extends object> = NullifyOptionalProperties<T>;
 
 export namespace Spotify {
   export namespace Object {
-    interface Artist {
-      external_urls: ExternalUrl[];
+    interface ArtistSimplfied {
+      external_urls: ExternalUrls;
       href: string;
       id: string;
       name: string;
       type: 'artist';
       uri: string;
+    }
+
+    export interface AlbumSimplified {
+      album_type: 'album' | 'single' | 'compilation';
+      artists: ArtistSimplfied[];
     }
 
     export interface CurrentUser {
@@ -30,11 +35,8 @@ export namespace Spotify {
         },
         'user-read-private'
       >;
-      external_urls: ExternalUrl;
-      followers: {
-        href: string | null;
-        total: number;
-      };
+      external_urls: ExternalUrls;
+      followers: Followers;
       href: string;
       id: string;
       images: Image[];
@@ -48,8 +50,13 @@ export namespace Spotify {
       type: 'episode';
     }
 
-    export interface ExternalUrl {
+    export interface ExternalUrls {
       spotify: string;
+    }
+
+    export interface Followers {
+      href: string | null;
+      total: number;
     }
 
     export interface Image {
@@ -75,7 +82,7 @@ export namespace Spotify {
       id: string;
       collaborative: boolean;
       description: string | null;
-      external_urls: ExternalUrl;
+      external_urls: ExternalUrls;
       href: string;
       images: Image[];
       name: string;
@@ -87,7 +94,7 @@ export namespace Spotify {
       uri: string;
     }
 
-    export type PlaylistTrack = Track | Episode;
+    export type PlaylistTrack = TrackSimplified | Episode;
 
     export interface PlaylistTrackEdge {
       added_at: string;
@@ -101,8 +108,8 @@ export namespace Spotify {
     }
 
     export interface Recommendations {
-      seeds: Spotify.Object.RecommendationSeed[];
-      tracks: Spotify.Object.TrackSimplified[];
+      seeds: RecommendationSeed[];
+      tracks: TrackSimplified[];
     }
 
     export interface RecommendationSeed {
@@ -116,16 +123,19 @@ export namespace Spotify {
 
     export interface Track {
       id: string;
+      album: AlbumSimplified;
+      artists: ArtistSimplfied[];
       type: 'track';
     }
 
     export interface TrackSimplified {
-      artists: Artist[];
+      album: AlbumSimplified | null;
+      artists: ArtistSimplfied[];
       available_markets: string[];
       disc_number: number;
       duration_ms: number;
       explicit: boolean;
-      external_urls: ExternalUrl[];
+      external_urls: ExternalUrls;
       href: string;
       id: string;
       is_playable: boolean;
@@ -142,11 +152,8 @@ export namespace Spotify {
 
     export interface User {
       display_name: string | null;
-      external_urls: ExternalUrl;
-      followers: {
-        href: string | null;
-        total: number;
-      };
+      external_urls: ExternalUrls;
+      followers: Followers;
       href: string;
       id: string;
       images: Image[] | null;

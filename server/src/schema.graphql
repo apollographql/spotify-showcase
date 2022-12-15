@@ -247,7 +247,7 @@ type Recommendations {
   An array of [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject)
   ordered according to the parameters supplied.
   """
-  tracks: [TrackSimplified!]!
+  tracks: [Track!]!
 }
 
 """
@@ -296,11 +296,6 @@ type Track {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """
-  id: ID!
-}
-
-"Information about a [track (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject) object"
-type TrackSimplified {
   id: ID!
   artists: [Artist!]!
   name: String!

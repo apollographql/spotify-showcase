@@ -9,14 +9,12 @@ const resolvers: QueryResolvers = {
   },
   me: (_, __, { dataSources }) => dataSources.spotify.me(),
   recommendations: async (_, { seeds }, { dataSources }) => {
-    const data = await dataSources.spotify.recommendations({
+    return dataSources.spotify.recommendations({
       ...seeds,
       seed_artists: seeds.seedArtists?.join(','),
       seed_genres: seeds.seedGenres?.join(','),
       seed_tracks: seeds.seedTracks?.join(','),
     });
-
-    return camelize(data);
   },
   playlist: (_, { id }, { dataSources }) => {
     return dataSources.spotify.playlist(id);
