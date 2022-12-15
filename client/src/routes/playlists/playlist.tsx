@@ -5,11 +5,11 @@ import {
 } from '@apollo/client';
 import { Music } from 'lucide-react';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
+import CoverPhoto from '../../components/CoverPhoto';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
 import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
 import SpotifyIcon from '../../components/SpotifyIcon';
-import LazyImage from '../../components/LazyImage';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
 
@@ -49,14 +49,11 @@ const Playlist = () => {
   return (
     <div className={styles.playlist}>
       <Flex as="header" gap="2rem" alignItems="end">
-        {coverPhoto ? (
-          <LazyImage className={styles.playlistImage} src={coverPhoto.url} />
-        ) : (
-          <PlaceholderCoverPhoto
-            className={styles.playlistImage}
-            icon={Music}
-          />
-        )}
+        <CoverPhoto
+          className={styles.playlistImage}
+          src={coverPhoto?.url}
+          fallback={<PlaceholderCoverPhoto icon={Music} />}
+        />
         <Flex direction="column">
           <h2 className={styles.type}>Playlist</h2>
           <h1 className={styles.playlistName}>{playlist.name}</h1>
