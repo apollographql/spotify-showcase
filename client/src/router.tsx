@@ -5,6 +5,7 @@ import Root from './routes/root';
 import Playlist from './routes/playlists/$id';
 import { logout, login } from './auth';
 
+import RootErrorBoundary from './components/RootErrorBoundary';
 import RequireAuth from './components/RequireAuth';
 
 import { LOGIN_URL } from './constants';
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
-    errorElement: <div>Oops!</div>,
+    errorElement: <RootErrorBoundary />,
     children: [
       { index: true, element: <Index /> },
       {
