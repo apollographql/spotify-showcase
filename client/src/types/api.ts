@@ -275,7 +275,7 @@ export type User = {
   /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
   readonly id: Scalars['ID'];
   /** The user's profile image. */
-  readonly images: ReadonlyArray<Image>;
+  readonly images: Maybe<ReadonlyArray<Image>>;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for this user.
