@@ -1,9 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
+import PlayButton from '../../components/PlayButton';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
 
@@ -14,6 +15,10 @@ const PLAYLIST_QUERY = gql`
       name
       images {
         url
+      }
+      owner {
+        id
+        displayName
       }
     }
   }
@@ -31,7 +36,27 @@ const Playlist = () => {
 
   useSetBackgroundColorFromImage(images[0].url);
 
-  return <div className={styles.container}>{playlist.name}</div>;
+  return (
+    <div className={styles.playlist}>
+      <div className={styles.playlistInfo}>
+        <h2>{playlist.name}</h2>
+        <div>
+          <Link
+            className={styles.playlistOwnerLink}
+            to={`/users/${playlist.owner.id}`}
+          >
+            {playlist.owner.displayName}
+          </Link>
+        </div>
+        <div>
+          <span className={styles.playlistSongCount}>1 Song</span>
+        </div>
+        <div className={styles.playlistPlayButton}>
+          <PlayButton size="sm" playing={false} />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Playlist;

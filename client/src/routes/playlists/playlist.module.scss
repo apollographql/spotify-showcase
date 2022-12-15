@@ -1,5 +1,34 @@
-.container {
+.playlist {
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-gap: 1rem;
+}
+
+.playlistInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.playlistOwnerLink {
+  font-size: 0.9rem;
+  color: var(--text-color--muted);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: var(--text-color--base);
+    border-bottom-color: var(--text-color-base);
+  }
+}
+
+.playlistSongCount {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-color--muted);
+  text-transform: uppercase;
+}
+
+.playlistPlayButton {
+  margin-top: 1.5rem;
 }

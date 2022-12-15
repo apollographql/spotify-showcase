@@ -1,0 +1,30 @@
+.circularPlayButton {
+  color: var(--text-color--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--circular-play-button--size);
+  height: var(--circular-play-button--size);
+  border-radius: 50%;
+  border: 2px solid;
+  transition: 0.1s ease-in-out;
+  background: none;
+  padding: 0;
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(1, 1);
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    color: var(--text-color--base);
+    transform: scale(1.1, 1.1);
+  }
+}
+
+.centeredPlayIcon {
+  position: relative;
+  left: 5%;
+}
