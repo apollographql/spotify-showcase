@@ -20,11 +20,6 @@ type FlexProps<TElement extends ElementType> =
     justifyContent?: 'start' | 'center' | 'end';
   };
 
-interface FlexStyle extends CSSProperties {
-  '--gap': CSSProperties['gap'];
-  '--flex': CSSProperties['flex'];
-}
-
 const Flex = <TElement extends ElementType = 'div'>({
   as,
   alignItems,
@@ -42,7 +37,7 @@ const Flex = <TElement extends ElementType = 'div'>({
   return (
     <Element
       {...props}
-      style={{ '--gap': gap, '--flex': flex } as FlexStyle}
+      style={{ gap, flex }}
       className={cx(styles.Flex, className, {
         [styles[`direction-${direction}`]]: direction,
         [styles[`alignItems-${alignItems}`]]: alignItems,

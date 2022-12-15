@@ -1,32 +1,24 @@
 .playlist {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.playlistName {
+  font-size: 6rem;
+  font-weight: var(--font-weight--black);
 }
 
 .playlistInfo {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
+  font-size: 0.875rem;
 
-.playlistOwnerLink {
-  font-size: 0.9rem;
-  color: var(--text-color--muted);
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    color: var(--text-color--base);
-    border-bottom-color: var(--text-color-base);
+  > :not(:first-child)::before {
+    content: '·';
+    margin: 0 0.25rem;
   }
 }
 
-.playlistSongCount {
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: var(--text-color--muted);
-  text-transform: uppercase;
+.playlistOwner {
+  font-weight: bold;
 }
 
 .playlistPlayButton {
@@ -34,7 +26,19 @@
 }
 
 .playlistImage {
+  border-radius: 0.25rem;
+  aspect-ratio: 1 / 1;
   width: 250px;
   height: 250px;
-  margin-bottom: 0.5rem;
+}
+
+.spotifyIcon {
+  width: 1.5rem;
+}
+
+.type {
+  text-transform: uppercase;
+  font-weight: var(--font-weight--bold);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
 }

@@ -1,0 +1,13 @@
+.placeholderCoverPhoto {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: #282828;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+}

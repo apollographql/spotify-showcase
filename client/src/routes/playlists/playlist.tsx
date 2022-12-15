@@ -3,8 +3,12 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
+import { Music } from 'lucide-react';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
+import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
+import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
+import SpotifyIcon from '../../components/SpotifyIcon';
 import LazyImage from '../../components/LazyImage';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
@@ -25,6 +29,8 @@ const PLAYLIST_QUERY = gql`
   }
 `;
 
+const SPOTIFY_USER_ID = 'spotify';
+
 const Playlist = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
   const { data } = useSuspenseQuery<PlaylistQuery, PlaylistQueryVariables>(
@@ -34,25 +40,41 @@ const Playlist = () => {
 
   const playlist = data.playlist!;
   const images = playlist.images ?? [];
+  const coverPhoto = images[0];
 
-  useSetBackgroundColorFromImage(images[0].url);
+  useSetBackgroundColorFromImage(coverPhoto?.url);
 
   return (
     <div className={styles.playlist}>
-      <div className={styles.playlistInfo}>
-        <LazyImage className={styles.playlistImage} src={images[0].url} />
-        <h2>{playlist.name}</h2>
-        <div>
-          <Link
-            className={styles.playlistOwnerLink}
-            to={`/users/${playlist.owner.id}`}
-          >
-            {playlist.owner.displayName}
-          </Link>
-        </div>
-        <div>
-          <span className={styles.playlistSongCount}>1 Song</span>
-        </div>
+      <Flex as="header" gap="2rem" alignItems="end">
+        {coverPhoto ? (
+          <LazyImage className={styles.playlistImage} src={coverPhoto.url} />
+        ) : (
+          <PlaceholderCoverPhoto
+            className={styles.playlistImage}
+            icon={Music}
+          />
+        )}
+        <Flex direction="column">
+          <h2 className={styles.type}>Playlist</h2>
+          <h1 className={styles.playlistName}>{playlist.name}</h1>
+          <Flex className={styles.playlistInfo} alignItems="center">
+            <Flex alignItems="center" gap="1ch">
+              {playlist.owner.id === SPOTIFY_USER_ID && (
+                <SpotifyIcon className={styles.spotifyIcon} />
+              )}
+              <Link
+                className={styles.playlistOwner}
+                to={`/users/${playlist.owner.id}`}
+              >
+                {playlist.owner.displayName}
+              </Link>
+            </Flex>
+            <span>1 Song</span>
+          </Flex>
+        </Flex>
+      </Flex>
+      <div>
         <div className={styles.playlistPlayButton}>
           <PlayButton size="sm" playing={false} />
         </div>
