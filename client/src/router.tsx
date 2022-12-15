@@ -2,7 +2,7 @@ import { Outlet, createBrowserRouter, redirect } from 'react-router-dom';
 
 import Index from './routes/index';
 import Root from './routes/root';
-import Playlist from './routes/playlists/$id';
+import Playlist from './routes/playlists/playlist';
 import { logout, login } from './auth';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
