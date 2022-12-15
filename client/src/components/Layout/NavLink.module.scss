@@ -7,15 +7,20 @@
   &:hover {
     color: var(--text-color--base);
   }
+}
 
-  & > a {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.875rem;
+.navLinkAnchor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+  transition: color 0.2s ease-out;
 
-    &:hover {
-      text-decoration: none;
-    }
+  &:hover {
+    text-decoration: none;
   }
+}
+
+.active {
+  color: var(--text-color--base);
 }

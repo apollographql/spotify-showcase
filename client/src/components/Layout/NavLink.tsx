@@ -1,22 +1,34 @@
 import { cloneElement, ReactElement } from 'react';
-import { Link, LinkProps } from 'react-router-dom';
+import {
+  NavLink as ReactRouterNavLink,
+  NavLinkProps as ReactRouterNavLinkProps,
+} from 'react-router-dom';
+import cx from 'classnames';
 import styles from './NavLink.module.scss';
 
 interface IconProps {
   size: string;
 }
 
-interface NavLinkProps extends LinkProps {
+interface NavLinkProps extends ReactRouterNavLinkProps {
+  className?: string;
   icon?: ReactElement<IconProps>;
 }
 
-const NavLink = ({ children, icon, ...props }: NavLinkProps) => {
+const NavLink = ({ children, className, icon, ...props }: NavLinkProps) => {
   return (
     <li className={styles.navLink}>
-      <Link {...props}>
-        {icon && cloneElement(icon, { size: '1.5rem' })}
-        {children}
-      </Link>
+      <ReactRouterNavLink
+        {...props}
+        className={({ isActive }) =>
+          cx(styles.navLinkAnchor, className, { [styles.active]: isActive })
+        }
+      >
+        <>
+          {icon && cloneElement(icon, { size: '1.5rem' })}
+          {children}
+        </>
+      </ReactRouterNavLink>
     </li>
   );
 };
