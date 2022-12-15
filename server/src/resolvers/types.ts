@@ -164,6 +164,10 @@ export type PlaylistTrackConnection = {
 
 export type PlaylistTrackEdge = {
   __typename?: 'PlaylistTrackEdge';
+  /** The date and time the track was added to the playlist */
+  addedAt?: Maybe<Scalars['DateTime']>;
+  /** The user that added the track to the playlist */
+  addedBy?: Maybe<User>;
   /** The playlist track */
   node: PlaylistTrack;
 };
@@ -526,6 +530,8 @@ export type PlaylistTrackConnectionResolvers<ContextType = ContextValue, ParentT
 }>;
 
 export type PlaylistTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistTrackEdge'] = ResolversParentTypes['PlaylistTrackEdge']> = ResolversObject<{
+  addedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  addedBy?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   node?: Resolver<ResolversTypes['PlaylistTrack'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

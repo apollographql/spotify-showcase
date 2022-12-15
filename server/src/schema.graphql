@@ -224,6 +224,12 @@ type PlaylistTrackConnection {
 }
 
 type PlaylistTrackEdge {
+  "The date and time the track was added to the playlist"
+  addedAt: DateTime
+
+  "The user that added the track to the playlist"
+  addedBy: User
+
   "The playlist track"
   node: PlaylistTrack!
 }
