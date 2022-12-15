@@ -1,6 +1,12 @@
 .navLink {
   line-height: 1;
   padding: 0.75rem 0;
+  color: var(--text-color--muted);
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    color: var(--text-color--base);
+  }
 
   & > a {
     display: flex;
