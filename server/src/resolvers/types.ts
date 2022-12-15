@@ -278,7 +278,7 @@ export type User = {
   /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
   id: Scalars['ID'];
   /** The user's profile image. */
-  images: Array<Image>;
+  images?: Maybe<Array<Image>>;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for this user.
@@ -495,7 +495,7 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
+  images?: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

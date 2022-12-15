@@ -291,7 +291,7 @@ type User {
   href: String!
 
   "The user's profile image."
-  images: [Image!]!
+  images: [Image!]
 
   """
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
