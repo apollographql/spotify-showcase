@@ -30,7 +30,7 @@ const useSetBackgroundColorFromImage = (src: string | null | undefined) => {
       if (name) {
         const swatch = result[name]!;
 
-        setBackgroundColor(swatch.hex);
+        setBackgroundColor(`rgba(${swatch.r}, ${swatch.g}, ${swatch.b}, 0.5)`);
       }
     };
     img.src = src;
