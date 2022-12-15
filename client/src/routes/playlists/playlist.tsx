@@ -9,7 +9,6 @@ import CoverPhoto from '../../components/CoverPhoto';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
 import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
-import SpotifyIcon from '../../components/SpotifyIcon';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
 
@@ -28,8 +27,6 @@ const PLAYLIST_QUERY = gql`
     }
   }
 `;
-
-const SPOTIFY_USER_ID = 'spotify';
 
 const Playlist = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
@@ -59,9 +56,6 @@ const Playlist = () => {
           <h1 className={styles.playlistName}>{playlist.name}</h1>
           <Flex className={styles.playlistInfo} alignItems="center">
             <Flex alignItems="center" gap="1ch">
-              {playlist.owner.id === SPOTIFY_USER_ID && (
-                <SpotifyIcon className={styles.spotifyIcon} />
-              )}
               <Link
                 className={styles.playlistOwner}
                 to={`/users/${playlist.owner.id}`}
