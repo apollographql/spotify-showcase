@@ -28,6 +28,12 @@ const removeTokenLink = onError(({ graphQLErrors }) => {
 const link = ApolloLink.from([removeTokenLink, httpLink]);
 
 export default new ApolloClient({
-  cache: new InMemoryCache(),
   link,
+  cache: new InMemoryCache({
+    typePolicies: {
+      Image: {
+        keyFields: ['url'],
+      },
+    },
+  }),
 });
