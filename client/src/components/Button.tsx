@@ -2,7 +2,7 @@ import { ReactNode, ComponentPropsWithoutRef, ElementType } from 'react';
 import cx from 'classnames';
 import styles from './Button.module.scss';
 
-type ButtonProps<TButtonElement extends ElementType> =
+export type ButtonProps<TButtonElement extends ElementType = 'button'> =
   ComponentPropsWithoutRef<TButtonElement> & {
     as?: TButtonElement;
     children: ReactNode;
