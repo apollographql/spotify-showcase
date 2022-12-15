@@ -11,10 +11,17 @@ const PREFERRED_SWATCHES = [
   'DarkMuted',
 ];
 
-const useSetBackgroundColorFromImage = (src: string | null | undefined) => {
+const useSetBackgroundColorFromImage = (
+  src: string | null | undefined,
+  { fallback }: { fallback?: string } = {}
+) => {
   const [, setBackgroundColor] = useBackgroundColor();
 
   useEffect(() => {
+    if (!src && fallback) {
+      setBackgroundColor(fallback);
+    }
+
     if (!src) {
       return;
     }
@@ -38,7 +45,7 @@ const useSetBackgroundColorFromImage = (src: string | null | undefined) => {
     return () => {
       img.onload = null;
     };
-  }, [src, setBackgroundColor]);
+  }, [fallback, src, setBackgroundColor]);
 };
 
 export default useSetBackgroundColorFromImage;

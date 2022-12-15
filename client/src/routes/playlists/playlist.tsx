@@ -42,7 +42,9 @@ const Playlist = () => {
   const images = playlist.images ?? [];
   const coverPhoto = images[0];
 
-  useSetBackgroundColorFromImage(coverPhoto?.url);
+  useSetBackgroundColorFromImage(coverPhoto?.url, {
+    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
+  });
 
   return (
     <div className={styles.playlist}>
