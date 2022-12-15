@@ -1,5 +1,5 @@
 import { ContextValue } from '../types';
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Spotify } from '../dataSources/spotify.types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -14,6 +14,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: unknown;
 };
 
 /** Spotify catalog information for an artist. */
@@ -392,6 +393,7 @@ export type ResolversTypes = ResolversObject<{
   Artist: ResolverTypeWrapper<Artist>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
+  DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Episode: ResolverTypeWrapper<Episode>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   Followers: ResolverTypeWrapper<Followers>;
@@ -420,6 +422,7 @@ export type ResolversParentTypes = ResolversObject<{
   Artist: Artist;
   Boolean: Scalars['Boolean'];
   CurrentUser: Spotify.Object.CurrentUser;
+  DateTime: Scalars['DateTime'];
   Episode: Episode;
   ExternalUrl: ExternalUrl;
   Followers: Followers;
@@ -456,6 +459,10 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
+
+export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+  name: 'DateTime';
+}
 
 export type EpisodeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Episode'] = ResolversParentTypes['Episode']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -572,6 +579,7 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Artist?: ArtistResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;
+  DateTime?: GraphQLScalarType;
   Episode?: EpisodeResolvers<ContextType>;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
   Followers?: FollowersResolvers<ContextType>;

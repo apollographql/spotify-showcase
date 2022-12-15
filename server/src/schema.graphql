@@ -1,3 +1,5 @@
+scalar DateTime
+
 type Query {
   """
   A list of available genres seed parameter values for
