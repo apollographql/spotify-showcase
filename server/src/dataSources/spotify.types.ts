@@ -6,7 +6,7 @@ type RestrictScope<
   TScope extends string
 > = TScope extends typeof OAUTH_SCOPES[number] ? T : never;
 
-type InputParams<T> = NullifyOptionalProperties<T>;
+type InputParams<T extends object> = NullifyOptionalProperties<T>;
 
 export namespace Spotify {
   export namespace Object {
