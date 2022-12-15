@@ -43,6 +43,11 @@ export namespace Spotify {
       uri: string;
     }
 
+    export interface Episode {
+      id: string;
+      type: 'episode';
+    }
+
     export interface ExternalUrl {
       spotify: string;
     }
@@ -51,6 +56,48 @@ export namespace Spotify {
       url: string;
       height: number | null;
       weight: number | null;
+    }
+
+    export interface Paginated<T = any> {
+      items: T[];
+      href: string;
+      limit: number;
+      next: string | null;
+      offset: number;
+      previous: string | null;
+      total: number;
+    }
+
+    export type PaginatedPlaylists = Paginated<Playlist>;
+    export type PaginatedPlaylistTracks = Paginated<PlaylistTrackEdge>;
+
+    export interface Playlist {
+      id: string;
+      collaborative: boolean;
+      description: string | null;
+      external_urls: ExternalUrl;
+      href: string;
+      images: Image[];
+      name: string;
+      owner: User;
+      public: boolean | null;
+      snapshot_id: string;
+      tracks: PaginatedPlaylistTracks;
+      type: 'playlist';
+      uri: string;
+    }
+
+    export type PlaylistTrack = Track | Episode;
+
+    export interface PlaylistTrackEdge {
+      added_at: string;
+      added_by: User;
+      is_local: boolean;
+      primary_color: string | null;
+      track: PlaylistTrack;
+      video_thumbnail: {
+        url: string | null;
+      };
     }
 
     export interface Recommendations {
@@ -65,6 +112,11 @@ export namespace Spotify {
       id: string;
       initialPoolSize: number;
       type: 'ARTIST' | 'TRACK' | 'GENRE';
+    }
+
+    export interface Track {
+      id: string;
+      type: 'track';
     }
 
     export interface TrackSimplified {
@@ -86,34 +138,6 @@ export namespace Spotify {
       type: 'track';
       uri: string;
       is_local: boolean;
-    }
-
-    export interface Paginated<T = any> {
-      items: T[];
-      href: string;
-      limit: number;
-      next: string | null;
-      offset: number;
-      previous: string | null;
-      total: number;
-    }
-
-    export type PaginatedPlaylists = Paginated<Playlist>;
-
-    export interface Playlist {
-      id: string;
-      collaborative: boolean;
-      description: string | null;
-      external_urls: ExternalUrl;
-      href: string;
-      images: Image[];
-      name: string;
-      owner: User;
-      public: boolean | null;
-      snapshot_id: string;
-      tracks: ({ href: string; total: number } | null)[];
-      type: 'playlist';
-      uri: string;
     }
 
     export interface User {

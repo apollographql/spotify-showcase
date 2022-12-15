@@ -86,6 +86,14 @@ type CurrentUser {
   ): PlaylistConnection
 }
 
+"Spotify catalog information for an episode."
+type Episode {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
+  """
+  id: ID!
+}
+
 type ExternalUrl {
   """
   The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -185,6 +193,9 @@ type Playlist {
   """
   public: Boolean
 
+  "The tracks of the playlist."
+  tracks: PlaylistTrackConnection!
+
   """
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) */
   for the playlist.
@@ -200,6 +211,22 @@ type PlaylistConnection {
   "Pagination information for the set of playlists"
   pageInfo: PageInfo!
 }
+
+"A paged set of tracks for a playlist"
+type PlaylistTrackConnection {
+  "Pagination information for the tracks belonging to a playlist"
+  edges: [PlaylistTrackEdge!]!
+
+  "Pagination information for the tracks belonging to a playlist"
+  pageInfo: PageInfo!
+}
+
+type PlaylistTrackEdge {
+  "The playlist track"
+  node: PlaylistTrack!
+}
+
+union PlaylistTrack = Track | Episode
 
 "Information about recommendations for the current user"
 type Recommendations {
@@ -254,6 +281,14 @@ enum RecommendationSeedType {
   ARTIST
   TRACK
   GENRE
+}
+
+"Spotify catalog information for a track."
+type Track {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
+  """
+  id: ID!
 }
 
 "Information about a [track (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject) object"

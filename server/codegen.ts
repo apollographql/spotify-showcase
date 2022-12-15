@@ -16,6 +16,12 @@ const config: CodegenConfig = {
           Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
           PlaylistConnection:
             '../dataSources/spotify.types#Spotify#Object.PaginatedPlaylists',
+          PlaylistTrack:
+            '../dataSources/spotify.types#Spotify#Object.PlaylistTrack',
+          PlaylistTrackConnection:
+            '../dataSources/spotify.types#Spotify#Object.PaginatedPlaylistTracks',
+          PlaylistTrackEdge:
+            '../dataSources/spotify.types#Spotify#Object.PlaylistTrackEdge',
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
       },
