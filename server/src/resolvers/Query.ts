@@ -1,4 +1,3 @@
-import camelize from 'camelize';
 import { QueryResolvers } from './types';
 
 const resolvers: QueryResolvers = {

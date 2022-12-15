@@ -21,7 +21,7 @@ export type Scalars = {
 export type Artist = {
   __typename?: 'Artist';
   /** Known external URLs for this artist. */
-  externalUrls: Array<ExternalUrl>;
+  externalUrls: ExternalUrls;
   /** A link to the Web API endpoint providing full details of the artist. */
   href: Scalars['String'];
   /**
@@ -59,8 +59,8 @@ export type Episode = {
   id: Scalars['ID'];
 };
 
-export type ExternalUrl = {
-  __typename?: 'ExternalUrl';
+export type ExternalUrls = {
+  __typename?: 'ExternalUrls';
   /**
    * The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the object.
@@ -109,7 +109,7 @@ export type Playlist = {
    */
   description?: Maybe<Scalars['String']>;
   /** Known external URLs for this playlist. */
-  externalUrls: ExternalUrl;
+  externalUrls: ExternalUrls;
   /**
    * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the playlist.
@@ -290,10 +290,74 @@ export type Recommendations = {
 /** Spotify catalog information for a track. */
 export type Track = {
   __typename?: 'Track';
+  /** The artists who performed the track. */
   artists: Array<Artist>;
+  /** The disc number (usually `1` unless the album consists of more than one disc). */
+  discNumber: Scalars['Int'];
+  /** The track length in milliseconds */
+  durationMs: Scalars['Int'];
+  /**
+   * Whether or not the track has explicit lyrics (`true` = yes it does;
+   * `false` = no it does not OR unknown)
+   */
+  explicit: Scalars['Boolean'];
+  /** Known external IDs for the track. */
+  externalIds: TrackExternalIds;
+  /** Known external URLs for this track. */
+  externalUrls: ExternalUrls;
+  /** A link to the Web API endpoint providing full details of the track. */
+  href: Scalars['String'];
   /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
   id: Scalars['ID'];
+  /** Whether or not the track is from a local file. */
+  isLocal: Scalars['Boolean'];
+  /**
+   * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
+   * is applied. If `true`, the track is playable in the given market.
+   * Otherwise `false`.
+   */
+  isPlayable: Scalars['Boolean'];
+  /** The name of the track */
   name: Scalars['String'];
+  /**
+   * The popularity of the track. The value will be between 0 and 100, with 100
+   * being the most popular.
+   *
+   * The popularity of a track is a value between 0 and 100, with 100 being the
+   * most popular. The popularity is calculated by algorithm and is based, in the
+   * most part, on the total number of plays the track has had and how recent those
+   * plays are.
+   *
+   * Generally speaking, songs that are being played a lot now will have a higher
+   * popularity than songs that were played a lot in the past. Duplicate tracks
+   * (e.g. the same track from a single and an album) are rated independently.
+   * Artist and album popularity is derived mathematically from track popularity.
+   * Note: the popularity value may lag actual popularity by a few days: the value
+   * is not updated in real time.
+   */
+  popularity: Scalars['Int'];
+  /** A link to a 30 second preview (MP3 format) of the track. Can be `null` */
+  previewUrl?: Maybe<Scalars['String']>;
+  /**
+   * The number of the track. If an album has several discs, the track number is
+   * the number on the specified disc.
+   */
+  trackNumber?: Maybe<Scalars['Int']>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the track.
+   */
+  uri: Scalars['String'];
+};
+
+export type TrackExternalIds = {
+  __typename?: 'TrackExternalIds';
+  /** [International Article Number](http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29) */
+  ean?: Maybe<Scalars['String']>;
+  /** [International Standard Recording Code](http://en.wikipedia.org/wiki/International_Standard_Recording_Code) */
+  isrc?: Maybe<Scalars['String']>;
+  /** [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code) */
+  upc?: Maybe<Scalars['String']>;
 };
 
 /** Public profile information about a Spotify user. */
@@ -302,7 +366,7 @@ export type User = {
   /** The name displayed on the user's profile. `null` if not available. */
   displayName?: Maybe<Scalars['String']>;
   /** Known public external URLs for this user. */
-  externalUrls: ExternalUrl;
+  externalUrls: ExternalUrls;
   /** Information about the followers of this user. */
   followers: Followers;
   /** A link to the Web API endpoint for this user. */
@@ -393,7 +457,7 @@ export type ResolversTypes = ResolversObject<{
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Episode: ResolverTypeWrapper<Episode>;
-  ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
+  ExternalUrls: ResolverTypeWrapper<ExternalUrls>;
   Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
@@ -401,7 +465,7 @@ export type ResolversTypes = ResolversObject<{
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.PaginatedPlaylists>;
-  PlaylistTrack: ResolverTypeWrapper<Spotify.Object.PlaylistTrack>;
+  PlaylistTrack: ResolverTypeWrapper<Spotify.Object.PlaylistItem>;
   PlaylistTrackConnection: ResolverTypeWrapper<Spotify.Object.PaginatedPlaylistTracks>;
   PlaylistTrackEdge: ResolverTypeWrapper<Spotify.Object.PlaylistTrackEdge>;
   Query: ResolverTypeWrapper<{}>;
@@ -411,6 +475,7 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Track: ResolverTypeWrapper<Spotify.Object.Track>;
+  TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
   User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
@@ -421,7 +486,7 @@ export type ResolversParentTypes = ResolversObject<{
   CurrentUser: Spotify.Object.CurrentUser;
   DateTime: Scalars['DateTime'];
   Episode: Episode;
-  ExternalUrl: ExternalUrl;
+  ExternalUrls: ExternalUrls;
   Followers: Followers;
   ID: Scalars['ID'];
   Image: Image;
@@ -429,7 +494,7 @@ export type ResolversParentTypes = ResolversObject<{
   PageInfo: Spotify.Object.Paginated;
   Playlist: Spotify.Object.Playlist;
   PlaylistConnection: Spotify.Object.PaginatedPlaylists;
-  PlaylistTrack: Spotify.Object.PlaylistTrack;
+  PlaylistTrack: Spotify.Object.PlaylistItem;
   PlaylistTrackConnection: Spotify.Object.PaginatedPlaylistTracks;
   PlaylistTrackEdge: Spotify.Object.PlaylistTrackEdge;
   Query: {};
@@ -438,11 +503,12 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Spotify.Object.Recommendations;
   String: Scalars['String'];
   Track: Spotify.Object.Track;
+  TrackExternalIds: TrackExternalIds;
   User: Spotify.Object.User;
 }>;
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
-  externalUrls?: Resolver<Array<ResolversTypes['ExternalUrl']>, ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrls'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -465,7 +531,7 @@ export type EpisodeResolvers<ContextType = ContextValue, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl']> = ResolversObject<{
+export type ExternalUrlsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrls'] = ResolversParentTypes['ExternalUrls']> = ResolversObject<{
   spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -494,7 +560,7 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
 export type PlaylistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = ResolversObject<{
   collaborative?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrls'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -553,14 +619,33 @@ export type RecommendationsResolvers<ContextType = ContextValue, ParentType exte
 
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
+  discNumber?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  externalIds?: Resolver<ResolversTypes['TrackExternalIds'], ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrls'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isLocal?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPlayable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  popularity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  previewUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  trackNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TrackExternalIdsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TrackExternalIds'] = ResolversParentTypes['TrackExternalIds']> = ResolversObject<{
+  ean?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isrc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  upc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type UserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrls'], ParentType, ContextType>;
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -574,7 +659,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   CurrentUser?: CurrentUserResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Episode?: EpisodeResolvers<ContextType>;
-  ExternalUrl?: ExternalUrlResolvers<ContextType>;
+  ExternalUrls?: ExternalUrlsResolvers<ContextType>;
   Followers?: FollowersResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
@@ -587,6 +672,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   RecommendationSeed?: RecommendationSeedResolvers<ContextType>;
   Recommendations?: RecommendationsResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
+  TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
 
