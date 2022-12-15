@@ -10,18 +10,50 @@ type InputParams<T extends object> = NullifyOptionalProperties<T>;
 
 export namespace Spotify {
   export namespace Object {
-    interface ArtistSimplified {
+    export interface Album {
+      album_type: 'album' | 'single' | 'compilation';
+      artists: Artist[];
+      available_markets: string[];
+      external_urls: ExternalUrls;
+      href: string;
+      id: string;
+      images: Image[];
+      name: string;
+      release_date: string;
+      release_date_precision: 'year' | 'month' | 'day';
+      restrictions: Restrictions;
+      total_tracks: number;
+      type: 'album';
+      tracks: Paginated<AlbumTrack>;
+      uri: string;
+    }
+
+    export interface AlbumTrack {
+      id: string;
+      // TODO: Determine what other fields are present since this is not in the
+      // documentation
+    }
+
+    export interface Artist {
+      external_urls: ExternalUrls;
+      followers: Followers;
+      genres: string[];
+      href: string;
+      id: string;
+      images: Image[];
+      name: string;
+      popularity: number;
+      type: 'artist';
+      uri: string;
+    }
+
+    export interface ArtistSimplified {
       external_urls: ExternalUrls;
       href: string;
       id: string;
       name: string;
       type: 'artist';
       uri: string;
-    }
-
-    export interface AlbumSimplified {
-      album_type: 'album' | 'single' | 'compilation';
-      artists: ArtistSimplified[];
     }
 
     export interface CurrentUser {
@@ -96,66 +128,6 @@ export namespace Spotify {
 
     export type PlaylistItem = PlaylistTrack | PlaylistEpisode;
 
-    export interface PlaylistTrack {
-      album: PlaylistTrackAlbum;
-      artists: PlaylistTrackArtist[];
-      available_markets: string[];
-      disc_number: number;
-      duration_ms: number;
-      episode: boolean;
-      explicit: boolean;
-      external_ids: {
-        isrc: string | null;
-        ean: string | null;
-        upc: string | null;
-      };
-      external_urls: ExternalUrls;
-      href: string;
-      id: string;
-      is_local: boolean;
-      name: string;
-      popularity: number;
-      preview_url: string;
-      track: boolean;
-      track_number: boolean;
-      type: 'track';
-      uri: string;
-    }
-
-    export interface PlaylistTrackAlbum {
-      album_type: 'album' | 'single' | 'compilation';
-      artists: PlaylistTrackAlbumArtist[];
-      available_markets: string[];
-      external_urls: ExternalUrls;
-      href: string;
-      id: string;
-      images: Image[];
-      name: string;
-      release_date: string;
-      release_date_precision: 'year' | 'month' | 'day';
-      total_tracks: number;
-      type: 'album';
-      uri: string;
-    }
-
-    export interface PlaylistTrackAlbumArtist {
-      external_urls: ExternalUrls;
-      href: string;
-      id: string;
-      name: string;
-      type: 'artist';
-      uri: string;
-    }
-
-    export interface PlaylistTrackArtist {
-      external_urls: ExternalUrls;
-      href: string;
-      id: string;
-      name: string;
-      type: 'artist';
-      uri: string;
-    }
-
     export interface PlaylistEpisode {
       album: PlaylistEpisodeAlbum;
       artist: PlaylistEpisodeArtist[];
@@ -183,7 +155,7 @@ export namespace Spotify {
 
     export interface PlaylistEpisodeAlbum {
       album_type: 'album' | 'single' | 'compilation';
-      artists: PlaylistEpisodeAlbumArtist[];
+      artists: PlaylistEpisodeArtist[];
       available_markets: string[];
       external_urls: ExternalUrls;
       href: string;
@@ -199,7 +171,7 @@ export namespace Spotify {
       uri: string;
     }
 
-    export interface PlaylistEpisodeAlbumArtist {
+    export interface PlaylistEpisodeArtist {
       external_urls: ExternalUrls;
       href: string;
       id: string;
@@ -208,12 +180,45 @@ export namespace Spotify {
       uri: string;
     }
 
-    export interface PlaylistEpisodeArtist {
+    export interface PlaylistTrack {
+      album: PlaylistTrackAlbum;
+      artists: ArtistSimplified[];
+      available_markets: string[];
+      disc_number: number;
+      duration_ms: number;
+      episode: boolean;
+      explicit: boolean;
+      external_ids: {
+        isrc: string | null;
+        ean: string | null;
+        upc: string | null;
+      };
       external_urls: ExternalUrls;
       href: string;
       id: string;
+      is_local: boolean;
       name: string;
-      type: 'show';
+      popularity: number;
+      preview_url: string;
+      track: boolean;
+      track_number: boolean;
+      type: 'track';
+      uri: string;
+    }
+
+    export interface PlaylistTrackAlbum {
+      album_type: 'album' | 'single' | 'compilation';
+      artists: ArtistSimplified[];
+      available_markets: string[];
+      external_urls: ExternalUrls;
+      href: string;
+      id: string;
+      images: Image[];
+      name: string;
+      release_date: string;
+      release_date_precision: 'year' | 'month' | 'day';
+      total_tracks: number;
+      type: 'album';
       uri: string;
     }
 
@@ -248,7 +253,7 @@ export namespace Spotify {
 
     export interface Track {
       album: TrackAlbum;
-      artists: TrackArtist[];
+      artists: ArtistSimplified[];
       available_markets: string[];
       disc_number: number;
       duration_ms: number;
@@ -277,7 +282,7 @@ export namespace Spotify {
       id: string;
       album_type: 'album' | 'single' | 'compilation';
       album_group: 'album' | 'single' | 'compilation' | 'appears_on';
-      artists: TrackAlbumArtist[];
+      artists: ArtistSimplified[];
       available_markets: string[];
       external_urls: ExternalUrls;
       href: string;
@@ -291,30 +296,8 @@ export namespace Spotify {
       uri: string;
     }
 
-    export interface TrackAlbumArtist {
-      id: string;
-      external_urls: ExternalUrls;
-      href: string;
-      name: string;
-      type: 'artist';
-      uri: string;
-    }
-
-    export interface TrackArtist {
-      id: string;
-      external_urls: ExternalUrls;
-      followers: Followers;
-      genres: string[];
-      href: string;
-      images: Image[];
-      name: string;
-      popularity: number;
-      type: 'artist';
-      uri: string;
-    }
-
     export interface TrackSimplified {
-      artists: TrackSimplifiedArtist[];
+      artists: ArtistSimplified[];
       available_markets: string[];
       disc_number: number;
       duration_ms: number;
@@ -338,15 +321,6 @@ export namespace Spotify {
       href: string;
       id: string;
       type: 'track';
-      uri: string;
-    }
-
-    export interface TrackSimplifiedArtist {
-      external_urls: ExternalUrls;
-      href: string;
-      id: string;
-      name: string;
-      type: string;
       uri: string;
     }
 
