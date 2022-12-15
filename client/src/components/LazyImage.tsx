@@ -4,7 +4,7 @@ import styles from './LazyImage.module.scss';
 
 type LazyImageProps = ComponentPropsWithoutRef<'img'>;
 
-const LazyImage = ({ src, alt = '', ...props }: LazyImageProps) => {
+const LazyImage = ({ className, src, alt = '', ...props }: LazyImageProps) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -19,15 +19,16 @@ const LazyImage = ({ src, alt = '', ...props }: LazyImageProps) => {
 
     return () => {
       img.onload = null;
+      setLoaded(false);
     };
   }, [src]);
 
   return (
     <img
-      className={cx(styles.lazyImage, { [styles.loaded]: loaded })}
+      {...props}
+      className={cx(styles.lazyImage, className, { [styles.loaded]: loaded })}
       src={src}
       alt={alt}
-      {...props}
     />
   );
 };
