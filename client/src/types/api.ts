@@ -296,4 +296,4 @@ export type PlaylistQueryVariables = Exact<{
 }>;
 
 
-export type PlaylistQuery = { readonly playlist: { readonly __typename: 'Playlist', readonly id: string, readonly name: string } | null };
+export type PlaylistQuery = { readonly playlist: { readonly __typename: 'Playlist', readonly id: string, readonly name: string, readonly images: ReadonlyArray<{ readonly __typename: 'Image', readonly url: string }> | null } | null };

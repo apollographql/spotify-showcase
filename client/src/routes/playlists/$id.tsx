@@ -4,27 +4,33 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
+import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 
 const PLAYLIST_QUERY = gql`
   query PlaylistQuery($id: ID!) {
     playlist(id: $id) {
       id
       name
+      images {
+        url
+      }
     }
   }
 `;
 
 const Playlist = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
-  const {
-    data: { playlist },
-  } = useSuspenseQuery<PlaylistQuery, PlaylistQueryVariables>(PLAYLIST_QUERY, {
-    variables: { id: playlistId },
-  });
+  const { data } = useSuspenseQuery<PlaylistQuery, PlaylistQueryVariables>(
+    PLAYLIST_QUERY,
+    {
+      variables: { id: playlistId },
+    }
+  );
 
-  if (!playlist) {
-    throw new Response('Playlist not found', { status: 404 });
-  }
+  const playlist = data.playlist!;
+  const images = playlist.images ?? [];
+
+  useSetBackgroundColorFromImage(images[0].url);
 
   return <div>{playlist.name}</div>;
 };
