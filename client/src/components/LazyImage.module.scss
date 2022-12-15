@@ -1,0 +1,16 @@
+.lazyImage {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.3s ease-out;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+}
+
+.lazyImageFallback {
+  padding-bottom: 100%;
+}
+
+.loaded {
+  opacity: 1;
+}

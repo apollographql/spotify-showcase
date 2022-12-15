@@ -5,6 +5,7 @@ import {
 } from '@apollo/client';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import PlayButton from '../../components/PlayButton';
+import LazyImage from '../../components/LazyImage';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
 
@@ -39,6 +40,7 @@ const Playlist = () => {
   return (
     <div className={styles.playlist}>
       <div className={styles.playlistInfo}>
+        <LazyImage className={styles.playlistImage} src={images[0].url} />
         <h2>{playlist.name}</h2>
         <div>
           <Link
