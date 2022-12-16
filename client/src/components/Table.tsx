@@ -5,6 +5,7 @@ import {
   flexRender,
   useReactTable,
   ColumnDef,
+  TableMeta,
   VisibilityState,
 } from '@tanstack/react-table';
 import styles from './Table.module.scss';
@@ -13,6 +14,7 @@ interface TableProps<TData>
   extends Omit<ComponentPropsWithoutRef<'table'>, 'children'> {
   data: TData[];
   columns: ColumnDef<TData, any>[];
+  meta?: TableMeta<TData>;
   visibility?: VisibilityState;
 }
 
@@ -20,12 +22,14 @@ function Table<TData>({
   className,
   columns,
   data,
+  meta,
   visibility,
   ...props
 }: TableProps<TData>) {
   const table = useReactTable({
     data,
     columns,
+    meta,
     state: {
       columnVisibility: visibility,
     },

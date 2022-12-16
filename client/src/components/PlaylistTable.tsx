@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock, Music, Podcast } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { PlaylistTable_PlaylistTrackEdges as PlaylistTrackEdge } from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
@@ -13,6 +15,14 @@ interface PlaylistTableProps {
 }
 
 const columnHelper = createColumnHelper<PlaylistTrackEdge>();
+
+const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
+  if (playlistItem.__typename === 'Episode') {
+    return playlistItem.show;
+  }
+
+  return playlistItem.album;
+};
 
 const columns = [
   columnHelper.accessor('node.__typename', {
@@ -33,9 +43,30 @@ const columns = [
   columnHelper.accessor('node.name', {
     header: 'Title',
   }),
-  // columnHelper.accessor('node.name', {
-  //   header: 'Album or podcast',
-  // }),
+  columnHelper.accessor(({ node }) => parentOf(node), {
+    id: 'albumOrPodcast',
+    header: ({ table }) => {
+      const { meta } = table.options;
+
+      switch (true) {
+        case meta?.containsAllTracks:
+          return 'Album';
+        case meta?.containsAllEpisodes:
+          return 'Podcast';
+        default:
+          return 'Album or podcast';
+      }
+    },
+    cell: (info) => {
+      const parent = info.getValue();
+      const href =
+        parent.__typename === 'Show'
+          ? `/shows/${parent.id}`
+          : `/albums/${parent.id}`;
+
+      return <Link to={href}>{parent.name}</Link>;
+    },
+  }),
   columnHelper.accessor(
     ({ node }) => {
       return node.__typename === 'Episode' ? node.releaseDate : null;
@@ -70,8 +101,30 @@ const PlaylistTable = ({
   className,
   playlistTrackEdges,
 }: PlaylistTableProps) => {
+  const meta = useMemo(
+    () => ({
+      containsAllTracks: playlistTrackEdges.every(
+        ({ node }) => node.__typename === 'Track'
+      ),
+      containsAllEpisodes: playlistTrackEdges.every(
+        ({ node }) => node.__typename === 'Episode'
+      ),
+    }),
+    [playlistTrackEdges]
+  );
+
   return (
-    <Table className={className} data={playlistTrackEdges} columns={columns} />
+    <Table
+      className={className}
+      data={playlistTrackEdges}
+      columns={columns}
+      meta={meta}
+      visibility={{
+        releaseDate: playlistTrackEdges.some(
+          ({ node }) => node.__typename === 'Episode'
+        ),
+      }}
+    />
   );
 };
 
@@ -84,10 +137,21 @@ PlaylistTable.fragments = {
         name
         durationMs
 
+        ... on Track {
+          album {
+            id
+            name
+          }
+        }
+
         ... on Episode {
           releaseDate {
             date
             precision
+          }
+          show {
+            id
+            name
           }
         }
       }

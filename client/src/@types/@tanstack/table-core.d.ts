@@ -5,4 +5,8 @@ declare module '@tanstack/table-core' {
     headerAlign?: 'left' | 'center' | 'right';
     shrink?: boolean;
   }
+
+  interface TableMeta<TData extends RowData> {
+    [key: string]: any;
+  }
 }

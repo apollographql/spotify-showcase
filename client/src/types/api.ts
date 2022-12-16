@@ -127,6 +127,8 @@ export type Episode = PlaylistTrack & {
   name: Scalars['String'];
   /** The date the episode was first released */
   releaseDate: Maybe<ReleaseDate>;
+  /** The show containing the episode. */
+  show: Show;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the episode.
@@ -415,6 +417,50 @@ export enum ReleaseDatePrecision {
   Year = 'YEAR'
 }
 
+/** Spotify catalog information for a show. */
+export type Show = {
+  __typename: 'Show';
+  /** A description of the show. */
+  description: Scalars['String'];
+  /**
+   * Whether or not the show has explicit content (`true` = yes it does; `false`
+   * = no it does not OR unknown).
+   */
+  explicit: Scalars['Boolean'];
+  /** External URLs for this show. */
+  externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the show. */
+  href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the show.
+   */
+  id: Scalars['ID'];
+  /** The cover art for the show in various sizes, widest first. */
+  images: Array<Image>;
+  /**
+   * `true` if all of the shows episodes are hosted outside of Spotify's CDN. This
+   * field might be `null` in some cases.
+   */
+  isExternallyHosted: Maybe<Scalars['Boolean']>;
+  /** A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code. */
+  languages: Array<Scalars['String']>;
+  /** The media type of the show. */
+  mediaType: Scalars['String'];
+  /** The name of the episode. */
+  name: Scalars['String'];
+  /** The publisher of the show. */
+  publisher: Scalars['String'];
+  /** The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show. */
+  uri: Scalars['String'];
+};
+
+
+/** Spotify catalog information for a show. */
+export type ShowDescriptionArgs = {
+  format?: InputMaybe<TextFormat>;
+};
+
 export enum TextFormat {
   Html = 'HTML',
   Plain = 'PLAIN'
@@ -525,11 +571,11 @@ export type SidebarPlaylistsQueryVariables = Exact<{
 
 export type SidebarPlaylistsQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
 
-export type PlaylistTable_PlaylistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null } | { __typename: 'Track', id: string, name: string, durationMs: number } };
+export type PlaylistTable_PlaylistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string } } };
 
 export type PlaylistQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> | null, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null } | { __typename: 'Track', id: string, name: string, durationMs: number } }>, pageInfo: { __typename: 'PageInfo', total: number } } } | null };
+export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> | null, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string } } }>, pageInfo: { __typename: 'PageInfo', total: number } } } | null };
