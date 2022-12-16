@@ -174,12 +174,16 @@
   --background--base: #121212;
   --background--base--rgba: 18, 18, 18;
   --background--surface: #282828;
+  --background--surface--hover: hsla(0, 0%, 100%, 0.1);
   --background--surface--rgb: 40, 40, 40;
 
   --text-color--base: var(--color--white);
   --text-color--muted: var(--color--offwhite);
 
   --sidebar--width: 375px;
+
+  --border--color--base: var(--background--surface);
+  --border--color--surface: var(--background--surface--hover);
 }
 
 body {
