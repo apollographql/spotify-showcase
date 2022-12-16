@@ -119,11 +119,7 @@ const PlaylistTable = ({
       data={playlistTrackEdges}
       columns={columns}
       meta={meta}
-      visibility={{
-        releaseDate: playlistTrackEdges.some(
-          ({ node }) => node.__typename === 'Episode'
-        ),
-      }}
+      visibility={{ releaseDate: !meta.containsAllTracks }}
     />
   );
 };
