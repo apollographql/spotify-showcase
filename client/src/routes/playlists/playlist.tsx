@@ -3,22 +3,15 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
-import { Clock, Music, Podcast } from 'lucide-react';
+import { Music } from 'lucide-react';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import CoverPhoto from '../../components/CoverPhoto';
-import DateTime from '../../components/DateTime';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
 import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
-import Table from '../../components/Table';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
-import { createColumnHelper } from '@tanstack/react-table';
-import { Get } from 'type-fest';
-import ReleaseDate from '../../components/ReleaseDate';
-import Duration from '../../components/Duration';
-
-type TrackEdge = NonNullable<Get<PlaylistQuery, 'playlist.tracks.edges[0]'>>;
+import PlaylistTable from '../../components/PlaylistTable';
 
 const PLAYLIST_QUERY = gql`
   query PlaylistQuery($id: ID!) {
@@ -34,19 +27,7 @@ const PLAYLIST_QUERY = gql`
       }
       tracks {
         edges {
-          addedAt
-          node {
-            id
-            name
-            durationMs
-
-            ... on Episode {
-              releaseDate {
-                date
-                precision
-              }
-            }
-          }
+          ...PlaylistTable_playlistTrackEdges
         }
         pageInfo {
           total
@@ -54,57 +35,9 @@ const PLAYLIST_QUERY = gql`
       }
     }
   }
+
+  ${PlaylistTable.fragments.playlistTrackEdges}
 `;
-
-const columnHelper = createColumnHelper<TrackEdge>();
-
-const columns = [
-  columnHelper.accessor('node.__typename', {
-    id: 'type',
-    header: '#',
-    cell: (info) => {
-      return info.getValue() === 'Episode' ? (
-        <Podcast size="1rem" />
-      ) : (
-        <Music size="1rem" />
-      );
-    },
-    meta: {
-      headerAlign: 'center',
-      shrink: true,
-    },
-  }),
-  columnHelper.accessor('node.name', {
-    header: 'Title',
-  }),
-  // columnHelper.accessor('node.name', {
-  //   header: 'Album or podcast',
-  // }),
-  columnHelper.accessor(
-    ({ node }) => {
-      return node.__typename === 'Episode' ? node.releaseDate : null;
-    },
-    {
-      id: 'releaseDate',
-      header: 'Release date',
-      cell: (info) => {
-        const releaseDate = info.getValue();
-
-        return releaseDate && <ReleaseDate releaseDate={releaseDate} />;
-      },
-    }
-  ),
-  columnHelper.accessor('addedAt', {
-    header: 'Date added',
-    cell: (info) => (
-      <DateTime date={info.getValue()} format={DateTime.FORMAT.timeAgo} />
-    ),
-  }),
-  columnHelper.accessor('node.durationMs', {
-    header: () => <Clock size="1rem" />,
-    cell: (info) => <Duration durationMs={info.getValue()} />,
-  }),
-];
 
 const Playlist = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
@@ -155,15 +88,7 @@ const Playlist = () => {
         </div>
       </div>
       <div>
-        <Table
-          data={playlist.tracks.edges}
-          columns={columns}
-          visibility={{
-            releaseDate: playlist.tracks.edges.some(
-              (edge) => edge.node.__typename === 'Episode'
-            ),
-          }}
-        />
+        <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
       </div>
     </div>
   );
