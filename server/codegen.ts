@@ -21,6 +21,7 @@ const config: CodegenConfig = {
           PageInfo:
             '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
           Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
+          PlaylistEdge: '../dataSources/spotify.types#Spotify#Object.Playlist',
           PlaylistConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
           PlaylistTrack:

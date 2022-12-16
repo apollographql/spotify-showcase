@@ -230,10 +230,16 @@ export type Playlist = {
 /** A paged set of playlists */
 export type PlaylistConnection = {
   __typename?: 'PlaylistConnection';
-  /** The set of playlists */
-  nodes: Array<Playlist>;
+  /** The set of playlists. */
+  edges: Array<PlaylistEdge>;
   /** Pagination information for the set of playlists */
   pageInfo: PageInfo;
+};
+
+export type PlaylistEdge = {
+  __typename?: 'PlaylistEdge';
+  /** The playlist */
+  node: Playlist;
 };
 
 export type PlaylistTrack = {
@@ -590,6 +596,7 @@ export type ResolversTypes = ResolversObject<{
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
+  PlaylistEdge: ResolverTypeWrapper<Spotify.Object.Playlist>;
   PlaylistTrack: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.Episode>;
   PlaylistTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>>;
   PlaylistTrackEdge: ResolverTypeWrapper<Spotify.Object.PlaylistTrack>;
@@ -623,6 +630,7 @@ export type ResolversParentTypes = ResolversObject<{
   PageInfo: Spotify.Object.Paginated<unknown>;
   Playlist: Spotify.Object.Playlist;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
+  PlaylistEdge: Spotify.Object.Playlist;
   PlaylistTrack: Spotify.Object.Track | Spotify.Object.Episode;
   PlaylistTrackConnection: Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>;
   PlaylistTrackEdge: Spotify.Object.PlaylistTrack;
@@ -731,8 +739,13 @@ export type PlaylistResolvers<ContextType = ContextValue, ParentType extends Res
 }>;
 
 export type PlaylistConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistConnection'] = ResolversParentTypes['PlaylistConnection']> = ResolversObject<{
-  nodes?: Resolver<Array<ResolversTypes['Playlist']>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['PlaylistEdge']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PlaylistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistEdge'] = ResolversParentTypes['PlaylistEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -840,6 +853,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   PageInfo?: PageInfoResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   PlaylistConnection?: PlaylistConnectionResolvers<ContextType>;
+  PlaylistEdge?: PlaylistEdgeResolvers<ContextType>;
   PlaylistTrack?: PlaylistTrackResolvers<ContextType>;
   PlaylistTrackConnection?: PlaylistTrackConnectionResolvers<ContextType>;
   PlaylistTrackEdge?: PlaylistTrackEdgeResolvers<ContextType>;

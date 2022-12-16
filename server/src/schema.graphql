@@ -333,11 +333,16 @@ type Playlist {
 
 "A paged set of playlists"
 type PlaylistConnection {
-  "The set of playlists"
-  nodes: [Playlist!]!
+  "The set of playlists."
+  edges: [PlaylistEdge!]!
 
   "Pagination information for the set of playlists"
   pageInfo: PageInfo!
+}
+
+type PlaylistEdge {
+  "The playlist"
+  node: Playlist!
 }
 
 "A paged set of tracks for a playlist"

@@ -2,7 +2,7 @@ import { PlaylistConnectionResolvers } from './types';
 import { prop, itself } from './helpers';
 
 const resolvers: PlaylistConnectionResolvers = {
-  nodes: prop('items'),
+  edges: prop('items'),
   pageInfo: itself(),
 };
 
