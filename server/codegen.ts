@@ -17,7 +17,7 @@ const config: CodegenConfig = {
           Episode:
             '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
           PageInfo:
-            '../dataSources/spotify.types#Spotify#Object.Paginated<any>',
+            '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
           Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
           PlaylistConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
@@ -31,7 +31,7 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Recommendations',
           Track:
             '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
-          User: '../dataSources/spotify.types#Spotify#Object.User | Spotify.Object.UserSimplified',
+          User: '../dataSources/spotify.types#Spotify#Object.User',
         },
         scalars: {
           DateTime: 'Date',

@@ -523,7 +523,7 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<any>>;
+  PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
   PlaylistTrack: ResolverTypeWrapper<Spotify.Object.PlaylistItem>;
@@ -540,7 +540,7 @@ export type ResolversTypes = ResolversObject<{
   TextFormat: TextFormat;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
-  User: ResolverTypeWrapper<Spotify.Object.User | Spotify.Object.UserSimplified>;
+  User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -555,7 +555,7 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID'];
   Image: Image;
   Int: Scalars['Int'];
-  PageInfo: Spotify.Object.Paginated<any>;
+  PageInfo: Spotify.Object.Paginated<unknown>;
   Playlist: Spotify.Object.Playlist;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
   PlaylistTrack: Spotify.Object.PlaylistItem;
@@ -569,7 +569,7 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
-  User: Spotify.Object.User | Spotify.Object.UserSimplified;
+  User: Spotify.Object.User;
 }>;
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
