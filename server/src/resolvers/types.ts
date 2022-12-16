@@ -6,6 +6,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -16,6 +17,49 @@ export type Scalars = {
   Float: number;
   DateTime: Date;
 };
+
+/** Spotify catalog information for an album. */
+export type Album = {
+  __typename?: 'Album';
+  /** The type of the album. */
+  albumType: AlbumType;
+  /** The artists of the album. */
+  artists: Array<Artist>;
+  /** Known external URLs for this album. */
+  externalUrls: ExternalUrl;
+  /** Genres for the album. */
+  genres: Array<Scalars['String']>;
+  /** A link to the Web API endpoint providing full details of the album. */
+  href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the album.
+   */
+  id: Scalars['ID'];
+  /** The cover art for the album in various sizes, widest first. */
+  images: Array<Image>;
+  /** The label the album was released under. */
+  label?: Maybe<Scalars['String']>;
+  /**
+   * The name of the album. In case of an album takedown, the value may be an empty
+   * string.
+   */
+  name: Scalars['String'];
+  /** The date the album was first released. */
+  releaseDate: ReleaseDate;
+  /** The number of tracks in the album. */
+  totalTracks: Scalars['Int'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the album.
+   */
+  uri: Scalars['String'];
+};
+
+export type AlbumType =
+  | 'ALBUM'
+  | 'COMPILATION'
+  | 'SINGLE';
 
 /** Spotify catalog information for an artist. */
 export type Artist = {
@@ -367,6 +411,8 @@ export type TextFormat =
 /** Spotify catalog information for a track. */
 export type Track = PlaylistTrack & {
   __typename?: 'Track';
+  /** The album on which the track appears. */
+  album: Album;
   /** The artists who performed the track. */
   artists: Array<Artist>;
   /** The disc number (usually `1` unless the album consists of more than one disc). */
@@ -529,6 +575,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  Album: ResolverTypeWrapper<Omit<Album, 'artists'> & { artists: Array<ResolversTypes['Artist']> }>;
+  AlbumType: AlbumType;
   Artist: ResolverTypeWrapper<Spotify.Object.Artist | Spotify.Object.ArtistSimplified>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
@@ -554,13 +602,14 @@ export type ResolversTypes = ResolversObject<{
   ReleaseDatePrecision: ReleaseDatePrecision;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextFormat: TextFormat;
-  Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
+  Track: ResolverTypeWrapper<Spotify.Object.Track>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
   User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  Album: Omit<Album, 'artists'> & { artists: Array<ResolversParentTypes['Artist']> };
   Artist: Spotify.Object.Artist | Spotify.Object.ArtistSimplified;
   Boolean: Scalars['Boolean'];
   CurrentUser: Spotify.Object.CurrentUser;
@@ -583,9 +632,25 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: ReleaseDate;
   String: Scalars['String'];
-  Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
+  Track: Spotify.Object.Track;
   TrackExternalIds: TrackExternalIds;
   User: Spotify.Object.User;
+}>;
+
+export type AlbumResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Album'] = ResolversParentTypes['Album']> = ResolversObject<{
+  albumType?: Resolver<ResolversTypes['AlbumType'], ParentType, ContextType>;
+  artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
+  label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  releaseDate?: Resolver<ResolversTypes['ReleaseDate'], ParentType, ContextType>;
+  totalTracks?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
@@ -724,6 +789,7 @@ export type ReleaseDateResolvers<ContextType = ContextValue, ParentType extends 
 }>;
 
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
+  album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   discNumber?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -761,6 +827,7 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
 }>;
 
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
+  Album?: AlbumResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;
   DateTime?: GraphQLScalarType;

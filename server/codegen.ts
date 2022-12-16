@@ -29,8 +29,7 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.PlaylistTrack',
           Recommendations:
             '../dataSources/spotify.types#Spotify#Object.Recommendations',
-          Track:
-            '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
+          Track: '../dataSources/spotify.types#Spotify#Object.Track',
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
         scalars: {

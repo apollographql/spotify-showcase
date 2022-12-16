@@ -31,6 +31,70 @@ type Query {
   playlist(id: ID!): Playlist
 }
 
+"Spotify catalog information for an album."
+type Album {
+  "The type of the album."
+  albumType: AlbumType!
+
+  "The artists of the album."
+  artists: [Artist!]!
+
+  """
+  Known external URLs for this album.
+  """
+  externalUrls: ExternalUrl!
+
+  """
+  Genres for the album.
+  """
+  genres: [String!]!
+
+  """
+  A link to the Web API endpoint providing full details of the album.
+  """
+  href: String!
+
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the album.
+  """
+  id: ID!
+
+  """
+  The cover art for the album in various sizes, widest first.
+  """
+  images: [Image!]!
+
+  "The label the album was released under."
+  label: String
+
+  """
+  The name of the album. In case of an album takedown, the value may be an empty
+  string.
+  """
+  name: String!
+
+  """
+  The date the album was first released.
+  """
+  releaseDate: ReleaseDate!
+
+  "The number of tracks in the album."
+  totalTracks: Int!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the album.
+  """
+  uri: String!
+}
+
+enum AlbumType {
+  ALBUM
+  SINGLE
+  COMPILATION
+}
+
 """
 Spotify catalog information for an artist.
 """
@@ -410,6 +474,11 @@ type Track implements PlaylistTrack {
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """
   id: ID!
+
+  """
+  The album on which the track appears.
+  """
+  album: Album!
 
   "The artists who performed the track."
   artists: [Artist!]!
