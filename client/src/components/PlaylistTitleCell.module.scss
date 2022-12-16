@@ -3,11 +3,12 @@
 }
 
 .publisher,
-.albumName {
+.artistName {
   color: var(--text-color--muted);
 }
 
-.albumName {
+.artistName > a {
+  display: inline;
   transition: color 0.15s ease-out;
 
   &:hover {

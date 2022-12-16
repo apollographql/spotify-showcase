@@ -32,9 +32,16 @@ const PlaylistTitleCell = ({ playlistTrack }: PlaylistTitleCellProps) => {
           {playlistTrack.name}
         </EntityLink>
         {playlistTrack.__typename === 'Track' ? (
-          <EntityLink className={styles.albumName} entity={playlistTrack.album}>
-            {playlistTrack.album.name}
-          </EntityLink>
+          <span className={styles.artistName}>
+            {playlistTrack.artists.map((artist, index, artists) => (
+              <>
+                <EntityLink key={artist.id} entity={artist}>
+                  {artist.name}
+                </EntityLink>
+                {index !== artists.length - 1 && ', '}
+              </>
+            ))}
+          </span>
         ) : (
           <span className={styles.publisher}>
             {playlistTrack.show.publisher}
@@ -62,6 +69,10 @@ PlaylistTitleCell.fragments = {
       }
 
       ... on Track {
+        artists {
+          id
+          name
+        }
         album {
           id
           name
