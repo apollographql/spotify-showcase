@@ -1,5 +1,5 @@
 import { EpisodeResolvers } from './types';
-import { prop } from './helpers';
+import { prop, itself } from './helpers';
 
 const resolvers: EpisodeResolvers = {
   audioPreviewUrl: prop('audio_preview_url'),
@@ -10,6 +10,7 @@ const resolvers: EpisodeResolvers = {
   externalUrls: prop('external_urls'),
   isExternallyHosted: prop('is_externally_hosted'),
   isPlayable: prop('is_playable'),
+  releaseDate: itself(),
 };
 
 export default resolvers;

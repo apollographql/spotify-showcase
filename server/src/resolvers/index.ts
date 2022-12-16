@@ -1,7 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
-const IGNORED_FILES = [path.basename(__filename), 'types.ts', 'helpers.ts'];
+const IGNORED_FILES = [
+  path.basename(__filename),
+  'types.ts',
+  'helpers.ts',
+  'mappers.ts',
+];
 
 const importResolver = (filename: string) =>
   require(path.resolve(__dirname, filename)).default;

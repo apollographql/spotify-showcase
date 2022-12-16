@@ -10,6 +10,8 @@ const config: CodegenConfig = {
         enumsAsTypes: true,
         useIndexSignature: true,
         mappers: {
+          Album:
+            '../dataSources/spotify.types#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
           Artist:
             '../dataSources/spotify.types#Spotify#Object.Artist | Spotify.Object.ArtistSimplified',
           CurrentUser:
@@ -29,7 +31,9 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.PlaylistTrack',
           Recommendations:
             '../dataSources/spotify.types#Spotify#Object.Recommendations',
-          Track: '../dataSources/spotify.types#Spotify#Object.Track',
+          ReleaseDate: './mappers#Releasable',
+          Track:
+            '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
         scalars: {

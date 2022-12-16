@@ -1,12 +1,12 @@
 import { ContextValue } from '../types';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Spotify } from '../dataSources/spotify.types';
+import { Releasable } from './mappers';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -575,7 +575,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Album: ResolverTypeWrapper<Omit<Album, 'artists'> & { artists: Array<ResolversTypes['Artist']> }>;
+  Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
   AlbumType: AlbumType;
   Artist: ResolverTypeWrapper<Spotify.Object.Artist | Spotify.Object.ArtistSimplified>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -598,18 +598,18 @@ export type ResolversTypes = ResolversObject<{
   RecommendationSeedInput: RecommendationSeedInput;
   RecommendationSeedType: RecommendationSeedType;
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
-  ReleaseDate: ResolverTypeWrapper<ReleaseDate>;
+  ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextFormat: TextFormat;
-  Track: ResolverTypeWrapper<Spotify.Object.Track>;
+  Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
   User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Album: Omit<Album, 'artists'> & { artists: Array<ResolversParentTypes['Artist']> };
+  Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   Artist: Spotify.Object.Artist | Spotify.Object.ArtistSimplified;
   Boolean: Scalars['Boolean'];
   CurrentUser: Spotify.Object.CurrentUser;
@@ -630,9 +630,9 @@ export type ResolversParentTypes = ResolversObject<{
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;
   Recommendations: Spotify.Object.Recommendations;
-  ReleaseDate: ReleaseDate;
+  ReleaseDate: Releasable;
   String: Scalars['String'];
-  Track: Spotify.Object.Track;
+  Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
   User: Spotify.Object.User;
 }>;
