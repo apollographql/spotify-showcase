@@ -37,21 +37,24 @@ function Table<TData>({
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th
-                key={header.id}
-                className={cx({
-                  [styles.shrink]: header.column.columnDef.meta?.shrink,
-                })}
-              >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </th>
-            ))}
+            {headerGroup.headers.map((header) => {
+              const { column } = header;
+
+              return (
+                <th
+                  key={header.id}
+                  data-shrink={column.columnDef.meta?.shrink}
+                  data-align={column.columnDef.meta?.headerAlign}
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </th>
+              );
+            })}
           </tr>
         ))}
       </thead>

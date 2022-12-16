@@ -62,7 +62,17 @@ const columns = [
   columnHelper.accessor('node.__typename', {
     id: 'type',
     header: '#',
-    cell: (info) => (info.getValue() === 'Episode' ? <Podcast /> : <Music />),
+    cell: (info) => {
+      return info.getValue() === 'Episode' ? (
+        <Podcast size="1rem" />
+      ) : (
+        <Music size="1rem" />
+      );
+    },
+    meta: {
+      headerAlign: 'center',
+      shrink: true,
+    },
   }),
   columnHelper.accessor('node.name', {
     header: 'Title',
