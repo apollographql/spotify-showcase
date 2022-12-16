@@ -87,7 +87,7 @@ const Playlist = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Flex className={styles.tracks} direction="column" gap="2rem">
+      <Flex className={styles.tracks} direction="column" gap="2rem" flex={1}>
         <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
       </Flex>
     </div>
