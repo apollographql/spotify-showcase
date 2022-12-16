@@ -88,7 +88,10 @@ const Playlist = () => {
         </div>
       </div>
       <div>
-        <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
+        <PlaylistTable
+          className={styles.playlistTable}
+          playlistTrackEdges={playlist.tracks.edges}
+        />
       </div>
     </div>
   );

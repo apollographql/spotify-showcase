@@ -8,6 +8,7 @@ import ReleaseDate from './ReleaseDate';
 import Table from './Table';
 
 interface PlaylistTableProps {
+  className?: string;
   playlistTrackEdges: PlaylistTrackEdge[];
 }
 
@@ -61,8 +62,13 @@ const columns = [
   }),
 ];
 
-const PlaylistTable = ({ playlistTrackEdges }: PlaylistTableProps) => {
-  return <Table data={playlistTrackEdges} columns={columns} />;
+const PlaylistTable = ({
+  className,
+  playlistTrackEdges,
+}: PlaylistTableProps) => {
+  return (
+    <Table className={className} data={playlistTrackEdges} columns={columns} />
+  );
 };
 
 PlaylistTable.fragments = {
