@@ -364,7 +364,7 @@ export namespace Spotify {
       restrictions?: Restrictions;
       name: string;
       preview_url: string;
-      track_number: string;
+      track_number: number;
       type: 'track';
       uri: string;
     }

@@ -53,7 +53,7 @@ export type CurrentUserPlaylistsArgs = {
 };
 
 /** Spotify catalog information for an episode. */
-export type Episode = {
+export type Episode = PlaylistTrack & {
   __typename?: 'Episode';
   /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
   audioPreviewUrl?: Maybe<Scalars['String']>;
@@ -192,7 +192,23 @@ export type PlaylistConnection = {
   pageInfo: PageInfo;
 };
 
-export type PlaylistTrack = Episode | Track;
+export type PlaylistTrack = {
+  /** The playlist track length in milliseconds. */
+  durationMs: Scalars['Int'];
+  /** External URLs for this episode. */
+  externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the episode. */
+  href: Scalars['String'];
+  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist track. */
+  id: Scalars['ID'];
+  /** The name of the episode. */
+  name: Scalars['String'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the playlist track.
+   */
+  uri: Scalars['String'];
+};
 
 /** A paged set of tracks for a playlist */
 export type PlaylistTrackConnection = {
@@ -349,7 +365,7 @@ export type TextFormat =
   | 'PLAIN';
 
 /** Spotify catalog information for a track. */
-export type Track = {
+export type Track = PlaylistTrack & {
   __typename?: 'Track';
   /** The artists who performed the track. */
   artists: Array<Artist>;
@@ -363,7 +379,7 @@ export type Track = {
    */
   explicit: Scalars['Boolean'];
   /** Known external IDs for the track. */
-  externalIds: TrackExternalIds;
+  externalIds?: Maybe<TrackExternalIds>;
   /** Known external URLs for this track. */
   externalUrls: ExternalUrl;
   /** A link to the Web API endpoint providing full details of the track. */
@@ -657,6 +673,12 @@ export type PlaylistConnectionResolvers<ContextType = ContextValue, ParentType e
 
 export type PlaylistTrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistTrack'] = ResolversParentTypes['PlaylistTrack']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
+  durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
 export type PlaylistTrackConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistTrackConnection'] = ResolversParentTypes['PlaylistTrackConnection']> = ResolversObject<{
@@ -706,7 +728,7 @@ export type TrackResolvers<ContextType = ContextValue, ParentType extends Resolv
   discNumber?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  externalIds?: Resolver<ResolversTypes['TrackExternalIds'], ParentType, ContextType>;
+  externalIds?: Resolver<Maybe<ResolversTypes['TrackExternalIds']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;

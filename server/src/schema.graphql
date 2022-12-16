@@ -89,7 +89,7 @@ type CurrentUser {
 }
 
 "Spotify catalog information for an episode."
-type Episode {
+type Episode implements PlaylistTrack {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
   """
@@ -296,7 +296,34 @@ type PlaylistTrackEdge {
   node: PlaylistTrack!
 }
 
-union PlaylistTrack = Track | Episode
+interface PlaylistTrack {
+  "The playlist track length in milliseconds."
+  durationMs: Int!
+
+  """
+  External URLs for this episode.
+  """
+  externalUrls: ExternalUrl!
+
+  "A link to the Web API endpoint providing full details of the episode."
+  href: String!
+
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist track.
+  """
+  id: ID!
+
+  """
+  The name of the episode.
+  """
+  name: String!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the playlist track.
+  """
+  uri: String!
+}
 
 "Information about recommendations for the current user"
 type Recommendations {
@@ -378,7 +405,7 @@ enum TextFormat {
 }
 
 "Spotify catalog information for a track."
-type Track {
+type Track implements PlaylistTrack {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """
@@ -404,7 +431,7 @@ type Track {
   """
   Known external IDs for the track.
   """
-  externalIds: TrackExternalIds!
+  externalIds: TrackExternalIds
 
   "Known external URLs for this track."
   externalUrls: ExternalUrl!
