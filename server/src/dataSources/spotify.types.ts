@@ -113,8 +113,46 @@ export namespace Spotify {
     }
 
     export interface Episode {
+      audio_preview_url: string;
+      description: string;
+      duration_ms: number;
+      explicit: boolean;
+      external_urls: ExternalUrl;
+      href: string;
+      html_description: string;
       id: string;
+      images: Image[];
+      is_externally_hosted: boolean;
+      is_playable: boolean;
+      languages: string[];
+      name: string;
+      release_date: string;
+      release_date_precision: ReleaseDatePrecision;
+      resume_point: RestrictScope<ResumePoint, 'user-read-playback-position'>;
+      show: ShowSimplified;
       type: 'episode';
+      uri: string;
+    }
+
+    export interface EpisodeSimplified {
+      audio_preview_url: string;
+      description: string;
+      duration_ms: number;
+      explicit: boolean;
+      external_urls: ExternalUrl;
+      href: string;
+      html_description: string;
+      id: string;
+      images: Image[];
+      is_externally_hosted: boolean;
+      is_playable: boolean;
+      languages: string[];
+      name: string;
+      release_date: string;
+      release_date_precision: ReleaseDatePrecision;
+      resume_point: RestrictScope<ResumePoint, 'user-read-playback-position'>;
+      type: 'episode';
+      uri: string;
     }
 
     export type ExternalId = Record<string, string>;
@@ -245,6 +283,50 @@ export namespace Spotify {
 
     export interface Restrictions {
       reason: 'market' | 'product' | 'explicit';
+    }
+
+    export interface ResumePoint {
+      fully_played: boolean;
+      resume_position_ms: number;
+    }
+
+    export interface Show {
+      available_markets: CountryCode[];
+      copyrights: Copyright[];
+      description: string;
+      episodes: Paginated<EpisodeSimplified>;
+      explicit: boolean;
+      external_urls: ExternalUrl;
+      href: string;
+      html_description: string;
+      id: string;
+      images: Image[];
+      is_externally_hosted: boolean;
+      languages: string[];
+      media_type: string;
+      name: string;
+      publisher: string;
+      type: 'show';
+      uri: string;
+    }
+
+    export interface ShowSimplified {
+      available_markets: CountryCode[];
+      copyrights: Copyright[];
+      description: string;
+      explicit: boolean;
+      external_urls: ExternalUrl;
+      href: string;
+      html_description: string;
+      id: string;
+      images: Image[];
+      is_externally_hosted: boolean;
+      languages: string[];
+      media_type: string;
+      name: string;
+      publisher: string;
+      type: 'show';
+      uri: string;
     }
 
     export interface Track {
