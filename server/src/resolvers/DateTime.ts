@@ -29,10 +29,6 @@ const config: DateTimeScalarConfig = {
       return parseISO(ast.value);
     }
 
-    if (ast.kind === Kind.NULL) {
-      return null;
-    }
-
     throw new GraphQLError(
       'Provided value is not a valid ISO-8601 date string',
       { extensions: { code: 'BAD_USER_INPUT' } }
