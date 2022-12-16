@@ -87,7 +87,7 @@ export type CurrentUser = {
 };
 
 
-export type CurrentUserPlaylistsArgs = {
+export type CurrentUserplaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -138,7 +138,7 @@ export type Episode = PlaylistTrack & {
 
 
 /** Spotify catalog information for an episode. */
-export type EpisodeDescriptionArgs = {
+export type EpisodedescriptionArgs = {
   format?: InputMaybe<TextFormat>;
 };
 
@@ -227,7 +227,7 @@ export type Playlist = {
 
 
 /** Information about a playlist owned by a Spotify user */
-export type PlaylistTracksArgs = {
+export type PlaylisttracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -310,12 +310,12 @@ export type Query = {
 };
 
 
-export type QueryPlaylistArgs = {
+export type QueryplaylistArgs = {
   id: Scalars['ID'];
 };
 
 
-export type QueryRecommendationsArgs = {
+export type QueryrecommendationsArgs = {
   seeds: RecommendationSeedInput;
 };
 
@@ -457,7 +457,7 @@ export type Show = {
 
 
 /** Spotify catalog information for a show. */
-export type ShowDescriptionArgs = {
+export type ShowdescriptionArgs = {
   format?: InputMaybe<TextFormat>;
 };
 
@@ -571,11 +571,17 @@ export type SidebarPlaylistsQueryVariables = Exact<{
 
 export type SidebarPlaylistsQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
 
-export type PlaylistTable_PlaylistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string } } };
+export type PlaylistTable_playlistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } };
+
+type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, images: Array<{ __typename: 'Image', url: string }> } };
+
+type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } };
+
+export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
 export type PlaylistQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> | null, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string } } }>, pageInfo: { __typename: 'PageInfo', total: number } } } | null };
+export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> | null, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } }>, pageInfo: { __typename: 'PageInfo', total: number } } } | null };

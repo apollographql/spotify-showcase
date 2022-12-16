@@ -20,6 +20,9 @@ const config: CodegenConfig = {
         scalars: {
           DateTime: 'string',
         },
+        namingConvention: {
+          typeNames: 'keep',
+        },
       },
       plugins: ['typescript', 'typescript-operations'],
     },

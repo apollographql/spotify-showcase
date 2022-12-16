@@ -2,13 +2,13 @@ import { useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock, Music, Podcast } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { PlaylistTable_PlaylistTrackEdges as PlaylistTrackEdge } from '../types/api';
+import { PlaylistTable_playlistTrackEdges as PlaylistTrackEdge } from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
 import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
+import PlaylistTitleCell from './PlaylistTitleCell';
 
 interface PlaylistTableProps {
   className?: string;
@@ -51,11 +51,7 @@ const columns = [
   columnHelper.accessor('node', {
     id: 'title',
     header: 'Title',
-    cell: (info) => {
-      const node = info.getValue();
-
-      return <EntityLink entity={node}>{node.name}</EntityLink>;
-    },
+    cell: (info) => <PlaylistTitleCell playlistTrack={info.getValue()} />,
   }),
   columnHelper.accessor(({ node }) => parentOf(node), {
     id: 'albumOrPodcast',
@@ -160,8 +156,11 @@ PlaylistTable.fragments = {
             name
           }
         }
+        ...PlaylistTitleCell_playlistTrack
       }
     }
+
+    ${PlaylistTitleCell.fragments.playlistTrack}
   `,
 };
 
