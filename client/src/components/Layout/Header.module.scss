@@ -10,6 +10,7 @@
   height: var(--main-header--height);
   width: 100%;
   pointer-events: none;
+  flex-shrink: 0;
 }
 
 .headerNavButton {
