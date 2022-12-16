@@ -227,6 +227,13 @@ export type Playlist = {
   uri: Scalars['String'];
 };
 
+
+/** Information about a playlist owned by a Spotify user */
+export type PlaylistTracksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
 /** A paged set of playlists */
 export type PlaylistConnection = {
   __typename?: 'PlaylistConnection';
@@ -733,7 +740,7 @@ export type PlaylistResolvers<ContextType = ContextValue, ParentType extends Res
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   owner?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   public?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  tracks?: Resolver<ResolversTypes['PlaylistTrackConnection'], ParentType, ContextType>;
+  tracks?: Resolver<ResolversTypes['PlaylistTrackConnection'], ParentType, ContextType, Partial<PlaylistTracksArgs>>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
