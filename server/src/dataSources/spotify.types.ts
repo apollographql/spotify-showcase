@@ -298,7 +298,7 @@ export namespace Spotify {
       html_description: string;
       id: string;
       images: Image[];
-      is_externally_hosted: boolean;
+      is_externally_hosted: boolean | null;
       languages: string[];
       media_type: string;
       name: string;
@@ -317,7 +317,7 @@ export namespace Spotify {
       html_description: string;
       id: string;
       images: Image[];
-      is_externally_hosted: boolean;
+      is_externally_hosted: boolean | null;
       languages: string[];
       media_type: string;
       name: string;

@@ -131,6 +131,8 @@ export type Episode = PlaylistTrack & {
   name: Scalars['String'];
   /** The date the episode was first released */
   releaseDate?: Maybe<ReleaseDate>;
+  /** The show containing the episode. */
+  show: Show;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the episode.
@@ -417,6 +419,50 @@ export type ReleaseDatePrecision =
   | 'month'
   | 'year';
 
+/** Spotify catalog information for a show. */
+export type Show = {
+  __typename?: 'Show';
+  /** A description of the show. */
+  description: Scalars['String'];
+  /**
+   * Whether or not the show has explicit content (`true` = yes it does; `false`
+   * = no it does not OR unknown).
+   */
+  explicit: Scalars['Boolean'];
+  /** External URLs for this show. */
+  externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the show. */
+  href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the show.
+   */
+  id: Scalars['ID'];
+  /** The cover art for the show in various sizes, widest first. */
+  images: Array<Image>;
+  /**
+   * `true` if all of the shows episodes are hosted outside of Spotify's CDN. This
+   * field might be `null` in some cases.
+   */
+  isExternallyHosted?: Maybe<Scalars['Boolean']>;
+  /** A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code. */
+  languages: Array<Scalars['String']>;
+  /** The media type of the show. */
+  mediaType: Scalars['String'];
+  /** The name of the episode. */
+  name: Scalars['String'];
+  /** The publisher of the show. */
+  publisher: Scalars['String'];
+  /** The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show. */
+  uri: Scalars['String'];
+};
+
+
+/** Spotify catalog information for a show. */
+export type ShowDescriptionArgs = {
+  format?: InputMaybe<TextFormat>;
+};
+
 export type TextFormat =
   | 'HTML'
   | 'PLAIN';
@@ -614,6 +660,7 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
+  Show: ResolverTypeWrapper<Show>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextFormat: TextFormat;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
@@ -646,6 +693,7 @@ export type ResolversParentTypes = ResolversObject<{
   RecommendationSeedInput: RecommendationSeedInput;
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
+  Show: Show;
   String: Scalars['String'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
@@ -701,6 +749,7 @@ export type EpisodeResolvers<ContextType = ContextValue, ParentType extends Reso
   languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   releaseDate?: Resolver<Maybe<ResolversTypes['ReleaseDate']>, ParentType, ContextType>;
+  show?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -810,6 +859,22 @@ export type ReleaseDateResolvers<ContextType = ContextValue, ParentType extends 
 
 export type ReleaseDatePrecisionResolvers = { DAY: 'day', MONTH: 'month', YEAR: 'year' };
 
+export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
+  explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
+  isExternallyHosted?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  mediaType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  publisher?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
@@ -869,6 +934,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Recommendations?: RecommendationsResolvers<ContextType>;
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
   ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
+  Show?: ShowResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

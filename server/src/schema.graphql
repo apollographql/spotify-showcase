@@ -216,6 +216,11 @@ type Episode implements PlaylistTrack {
   releaseDate: ReleaseDate
 
   """
+  The show containing the episode.
+  """
+  show: Show!
+
+  """
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the episode.
   """
@@ -478,6 +483,68 @@ enum ReleaseDatePrecision {
   YEAR
   MONTH
   DAY
+}
+
+"Spotify catalog information for a show."
+type Show {
+  "A description of the show."
+  description(format: TextFormat = PLAIN): String!
+
+  """
+  Whether or not the show has explicit content (`true` = yes it does; `false`
+  = no it does not OR unknown).
+  """
+  explicit: Boolean!
+
+  "External URLs for this show."
+  externalUrls: ExternalUrl!
+
+  """
+  A link to the Web API endpoint providing full details of the show.
+  """
+  href: String!
+
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the show.
+  """
+  id: ID!
+
+  """
+  The cover art for the show in various sizes, widest first.
+  """
+  images: [Image!]!
+
+  """
+  `true` if all of the shows episodes are hosted outside of Spotify's CDN. This
+  field might be `null` in some cases.
+  """
+  isExternallyHosted: Boolean
+
+  """
+  A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code.
+  """
+  languages: [String!]!
+
+  """
+  The media type of the show.
+  """
+  mediaType: String!
+
+  """
+  The name of the episode.
+  """
+  name: String!
+
+  """
+  The publisher of the show.
+  """
+  publisher: String!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show.
+  """
+  uri: String!
 }
 
 enum TextFormat {
