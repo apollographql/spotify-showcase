@@ -17,6 +17,9 @@ const config: CodegenConfig = {
         immutableTypes: true,
         nonOptionalTypename: true,
         skipTypeNameForRoot: true,
+        scalars: {
+          DateTime: 'string',
+        },
       },
       plugins: ['typescript', 'typescript-operations'],
     },

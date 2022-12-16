@@ -10,13 +10,58 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  DateTime: string;
 };
+
+/** Spotify catalog information for an album. */
+export type Album = {
+  readonly __typename: 'Album';
+  /** The type of the album. */
+  readonly albumType: AlbumType;
+  /** The artists of the album. */
+  readonly artists: ReadonlyArray<Artist>;
+  /** Known external URLs for this album. */
+  readonly externalUrls: ExternalUrl;
+  /** Genres for the album. */
+  readonly genres: ReadonlyArray<Scalars['String']>;
+  /** A link to the Web API endpoint providing full details of the album. */
+  readonly href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the album.
+   */
+  readonly id: Scalars['ID'];
+  /** The cover art for the album in various sizes, widest first. */
+  readonly images: ReadonlyArray<Image>;
+  /** The label the album was released under. */
+  readonly label: Maybe<Scalars['String']>;
+  /**
+   * The name of the album. In case of an album takedown, the value may be an empty
+   * string.
+   */
+  readonly name: Scalars['String'];
+  /** The date the album was first released. */
+  readonly releaseDate: ReleaseDate;
+  /** The number of tracks in the album. */
+  readonly totalTracks: Scalars['Int'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the album.
+   */
+  readonly uri: Scalars['String'];
+};
+
+export enum AlbumType {
+  Album = 'ALBUM',
+  Compilation = 'COMPILATION',
+  Single = 'SINGLE'
+}
 
 /** Spotify catalog information for an artist. */
 export type Artist = {
   readonly __typename: 'Artist';
   /** Known external URLs for this artist. */
-  readonly externalUrls: ReadonlyArray<ExternalUrl>;
+  readonly externalUrls: ExternalUrl;
   /** A link to the Web API endpoint providing full details of the artist. */
   readonly href: Scalars['String'];
   /**
@@ -45,6 +90,54 @@ export type CurrentUser = {
 export type CurrentUserPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+};
+
+/** Spotify catalog information for an episode. */
+export type Episode = PlaylistTrack & {
+  readonly __typename: 'Episode';
+  /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
+  readonly audioPreviewUrl: Maybe<Scalars['String']>;
+  /** A description of the episode */
+  readonly description: Scalars['String'];
+  /** The episode length in milliseconds. */
+  readonly durationMs: Scalars['Int'];
+  /**
+   * Whether or not the episode has explicit content (`true` = yes it does;
+   * `false` = no it does not OR unknown).
+   */
+  readonly explicit: Scalars['Boolean'];
+  /** External URLs for this episode. */
+  readonly externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the episode. */
+  readonly href: Scalars['String'];
+  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode. */
+  readonly id: Scalars['ID'];
+  /** The cover art for the episode in various sizes, widest first. */
+  readonly images: ReadonlyArray<Image>;
+  /** `true` if the episode is hosted outside of Spotify's CDN. */
+  readonly isExternallyHosted: Scalars['Boolean'];
+  /** `true` if the episode is playable in the given market. Otherwise `false`. */
+  readonly isPlayable: Scalars['Boolean'];
+  /**
+   * A list of the languages used in the episode, identified by their
+   * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
+   */
+  readonly languages: ReadonlyArray<Scalars['String']>;
+  /** The name of the episode. */
+  readonly name: Scalars['String'];
+  /** The date the episode was first released */
+  readonly releaseDate: Maybe<ReleaseDate>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the episode.
+   */
+  readonly uri: Scalars['String'];
+};
+
+
+/** Spotify catalog information for an episode. */
+export type EpisodeDescriptionArgs = {
+  format?: InputMaybe<TextFormat>;
 };
 
 export type ExternalUrl = {
@@ -121,6 +214,8 @@ export type Playlist = {
    * about public/private status, see [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/)
    */
   readonly public: Maybe<Scalars['Boolean']>;
+  /** The tracks of the playlist. */
+  readonly tracks: PlaylistTrackConnection;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) *\/
    * for the playlist.
@@ -135,6 +230,43 @@ export type PlaylistConnection = {
   readonly nodes: ReadonlyArray<Playlist>;
   /** Pagination information for the set of playlists */
   readonly pageInfo: PageInfo;
+};
+
+export type PlaylistTrack = {
+  /** The playlist track length in milliseconds. */
+  readonly durationMs: Scalars['Int'];
+  /** External URLs for this episode. */
+  readonly externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the episode. */
+  readonly href: Scalars['String'];
+  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist track. */
+  readonly id: Scalars['ID'];
+  /** The name of the episode. */
+  readonly name: Scalars['String'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the playlist track.
+   */
+  readonly uri: Scalars['String'];
+};
+
+/** A paged set of tracks for a playlist */
+export type PlaylistTrackConnection = {
+  readonly __typename: 'PlaylistTrackConnection';
+  /** Pagination information for the tracks belonging to a playlist */
+  readonly edges: ReadonlyArray<PlaylistTrackEdge>;
+  /** Pagination information for the tracks belonging to a playlist */
+  readonly pageInfo: PageInfo;
+};
+
+export type PlaylistTrackEdge = {
+  readonly __typename: 'PlaylistTrackEdge';
+  /** The date and time the track was added to the playlist */
+  readonly addedAt: Scalars['DateTime'];
+  /** The user that added the track to the playlist */
+  readonly addedBy: User;
+  /** The playlist track */
+  readonly node: PlaylistTrack;
 };
 
 export type Query = {
@@ -250,15 +382,104 @@ export type Recommendations = {
    * An array of [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject)
    * ordered according to the parameters supplied.
    */
-  readonly tracks: ReadonlyArray<TrackSimplified>;
+  readonly tracks: ReadonlyArray<Track>;
 };
 
-/** Information about a [track (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject) object */
-export type TrackSimplified = {
-  readonly __typename: 'TrackSimplified';
+export type ReleaseDate = {
+  readonly __typename: 'ReleaseDate';
+  /**
+   * The date the item was first released, for example `1981-12-15`. Depending on
+   * the precision, it might be shown as `1981-12`, or `1981-12-15`.
+   */
+  readonly date: Scalars['String'];
+  /** The precision with which the `date` value is known. */
+  readonly precision: ReleaseDatePrecision;
+};
+
+export enum ReleaseDatePrecision {
+  Day = 'DAY',
+  Month = 'MONTH',
+  Year = 'YEAR'
+}
+
+export enum TextFormat {
+  Html = 'HTML',
+  Plain = 'PLAIN'
+}
+
+/** Spotify catalog information for a track. */
+export type Track = PlaylistTrack & {
+  readonly __typename: 'Track';
+  /** The album on which the track appears. */
+  readonly album: Album;
+  /** The artists who performed the track. */
   readonly artists: ReadonlyArray<Artist>;
+  /** The disc number (usually `1` unless the album consists of more than one disc). */
+  readonly discNumber: Scalars['Int'];
+  /** The track length in milliseconds */
+  readonly durationMs: Scalars['Int'];
+  /**
+   * Whether or not the track has explicit lyrics (`true` = yes it does;
+   * `false` = no it does not OR unknown)
+   */
+  readonly explicit: Scalars['Boolean'];
+  /** Known external IDs for the track. */
+  readonly externalIds: Maybe<TrackExternalIds>;
+  /** Known external URLs for this track. */
+  readonly externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the track. */
+  readonly href: Scalars['String'];
+  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
   readonly id: Scalars['ID'];
+  /** Whether or not the track is from a local file. */
+  readonly isLocal: Scalars['Boolean'];
+  /**
+   * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
+   * is applied. If `true`, the track is playable in the given market.
+   * Otherwise `false`.
+   */
+  readonly isPlayable: Scalars['Boolean'];
+  /** The name of the track */
   readonly name: Scalars['String'];
+  /**
+   * The popularity of the track. The value will be between 0 and 100, with 100
+   * being the most popular.
+   *
+   * The popularity of a track is a value between 0 and 100, with 100 being the
+   * most popular. The popularity is calculated by algorithm and is based, in the
+   * most part, on the total number of plays the track has had and how recent those
+   * plays are.
+   *
+   * Generally speaking, songs that are being played a lot now will have a higher
+   * popularity than songs that were played a lot in the past. Duplicate tracks
+   * (e.g. the same track from a single and an album) are rated independently.
+   * Artist and album popularity is derived mathematically from track popularity.
+   * Note: the popularity value may lag actual popularity by a few days: the value
+   * is not updated in real time.
+   */
+  readonly popularity: Scalars['Int'];
+  /** A link to a 30 second preview (MP3 format) of the track. Can be `null` */
+  readonly previewUrl: Maybe<Scalars['String']>;
+  /**
+   * The number of the track. If an album has several discs, the track number is
+   * the number on the specified disc.
+   */
+  readonly trackNumber: Maybe<Scalars['Int']>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the track.
+   */
+  readonly uri: Scalars['String'];
+};
+
+export type TrackExternalIds = {
+  readonly __typename: 'TrackExternalIds';
+  /** [International Article Number](http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29) */
+  readonly ean: Maybe<Scalars['String']>;
+  /** [International Standard Recording Code](http://en.wikipedia.org/wiki/International_Standard_Recording_Code) */
+  readonly isrc: Maybe<Scalars['String']>;
+  /** [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code) */
+  readonly upc: Maybe<Scalars['String']>;
 };
 
 /** Public profile information about a Spotify user. */
