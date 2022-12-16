@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { gql } from '@apollo/client';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
@@ -34,12 +35,12 @@ const PlaylistTitleCell = ({ playlistTrack }: PlaylistTitleCellProps) => {
         {playlistTrack.__typename === 'Track' ? (
           <span className={styles.artistName}>
             {playlistTrack.artists.map((artist, index, artists) => (
-              <>
+              <Fragment key={artist.id}>
                 <EntityLink key={artist.id} entity={artist}>
                   {artist.name}
                 </EntityLink>
                 {index !== artists.length - 1 && ', '}
-              </>
+              </Fragment>
             ))}
           </span>
         ) : (
