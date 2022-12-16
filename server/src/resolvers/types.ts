@@ -400,9 +400,9 @@ export type ReleaseDate = {
 };
 
 export type ReleaseDatePrecision =
-  | 'DAY'
-  | 'MONTH'
-  | 'YEAR';
+  | 'day'
+  | 'month'
+  | 'year';
 
 export type TextFormat =
   | 'HTML'
@@ -788,6 +788,8 @@ export type ReleaseDateResolvers<ContextType = ContextValue, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ReleaseDatePrecisionResolvers = { DAY: 'day', MONTH: 'month', YEAR: 'year' };
+
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
@@ -845,6 +847,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   RecommendationSeed?: RecommendationSeedResolvers<ContextType>;
   Recommendations?: RecommendationsResolvers<ContextType>;
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
+  ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
   Track?: TrackResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

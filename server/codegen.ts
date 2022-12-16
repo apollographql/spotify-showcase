@@ -36,6 +36,13 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
+        enumValues: {
+          ReleaseDatePrecision: {
+            DAY: 'day',
+            MONTH: 'month',
+            YEAR: 'year',
+          },
+        },
         scalars: {
           DateTime: 'Date',
         },
