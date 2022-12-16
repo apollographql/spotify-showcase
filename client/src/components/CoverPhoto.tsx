@@ -21,7 +21,7 @@ const CoverPhoto = ({ className, fallback, size, src }: CoverPhotoProps) => {
       style={{ '--cover-photo--size': size } as StyleProps}
     >
       {src ? (
-        <LazyImage className={cx(styles.playlistImage)} src={src} />
+        <LazyImage className={styles.coverPhoto} src={src} />
       ) : (
         cloneElement(fallback, {
           className: cx(styles.coverPhoto, fallback.props.className),
