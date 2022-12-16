@@ -30,6 +30,9 @@ const link = ApolloLink.from([removeTokenLink, httpLink]);
 export default new ApolloClient({
   link,
   cache: new InMemoryCache({
+    possibleTypes: {
+      PlaylistTrack: ['Track', 'Episode'],
+    },
     typePolicies: {
       Image: {
         keyFields: ['url'],
