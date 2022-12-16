@@ -167,7 +167,7 @@ export namespace Spotify {
     export type PlaylistItem = Track | PlaylistEpisode;
 
     export interface PlaylistEpisode {
-      album: PlaylistEpisodeAlbum;
+      album: PlaylistEpisodeShow;
       artist: PlaylistEpisodeArtist[];
       available_markets: CountryCode[];
       disc_number: number;
@@ -189,7 +189,7 @@ export namespace Spotify {
       uri: string;
     }
 
-    export interface PlaylistEpisodeAlbum {
+    export interface PlaylistEpisodeShow {
       album_type: AlbumType;
       artists: PlaylistEpisodeArtist[];
       available_markets: CountryCode[];
@@ -200,7 +200,7 @@ export namespace Spotify {
       is_playable: boolean;
       name: string;
       release_date: string | null;
-      release_date_precision: 'year' | 'month' | 'day' | null;
+      release_date_precision: ReleaseDatePrecision | null;
       restrictions: Restrictions;
       total_tracks: number;
       type: 'show';
@@ -218,7 +218,7 @@ export namespace Spotify {
 
     export interface PlaylistTrack {
       added_at: string;
-      added_by: User;
+      added_by: UserSimplified;
       is_local: boolean;
       primary_color: string | null;
       track: PlaylistItem;
@@ -305,6 +305,14 @@ export namespace Spotify {
       href: string;
       id: string;
       images: Image[] | null;
+      type: 'user';
+      uri: string;
+    }
+
+    export interface UserSimplified {
+      external_urls: ExternalUrl;
+      href: string;
+      id: string;
       type: 'user';
       uri: string;
     }
