@@ -435,6 +435,11 @@ export namespace Spotify {
         limit?: number;
         offset?: number;
       }>;
+      '/playlists/:id': InputParams<{
+        additional_types?: string;
+        fields?: string;
+        market?: string;
+      }>;
     }
   }
 }

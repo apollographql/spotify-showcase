@@ -16,7 +16,12 @@ const resolvers: QueryResolvers = {
     });
   },
   playlist: (_, { id }, { dataSources }) => {
-    return dataSources.spotify.playlist(id);
+    // Intentionally omit tracks. This is an optimal place for @defer and
+    // provides a nice learning area
+    return dataSources.spotify.playlist(id, {
+      fields:
+        'id,collaborative,description,external_urls,images,name,owner,public,uri',
+    });
   },
 };
 

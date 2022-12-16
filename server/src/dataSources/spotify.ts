@@ -51,9 +51,10 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
-  playlist(id: string) {
+  playlist(id: string, params?: Spotify.Request.Params['/playlists/:id']) {
     return this.get<Spotify.Response.Path['/playlists/:id']>(
-      `/playlists/${id}`
+      `/playlists/${id}`,
+      { params: this.normalizeParams(params) }
     );
   }
 
