@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { PlaylistTable_PlaylistTrackEdges as PlaylistTrackEdge } from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
+import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
 
@@ -40,8 +41,14 @@ const columns = [
       shrink: true,
     },
   }),
-  columnHelper.accessor('node.name', {
+  columnHelper.accessor('node', {
+    id: 'title',
     header: 'Title',
+    cell: (info) => {
+      const node = info.getValue();
+
+      return <EntityLink entity={node}>{node.name}</EntityLink>;
+    },
   }),
   columnHelper.accessor(({ node }) => parentOf(node), {
     id: 'albumOrPodcast',
@@ -59,12 +66,8 @@ const columns = [
     },
     cell: (info) => {
       const parent = info.getValue();
-      const href =
-        parent.__typename === 'Show'
-          ? `/shows/${parent.id}`
-          : `/albums/${parent.id}`;
 
-      return <Link to={href}>{parent.name}</Link>;
+      return <EntityLink entity={parent}>{parent.name}</EntityLink>;
     },
   }),
   columnHelper.accessor(

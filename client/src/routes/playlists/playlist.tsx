@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -6,6 +6,7 @@ import {
 import { Music } from 'lucide-react';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import CoverPhoto from '../../components/CoverPhoto';
+import EntityLink from '../../components/EntityLink';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
 import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
@@ -68,12 +69,12 @@ const Playlist = () => {
           <h1 className={styles.playlistName}>{playlist.name}</h1>
           <Flex className={styles.playlistInfo} alignItems="center">
             <Flex alignItems="center" gap="1ch">
-              <Link
+              <EntityLink
                 className={styles.playlistOwner}
-                to={`/users/${playlist.owner.id}`}
+                entity={playlist.owner}
               >
                 {playlist.owner.displayName}
-              </Link>
+              </EntityLink>
             </Flex>
             <span>
               {tracks.pageInfo.total}{' '}
