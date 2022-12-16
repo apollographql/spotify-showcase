@@ -71,9 +71,11 @@ const PLAYLISTS_QUERY = gql`
   query SidebarPlaylistsQuery($offset: Int, $limit: Int!) {
     me {
       playlists(offset: $offset, limit: $limit) {
-        nodes {
-          id
-          name
+        edges {
+          node {
+            id
+            name
+          }
         }
       }
     }
@@ -88,7 +90,7 @@ const Playlists = () => {
 
   return (
     <ul className={cx(styles.sidebarNavSection, styles.sidebarPlaylists)}>
-      {data.me?.playlists?.nodes.map((playlist) => (
+      {data.me?.playlists?.edges.map(({ node: playlist }) => (
         <NavLink key={playlist.id} to={`/playlists/${playlist.id}`}>
           {playlist.name}
         </NavLink>

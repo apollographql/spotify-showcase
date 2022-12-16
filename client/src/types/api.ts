@@ -226,10 +226,16 @@ export type Playlist = {
 /** A paged set of playlists */
 export type PlaylistConnection = {
   readonly __typename: 'PlaylistConnection';
-  /** The set of playlists */
-  readonly nodes: ReadonlyArray<Playlist>;
+  /** The set of playlists. */
+  readonly edges: ReadonlyArray<PlaylistEdge>;
   /** Pagination information for the set of playlists */
   readonly pageInfo: PageInfo;
+};
+
+export type PlaylistEdge = {
+  readonly __typename: 'PlaylistEdge';
+  /** The playlist */
+  readonly node: Playlist;
 };
 
 export type PlaylistTrack = {
@@ -510,7 +516,7 @@ export type SidebarPlaylistsQueryVariables = Exact<{
 }>;
 
 
-export type SidebarPlaylistsQuery = { readonly me: { readonly __typename: 'CurrentUser', readonly playlists: { readonly __typename: 'PlaylistConnection', readonly nodes: ReadonlyArray<{ readonly __typename: 'Playlist', readonly id: string, readonly name: string }> } | null } | null };
+export type SidebarPlaylistsQuery = { readonly me: { readonly __typename: 'CurrentUser', readonly playlists: { readonly __typename: 'PlaylistConnection', readonly edges: ReadonlyArray<{ readonly __typename: 'PlaylistEdge', readonly node: { readonly __typename: 'Playlist', readonly id: string, readonly name: string } }> } | null } | null };
 
 export type PlaylistQueryVariables = Exact<{
   id: Scalars['ID'];
