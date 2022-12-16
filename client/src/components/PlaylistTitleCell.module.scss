@@ -1,0 +1,16 @@
+.trackName {
+  font-size: 1rem;
+}
+
+.publisher,
+.albumName {
+  color: var(--text-color--muted);
+}
+
+.albumName {
+  transition: color 0.15s ease-out;
+
+  &:hover {
+    color: var(--text-color--base);
+  }
+}
