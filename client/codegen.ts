@@ -15,6 +15,7 @@ const config: CodegenConfig = {
         dedupeOperationSuffix: true,
         defaultScalarType: 'unknown',
         nonOptionalTypename: true,
+        omitOperationSuffix: true,
         skipTypeNameForRoot: true,
         scalars: {
           DateTime: 'string',

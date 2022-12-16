@@ -525,6 +525,8 @@ export type SidebarPlaylistsQueryVariables = Exact<{
 
 export type SidebarPlaylistsQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
 
+export type PlaylistTable_PlaylistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null } | { __typename: 'Track', id: string, name: string, durationMs: number } };
+
 export type PlaylistQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
