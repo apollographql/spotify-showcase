@@ -2,6 +2,7 @@ import { PlaylistTrackEdgeResolvers } from './types';
 import { parseISO } from 'date-fns';
 import { Spotify } from '../dataSources/spotify.types';
 
+// Use value returned from Spotify API
 const UNIX_EPOCH_BEGINNING = '1970-01-01T00:00:00Z';
 
 const resolvers: PlaylistTrackEdgeResolvers = {

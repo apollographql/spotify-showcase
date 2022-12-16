@@ -89,9 +89,11 @@ const columns = [
   ),
   columnHelper.accessor('addedAt', {
     header: 'Date added',
-    cell: (info) => (
-      <DateTime date={info.getValue()} format={DateTime.FORMAT.timeAgo} />
-    ),
+    cell: (info) => {
+      const date = info.getValue();
+
+      return date && <DateTime date={date} format={DateTime.FORMAT.timeAgo} />;
+    },
   }),
   columnHelper.accessor('node.durationMs', {
     header: () => <Clock size="1rem" />,
@@ -115,6 +117,9 @@ const PlaylistTable = ({
       containsAllEpisodes: playlistTrackEdges.every(
         ({ node }) => node.__typename === 'Episode'
       ),
+      containsAddedDate: playlistTrackEdges.some((edge) =>
+        Boolean(edge.addedAt)
+      ),
     }),
     [playlistTrackEdges]
   );
@@ -125,7 +130,10 @@ const PlaylistTable = ({
       data={playlistTrackEdges}
       columns={columns}
       meta={meta}
-      visibility={{ releaseDate: !meta.containsAllTracks }}
+      visibility={{
+        addedAt: meta.containsAddedDate,
+        releaseDate: !meta.containsAllTracks,
+      }}
     />
   );
 };

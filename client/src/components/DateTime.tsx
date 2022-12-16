@@ -8,17 +8,13 @@ interface DateTimeProps {
   format: DateFormatFn;
 }
 
-const isUselessDate = (date: Date) => date.getTime() === 0;
-
 const DateTime = ({ date: dateString, format }: DateTimeProps) => {
-  const date = useMemo(() => parseISO(dateString), [dateString]);
-
-  const formattedDate = useMemo(
-    () => (isUselessDate(date) ? null : format(date)),
-    [date, format]
+  const date = useMemo(
+    () => format(parseISO(dateString)),
+    [dateString, format]
   );
 
-  return <>{formattedDate}</>;
+  return <>{date}</>;
 };
 
 DateTime.FORMAT = {
