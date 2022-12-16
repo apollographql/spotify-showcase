@@ -6,7 +6,7 @@ const resolvers: RecommendationsResolvers = {
     // TODO: Better determine if the selection set has the right values or if we
     // need to fetch track details. To keep it simple for now, cast to full
     // track type
-    return recommendations.tracks as Spotify.Object.Track[];
+    return recommendations.tracks as unknown as Spotify.Object.Track[];
   },
 };
 

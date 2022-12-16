@@ -11,31 +11,49 @@ type InputParams<T extends object> = NullifyOptionalProperties<T>;
 export namespace Spotify {
   export namespace Object {
     export interface Album {
-      album_type: 'album' | 'single' | 'compilation';
-      artists: Artist[];
-      available_markets: string[];
-      external_urls: ExternalUrls;
+      album_type: AlbumType;
+      artists: ArtistSimplified[];
+      available_markets: CountryCode[];
+      copyrights: Copyright[];
+      external_ids: ExternalId;
+      external_urls: ExternalUrl;
+      genres: string[];
+      href: string;
+      id: string;
+      images: Image[];
+      label: string;
+      name: string;
+      release_date: string;
+      release_date_precision: ReleaseDatePrecision;
+      total_tracks: number;
+      tracks: Paginated<TrackSimplified>;
+      type: 'album';
+      uri: string;
+    }
+
+    export interface AlbumSimplified {
+      album_type: AlbumType;
+      album_group?: AlbumGroup;
+      artists: ArtistSimplified;
+      available_markets: CountryCode[];
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       images: Image[];
       name: string;
       release_date: string;
-      release_date_precision: 'year' | 'month' | 'day';
-      restrictions: Restrictions;
+      release_date_precision: ReleaseDatePrecision;
+      restrictions?: Restrictions;
       total_tracks: number;
       type: 'album';
-      tracks: Paginated<AlbumTrack>;
       uri: string;
     }
 
-    export interface AlbumTrack {
-      id: string;
-      // TODO: Determine what other fields are present since this is not in the
-      // documentation
-    }
+    export type AlbumGroup = 'album' | 'appears_on' | 'compilation' | 'single';
+    export type AlbumType = 'album' | 'compilation' | 'single';
 
     export interface Artist {
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       followers: Followers;
       genres: string[];
       href: string;
@@ -48,13 +66,30 @@ export namespace Spotify {
     }
 
     export interface ArtistSimplified {
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       name: string;
       type: 'artist';
       uri: string;
     }
+
+    export interface AuthorizationCodeCredentials {
+      access_token: string;
+      expires_in: number;
+      refresh_token: string;
+      scope: string;
+      token_type: 'Bearer';
+    }
+
+    export interface Copyright {
+      text: string;
+      type: CopyrightType;
+    }
+
+    export type CopyrightType = 'C' | 'P';
+
+    export type CountryCode = string;
 
     export interface CurrentUser {
       country: RestrictScope<string, 'user-read-private'>;
@@ -67,7 +102,7 @@ export namespace Spotify {
         },
         'user-read-private'
       >;
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       followers: Followers;
       href: string;
       id: string;
@@ -82,7 +117,9 @@ export namespace Spotify {
       type: 'episode';
     }
 
-    export interface ExternalUrls {
+    export type ExternalId = Record<string, string>;
+
+    export interface ExternalUrl {
       spotify: string;
     }
 
@@ -108,17 +145,18 @@ export namespace Spotify {
     }
 
     export type PaginatedPlaylists = Paginated<Playlist>;
-    export type PaginatedPlaylistTracks = Paginated<PlaylistTrackEdge>;
+    export type PaginatedPlaylistTracks = Paginated<PlaylistTrack>;
 
     export interface Playlist {
-      id: string;
       collaborative: boolean;
       description: string | null;
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       href: string;
+      id: string;
       images: Image[];
       name: string;
       owner: User;
+      primary_color: string | null;
       public: boolean | null;
       snapshot_id: string;
       tracks: PaginatedPlaylistTracks;
@@ -126,20 +164,18 @@ export namespace Spotify {
       uri: string;
     }
 
-    export type PlaylistItem = PlaylistTrack | PlaylistEpisode;
+    export type PlaylistItem = Track | PlaylistEpisode;
 
     export interface PlaylistEpisode {
       album: PlaylistEpisodeAlbum;
       artist: PlaylistEpisodeArtist[];
-      available_markets: string;
+      available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
       episode: boolean;
       explicit: boolean;
-      external_ids: {
-        spotify: string;
-      };
-      external_urls: ExternalUrls;
+      external_ids: ExternalId;
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       is_local: boolean;
@@ -154,10 +190,10 @@ export namespace Spotify {
     }
 
     export interface PlaylistEpisodeAlbum {
-      album_type: 'album' | 'single' | 'compilation';
+      album_type: AlbumType;
       artists: PlaylistEpisodeArtist[];
-      available_markets: string[];
-      external_urls: ExternalUrls;
+      available_markets: CountryCode[];
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       images: Image[];
@@ -172,7 +208,7 @@ export namespace Spotify {
     }
 
     export interface PlaylistEpisodeArtist {
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       name: string;
@@ -181,48 +217,6 @@ export namespace Spotify {
     }
 
     export interface PlaylistTrack {
-      album: PlaylistTrackAlbum;
-      artists: ArtistSimplified[];
-      available_markets: string[];
-      disc_number: number;
-      duration_ms: number;
-      episode: boolean;
-      explicit: boolean;
-      external_ids: {
-        isrc: string | null;
-        ean: string | null;
-        upc: string | null;
-      };
-      external_urls: ExternalUrls;
-      href: string;
-      id: string;
-      is_local: boolean;
-      name: string;
-      popularity: number;
-      preview_url: string;
-      track: boolean;
-      track_number: boolean;
-      type: 'track';
-      uri: string;
-    }
-
-    export interface PlaylistTrackAlbum {
-      album_type: 'album' | 'single' | 'compilation';
-      artists: ArtistSimplified[];
-      available_markets: string[];
-      external_urls: ExternalUrls;
-      href: string;
-      id: string;
-      images: Image[];
-      name: string;
-      release_date: string;
-      release_date_precision: 'year' | 'month' | 'day';
-      total_tracks: number;
-      type: 'album';
-      uri: string;
-    }
-
-    export interface PlaylistTrackEdge {
       added_at: string;
       added_by: User;
       is_local: boolean;
@@ -235,7 +229,7 @@ export namespace Spotify {
 
     export interface Recommendations {
       seeds: RecommendationSeed[];
-      tracks: TrackSimplified[];
+      tracks: Track[];
     }
 
     export interface RecommendationSeed {
@@ -247,77 +241,57 @@ export namespace Spotify {
       type: 'ARTIST' | 'TRACK' | 'GENRE';
     }
 
+    export type ReleaseDatePrecision = 'day' | 'month' | 'year';
+
     export interface Restrictions {
       reason: 'market' | 'product' | 'explicit';
     }
 
     export interface Track {
-      album: TrackAlbum;
+      album: AlbumSimplified;
       artists: ArtistSimplified[];
-      available_markets: string[];
+      available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
       explicit: boolean;
-      external_ids: {
-        isrc: string | null;
-        ean: string | null;
-        upc: string | null;
-      };
-      external_urls: ExternalUrls;
+      external_ids: ExternalId;
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       is_local: boolean;
-      is_playable: boolean;
-      linked_from: Track | null;
+      is_playable?: boolean;
+      linked_from?: Track;
       name: string;
       popularity: number;
       preview_url: string;
       track_number: number;
-      restrictions: Restrictions;
+      restrictions?: Restrictions;
       type: 'track';
-      uri: string;
-    }
-
-    export interface TrackAlbum {
-      id: string;
-      album_type: 'album' | 'single' | 'compilation';
-      album_group: 'album' | 'single' | 'compilation' | 'appears_on';
-      artists: ArtistSimplified[];
-      available_markets: string[];
-      external_urls: ExternalUrls;
-      href: string;
-      images: Image[];
-      name: string;
-      release_date: string;
-      release_date_precision: 'year' | 'month' | 'day';
-      restrictions: Restrictions;
-      total_tracks: number;
-      type: 'album';
       uri: string;
     }
 
     export interface TrackSimplified {
       artists: ArtistSimplified[];
-      available_markets: string[];
+      available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
       explicit: boolean;
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       is_local: boolean;
-      is_playable: boolean;
-      linked_from: TrackSimplifiedLinkedFrom;
-      restrictions: Restrictions;
+      is_playable?: boolean;
+      linked_from?: TrackSimplifiedLinkedFrom;
+      restrictions?: Restrictions;
       name: string;
       preview_url: string;
       track_number: string;
-      type: string;
+      type: 'track';
       uri: string;
     }
 
     export interface TrackSimplifiedLinkedFrom {
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       href: string;
       id: string;
       type: 'track';
@@ -326,7 +300,7 @@ export namespace Spotify {
 
     export interface User {
       display_name: string | null;
-      external_urls: ExternalUrls;
+      external_urls: ExternalUrl;
       followers: Followers;
       href: string;
       id: string;
@@ -341,21 +315,11 @@ export namespace Spotify {
       '/authorize':
         | { code: string; state?: string }
         | { error: string; state?: string };
-
-      '/api/token': {
-        access_token: string;
-        expires_in: number;
-        refresh_token: string;
-        scope: string;
-        token_type: 'Bearer';
-      };
-
-      '/me': Spotify.Object.CurrentUser;
-      '/me/playlists': Spotify.Object.PaginatedPlaylists;
-
-      '/playlists/:id': Spotify.Object.Playlist;
-
-      '/recommendations': Spotify.Object.Recommendations;
+      '/api/token': Object.AuthorizationCodeCredentials;
+      '/me': Object.CurrentUser;
+      '/me/playlists': Object.PaginatedPlaylists;
+      '/playlists/:id': Object.Playlist;
+      '/recommendations': Object.Recommendations;
 
       '/recommendations/available-genre-seeds': {
         genres: string[];
