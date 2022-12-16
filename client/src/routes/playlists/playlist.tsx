@@ -16,6 +16,7 @@ import styles from './playlist.module.scss';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Get } from 'type-fest';
 import ReleaseDate from '../../components/ReleaseDate';
+import Duration from '../../components/Duration';
 
 type TrackEdge = NonNullable<Get<PlaylistQuery, 'playlist.tracks.edges[0]'>>;
 
@@ -89,8 +90,9 @@ const columns = [
       <DateTime date={info.getValue()} format={DateTime.FORMAT.timeAgo} />
     ),
   }),
-  columnHelper.accessor('__typename', {
+  columnHelper.accessor('node.durationMs', {
     header: () => <Clock size="1rem" />,
+    cell: (info) => <Duration durationMs={info.getValue()} />,
   }),
 ];
 
