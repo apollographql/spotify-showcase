@@ -59,6 +59,10 @@ const columns = [
   columnHelper.accessor('node.durationMs', {
     header: () => <Clock size="1rem" />,
     cell: (info) => <Duration durationMs={info.getValue()} />,
+    meta: {
+      shrink: true,
+      headerAlign: 'right',
+    },
   }),
 ];
 

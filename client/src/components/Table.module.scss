@@ -29,6 +29,10 @@
     &[data-shrink] {
       width: 1px;
     }
+
+    > svg {
+      display: inline-block;
+    }
   }
 
   th,
