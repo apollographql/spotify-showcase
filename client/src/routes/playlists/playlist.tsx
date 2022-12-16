@@ -24,6 +24,11 @@ const PLAYLIST_QUERY = gql`
         id
         displayName
       }
+      tracks {
+        pageInfo {
+          total
+        }
+      }
     }
   }
 `;
@@ -36,6 +41,7 @@ const Playlist = () => {
   );
 
   const playlist = data.playlist!;
+  const { tracks } = playlist;
   const images = playlist.images ?? [];
   const coverPhoto = images[0];
 
@@ -63,7 +69,10 @@ const Playlist = () => {
                 {playlist.owner.displayName}
               </Link>
             </Flex>
-            <span>1 Song</span>
+            <span>
+              {tracks.pageInfo.total}{' '}
+              {tracks.pageInfo.total === 1 ? 'song' : 'songs'}
+            </span>
           </Flex>
         </Flex>
       </Flex>

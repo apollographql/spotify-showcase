@@ -223,6 +223,13 @@ export type Playlist = {
   readonly uri: Scalars['String'];
 };
 
+
+/** Information about a playlist owned by a Spotify user */
+export type PlaylistTracksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
 /** A paged set of playlists */
 export type PlaylistConnection = {
   readonly __typename: 'PlaylistConnection';
@@ -523,4 +530,4 @@ export type PlaylistQueryVariables = Exact<{
 }>;
 
 
-export type PlaylistQuery = { readonly playlist: { readonly __typename: 'Playlist', readonly id: string, readonly name: string, readonly images: ReadonlyArray<{ readonly __typename: 'Image', readonly url: string }> | null, readonly owner: { readonly __typename: 'User', readonly id: string, readonly displayName: string | null } } | null };
+export type PlaylistQuery = { readonly playlist: { readonly __typename: 'Playlist', readonly id: string, readonly name: string, readonly images: ReadonlyArray<{ readonly __typename: 'Image', readonly url: string }> | null, readonly owner: { readonly __typename: 'User', readonly id: string, readonly displayName: string | null }, readonly tracks: { readonly __typename: 'PlaylistTrackConnection', readonly pageInfo: { readonly __typename: 'PageInfo', readonly total: number } } } | null };
