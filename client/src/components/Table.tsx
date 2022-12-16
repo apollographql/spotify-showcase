@@ -38,7 +38,12 @@ function Table<TData>({
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id}>
+              <th
+                key={header.id}
+                className={cx({
+                  [styles.shrink]: header.column.columnDef.meta?.shrink,
+                })}
+              >
                 {header.isPlaceholder
                   ? null
                   : flexRender(
