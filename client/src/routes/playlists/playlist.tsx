@@ -51,7 +51,7 @@ const Playlist = () => {
           src={coverPhoto?.url}
           fallback={<PlaceholderCoverPhoto icon={Music} />}
         />
-        <Flex direction="column">
+        <Flex direction="column" gap="0.5rem">
           <h2 className={styles.type}>Playlist</h2>
           <h1 className={styles.playlistName}>{playlist.name}</h1>
           <Flex className={styles.playlistInfo} alignItems="center">
