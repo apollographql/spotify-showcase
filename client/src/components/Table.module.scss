@@ -1,0 +1,26 @@
+.table {
+  border-collapse: collapse;
+  line-height: 1.25rem;
+  font-size: 0.875rem;
+  position: relative;
+  width: 100%;
+
+  th {
+    color: var(--text-color--muted);
+    font-size: 0.75rem;
+    font-weight: var(--font-weight--normal);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.5rem 0.5rem;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  }
+
+  th,
+  td {
+    text-align: left;
+  }
+
+  td {
+    padding: 0.75rem 0.5rem;
+  }
+}

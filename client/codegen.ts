@@ -14,7 +14,6 @@ const config: CodegenConfig = {
         },
         dedupeOperationSuffix: true,
         defaultScalarType: 'unknown',
-        immutableTypes: true,
         nonOptionalTypename: true,
         skipTypeNameForRoot: true,
         scalars: {
