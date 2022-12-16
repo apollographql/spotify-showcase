@@ -526,7 +526,7 @@ export type ResolversTypes = ResolversObject<{
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
-  PlaylistTrack: ResolverTypeWrapper<Spotify.Object.PlaylistItem>;
+  PlaylistTrack: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.Episode>;
   PlaylistTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>>;
   PlaylistTrackEdge: ResolverTypeWrapper<Spotify.Object.PlaylistTrack>;
   Query: ResolverTypeWrapper<{}>;
@@ -558,7 +558,7 @@ export type ResolversParentTypes = ResolversObject<{
   PageInfo: Spotify.Object.Paginated<unknown>;
   Playlist: Spotify.Object.Playlist;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
-  PlaylistTrack: Spotify.Object.PlaylistItem;
+  PlaylistTrack: Spotify.Object.Track | Spotify.Object.Episode;
   PlaylistTrackConnection: Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>;
   PlaylistTrackEdge: Spotify.Object.PlaylistTrack;
   Query: {};

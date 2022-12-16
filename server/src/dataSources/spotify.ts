@@ -20,6 +20,20 @@ export default class SpotifyAPI extends RESTDataSource {
     >('/recommendations/available-genre-seeds');
   }
 
+  async episode(id: string) {
+    return this.get<Spotify.Response.Path['/episodes/:id']>(`/episodes/${id}`);
+  }
+
+  async episodes(ids: string[]) {
+    if (ids.length === 0) {
+      return { episodes: [] };
+    }
+
+    return this.get<Spotify.Response.Path['/episodes']>('/episodes', {
+      params: { ids: ids.join(',') },
+    });
+  }
+
   recommendations(params: Spotify.Request.Params['/recommendations']) {
     return this.get<Spotify.Response.Path['/recommendations']>(
       'recommendations',

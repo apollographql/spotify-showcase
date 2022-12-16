@@ -403,6 +403,10 @@ export namespace Spotify {
         | { code: string; state?: string }
         | { error: string; state?: string };
       '/api/token': Object.AuthorizationCodeCredentials;
+      '/episodes': {
+        episodes: Object.Episode[];
+      };
+      '/episodes/:id': Object.Episode;
       '/me': Object.CurrentUser;
       '/me/playlists': Object.Paginated<Object.Playlist>;
       '/playlists/:id': Object.Playlist;

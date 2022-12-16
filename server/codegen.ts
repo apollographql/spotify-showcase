@@ -22,7 +22,7 @@ const config: CodegenConfig = {
           PlaylistConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
           PlaylistTrack:
-            '../dataSources/spotify.types#Spotify#Object.PlaylistItem',
+            '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.Episode',
           PlaylistTrackConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.PlaylistTrack>',
           PlaylistTrackEdge:
