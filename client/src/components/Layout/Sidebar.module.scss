@@ -29,7 +29,7 @@
 .sidebarDivider {
   height: 1px;
   width: 100%;
-  background: #282828;
+  background: var(--border--color--base);
   border: none;
   margin: 1rem 0;
 }
