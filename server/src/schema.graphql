@@ -44,7 +44,7 @@ type Artist {
   """
   Known external URLs for this artist.
   """
-  externalUrls: ExternalUrls!
+  externalUrls: ExternalUrl!
 
   """
   The name of the artist.
@@ -94,9 +94,71 @@ type Episode {
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
   """
   id: ID!
+
+  """
+  A URL to a 30 second preview (MP3 format) of the episode. `null` if not available.
+  """
+  audioPreviewUrl: String
+
+  "A description of the episode"
+  description(format: TextFormat = PLAIN): String!
+
+  "The episode length in milliseconds."
+  durationMs: Int!
+
+  """
+  Whether or not the episode has explicit content (`true` = yes it does;
+  `false` = no it does not OR unknown).
+  """
+  explicit: Boolean!
+
+  """
+  External URLs for this episode.
+  """
+  externalUrls: ExternalUrl!
+
+  "A link to the Web API endpoint providing full details of the episode."
+  href: String!
+
+  """
+  The cover art for the episode in various sizes, widest first.
+  """
+  images: [Image!]!
+
+  """
+  `true` if the episode is hosted outside of Spotify's CDN.
+  """
+  isExternallyHosted: Boolean!
+
+  """
+  `true` if the episode is playable in the given market. Otherwise `false`.
+  """
+  isPlayable: Boolean!
+
+  """
+  A list of the languages used in the episode, identified by their
+  [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
+  """
+  languages: [String!]!
+
+  """
+  The name of the episode.
+  """
+  name: String!
+
+  """
+  The date the episode was first released
+  """
+  releaseDate: ReleaseDate
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the episode.
+  """
+  uri: String!
 }
 
-type ExternalUrls {
+type ExternalUrl {
   """
   The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the object.
@@ -167,7 +229,7 @@ type Playlist {
   """
   Known external URLs for this playlist.
   """
-  externalUrls: ExternalUrls!
+  externalUrls: ExternalUrl!
 
   """
   Images for the playlist. The array may be empty or contain up to three images.
@@ -291,6 +353,30 @@ enum RecommendationSeedType {
   GENRE
 }
 
+type ReleaseDate {
+  """
+  The date the item was first released, for example `1981-12-15`. Depending on
+  the precision, it might be shown as `1981-12`, or `1981-12-15`.
+  """
+  date: String!
+
+  """
+  The precision with which the `date` value is known.
+  """
+  precision: ReleaseDatePrecision!
+}
+
+enum ReleaseDatePrecision {
+  YEAR
+  MONTH
+  DAY
+}
+
+enum TextFormat {
+  PLAIN
+  HTML
+}
+
 "Spotify catalog information for a track."
 type Track {
   """
@@ -321,7 +407,7 @@ type Track {
   externalIds: TrackExternalIds!
 
   "Known external URLs for this track."
-  externalUrls: ExternalUrls!
+  externalUrls: ExternalUrl!
 
   """
   A link to the Web API endpoint providing full details of the track.
@@ -413,7 +499,7 @@ type User {
   """
   Known public external URLs for this user.
   """
-  externalUrls: ExternalUrls!
+  externalUrls: ExternalUrl!
 
   """
   Information about the followers of this user.

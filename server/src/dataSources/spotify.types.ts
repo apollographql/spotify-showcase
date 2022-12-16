@@ -113,7 +113,7 @@ export namespace Spotify {
     }
 
     export interface Episode {
-      audio_preview_url: string;
+      audio_preview_url: string | null;
       description: string;
       duration_ms: number;
       explicit: boolean;
@@ -135,7 +135,7 @@ export namespace Spotify {
     }
 
     export interface EpisodeSimplified {
-      audio_preview_url: string;
+      audio_preview_url: string | null;
       description: string;
       duration_ms: number;
       explicit: boolean;
@@ -172,7 +172,7 @@ export namespace Spotify {
       weight: number | null;
     }
 
-    export interface Paginated<T = any> {
+    export interface Paginated<T> {
       items: T[];
       href: string;
       limit: number;
@@ -181,9 +181,6 @@ export namespace Spotify {
       previous: string | null;
       total: number;
     }
-
-    export type PaginatedPlaylists = Paginated<Playlist>;
-    export type PaginatedPlaylistTracks = Paginated<PlaylistTrack>;
 
     export interface Playlist {
       collaborative: boolean;
@@ -197,7 +194,7 @@ export namespace Spotify {
       primary_color: string | null;
       public: boolean | null;
       snapshot_id: string;
-      tracks: PaginatedPlaylistTracks;
+      tracks: Paginated<PlaylistTrack>;
       type: 'playlist';
       uri: string;
     }
@@ -407,7 +404,7 @@ export namespace Spotify {
         | { error: string; state?: string };
       '/api/token': Object.AuthorizationCodeCredentials;
       '/me': Object.CurrentUser;
-      '/me/playlists': Object.PaginatedPlaylists;
+      '/me/playlists': Object.Paginated<Object.Playlist>;
       '/playlists/:id': Object.Playlist;
       '/recommendations': Object.Recommendations;
 

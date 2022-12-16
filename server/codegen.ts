@@ -10,22 +10,28 @@ const config: CodegenConfig = {
         enumsAsTypes: true,
         useIndexSignature: true,
         mappers: {
+          Artist:
+            '../dataSources/spotify.types#Spotify#Object.Artist | Spotify.Object.ArtistSimplified',
           CurrentUser:
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
-          PageInfo: '../dataSources/spotify.types#Spotify#Object.Paginated',
+          Episode:
+            '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
+          PageInfo:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<any>',
           Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
           PlaylistConnection:
-            '../dataSources/spotify.types#Spotify#Object.PaginatedPlaylists',
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
           PlaylistTrack:
             '../dataSources/spotify.types#Spotify#Object.PlaylistItem',
           PlaylistTrackConnection:
-            '../dataSources/spotify.types#Spotify#Object.PaginatedPlaylistTracks',
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.PlaylistTrack>',
           PlaylistTrackEdge:
             '../dataSources/spotify.types#Spotify#Object.PlaylistTrack',
           Recommendations:
             '../dataSources/spotify.types#Spotify#Object.Recommendations',
-          Track: '../dataSources/spotify.types#Spotify#Object.Track',
-          User: '../dataSources/spotify.types#Spotify#Object.User',
+          Track:
+            '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
+          User: '../dataSources/spotify.types#Spotify#Object.User | Spotify.Object.UserSimplified',
         },
         scalars: {
           DateTime: 'Date',
