@@ -4,7 +4,7 @@
   justify-content: space-between;
   color: var(--text-color--base);
   background: transparent;
-  padding: 1rem 2rem;
+  padding: 1rem var(--main-content--padding);
   position: sticky;
   top: 0;
   height: var(--main-header--height);

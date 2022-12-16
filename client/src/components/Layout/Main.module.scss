@@ -1,5 +1,6 @@
 .main {
   --main-header--height: 80px;
+  --main-content--padding: 2rem;
 
   grid-area: main-view;
   display: flex;
@@ -11,6 +12,5 @@
 }
 
 .mainContent {
-  padding: 2rem;
   flex: 1;
 }

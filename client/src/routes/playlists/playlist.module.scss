@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.playlistHeader {
+  padding: var(--main-content--padding);
+}
+
 .playlistName {
   font-size: 6rem;
   line-height: 1;
@@ -22,10 +26,6 @@
   font-weight: bold;
 }
 
-.playlistPlayButton {
-  margin-top: 1.5rem;
-}
-
 .playlistImage {
   width: 250px;
   height: 250px;
@@ -42,6 +42,7 @@
   letter-spacing: 1px;
 }
 
-.playlistTable {
-  margin-top: 2rem;
+.tracks {
+  background: rgba(#000, 0.2);
+  padding: var(--main-content--padding);
 }

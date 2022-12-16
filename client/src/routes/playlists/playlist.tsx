@@ -8,7 +8,6 @@ import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
 import Flex from '../../components/Flex';
-import PlayButton from '../../components/PlayButton';
 import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
@@ -58,7 +57,12 @@ const Playlist = () => {
 
   return (
     <div className={styles.playlist}>
-      <Flex as="header" gap="2rem" alignItems="end">
+      <Flex
+        className={styles.playlistHeader}
+        as="header"
+        gap="2rem"
+        alignItems="end"
+      >
         <CoverPhoto
           className={styles.playlistImage}
           src={coverPhoto?.url}
@@ -83,17 +87,9 @@ const Playlist = () => {
           </Flex>
         </Flex>
       </Flex>
-      <div>
-        <div className={styles.playlistPlayButton}>
-          <PlayButton size="sm" playing={false} />
-        </div>
-      </div>
-      <div>
-        <PlaylistTable
-          className={styles.playlistTable}
-          playlistTrackEdges={playlist.tracks.edges}
-        />
-      </div>
+      <Flex className={styles.tracks} direction="column" gap="2rem">
+        <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
+      </Flex>
     </div>
   );
 };
