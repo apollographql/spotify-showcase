@@ -30,6 +30,13 @@ const columns = [
     id: 'type',
     header: '#',
     cell: (info) => {
+      const { meta } = info.table.options;
+      const { index } = info.row;
+
+      if (meta?.containsAllTracks) {
+        return index + 1;
+      }
+
       return info.getValue() === 'Episode' ? (
         <Podcast size="1rem" />
       ) : (
