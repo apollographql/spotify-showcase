@@ -1,0 +1,12 @@
+.trigger {
+  display: flex;
+  gap: 0.5rem;
+
+  &[data-state='open'] .chevron {
+    transform: rotate(180deg);
+  }
+}
+
+.chevron {
+  transition: transform 0.15s ease-out;
+}

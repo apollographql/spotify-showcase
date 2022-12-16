@@ -1,0 +1,17 @@
+.item {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+
+  &[data-highlighted] {
+    background: var(--background--surface--hover);
+    cursor: pointer;
+  }
+
+  &[data-disabled] {
+    color: var(--text-color--muted);
+    pointer-events: none;
+  }
+}
