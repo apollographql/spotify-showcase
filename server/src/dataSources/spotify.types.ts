@@ -410,6 +410,7 @@ export namespace Spotify {
       '/me': Object.CurrentUser;
       '/me/playlists': Object.Paginated<Object.Playlist>;
       '/playlists/:id': Object.Playlist;
+      '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
 
       '/recommendations/available-genre-seeds': {
@@ -427,6 +428,10 @@ export namespace Spotify {
         limit?: number;
       }>;
       '/me/playlists': InputParams<{
+        limit?: number;
+        offset?: number;
+      }>;
+      '/playlists/:id/tracks': InputParams<{
         limit?: number;
         offset?: number;
       }>;
