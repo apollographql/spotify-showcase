@@ -33,6 +33,7 @@ const config: CodegenConfig = {
           Recommendations:
             '../dataSources/spotify.types#Spotify#Object.Recommendations',
           ReleaseDate: './mappers#Releasable',
+          Show: '../dataSources/spotify.types#Spotify#Object.Show | Spotify.Object.ShowSimplified',
           Track:
             '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
           User: '../dataSources/spotify.types#Spotify#Object.User',

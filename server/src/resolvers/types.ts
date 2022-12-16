@@ -660,7 +660,7 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
-  Show: ResolverTypeWrapper<Show>;
+  Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextFormat: TextFormat;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
@@ -693,7 +693,7 @@ export type ResolversParentTypes = ResolversObject<{
   RecommendationSeedInput: RecommendationSeedInput;
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
-  Show: Show;
+  Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
   String: Scalars['String'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
