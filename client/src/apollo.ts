@@ -37,6 +37,13 @@ export default new ApolloClient({
       Image: {
         keyFields: ['url'],
       },
+      Query: {
+        fields: {
+          me: {
+            merge: true,
+          },
+        },
+      },
     },
   }),
 });
