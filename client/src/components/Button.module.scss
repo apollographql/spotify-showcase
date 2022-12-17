@@ -14,7 +14,8 @@
     outline: 0;
   }
 
-  &:hover {
+  &:hover,
+  &[aria-expanded='true'] {
     transform: scale(1.05);
   }
 }

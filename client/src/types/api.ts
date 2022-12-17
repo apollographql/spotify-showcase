@@ -563,6 +563,13 @@ export type User = {
   uri: Scalars['String'];
 };
 
+export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
+
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null, images: Array<{ __typename: 'Image', url: string }> | null } } | null };
+
 export type SidebarPlaylistsQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
   limit: Scalars['Int'];

@@ -1,6 +1,8 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Button from '../Button';
+import CurrentUserMenu from '../CurrentUserMenu';
+import DropdownMenu from '../DropdownMenu';
 import useNavigationStack from '../../hooks/useNavigationStack';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';
@@ -25,15 +27,11 @@ const Header = () => {
           <ChevronRight size={20} />
         </NavButton>
       </Flex>
-      <Flex gap="1rem">
-        {!isLoggedIn && (
-          <Button
-            as="a"
-            className={styles.loginButton}
-            size="sm"
-            variant="primary"
-            href={LOGIN_URL}
-          >
+      <Flex gap="1rem" className={styles.clickable}>
+        {isLoggedIn ? (
+          <CurrentUserMenu />
+        ) : (
+          <Button as="a" size="sm" variant="primary" href={LOGIN_URL}>
             Log in
           </Button>
         )}
