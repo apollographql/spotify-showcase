@@ -2,7 +2,6 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Button from '../Button';
 import CurrentUserMenu from '../CurrentUserMenu';
-import DropdownMenu from '../DropdownMenu';
 import useNavigationStack from '../../hooks/useNavigationStack';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';

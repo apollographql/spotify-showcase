@@ -18,6 +18,8 @@
 
   pointer-events: auto;
   display: flex;
+  // TODO: Get these to work. Need to fix logic in useNavigationStack.
+  display: none;
   align-items: center;
   justify-content: center;
   cursor: pointer;
