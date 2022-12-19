@@ -7,6 +7,7 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import { json } from 'body-parser';
+import defaultResolver from './resolvers/default';
 
 import schema from './schema.graphql';
 import resolvers from './resolvers';
@@ -21,6 +22,7 @@ const server = new ApolloServer<ContextValue>({
   typeDefs: schema,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  fieldResolver: defaultResolver,
 });
 
 app.use(routes);
@@ -35,6 +37,9 @@ server.start().then(async () => {
         const { cache } = server;
 
         return {
+          fieldConfig: {
+            timeout: 0,
+          },
           dataSources: {
             spotify: new SpotifyAPI({
               cache,
