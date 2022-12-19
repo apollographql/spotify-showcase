@@ -9,6 +9,7 @@ const config: CodegenConfig = {
         defaultScalarType: 'unknown',
         enumsAsTypes: true,
         useIndexSignature: true,
+        makeResolverTypeCallable: true,
         mappers: {
           Album:
             '../dataSources/spotify.types#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
