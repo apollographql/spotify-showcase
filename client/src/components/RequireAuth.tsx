@@ -13,7 +13,7 @@ const RequireAuth = ({ children }: RequireAuthProps) => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate('/login', { replace: true, state: { from: location } });
+      navigate('/', { replace: true, state: { from: location } });
     }
   }, [isLoggedIn, navigate, location]);
 
