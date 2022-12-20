@@ -37,9 +37,6 @@ server.start().then(async () => {
         const { cache } = server;
 
         return {
-          fieldConfig: {
-            timeout: 0,
-          },
           dataSources: {
             spotify: new SpotifyAPI({
               cache,
