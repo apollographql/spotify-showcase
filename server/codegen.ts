@@ -50,6 +50,7 @@ const config: CodegenConfig = {
         },
         scalars: {
           DateTime: 'Date',
+          ErrorRate: 'number',
         },
       },
       plugins: [

@@ -1,4 +1,5 @@
 scalar DateTime
+scalar ErrorRate
 
 type Query {
   """
@@ -79,7 +80,7 @@ type FieldConfig {
   """
   The synthetic error rate configured for the field.
   """
-  errorRate: Float!
+  errorRate: ErrorRate!
 }
 
 type SchemaField {
@@ -130,7 +131,7 @@ input FieldConfigInput {
   value back to its default. Omit this field to maintain its value. Defaults to
   `0`.
   """
-  errorRate: Float
+  errorRate: ErrorRate
 }
 
 input SchemaFieldInput {

@@ -18,6 +18,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: Date;
+  ErrorRate: number;
 };
 
 /** Spotify catalog information for an album. */
@@ -160,7 +161,7 @@ export type ExternalUrl = {
 export type FieldConfig = {
   __typename?: 'FieldConfig';
   /** The synthetic error rate configured for the field. */
-  errorRate: Scalars['Float'];
+  errorRate: Scalars['ErrorRate'];
   /** The schema field that includes this config */
   schemaField: SchemaField;
   /** The synthetic timeout configured for the field. */
@@ -175,7 +176,7 @@ export type FieldConfigInput = {
    * value back to its default. Omit this field to maintain its value. Defaults to
    * `0`.
    */
-  errorRate?: InputMaybe<Scalars['Float']>;
+  errorRate?: InputMaybe<Scalars['ErrorRate']>;
   /**
    * The synthetic timeout configured for a field. Set to `null` to reset the value
    * back to its default. Omit this field to maintain its value. Defaults to `0`.
@@ -726,11 +727,11 @@ export type ResolversTypes = ResolversObject<{
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
+  ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   FieldConfig: ResolverTypeWrapper<FieldConfigType>;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
   Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
@@ -770,11 +771,11 @@ export type ResolversParentTypes = ResolversObject<{
   CurrentUser: Spotify.Object.CurrentUser;
   DateTime: Scalars['DateTime'];
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
+  ErrorRate: Scalars['ErrorRate'];
   ExternalUrl: ExternalUrl;
   FieldConfig: FieldConfigType;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
-  Float: Scalars['Float'];
   Followers: Followers;
   ID: Scalars['ID'];
   Image: Image;
@@ -857,13 +858,17 @@ export type EpisodeResolvers<ContextType = ContextValue, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export interface ErrorRateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ErrorRate'], any> {
+  name: 'ErrorRate';
+}
+
 export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl']> = ResolversObject<{
   spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type FieldConfigResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FieldConfig'] = ResolversParentTypes['FieldConfig']> = ResolversObject<{
-  errorRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  errorRate?: Resolver<ResolversTypes['ErrorRate'], ParentType, ContextType>;
   schemaField?: Resolver<ResolversTypes['SchemaField'], ParentType, ContextType>;
   timeout?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1050,6 +1055,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   CurrentUser?: CurrentUserResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Episode?: EpisodeResolvers<ContextType>;
+  ErrorRate?: GraphQLScalarType;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
   FieldConfig?: FieldConfigResolvers<ContextType>;
   Followers?: FollowersResolvers<ContextType>;
