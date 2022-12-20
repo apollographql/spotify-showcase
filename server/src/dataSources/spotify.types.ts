@@ -161,6 +161,11 @@ export namespace Spotify {
       spotify: string;
     }
 
+    export interface FeaturedPlaylists {
+      message: string;
+      playlists: Paginated<PlaylistSimplified>;
+    }
+
     export interface Followers {
       href: string | null;
       total: number;
@@ -197,6 +202,28 @@ export namespace Spotify {
       tracks: Paginated<PlaylistTrack>;
       type: 'playlist';
       uri: string;
+    }
+
+    export interface PlaylistSimplified {
+      collaborative: boolean;
+      description: string | null;
+      external_urls: ExternalUrl;
+      href: string;
+      id: string;
+      images: Image[];
+      name: string;
+      owner: User;
+      primary_color: string | null;
+      public: boolean | null;
+      snapshot_id: string;
+      tracks: PlaylistTracksInformation;
+      type: 'playlist';
+      uri: string;
+    }
+
+    export interface PlaylistTracksInformation {
+      href: string;
+      total: number;
     }
 
     export type PlaylistItem = Track | PlaylistEpisode;
@@ -403,6 +430,7 @@ export namespace Spotify {
         | { code: string; state?: string }
         | { error: string; state?: string };
       '/api/token': Object.AuthorizationCodeCredentials;
+      '/browse/featured-playlists': Object.FeaturedPlaylists;
       '/episodes': {
         episodes: Object.Episode[];
       };
@@ -421,6 +449,10 @@ export namespace Spotify {
 
   export namespace Request {
     export interface Params {
+      '/browse/featured-playlists': InputParams<{
+        limit?: number;
+        offset?: number;
+      }>;
       '/recommendations': InputParams<{
         seed_artists?: string;
         seed_genres?: string;

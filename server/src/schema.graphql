@@ -30,6 +30,24 @@ type Query {
   A playlist owned by a Spotify user.
   """
   playlist(id: ID!): Playlist
+
+  """
+  A list of Spotify featured playlists (shown, for example, on a Spotify
+  player's 'Browse' tab).
+  """
+  featuredPlaylists(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first playlist to return. Default: 0 (the first object).
+
+    Use with `limit` to get the next set of playlists.
+    """
+    offset: Int
+  ): FeaturedPlaylistConnection
 }
 
 type Mutation {
@@ -348,6 +366,22 @@ type ExternalUrl {
   for the object.
   """
   spotify: String
+}
+
+type FeaturedPlaylistConnection {
+  message: String!
+  """
+  A list of Spotify featured playlists (shown, for example, on a Spotify player's
+  'Browse' tab).
+  """
+  edges: [FeaturedPlaylistEdge!]!
+
+  "Pagination information for the set of playlists"
+  pageInfo: PageInfo!
+}
+
+type FeaturedPlaylistEdge {
+  node: Playlist!
 }
 
 type Followers {

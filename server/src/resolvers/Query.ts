@@ -1,6 +1,9 @@
 import { QueryResolvers } from './types';
 
 const resolvers: QueryResolvers = {
+  featuredPlaylists: (_, args, { dataSources }) => {
+    return dataSources.spotify.featuredPlaylists(args);
+  },
   genres: async (_, __, { dataSources }) => {
     const { genres } = await dataSources.spotify.genres();
 

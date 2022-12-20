@@ -51,6 +51,15 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  featuredPlaylists(
+    params: Spotify.Request.Params['/browse/featured-playlists']
+  ) {
+    return this.get<Spotify.Response.Path['/browse/featured-playlists']>(
+      '/browse/featured-playlists',
+      { params: this.normalizeParams(params) }
+    );
+  }
+
   playlist(id: string, params?: Spotify.Request.Params['/playlists/:id']) {
     return this.get<Spotify.Response.Path['/playlists/:id']>(
       `/playlists/${id}`,

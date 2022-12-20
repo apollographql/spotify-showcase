@@ -158,6 +158,23 @@ export type ExternalUrl = {
   spotify?: Maybe<Scalars['String']>;
 };
 
+export type FeaturedPlaylistConnection = {
+  __typename?: 'FeaturedPlaylistConnection';
+  /**
+   * A list of Spotify featured playlists (shown, for example, on a Spotify player's
+   * 'Browse' tab).
+   */
+  edges: Array<FeaturedPlaylistEdge>;
+  message: Scalars['String'];
+  /** Pagination information for the set of playlists */
+  pageInfo: PageInfo;
+};
+
+export type FeaturedPlaylistEdge = {
+  __typename?: 'FeaturedPlaylistEdge';
+  node: Playlist;
+};
+
 export type FieldConfig = {
   __typename?: 'FieldConfig';
   /** The synthetic error rate configured for the field. */
@@ -354,6 +371,11 @@ export type PlaylistTrackEdge = {
 export type Query = {
   __typename?: 'Query';
   /**
+   * A list of Spotify featured playlists (shown, for example, on a Spotify
+   * player's 'Browse' tab).
+   */
+  featuredPlaylists?: Maybe<FeaturedPlaylistConnection>;
+  /**
    * A list of available genres seed parameter values for
    * [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
    */
@@ -374,6 +396,12 @@ export type Query = {
    * data to generate a list of tracks.
    */
   recommendations?: Maybe<Recommendations>;
+};
+
+
+export type QueryFeaturedPlaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -729,6 +757,8 @@ export type ResolversTypes = ResolversObject<{
   Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
   ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
+  FeaturedPlaylistConnection: ResolverTypeWrapper<Spotify.Object.FeaturedPlaylists>;
+  FeaturedPlaylistEdge: ResolverTypeWrapper<Spotify.Object.PlaylistSimplified>;
   FieldConfig: ResolverTypeWrapper<FieldConfigType>;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
@@ -738,7 +768,7 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
-  Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
+  Playlist: ResolverTypeWrapper<Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
   PlaylistEdge: ResolverTypeWrapper<Spotify.Object.Playlist>;
   PlaylistTrack: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.Episode>;
@@ -773,6 +803,8 @@ export type ResolversParentTypes = ResolversObject<{
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
   ErrorRate: Scalars['ErrorRate'];
   ExternalUrl: ExternalUrl;
+  FeaturedPlaylistConnection: Spotify.Object.FeaturedPlaylists;
+  FeaturedPlaylistEdge: Spotify.Object.PlaylistSimplified;
   FieldConfig: FieldConfigType;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
@@ -782,7 +814,7 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   Mutation: {};
   PageInfo: Spotify.Object.Paginated<unknown>;
-  Playlist: Spotify.Object.Playlist;
+  Playlist: Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
   PlaylistEdge: Spotify.Object.Playlist;
   PlaylistTrack: Spotify.Object.Track | Spotify.Object.Episode;
@@ -864,6 +896,18 @@ export interface ErrorRateScalarConfig extends GraphQLScalarTypeConfig<Resolvers
 
 export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl']> = ResolversObject<{
   spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type FeaturedPlaylistConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FeaturedPlaylistConnection'] = ResolversParentTypes['FeaturedPlaylistConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['FeaturedPlaylistEdge']>, ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type FeaturedPlaylistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FeaturedPlaylistEdge'] = ResolversParentTypes['FeaturedPlaylistEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -949,6 +993,7 @@ export type PlaylistTrackEdgeResolvers<ContextType = ContextValue, ParentType ex
 }>;
 
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  featuredPlaylists?: Resolver<Maybe<ResolversTypes['FeaturedPlaylistConnection']>, ParentType, ContextType, Partial<QueryFeaturedPlaylistsArgs>>;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;
   playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<QueryPlaylistArgs, 'id'>>;
@@ -1057,6 +1102,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Episode?: EpisodeResolvers<ContextType>;
   ErrorRate?: GraphQLScalarType;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
+  FeaturedPlaylistConnection?: FeaturedPlaylistConnectionResolvers<ContextType>;
+  FeaturedPlaylistEdge?: FeaturedPlaylistEdgeResolvers<ContextType>;
   FieldConfig?: FieldConfigResolvers<ContextType>;
   Followers?: FollowersResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;

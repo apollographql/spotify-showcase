@@ -19,11 +19,16 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
           Episode:
             '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
+          FeaturedPlaylistConnection:
+            '../dataSources/spotify.types#Spotify#Object.FeaturedPlaylists',
+          FeaturedPlaylistEdge:
+            '../dataSources/spotify.types#Spotify#Object.PlaylistSimplified',
           FieldConfig:
             '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
           PageInfo:
             '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
-          Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
+          Playlist:
+            '../dataSources/spotify.types#Spotify#Object.Playlist | Spotify.Object.PlaylistSimplified',
           PlaylistEdge: '../dataSources/spotify.types#Spotify#Object.Playlist',
           PlaylistConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
