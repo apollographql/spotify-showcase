@@ -1,12 +1,14 @@
 import { ContextValue } from '../types';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Spotify } from '../dataSources/spotify.types';
+import { FieldConfig as FieldConfigType } from '../fieldConfigs/fieldConfig';
 import { Releasable } from './mappers';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -155,6 +157,43 @@ export type ExternalUrl = {
   spotify?: Maybe<Scalars['String']>;
 };
 
+export type FieldConfig = {
+  __typename?: 'FieldConfig';
+  /** The synthetic error rate configured for the field. */
+  errorRate: Scalars['Float'];
+  /** The schema field that includes this config */
+  schemaField: SchemaField;
+  /** The synthetic timeout configured for the field. */
+  timeout: Scalars['Int'];
+};
+
+export type FieldConfigInput = {
+  /**
+   * The synthetic error rate configured for a field. This should be a value
+   * between `0` and `1` where `0` means no synthetic errors should be thrown and
+   * `1` means errors should be thrown 100% of the time. Set to `null` to reset the
+   * value back to its default. Omit this field to maintain its value. Defaults to
+   * `0`.
+   */
+  errorRate?: InputMaybe<Scalars['Float']>;
+  /**
+   * The synthetic timeout configured for a field. Set to `null` to reset the value
+   * back to its default. Omit this field to maintain its value. Defaults to `0`.
+   */
+  timeout?: InputMaybe<Scalars['Int']>;
+};
+
+export type FieldInput = {
+  /**
+   * Configure a field by its type in the schema. This will apply the config to all
+   * fields of the given type regardless of where it is queried in the scheam.
+   *
+   * One of `path` or `schema` is required. If both are provided, `schema` will
+   * take precendence as it has broader impact.
+   */
+  schema?: InputMaybe<SchemaFieldInput>;
+};
+
 export type Followers = {
   __typename?: 'Followers';
   /** The total number of followers. */
@@ -169,6 +208,29 @@ export type Image = {
   url: Scalars['String'];
   /** The image width in pixels. */
   width?: Maybe<Scalars['Int']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  /** Reset a field's config back to its default values. */
+  resetFieldConfig?: Maybe<ResetFieldConfigResponse>;
+  /**
+   * Update configuration for a field in the schema. Allows tweaks to the
+   * synthetic timeouts and error rates associated with the field. By default, both
+   * the timeout and error rate are set to 0.
+   */
+  updateFieldConfig?: Maybe<UpdateFieldConfigResponse>;
+};
+
+
+export type MutationResetFieldConfigArgs = {
+  field: FieldInput;
+};
+
+
+export type MutationUpdateFieldConfigArgs = {
+  config: FieldConfigInput;
+  field: FieldInput;
 };
 
 export type PageInfo = {
@@ -419,6 +481,27 @@ export type ReleaseDatePrecision =
   | 'month'
   | 'year';
 
+export type ResetFieldConfigResponse = {
+  __typename?: 'ResetFieldConfigResponse';
+  /** The updated field config */
+  fieldConfig?: Maybe<FieldConfig>;
+};
+
+export type SchemaField = {
+  __typename?: 'SchemaField';
+  /** The name of the field in the type (ex: `firstName`) */
+  fieldName: Scalars['String'];
+  /** The parent type name in the schema (ex: `User`) */
+  typename: Scalars['String'];
+};
+
+export type SchemaFieldInput = {
+  /** The name of the field in the type (ex: `firstName`) */
+  fieldName: Scalars['String'];
+  /** The parent type name in the schema (ex: `User`) */
+  typename: Scalars['String'];
+};
+
 /** Spotify catalog information for a show. */
 export type Show = {
   __typename?: 'Show';
@@ -542,6 +625,12 @@ export type TrackExternalIds = {
   upc?: Maybe<Scalars['String']>;
 };
 
+export type UpdateFieldConfigResponse = {
+  __typename?: 'UpdateFieldConfigResponse';
+  /** The updated field config */
+  fieldConfig?: Maybe<FieldConfig>;
+};
+
 /** Public profile information about a Spotify user. */
 export type User = {
   __typename?: 'User';
@@ -638,10 +727,15 @@ export type ResolversTypes = ResolversObject<{
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
+  FieldConfig: ResolverTypeWrapper<FieldConfigType>;
+  FieldConfigInput: FieldConfigInput;
+  FieldInput: FieldInput;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
@@ -656,11 +750,15 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
+  ResetFieldConfigResponse: ResolverTypeWrapper<Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  SchemaField: ResolverTypeWrapper<SchemaField>;
+  SchemaFieldInput: SchemaFieldInput;
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextFormat: TextFormat;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
+  UpdateFieldConfigResponse: ResolverTypeWrapper<Omit<UpdateFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
   User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
@@ -673,10 +771,15 @@ export type ResolversParentTypes = ResolversObject<{
   DateTime: Scalars['DateTime'];
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
   ExternalUrl: ExternalUrl;
+  FieldConfig: FieldConfigType;
+  FieldConfigInput: FieldConfigInput;
+  FieldInput: FieldInput;
+  Float: Scalars['Float'];
   Followers: Followers;
   ID: Scalars['ID'];
   Image: Image;
   Int: Scalars['Int'];
+  Mutation: {};
   PageInfo: Spotify.Object.Paginated<unknown>;
   Playlist: Spotify.Object.Playlist;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
@@ -689,10 +792,14 @@ export type ResolversParentTypes = ResolversObject<{
   RecommendationSeedInput: RecommendationSeedInput;
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
+  ResetFieldConfigResponse: Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  SchemaField: SchemaField;
+  SchemaFieldInput: SchemaFieldInput;
   Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
   String: Scalars['String'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
+  UpdateFieldConfigResponse: Omit<UpdateFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
   User: Spotify.Object.User;
 }>;
 
@@ -755,6 +862,13 @@ export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type FieldConfigResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FieldConfig'] = ResolversParentTypes['FieldConfig']> = ResolversObject<{
+  errorRate?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  schemaField?: Resolver<ResolversTypes['SchemaField'], ParentType, ContextType>;
+  timeout?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type FollowersResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Followers'] = ResolversParentTypes['Followers']> = ResolversObject<{
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -765,6 +879,11 @@ export type ImageResolvers<ContextType = ContextValue, ParentType extends Resolv
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type MutationResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
+  updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'config' | 'field'>>;
 }>;
 
 export type PageInfoResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
@@ -855,6 +974,17 @@ export type ReleaseDateResolvers<ContextType = ContextValue, ParentType extends 
 
 export type ReleaseDatePrecisionResolvers = { DAY: 'day', MONTH: 'month', YEAR: 'year' };
 
+export type ResetFieldConfigResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResetFieldConfigResponse'] = ResolversParentTypes['ResetFieldConfigResponse']> = ResolversObject<{
+  fieldConfig?: Resolver<Maybe<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SchemaFieldResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SchemaField'] = ResolversParentTypes['SchemaField']> = ResolversObject<{
+  fieldName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  typename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -898,6 +1028,11 @@ export type TrackExternalIdsResolvers<ContextType = ContextValue, ParentType ext
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UpdateFieldConfigResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UpdateFieldConfigResponse'] = ResolversParentTypes['UpdateFieldConfigResponse']> = ResolversObject<{
+  fieldConfig?: Resolver<Maybe<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type UserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
   displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
@@ -916,8 +1051,10 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   DateTime?: GraphQLScalarType;
   Episode?: EpisodeResolvers<ContextType>;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
+  FieldConfig?: FieldConfigResolvers<ContextType>;
   Followers?: FollowersResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   PlaylistConnection?: PlaylistConnectionResolvers<ContextType>;
@@ -930,9 +1067,12 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Recommendations?: RecommendationsResolvers<ContextType>;
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
   ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
+  ResetFieldConfigResponse?: ResetFieldConfigResponseResolvers<ContextType>;
+  SchemaField?: SchemaFieldResolvers<ContextType>;
   Show?: ShowResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
+  UpdateFieldConfigResponse?: UpdateFieldConfigResponseResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
 

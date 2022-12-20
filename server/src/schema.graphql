@@ -31,6 +31,120 @@ type Query {
   playlist(id: ID!): Playlist
 }
 
+type Mutation {
+  """
+  Update configuration for a field in the schema. Allows tweaks to the
+  synthetic timeouts and error rates associated with the field. By default, both
+  the timeout and error rate are set to 0.
+  """
+  updateFieldConfig(
+    config: FieldConfigInput!
+    field: FieldInput!
+  ): UpdateFieldConfigResponse
+
+  """
+  Reset a field's config back to its default values.
+  """
+  resetFieldConfig(field: FieldInput!): ResetFieldConfigResponse
+}
+
+type UpdateFieldConfigResponse {
+  """
+  The updated field config
+  """
+  fieldConfig: FieldConfig
+}
+
+type ResetFieldConfigResponse {
+  """
+  The updated field config
+  """
+  fieldConfig: FieldConfig
+}
+
+type FieldConfig {
+  # TODO: Add support for paths
+  # paths: [[String!]!]
+
+  """
+  The schema field that includes this config
+  """
+  schemaField: SchemaField!
+
+  """
+  The synthetic timeout configured for the field.
+  """
+  timeout: Int!
+
+  """
+  The synthetic error rate configured for the field.
+  """
+  errorRate: Float!
+}
+
+type SchemaField {
+  """
+  The parent type name in the schema (ex: `User`)
+  """
+  typename: String!
+
+  """
+  The name of the field in the type (ex: `firstName`)
+  """
+  fieldName: String!
+}
+
+input FieldInput {
+  # """
+  # Configure a field by its path in a query. This allows a specific point in a
+  # query to behave a particular way rather than all fields of a particular type.
+  # This should be an array of strings.
+  #
+  # One of `path` or `schema` is required. If both are provided, `schema` will
+  # take precendence as it has broader impact.
+  # """
+  # TODO: Add support for paths
+  # path: [String!]
+
+  """
+  Configure a field by its type in the schema. This will apply the config to all
+  fields of the given type regardless of where it is queried in the scheam.
+
+  One of `path` or `schema` is required. If both are provided, `schema` will
+  take precendence as it has broader impact.
+  """
+  schema: SchemaFieldInput
+}
+
+input FieldConfigInput {
+  """
+  The synthetic timeout configured for a field. Set to `null` to reset the value
+  back to its default. Omit this field to maintain its value. Defaults to `0`.
+  """
+  timeout: Int
+
+  """
+  The synthetic error rate configured for a field. This should be a value
+  between `0` and `1` where `0` means no synthetic errors should be thrown and
+  `1` means errors should be thrown 100% of the time. Set to `null` to reset the
+  value back to its default. Omit this field to maintain its value. Defaults to
+  `0`.
+  """
+  errorRate: Float
+}
+
+input SchemaFieldInput {
+  """
+  The parent type name in the schema (ex: `User`)
+  """
+  typename: String!
+
+  """
+  The name of the field in the type (ex: `firstName`)
+  """
+  fieldName: String!
+}
+
 "Spotify catalog information for an album."
 type Album {
   "The type of the album."

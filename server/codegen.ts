@@ -19,6 +19,8 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
           Episode:
             '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
+          FieldConfig:
+            '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
           PageInfo:
             '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
           Playlist: '../dataSources/spotify.types#Spotify#Object.Playlist',
