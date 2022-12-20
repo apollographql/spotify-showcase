@@ -47,6 +47,14 @@ type Query {
     Use with `limit` to get the next set of playlists.
     """
     offset: Int
+
+    """
+    Specify the local time to get results tailored for that specific date and
+    time in the day. If not provided, the response defaults to the current UTC
+    time. If there were no featured playlists (or there is no data) at the
+    specified time, the response will revert to the current UTC time.
+    """
+    timestamp: DateTime
   ): FeaturedPlaylistConnection
 }
 

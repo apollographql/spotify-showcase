@@ -396,6 +396,7 @@ export type Query = {
 export type QueryfeaturedPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+  timestamp?: InputMaybe<Scalars['DateTime']>;
 };
 
 
@@ -704,7 +705,9 @@ type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string,
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
-export type IndexRouteQueryVariables = Exact<{ [key: string]: never; }>;
+export type IndexRouteQueryVariables = Exact<{
+  timestamp?: InputMaybe<Scalars['DateTime']>;
+}>;
 
 
 export type IndexRouteQuery = { featuredPlaylists: { __typename: 'FeaturedPlaylistConnection', message: string, edges: Array<{ __typename: 'FeaturedPlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };

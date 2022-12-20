@@ -402,6 +402,7 @@ export type Query = {
 export type QueryFeaturedPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+  timestamp?: InputMaybe<Scalars['DateTime']>;
 };
 
 

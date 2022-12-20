@@ -452,6 +452,7 @@ export namespace Spotify {
       '/browse/featured-playlists': InputParams<{
         limit?: number;
         offset?: number;
+        timestamp?: string;
       }>;
       '/recommendations': InputParams<{
         seed_artists?: string;

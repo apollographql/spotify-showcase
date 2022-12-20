@@ -11,6 +11,7 @@ import styles from './index.module.scss';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { LOGIN_URL } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
+import { startOfHour } from 'date-fns';
 
 const Index = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -19,8 +20,8 @@ const Index = () => {
 };
 
 const INDEX_ROUTE_QUERY = gql`
-  query IndexRouteQuery {
-    featuredPlaylists {
+  query IndexRouteQuery($timestamp: DateTime) {
+    featuredPlaylists(timestamp: $timestamp) {
       message
       edges {
         node {
@@ -37,8 +38,13 @@ const INDEX_ROUTE_QUERY = gql`
 const LoggedIn = () => {
   useSetBackgroundColor('#1A101C');
 
+  // Use startOfHour to prevent infinite loop with a brand new date each time
+  // this component unsuspends
+  const timestamp = startOfHour(new Date()).toISOString();
+
   const { data } = useSuspenseQuery<IndexRouteQuery, IndexRouteQueryVariables>(
-    INDEX_ROUTE_QUERY
+    INDEX_ROUTE_QUERY,
+    { variables: { timestamp } }
   );
 
   return (

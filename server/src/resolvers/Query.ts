@@ -1,8 +1,13 @@
 import { QueryResolvers } from './types';
+import { format } from 'date-fns';
 
 const resolvers: QueryResolvers = {
-  featuredPlaylists: (_, args, { dataSources }) => {
-    return dataSources.spotify.featuredPlaylists(args);
+  featuredPlaylists: (_, { limit, offset, timestamp }, { dataSources }) => {
+    return dataSources.spotify.featuredPlaylists({
+      limit,
+      offset,
+      timestamp: timestamp ? format(timestamp, "yyyy-LL-dd'T'HH:mm:ss") : null,
+    });
   },
   genres: async (_, __, { dataSources }) => {
     const { genres } = await dataSources.spotify.genres();
