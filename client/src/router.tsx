@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
-import Index from './routes/index';
+import Index, { LoadingState as IndexLoadingState } from './routes/index';
 import Root from './routes/root';
 import Playlist, {
   Loading as PlaylistLoading,
@@ -48,7 +48,14 @@ const router = createBrowserRouter([
     ),
     errorElement: <RootErrorBoundary />,
     children: [
-      { index: true, element: <Index /> },
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<IndexLoadingState />}>
+            <Index />
+          </Suspense>
+        ),
+      },
       {
         loader: () => {
           const isLoggedIn = isLoggedInVar();

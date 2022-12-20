@@ -41,7 +41,7 @@
   height: 1em;
   width: var(--skeleton--heading--width, 100%);
 
-  .heading1 {
+  &.heading1 {
     --skeleton--heading--font-size: 3rem;
   }
 }

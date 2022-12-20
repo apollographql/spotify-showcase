@@ -12,6 +12,8 @@ import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { LOGIN_URL } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
+import Flex from '../components/Flex';
+import Skeleton from '../components/Skeleton';
 
 const Index = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -133,6 +135,15 @@ const LoggedOut = () => {
         You are ready to go! <a href={LOGIN_URL}>Log in</a> to use the app.
       </p>
     </div>
+  );
+};
+
+export const LoadingState = () => {
+  return (
+    <Flex className={styles.container} direction="column" gap="2rem">
+      <Skeleton.Heading level={1} width="20%" />
+      <Skeleton.CoverPhoto size="120px" />
+    </Flex>
   );
 };
 
