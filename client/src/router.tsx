@@ -1,12 +1,12 @@
-import { Outlet, createBrowserRouter, redirect } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Index from './routes/index';
 import Root from './routes/root';
 import Playlist from './routes/playlists/playlist';
 import { logout, login } from './auth';
+import { isLoggedInVar } from './vars';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
-import RequireAuth from './components/RequireAuth';
 
 import { LOGIN_URL } from './constants';
 
@@ -42,11 +42,13 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       {
-        element: (
-          <RequireAuth>
-            <Outlet />
-          </RequireAuth>
-        ),
+        loader: () => {
+          const isLoggedIn = isLoggedInVar();
+
+          if (!isLoggedIn) {
+            return redirect('/');
+          }
+        },
         children: [
           {
             path: '/playlists/:playlistId',
