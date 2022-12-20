@@ -366,6 +366,8 @@ export type Query = {
   __typename: 'Query';
   /** Spotify catalog information for an album. */
   album: Maybe<Album>;
+  /** Spotify catalog information for an artist. */
+  artist: Maybe<Artist>;
   /**
    * A list of Spotify featured playlists (shown, for example, on a Spotify
    * player's 'Browse' tab).
@@ -396,6 +398,11 @@ export type Query = {
 
 
 export type QueryalbumArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryartistArgs = {
   id: Scalars['ID'];
 };
 

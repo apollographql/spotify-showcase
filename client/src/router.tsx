@@ -6,6 +6,9 @@ import Root from './routes/root';
 import Artist, {
   LoadingState as ArtistLoadingState,
 } from './routes/artists/artist';
+import Album, {
+  LoadingState as AlbumLoadingState,
+} from './routes/albums/album';
 import Playlist, {
   Loading as PlaylistLoading,
 } from './routes/playlists/playlist';
@@ -72,6 +75,14 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/albums/:albumId',
+            element: (
+              <Suspense fallback={<AlbumLoadingState />}>
+                <Album />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/artists/:artistId',
             element: (
               <Suspense fallback={<ArtistLoadingState />}>
                 <Artist />
