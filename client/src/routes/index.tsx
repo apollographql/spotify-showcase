@@ -4,10 +4,13 @@ import {
 } from '@apollo/client';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
+import PlaylistTile from '../components/PlaylistTile';
+import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { LOGIN_URL } from '../constants';
+import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 
 const Index = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -19,11 +22,21 @@ const INDEX_ROUTE_QUERY = gql`
   query IndexRouteQuery {
     featuredPlaylists {
       message
+      edges {
+        node {
+          id
+          ...PlaylistTile_playlist
+        }
+      }
     }
   }
+
+  ${PlaylistTile.fragments.playlist}
 `;
 
 const LoggedIn = () => {
+  useSetBackgroundColor('#1A101C');
+
   const { data } = useSuspenseQuery<IndexRouteQuery, IndexRouteQueryVariables>(
     INDEX_ROUTE_QUERY
   );
@@ -31,6 +44,11 @@ const LoggedIn = () => {
   return (
     <div className={styles.container}>
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
+      <TileGrid minTileWidth="180px">
+        {data.featuredPlaylists?.edges.map(({ node }) => (
+          <PlaylistTile key={node.id} playlist={node} />
+        ))}
+      </TileGrid>
     </div>
   );
 };

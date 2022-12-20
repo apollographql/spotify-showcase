@@ -289,7 +289,7 @@ export type Playlist = {
    * **Note**: If returned, the source URL for the image (`url`) is temporary and
    * will expire in less than a day.
    */
-  images?: Maybe<Array<Image>>;
+  images: Array<Image>;
   /** The name of the playlist. */
   name: Scalars['String'];
   /** The user who owns the playlist. */
@@ -949,7 +949,7 @@ export type PlaylistResolvers<ContextType = ContextValue, ParentType extends Res
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   owner?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   public?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
