@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { GraphQLScalarType } from 'graphql';
 import { Resolver } from './types';
-import { wrap } from './helpers';
+import { wrapWithSynthetics } from './helpers';
 
 type EnumResolver = Record<string, string>;
 type ResolverMap = Record<string, EnumResolver | Resolver<unknown>>;
@@ -31,7 +31,12 @@ const wrapFieldResolvers = (typeResolvers: ResolverMap) => {
     Object.entries(typeResolvers).map(([key, resolver]) =>
       key === '__resolveType'
         ? [key, resolver]
-        : [key, typeof resolver === 'function' ? wrap(resolver) : resolver]
+        : [
+            key,
+            typeof resolver === 'function'
+              ? wrapWithSynthetics(resolver)
+              : resolver,
+          ]
     )
   );
 };

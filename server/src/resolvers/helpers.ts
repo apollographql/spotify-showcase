@@ -20,7 +20,7 @@ export function itself<TParent extends ParentTypes>(): Resolver<
   return (parent: TParent) => parent;
 }
 
-export function wrap<TResult, TParent = {}, TArgs = {}>(
+export function wrapWithSynthetics<TResult, TParent = {}, TArgs = {}>(
   resolver: ResolverFn<TResult, TParent, ContextValue, TArgs>
 ): Resolver<TResult, TParent, ContextValue, TArgs> {
   return async (parent, args, context, info) => {

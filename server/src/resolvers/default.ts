@@ -1,6 +1,6 @@
 import { defaultFieldResolver } from 'graphql';
-import { wrap } from './helpers';
+import { wrapWithSynthetics } from './helpers';
 
-const defaultResolver = wrap(defaultFieldResolver);
+const defaultResolver = wrapWithSynthetics(defaultFieldResolver);
 
 export default defaultResolver;
