@@ -711,6 +711,13 @@ type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string,
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
+export type AlbumRouteQueryVariables = Exact<{
+  albumId: Scalars['ID'];
+}>;
+
+
+export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } | null };
+
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
 }>;
