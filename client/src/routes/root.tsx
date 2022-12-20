@@ -7,7 +7,8 @@ const Root = () => {
     <Layout>
       <Layout.Sidebar />
       <Layout.Main>
-        <Suspense fallback="Loading...">
+        <Layout.Header />
+        <Suspense fallback="">
           <Outlet />
         </Suspense>
       </Layout.Main>
