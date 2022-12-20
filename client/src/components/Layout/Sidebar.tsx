@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -57,9 +56,7 @@ const Sidebar = () => {
         {isLoggedIn && (
           <>
             <hr className={styles.sidebarDivider} />
-            <Suspense fallback="Loading...">
-              <Playlists />
-            </Suspense>
+            <Playlists />
           </>
         )}
       </nav>
