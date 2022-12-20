@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { GraphQLScalarType } from 'graphql';
 import { Resolver } from './types';
 import { wrap } from './helpers';
 
@@ -21,12 +22,17 @@ const importResolver = (filename: string) =>
 const resolverName = (filename: string) =>
   path.basename(filename, path.extname(filename));
 
-const wrapTypeResolvers = (typeResolvers: ResolverMap) => {
+const wrapFieldResolvers = (typeResolvers: ResolverMap) => {
+  if (typeResolvers instanceof GraphQLScalarType) {
+    return typeResolvers;
+  }
+
   return Object.fromEntries(
-    Object.entries(typeResolvers).map(([key, resolver]) => [
-      key,
-      typeof resolver === 'function' ? wrap(resolver) : resolver,
-    ])
+    Object.entries(typeResolvers).map(([key, resolver]) =>
+      key === '__resolveType'
+        ? [key, resolver]
+        : [key, typeof resolver === 'function' ? wrap(resolver) : resolver]
+    )
   );
 };
 
@@ -36,7 +42,7 @@ const resolvers: Resolvers = fs
   .reduce(
     (resolvers, filename) => ({
       ...resolvers,
-      [resolverName(filename)]: wrapTypeResolvers(importResolver(filename)),
+      [resolverName(filename)]: wrapFieldResolvers(importResolver(filename)),
     }),
     {}
   );
