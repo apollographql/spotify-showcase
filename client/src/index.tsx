@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ApolloProvider, SuspenseCache } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
@@ -17,9 +17,7 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client} suspenseCache={new SuspenseCache()}>
       <BackgroundColorProvider>
-        <Suspense fallback="Loading.....">
-          <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
       </BackgroundColorProvider>
     </ApolloProvider>
   </React.StrictMode>

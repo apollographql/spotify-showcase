@@ -10,6 +10,7 @@ import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
+import RootLoadingState from './components/RootLoadingState';
 
 import { LOGIN_URL } from './constants';
 
@@ -40,7 +41,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Root />,
+    element: (
+      <Suspense fallback={<RootLoadingState />}>
+        <Root />
+      </Suspense>
+    ),
     errorElement: <RootErrorBoundary />,
     children: [
       { index: true, element: <Index /> },
