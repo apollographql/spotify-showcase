@@ -1,8 +1,8 @@
-import { ContextValue } from '../types';
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { Spotify } from '../dataSources/spotify.types';
 import { FieldConfig as FieldConfigType } from '../fieldConfigs/fieldConfig';
 import { Releasable } from './mappers';
+import { ContextValue } from '../types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };

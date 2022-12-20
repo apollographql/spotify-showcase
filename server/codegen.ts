@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   generates: {
     './src/resolvers/types.ts': {
       config: {
-        contextType: 'ContextValue',
+        contextType: '../types#ContextValue',
         defaultScalarType: 'unknown',
         enumsAsTypes: true,
         useIndexSignature: true,
@@ -58,11 +58,7 @@ const config: CodegenConfig = {
           ErrorRate: 'number',
         },
       },
-      plugins: [
-        { add: { content: "import { ContextValue } from '../types';" } },
-        'typescript',
-        'typescript-resolvers',
-      ],
+      plugins: ['typescript', 'typescript-resolvers'],
     },
   },
 };
