@@ -48,6 +48,8 @@ const router = createBrowserRouter([
           if (!isLoggedIn) {
             return redirect('/');
           }
+
+          return null;
         },
         children: [
           {
