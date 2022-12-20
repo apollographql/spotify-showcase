@@ -25,7 +25,7 @@ const RootLoadingState = () => {
         <header className={cx(headerStyles.header, styles.header)}>
           <Flex gap="0.5rem" alignItems="center">
             <Skeleton.Avatar size="2rem" />
-            <Skeleton.Text width="3rem" />
+            <Skeleton.Text width="10ch" />
           </Flex>
         </header>
       </Layout.Main>
