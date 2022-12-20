@@ -3,8 +3,8 @@
   flex: 1;
   flex-direction: column;
   max-width: 880px;
-  padding-top: 2rem;
   margin: 0 auto;
+  padding: var(--main-content--padding);
 
   h1,
   h2 {
