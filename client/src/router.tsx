@@ -3,6 +3,9 @@ import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Index, { LoadingState as IndexLoadingState } from './routes/index';
 import Root from './routes/root';
+import Artist, {
+  LoadingState as ArtistLoadingState,
+} from './routes/artists/artist';
 import Playlist, {
   Loading as PlaylistLoading,
 } from './routes/playlists/playlist';
@@ -67,6 +70,14 @@ const router = createBrowserRouter([
           return null;
         },
         children: [
+          {
+            path: '/albums/:albumId',
+            element: (
+              <Suspense fallback={<ArtistLoadingState />}>
+                <Artist />
+              </Suspense>
+            ),
+          },
           {
             path: '/playlists/:playlistId',
             element: (
