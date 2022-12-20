@@ -191,7 +191,7 @@ export type FieldInput = {
    * One of `path` or `schema` is required. If both are provided, `schema` will
    * take precendence as it has broader impact.
    */
-  schema?: InputMaybe<SchemaFieldInput>;
+  schemaField?: InputMaybe<SchemaFieldInput>;
 };
 
 export type Followers = {

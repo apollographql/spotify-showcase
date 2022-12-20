@@ -4,24 +4,24 @@ import { GraphQLError } from 'graphql';
 
 const resolvers: MutationResolvers = {
   updateFieldConfig: (_, { field, config }) => {
-    if (!field.schema) {
-      throw new GraphQLError('You must provide field.schema');
+    if (!field.schemaField) {
+      throw new GraphQLError('You must provide field.schemaField');
     }
 
     const fieldConfig = updateFieldConfig(
-      identify.fromSchemaField(field.schema),
+      identify.fromSchemaField(field.schemaField),
       config
     );
 
     return { fieldConfig };
   },
   resetFieldConfig: (_, { field }) => {
-    if (!field.schema) {
-      throw new GraphQLError('You must provide field.schema');
+    if (!field.schemaField) {
+      throw new GraphQLError('You must provide field.schemaField');
     }
 
     const fieldConfig = resetFieldConfig(
-      identify.fromSchemaField(field.schema)
+      identify.fromSchemaField(field.schemaField)
     );
 
     return { fieldConfig };

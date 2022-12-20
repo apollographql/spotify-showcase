@@ -113,7 +113,7 @@ input FieldInput {
   One of `path` or `schema` is required. If both are provided, `schema` will
   take precendence as it has broader impact.
   """
-  schema: SchemaFieldInput
+  schemaField: SchemaFieldInput
 }
 
 input FieldConfigInput {
