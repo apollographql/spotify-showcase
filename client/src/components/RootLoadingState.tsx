@@ -15,7 +15,7 @@ const RootLoadingState = () => {
       <Layout.Sidebar>
         <Layout.Sidebar.Section>
           {skeletons.map((num) => (
-            <li className={styles.skeleton__playlist}>
+            <li key={num} className={styles.skeleton__playlist}>
               <Skeleton.Text key={num} width={`${randomBetween(40, 60)}%`} />
             </li>
           ))}
