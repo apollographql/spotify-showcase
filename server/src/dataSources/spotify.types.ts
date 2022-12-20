@@ -427,6 +427,7 @@ export namespace Spotify {
   export namespace Response {
     export interface Path {
       '/albums/:id': Object.Album;
+      '/artists/:id': Object.Artist;
       '/authorize':
         | { code: string; state?: string }
         | { error: string; state?: string };

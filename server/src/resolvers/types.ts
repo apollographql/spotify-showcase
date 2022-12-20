@@ -372,6 +372,8 @@ export type Query = {
   __typename?: 'Query';
   /** Spotify catalog information for an album. */
   album?: Maybe<Album>;
+  /** Spotify catalog information for an artist. */
+  artist?: Maybe<Artist>;
   /**
    * A list of Spotify featured playlists (shown, for example, on a Spotify
    * player's 'Browse' tab).
@@ -402,6 +404,11 @@ export type Query = {
 
 
 export type QueryAlbumArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryArtistArgs = {
   id: Scalars['ID'];
 };
 
@@ -1002,6 +1009,7 @@ export type PlaylistTrackEdgeResolvers<ContextType = ContextValue, ParentType ex
 
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   album?: Resolver<Maybe<ResolversTypes['Album']>, ParentType, ContextType, RequireFields<QueryAlbumArgs, 'id'>>;
+  artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
   featuredPlaylists?: Resolver<Maybe<ResolversTypes['FeaturedPlaylistConnection']>, ParentType, ContextType, Partial<QueryFeaturedPlaylistsArgs>>;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;

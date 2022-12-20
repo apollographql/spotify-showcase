@@ -20,6 +20,10 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  artist(id: string) {
+    return this.get<Spotify.Response.Path['/artists/:id']>(`/artists/${id}`);
+  }
+
   async genres() {
     return this.get<
       Spotify.Response.Path['/recommendations/available-genre-seeds']

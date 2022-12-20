@@ -5,6 +5,9 @@ type Query {
   "Spotify catalog information for an album."
   album(id: ID!): Album
 
+  "Spotify catalog information for an artist."
+  artist(id: ID!): Artist
+
   """
   A list of available genres seed parameter values for
   [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
