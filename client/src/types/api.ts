@@ -152,6 +152,23 @@ export type ExternalUrl = {
   spotify: Maybe<Scalars['String']>;
 };
 
+export type FeaturedPlaylistConnection = {
+  __typename: 'FeaturedPlaylistConnection';
+  /**
+   * A list of Spotify featured playlists (shown, for example, on a Spotify player's
+   * 'Browse' tab).
+   */
+  edges: Array<FeaturedPlaylistEdge>;
+  message: Scalars['String'];
+  /** Pagination information for the set of playlists */
+  pageInfo: PageInfo;
+};
+
+export type FeaturedPlaylistEdge = {
+  __typename: 'FeaturedPlaylistEdge';
+  node: Playlist;
+};
+
 export type FieldConfig = {
   __typename: 'FieldConfig';
   /** The synthetic error rate configured for the field. */
@@ -348,6 +365,11 @@ export type PlaylistTrackEdge = {
 export type Query = {
   __typename: 'Query';
   /**
+   * A list of Spotify featured playlists (shown, for example, on a Spotify
+   * player's 'Browse' tab).
+   */
+  featuredPlaylists: Maybe<FeaturedPlaylistConnection>;
+  /**
    * A list of available genres seed parameter values for
    * [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
    */
@@ -368,6 +390,12 @@ export type Query = {
    * data to generate a list of tracks.
    */
   recommendations: Maybe<Recommendations>;
+};
+
+
+export type QueryfeaturedPlaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -673,6 +701,11 @@ type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: str
 type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
+
+export type IndexRouteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type IndexRouteQuery = { featuredPlaylists: { __typename: 'FeaturedPlaylistConnection', message: string } | null };
 
 export type PlaylistQueryVariables = Exact<{
   id: Scalars['ID'];

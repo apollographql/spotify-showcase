@@ -1,10 +1,13 @@
-.loggedOutMessage {
+.container {
+  padding: var(--main-content--padding);
+}
+
+.instructions {
   display: flex;
   flex: 1;
   flex-direction: column;
   max-width: 880px;
   margin: 0 auto;
-  padding: var(--main-content--padding);
 
   h1,
   h2 {

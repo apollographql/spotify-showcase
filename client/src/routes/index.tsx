@@ -1,5 +1,12 @@
+import {
+  gql,
+  useSuspenseQuery_experimental as useSuspenseQuery,
+} from '@apollo/client';
+import cx from 'classnames';
+import PageTitle from '../components/PageTitle';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
+import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { LOGIN_URL } from '../constants';
 
 const Index = () => {
@@ -8,13 +15,29 @@ const Index = () => {
   return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };
 
+const INDEX_ROUTE_QUERY = gql`
+  query IndexRouteQuery {
+    featuredPlaylists {
+      message
+    }
+  }
+`;
+
 const LoggedIn = () => {
-  return <div>Hello!</div>;
+  const { data } = useSuspenseQuery<IndexRouteQuery, IndexRouteQueryVariables>(
+    INDEX_ROUTE_QUERY
+  );
+
+  return (
+    <div className={styles.container}>
+      <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
+    </div>
+  );
 };
 
 const LoggedOut = () => {
   return (
-    <div className={styles.loggedOutMessage}>
+    <div className={cx(styles.container, styles.instructions)}>
       <h1>Welcome to the Apollo Spotify demo</h1>
       <p>
         This demo app provides a playground to test and learn about various
