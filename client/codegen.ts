@@ -19,6 +19,7 @@ const config: CodegenConfig = {
         skipTypeNameForRoot: true,
         scalars: {
           DateTime: 'string',
+          ErrorRate: 'number',
         },
         namingConvention: {
           typeNames: 'keep',

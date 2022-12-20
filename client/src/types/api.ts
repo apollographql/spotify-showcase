@@ -11,6 +11,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: string;
+  ErrorRate: number;
 };
 
 /** Spotify catalog information for an album. */
@@ -151,6 +152,43 @@ export type ExternalUrl = {
   spotify: Maybe<Scalars['String']>;
 };
 
+export type FieldConfig = {
+  __typename: 'FieldConfig';
+  /** The synthetic error rate configured for the field. */
+  errorRate: Scalars['ErrorRate'];
+  /** The schema field that includes this config */
+  schemaField: SchemaField;
+  /** The synthetic timeout configured for the field. */
+  timeout: Scalars['Int'];
+};
+
+export type FieldConfigInput = {
+  /**
+   * The synthetic error rate configured for a field. This should be a value
+   * between `0` and `1` where `0` means no synthetic errors should be thrown and
+   * `1` means errors should be thrown 100% of the time. Set to `null` to reset the
+   * value back to its default. Omit this field to maintain its value. Defaults to
+   * `0`.
+   */
+  errorRate?: InputMaybe<Scalars['ErrorRate']>;
+  /**
+   * The synthetic timeout configured for a field. Set to `null` to reset the value
+   * back to its default. Omit this field to maintain its value. Defaults to `0`.
+   */
+  timeout?: InputMaybe<Scalars['Int']>;
+};
+
+export type FieldInput = {
+  /**
+   * Configure a field by its type in the schema. This will apply the config to all
+   * fields of the given type regardless of where it is queried in the scheam.
+   *
+   * One of `path` or `schema` is required. If both are provided, `schema` will
+   * take precendence as it has broader impact.
+   */
+  schemaField?: InputMaybe<SchemaFieldInput>;
+};
+
 export type Followers = {
   __typename: 'Followers';
   /** The total number of followers. */
@@ -165,6 +203,29 @@ export type Image = {
   url: Scalars['String'];
   /** The image width in pixels. */
   width: Maybe<Scalars['Int']>;
+};
+
+export type Mutation = {
+  __typename: 'Mutation';
+  /** Reset a field's config back to its default values. */
+  resetFieldConfig: Maybe<ResetFieldConfigResponse>;
+  /**
+   * Update configuration for a field in the schema. Allows tweaks to the
+   * synthetic timeouts and error rates associated with the field. By default, both
+   * the timeout and error rate are set to 0.
+   */
+  updateFieldConfig: Maybe<UpdateFieldConfigResponse>;
+};
+
+
+export type MutationresetFieldConfigArgs = {
+  field: FieldInput;
+};
+
+
+export type MutationupdateFieldConfigArgs = {
+  config: FieldConfigInput;
+  field: FieldInput;
 };
 
 export type PageInfo = {
@@ -417,6 +478,27 @@ export enum ReleaseDatePrecision {
   Year = 'YEAR'
 }
 
+export type ResetFieldConfigResponse = {
+  __typename: 'ResetFieldConfigResponse';
+  /** The updated field config */
+  fieldConfig: Maybe<FieldConfig>;
+};
+
+export type SchemaField = {
+  __typename: 'SchemaField';
+  /** The name of the field in the type (ex: `firstName`) */
+  fieldName: Scalars['String'];
+  /** The parent type name in the schema (ex: `User`) */
+  typename: Scalars['String'];
+};
+
+export type SchemaFieldInput = {
+  /** The name of the field in the type (ex: `firstName`) */
+  fieldName: Scalars['String'];
+  /** The parent type name in the schema (ex: `User`) */
+  typename: Scalars['String'];
+};
+
 /** Spotify catalog information for a show. */
 export type Show = {
   __typename: 'Show';
@@ -539,6 +621,12 @@ export type TrackExternalIds = {
   isrc: Maybe<Scalars['String']>;
   /** [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code) */
   upc: Maybe<Scalars['String']>;
+};
+
+export type UpdateFieldConfigResponse = {
+  __typename: 'UpdateFieldConfigResponse';
+  /** The updated field config */
+  fieldConfig: Maybe<FieldConfig>;
 };
 
 /** Public profile information about a Spotify user. */
