@@ -1,5 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import { Navigate, useRouteError } from 'react-router-dom';
+import { useRouteError } from 'react-router-dom';
 import Layout from './Layout';
 
 const didBecomeUnauthenticated = (error: unknown) => {
