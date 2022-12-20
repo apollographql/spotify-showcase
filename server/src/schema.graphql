@@ -2,6 +2,9 @@ scalar DateTime
 scalar ErrorRate
 
 type Query {
+  "Spotify catalog information for an album."
+  album(id: ID!): Album
+
   """
   A list of available genres seed parameter values for
   [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).

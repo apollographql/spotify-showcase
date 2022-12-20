@@ -426,6 +426,7 @@ export namespace Spotify {
 
   export namespace Response {
     export interface Path {
+      '/albums/:id': Object.Album;
       '/authorize':
         | { code: string; state?: string }
         | { error: string; state?: string };
@@ -449,6 +450,7 @@ export namespace Spotify {
 
   export namespace Request {
     export interface Params {
+      '/albums/:id': InputParams<{ market?: string }>;
       '/browse/featured-playlists': InputParams<{
         limit?: number;
         offset?: number;

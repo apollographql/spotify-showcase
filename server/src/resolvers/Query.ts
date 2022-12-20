@@ -2,6 +2,7 @@ import { QueryResolvers } from './types';
 import { format } from 'date-fns';
 
 const resolvers: QueryResolvers = {
+  album: (_, { id }, { dataSources }) => dataSources.spotify.album(id),
   featuredPlaylists: (_, { limit, offset, timestamp }, { dataSources }) => {
     return dataSources.spotify.featuredPlaylists({
       limit,

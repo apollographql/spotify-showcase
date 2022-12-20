@@ -14,6 +14,12 @@ export default class SpotifyAPI extends RESTDataSource {
     this.token = options.token;
   }
 
+  album(id: string, params?: Spotify.Request.Params['/albums/:id']) {
+    return this.get<Spotify.Response.Path['/albums/:id']>(`/albums/${id}`, {
+      params: this.normalizeParams(params),
+    });
+  }
+
   async genres() {
     return this.get<
       Spotify.Response.Path['/recommendations/available-genre-seeds']
