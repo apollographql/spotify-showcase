@@ -12,6 +12,7 @@ import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
 import PlaylistTable from '../../components/PlaylistTable';
+import Skeleton from '../../components/Skeleton';
 
 const PLAYLIST_QUERY = gql`
   query PlaylistQuery($id: ID!) {
@@ -87,11 +88,40 @@ const Playlist = () => {
           </Flex>
         </Flex>
       </Flex>
-      <Flex className={styles.tracks} direction="column" gap="2rem" flex={1}>
+      <Flex className={styles.tracks} direction="column" flex={1}>
         <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
       </Flex>
     </div>
   );
 };
+
+export const Loading = () => (
+  <Flex className={styles.playlist} direction="column" gap="1rem">
+    <Flex gap="1rem" alignItems="end" className={styles.playlistHeader}>
+      <Skeleton.CoverPhoto size="250px" />
+      <Flex direction="column" flex={1} gap="1rem">
+        <Skeleton.Heading level={1} width="50%" fontSize="5rem" />
+        <Skeleton.Text width="20%" />
+      </Flex>
+    </Flex>
+    <Flex direction="column" className={styles.tracks} flex={1}>
+      <Skeleton.Table
+        rows={10}
+        columns={[
+          <Skeleton.Text />,
+          <Flex gap="0.5rem" alignItems="end">
+            <Skeleton.CoverPhoto size="2.5rem" />
+            <Flex direction="column" flex={1} gap="0.5rem">
+              <Skeleton.Text width="25%" fontSize="1rem" />
+              <Skeleton.Text width="20%" fontSize="0.75rem" />
+            </Flex>
+          </Flex>,
+          <Skeleton.Text />,
+          <Skeleton.Text />,
+        ]}
+      />
+    </Flex>
+  </Flex>
+);
 
 export default Playlist;

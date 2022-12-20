@@ -1,8 +1,11 @@
+import { Suspense } from 'react';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Index from './routes/index';
 import Root from './routes/root';
-import Playlist from './routes/playlists/playlist';
+import Playlist, {
+  Loading as PlaylistLoading,
+} from './routes/playlists/playlist';
 import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
 
@@ -54,7 +57,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/playlists/:playlistId',
-            element: <Playlist />,
+            element: (
+              <Suspense fallback={<PlaylistLoading />}>
+                <Playlist />
+              </Suspense>
+            ),
           },
         ],
       },
