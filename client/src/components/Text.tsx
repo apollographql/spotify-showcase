@@ -10,7 +10,7 @@ type TextProps<TElement extends ElementType = 'span'> =
       color?: 'muted' | 'primary';
       children?: ReactNode;
       interactive?: boolean;
-      size?: 'base';
+      size?: 'base' | 'sm' | 'xs' | 'xxs';
       weight?: 'normal' | 'bold' | 'black';
     }
   >;
@@ -35,6 +35,9 @@ const Text = <TElement extends ElementType = 'span'>({
         [styles.color__muted]: color === 'muted',
         [styles.interactive]: interactive,
         [styles.size__base]: size === 'base',
+        [styles.size__sm]: size === 'sm',
+        [styles.size__xs]: size === 'xs',
+        [styles.size_xxs]: size === 'xxs',
         [styles.weight__normal]: weight === 'normal',
         [styles.weight__bold]: weight === 'bold',
         [styles.weight__black]: weight === 'black',
