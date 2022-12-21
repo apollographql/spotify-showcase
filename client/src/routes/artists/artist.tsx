@@ -95,7 +95,7 @@ const ArtistRoute = () => {
     <Page>
       <header
         className={styles.header}
-        style={{ backgroundImage: `url(${image.url})` }}
+        style={{ backgroundImage: image && `url(${image.url})` }}
       >
         <Page.Title>{artist.name}</Page.Title>
         <Text>
