@@ -7,7 +7,7 @@ interface HeaderDetailsProps {
 
 const HeaderDetails = ({ children }: HeaderDetailsProps) => {
   return (
-    <Flex direction="column" gap="0.5rem">
+    <Flex direction="column" gap="0.5rem" flex={1}>
       {children}
     </Flex>
   );
