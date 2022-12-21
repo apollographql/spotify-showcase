@@ -52,7 +52,7 @@ const LoggedIn = () => {
   return (
     <div className={styles.container}>
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
-      <TileGrid minTileWidth="180px">
+      <TileGrid minTileWidth="200px">
         {data.featuredPlaylists?.edges.map(({ node }) => (
           <PlaylistTile key={node.id} playlist={node} />
         ))}
