@@ -36,12 +36,7 @@ const MediaTile = ({
         <Text wrap={false} overflow="ellipsis" weight="bold" title={title}>
           {title}
         </Text>
-        <Text
-          color="muted"
-          size="sm"
-          className={styles.mediaTile__description}
-          overflow="ellipsis"
-        >
+        <Text color="muted" size="sm" maxLines={2}>
           {description}
         </Text>
       </Flex>
