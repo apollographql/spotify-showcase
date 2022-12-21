@@ -83,13 +83,7 @@ const Playlist = () => {
 
 export const Loading = () => (
   <Page>
-    <Page.Header>
-      <Skeleton.CoverPhoto size="250px" />
-      <Page.HeaderDetails>
-        <Skeleton.Heading level={1} width="50%" fontSize="5rem" />
-        <Skeleton.Text width="20%" />
-      </Page.HeaderDetails>
-    </Page.Header>
+    <Page.SkeletonHeader />
     <Page.Content>
       <Skeleton.Table
         rows={10}

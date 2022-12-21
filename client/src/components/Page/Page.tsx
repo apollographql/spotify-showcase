@@ -6,6 +6,7 @@ import CoverPhoto from './CoverPhoto';
 import Details from './Details';
 import Header from './Header';
 import HeaderDetails from './HeaderDetails';
+import SkeletonHeader from './SkeletonHeader';
 import Title from './Title';
 import MediaType from './MediaType';
 
@@ -27,6 +28,7 @@ Page.Details = Details;
 Page.Header = Header;
 Page.HeaderDetails = HeaderDetails;
 Page.MediaType = MediaType;
+Page.SkeletonHeader = SkeletonHeader;
 Page.Title = Title;
 
 export default Page;
