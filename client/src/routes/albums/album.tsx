@@ -4,17 +4,28 @@ import {
 } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { AlbumRouteQuery, AlbumRouteQueryVariables } from '../../types/api';
-import CoverPhoto from '../../components/CoverPhoto';
-import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
-import Flex from '../../components/Flex';
-import { Music } from 'lucide-react';
+import Page from '../../components/Page';
+import EntityLink from '../../components/EntityLink';
+import { yearOfRelease } from '../../utils/releaseDate';
+import { pluralize } from '../../utils/string';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
     album(id: $albumId) {
       id
+      albumType
+      name
+      totalTracks
+      artists {
+        id
+        name
+      }
       images {
         url
+      }
+      releaseDate {
+        date
+        precision
       }
     }
   }
@@ -32,18 +43,31 @@ const AlbumRoute = () => {
   const coverPhoto = images[0];
 
   return (
-    <Flex direction="column">
-      <Flex as="header" gap="2rem" alignItems="end">
-        <CoverPhoto
-          src={coverPhoto.url}
-          fallback={<PlaceholderCoverPhoto icon={Music} />}
-          size="250px"
-        />
-      </Flex>
-    </Flex>
+    <Page>
+      <Page.Header
+        coverPhoto={{ src: coverPhoto?.url }}
+        title={album.name}
+        mediaType={album.albumType}
+        details={[
+          ...album.artists.map((artist) => (
+            <EntityLink key={artist.id} entity={artist}>
+              {artist.name}
+            </EntityLink>
+          )),
+          <span>{yearOfRelease(album.releaseDate)}</span>,
+          <span>
+            {album.totalTracks} {pluralize('song', album.totalTracks)}
+          </span>,
+        ]}
+      />
+    </Page>
   );
 };
 
-export const LoadingState = () => null;
+export const LoadingState = () => (
+  <Page>
+    <Page.SkeletonHeader />
+  </Page>
+);
 
 export default AlbumRoute;

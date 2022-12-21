@@ -716,7 +716,7 @@ export type AlbumRouteQueryVariables = Exact<{
 }>;
 
 
-export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } | null };
+export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, artists: Array<{ __typename: 'Artist', id: string, name: string }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } } | null };
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
