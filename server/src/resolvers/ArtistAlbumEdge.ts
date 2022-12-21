@@ -1,7 +1,8 @@
 import { ArtistAlbumEdgeResolvers } from './types';
-import { itself } from './helpers';
+import { itself, prop } from './helpers';
 
 const resolvers: ArtistAlbumEdgeResolvers = {
+  albumGroup: prop('album_group'),
   node: itself(),
 };
 

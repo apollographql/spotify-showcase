@@ -280,6 +280,11 @@ type ArtistAlbumsConnection {
 }
 
 type ArtistAlbumEdge {
+  """
+  The album group this album belongs to.
+  """
+  albumGroup: AlbumGroup!
+
   "Spotify catalog information for the album."
   node: Album!
 }
