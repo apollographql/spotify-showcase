@@ -28,6 +28,8 @@ export type Album = {
   albumType: AlbumType;
   /** The artists of the album. */
   artists: Array<Artist>;
+  /** The copyrights for the album. */
+  copyrights: Array<Copyright>;
   /** Known external URLs for this album. */
   externalUrls: ExternalUrl;
   /** Genres for the album. */
@@ -107,6 +109,16 @@ export type Artist = {
    */
   uri?: Maybe<Scalars['String']>;
 };
+
+export type Copyright = {
+  __typename?: 'Copyright';
+  text: Scalars['String'];
+  type?: Maybe<CopyrightType>;
+};
+
+export type CopyrightType =
+  | 'C'
+  | 'P';
 
 export type CurrentUser = {
   __typename?: 'CurrentUser';
@@ -792,6 +804,8 @@ export type ResolversTypes = ResolversObject<{
   AlbumType: AlbumType;
   Artist: ResolverTypeWrapper<Spotify.Object.Artist | Spotify.Object.ArtistSimplified>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Copyright: ResolverTypeWrapper<Copyright>;
+  CopyrightType: CopyrightType;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
@@ -840,6 +854,7 @@ export type ResolversParentTypes = ResolversObject<{
   AlbumTrackEdge: Spotify.Object.TrackSimplified;
   Artist: Spotify.Object.Artist | Spotify.Object.ArtistSimplified;
   Boolean: Scalars['Boolean'];
+  Copyright: Copyright;
   CurrentUser: Spotify.Object.CurrentUser;
   DateTime: Scalars['DateTime'];
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
@@ -881,6 +896,7 @@ export type ResolversParentTypes = ResolversObject<{
 export type AlbumResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Album'] = ResolversParentTypes['Album']> = ResolversObject<{
   albumType?: Resolver<ResolversTypes['AlbumType'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
+  copyrights?: Resolver<Array<ResolversTypes['Copyright']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -914,6 +930,12 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CopyrightResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Copyright'] = ResolversParentTypes['Copyright']> = ResolversObject<{
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['CopyrightType']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1158,6 +1180,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   AlbumTrackEdge?: AlbumTrackEdgeResolvers<ContextType>;
   AlbumType?: AlbumTypeResolvers;
   Artist?: ArtistResolvers<ContextType>;
+  Copyright?: CopyrightResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Episode?: EpisodeResolvers<ContextType>;

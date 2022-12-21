@@ -89,6 +89,9 @@ type Album {
   "The artists of the album."
   artists: [Artist!]!
 
+  "The copyrights for the album."
+  copyrights: [Copyright!]!
+
   """
   Known external URLs for this album.
   """
@@ -205,6 +208,16 @@ type Artist {
   for the artist.
   """
   uri: String
+}
+
+type Copyright {
+  text: String!
+  type: CopyrightType
+}
+
+enum CopyrightType {
+  C
+  P
 }
 
 type CurrentUser {
