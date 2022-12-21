@@ -65,6 +65,10 @@ export namespace Spotify {
       uri: string;
     }
 
+    export interface ArtistTopTracks {
+      tracks: Track[];
+    }
+
     export interface ArtistSimplified {
       external_urls: ExternalUrl;
       href: string;
@@ -429,6 +433,7 @@ export namespace Spotify {
       '/albums/:id': Object.Album;
       '/albums/:id/tracks': Object.Paginated<Object.TrackSimplified>;
       '/artists/:id': Object.Artist;
+      '/artists/:id/top-tracks': Object.ArtistTopTracks;
       '/authorize':
         | { code: string; state?: string }
         | { error: string; state?: string };

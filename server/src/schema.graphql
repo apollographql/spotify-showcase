@@ -227,6 +227,11 @@ type Artist {
   popularity: Int!
 
   """
+  Spotify catalog information about an artist's top tracks.
+  """
+  topTracks: [Track!]!
+
+  """
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the artist.
   """

@@ -118,6 +118,8 @@ export type Artist = {
    * popularity of all the artist's tracks.
    */
   popularity: Scalars['Int'];
+  /** Spotify catalog information about an artist's top tracks. */
+  topTracks: Array<Track>;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the artist.
@@ -948,6 +950,7 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   popularity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  topTracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
   uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
