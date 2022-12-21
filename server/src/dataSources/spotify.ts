@@ -97,6 +97,12 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
+  track(id: string, params?: Spotify.Request.Params['/tracks/:id']) {
+    return this.get<Spotify.Response.Path['/tracks/:id']>(`/tracks/${id}`, {
+      params: this.normalizeParams(params),
+    });
+  }
+
   override willSendRequest(request: WillSendRequestOptions) {
     request.headers['Accept'] = 'application/json';
     request.headers['Authorization'] = `Bearer ${this.token}`;

@@ -447,6 +447,8 @@ export namespace Spotify {
       '/recommendations/available-genre-seeds': {
         genres: string[];
       };
+
+      '/tracks/:id': Object.Track;
     }
   }
 
@@ -482,6 +484,7 @@ export namespace Spotify {
         fields?: string;
         market?: string;
       }>;
+      '/tracks/:id': InputParams<{ market?: string }>;
     }
   }
 }

@@ -2,6 +2,15 @@ import { TrackResolvers } from './types';
 import { prop } from './helpers';
 
 const resolvers: TrackResolvers = {
+  album: async (track, _, { dataSources }) => {
+    if ('album' in track) {
+      return track.album;
+    }
+
+    const { album } = await dataSources.spotify.track(track.id);
+
+    return album;
+  },
   discNumber: prop('disc_number'),
   durationMs: prop('duration_ms'),
   externalUrls: prop('external_urls'),
