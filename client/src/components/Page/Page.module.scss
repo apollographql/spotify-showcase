@@ -1,0 +1,9 @@
+.page__header {
+  padding: var(--main-content--padding);
+}
+
+.page__coverPhoto {
+  &.circular {
+    border-radius: 50%;
+  }
+}

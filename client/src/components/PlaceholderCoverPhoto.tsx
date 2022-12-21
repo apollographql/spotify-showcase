@@ -3,7 +3,7 @@ import { LucideProps } from 'lucide-react';
 import cx from 'classnames';
 import styles from './PlaceholderCoverPhoto.module.scss';
 
-interface PlaceholderCoverPhotoProps {
+export interface PlaceholderCoverPhotoProps {
   className?: string;
   icon: ElementType<LucideProps>;
 }

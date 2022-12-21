@@ -3,7 +3,7 @@ import cx from 'classnames';
 import LazyImage from './LazyImage';
 import styles from './CoverPhoto.module.scss';
 
-interface CoverPhotoProps {
+export interface CoverPhotoProps {
   className?: string;
   src: string;
   size?: string;
