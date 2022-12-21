@@ -80,7 +80,7 @@ const AlbumRoute = () => {
   return (
     <Page>
       <Page.Header
-        coverPhoto={{ src: coverPhoto?.url }}
+        coverPhoto={{ image: coverPhoto }}
         title={album.name}
         mediaType={album.albumType}
         details={[

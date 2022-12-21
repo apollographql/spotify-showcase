@@ -57,7 +57,7 @@ const Playlist = () => {
     <Page>
       <Page.Header
         mediaType="playlist"
-        coverPhoto={{ src: coverPhoto?.url }}
+        coverPhoto={{ image: coverPhoto }}
         title={playlist.name}
         details={[
           <EntityLink entity={playlist.owner}>

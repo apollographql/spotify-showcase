@@ -24,7 +24,7 @@ const PlaylistTitleCell = ({ playlistTrack }: PlaylistTitleCellProps) => {
   return (
     <Flex gap="0.5rem" alignItems="end">
       <CoverPhoto
-        src={image.url}
+        image={image}
         fallback={<PlaceholderCoverPhoto icon={Music} />}
         size="2.5rem"
       />

@@ -11,17 +11,17 @@ import styles from './Page.module.scss';
 export interface CoverPhotoProps {
   circular?: boolean;
   fallbackIcon?: PlaceholderCoverPhotoProps['icon'];
-  src: OriginalCoverPhotoProps['src'];
+  image: OriginalCoverPhotoProps['image'];
 }
 
 const CoverPhoto = ({
   circular = false,
   fallbackIcon = Music,
-  src,
+  image,
 }: CoverPhotoProps) => {
   return (
     <OriginalCoverPhoto
-      src={src}
+      image={image}
       className={cx(styles.page__coverPhoto, { [styles.circular]: circular })}
       fallback={<PlaceholderCoverPhoto icon={fallbackIcon} />}
       size="250px"

@@ -115,7 +115,7 @@ const ArtistRoute = () => {
                 </Text>
                 <Flex alignItems="center" gap="1rem">
                   <CoverPhoto
-                    src={albumCoverPhoto.url}
+                    image={albumCoverPhoto}
                     fallback={<PlaceholderCoverPhoto icon={Music} />}
                     size="2.5rem"
                   />

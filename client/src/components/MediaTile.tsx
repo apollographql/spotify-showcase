@@ -1,25 +1,20 @@
 import { Music } from 'lucide-react';
 import { ReactNode } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
-import CoverPhoto from './CoverPhoto';
+import CoverPhoto, { CoverPhotoProps } from './CoverPhoto';
 import PlaceholderCoverPhoto from './PlaceholderCoverPhoto';
 import Text from './Text';
 import styles from './MediaTile.module.scss';
 import Flex from './Flex';
 
 interface MediaTileProps {
-  coverPhotoSrc: string;
+  coverPhoto: CoverPhotoProps['image'];
   title: string;
   description: ReactNode;
   to: LinkProps['to'];
 }
 
-const MediaTile = ({
-  coverPhotoSrc,
-  description,
-  title,
-  to,
-}: MediaTileProps) => {
+const MediaTile = ({ coverPhoto, description, title, to }: MediaTileProps) => {
   return (
     <Flex
       as={Link}
@@ -29,7 +24,7 @@ const MediaTile = ({
       className={styles.mediaTile}
     >
       <CoverPhoto
-        src={coverPhotoSrc}
+        image={coverPhoto}
         fallback={<PlaceholderCoverPhoto icon={Music} />}
       />
       <Flex direction="column">

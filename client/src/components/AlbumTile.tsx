@@ -10,7 +10,7 @@ interface AlbumTileProps {
 const AlbumTile = ({ album }: AlbumTileProps) => {
   return (
     <MediaTile
-      coverPhotoSrc={album.images[0].url}
+      coverPhoto={album.images[0]}
       description={capitalize(album.albumType.toLowerCase())}
       title={album.name}
       to={`/albums/${album.id}`}

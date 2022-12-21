@@ -16,7 +16,7 @@ const TrackTitleCell = ({ track }: TrackTitleCellProps) => {
   return (
     <Flex gap="0.5rem">
       <CoverPhoto
-        src={track.album.images[0]?.url}
+        image={track.album.images[0]}
         fallback={<PlaceholderCoverPhoto icon={Music} />}
         size="2.5rem"
       />

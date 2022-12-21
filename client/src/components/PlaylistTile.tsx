@@ -9,7 +9,7 @@ interface PlaylistTileProps {
 const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
   return (
     <MediaTile
-      coverPhotoSrc={playlist.images[0].url}
+      coverPhoto={playlist.images[0]}
       description={playlist.description}
       title={playlist.name}
       to={`/playlists/${playlist.id}`}
