@@ -3,6 +3,7 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { Get } from 'type-fest';
+import { Heart } from 'lucide-react';
 import { createColumnHelper } from '@tanstack/react-table';
 import {
   CollectionTracksRouteQuery,
@@ -10,12 +11,14 @@ import {
 } from '../../types/api';
 import DateTime from '../../components/DateTime';
 import Page from '../../components/Page';
+import GradientIcon from '../../components/GradientIcon';
 import Table from '../../components/Table';
 import Text from '../../components/Text';
 import TrackTitleCell from '../../components/TrackTitleCell';
 import useSetBackgroundColor from '../../hooks/useSetBackgroundColor';
 import { Clock } from 'lucide-react';
 import Duration from '../../components/Duration';
+import EntityLink from '../../components/EntityLink';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
@@ -24,7 +27,14 @@ type SavedTrackEdge = NonNullable<
 const COLLECTION_TRACKS_ROUTE_QUERY = gql`
   query CollectionTracksRouteQuery {
     me {
+      user {
+        id
+        displayName
+      }
       tracks {
+        pageInfo {
+          total
+        }
         edges {
           addedAt
           node {
@@ -43,17 +53,40 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
 `;
 
 const CollectionTracksRoute = () => {
+  useSetBackgroundColor('#1F3363');
+
   const { data } = useSuspenseQuery<
     CollectionTracksRouteQuery,
     CollectionTracksRouteQueryVariables
   >(COLLECTION_TRACKS_ROUTE_QUERY);
 
-  useSetBackgroundColor('#1F3363');
+  const currentUser = data.me!;
 
   return (
     <Page>
+      <Page.Header
+        title="Liked Songs"
+        mediaType="playlist"
+        coverPhoto={
+          <GradientIcon
+            backgroundColor="linear-gradient(135deg,#450af5,#c4efd9)"
+            lucideIcon={Heart}
+          />
+        }
+        details={[
+          <EntityLink entity={currentUser.user}>
+            {currentUser.user.displayName}
+          </EntityLink>,
+          <Text color="muted">
+            {new Intl.NumberFormat().format(
+              currentUser.tracks?.pageInfo.total ?? 0
+            )}{' '}
+            songs
+          </Text>,
+        ]}
+      />
       <Page.Content>
-        <Table data={data.me?.tracks?.edges ?? []} columns={columns} />
+        <Table data={currentUser.tracks?.edges ?? []} columns={columns} />
       </Page.Content>
     </Page>
   );
