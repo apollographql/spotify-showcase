@@ -55,24 +55,20 @@ const Playlist = () => {
 
   return (
     <Page>
-      <Page.Header>
-        <Page.CoverPhoto src={coverPhoto?.url} />
-        <Page.HeaderDetails>
-          <Page.MediaType mediaType="playlist" />
-          <Page.Title>{playlist.name}</Page.Title>
-          <Page.Details
-            items={[
-              <EntityLink entity={playlist.owner}>
-                {playlist.owner.displayName}
-              </EntityLink>,
-              <span>
-                {tracks.pageInfo.total}{' '}
-                {tracks.pageInfo.total === 1 ? 'song' : 'songs'}
-              </span>,
-            ]}
-          ></Page.Details>
-        </Page.HeaderDetails>
-      </Page.Header>
+      <Page.Header
+        mediaType="playlist"
+        coverPhoto={{ src: coverPhoto?.url }}
+        title={playlist.name}
+        details={[
+          <EntityLink entity={playlist.owner}>
+            {playlist.owner.displayName}
+          </EntityLink>,
+          <span>
+            {tracks.pageInfo.total}{' '}
+            {tracks.pageInfo.total === 1 ? 'song' : 'songs'}
+          </span>,
+        ]}
+      />
       <Page.Content>
         <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
       </Page.Content>

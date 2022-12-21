@@ -1,24 +1,26 @@
 import cx from 'classnames';
 import { Music } from 'lucide-react';
-import CoverPhoto, { CoverPhotoProps } from '../CoverPhoto';
+import OriginalCoverPhoto, {
+  CoverPhotoProps as OriginalCoverPhotoProps,
+} from '../CoverPhoto';
 import PlaceholderCoverPhoto, {
   PlaceholderCoverPhotoProps,
 } from '../PlaceholderCoverPhoto';
 import styles from './Page.module.scss';
 
-interface PageCoverPhotoProps {
+export interface CoverPhotoProps {
   circular?: boolean;
   fallbackIcon?: PlaceholderCoverPhotoProps['icon'];
-  src: CoverPhotoProps['src'];
+  src: OriginalCoverPhotoProps['src'];
 }
 
-const PageCoverPhoto = ({
+const CoverPhoto = ({
   circular = false,
   fallbackIcon = Music,
   src,
-}: PageCoverPhotoProps) => {
+}: CoverPhotoProps) => {
   return (
-    <CoverPhoto
+    <OriginalCoverPhoto
       src={src}
       className={cx(styles.page__coverPhoto, { [styles.circular]: circular })}
       fallback={<PlaceholderCoverPhoto icon={fallbackIcon} />}
@@ -27,4 +29,4 @@ const PageCoverPhoto = ({
   );
 };
 
-export default PageCoverPhoto;
+export default CoverPhoto;
