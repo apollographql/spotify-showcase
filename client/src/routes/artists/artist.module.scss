@@ -28,3 +28,24 @@
     background: linear-gradient(rgba(#000, 0) -30%, #181818);
   }
 }
+
+.topTracks {
+  max-width: 60%;
+}
+
+.topTracks__track {
+  display: grid;
+  grid-template-columns: 1ch 1fr auto;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  border-radius: 0.25rem;
+
+  &:hover {
+    background: var(--background--surface);
+  }
+}
+
+.topTrack__number {
+  justify-self: end;
+}

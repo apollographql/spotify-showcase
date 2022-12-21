@@ -63,6 +63,13 @@ export type AlbumtracksArgs = {
   offset?: InputMaybe<Scalars['Int']>;
 };
 
+export enum AlbumGroup {
+  Album = 'ALBUM',
+  AppearsOn = 'APPEARS_ON',
+  Compilation = 'COMPILATION',
+  Single = 'SINGLE'
+}
+
 export type AlbumTrackConnection = {
   __typename: 'AlbumTrackConnection';
   /** The set of tracks. */
@@ -86,6 +93,8 @@ export enum AlbumType {
 /** Spotify catalog information for an artist. */
 export type Artist = {
   __typename: 'Artist';
+  /** Spotify catalog information about an artist's albums. */
+  albums: Maybe<ArtistAlbumsConnection>;
   /** Known external URLs for this artist. */
   externalUrls: ExternalUrl;
   /** Information about the followers of the artist. */
@@ -112,11 +121,37 @@ export type Artist = {
    * popularity of all the artist's tracks.
    */
   popularity: Scalars['Int'];
+  /** Spotify catalog information about an artist's top tracks. */
+  topTracks: Array<Track>;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the artist.
    */
   uri: Maybe<Scalars['String']>;
+};
+
+
+/** Spotify catalog information for an artist. */
+export type ArtistalbumsArgs = {
+  includeGroups?: InputMaybe<Array<AlbumGroup>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+export type ArtistAlbumEdge = {
+  __typename: 'ArtistAlbumEdge';
+  /** The album group this album belongs to. */
+  albumGroup: AlbumGroup;
+  /** Spotify catalog information for the album. */
+  node: Album;
+};
+
+export type ArtistAlbumsConnection = {
+  __typename: 'ArtistAlbumsConnection';
+  /** A list of albums that belong to the artist. */
+  edges: Array<ArtistAlbumEdge>;
+  /** "Pagination information for the set of albums" */
+  pageInfo: PageInfo;
 };
 
 export type Copyright = {
@@ -776,7 +811,7 @@ export type ArtistRouteQueryVariables = Exact<{
 }>;
 
 
-export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }> } | null };
+export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }>, topTracks: Array<{ __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
