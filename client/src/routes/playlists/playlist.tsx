@@ -8,7 +8,6 @@ import EntityLink from '../../components/EntityLink';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
-import styles from './playlist.module.scss';
 import PlaylistTable from '../../components/PlaylistTable';
 import Skeleton from '../../components/Skeleton';
 
