@@ -4,11 +4,7 @@ import {
 } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { Music } from 'lucide-react';
-import {
-  AlbumGroup,
-  ArtistRouteQuery,
-  ArtistRouteQueryVariables,
-} from '../../types/api';
+import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
 import CoverPhoto from '../../components/CoverPhoto';
 import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
@@ -36,6 +32,29 @@ const ARTIST_ROUTE_QUERY = gql`
           }
         }
       }
+
+      singles: albums(includeGroups: [SINGLE]) {
+        edges {
+          albumGroup
+          node {
+            id
+
+            ...AlbumTile_album
+          }
+        }
+      }
+
+      appearsOn: albums(includeGroups: [APPEARS_ON]) {
+        edges {
+          albumGroup
+          node {
+            id
+
+            ...AlbumTile_album
+          }
+        }
+      }
+
       followers {
         total
       }
@@ -110,30 +129,38 @@ const ArtistRoute = () => {
           })}
         </div>
 
-        <h2>Albums</h2>
-        <TileGrid gap="1rem" minTileWidth="200px">
-          {artist.albums?.edges
-            .filter((edge) => edge.albumGroup === AlbumGroup.Album)
-            .map(({ node }) => (
-              <AlbumTile album={node} />
-            ))}
-        </TileGrid>
-        <h2>Singles and EPs</h2>
-        <TileGrid gap="1rem" minTileWidth="200px">
-          {artist.albums?.edges
-            .filter((edge) => edge.albumGroup === AlbumGroup.Single)
-            .map(({ node }) => (
-              <AlbumTile album={node} />
-            ))}
-        </TileGrid>
-        <h2>Featuring {artist.name}</h2>
-        <TileGrid gap="1rem" minTileWidth="200px">
-          {artist.albums?.edges
-            .filter((edge) => edge.albumGroup === AlbumGroup.AppearsOn)
-            .map(({ node }) => (
-              <AlbumTile album={node} />
-            ))}
-        </TileGrid>
+        {artist.albums && (
+          <>
+            <h2>Albums</h2>
+            <TileGrid gap="1rem" minTileWidth="200px">
+              {artist.albums.edges.map(({ node }) => (
+                <AlbumTile album={node} />
+              ))}
+            </TileGrid>
+          </>
+        )}
+
+        {artist.singles && (
+          <>
+            <h2>Singles and EPs</h2>
+            <TileGrid gap="1rem" minTileWidth="200px">
+              {artist.singles.edges.map(({ node }) => (
+                <AlbumTile album={node} />
+              ))}
+            </TileGrid>
+          </>
+        )}
+
+        {artist.appearsOn && (
+          <>
+            <h2>Featuring {artist.name}</h2>
+            <TileGrid gap="1rem" minTileWidth="200px">
+              {artist.appearsOn.edges.map(({ node }) => (
+                <AlbumTile album={node} />
+              ))}
+            </TileGrid>
+          </>
+        )}
       </Page.Content>
     </Page>
   );
