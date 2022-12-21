@@ -94,6 +94,13 @@ export type Artist = {
   __typename?: 'Artist';
   /** Known external URLs for this artist. */
   externalUrls: ExternalUrl;
+  /** Information about the followers of the artist. */
+  followers: Followers;
+  /**
+   * A list of the genres the artist is associated with. If not yet classified, the
+   * array is empty.
+   */
+  genres: Array<Scalars['String']>;
   /** A link to the Web API endpoint providing full details of the artist. */
   href: Scalars['String'];
   /**
@@ -105,6 +112,12 @@ export type Artist = {
   images: Array<Image>;
   /** The name of the artist. */
   name: Scalars['String'];
+  /**
+   * The popularity of the artist. The value will be between 0 and 100, with 100
+   * being the most popular. The artist's popularity is calculated from the
+   * popularity of all the artist's tracks.
+   */
+  popularity: Scalars['Int'];
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the artist.
@@ -928,10 +941,13 @@ export type AlbumTypeResolvers = { ALBUM: 'album', COMPILATION: 'compilation', S
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  popularity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
