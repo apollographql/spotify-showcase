@@ -153,7 +153,7 @@ const ArtistRoute = () => {
 
         {artist.appearsOn && (
           <>
-            <h2>Featuring {artist.name}</h2>
+            <h2>Appears On</h2>
             <TileGrid gap="1rem" minTileWidth="200px">
               {artist.appearsOn.edges.map(({ node }) => (
                 <AlbumTile album={node} />
