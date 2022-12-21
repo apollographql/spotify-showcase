@@ -622,14 +622,18 @@ export type ResetFieldConfigResponse = {
 
 export type SavedTrackConnection = {
   __typename: 'SavedTrackConnection';
+  /** A list of saved tracks. */
   edges: Array<SavedTrackEdge>;
+  /** "Pagination information for the set of playlists" */
   pageInfo: PageInfo;
 };
 
 export type SavedTrackEdge = {
   __typename: 'SavedTrackEdge';
-  addedAt: Maybe<Scalars['DateTime']>;
-  node: Maybe<Track>;
+  /** The date the track was saved. */
+  addedAt: Scalars['DateTime'];
+  /** The track */
+  node: Track;
 };
 
 export type SchemaField = {
@@ -820,6 +824,8 @@ type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string,
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
+export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
 export type AlbumRouteQueryVariables = Exact<{
   albumId: Scalars['ID'];
 }>;
@@ -833,6 +839,11 @@ export type ArtistRouteQueryVariables = Exact<{
 
 
 export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, albums: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', albumGroup: AlbumGroup, node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, singles: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', albumGroup: AlbumGroup, node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, appearsOn: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', albumGroup: AlbumGroup, node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }>, topTracks: Array<{ __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
+
+export type CollectionTracksRouteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', tracks: { __typename: 'SavedTrackConnection', edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;

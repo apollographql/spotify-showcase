@@ -9,6 +9,9 @@ import ArtistRoute, {
 import AlbumRoute, {
   LoadingState as AlbumRouteLoadingState,
 } from './routes/albums/album';
+import CollectionTracksRoute, {
+  LoadingState as CollectionTracksRouteLoadingState,
+} from './routes/collection/tracks';
 import Playlist, {
   Loading as PlaylistLoading,
 } from './routes/playlists/playlist';
@@ -94,6 +97,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<PlaylistLoading />}>
                 <Playlist />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/collection/tracks',
+            element: (
+              <Suspense fallback={<CollectionTracksRouteLoadingState />}>
+                <CollectionTracksRoute />
               </Suspense>
             ),
           },
