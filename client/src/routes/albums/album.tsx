@@ -36,7 +36,6 @@ const ALBUM_ROUTE_QUERY = gql`
       }
       copyrights {
         text
-        type
       }
       images {
         url
