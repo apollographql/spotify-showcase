@@ -1,6 +1,8 @@
-import { ReactElement, cloneElement, CSSProperties } from 'react';
+import { ElementType, CSSProperties } from 'react';
+import { LucideProps, Music } from 'lucide-react';
 import cx from 'classnames';
 import LazyImage from './LazyImage';
+import PlaceholderCoverPhoto from './PlaceholderCoverPhoto';
 import styles from './CoverPhoto.module.scss';
 
 interface Image {
@@ -11,7 +13,7 @@ export interface CoverPhotoProps {
   className?: string;
   image: Image | null | undefined;
   size?: string;
-  fallback: ReactElement<{ className?: string }>;
+  placeholderIcon?: ElementType<LucideProps>;
   shape?: 'square' | 'circle';
 }
 
@@ -21,9 +23,9 @@ interface StyleProps extends CSSProperties {
 
 const CoverPhoto = ({
   className,
-  fallback,
-  size,
   image,
+  placeholderIcon = Music,
+  size,
   shape = 'square',
 }: CoverPhotoProps) => {
   return (
@@ -37,9 +39,10 @@ const CoverPhoto = ({
       {image ? (
         <LazyImage className={styles.coverPhoto} src={image.url} />
       ) : (
-        cloneElement(fallback, {
-          className: cx(styles.coverPhoto, fallback.props.className),
-        })
+        <PlaceholderCoverPhoto
+          className={styles.coverPhoto}
+          icon={placeholderIcon}
+        />
       )}
     </div>
   );

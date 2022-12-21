@@ -1,9 +1,7 @@
 import { gql } from '@apollo/client';
 import { TrackTitleCell_track as Track } from '../types/api';
-import { Music } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
-import PlaceholderCoverPhoto from './PlaceholderCoverPhoto';
 import Flex from './Flex';
 import CommaSeparatedList from './CommaSeparatedList';
 import Text from './Text';
@@ -15,11 +13,7 @@ interface TrackTitleCellProps {
 const TrackTitleCell = ({ track }: TrackTitleCellProps) => {
   return (
     <Flex gap="0.5rem">
-      <CoverPhoto
-        image={track.album.images[0]}
-        fallback={<PlaceholderCoverPhoto icon={Music} />}
-        size="2.5rem"
-      />
+      <CoverPhoto image={track.album.images[0]} size="2.5rem" />
       <Flex direction="column">
         <Text size="base">{track.name}</Text>
         <CommaSeparatedList>

@@ -114,11 +114,7 @@ const ArtistRoute = () => {
                   {index + 1}
                 </Text>
                 <Flex alignItems="center" gap="1rem">
-                  <CoverPhoto
-                    image={albumCoverPhoto}
-                    fallback={<PlaceholderCoverPhoto icon={Music} />}
-                    size="2.5rem"
-                  />
+                  <CoverPhoto image={albumCoverPhoto} size="2.5rem" />
                   {track.name}
                 </Flex>
                 <Text color="muted">

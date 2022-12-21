@@ -3,27 +3,24 @@ import { Music } from 'lucide-react';
 import OriginalCoverPhoto, {
   CoverPhotoProps as OriginalCoverPhotoProps,
 } from '../CoverPhoto';
-import PlaceholderCoverPhoto, {
-  PlaceholderCoverPhotoProps,
-} from '../PlaceholderCoverPhoto';
 import styles from './Page.module.scss';
 
 export interface CoverPhotoProps {
   circular?: boolean;
-  fallbackIcon?: PlaceholderCoverPhotoProps['icon'];
+  placeholderIcon?: OriginalCoverPhotoProps['placeholderIcon'];
   image: OriginalCoverPhotoProps['image'];
 }
 
 const CoverPhoto = ({
   circular = false,
-  fallbackIcon = Music,
+  placeholderIcon = Music,
   image,
 }: CoverPhotoProps) => {
   return (
     <OriginalCoverPhoto
       image={image}
       className={cx(styles.page__coverPhoto, { [styles.circular]: circular })}
-      fallback={<PlaceholderCoverPhoto icon={fallbackIcon} />}
+      placeholderIcon={placeholderIcon}
       size="250px"
     />
   );

@@ -3,9 +3,7 @@ import CommaSeparatedList from './CommaSeparatedList';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
-import PlaceholderCoverPhoto from './PlaceholderCoverPhoto';
 import Text from './Text';
-import { Music } from 'lucide-react';
 import { thumbnail } from '../utils/image';
 import { PlaylistTitleCell_playlistTrack as PlaylistTrack } from '../types/api';
 
@@ -23,11 +21,7 @@ const PlaylistTitleCell = ({ playlistTrack }: PlaylistTitleCellProps) => {
 
   return (
     <Flex gap="0.5rem" alignItems="end">
-      <CoverPhoto
-        image={image}
-        fallback={<PlaceholderCoverPhoto icon={Music} />}
-        size="2.5rem"
-      />
+      <CoverPhoto image={image} size="2.5rem" />
       <Flex direction="column">
         <Text as={EntityLink} size="base" entity={playlistTrack}>
           {playlistTrack.name}
