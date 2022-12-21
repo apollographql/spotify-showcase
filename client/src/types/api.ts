@@ -88,6 +88,13 @@ export type Artist = {
   __typename: 'Artist';
   /** Known external URLs for this artist. */
   externalUrls: ExternalUrl;
+  /** Information about the followers of the artist. */
+  followers: Followers;
+  /**
+   * A list of the genres the artist is associated with. If not yet classified, the
+   * array is empty.
+   */
+  genres: Array<Scalars['String']>;
   /** A link to the Web API endpoint providing full details of the artist. */
   href: Scalars['String'];
   /**
@@ -95,8 +102,16 @@ export type Artist = {
    * for the artist.
    */
   id: Scalars['ID'];
+  /** Images of the artist in various sizes, widest first. */
+  images: Array<Image>;
   /** The name of the artist. */
   name: Scalars['String'];
+  /**
+   * The popularity of the artist. The value will be between 0 and 100, with 100
+   * being the most popular. The artist's popularity is calculated from the
+   * popularity of all the artist's tracks.
+   */
+  popularity: Scalars['Int'];
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the artist.
@@ -761,7 +776,7 @@ export type ArtistRouteQueryVariables = Exact<{
 }>;
 
 
-export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string } | null };
+export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }> } | null };
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
