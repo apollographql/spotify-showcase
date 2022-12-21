@@ -6,7 +6,7 @@ const resolvers: ArtistResolvers = {
     return dataSources.spotify.artistAlbums(artist.id, {
       limit,
       offset,
-      include_groups: includeGroups ? includeGroups.join(', ') : null,
+      include_groups: includeGroups ? includeGroups.join(',') : null,
     });
   },
   externalUrls: prop('external_urls'),
