@@ -793,7 +793,7 @@ export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __type
 
 export type PlaylistTable_playlistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } };
 
-export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> };
+export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
 
 type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
 
@@ -820,7 +820,7 @@ export type IndexRouteQueryVariables = Exact<{
 }>;
 
 
-export type IndexRouteQuery = { featuredPlaylists: { __typename: 'FeaturedPlaylistConnection', message: string, edges: Array<{ __typename: 'FeaturedPlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
+export type IndexRouteQuery = { featuredPlaylists: { __typename: 'FeaturedPlaylistConnection', message: string, edges: Array<{ __typename: 'FeaturedPlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
 
 export type PlaylistQueryVariables = Exact<{
   id: Scalars['ID'];
