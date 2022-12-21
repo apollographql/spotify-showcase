@@ -8,7 +8,7 @@ import MediaType from './MediaType';
 import Title from './Title';
 
 interface HeaderProps {
-  coverPhoto: Pick<CoverPhotoProps, 'src' | 'fallbackIcon' | 'circular'>;
+  coverPhoto: CoverPhotoProps;
   details: ReactElement[];
   mediaType?: string;
   title: string;
