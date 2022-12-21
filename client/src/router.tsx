@@ -3,8 +3,8 @@ import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import Index, { LoadingState as IndexLoadingState } from './routes/index';
 import Root from './routes/root';
-import Artist, {
-  LoadingState as ArtistLoadingState,
+import ArtistRoute, {
+  LoadingState as ArtistRouteLoadingState,
 } from './routes/artists/artist';
 import AlbumRoute, {
   LoadingState as AlbumRouteLoadingState,
@@ -84,8 +84,8 @@ const router = createBrowserRouter([
           {
             path: '/artists/:artistId',
             element: (
-              <Suspense fallback={<ArtistLoadingState />}>
-                <Artist />
+              <Suspense fallback={<ArtistRouteLoadingState />}>
+                <ArtistRoute />
               </Suspense>
             ),
           },

@@ -5,6 +5,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import Page from '../../components/Page';
+import Skeleton from '../../components/Skeleton';
 import Text from '../../components/Text';
 import styles from './artist.module.scss';
 
@@ -51,6 +52,13 @@ const ArtistRoute = () => {
   );
 };
 
-export const LoadingState = () => null;
+export const LoadingState = () => (
+  <Page>
+    <header className={styles.header}>
+      <Skeleton.Heading level={1} width="65%" />
+      <Skeleton.Text width="45%" />
+    </header>
+  </Page>
+);
 
 export default ArtistRoute;
