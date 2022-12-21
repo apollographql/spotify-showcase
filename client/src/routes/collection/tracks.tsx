@@ -10,8 +10,10 @@ import {
   CollectionTracksRouteQueryVariables,
 } from '../../types/api';
 import DateTime from '../../components/DateTime';
+import Flex from '../../components/Flex';
 import Page from '../../components/Page';
 import GradientIcon from '../../components/GradientIcon';
+import Skeleton from '../../components/Skeleton';
 import Table from '../../components/Table';
 import Text from '../../components/Text';
 import TrackTitleCell from '../../components/TrackTitleCell';
@@ -97,6 +99,23 @@ export const LoadingState = () => {
   return (
     <Page>
       <Page.SkeletonHeader />
+      <Page.Content>
+        <Skeleton.Table
+          rows={10}
+          columns={[
+            <Skeleton.Text />,
+            <Flex gap="0.5rem" alignItems="end">
+              <Skeleton.CoverPhoto size="2.5rem" />
+              <Flex direction="column" flex={1} gap="0.5rem">
+                <Skeleton.Text width="25%" fontSize="1rem" />
+                <Skeleton.Text width="20%" fontSize="0.75rem" />
+              </Flex>
+            </Flex>,
+            <Skeleton.Text />,
+            <Skeleton.Text />,
+          ]}
+        />
+      </Page.Content>
     </Page>
   );
 };
