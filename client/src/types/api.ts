@@ -780,6 +780,8 @@ export type User = {
   uri: Scalars['String'];
 };
 
+export type AlbumTile_album = { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> };
+
 export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };

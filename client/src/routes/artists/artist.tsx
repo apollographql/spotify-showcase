@@ -9,18 +9,16 @@ import {
   ArtistRouteQuery,
   ArtistRouteQueryVariables,
 } from '../../types/api';
+import AlbumTile from '../../components/AlbumTile';
 import CoverPhoto from '../../components/CoverPhoto';
 import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
 import Page from '../../components/Page';
 import Duration from '../../components/Duration';
-import MediaTile from '../../components/MediaTile';
 import Skeleton from '../../components/Skeleton';
 import Text from '../../components/Text';
 import TileGrid from '../../components/TileGrid';
 import styles from './artist.module.scss';
 import Flex from '../../components/Flex';
-import { albumType } from '../../utils/album';
-import { capitalize } from '../../utils/string';
 import { thumbnail } from '../../utils/image';
 
 const ARTIST_ROUTE_QUERY = gql`
@@ -33,12 +31,8 @@ const ARTIST_ROUTE_QUERY = gql`
           albumGroup
           node {
             id
-            name
-            albumType
-            totalTracks
-            images {
-              url
-            }
+
+            ...AlbumTile_album
           }
         }
       }
@@ -61,6 +55,8 @@ const ARTIST_ROUTE_QUERY = gql`
       }
     }
   }
+
+  ${AlbumTile.fragments.album}
 `;
 
 const ArtistRoute = () => {
@@ -119,12 +115,7 @@ const ArtistRoute = () => {
           {artist.albums?.edges
             .filter((edge) => edge.albumGroup === AlbumGroup.Album)
             .map(({ node }) => (
-              <MediaTile
-                coverPhotoSrc={node.images[0].url}
-                description="Album"
-                title={node.name}
-                to={`/albums/${node.id}`}
-              />
+              <AlbumTile album={node} />
             ))}
         </TileGrid>
         <h2>Singles and EPs</h2>
@@ -132,12 +123,7 @@ const ArtistRoute = () => {
           {artist.albums?.edges
             .filter((edge) => edge.albumGroup === AlbumGroup.Single)
             .map(({ node }) => (
-              <MediaTile
-                coverPhotoSrc={node.images[0].url}
-                description={capitalize(albumType(node))}
-                title={node.name}
-                to={`/albums/${node.id}`}
-              />
+              <AlbumTile album={node} />
             ))}
         </TileGrid>
         <h2>Featuring {artist.name}</h2>
@@ -145,12 +131,7 @@ const ArtistRoute = () => {
           {artist.albums?.edges
             .filter((edge) => edge.albumGroup === AlbumGroup.AppearsOn)
             .map(({ node }) => (
-              <MediaTile
-                coverPhotoSrc={node.images[0].url}
-                description="Single"
-                title={node.name}
-                to={`/albums/${node.id}`}
-              />
+              <AlbumTile album={node} />
             ))}
         </TileGrid>
       </Page.Content>
