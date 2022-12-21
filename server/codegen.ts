@@ -51,6 +51,12 @@ const config: CodegenConfig = {
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
         enumValues: {
+          AlbumGroup: {
+            ALBUM: 'album',
+            APPEARS_ON: 'appears_on',
+            COMPILATION: 'compilation',
+            SINGLE: 'single',
+          },
           AlbumType: {
             ALBUM: 'album',
             COMPILATION: 'compilation',

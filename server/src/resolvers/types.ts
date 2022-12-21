@@ -70,6 +70,12 @@ export type AlbumTracksArgs = {
   offset?: InputMaybe<Scalars['Int']>;
 };
 
+export type AlbumGroup =
+  | 'album'
+  | 'appears_on'
+  | 'compilation'
+  | 'single';
+
 export type AlbumTrackConnection = {
   __typename?: 'AlbumTrackConnection';
   /** The set of tracks. */

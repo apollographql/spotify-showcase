@@ -159,6 +159,13 @@ type Album {
   uri: String!
 }
 
+enum AlbumGroup {
+  ALBUM
+  SINGLE
+  APPEARS_ON
+  COMPILATION
+}
+
 type AlbumTrackConnection {
   "The set of tracks."
   edges: [AlbumTrackEdge!]!
