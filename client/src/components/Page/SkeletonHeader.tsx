@@ -1,16 +1,16 @@
 import Skeleton from '../Skeleton';
-import Header from './Header';
+import HeaderContainer from './HeaderContainer';
 import HeaderDetails from './HeaderDetails';
 
 const SkeletonHeader = () => {
   return (
-    <Header>
+    <HeaderContainer>
       <Skeleton.CoverPhoto size="250px" />
       <HeaderDetails>
         <Skeleton.Heading level={1} width="50%" fontSize="5rem" />
         <Skeleton.Text width="20%" />
       </HeaderDetails>
-    </Header>
+    </HeaderContainer>
   );
 };
 

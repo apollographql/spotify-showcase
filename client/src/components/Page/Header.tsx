@@ -1,17 +1,13 @@
 import { ReactNode } from 'react';
-import Flex from '../Flex';
-import styles from './Page.module.scss';
+
+import HeaderContainer from './HeaderContainer';
 
 interface HeaderProps {
   children?: ReactNode;
 }
 
 const Header = ({ children }: HeaderProps) => {
-  return (
-    <Flex className={styles.page__header} gap="2rem" alignItems="end">
-      {children}
-    </Flex>
-  );
+  return <HeaderContainer>{children}</HeaderContainer>;
 };
 
 export default Header;
