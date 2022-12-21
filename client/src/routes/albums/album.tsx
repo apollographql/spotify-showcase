@@ -13,6 +13,8 @@ import EntityLink from '../../components/EntityLink';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
+import { Clock } from 'lucide-react';
+import Duration from '../../components/Duration';
 
 type AlbumTrack = NonNullable<
   Get<AlbumRouteQuery, 'album.tracks.edges[0].node'>
@@ -40,6 +42,7 @@ const ALBUM_ROUTE_QUERY = gql`
         edges {
           node {
             id
+            durationMs
             name
             trackNumber
 
@@ -105,12 +108,20 @@ export const LoadingState = () => (
 const columnHelper = createColumnHelper<AlbumTrack>();
 
 const columns = [
-  columnHelper.accessor('trackNumber', { header: '#' }),
+  columnHelper.accessor('trackNumber', { header: '#', meta: { shrink: true } }),
   columnHelper.display({
     id: 'title',
     header: 'Title',
     cell: (info) => {
       return <AlbumTrackTitleCell track={info.row.original} />;
+    },
+  }),
+  columnHelper.accessor('durationMs', {
+    header: () => <Clock size="1rem" />,
+    cell: (info) => <Duration durationMs={info.getValue()} />,
+    meta: {
+      headerAlign: 'right',
+      shrink: true,
     },
   }),
 ];
