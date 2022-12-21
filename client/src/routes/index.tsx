@@ -128,6 +128,17 @@ const LoggedOut = () => {
           </pre>
         </li>
         <li>
+          <p>
+            Optionally configure a default country code. To change the default
+            country code (<code>US</code>), add an environment variable named{' '}
+            <code>DEFAULT_COUNTRY_CODE</code> to your <code>server/.env</code>{' '}
+            file.
+          </p>
+          <pre>
+            <code>DEFAULT_COUNTRY_CODE=CA</code>
+          </pre>
+        </li>
+        <li>
           <p>Restart the app.</p>
         </li>
       </ol>
