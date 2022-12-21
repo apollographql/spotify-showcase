@@ -20,6 +20,16 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  albumTracks(
+    id: string,
+    params?: Spotify.Request.Params['/albums/:id/tracks']
+  ) {
+    return this.get<Spotify.Response.Path['/albums/:id/tracks']>(
+      `/albums/${id}/tracks`,
+      { params: this.normalizeParams(params) }
+    );
+  }
+
   artist(id: string) {
     return this.get<Spotify.Response.Path['/artists/:id']>(`/artists/${id}`);
   }

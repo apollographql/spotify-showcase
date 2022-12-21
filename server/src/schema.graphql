@@ -232,7 +232,19 @@ type Album {
   """
   The tracks of the album.
   """
-  tracks: AlbumTrackConnection
+  tracks(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first playlist to return. Default: 0 (the first object).
+
+    Use with `limit` to get the next set of tracks.
+    """
+    offset: Int
+  ): AlbumTrackConnection
 
   """
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
