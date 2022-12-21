@@ -194,6 +194,11 @@ type Artist {
   externalUrls: ExternalUrl!
 
   """
+  Images of the artist in various sizes, widest first.
+  """
+  images: [Image!]!
+
+  """
   The name of the artist.
   """
   name: String!

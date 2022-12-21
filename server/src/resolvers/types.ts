@@ -101,6 +101,8 @@ export type Artist = {
    * for the artist.
    */
   id: Scalars['ID'];
+  /** Images of the artist in various sizes, widest first. */
+  images: Array<Image>;
   /** The name of the artist. */
   name: Scalars['String'];
   /**
@@ -928,6 +930,7 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
