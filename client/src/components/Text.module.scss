@@ -41,3 +41,12 @@
 .weight__black {
   font-weight: var(--font-weight--black);
 }
+
+.overflow__ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
