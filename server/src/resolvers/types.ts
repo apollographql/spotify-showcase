@@ -60,9 +60,9 @@ export type Album = {
 };
 
 export type AlbumType =
-  | 'ALBUM'
-  | 'COMPILATION'
-  | 'SINGLE';
+  | 'album'
+  | 'compilation'
+  | 'single';
 
 /** Spotify catalog information for an artist. */
 export type Artist = {
@@ -867,6 +867,8 @@ export type AlbumResolvers<ContextType = ContextValue, ParentType extends Resolv
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type AlbumTypeResolvers = { ALBUM: 'album', COMPILATION: 'compilation', SINGLE: 'single' };
+
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1113,6 +1115,7 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
 
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Album?: AlbumResolvers<ContextType>;
+  AlbumType?: AlbumTypeResolvers;
   Artist?: ArtistResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;
   DateTime?: GraphQLScalarType;

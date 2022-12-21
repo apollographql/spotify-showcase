@@ -47,6 +47,11 @@ const config: CodegenConfig = {
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
         enumValues: {
+          AlbumType: {
+            ALBUM: 'album',
+            COMPILATION: 'compilation',
+            SINGLE: 'single',
+          },
           ReleaseDatePrecision: {
             DAY: 'day',
             MONTH: 'month',
