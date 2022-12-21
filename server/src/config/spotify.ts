@@ -1,15 +1,4 @@
-import invariant from 'ts-invariant';
-
-const readEnv = (key: string) => {
-  const value = process.env[key];
-
-  invariant(
-    value,
-    `\`process.env.${key}\` must be defined. To get started, visit the home page at http://localhost:3000.`
-  );
-
-  return value;
-};
+import { readEnv } from '../utils/env';
 
 const config = {
   get clientId() {
