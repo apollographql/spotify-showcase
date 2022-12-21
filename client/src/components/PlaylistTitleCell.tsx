@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { gql } from '@apollo/client';
+import CommaSeparatedList from './CommaSeparatedList';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
@@ -33,16 +34,13 @@ const PlaylistTitleCell = ({ playlistTrack }: PlaylistTitleCellProps) => {
           {playlistTrack.name}
         </EntityLink>
         {playlistTrack.__typename === 'Track' ? (
-          <span className={styles.artistName}>
-            {playlistTrack.artists.map((artist, index, artists) => (
-              <Fragment key={artist.id}>
-                <EntityLink key={artist.id} entity={artist}>
-                  {artist.name}
-                </EntityLink>
-                {index !== artists.length - 1 && ', '}
-              </Fragment>
+          <CommaSeparatedList className={styles.artistName}>
+            {playlistTrack.artists.map((artist) => (
+              <EntityLink key={artist.id} entity={artist}>
+                {artist.name}
+              </EntityLink>
             ))}
-          </span>
+          </CommaSeparatedList>
         ) : (
           <span className={styles.publisher}>
             {playlistTrack.show.publisher}

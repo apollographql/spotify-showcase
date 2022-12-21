@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { gql } from '@apollo/client';
 import { AlbumTrackTitleCell_track as Track } from '../types/api';
+import CommaSeparatedList from './CommaSeparatedList';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
 
@@ -12,16 +13,13 @@ const AlbumTrackTitleCell = ({ track }: AlbumTrackTitleCellProps) => {
   return (
     <Flex direction="column" gap="0.5">
       {track.name}
-      <span>
-        {track.artists.map((artist, index, artists) => (
-          <Fragment key={artist.id}>
-            <EntityLink key={artist.id} entity={artist}>
-              {artist.name}
-            </EntityLink>
-            {index !== artists.length - 1 && ', '}
-          </Fragment>
+      <CommaSeparatedList>
+        {track.artists.map((artist) => (
+          <EntityLink key={artist.id} entity={artist}>
+            {artist.name}
+          </EntityLink>
         ))}
-      </span>
+      </CommaSeparatedList>
     </Flex>
   );
 };
