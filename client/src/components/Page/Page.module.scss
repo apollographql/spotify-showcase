@@ -7,3 +7,16 @@
     border-radius: 50%;
   }
 }
+
+.page__title {
+  font-size: 6rem;
+  line-height: 1;
+  font-weight: var(--font-weight--black);
+}
+
+.page__mediaType {
+  text-transform: uppercase;
+  font-weight: var(--font-weight--bold);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
