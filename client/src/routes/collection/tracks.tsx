@@ -71,6 +71,7 @@ const CollectionTracksRoute = () => {
           <GradientIcon
             backgroundColor="linear-gradient(135deg,#450af5,#c4efd9)"
             lucideIcon={Heart}
+            iconSize="100px"
           />
         }
         details={[

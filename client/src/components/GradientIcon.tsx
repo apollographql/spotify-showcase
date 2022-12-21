@@ -8,6 +8,7 @@ type Size = CSSProperties['width'];
 interface GradientIconProps {
   backgroundColor: BackgroundColor;
   size?: Size;
+  iconSize?: Size;
   lucideIcon: ElementType<LucideProps>;
 }
 
@@ -19,6 +20,7 @@ interface GradientIconStyle extends CSSProperties {
 const GradientIcon = ({
   backgroundColor,
   lucideIcon: Icon,
+  iconSize = '75%',
   size = '1rem',
 }: GradientIconProps) => {
   return (
@@ -31,7 +33,7 @@ const GradientIcon = ({
         } as GradientIconStyle
       }
     >
-      <Icon size="100%" fill="currentColor" />
+      <Icon size={iconSize} fill="currentColor" />
     </div>
   );
 };
