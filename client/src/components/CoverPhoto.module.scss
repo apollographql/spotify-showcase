@@ -4,8 +4,15 @@
 }
 
 .container {
-  border-radius: 0.25rem;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   width: var(--cover-photo--size);
+}
+
+.square {
+  border-radius: 0.25rem;
+}
+
+.circle {
+  border-radius: 50%;
 }
