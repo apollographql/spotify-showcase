@@ -471,6 +471,9 @@ export namespace Spotify {
         offset?: number;
         include_groups?: string;
       }>;
+      '/artists/:id/top-tracks': InputParams<{
+        market: string;
+      }>;
       '/browse/featured-playlists': InputParams<{
         limit?: number;
         offset?: number;

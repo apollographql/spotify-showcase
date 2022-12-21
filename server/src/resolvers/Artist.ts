@@ -10,8 +10,10 @@ const resolvers: ArtistResolvers = {
     });
   },
   externalUrls: prop('external_urls'),
-  topTracks: async (artist, _, { dataSources }) => {
-    const { tracks } = await dataSources.spotify.artistTopTracks(artist.id);
+  topTracks: async (artist, _, { dataSources, defaultCountryCode }) => {
+    const { tracks } = await dataSources.spotify.artistTopTracks(artist.id, {
+      market: defaultCountryCode,
+    });
 
     return tracks;
   },

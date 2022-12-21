@@ -13,6 +13,7 @@ import schema from './schema.graphql';
 import resolvers from './resolvers';
 import routes from './routes';
 import SpotifyAPI from './dataSources/spotify';
+import { readEnv } from './utils/env';
 import { ContextValue } from './types';
 
 const app = express();
@@ -37,6 +38,9 @@ server.start().then(async () => {
         const { cache } = server;
 
         return {
+          defaultCountryCode: readEnv('DEFAULT_COUNTRY_CODE', {
+            defaultValue: 'US',
+          }),
           dataSources: {
             spotify: new SpotifyAPI({
               cache,

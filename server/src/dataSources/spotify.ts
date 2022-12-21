@@ -44,9 +44,13 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  artistTopTracks(artistId: string) {
+  artistTopTracks(
+    artistId: string,
+    params: Spotify.Request.Params['/artists/:id/top-tracks']
+  ) {
     return this.get<Spotify.Response.Path['/artists/:id/top-tracks']>(
-      `/artists/${artistId}/top-tracks`
+      `/artists/${artistId}/top-tracks`,
+      { params: this.normalizeParams(params) }
     );
   }
 
