@@ -3,12 +3,20 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+import { createColumnHelper } from '@tanstack/react-table';
+import { Get } from 'type-fest';
 import { AlbumRouteQuery, AlbumRouteQueryVariables } from '../../types/api';
+import AlbumTrackTitleCell from '../../components/AlbumTrackTitleCell';
 import Page from '../../components/Page';
+import Table from '../../components/Table';
 import EntityLink from '../../components/EntityLink';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
+
+type AlbumTrack = NonNullable<
+  Get<AlbumRouteQuery, 'album.tracks.edges[0].node'>
+>;
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -28,8 +36,21 @@ const ALBUM_ROUTE_QUERY = gql`
         date
         precision
       }
+      tracks {
+        edges {
+          node {
+            id
+            name
+            trackNumber
+
+            ...AlbumTrackTitleCell_track
+          }
+        }
+      }
     }
   }
+
+  ${AlbumTrackTitleCell.fragments.track}
 `;
 
 const AlbumRoute = () => {
@@ -65,6 +86,12 @@ const AlbumRoute = () => {
           </span>,
         ]}
       />
+      <Page.Content>
+        <Table
+          columns={columns}
+          data={album.tracks?.edges.map((edge) => edge.node) ?? []}
+        />
+      </Page.Content>
     </Page>
   );
 };
@@ -74,5 +101,18 @@ export const LoadingState = () => (
     <Page.SkeletonHeader />
   </Page>
 );
+
+const columnHelper = createColumnHelper<AlbumTrack>();
+
+const columns = [
+  columnHelper.accessor('trackNumber', { header: '#' }),
+  columnHelper.display({
+    id: 'title',
+    header: 'Title',
+    cell: (info) => {
+      return <AlbumTrackTitleCell track={info.row.original} />;
+    },
+  }),
+];
 
 export default AlbumRoute;

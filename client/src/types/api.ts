@@ -45,11 +45,34 @@ export type Album = {
   releaseDate: ReleaseDate;
   /** The number of tracks in the album. */
   totalTracks: Scalars['Int'];
+  /** The tracks of the album. */
+  tracks: Maybe<AlbumTrackConnection>;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the album.
    */
   uri: Scalars['String'];
+};
+
+
+/** Spotify catalog information for an album. */
+export type AlbumtracksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+export type AlbumTrackConnection = {
+  __typename: 'AlbumTrackConnection';
+  /** The set of tracks. */
+  edges: Array<AlbumTrackEdge>;
+  /** Pagination information for the set of tracks. */
+  pageInfo: PageInfo;
+};
+
+export type AlbumTrackEdge = {
+  __typename: 'AlbumTrackEdge';
+  /** The track on the album */
+  node: Track;
 };
 
 export enum AlbumType {
@@ -694,6 +717,8 @@ export type User = {
   uri: Scalars['String'];
 };
 
+export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
 export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
@@ -716,7 +741,7 @@ export type AlbumRouteQueryVariables = Exact<{
 }>;
 
 
-export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, artists: Array<{ __typename: 'Artist', id: string, name: string }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } } | null };
+export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, artists: Array<{ __typename: 'Artist', id: string, name: string }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, name: string, trackNumber: number | null, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
