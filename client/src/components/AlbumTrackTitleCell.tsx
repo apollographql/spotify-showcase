@@ -1,10 +1,9 @@
 import { gql } from '@apollo/client';
 import { AlbumTrackTitleCell_track as Track } from '../types/api';
-import cx from 'classnames';
 import CommaSeparatedList from './CommaSeparatedList';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
-import typography from '../styles/typography.module.scss';
+import Text from './Text';
 
 interface AlbumTrackTitleCellProps {
   track: Track;
@@ -13,19 +12,18 @@ interface AlbumTrackTitleCellProps {
 const AlbumTrackTitleCell = ({ track }: AlbumTrackTitleCellProps) => {
   return (
     <Flex direction="column" gap="0.5">
-      <span className={typography.text__body}>{track.name}</span>
+      <Text size="base">{track.name}</Text>
       <CommaSeparatedList>
         {track.artists.map((artist) => (
-          <EntityLink
+          <Text
+            interactive
             key={artist.id}
-            className={cx(
-              typography.text__muted,
-              typography.text__muted__interactive
-            )}
+            as={EntityLink}
+            color="muted"
             entity={artist}
           >
             {artist.name}
-          </EntityLink>
+          </Text>
         ))}
       </CommaSeparatedList>
     </Flex>

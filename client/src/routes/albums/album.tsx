@@ -15,6 +15,8 @@ import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
 import { Clock } from 'lucide-react';
 import Duration from '../../components/Duration';
+import Text from '../../components/Text';
+import ReleaseDate from '../../components/ReleaseDate';
 
 type AlbumTrack = NonNullable<
   Get<AlbumRouteQuery, 'album.tracks.edges[0].node'>
@@ -94,6 +96,11 @@ const AlbumRoute = () => {
           columns={columns}
           data={album.tracks?.edges.map((edge) => edge.node) ?? []}
         />
+        <div>
+          <Text color="muted">
+            <ReleaseDate releaseDate={album.releaseDate} />
+          </Text>
+        </div>
       </Page.Content>
     </Page>
   );

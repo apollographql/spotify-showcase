@@ -1,0 +1,31 @@
+.color__primary {
+  color: var(--text-color--base);
+}
+
+.color__muted {
+  color: var(--text-color--muted);
+
+  &.interactive {
+    transition: color 0.15s ease-out;
+
+    &:hover {
+      color: var(--text-color--base);
+    }
+  }
+}
+
+.size__base {
+  font-size: 1rem;
+}
+
+.weight__normal {
+  font-weight: var(--font-weight--normal);
+}
+
+.weight__bold {
+  font-weight: var(--font-weight--bold);
+}
+
+.weight__black {
+  font-weight: var(--font-weight--black);
+}
