@@ -19,6 +19,10 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.TrackSimplified',
           Artist:
             '../dataSources/spotify.types#Spotify#Object.Artist | Spotify.Object.ArtistSimplified',
+          ArtistAlbumsConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
+          ArtistAlbumEdge:
+            '../dataSources/spotify.types#Spotify#Object.AlbumSimplified',
           CurrentUser:
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
           Episode:

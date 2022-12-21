@@ -190,6 +190,28 @@ Spotify catalog information for an artist.
 """
 type Artist {
   """
+  Spotify catalog information about an artist's albums.
+  """
+  albums(
+    """
+    Used to filter the response. If not supplied, all album types will be
+    returned.
+    """
+    includeGroups: [AlbumGroup!]
+
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use
+    with `limit` to get the next set of items.
+    """
+    offset: Int
+  ): ArtistAlbumsConnection
+
+  """
   Known external URLs for this artist.
   """
   externalUrls: ExternalUrl!
@@ -243,6 +265,23 @@ type Artist {
   for the artist.
   """
   uri: String
+}
+
+type ArtistAlbumsConnection {
+  """
+  A list of albums that belong to the artist.
+  """
+  edges: [ArtistAlbumEdge!]!
+
+  """
+  "Pagination information for the set of albums"
+  """
+  pageInfo: PageInfo!
+}
+
+type ArtistAlbumEdge {
+  "Spotify catalog information for the album."
+  node: Album!
 }
 
 type Copyright {
