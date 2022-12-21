@@ -37,6 +37,9 @@ export default new ApolloClient({
       Copyright: {
         keyFields: false,
       },
+      Followers: {
+        keyFields: false,
+      },
       Image: {
         keyFields: ['url'],
       },
