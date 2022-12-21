@@ -33,3 +33,8 @@
 .page__entityLink {
   font-weight: var(--font-weight--bold);
 }
+
+.page__content {
+  background: rgba(#000, 0.2);
+  padding: var(--main-content--padding);
+}

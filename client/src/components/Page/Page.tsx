@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Flex from '../Flex';
 
+import Content from './Content';
 import CoverPhoto from './CoverPhoto';
 import Details from './Details';
 import Header from './Header';
@@ -20,6 +21,7 @@ const Page = ({ children }: PageProps) => {
   );
 };
 
+Page.Content = Content;
 Page.CoverPhoto = CoverPhoto;
 Page.Details = Details;
 Page.Header = Header;
