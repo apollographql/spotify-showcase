@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { AlbumRouteQuery, AlbumRouteQueryVariables } from '../../types/api';
 import Page from '../../components/Page';
 import EntityLink from '../../components/EntityLink';
+import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
 
@@ -41,6 +42,10 @@ const AlbumRoute = () => {
   const album = data.album!;
   const images = album.images ?? [];
   const coverPhoto = images[0];
+
+  useSetBackgroundColorFromImage(coverPhoto?.url, {
+    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
+  });
 
   return (
     <Page>
