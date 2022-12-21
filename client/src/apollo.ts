@@ -34,6 +34,9 @@ export default new ApolloClient({
       PlaylistTrack: ['Track', 'Episode'],
     },
     typePolicies: {
+      Copyright: {
+        keyFields: false,
+      },
       Image: {
         keyFields: ['url'],
       },
