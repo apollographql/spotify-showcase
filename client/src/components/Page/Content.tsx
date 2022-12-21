@@ -8,7 +8,12 @@ interface ContentProps {
 
 const Content = ({ children }: ContentProps) => {
   return (
-    <Flex className={styles.page__content} direction="column" flex={1}>
+    <Flex
+      className={styles.page__content}
+      direction="column"
+      flex={1}
+      gap="1rem"
+    >
       {children}
     </Flex>
   );
