@@ -13,6 +13,9 @@ const config: CodegenConfig = {
         mappers: {
           Album:
             '../dataSources/spotify.types#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
+          AlbumTrackConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Track>',
+          AlbumTrackEdge: '../dataSources/spotify.types#Spotify#Object.Track',
           Artist:
             '../dataSources/spotify.types#Spotify#Object.Artist | Spotify.Object.ArtistSimplified',
           CurrentUser:

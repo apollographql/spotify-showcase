@@ -52,11 +52,27 @@ export type Album = {
   releaseDate: ReleaseDate;
   /** The number of tracks in the album. */
   totalTracks: Scalars['Int'];
+  /** The tracks of the album. */
+  tracks?: Maybe<AlbumTrackConnection>;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the album.
    */
   uri: Scalars['String'];
+};
+
+export type AlbumTrackConnection = {
+  __typename?: 'AlbumTrackConnection';
+  /** The set of tracks. */
+  edges: Array<AlbumTrackEdge>;
+  /** Pagination information for the set of tracks. */
+  pageInfo: PageInfo;
+};
+
+export type AlbumTrackEdge = {
+  __typename?: 'AlbumTrackEdge';
+  /** The track on the album */
+  node: Track;
 };
 
 export type AlbumType =
@@ -764,6 +780,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
+  AlbumTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Track>>;
+  AlbumTrackEdge: ResolverTypeWrapper<Spotify.Object.Track>;
   AlbumType: AlbumType;
   Artist: ResolverTypeWrapper<Spotify.Object.Artist | Spotify.Object.ArtistSimplified>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -811,6 +829,8 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
+  AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.Track>;
+  AlbumTrackEdge: Spotify.Object.Track;
   Artist: Spotify.Object.Artist | Spotify.Object.ArtistSimplified;
   Boolean: Scalars['Boolean'];
   CurrentUser: Spotify.Object.CurrentUser;
@@ -863,7 +883,19 @@ export type AlbumResolvers<ContextType = ContextValue, ParentType extends Resolv
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   releaseDate?: Resolver<ResolversTypes['ReleaseDate'], ParentType, ContextType>;
   totalTracks?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  tracks?: Resolver<Maybe<ResolversTypes['AlbumTrackConnection']>, ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AlbumTrackConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AlbumTrackConnection'] = ResolversParentTypes['AlbumTrackConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['AlbumTrackEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AlbumTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AlbumTrackEdge'] = ResolversParentTypes['AlbumTrackEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1115,6 +1147,8 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
 
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Album?: AlbumResolvers<ContextType>;
+  AlbumTrackConnection?: AlbumTrackConnectionResolvers<ContextType>;
+  AlbumTrackEdge?: AlbumTrackEdgeResolvers<ContextType>;
   AlbumType?: AlbumTypeResolvers;
   Artist?: ArtistResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;

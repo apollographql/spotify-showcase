@@ -230,10 +230,28 @@ type Album {
   totalTracks: Int!
 
   """
+  The tracks of the album.
+  """
+  tracks: AlbumTrackConnection
+
+  """
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the album.
   """
   uri: String!
+}
+
+type AlbumTrackConnection {
+  "The set of tracks."
+  edges: [AlbumTrackEdge!]!
+
+  "Pagination information for the set of tracks."
+  pageInfo: PageInfo!
+}
+
+type AlbumTrackEdge {
+  "The track on the album"
+  node: Track!
 }
 
 enum AlbumType {
@@ -384,6 +402,7 @@ type ExternalUrl {
 
 type FeaturedPlaylistConnection {
   message: String!
+
   """
   A list of Spotify featured playlists (shown, for example, on a Spotify player's
   'Browse' tab).
