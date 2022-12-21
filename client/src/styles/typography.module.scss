@@ -1,17 +1,15 @@
-.trackName {
-  font-size: 1rem;
-}
-
-.publisher,
-.artistName {
+.text__muted {
   color: var(--text-color--muted);
 }
 
-.artistName > a {
-  display: inline;
+.text__muted__interactive {
   transition: color 0.15s ease-out;
 
   &:hover {
     color: var(--text-color--base);
   }
+}
+
+.text__body {
+  font-size: 1rem;
 }

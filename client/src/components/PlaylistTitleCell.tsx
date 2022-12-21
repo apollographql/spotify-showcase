@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
 import { gql } from '@apollo/client';
+import cx from 'classnames';
 import CommaSeparatedList from './CommaSeparatedList';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
@@ -8,7 +8,7 @@ import PlaceholderCoverPhoto from './PlaceholderCoverPhoto';
 import { Music } from 'lucide-react';
 import { thumbnail } from '../utils/image';
 import { PlaylistTitleCell_playlistTrack as PlaylistTrack } from '../types/api';
-import styles from './PlaylistTitleCell.module.scss';
+import typography from '../styles/typography.module.scss';
 
 interface PlaylistTitleCellProps {
   playlistTrack: PlaylistTrack;
@@ -30,19 +30,26 @@ const PlaylistTitleCell = ({ playlistTrack }: PlaylistTitleCellProps) => {
         size="2.5rem"
       />
       <Flex direction="column">
-        <EntityLink className={styles.trackName} entity={playlistTrack}>
+        <EntityLink className={typography.text__body} entity={playlistTrack}>
           {playlistTrack.name}
         </EntityLink>
         {playlistTrack.__typename === 'Track' ? (
-          <CommaSeparatedList className={styles.artistName}>
+          <CommaSeparatedList>
             {playlistTrack.artists.map((artist) => (
-              <EntityLink key={artist.id} entity={artist}>
+              <EntityLink
+                key={artist.id}
+                className={cx(
+                  typography.text__muted,
+                  typography.text__muted__interactive
+                )}
+                entity={artist}
+              >
                 {artist.name}
               </EntityLink>
             ))}
           </CommaSeparatedList>
         ) : (
-          <span className={styles.publisher}>
+          <span className={typography.text__muted}>
             {playlistTrack.show.publisher}
           </span>
         )}
