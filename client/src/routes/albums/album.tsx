@@ -17,6 +17,7 @@ import { Clock } from 'lucide-react';
 import Duration from '../../components/Duration';
 import Text from '../../components/Text';
 import ReleaseDate from '../../components/ReleaseDate';
+import Flex from '../../components/Flex';
 
 type AlbumTrack = NonNullable<
   Get<AlbumRouteQuery, 'album.tracks.edges[0].node'>
@@ -32,6 +33,10 @@ const ALBUM_ROUTE_QUERY = gql`
       artists {
         id
         name
+      }
+      copyrights {
+        text
+        type
       }
       images {
         url
@@ -96,11 +101,16 @@ const AlbumRoute = () => {
           columns={columns}
           data={album.tracks?.edges.map((edge) => edge.node) ?? []}
         />
-        <div>
-          <Text color="muted">
+        <Flex direction="column">
+          <Text as="div" color="muted" size="sm">
             <ReleaseDate releaseDate={album.releaseDate} />
           </Text>
-        </div>
+          {album.copyrights.map((copyright) => (
+            <Text key={copyright.text} color="muted" size="xxs">
+              {copyright.text}
+            </Text>
+          ))}
+        </Flex>
       </Page.Content>
     </Page>
   );
