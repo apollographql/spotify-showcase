@@ -20,3 +20,16 @@
   font-size: 0.75rem;
   letter-spacing: 1px;
 }
+
+.page__details {
+  font-size: 0.875rem;
+
+  > :not(:first-child)::before {
+    content: '·';
+    margin: 0 0.25rem;
+  }
+}
+
+.page__entityLink {
+  font-weight: var(--font-weight--bold);
+}
