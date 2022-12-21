@@ -633,9 +633,9 @@ export type SavedTrackConnection = {
 export type SavedTrackEdge = {
   __typename?: 'SavedTrackEdge';
   /** The date the track was saved. */
-  addedAt?: Maybe<Scalars['DateTime']>;
+  addedAt: Scalars['DateTime'];
   /** The track */
-  node?: Maybe<Track>;
+  node: Track;
 };
 
 export type SchemaField = {
@@ -1218,8 +1218,8 @@ export type SavedTrackConnectionResolvers<ContextType = ContextValue, ParentType
 }>;
 
 export type SavedTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedTrackEdge'] = ResolversParentTypes['SavedTrackEdge']> = ResolversObject<{
-  addedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
-  node?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType>;
+  addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

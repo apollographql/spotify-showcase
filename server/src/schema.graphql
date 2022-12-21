@@ -1020,10 +1020,10 @@ type SavedTrackConnection {
 
 type SavedTrackEdge {
   "The date the track was saved."
-  addedAt: DateTime
+  addedAt: DateTime!
 
   "The track"
-  node: Track
+  node: Track!
 }
 
 type SchemaField {
