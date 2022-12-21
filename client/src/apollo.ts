@@ -44,6 +44,9 @@ export default new ApolloClient({
           },
         },
       },
+      ReleaseDate: {
+        keyFields: false,
+      },
     },
   }),
 });
