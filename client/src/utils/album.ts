@@ -1,8 +1,6 @@
-import { Album as AlbumSchemaType, AlbumType } from '../types/api';
+import { Album, AlbumType } from '../types/api';
 
-type Album = Pick<AlbumSchemaType, 'albumType' | 'totalTracks'>;
-
-export const albumType = (album: Album) => {
+export const albumType = (album: Pick<Album, 'albumType' | 'totalTracks'>) => {
   if (album.albumType === AlbumType.Single && album.totalTracks > 1) {
     return 'EP';
   }
