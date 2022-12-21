@@ -3,12 +3,10 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
-import { Music } from 'lucide-react';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
-import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
 import Flex from '../../components/Flex';
-import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
+import Page from '../../components/Page';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import styles from './playlist.module.scss';
 import PlaylistTable from '../../components/PlaylistTable';
@@ -57,54 +55,42 @@ const Playlist = () => {
   });
 
   return (
-    <div className={styles.playlist}>
-      <Flex
-        className={styles.playlistHeader}
-        as="header"
-        gap="2rem"
-        alignItems="end"
-      >
-        <CoverPhoto
-          src={coverPhoto?.url}
-          fallback={<PlaceholderCoverPhoto icon={Music} />}
-          size="250px"
-        />
-        <Flex direction="column" gap="0.5rem">
-          <h2 className={styles.type}>Playlist</h2>
-          <h1 className={styles.playlistName}>{playlist.name}</h1>
-          <Flex className={styles.playlistInfo} alignItems="center">
-            <Flex alignItems="center" gap="1ch">
-              <EntityLink
-                className={styles.playlistOwner}
-                entity={playlist.owner}
-              >
+    <Page>
+      <Page.Header>
+        <Page.CoverPhoto src={coverPhoto?.url} />
+        <Page.HeaderDetails>
+          <Page.MediaType mediaType="playlist" />
+          <Page.Title>{playlist.name}</Page.Title>
+          <Page.Details
+            items={[
+              <EntityLink entity={playlist.owner}>
                 {playlist.owner.displayName}
-              </EntityLink>
-            </Flex>
-            <span>
-              {tracks.pageInfo.total}{' '}
-              {tracks.pageInfo.total === 1 ? 'song' : 'songs'}
-            </span>
-          </Flex>
-        </Flex>
-      </Flex>
-      <Flex className={styles.tracks} direction="column" flex={1}>
+              </EntityLink>,
+              <span>
+                {tracks.pageInfo.total}{' '}
+                {tracks.pageInfo.total === 1 ? 'song' : 'songs'}
+              </span>,
+            ]}
+          ></Page.Details>
+        </Page.HeaderDetails>
+      </Page.Header>
+      <Page.Content>
         <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
-      </Flex>
-    </div>
+      </Page.Content>
+    </Page>
   );
 };
 
 export const Loading = () => (
-  <Flex className={styles.playlist} direction="column" gap="1rem">
-    <Flex gap="1rem" alignItems="end" className={styles.playlistHeader}>
+  <Page>
+    <Page.Header>
       <Skeleton.CoverPhoto size="250px" />
-      <Flex direction="column" flex={1} gap="1rem">
+      <Page.HeaderDetails>
         <Skeleton.Heading level={1} width="50%" fontSize="5rem" />
         <Skeleton.Text width="20%" />
-      </Flex>
-    </Flex>
-    <Flex direction="column" className={styles.tracks} flex={1}>
+      </Page.HeaderDetails>
+    </Page.Header>
+    <Page.Content>
       <Skeleton.Table
         rows={10}
         columns={[
@@ -120,8 +106,8 @@ export const Loading = () => (
           <Skeleton.Text />,
         ]}
       />
-    </Flex>
-  </Flex>
+    </Page.Content>
+  </Page>
 );
 
 export default Playlist;
