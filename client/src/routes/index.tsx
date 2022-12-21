@@ -137,6 +137,10 @@ const LoggedOut = () => {
           <pre>
             <code>DEFAULT_COUNTRY_CODE=CA</code>
           </pre>
+          <blockquote>
+            This is needed to fetch an artist's top tracks on the artist page
+            without needing geolocation.
+          </blockquote>
         </li>
         <li>
           <p>Restart the app.</p>

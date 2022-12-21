@@ -59,4 +59,10 @@
   ol:not(:last-child) {
     margin-bottom: 2rem;
   }
+
+  blockquote {
+    padding: 0.5rem 0;
+    color: var(--text-color--muted);
+    font-size: 0.875rem;
+  }
 }
