@@ -81,12 +81,18 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  me() {
+  currentUser() {
     return this.get<Spotify.Response.Path['/me']>('me');
   }
 
   currentUserPlaylists(params: Spotify.Request.Params['/me/playlists']) {
     return this.get<Spotify.Response.Path['/me/playlists']>('/me/playlists', {
+      params: this.normalizeParams(params),
+    });
+  }
+
+  currentUserTracks(params?: Spotify.Request.Params['/me/tracks']) {
+    return this.get<Spotify.Response.Path['/me/tracks']>('/me/tracks', {
       params: this.normalizeParams(params),
     });
   }

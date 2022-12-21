@@ -173,12 +173,19 @@ export type CurrentUser = {
   __typename?: 'CurrentUser';
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
+  tracks?: Maybe<SavedTrackConnection>;
   /** Detailed profile information about the current user. */
   user: User;
 };
 
 
 export type CurrentUserPlaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUserTracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -615,6 +622,22 @@ export type ResetFieldConfigResponse = {
   fieldConfig?: Maybe<FieldConfig>;
 };
 
+export type SavedTrackConnection = {
+  __typename?: 'SavedTrackConnection';
+  /** A list of saved tracks. */
+  edges: Array<SavedTrackEdge>;
+  /** "Pagination information for the set of playlists" */
+  pageInfo: PageInfo;
+};
+
+export type SavedTrackEdge = {
+  __typename?: 'SavedTrackEdge';
+  /** The date the track was saved. */
+  addedAt?: Maybe<Scalars['DateTime']>;
+  /** The track */
+  node?: Maybe<Track>;
+};
+
 export type SchemaField = {
   __typename?: 'SchemaField';
   /** The name of the field in the type (ex: `firstName`) */
@@ -888,6 +911,8 @@ export type ResolversTypes = ResolversObject<{
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
   ResetFieldConfigResponse: ResolverTypeWrapper<Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  SavedTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
+  SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
   SchemaField: ResolverTypeWrapper<SchemaField>;
   SchemaFieldInput: SchemaFieldInput;
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
@@ -937,6 +962,8 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
   ResetFieldConfigResponse: Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  SavedTrackConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;
+  SavedTrackEdge: Spotify.Object.SavedTrack;
   SchemaField: SchemaField;
   SchemaFieldInput: SchemaFieldInput;
   Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
@@ -1015,6 +1042,7 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
+  tracks?: Resolver<Maybe<ResolversTypes['SavedTrackConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -1183,6 +1211,18 @@ export type ResetFieldConfigResponseResolvers<ContextType = ContextValue, Parent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type SavedTrackConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedTrackConnection'] = ResolversParentTypes['SavedTrackConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SavedTrackEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SavedTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedTrackEdge'] = ResolversParentTypes['SavedTrackEdge']> = ResolversObject<{
+  addedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  node?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type SchemaFieldResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SchemaField'] = ResolversParentTypes['SchemaField']> = ResolversObject<{
   fieldName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   typename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1282,6 +1322,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
   ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
   ResetFieldConfigResponse?: ResetFieldConfigResponseResolvers<ContextType>;
+  SavedTrackConnection?: SavedTrackConnectionResolvers<ContextType>;
+  SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;
   Show?: ShowResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;

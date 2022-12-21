@@ -318,6 +318,11 @@ export namespace Spotify {
       resume_position_ms: number;
     }
 
+    export interface SavedTrack {
+      added_at: string;
+      track: Track;
+    }
+
     export interface Show {
       available_markets: CountryCode[];
       copyrights: Copyright[];
@@ -446,6 +451,7 @@ export namespace Spotify {
       '/episodes/:id': Object.Episode;
       '/me': Object.CurrentUser;
       '/me/playlists': Object.Paginated<Object.Playlist>;
+      '/me/tracks': Object.Paginated<Object.SavedTrack>;
       '/playlists/:id': Object.Playlist;
       '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
@@ -489,6 +495,7 @@ export namespace Spotify {
         limit?: number;
         offset?: number;
       }>;
+      '/me/tracks': InputParams<{ limit?: number; offset?: number }>;
       '/playlists/:id/tracks': InputParams<{
         limit?: number;
         offset?: number;

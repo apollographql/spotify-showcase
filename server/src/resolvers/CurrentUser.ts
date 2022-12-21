@@ -6,6 +6,9 @@ const resolvers: CurrentUserResolvers = {
   playlists: (_, args, { dataSources }) => {
     return dataSources.spotify.currentUserPlaylists(args);
   },
+  tracks: (_, args, { dataSources }) => {
+    return dataSources.spotify.currentUserTracks(args);
+  },
 };
 
 export default resolvers;

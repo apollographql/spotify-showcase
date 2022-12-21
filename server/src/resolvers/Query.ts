@@ -16,7 +16,7 @@ const resolvers: QueryResolvers = {
 
     return genres;
   },
-  me: (_, __, { dataSources }) => dataSources.spotify.me(),
+  me: (_, __, { dataSources }) => dataSources.spotify.currentUser(),
   recommendations: async (_, { seeds }, { dataSources }) => {
     return dataSources.spotify.recommendations({
       ...seeds,

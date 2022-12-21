@@ -169,12 +169,19 @@ export type CurrentUser = {
   __typename: 'CurrentUser';
   /** Playlists owned or followed by the current Spotify user. */
   playlists: Maybe<PlaylistConnection>;
+  tracks: Maybe<SavedTrackConnection>;
   /** Detailed profile information about the current user. */
   user: User;
 };
 
 
 export type CurrentUserplaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUsertracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -611,6 +618,18 @@ export type ResetFieldConfigResponse = {
   __typename: 'ResetFieldConfigResponse';
   /** The updated field config */
   fieldConfig: Maybe<FieldConfig>;
+};
+
+export type SavedTrackConnection = {
+  __typename: 'SavedTrackConnection';
+  edges: Array<SavedTrackEdge>;
+  pageInfo: PageInfo;
+};
+
+export type SavedTrackEdge = {
+  __typename: 'SavedTrackEdge';
+  addedAt: Maybe<Scalars['DateTime']>;
+  node: Maybe<Track>;
 };
 
 export type SchemaField = {
