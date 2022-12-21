@@ -14,7 +14,6 @@ import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFro
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
 import { Clock } from 'lucide-react';
-import { albumType } from '../../utils/album';
 import Duration from '../../components/Duration';
 import Text from '../../components/Text';
 import ReleaseDate from '../../components/ReleaseDate';
@@ -83,7 +82,7 @@ const AlbumRoute = () => {
       <Page.Header
         coverPhoto={{ src: coverPhoto?.url }}
         title={album.name}
-        mediaType={albumType(album)}
+        mediaType={album.albumType}
         details={[
           ...album.artists.map((artist) => (
             <EntityLink key={artist.id} entity={artist}>
