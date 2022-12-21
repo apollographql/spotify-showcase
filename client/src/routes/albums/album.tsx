@@ -14,6 +14,7 @@ import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFro
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
 import { Clock } from 'lucide-react';
+import CoverPhoto from '../../components/CoverPhoto';
 import Duration from '../../components/Duration';
 import Text from '../../components/Text';
 import ReleaseDate from '../../components/ReleaseDate';
@@ -80,7 +81,7 @@ const AlbumRoute = () => {
   return (
     <Page>
       <Page.Header
-        coverPhoto={{ image: coverPhoto }}
+        coverPhoto={<CoverPhoto image={coverPhoto} />}
         title={album.name}
         mediaType={album.albumType}
         details={[

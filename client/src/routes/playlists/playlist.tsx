@@ -4,6 +4,7 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
+import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
@@ -57,7 +58,7 @@ const Playlist = () => {
     <Page>
       <Page.Header
         mediaType="playlist"
-        coverPhoto={{ image: coverPhoto }}
+        coverPhoto={<CoverPhoto image={coverPhoto} />}
         title={playlist.name}
         details={[
           <EntityLink entity={playlist.owner}>
