@@ -5,7 +5,7 @@ import styles from './TileGrid.module.scss';
 interface TileGridProps {
   className?: string;
   children?: ReactNode;
-  gap?: CSSProperties['gap'];
+  gap: CSSProperties['gap'];
   minTileWidth?: CSSProperties['minWidth'];
   autoSizing?: 'fit' | 'fill';
 }
@@ -18,7 +18,7 @@ const TileGrid = ({
   autoSizing = 'fill',
   className,
   children,
-  gap = '2.5rem 1rem',
+  gap,
   minTileWidth,
 }: TileGridProps) => {
   return (
