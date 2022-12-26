@@ -11,11 +11,16 @@ const PREFERRED_SWATCHES = [
   'DarkMuted',
 ];
 
+interface Image {
+  url: string;
+}
+
 const useSetBackgroundColorFromImage = (
-  src: string | null | undefined,
+  image: Image | null | undefined,
   { fallback }: { fallback?: string } = {}
 ) => {
   const [, setBackgroundColor] = useBackgroundColor();
+  const src = image?.url;
 
   useEffect(() => {
     if (!src && fallback) {

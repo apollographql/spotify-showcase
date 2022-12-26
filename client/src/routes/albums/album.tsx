@@ -74,7 +74,7 @@ const AlbumRoute = () => {
   const images = album.images ?? [];
   const coverPhoto = images[0];
 
-  useSetBackgroundColorFromImage(coverPhoto?.url, {
+  useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
   });
 
