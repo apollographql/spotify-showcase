@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import { AlbumTile_album as Album } from '../types/api';
 import { capitalize } from '../utils/string';
+import { yearOfRelease } from '../utils/releaseDate';
 import MediaTile from './MediaTile';
 
 interface AlbumTileProps {
@@ -11,7 +12,10 @@ const AlbumTile = ({ album }: AlbumTileProps) => {
   return (
     <MediaTile
       coverPhoto={album.images[0]}
-      description={capitalize(album.albumType.toLowerCase())}
+      description={[
+        <span>{yearOfRelease(album.releaseDate)}</span>,
+        <span>{capitalize(album.albumType.toLowerCase())}</span>,
+      ]}
       title={album.name}
       to={`/albums/${album.id}`}
     />
@@ -25,6 +29,9 @@ AlbumTile.fragments = {
       name
       albumType
       totalTracks
+      releaseDate {
+        date
+      }
       images {
         url
       }
