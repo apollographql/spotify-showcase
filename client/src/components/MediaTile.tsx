@@ -7,12 +7,19 @@ import Flex from './Flex';
 
 interface MediaTileProps {
   coverPhoto: CoverPhotoProps['image'];
+  coverPhotoShape?: CoverPhotoProps['shape'];
   title: string;
   description: ReactNode;
   to: LinkProps['to'];
 }
 
-const MediaTile = ({ coverPhoto, description, title, to }: MediaTileProps) => {
+const MediaTile = ({
+  coverPhoto,
+  coverPhotoShape,
+  description,
+  title,
+  to,
+}: MediaTileProps) => {
   return (
     <Flex
       as={Link}
@@ -21,7 +28,7 @@ const MediaTile = ({ coverPhoto, description, title, to }: MediaTileProps) => {
       to={to}
       className={styles.mediaTile}
     >
-      <CoverPhoto image={coverPhoto} />
+      <CoverPhoto image={coverPhoto} shape={coverPhotoShape} />
       <Flex direction="column">
         <Text wrap={false} overflow="ellipsis" weight="bold" title={title}>
           {title}

@@ -121,6 +121,12 @@ export type Artist = {
    * popularity of all the artist's tracks.
    */
   popularity: Scalars['Int'];
+  /**
+   * Spotify catalog information about artists similar to a given artist.
+   * Similarity is based on analysis of the Spotify community's
+   * [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
+   */
+  relatedArtists: Array<Artist>;
   /** Spotify catalog information about an artist's top tracks. */
   topTracks: Array<Track>;
   /**
@@ -807,6 +813,8 @@ export type AlbumTile_album = { __typename: 'Album', id: string, name: string, a
 
 export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
+export type ArtistTile_artist = { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> };
+
 export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
@@ -838,7 +846,7 @@ export type ArtistRouteQueryVariables = Exact<{
 }>;
 
 
-export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, albums: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, singles: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, appearsOn: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }>, topTracks: Array<{ __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
+export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, albums: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, singles: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, appearsOn: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> } | null, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }>, relatedArtists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }>, topTracks: Array<{ __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
 
 export type ArtistRouteQuery_albums = { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, images: Array<{ __typename: 'Image', url: string }> } }> };
 

@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
+import ArtistTile from '../../components/ArtistTile';
 import CoverPhoto from '../../components/CoverPhoto';
 import Page from '../../components/Page';
 import Duration from '../../components/Duration';
@@ -41,6 +42,10 @@ const ARTIST_ROUTE_QUERY = gql`
       images {
         url
       }
+      relatedArtists {
+        id
+        ...ArtistTile_artist
+      }
       topTracks {
         id
         name
@@ -66,6 +71,7 @@ const ARTIST_ROUTE_QUERY = gql`
   }
 
   ${AlbumTile.fragments.album}
+  ${ArtistTile.fragments.artist}
 `;
 
 const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
@@ -131,6 +137,15 @@ const ArtistRoute = () => {
           albums={getAlbums(artist.singles)}
         />
         <AlbumSection title="Appears On" albums={getAlbums(artist.appearsOn)} />
+
+        <section className={styles.section}>
+          <h2>Fans also like</h2>
+          <TileGrid gap="1rem" minTileWidth="200px">
+            {artist.relatedArtists.map((relatedArtist) => (
+              <ArtistTile key={relatedArtist.id} artist={relatedArtist} />
+            ))}
+          </TileGrid>
+        </section>
       </Page.Content>
     </Page>
   );
