@@ -28,7 +28,11 @@ const MediaTile = ({
       to={to}
       className={styles.mediaTile}
     >
-      <CoverPhoto image={coverPhoto} shape={coverPhotoShape} />
+      <CoverPhoto
+        className={styles.coverPhoto}
+        image={coverPhoto}
+        shape={coverPhotoShape}
+      />
       <Flex direction="column">
         <Text wrap={false} overflow="ellipsis" weight="bold" title={title}>
           {title}
