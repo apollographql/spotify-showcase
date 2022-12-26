@@ -126,6 +126,12 @@ export type Artist = {
    * popularity of all the artist's tracks.
    */
   popularity: Scalars['Int'];
+  /**
+   * Spotify catalog information about artists similar to a given artist.
+   * Similarity is based on analysis of the Spotify community's
+   * [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
+   */
+  relatedArtists: Array<Artist>;
   /** Spotify catalog information about an artist's top tracks. */
   topTracks: Array<Track>;
   /**
@@ -1017,6 +1023,7 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   popularity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  relatedArtists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   topTracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
   uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

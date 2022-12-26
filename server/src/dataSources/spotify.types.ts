@@ -439,6 +439,7 @@ export namespace Spotify {
       '/albums/:id/tracks': Object.Paginated<Object.TrackSimplified>;
       '/artists/:id': Object.Artist;
       '/artists/:id/albums': Object.Paginated<Object.AlbumSimplified>;
+      '/artists/:id/related-artists': Object.Artist[];
       '/artists/:id/top-tracks': Object.ArtistTopTracks;
       '/authorize':
         | { code: string; state?: string }
