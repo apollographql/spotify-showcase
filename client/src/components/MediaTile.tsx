@@ -3,6 +3,7 @@ import { Link, LinkProps } from 'react-router-dom';
 import CoverPhoto, { CoverPhotoProps } from './CoverPhoto';
 import Text from './Text';
 import styles from './MediaTile.module.scss';
+import DelimitedList from './DelimitedList';
 import Flex from './Flex';
 
 interface MediaTileProps {
@@ -37,9 +38,15 @@ const MediaTile = ({
         <Text wrap={false} overflow="ellipsis" weight="bold" title={title}>
           {title}
         </Text>
-        <Text color="muted" size="sm" maxLines={2}>
+        <DelimitedList
+          as={Text}
+          color="muted"
+          delimiter=" · "
+          size="sm"
+          maxLines={2}
+        >
           {description}
-        </Text>
+        </DelimitedList>
       </Flex>
     </Flex>
   );
