@@ -15,6 +15,9 @@ import CollectionTracksRoute, {
 import Playlist, {
   Loading as PlaylistLoading,
 } from './routes/playlists/playlist';
+import TrackRoute, {
+  LoadingState as TrackRouteLoadingState,
+} from './routes/tracks/track';
 import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
 
@@ -97,6 +100,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<PlaylistLoading />}>
                 <Playlist />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/tracks/:trackId',
+            element: (
+              <Suspense fallback={<TrackRouteLoadingState />}>
+                <TrackRoute />
               </Suspense>
             ),
           },

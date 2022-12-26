@@ -493,6 +493,11 @@ export type Query = {
    * data to generate a list of tracks.
    */
   recommendations: Maybe<Recommendations>;
+  /**
+   * Get Spotify catalog information for a single track identified by its unique
+   * Spotify ID.
+   */
+  track: Maybe<Track>;
 };
 
 
@@ -520,6 +525,11 @@ export type QueryplaylistArgs = {
 
 export type QueryrecommendationsArgs = {
   seeds: RecommendationSeedInput;
+};
+
+
+export type QuerytrackArgs = {
+  id: Scalars['ID'];
 };
 
 /** Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
@@ -876,3 +886,10 @@ export type RootQueryVariables = Exact<{
 
 
 export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
+
+export type TrackRouteQueryVariables = Exact<{
+  trackId: Scalars['ID'];
+}>;
+
+
+export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null };
