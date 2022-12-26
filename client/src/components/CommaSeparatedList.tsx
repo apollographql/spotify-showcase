@@ -1,40 +1,19 @@
-import {
-  Children,
-  ElementType,
-  Fragment,
-  ReactNode,
-  isValidElement,
-} from 'react';
-import { PolymorphicComponentProps } from '../utils/types';
+import { ElementType } from 'react';
+import DelimitedList, { DelimitedListProps } from './DelimitedList';
 
-type CommaSeparatedListProps<TElement extends ElementType = 'span'> =
-  PolymorphicComponentProps<
-    TElement,
-    {
-      children: ReactNode;
-    }
-  >;
+type CommaSeparatedListProps<TElement extends ElementType = 'span'> = Omit<
+  DelimitedListProps<TElement>,
+  'delimiter'
+>;
 
 const CommaSeparatedList = <TElement extends ElementType = 'span'>({
-  as,
   children,
   ...props
 }: CommaSeparatedListProps<TElement>) => {
-  const Element = as || 'span';
-
   return (
-    <Element {...props}>
-      {Children.toArray(children).map((child, index, list) => {
-        const key = isValidElement(child) ? child.key : index;
-
-        return (
-          <Fragment key={key}>
-            {child}
-            {index !== list.length - 1 && ', '}
-          </Fragment>
-        );
-      })}
-    </Element>
+    <DelimitedList {...props} delimiter=", ">
+      {children}
+    </DelimitedList>
   );
 };
 
