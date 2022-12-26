@@ -106,7 +106,7 @@ const ArtistRoute = () => {
           {new Intl.NumberFormat().format(artist.followers.total)} followers
         </Text>
       </header>
-      <Page.Content>
+      <Page.Content gap="2rem">
         <section className={styles.section}>
           <h2>Popular</h2>
           <div className={styles.topTracks}>
