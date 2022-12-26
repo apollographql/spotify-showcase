@@ -49,3 +49,9 @@
 .topTrack__number {
   justify-self: end;
 }
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
