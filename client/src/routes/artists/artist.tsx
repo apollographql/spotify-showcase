@@ -3,11 +3,10 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { Music } from 'lucide-react';
+import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
 import CoverPhoto from '../../components/CoverPhoto';
-import PlaceholderCoverPhoto from '../../components/PlaceholderCoverPhoto';
 import Page from '../../components/Page';
 import Duration from '../../components/Duration';
 import Skeleton from '../../components/Skeleton';
@@ -17,42 +16,23 @@ import styles from './artist.module.scss';
 import Flex from '../../components/Flex';
 import { thumbnail } from '../../utils/image';
 
+type Album = NonNullable<Get<ArtistRouteQuery, 'artist.albums.edges[0].node'>>;
+
 const ARTIST_ROUTE_QUERY = gql`
   query ArtistRouteQuery($artistId: ID!) {
     artist(id: $artistId) {
       id
       name
-      albums {
-        edges {
-          albumGroup
-          node {
-            id
-
-            ...AlbumTile_album
-          }
-        }
+      albums(includeGroups: [ALBUM]) {
+        ...ArtistRouteQuery_albums
       }
 
       singles: albums(includeGroups: [SINGLE]) {
-        edges {
-          albumGroup
-          node {
-            id
-
-            ...AlbumTile_album
-          }
-        }
+        ...ArtistRouteQuery_albums
       }
 
       appearsOn: albums(includeGroups: [APPEARS_ON]) {
-        edges {
-          albumGroup
-          node {
-            id
-
-            ...AlbumTile_album
-          }
-        }
+        ...ArtistRouteQuery_albums
       }
 
       followers {
@@ -75,8 +55,26 @@ const ARTIST_ROUTE_QUERY = gql`
     }
   }
 
+  fragment ArtistRouteQuery_albums on ArtistAlbumsConnection {
+    edges {
+      node {
+        id
+
+        ...AlbumTile_album
+      }
+    }
+  }
+
   ${AlbumTile.fragments.album}
 `;
+
+const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
+  if (!albumConnection) {
+    return [];
+  }
+
+  return albumConnection.edges.map((edge) => edge.node);
+};
 
 const ArtistRoute = () => {
   const { artistId } = useParams() as { artistId: string };
@@ -125,40 +123,36 @@ const ArtistRoute = () => {
           })}
         </div>
 
-        {artist.albums && (
-          <>
-            <h2>Albums</h2>
-            <TileGrid gap="1rem" minTileWidth="200px">
-              {artist.albums.edges.map(({ node }) => (
-                <AlbumTile album={node} />
-              ))}
-            </TileGrid>
-          </>
-        )}
-
-        {artist.singles && (
-          <>
-            <h2>Singles and EPs</h2>
-            <TileGrid gap="1rem" minTileWidth="200px">
-              {artist.singles.edges.map(({ node }) => (
-                <AlbumTile album={node} />
-              ))}
-            </TileGrid>
-          </>
-        )}
-
-        {artist.appearsOn && (
-          <>
-            <h2>Appears On</h2>
-            <TileGrid gap="1rem" minTileWidth="200px">
-              {artist.appearsOn.edges.map(({ node }) => (
-                <AlbumTile album={node} />
-              ))}
-            </TileGrid>
-          </>
-        )}
+        <AlbumSection title="Albums" albums={getAlbums(artist.albums)} />
+        <AlbumSection
+          title="Singles and EPs"
+          albums={getAlbums(artist.singles)}
+        />
+        <AlbumSection title="Appears On" albums={getAlbums(artist.appearsOn)} />
       </Page.Content>
     </Page>
+  );
+};
+
+interface AlbumSectionProps {
+  albums: Album[];
+  title: string;
+}
+
+const AlbumSection = ({ albums, title }: AlbumSectionProps) => {
+  if (albums.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      <h2>{title}</h2>
+      <TileGrid gap="1rem" minTileWidth="200px">
+        {albums.map((album) => (
+          <AlbumTile album={album} />
+        ))}
+      </TileGrid>
+    </>
   );
 };
 
