@@ -62,6 +62,18 @@ type Query {
     """
     timestamp: DateTime
   ): FeaturedPlaylistConnection
+
+  """
+  Get Spotify catalog information for a single track identified by its unique
+  Spotify ID.
+  """
+  track(
+    """
+    The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the track.
+    """
+    id: ID!
+  ): Track
 }
 
 type Mutation {
