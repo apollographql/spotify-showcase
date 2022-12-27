@@ -444,16 +444,14 @@ export namespace Spotify {
       '/artists': Object.List<'artists', Object.Artist>;
       '/artists/:id': Object.Artist;
       '/artists/:id/albums': Object.Paginated<Object.AlbumSimplified>;
-      '/artists/:id/related-artists': { artists: Object.Artist[] };
+      '/artists/:id/related-artists': Object.List<'artists', Object.Artist>;
       '/artists/:id/top-tracks': Object.ArtistTopTracks;
       '/authorize':
         | { code: string; state?: string }
         | { error: string; state?: string };
       '/api/token': Object.AuthorizationCodeCredentials;
       '/browse/featured-playlists': Object.FeaturedPlaylists;
-      '/episodes': {
-        episodes: Object.Episode[];
-      };
+      '/episodes': Object.List<'episodes', Object.Episode>;
       '/episodes/:id': Object.Episode;
       '/me': Object.CurrentUser;
       '/me/playlists': Object.Paginated<Object.Playlist>;
@@ -461,11 +459,7 @@ export namespace Spotify {
       '/playlists/:id': Object.Playlist;
       '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
-
-      '/recommendations/available-genre-seeds': {
-        genres: string[];
-      };
-
+      '/recommendations/available-genre-seeds': Object.List<'genres', string>;
       '/tracks/:id': Object.Track;
     }
   }
