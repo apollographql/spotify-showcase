@@ -5,6 +5,13 @@ import {
 } from '@apollo/datasource-rest';
 import { Spotify } from './spotify.types';
 
+type QueryParams = Record<string, string | number | null | undefined>;
+
+type GetRequest = Parameters<RESTDataSource['get']>[1];
+interface GetRequestOptions extends Omit<GetRequest, 'params'> {
+  params?: QueryParams;
+}
+
 export default class SpotifyAPI extends RESTDataSource {
   override baseURL = 'https://api.spotify.com/v1';
   private token: string;
@@ -18,8 +25,8 @@ export default class SpotifyAPI extends RESTDataSource {
     id: string,
     params?: Spotify.Request.QueryParams.GET['/albums/:id']
   ) {
-    return this.get<Spotify.Response.GET['/albums/:id']>(`/albums/${id}`, {
-      params: this.normalizeParams(params),
+    return this._get<Spotify.Response.GET['/albums/:id']>(`/albums/${id}`, {
+      params,
     });
   }
 
@@ -27,9 +34,9 @@ export default class SpotifyAPI extends RESTDataSource {
     id: string,
     params?: Spotify.Request.QueryParams.GET['/albums/:id/tracks']
   ) {
-    return this.get<Spotify.Response.GET['/albums/:id/tracks']>(
+    return this._get<Spotify.Response.GET['/albums/:id/tracks']>(
       `/albums/${id}/tracks`,
-      { params: this.normalizeParams(params) }
+      { params }
     );
   }
 
@@ -37,24 +44,22 @@ export default class SpotifyAPI extends RESTDataSource {
     return this.get<Spotify.Response.GET['/artists/:id']>(`/artists/${id}`);
   }
 
-  getArtists(ids: string[]) {
-    return this.get<Spotify.Response.GET['/artists']>('/artists', {
-      params: { ids: ids.join(',') },
-    });
+  getArtists(params: Spotify.Request.QueryParams.GET['/artists']) {
+    return this._get<Spotify.Response.GET['/artists']>('/artists', { params });
   }
 
   getArtistAlbums(
     id: string,
     params?: Spotify.Request.QueryParams.GET['/artists/:id/albums']
   ) {
-    return this.get<Spotify.Response.GET['/artists/:id/albums']>(
+    return this._get<Spotify.Response.GET['/artists/:id/albums']>(
       `/artists/${id}/albums`,
-      { params: this.normalizeParams(params) }
+      { params }
     );
   }
 
   getArtistRelatedArtists(artistId: string) {
-    return this.get<Spotify.Response.GET['/artists/:id/related-artists']>(
+    return this._get<Spotify.Response.GET['/artists/:id/related-artists']>(
       `/artists/${artistId}/related-artists`
     );
   }
@@ -63,20 +68,20 @@ export default class SpotifyAPI extends RESTDataSource {
     artistId: string,
     params: Spotify.Request.QueryParams.GET['/artists/:id/top-tracks']
   ) {
-    return this.get<Spotify.Response.GET['/artists/:id/top-tracks']>(
+    return this._get<Spotify.Response.GET['/artists/:id/top-tracks']>(
       `/artists/${artistId}/top-tracks`,
-      { params: this.normalizeParams(params) }
+      { params }
     );
   }
 
   getGenres() {
-    return this.get<
+    return this._get<
       Spotify.Response.GET['/recommendations/available-genre-seeds']
     >('/recommendations/available-genre-seeds');
   }
 
   getEpisode(id: string) {
-    return this.get<Spotify.Response.GET['/episodes/:id']>(`/episodes/${id}`);
+    return this._get<Spotify.Response.GET['/episodes/:id']>(`/episodes/${id}`);
   }
 
   getEpisodes(ids: string[]) {
@@ -84,7 +89,7 @@ export default class SpotifyAPI extends RESTDataSource {
       return { episodes: [] };
     }
 
-    return this.get<Spotify.Response.GET['/episodes']>('/episodes', {
+    return this._get<Spotify.Response.GET['/episodes']>('/episodes', {
       params: { ids: ids.join(',') },
     });
   }
@@ -92,36 +97,36 @@ export default class SpotifyAPI extends RESTDataSource {
   getRecommendations(
     params: Spotify.Request.QueryParams.GET['/recommendations']
   ) {
-    return this.get<Spotify.Response.GET['/recommendations']>(
+    return this._get<Spotify.Response.GET['/recommendations']>(
       'recommendations',
-      { params: this.normalizeParams(params) }
+      { params }
     );
   }
 
   getCurrentUser() {
-    return this.get<Spotify.Response.GET['/me']>('me');
+    return this._get<Spotify.Response.GET['/me']>('me');
   }
 
   getCurrentUserPlaylists(
     params: Spotify.Request.QueryParams.GET['/me/playlists']
   ) {
-    return this.get<Spotify.Response.GET['/me/playlists']>('/me/playlists', {
-      params: this.normalizeParams(params),
+    return this._get<Spotify.Response.GET['/me/playlists']>('/me/playlists', {
+      params,
     });
   }
 
   getCurrentUserTracks(params?: Spotify.Request.QueryParams.GET['/me/tracks']) {
-    return this.get<Spotify.Response.GET['/me/tracks']>('/me/tracks', {
-      params: this.normalizeParams(params),
+    return this._get<Spotify.Response.GET['/me/tracks']>('/me/tracks', {
+      params,
     });
   }
 
   getFeaturedPlaylists(
     params: Spotify.Request.QueryParams.GET['/browse/featured-playlists']
   ) {
-    return this.get<Spotify.Response.GET['/browse/featured-playlists']>(
+    return this._get<Spotify.Response.GET['/browse/featured-playlists']>(
       '/browse/featured-playlists',
-      { params: this.normalizeParams(params) }
+      { params }
     );
   }
 
@@ -129,9 +134,9 @@ export default class SpotifyAPI extends RESTDataSource {
     id: string,
     params?: Spotify.Request.QueryParams.GET['/playlists/:id']
   ) {
-    return this.get<Spotify.Response.GET['/playlists/:id']>(
+    return this._get<Spotify.Response.GET['/playlists/:id']>(
       `/playlists/${id}`,
-      { params: this.normalizeParams(params) }
+      { params }
     );
   }
 
@@ -139,9 +144,9 @@ export default class SpotifyAPI extends RESTDataSource {
     id: string,
     params: Spotify.Request.QueryParams.GET['/playlists/:id/tracks']
   ) {
-    return this.get<Spotify.Response.GET['/playlists/:id/tracks']>(
+    return this._get<Spotify.Response.GET['/playlists/:id/tracks']>(
       `/playlists/${id}/tracks`,
-      { params: this.normalizeParams(params) }
+      { params }
     );
   }
 
@@ -149,8 +154,8 @@ export default class SpotifyAPI extends RESTDataSource {
     id: string,
     params?: Spotify.Request.QueryParams.GET['/tracks/:id']
   ) {
-    return this.get<Spotify.Response.GET['/tracks/:id']>(`/tracks/${id}`, {
-      params: this.normalizeParams(params),
+    return this._get<Spotify.Response.GET['/tracks/:id']>(`/tracks/${id}`, {
+      params,
     });
   }
 
@@ -160,9 +165,14 @@ export default class SpotifyAPI extends RESTDataSource {
     request.headers['Content-Type'] = 'application/json';
   }
 
-  private normalizeParams(
-    params: Record<string, string | number | null | undefined> | undefined
-  ) {
+  private _get<TReturn>(path: string, options?: GetRequestOptions) {
+    return this.get<TReturn>(path, {
+      ...options,
+      params: this.normalizeParams(options?.params),
+    });
+  }
+
+  private normalizeParams(params: QueryParams | undefined) {
     if (!params) {
       return;
     }
