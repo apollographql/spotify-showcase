@@ -34,6 +34,12 @@ export default class SpotifyAPI extends RESTDataSource {
     return this.get<Spotify.Response.Path['/artists/:id']>(`/artists/${id}`);
   }
 
+  getArtists(ids: string[]) {
+    return this.get<Spotify.Response.Path['/artists']>('/artists', {
+      params: { ids: ids.join(',') },
+    });
+  }
+
   artistAlbums(
     id: string,
     params?: Spotify.Request.Params['/artists/:id/albums']

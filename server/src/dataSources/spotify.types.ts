@@ -175,6 +175,10 @@ export namespace Spotify {
       total: number;
     }
 
+    export type List<Key extends string, TObject> = {
+      [K in Key]: TObject[];
+    };
+
     export interface Image {
       url: string;
       height: number | null;
@@ -437,6 +441,7 @@ export namespace Spotify {
     export interface Path {
       '/albums/:id': Object.Album;
       '/albums/:id/tracks': Object.Paginated<Object.TrackSimplified>;
+      '/artists': Object.List<'artists', Object.Artist>;
       '/artists/:id': Object.Artist;
       '/artists/:id/albums': Object.Paginated<Object.AlbumSimplified>;
       '/artists/:id/related-artists': { artists: Object.Artist[] };
