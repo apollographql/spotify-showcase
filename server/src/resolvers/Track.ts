@@ -1,7 +1,7 @@
 import { TrackResolvers } from './types';
 import { prop } from './helpers';
-import { selectsField } from '../utils/graphql';
 import { Spotify } from '../dataSources/spotify.types';
+import { shouldLoadFullArtist } from '../utils/schema';
 
 const resolvers: TrackResolvers = {
   album: async (track, _, { dataSources }) => {
@@ -14,21 +14,15 @@ const resolvers: TrackResolvers = {
     return album;
   },
   artists: async (track, _, { dataSources }, info) => {
-    const shouldLoadFullArtists =
-      selectsField(['artists', 'followers'], info) ||
-      selectsField(['artists', 'genres'], info) ||
-      selectsField(['artists', 'images'], info) ||
-      selectsField(['artists', 'popularity'], info);
+    if (shouldLoadFullArtist(['artists'], info)) {
+      const { artists } = await dataSources.spotify.getArtists(
+        track.artists.map((track) => track.id)
+      );
 
-    if (!shouldLoadFullArtists) {
-      return track.artists as Spotify.Object.Artist[];
+      return artists;
     }
 
-    const { artists } = await dataSources.spotify.getArtists(
-      track.artists.map((track) => track.id)
-    );
-
-    return artists;
+    return track.artists as Spotify.Object.Artist[];
   },
   discNumber: prop('disc_number'),
   durationMs: prop('duration_ms'),
