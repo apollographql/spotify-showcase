@@ -18,6 +18,10 @@
   font-size: 1rem;
 }
 
+.size__lg {
+  font-size: 1.125rem;
+}
+
 .size__sm {
   font-size: 0.875rem;
 }
@@ -56,4 +60,9 @@
   -webkit-line-clamp: var(--text--max-lines);
   line-clamp: var(--text--max-lines);
   -webkit-box-orient: vertical;
+}
+
+.uppercase {
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }

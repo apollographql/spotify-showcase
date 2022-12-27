@@ -12,7 +12,8 @@ type TextProps<TElement extends ElementType = 'span'> =
       interactive?: boolean;
       maxLines?: number;
       overflow?: 'ellipsis';
-      size?: 'base' | 'sm' | 'xs' | 'xxs';
+      size?: 'base' | 'lg' | 'sm' | 'xs' | 'xxs';
+      uppercase?: boolean;
       weight?: 'normal' | 'bold' | 'black';
       wrap?: boolean;
     }
@@ -31,6 +32,7 @@ const Text = <TElement extends ElementType = 'span'>({
   maxLines,
   overflow,
   size,
+  uppercase,
   weight,
   wrap = true,
   ...props
@@ -48,9 +50,11 @@ const Text = <TElement extends ElementType = 'span'>({
         [styles.lineClamp]: maxLines,
         [styles.overflow__ellipsis]: overflow === 'ellipsis' || maxLines,
         [styles.size__base]: size === 'base',
+        [styles.size__lg]: size === 'lg',
         [styles.size__sm]: size === 'sm',
         [styles.size__xs]: size === 'xs',
         [styles.size_xxs]: size === 'xxs',
+        [styles.uppercase]: uppercase,
         [styles.weight__normal]: weight === 'normal',
         [styles.weight__bold]: weight === 'bold',
         [styles.weight__black]: weight === 'black',
