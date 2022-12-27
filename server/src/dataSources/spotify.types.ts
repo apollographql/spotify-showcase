@@ -438,7 +438,7 @@ export namespace Spotify {
   }
 
   export namespace Response {
-    export interface Path {
+    export interface GET {
       '/albums/:id': Object.Album;
       '/albums/:id/tracks': Object.Paginated<Object.TrackSimplified>;
       '/artists': Object.List<'artists', Object.Artist>;

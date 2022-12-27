@@ -19,10 +19,7 @@ router.get('/init', (_req, res) => {
 
 router.get(
   '/finalize',
-  async (
-    req: Request<{}, {}, {}, Spotify.Response.Path['/authorize']>,
-    res
-  ) => {
+  async (req: Request<{}, {}, {}, Spotify.Response.GET['/authorize']>, res) => {
     const body = new URLSearchParams();
 
     if ('error' in req.query) {
@@ -47,7 +44,7 @@ router.get(
         },
         body,
       }
-    ).then((res) => res.json() as Promise<Spotify.Response.Path['/api/token']>);
+    ).then((res) => res.json() as Promise<Spotify.Response.GET['/api/token']>);
 
     const params = new URLSearchParams();
     params.set('token', access_token);
