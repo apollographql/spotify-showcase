@@ -471,47 +471,49 @@ export namespace Spotify {
   }
 
   export namespace Request {
-    export interface Params {
-      '/albums/:id': InputParams<{ market?: string }>;
-      '/albums/:id/tracks': InputParams<{
-        limit?: number;
-        offset?: number;
-        market?: string;
-      }>;
-      '/artists/:id/albums': InputParams<{
-        limit?: number;
-        offset?: number;
-        include_groups?: string;
-      }>;
-      '/artists/:id/top-tracks': InputParams<{
-        market: string;
-      }>;
-      '/browse/featured-playlists': InputParams<{
-        limit?: number;
-        offset?: number;
-        timestamp?: string;
-      }>;
-      '/recommendations': InputParams<{
-        seed_artists?: string;
-        seed_genres?: string;
-        seed_tracks?: string;
-        limit?: number;
-      }>;
-      '/me/playlists': InputParams<{
-        limit?: number;
-        offset?: number;
-      }>;
-      '/me/tracks': InputParams<{ limit?: number; offset?: number }>;
-      '/playlists/:id/tracks': InputParams<{
-        limit?: number;
-        offset?: number;
-      }>;
-      '/playlists/:id': InputParams<{
-        additional_types?: string;
-        fields?: string;
-        market?: string;
-      }>;
-      '/tracks/:id': InputParams<{ market?: string }>;
+    export namespace QueryParams {
+      export interface GET {
+        '/albums/:id': InputParams<{ market?: string }>;
+        '/albums/:id/tracks': InputParams<{
+          limit?: number;
+          offset?: number;
+          market?: string;
+        }>;
+        '/artists/:id/albums': InputParams<{
+          limit?: number;
+          offset?: number;
+          include_groups?: string;
+        }>;
+        '/artists/:id/top-tracks': InputParams<{
+          market: string;
+        }>;
+        '/browse/featured-playlists': InputParams<{
+          limit?: number;
+          offset?: number;
+          timestamp?: string;
+        }>;
+        '/recommendations': InputParams<{
+          seed_artists?: string;
+          seed_genres?: string;
+          seed_tracks?: string;
+          limit?: number;
+        }>;
+        '/me/playlists': InputParams<{
+          limit?: number;
+          offset?: number;
+        }>;
+        '/me/tracks': InputParams<{ limit?: number; offset?: number }>;
+        '/playlists/:id/tracks': InputParams<{
+          limit?: number;
+          offset?: number;
+        }>;
+        '/playlists/:id': InputParams<{
+          additional_types?: string;
+          fields?: string;
+          market?: string;
+        }>;
+        '/tracks/:id': InputParams<{ market?: string }>;
+      }
     }
   }
 }

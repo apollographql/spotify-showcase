@@ -14,7 +14,10 @@ export default class SpotifyAPI extends RESTDataSource {
     this.token = options.token;
   }
 
-  getAlbum(id: string, params?: Spotify.Request.Params['/albums/:id']) {
+  getAlbum(
+    id: string,
+    params?: Spotify.Request.QueryParams.GET['/albums/:id']
+  ) {
     return this.get<Spotify.Response.Path['/albums/:id']>(`/albums/${id}`, {
       params: this.normalizeParams(params),
     });
@@ -22,7 +25,7 @@ export default class SpotifyAPI extends RESTDataSource {
 
   getAlbumTracks(
     id: string,
-    params?: Spotify.Request.Params['/albums/:id/tracks']
+    params?: Spotify.Request.QueryParams.GET['/albums/:id/tracks']
   ) {
     return this.get<Spotify.Response.Path['/albums/:id/tracks']>(
       `/albums/${id}/tracks`,
@@ -42,7 +45,7 @@ export default class SpotifyAPI extends RESTDataSource {
 
   getArtistAlbums(
     id: string,
-    params?: Spotify.Request.Params['/artists/:id/albums']
+    params?: Spotify.Request.QueryParams.GET['/artists/:id/albums']
   ) {
     return this.get<Spotify.Response.Path['/artists/:id/albums']>(
       `/artists/${id}/albums`,
@@ -58,7 +61,7 @@ export default class SpotifyAPI extends RESTDataSource {
 
   getArtistTopTracks(
     artistId: string,
-    params: Spotify.Request.Params['/artists/:id/top-tracks']
+    params: Spotify.Request.QueryParams.GET['/artists/:id/top-tracks']
   ) {
     return this.get<Spotify.Response.Path['/artists/:id/top-tracks']>(
       `/artists/${artistId}/top-tracks`,
@@ -86,7 +89,9 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
-  getRecommendations(params: Spotify.Request.Params['/recommendations']) {
+  getRecommendations(
+    params: Spotify.Request.QueryParams.GET['/recommendations']
+  ) {
     return this.get<Spotify.Response.Path['/recommendations']>(
       'recommendations',
       { params: this.normalizeParams(params) }
@@ -97,20 +102,22 @@ export default class SpotifyAPI extends RESTDataSource {
     return this.get<Spotify.Response.Path['/me']>('me');
   }
 
-  getCurrentUserPlaylists(params: Spotify.Request.Params['/me/playlists']) {
+  getCurrentUserPlaylists(
+    params: Spotify.Request.QueryParams.GET['/me/playlists']
+  ) {
     return this.get<Spotify.Response.Path['/me/playlists']>('/me/playlists', {
       params: this.normalizeParams(params),
     });
   }
 
-  getCurrentUserTracks(params?: Spotify.Request.Params['/me/tracks']) {
+  getCurrentUserTracks(params?: Spotify.Request.QueryParams.GET['/me/tracks']) {
     return this.get<Spotify.Response.Path['/me/tracks']>('/me/tracks', {
       params: this.normalizeParams(params),
     });
   }
 
   getFeaturedPlaylists(
-    params: Spotify.Request.Params['/browse/featured-playlists']
+    params: Spotify.Request.QueryParams.GET['/browse/featured-playlists']
   ) {
     return this.get<Spotify.Response.Path['/browse/featured-playlists']>(
       '/browse/featured-playlists',
@@ -118,7 +125,10 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  getPlaylist(id: string, params?: Spotify.Request.Params['/playlists/:id']) {
+  getPlaylist(
+    id: string,
+    params?: Spotify.Request.QueryParams.GET['/playlists/:id']
+  ) {
     return this.get<Spotify.Response.Path['/playlists/:id']>(
       `/playlists/${id}`,
       { params: this.normalizeParams(params) }
@@ -127,7 +137,7 @@ export default class SpotifyAPI extends RESTDataSource {
 
   getPlaylistTracks(
     id: string,
-    params: Spotify.Request.Params['/playlists/:id/tracks']
+    params: Spotify.Request.QueryParams.GET['/playlists/:id/tracks']
   ) {
     return this.get<Spotify.Response.Path['/playlists/:id/tracks']>(
       `/playlists/${id}/tracks`,
@@ -135,7 +145,10 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  getTrack(id: string, params?: Spotify.Request.Params['/tracks/:id']) {
+  getTrack(
+    id: string,
+    params?: Spotify.Request.QueryParams.GET['/tracks/:id']
+  ) {
     return this.get<Spotify.Response.Path['/tracks/:id']>(`/tracks/${id}`, {
       params: this.normalizeParams(params),
     });
