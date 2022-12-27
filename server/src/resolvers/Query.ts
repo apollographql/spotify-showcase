@@ -6,9 +6,11 @@ const resolvers: QueryResolvers = {
   artist: (_, { id }, { dataSources }) => dataSources.spotify.getArtist(id),
   featuredPlaylists: (_, { limit, offset, timestamp }, { dataSources }) => {
     return dataSources.spotify.getFeaturedPlaylists({
-      limit,
-      offset,
-      timestamp: timestamp ? format(timestamp, "yyyy-LL-dd'T'HH:mm:ss") : null,
+      limit: limit ?? undefined,
+      offset: offset ?? undefined,
+      timestamp: timestamp
+        ? format(timestamp, "yyyy-LL-dd'T'HH:mm:ss")
+        : undefined,
     });
   },
   genres: async (_, __, { dataSources }) => {
@@ -19,7 +21,7 @@ const resolvers: QueryResolvers = {
   me: (_, __, { dataSources }) => dataSources.spotify.getCurrentUser(),
   recommendations: async (_, { seeds }, { dataSources }) => {
     return dataSources.spotify.getRecommendations({
-      ...seeds,
+      limit: seeds.limit ?? undefined,
       seed_artists: seeds.seedArtists?.join(','),
       seed_genres: seeds.seedGenres?.join(','),
       seed_tracks: seeds.seedTracks?.join(','),

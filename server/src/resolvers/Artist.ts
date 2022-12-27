@@ -4,9 +4,9 @@ import { prop } from './helpers';
 const resolvers: ArtistResolvers = {
   albums: (artist, { includeGroups, limit, offset }, { dataSources }) => {
     return dataSources.spotify.getArtistAlbums(artist.id, {
-      limit,
-      offset,
-      include_groups: includeGroups ? includeGroups.join(',') : null,
+      limit: limit ?? undefined,
+      offset: offset ?? undefined,
+      include_groups: includeGroups ? includeGroups.join(',') : undefined,
     });
   },
   externalUrls: prop('external_urls'),

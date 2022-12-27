@@ -11,7 +11,10 @@ const resolvers: AlbumResolvers = {
       return album.tracks;
     }
 
-    return dataSources.spotify.getAlbumTracks(album.id, args);
+    return dataSources.spotify.getAlbumTracks(album.id, {
+      limit: args.limit ?? undefined,
+      offset: args.offset ?? undefined,
+    });
   },
 };
 

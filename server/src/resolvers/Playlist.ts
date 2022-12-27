@@ -3,12 +3,12 @@ import { prop } from './helpers';
 
 const resolvers: PlaylistResolvers = {
   externalUrls: prop('external_urls'),
-  tracks: async (playlist, { limit, offset }, { dataSources }) => {
+  tracks: async (playlist, args, { dataSources }) => {
     const playlistTracks = await dataSources.spotify.getPlaylistTracks(
       playlist.id,
       {
-        limit,
-        offset,
+        limit: args.limit ?? undefined,
+        offset: args.offset ?? undefined,
       }
     );
 

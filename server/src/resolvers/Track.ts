@@ -15,9 +15,9 @@ const resolvers: TrackResolvers = {
   },
   artists: async (track, _, { dataSources }, info) => {
     if (shouldLoadFullArtist(['artists'], info)) {
-      const { artists } = await dataSources.spotify.getArtists(
-        track.artists.map((track) => track.id)
-      );
+      const { artists } = await dataSources.spotify.getArtists({
+        ids: track.artists.map((track) => track.id).join(','),
+      });
 
       return artists;
     }
