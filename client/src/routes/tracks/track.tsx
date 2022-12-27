@@ -5,6 +5,7 @@ import {
 import { TrackRouteQuery, TrackRouteQueryVariables } from '../../types/api';
 import { useParams } from 'react-router-dom';
 import AlbumTracksTable from '../../components/AlbumTracksTable';
+import ArtistTopTracks from '../../components/ArtistTopTracks';
 import ArtistTile from '../../components/ArtistTile';
 import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
@@ -41,6 +42,10 @@ const TRACK_ROUTE_QUERY = gql`
       artists {
         id
         name
+        topTracks {
+          id
+          ...ArtistTopTracks_tracks
+        }
 
         ...ArtistTile_artist
       }
@@ -49,6 +54,7 @@ const TRACK_ROUTE_QUERY = gql`
 
   ${AlbumTracksTable.fragments.tracks}
   ${ArtistTile.fragments.artist}
+  ${ArtistTopTracks.fragments.tracks}
 `;
 
 const TrackRoute = () => {
@@ -89,6 +95,12 @@ const TrackRoute = () => {
             <ArtistTile key={artist.id} artist={artist} />
           ))}
         </TileGrid>
+        {track.artists.map((artist) => (
+          <Flex key={artist.id} as="section" direction="column">
+            <h2>Popular tracks by {artist.name}</h2>
+            <ArtistTopTracks tracks={artist.topTracks} />
+          </Flex>
+        ))}
         <Flex as="section" direction="column" gap="0.5rem">
           <Flex gap="1rem" alignItems="center">
             <EntityLink entity={album}>
