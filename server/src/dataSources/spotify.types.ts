@@ -1,5 +1,4 @@
 import { OAUTH_SCOPES } from '../constants';
-import { NullifyOptionalProperties } from '../utils/types';
 
 type RestrictScope<
   T,
