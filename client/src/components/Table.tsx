@@ -47,6 +47,7 @@ function Table<TData>({
               return (
                 <th
                   key={header.id}
+                  colSpan={header.colSpan}
                   data-shrink={column.columnDef.meta?.shrink}
                   data-align={column.columnDef.meta?.headerAlign}
                 >
