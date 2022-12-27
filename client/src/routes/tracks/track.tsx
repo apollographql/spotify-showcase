@@ -10,8 +10,10 @@ import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
 import Duration from '../../components/Duration';
 import Page from '../../components/Page';
+import Text from '../../components/Text';
 import TileGrid from '../../components/TileGrid';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
+import Flex from '../../components/Flex';
 
 const TRACK_ROUTE_QUERY = gql`
   query TrackRouteQuery($trackId: ID!) {
@@ -21,6 +23,8 @@ const TRACK_ROUTE_QUERY = gql`
       name
       album {
         id
+        albumType
+        name
         images {
           url
         }
@@ -55,8 +59,10 @@ const TrackRoute = () => {
   );
 
   const track = data.track!;
+  const { album } = track;
+  const coverPhoto = album.images[0];
 
-  useSetBackgroundColorFromImage(track.album.images[0], {
+  useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
   });
 
@@ -64,7 +70,7 @@ const TrackRoute = () => {
     <Page>
       <Page.Header
         mediaType="song"
-        coverPhoto={<CoverPhoto image={track.album.images[0]} />}
+        coverPhoto={<CoverPhoto image={coverPhoto} />}
         details={[
           ...track.artists.map((artist) => (
             <EntityLink key={artist.id} entity={artist}>
@@ -77,17 +83,30 @@ const TrackRoute = () => {
         ]}
         title={track.name}
       />
-      <Page.Content>
+      <Page.Content gap="2rem">
         <TileGrid gap="1rem" minTileWidth="200px">
           {track.artists.map((artist) => (
             <ArtistTile key={artist.id} artist={artist} />
           ))}
         </TileGrid>
-        <section>
+        <Flex as="section" direction="column" gap="0.5rem">
+          <Flex gap="1rem" alignItems="center">
+            <EntityLink entity={album}>
+              <CoverPhoto image={coverPhoto} size="5rem" />
+            </EntityLink>
+            <Flex direction="column">
+              <Text size="xs" uppercase>
+                From the {album.albumType.toLowerCase()}
+              </Text>
+              <Text as={EntityLink} size="lg" entity={album}>
+                {album.name}
+              </Text>
+            </Flex>
+          </Flex>
           <AlbumTracksTable
-            tracks={track.album.tracks?.edges.map((edge) => edge.node) ?? []}
+            tracks={album.tracks?.edges.map((edge) => edge.node) ?? []}
           />
-        </section>
+        </Flex>
       </Page.Content>
     </Page>
   );
