@@ -2,23 +2,23 @@ import { QueryResolvers } from './types';
 import { format } from 'date-fns';
 
 const resolvers: QueryResolvers = {
-  album: (_, { id }, { dataSources }) => dataSources.spotify.album(id),
-  artist: (_, { id }, { dataSources }) => dataSources.spotify.artist(id),
+  album: (_, { id }, { dataSources }) => dataSources.spotify.getAlbum(id),
+  artist: (_, { id }, { dataSources }) => dataSources.spotify.getArtist(id),
   featuredPlaylists: (_, { limit, offset, timestamp }, { dataSources }) => {
-    return dataSources.spotify.featuredPlaylists({
+    return dataSources.spotify.getFeaturedPlaylists({
       limit,
       offset,
       timestamp: timestamp ? format(timestamp, "yyyy-LL-dd'T'HH:mm:ss") : null,
     });
   },
   genres: async (_, __, { dataSources }) => {
-    const { genres } = await dataSources.spotify.genres();
+    const { genres } = await dataSources.spotify.getGenres();
 
     return genres;
   },
-  me: (_, __, { dataSources }) => dataSources.spotify.currentUser(),
+  me: (_, __, { dataSources }) => dataSources.spotify.getCurrentUser(),
   recommendations: async (_, { seeds }, { dataSources }) => {
-    return dataSources.spotify.recommendations({
+    return dataSources.spotify.getRecommendations({
       ...seeds,
       seed_artists: seeds.seedArtists?.join(','),
       seed_genres: seeds.seedGenres?.join(','),
@@ -28,13 +28,13 @@ const resolvers: QueryResolvers = {
   playlist: (_, { id }, { dataSources }) => {
     // Intentionally omit tracks. This is an optimal place for @defer and
     // provides a nice learning area
-    return dataSources.spotify.playlist(id, {
+    return dataSources.spotify.getPlaylist(id, {
       fields:
         'id,collaborative,description,external_urls,images,name,owner,public,uri',
     });
   },
   track: (_, { id }, { dataSources }) => {
-    return dataSources.spotify.track(id);
+    return dataSources.spotify.getTrack(id);
   },
 };
 

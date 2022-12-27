@@ -4,10 +4,10 @@ import { itself } from './helpers';
 const resolvers: CurrentUserResolvers = {
   user: itself(),
   playlists: (_, args, { dataSources }) => {
-    return dataSources.spotify.currentUserPlaylists(args);
+    return dataSources.spotify.getCurrentUserPlaylists(args);
   },
   tracks: (_, args, { dataSources }) => {
-    return dataSources.spotify.currentUserTracks(args);
+    return dataSources.spotify.getCurrentUserTracks(args);
   },
 };
 

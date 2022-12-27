@@ -14,13 +14,13 @@ export default class SpotifyAPI extends RESTDataSource {
     this.token = options.token;
   }
 
-  album(id: string, params?: Spotify.Request.Params['/albums/:id']) {
+  getAlbum(id: string, params?: Spotify.Request.Params['/albums/:id']) {
     return this.get<Spotify.Response.Path['/albums/:id']>(`/albums/${id}`, {
       params: this.normalizeParams(params),
     });
   }
 
-  albumTracks(
+  getAlbumTracks(
     id: string,
     params?: Spotify.Request.Params['/albums/:id/tracks']
   ) {
@@ -30,7 +30,7 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  artist(id: string) {
+  getArtist(id: string) {
     return this.get<Spotify.Response.Path['/artists/:id']>(`/artists/${id}`);
   }
 
@@ -40,7 +40,7 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
-  artistAlbums(
+  getArtistAlbums(
     id: string,
     params?: Spotify.Request.Params['/artists/:id/albums']
   ) {
@@ -50,13 +50,13 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  artistRelatedArtists(artistId: string) {
+  getArtistRelatedArtists(artistId: string) {
     return this.get<Spotify.Response.Path['/artists/:id/related-artists']>(
       `/artists/${artistId}/related-artists`
     );
   }
 
-  artistTopTracks(
+  getArtistTopTracks(
     artistId: string,
     params: Spotify.Request.Params['/artists/:id/top-tracks']
   ) {
@@ -66,17 +66,17 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  async genres() {
+  getGenres() {
     return this.get<
       Spotify.Response.Path['/recommendations/available-genre-seeds']
     >('/recommendations/available-genre-seeds');
   }
 
-  async episode(id: string) {
+  getEpisode(id: string) {
     return this.get<Spotify.Response.Path['/episodes/:id']>(`/episodes/${id}`);
   }
 
-  async episodes(ids: string[]) {
+  getEpisodes(ids: string[]) {
     if (ids.length === 0) {
       return { episodes: [] };
     }
@@ -86,30 +86,30 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
-  recommendations(params: Spotify.Request.Params['/recommendations']) {
+  getRecommendations(params: Spotify.Request.Params['/recommendations']) {
     return this.get<Spotify.Response.Path['/recommendations']>(
       'recommendations',
       { params: this.normalizeParams(params) }
     );
   }
 
-  currentUser() {
+  getCurrentUser() {
     return this.get<Spotify.Response.Path['/me']>('me');
   }
 
-  currentUserPlaylists(params: Spotify.Request.Params['/me/playlists']) {
+  getCurrentUserPlaylists(params: Spotify.Request.Params['/me/playlists']) {
     return this.get<Spotify.Response.Path['/me/playlists']>('/me/playlists', {
       params: this.normalizeParams(params),
     });
   }
 
-  currentUserTracks(params?: Spotify.Request.Params['/me/tracks']) {
+  getCurrentUserTracks(params?: Spotify.Request.Params['/me/tracks']) {
     return this.get<Spotify.Response.Path['/me/tracks']>('/me/tracks', {
       params: this.normalizeParams(params),
     });
   }
 
-  featuredPlaylists(
+  getFeaturedPlaylists(
     params: Spotify.Request.Params['/browse/featured-playlists']
   ) {
     return this.get<Spotify.Response.Path['/browse/featured-playlists']>(
@@ -118,14 +118,14 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  playlist(id: string, params?: Spotify.Request.Params['/playlists/:id']) {
+  getPlaylist(id: string, params?: Spotify.Request.Params['/playlists/:id']) {
     return this.get<Spotify.Response.Path['/playlists/:id']>(
       `/playlists/${id}`,
       { params: this.normalizeParams(params) }
     );
   }
 
-  playlistTracks(
+  getPlaylistTracks(
     id: string,
     params: Spotify.Request.Params['/playlists/:id/tracks']
   ) {
@@ -135,7 +135,7 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  track(id: string, params?: Spotify.Request.Params['/tracks/:id']) {
+  getTrack(id: string, params?: Spotify.Request.Params['/tracks/:id']) {
     return this.get<Spotify.Response.Path['/tracks/:id']>(`/tracks/${id}`, {
       params: this.normalizeParams(params),
     });

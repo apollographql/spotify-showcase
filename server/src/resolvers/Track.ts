@@ -9,7 +9,7 @@ const resolvers: TrackResolvers = {
       return track.album;
     }
 
-    const { album } = await dataSources.spotify.track(track.id);
+    const { album } = await dataSources.spotify.getTrack(track.id);
 
     return album;
   },

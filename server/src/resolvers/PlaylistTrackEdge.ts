@@ -19,7 +19,7 @@ const resolvers: PlaylistTrackEdgeResolvers = {
       return playlistTrack.track;
     }
 
-    return dataSources.spotify.episode(playlistTrack.track.id);
+    return dataSources.spotify.getEpisode(playlistTrack.track.id);
   },
 };
 
