@@ -821,9 +821,9 @@ export type User = {
 
 export type AlbumTile_album = { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> };
 
-export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
-export type AlbumTracksTable_tracks = { __typename: 'Track', id: string, durationMs: number, trackNumber: number | null, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+export type AlbumTracksTable_tracks = { __typename: 'Track', id: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type ArtistTile_artist = { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> };
 
@@ -851,7 +851,7 @@ export type AlbumRouteQueryVariables = Exact<{
 }>;
 
 
-export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, artists: Array<{ __typename: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename: 'Copyright', text: string }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, name: string, trackNumber: number | null, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
+export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, artists: Array<{ __typename: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename: 'Copyright', text: string }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, name: string, trackNumber: number | null, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
 export type ArtistRouteQueryVariables = Exact<{
   artistId: Scalars['ID'];
@@ -894,4 +894,4 @@ export type TrackRouteQueryVariables = Exact<{
 }>;
 
 
-export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, images: Array<{ __typename: 'Image', url: string }>, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, trackNumber: number | null, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null }, artists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }> } | null };
+export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, images: Array<{ __typename: 'Image', url: string }>, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null }, artists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }> } | null };
