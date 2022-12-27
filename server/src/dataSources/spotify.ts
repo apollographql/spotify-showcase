@@ -5,11 +5,14 @@ import {
 } from '@apollo/datasource-rest';
 import { Spotify } from './spotify.types';
 
-type QueryParams = Record<string, string | number | null | undefined>;
+type GetRequest = NonNullable<Parameters<RESTDataSource['get']>[1]>;
+type RawQueryParams = Record<
+  string,
+  string | string[] | number | null | undefined
+>;
 
-type GetRequest = Parameters<RESTDataSource['get']>[1];
 interface GetRequestOptions extends Omit<GetRequest, 'params'> {
-  params?: QueryParams;
+  params?: RawQueryParams;
 }
 
 export default class SpotifyAPI extends RESTDataSource {
@@ -172,7 +175,7 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
-  private normalizeParams(params: QueryParams | undefined) {
+  private normalizeParams(params: RawQueryParams | undefined) {
     if (!params) {
       return;
     }
@@ -180,7 +183,7 @@ export default class SpotifyAPI extends RESTDataSource {
     const urlParams = new URLSearchParams();
 
     for (const [key, value] of Object.entries(params)) {
-      if (value != null) {
+      if (value !== undefined) {
         urlParams.set(key, String(value));
       }
     }
