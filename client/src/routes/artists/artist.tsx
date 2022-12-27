@@ -7,6 +7,7 @@ import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
 import ArtistTile from '../../components/ArtistTile';
+import ArtistTopTracks from '../../components/ArtistTopTracks';
 import CoverPhoto from '../../components/CoverPhoto';
 import Page from '../../components/Page';
 import Duration from '../../components/Duration';
@@ -48,14 +49,8 @@ const ARTIST_ROUTE_QUERY = gql`
       }
       topTracks {
         id
-        name
-        durationMs
-        album {
-          id
-          images {
-            url
-          }
-        }
+
+        ...ArtistTopTracks_tracks
       }
     }
   }
@@ -72,6 +67,7 @@ const ARTIST_ROUTE_QUERY = gql`
 
   ${AlbumTile.fragments.album}
   ${ArtistTile.fragments.artist}
+  ${ArtistTopTracks.fragments.tracks}
 `;
 
 const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
@@ -109,26 +105,10 @@ const ArtistRoute = () => {
       <Page.Content gap="2rem">
         <section className={styles.section}>
           <h2>Popular</h2>
-          <div className={styles.topTracks}>
-            {artist.topTracks.slice(0, 5).map((track, index) => {
-              const albumCoverPhoto = thumbnail(track.album.images);
-
-              return (
-                <div key={track.id} className={styles.topTracks__track}>
-                  <Text className={styles.topTrack__number} color="muted">
-                    {index + 1}
-                  </Text>
-                  <Flex alignItems="center" gap="1rem">
-                    <CoverPhoto image={albumCoverPhoto} size="2.5rem" />
-                    {track.name}
-                  </Flex>
-                  <Text color="muted">
-                    <Duration durationMs={track.durationMs} />
-                  </Text>
-                </div>
-              );
-            })}
-          </div>
+          <ArtistTopTracks
+            className={styles.topTracks}
+            tracks={artist.topTracks}
+          />
         </section>
 
         <AlbumSection title="Albums" albums={getAlbums(artist.albums)} />
