@@ -891,7 +891,7 @@ export type ResolversTypes = ResolversObject<{
   AlbumTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>>;
   AlbumTrackEdge: ResolverTypeWrapper<Spotify.Object.TrackSimplified>;
   AlbumType: AlbumType;
-  Artist: ResolverTypeWrapper<Spotify.Object.Artist | Spotify.Object.ArtistSimplified>;
+  Artist: ResolverTypeWrapper<Spotify.Object.Artist>;
   ArtistAlbumEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
   ArtistAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -945,7 +945,7 @@ export type ResolversParentTypes = ResolversObject<{
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.TrackSimplified>;
   AlbumTrackEdge: Spotify.Object.TrackSimplified;
-  Artist: Spotify.Object.Artist | Spotify.Object.ArtistSimplified;
+  Artist: Spotify.Object.Artist;
   ArtistAlbumEdge: Spotify.Object.AlbumSimplified;
   ArtistAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>;
   Boolean: Scalars['Boolean'];

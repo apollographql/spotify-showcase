@@ -17,8 +17,7 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.TrackSimplified>',
           AlbumTrackEdge:
             '../dataSources/spotify.types#Spotify#Object.TrackSimplified',
-          Artist:
-            '../dataSources/spotify.types#Spotify#Object.Artist | Spotify.Object.ArtistSimplified',
+          Artist: '../dataSources/spotify.types#Spotify#Object.Artist',
           ArtistAlbumsConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
           ArtistAlbumEdge:

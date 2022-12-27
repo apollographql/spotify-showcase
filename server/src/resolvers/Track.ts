@@ -1,6 +1,7 @@
 import { TrackResolvers } from './types';
 import { prop } from './helpers';
 import { selectsField } from '../utils/graphql';
+import { Spotify } from '../dataSources/spotify.types';
 
 const resolvers: TrackResolvers = {
   album: async (track, _, { dataSources }) => {
@@ -20,7 +21,7 @@ const resolvers: TrackResolvers = {
       selectsField(['artists', 'popularity'], info);
 
     if (!shouldLoadFullArtists) {
-      return track.artists;
+      return track.artists as Spotify.Object.Artist[];
     }
 
     const { artists } = await dataSources.spotify.getArtists(
