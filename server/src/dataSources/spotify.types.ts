@@ -6,8 +6,6 @@ type RestrictScope<
   TScope extends string
 > = TScope extends typeof OAUTH_SCOPES[number] ? T : never;
 
-type InputParams<T extends object> = NullifyOptionalProperties<T>;
-
 export namespace Spotify {
   export namespace Object {
     export interface Album {
@@ -467,46 +465,54 @@ export namespace Spotify {
   export namespace Request {
     export namespace QueryParams {
       export interface GET {
-        '/albums/:id': InputParams<{ market?: string }>;
-        '/albums/:id/tracks': InputParams<{
+        '/albums/:id': {
+          market?: string;
+        };
+        '/albums/:id/tracks': {
           limit?: number;
           offset?: number;
           market?: string;
-        }>;
-        '/artists/:id/albums': InputParams<{
+        };
+        '/artists': {
+          ids: string;
+        };
+        '/artists/:id/albums': {
           limit?: number;
           offset?: number;
           include_groups?: string;
-        }>;
-        '/artists/:id/top-tracks': InputParams<{
+        };
+        '/artists/:id/top-tracks': {
           market: string;
-        }>;
-        '/browse/featured-playlists': InputParams<{
+        };
+        '/browse/featured-playlists': {
           limit?: number;
           offset?: number;
           timestamp?: string;
-        }>;
-        '/recommendations': InputParams<{
+        };
+        '/recommendations': {
           seed_artists?: string;
           seed_genres?: string;
           seed_tracks?: string;
           limit?: number;
-        }>;
-        '/me/playlists': InputParams<{
+        };
+        '/me/playlists': {
           limit?: number;
           offset?: number;
-        }>;
-        '/me/tracks': InputParams<{ limit?: number; offset?: number }>;
-        '/playlists/:id/tracks': InputParams<{
+        };
+        '/me/tracks': {
           limit?: number;
           offset?: number;
-        }>;
-        '/playlists/:id': InputParams<{
+        };
+        '/playlists/:id/tracks': {
+          limit?: number;
+          offset?: number;
+        };
+        '/playlists/:id': {
           additional_types?: string;
           fields?: string;
           market?: string;
-        }>;
-        '/tracks/:id': InputParams<{ market?: string }>;
+        };
+        '/tracks/:id': { market?: string };
       }
     }
   }
