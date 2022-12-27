@@ -4,10 +4,13 @@ import {
 } from '@apollo/client';
 import { TrackRouteQuery, TrackRouteQueryVariables } from '../../types/api';
 import { useParams } from 'react-router-dom';
+import ArtistTile from '../../components/ArtistTile';
 import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
 import Duration from '../../components/Duration';
 import Page from '../../components/Page';
+import TileGrid from '../../components/TileGrid';
+import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 
 const TRACK_ROUTE_QUERY = gql`
   query TrackRouteQuery($trackId: ID!) {
@@ -24,9 +27,13 @@ const TRACK_ROUTE_QUERY = gql`
       artists {
         id
         name
+
+        ...ArtistTile_artist
       }
     }
   }
+
+  ${ArtistTile.fragments.artist}
 `;
 
 const TrackRoute = () => {
@@ -38,7 +45,9 @@ const TrackRoute = () => {
 
   const track = data.track!;
 
-  console.log(track);
+  useSetBackgroundColorFromImage(track.album.images[0], {
+    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
+  });
 
   return (
     <Page>
@@ -51,11 +60,19 @@ const TrackRoute = () => {
               {artist.name}
             </EntityLink>
           )),
-          <Duration durationMs={track.durationMs} />,
+          <span>
+            <Duration durationMs={track.durationMs} />
+          </span>,
         ]}
         title={track.name}
       />
-      <Page.Content />
+      <Page.Content>
+        <TileGrid gap="1rem" minTileWidth="200px">
+          {track.artists.map((artist) => (
+            <ArtistTile key={artist.id} artist={artist} />
+          ))}
+        </TileGrid>
+      </Page.Content>
     </Page>
   );
 };
