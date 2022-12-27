@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { ArtistTopTracks_tracks as Track } from '../types/api';
 import { thumbnail } from '../utils/image';
 import CoverPhoto from './CoverPhoto';
+import ExplicitBadge from './ExplicitBadge';
 import Duration from './Duration';
 import Flex from './Flex';
 import Text from './Text';
@@ -25,7 +26,10 @@ const ArtistTopTracks = ({ className, tracks }: ArtistTopTracksProps) => {
             </Text>
             <Flex alignItems="center" gap="1rem">
               <CoverPhoto image={albumCoverPhoto} size="2.5rem" />
-              {track.name}
+              <Flex direction="column" alignItems="start">
+                <span>{track.name}</span>
+                {track.explicit && <ExplicitBadge />}
+              </Flex>
             </Flex>
             <Text color="muted">
               <Duration durationMs={track.durationMs} />
@@ -42,6 +46,7 @@ ArtistTopTracks.fragments = {
     fragment ArtistTopTracks_tracks on Track {
       id
       durationMs
+      explicit
       name
       album {
         id
