@@ -97,7 +97,7 @@ const TrackRoute = () => {
         </TileGrid>
         {track.artists.map((artist) => (
           <Flex key={artist.id} as="section" direction="column" gap="0.5rem">
-            <h2>Popular tracks by {artist.name}</h2>
+            <h2>Popular Tracks by {artist.name}</h2>
             <ArtistTopTracks tracks={artist.topTracks} />
           </Flex>
         ))}
