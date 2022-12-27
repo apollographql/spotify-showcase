@@ -3,26 +3,17 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { createColumnHelper } from '@tanstack/react-table';
-import { Get } from 'type-fest';
 import { AlbumRouteQuery, AlbumRouteQueryVariables } from '../../types/api';
-import AlbumTrackTitleCell from '../../components/AlbumTrackTitleCell';
+import AlbumTracksTable from '../../components/AlbumTracksTable';
 import Page from '../../components/Page';
-import Table from '../../components/Table';
 import EntityLink from '../../components/EntityLink';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
-import { Clock } from 'lucide-react';
 import CoverPhoto from '../../components/CoverPhoto';
-import Duration from '../../components/Duration';
 import Text from '../../components/Text';
 import ReleaseDate from '../../components/ReleaseDate';
 import Flex from '../../components/Flex';
-
-type AlbumTrack = NonNullable<
-  Get<AlbumRouteQuery, 'album.tracks.edges[0].node'>
->;
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -53,14 +44,14 @@ const ALBUM_ROUTE_QUERY = gql`
             name
             trackNumber
 
-            ...AlbumTrackTitleCell_track
+            ...AlbumTracksTable_tracks
           }
         }
       }
     }
   }
 
-  ${AlbumTrackTitleCell.fragments.track}
+  ${AlbumTracksTable.fragments.tracks}
 `;
 
 const AlbumRoute = () => {
@@ -97,9 +88,8 @@ const AlbumRoute = () => {
         ]}
       />
       <Page.Content>
-        <Table
-          columns={columns}
-          data={album.tracks?.edges.map((edge) => edge.node) ?? []}
+        <AlbumTracksTable
+          tracks={album.tracks?.edges.map((edge) => edge.node) ?? []}
         />
         <Flex direction="column">
           <Text as="div" color="muted" size="sm">
@@ -121,26 +111,5 @@ export const LoadingState = () => (
     <Page.SkeletonHeader />
   </Page>
 );
-
-const columnHelper = createColumnHelper<AlbumTrack>();
-
-const columns = [
-  columnHelper.accessor('trackNumber', { header: '#', meta: { shrink: true } }),
-  columnHelper.display({
-    id: 'title',
-    header: 'Title',
-    cell: (info) => {
-      return <AlbumTrackTitleCell track={info.row.original} />;
-    },
-  }),
-  columnHelper.accessor('durationMs', {
-    header: () => <Clock size="1rem" />,
-    cell: (info) => <Duration durationMs={info.getValue()} />,
-    meta: {
-      headerAlign: 'right',
-      shrink: true,
-    },
-  }),
-];
 
 export default AlbumRoute;

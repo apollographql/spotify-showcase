@@ -823,6 +823,8 @@ export type AlbumTile_album = { __typename: 'Album', id: string, name: string, a
 
 export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
+export type AlbumTracksTable_tracks = { __typename: 'Track', id: string, durationMs: number, trackNumber: number | null, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
 export type ArtistTile_artist = { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> };
 
 export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
@@ -892,4 +894,4 @@ export type TrackRouteQueryVariables = Exact<{
 }>;
 
 
-export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }> } | null };
+export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }>, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, trackNumber: number | null, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null }, artists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }> } | null };

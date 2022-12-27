@@ -4,6 +4,7 @@ import {
 } from '@apollo/client';
 import { TrackRouteQuery, TrackRouteQueryVariables } from '../../types/api';
 import { useParams } from 'react-router-dom';
+import AlbumTracksTable from '../../components/AlbumTracksTable';
 import ArtistTile from '../../components/ArtistTile';
 import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
@@ -23,6 +24,15 @@ const TRACK_ROUTE_QUERY = gql`
         images {
           url
         }
+        tracks {
+          edges {
+            node {
+              id
+
+              ...AlbumTracksTable_tracks
+            }
+          }
+        }
       }
       artists {
         id
@@ -33,6 +43,7 @@ const TRACK_ROUTE_QUERY = gql`
     }
   }
 
+  ${AlbumTracksTable.fragments.tracks}
   ${ArtistTile.fragments.artist}
 `;
 
@@ -72,6 +83,11 @@ const TrackRoute = () => {
             <ArtistTile key={artist.id} artist={artist} />
           ))}
         </TileGrid>
+        <section>
+          <AlbumTracksTable
+            tracks={track.album.tracks?.edges.map((edge) => edge.node) ?? []}
+          />
+        </section>
       </Page.Content>
     </Page>
   );
