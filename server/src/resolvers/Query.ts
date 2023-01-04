@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 const resolvers: QueryResolvers = {
   album: (_, { id }, { dataSources }) => dataSources.spotify.getAlbum(id),
   artist: (_, { id }, { dataSources }) => dataSources.spotify.getArtist(id),
+  episode: (_, { id }, { dataSources }) => dataSources.spotify.getEpisode(id),
   featuredPlaylists: (_, { limit, offset, timestamp }, { dataSources }) => {
     return dataSources.spotify.getFeaturedPlaylists({
       limit: limit ?? undefined,

@@ -9,6 +9,12 @@ type Query {
   artist(id: ID!): Artist
 
   """
+  Get Spotify catalog information for a single episode identified by its unique
+  Spotify ID.
+  """
+  episode(id: ID!): Episode
+
+  """
   A list of available genres seed parameter values for
   [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
   """
