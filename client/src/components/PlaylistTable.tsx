@@ -94,6 +94,9 @@ const columns = [
 
       return date && <DateTime date={date} format={DateTime.FORMAT.timeAgo} />;
     },
+    meta: {
+      wrap: false,
+    },
   }),
   columnHelper.accessor('node.durationMs', {
     header: () => <Clock size="1rem" />,
