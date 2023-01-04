@@ -12,6 +12,9 @@ import AlbumRoute, {
 import CollectionTracksRoute, {
   LoadingState as CollectionTracksRouteLoadingState,
 } from './routes/collection/tracks';
+import EpisodeRoute, {
+  LoadingState as EpisodeRouteLoadingState,
+} from './routes/episodes/episode';
 import Playlist, {
   Loading as PlaylistLoading,
 } from './routes/playlists/playlist';
@@ -92,6 +95,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<ArtistRouteLoadingState />}>
                 <ArtistRoute />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/episodes/:episodeId',
+            element: (
+              <Suspense fallback={<EpisodeRouteLoadingState />}>
+                <EpisodeRoute />
               </Suspense>
             ),
           },

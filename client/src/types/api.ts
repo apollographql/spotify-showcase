@@ -226,7 +226,7 @@ export type Episode = PlaylistTrack & {
   /** The name of the episode. */
   name: Scalars['String'];
   /** The date the episode was first released */
-  releaseDate: Maybe<ReleaseDate>;
+  releaseDate: ReleaseDate;
   /** The show containing the episode. */
   show: Show;
   /**
@@ -468,6 +468,11 @@ export type Query = {
   /** Spotify catalog information for an artist. */
   artist: Maybe<Artist>;
   /**
+   * Get Spotify catalog information for a single episode identified by its unique
+   * Spotify ID.
+   */
+  episode: Maybe<Episode>;
+  /**
    * A list of Spotify featured playlists (shown, for example, on a Spotify
    * player's 'Browse' tab).
    */
@@ -494,6 +499,11 @@ export type Query = {
    */
   recommendations: Maybe<Recommendations>;
   /**
+   * Get Spotify catalog information for a single show identified by its unique
+   * Spotify ID.
+   */
+  show: Maybe<Show>;
+  /**
    * Get Spotify catalog information for a single track identified by its unique
    * Spotify ID.
    */
@@ -507,6 +517,11 @@ export type QueryalbumArgs = {
 
 
 export type QueryartistArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryepisodeArgs = {
   id: Scalars['ID'];
 };
 
@@ -525,6 +540,11 @@ export type QueryplaylistArgs = {
 
 export type QueryrecommendationsArgs = {
   seeds: RecommendationSeedInput;
+};
+
+
+export type QueryshowArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -836,7 +856,7 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null, images: Array<{ __typename: 'Image', url: string }> | null } } | null };
 
-export type PlaylistTable_playlistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } };
+export type PlaylistTable_playlistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } };
 
 export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
 
@@ -869,6 +889,13 @@ export type CollectionTracksRouteQueryVariables = Exact<{ [key: string]: never; 
 
 export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'SavedTrackConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
+export type EpisodeRouteQueryVariables = Exact<{
+  episodeId: Scalars['ID'];
+}>;
+
+
+export type EpisodeRouteQuery = { episode: { __typename: 'Episode', id: string, name: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | null };
+
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
 }>;
@@ -881,7 +908,7 @@ export type PlaylistQueryVariables = Exact<{
 }>;
 
 
-export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } | null, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }>, pageInfo: { __typename: 'PageInfo', total: number } } } | null };
+export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }>, pageInfo: { __typename: 'PageInfo', total: number } } } | null };
 
 export type RootQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
