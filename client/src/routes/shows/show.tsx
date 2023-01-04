@@ -55,6 +55,7 @@ const ShowRoute = () => {
 
   const show = data.show!;
   const coverPhoto = show.images[0];
+  const upNext = show.episodes?.edges[0].node;
 
   useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
@@ -71,6 +72,30 @@ const ShowRoute = () => {
       <Page.Content>
         <section className={styles.mainSection}>
           <Flex direction="column" gap="1rem">
+            {upNext && (
+              <div className={styles.upNext}>
+                <div>
+                  <Text color="muted" size="sm">
+                    Up next
+                  </Text>
+                </div>
+                <Flex direction="column" gap="1rem">
+                  <EntityLink className={styles.episodeName} entity={upNext}>
+                    {upNext.name}
+                  </EntityLink>
+                  <DelimitedList
+                    as={Text}
+                    delimiter=" · "
+                    color="muted"
+                    size="sm"
+                  >
+                    <EpisodeReleaseDate releaseDate={upNext.releaseDate} />
+                    <EpisodeRemainingDuration episode={upNext} />
+                  </DelimitedList>
+                </Flex>
+              </div>
+            )}
+
             <h2>All episodes</h2>
             <ul className={styles.episodeList}>
               {show.episodes?.edges.map(({ node }) => (

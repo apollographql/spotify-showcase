@@ -33,3 +33,9 @@
 .episodeName {
   font-weight: var(--font-weight--bold);
 }
+
+.upNext {
+  background: rgba(var(--background--surface--rgb), 0.5);
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
