@@ -1,5 +1,5 @@
 $alignItems: start, center, end;
-$justifyContent: start, center, end;
+$justifyContent: start, center, end, space-between;
 $directions: row, column;
 
 .Flex {
@@ -16,7 +16,7 @@ $directions: row, column;
   }
 }
 
-@each $value in $alignItems {
+@each $value in $justifyContent {
   .justifyContent-#{$value} {
     justify-content: $value;
   }

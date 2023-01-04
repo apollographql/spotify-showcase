@@ -17,7 +17,7 @@ type FlexProps<TElement extends ElementType> =
     flex?: CSSProperties['flex'];
     gap?: CSSProperties['gap'];
     inline?: boolean;
-    justifyContent?: 'start' | 'center' | 'end';
+    justifyContent?: 'start' | 'center' | 'end' | 'space-between';
   };
 
 const Flex = <TElement extends ElementType = 'div'>({
