@@ -27,7 +27,15 @@ Duration.FORMAT = FORMAT;
 
 const formatters = {
   [FORMAT.LONG]: ({ seconds, minutes, hours }: TimeSegments) => {
-    const segments = [`${minutes % 60} min`, `${seconds % 60} sec`];
+    const segments = [];
+
+    if (seconds % 60 > 0) {
+      segments.unshift(`${seconds % 60} sec`);
+    }
+
+    if (minutes % 60 > 0) {
+      segments.unshift(`${minutes % 60} min`);
+    }
 
     if (hours > 0) {
       segments.unshift(`${hours} hr`);
