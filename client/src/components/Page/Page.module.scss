@@ -3,6 +3,11 @@
 }
 
 .page__title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-size: 6rem;
   line-height: 1;
   font-weight: var(--font-weight--black);

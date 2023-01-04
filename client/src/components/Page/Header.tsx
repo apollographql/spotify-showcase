@@ -1,5 +1,6 @@
 import { cloneElement, ReactElement } from 'react';
 import cx from 'classnames';
+import FitText from '../FitText';
 import styles from './Page.module.scss';
 
 import Details from './Details';
@@ -24,7 +25,9 @@ const Header = ({ coverPhoto, details, mediaType, title }: HeaderProps) => {
       })}
       <HeaderDetails>
         {mediaType && <MediaType mediaType={mediaType} />}
-        <Title>{title}</Title>
+        <FitText maxFontSize={96} minFontSize={48}>
+          <Title>{title}</Title>
+        </FitText>
         <Details items={details} />
       </HeaderDetails>
     </HeaderContainer>
