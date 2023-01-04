@@ -6,6 +6,7 @@ import { Check } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { EpisodeRouteQuery, EpisodeRouteQueryVariables } from '../../types/api';
+import Button from '../../components/Button';
 import CoverPhoto from '../../components/CoverPhoto';
 import DelimitedList from '../../components/DelimitedList';
 import Duration from '../../components/Duration';
@@ -96,6 +97,11 @@ const EpisodeRoute = () => {
             </Flex>
           )}
         </DelimitedList>
+        <section>
+          <Button as={EntityLink} variant="hollow" entity={show} size="xs">
+            See all episodes
+          </Button>
+        </section>
       </Page.Content>
     </Page>
   );
