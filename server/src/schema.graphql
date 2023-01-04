@@ -797,6 +797,23 @@ type Show {
   description(format: TextFormat = PLAIN): String!
 
   """
+  Spotify catalog information about an show’s episodes.
+  """
+  episodes(
+    """
+    The maximum number of episodes to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first playlist to return. Default: 0 (the first object).
+
+    Use with `limit` to get the next set of episodes.
+    """
+    offset: Int
+  ): ShowEpisodesConnection
+
+  """
   Whether or not the show has explicit content (`true` = yes it does; `false`
   = no it does not OR unknown).
   """
@@ -851,6 +868,23 @@ type Show {
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show.
   """
   uri: String!
+}
+
+type ShowEpisodesConnection {
+  """
+  A list of episodes for the show.
+  """
+  edges: [ShowEpisodeEdge!]!
+
+  """
+  Pagination information for the set of episodes
+  """
+  pageInfo: PageInfo!
+}
+
+type ShowEpisodeEdge {
+  "The episode"
+  node: Episode!
 }
 
 enum TextFormat {

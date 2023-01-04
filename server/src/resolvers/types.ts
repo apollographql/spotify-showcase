@@ -711,6 +711,8 @@ export type Show = {
   __typename?: 'Show';
   /** A description of the show. */
   description: Scalars['String'];
+  /** Spotify catalog information about an show’s episodes. */
+  episodes?: Maybe<ShowEpisodesConnection>;
   /**
    * Whether or not the show has explicit content (`true` = yes it does; `false`
    * = no it does not OR unknown).
@@ -748,6 +750,27 @@ export type Show = {
 /** Spotify catalog information for a show. */
 export type ShowDescriptionArgs = {
   format?: InputMaybe<TextFormat>;
+};
+
+
+/** Spotify catalog information for a show. */
+export type ShowEpisodesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+export type ShowEpisodeEdge = {
+  __typename?: 'ShowEpisodeEdge';
+  /** The episode */
+  node: Episode;
+};
+
+export type ShowEpisodesConnection = {
+  __typename?: 'ShowEpisodesConnection';
+  /** A list of episodes for the show. */
+  edges: Array<ShowEpisodeEdge>;
+  /** Pagination information for the set of episodes */
+  pageInfo: PageInfo;
 };
 
 export type TextFormat =
@@ -970,6 +993,8 @@ export type ResolversTypes = ResolversObject<{
   SchemaField: ResolverTypeWrapper<SchemaField>;
   SchemaFieldInput: SchemaFieldInput;
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
+  ShowEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
+  ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextFormat: TextFormat;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
@@ -1022,6 +1047,8 @@ export type ResolversParentTypes = ResolversObject<{
   SchemaField: SchemaField;
   SchemaFieldInput: SchemaFieldInput;
   Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
+  ShowEpisodeEdge: Spotify.Object.EpisodeSimplified;
+  ShowEpisodesConnection: Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>;
   String: Scalars['String'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
@@ -1297,6 +1324,7 @@ export type SchemaFieldResolvers<ContextType = ContextValue, ParentType extends 
 
 export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
+  episodes?: Resolver<Maybe<ResolversTypes['ShowEpisodesConnection']>, ParentType, ContextType, Partial<ShowEpisodesArgs>>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -1308,6 +1336,17 @@ export type ShowResolvers<ContextType = ContextValue, ParentType extends Resolve
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   publisher?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ShowEpisodeEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ShowEpisodeEdge'] = ResolversParentTypes['ShowEpisodeEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Episode'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ShowEpisodesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ShowEpisodesConnection'] = ResolversParentTypes['ShowEpisodesConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['ShowEpisodeEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1393,6 +1432,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;
   Show?: ShowResolvers<ContextType>;
+  ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;
+  ShowEpisodesConnection?: ShowEpisodesConnectionResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   UpdateFieldConfigResponse?: UpdateFieldConfigResponseResolvers<ContextType>;

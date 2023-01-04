@@ -55,6 +55,10 @@ const config: CodegenConfig = {
           SavedTrackEdge:
             '../dataSources/spotify.types#Spotify#Object.SavedTrack',
           Show: '../dataSources/spotify.types#Spotify#Object.Show | Spotify.Object.ShowSimplified',
+          ShowEpisodesConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
+          ShowEpisodeEdge:
+            '../dataSources/spotify.types#Spotify#Object.EpisodeSimplified',
           Track:
             '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
           User: '../dataSources/spotify.types#Spotify#Object.User',
