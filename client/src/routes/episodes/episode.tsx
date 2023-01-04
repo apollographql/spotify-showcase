@@ -2,23 +2,34 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
+import { Check } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { EpisodeRouteQuery, EpisodeRouteQueryVariables } from '../../types/api';
 import CoverPhoto from '../../components/CoverPhoto';
+import DelimitedList from '../../components/DelimitedList';
+import Duration from '../../components/Duration';
 import EntityLink from '../../components/EntityLink';
 import Page from '../../components/Page';
+import ProgressBar from '../../components/ProgressBar';
+import Text from '../../components/Text';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import { parseReleaseDate } from '../../utils/releaseDate';
+import Flex from '../../components/Flex';
 
 const EPISODE_ROUTE_QUERY = gql`
   query EpisodeRouteQuery($episodeId: ID!) {
     episode(id: $episodeId) {
       id
       name
+      durationMs
       releaseDate {
         date
         precision
+      }
+      resumePoint {
+        fullyPlayed
+        resumePositionMs
       }
       show {
         id
@@ -39,7 +50,7 @@ const EpisodeRoute = () => {
   >(EPISODE_ROUTE_QUERY, { variables: { episodeId } });
 
   const episode = data.episode!;
-  const { show } = episode;
+  const { show, resumePoint } = episode;
   const coverPhoto = show.images[0];
 
   useSetBackgroundColorFromImage(coverPhoto, {
@@ -55,7 +66,36 @@ const EpisodeRoute = () => {
         title={episode.name}
       />
       <Page.Content>
-        {format(parseReleaseDate(episode.releaseDate), 'MMM yyyy')}
+        <DelimitedList as={Text} color="muted" delimiter=" · ">
+          <Text color="muted">
+            {format(parseReleaseDate(episode.releaseDate), 'MMM yyyy')}
+          </Text>
+          {resumePoint.fullyPlayed ? (
+            <Flex inline as={Text} color="muted" gap="0.25rem">
+              Played <Check color="var(--color--theme)" />
+            </Flex>
+          ) : resumePoint.resumePositionMs === 0 ? (
+            <Duration
+              durationMs={episode.durationMs}
+              format={Duration.FORMAT.LONG}
+            />
+          ) : (
+            <Flex inline alignItems="center" gap="0.5rem">
+              <Text>
+                <Duration
+                  durationMs={episode.durationMs - resumePoint.resumePositionMs}
+                  format={Duration.FORMAT.LONG}
+                />{' '}
+                left
+              </Text>
+              <ProgressBar
+                max={episode.durationMs}
+                value={resumePoint.resumePositionMs}
+                width="100px"
+              />
+            </Flex>
+          )}
+        </DelimitedList>
       </Page.Content>
     </Page>
   );

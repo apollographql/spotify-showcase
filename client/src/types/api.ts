@@ -227,6 +227,8 @@ export type Episode = PlaylistTrack & {
   name: Scalars['String'];
   /** The date the episode was first released */
   releaseDate: ReleaseDate;
+  /** The user's most recent position in the episode. */
+  resumePoint: ResumePoint;
   /** The show containing the episode. */
   show: Show;
   /**
@@ -656,6 +658,14 @@ export type ResetFieldConfigResponse = {
   fieldConfig: Maybe<FieldConfig>;
 };
 
+export type ResumePoint = {
+  __typename: 'ResumePoint';
+  /** Whether or not the episode has been fully played by the user. */
+  fullyPlayed: Scalars['Boolean'];
+  /** The user's most recent position in the episode in milliseconds. */
+  resumePositionMs: Scalars['Int'];
+};
+
 export type SavedTrackConnection = {
   __typename: 'SavedTrackConnection';
   /** A list of saved tracks. */
@@ -894,7 +904,7 @@ export type EpisodeRouteQueryVariables = Exact<{
 }>;
 
 
-export type EpisodeRouteQuery = { episode: { __typename: 'Episode', id: string, name: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | null };
+export type EpisodeRouteQuery = { episode: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number }, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | null };
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
