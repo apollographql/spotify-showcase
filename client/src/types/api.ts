@@ -940,7 +940,7 @@ export type ShowRouteQueryVariables = Exact<{
 }>;
 
 
-export type ShowRouteQuery = { show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } | null };
+export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } | null };
 
 export type TrackRouteQueryVariables = Exact<{
   trackId: Scalars['ID'];
