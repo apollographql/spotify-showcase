@@ -162,12 +162,19 @@ export type ArtistAlbumsConnection = {
 
 export type Copyright = {
   __typename: 'Copyright';
+  /** The copyright text for this content. */
   text: Scalars['String'];
+  /**
+   * The type of copyright: `C` = the copyright, `P` = the sound recording
+   * (performance) copyright.
+   */
   type: Maybe<CopyrightType>;
 };
 
 export enum CopyrightType {
+  /** The copyright */
   C = 'C',
+  /** The sound recording (performance) copyright. */
   P = 'P'
 }
 
@@ -927,6 +934,13 @@ export type RootQueryVariables = Exact<{
 
 
 export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
+
+export type ShowRouteQueryVariables = Exact<{
+  showId: Scalars['ID'];
+}>;
+
+
+export type ShowRouteQuery = { show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } | null };
 
 export type TrackRouteQueryVariables = Exact<{
   trackId: Scalars['ID'];

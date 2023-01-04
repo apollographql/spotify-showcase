@@ -18,6 +18,9 @@ import EpisodeRoute, {
 import Playlist, {
   Loading as PlaylistLoading,
 } from './routes/playlists/playlist';
+import ShowRoute, {
+  LoadingState as ShowRouteLoadingState,
+} from './routes/shows/show';
 import TrackRoute, {
   LoadingState as TrackRouteLoadingState,
 } from './routes/tracks/track';
@@ -111,6 +114,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<PlaylistLoading />}>
                 <Playlist />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/shows/:showId',
+            element: (
+              <Suspense fallback={<ShowRouteLoadingState />}>
+                <ShowRoute />
               </Suspense>
             ),
           },
