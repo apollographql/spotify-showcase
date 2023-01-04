@@ -709,6 +709,8 @@ export type Show = {
   __typename: 'Show';
   /** A description of the show. */
   description: Scalars['String'];
+  /** Spotify catalog information about an show’s episodes. */
+  episodes: Maybe<ShowEpisodesConnection>;
   /**
    * Whether or not the show has explicit content (`true` = yes it does; `false`
    * = no it does not OR unknown).
@@ -746,6 +748,27 @@ export type Show = {
 /** Spotify catalog information for a show. */
 export type ShowdescriptionArgs = {
   format?: InputMaybe<TextFormat>;
+};
+
+
+/** Spotify catalog information for a show. */
+export type ShowepisodesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+export type ShowEpisodeEdge = {
+  __typename: 'ShowEpisodeEdge';
+  /** The episode */
+  node: Episode;
+};
+
+export type ShowEpisodesConnection = {
+  __typename: 'ShowEpisodesConnection';
+  /** A list of episodes for the show. */
+  edges: Array<ShowEpisodeEdge>;
+  /** Pagination information for the set of episodes */
+  pageInfo: PageInfo;
 };
 
 export enum TextFormat {
@@ -940,7 +963,7 @@ export type ShowRouteQueryVariables = Exact<{
 }>;
 
 
-export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } | null };
+export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, episodes: { __typename: 'ShowEpisodesConnection', edges: Array<{ __typename: 'ShowEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } } }> } | null, images: Array<{ __typename: 'Image', url: string }> } | null };
 
 export type TrackRouteQueryVariables = Exact<{
   trackId: Scalars['ID'];

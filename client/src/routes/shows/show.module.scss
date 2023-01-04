@@ -1,6 +1,35 @@
 .mainSection {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  gap: 2rem;
   max-width: 1600px;
   white-space: pre-wrap;
+}
+
+.episodeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.episode {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--background--surface--low-contrast);
+  transition: 0.15s background ease-out;
+
+  &:hover {
+    background-color: var(--background--surface--low-contrast--hover);
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--border--color--base);
+  }
+}
+
+.episodeName {
+  font-weight: var(--font-weight--bold);
 }
