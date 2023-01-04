@@ -67,6 +67,7 @@ const TrackRoute = () => {
   const track = data.track!;
   const { album } = track;
   const coverPhoto = album.images[0];
+  const primaryArtist = track.artists[0];
 
   useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
@@ -78,11 +79,9 @@ const TrackRoute = () => {
         mediaType="song"
         coverPhoto={<CoverPhoto image={coverPhoto} />}
         details={[
-          ...track.artists.map((artist) => (
-            <EntityLink key={artist.id} entity={artist}>
-              {artist.name}
-            </EntityLink>
-          )),
+          <EntityLink key={primaryArtist.id} entity={primaryArtist}>
+            {primaryArtist.name}
+          </EntityLink>,
           <span>
             <Duration durationMs={track.durationMs} />
           </span>,
@@ -91,16 +90,12 @@ const TrackRoute = () => {
       />
       <Page.Content gap="2rem">
         <TileGrid gap="1rem" minTileWidth="200px">
-          {track.artists.map((artist) => (
-            <ArtistTile key={artist.id} artist={artist} />
-          ))}
+          <ArtistTile key={primaryArtist.id} artist={primaryArtist} />
         </TileGrid>
-        {track.artists.map((artist) => (
-          <Flex key={artist.id} as="section" direction="column" gap="0.5rem">
-            <h2>Popular Tracks by {artist.name}</h2>
-            <ArtistTopTracks tracks={artist.topTracks} />
-          </Flex>
-        ))}
+        <Flex as="section" direction="column" gap="0.5rem">
+          <h2>Popular Tracks by {primaryArtist.name}</h2>
+          <ArtistTopTracks tracks={primaryArtist.topTracks} />
+        </Flex>
         <Flex as="section" direction="column" gap="0.5rem">
           <Flex gap="1rem" alignItems="center">
             <EntityLink entity={album}>
