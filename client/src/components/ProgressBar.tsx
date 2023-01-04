@@ -24,7 +24,7 @@ const ProgressBar = ({ className, max, value, width }: ProgressBarProps) => {
     >
       <Progress.Indicator
         className={styles.progressIndicator}
-        style={{ transform: `translateX(-${(value / max) * 100}%)` }}
+        style={{ transform: `translateX(-${100 - (value / max) * 100}%)` }}
       />
     </Progress.Root>
   );
