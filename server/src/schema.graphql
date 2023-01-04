@@ -429,7 +429,7 @@ type Episode implements PlaylistTrack {
   """
   The date the episode was first released
   """
-  releaseDate: ReleaseDate
+  releaseDate: ReleaseDate!
 
   """
   The show containing the episode.

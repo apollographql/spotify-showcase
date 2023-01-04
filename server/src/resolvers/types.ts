@@ -230,7 +230,7 @@ export type Episode = PlaylistTrack & {
   /** The name of the episode. */
   name: Scalars['String'];
   /** The date the episode was first released */
-  releaseDate?: Maybe<ReleaseDate>;
+  releaseDate: ReleaseDate;
   /** The show containing the episode. */
   show: Show;
   /**
@@ -1101,7 +1101,7 @@ export type EpisodeResolvers<ContextType = ContextValue, ParentType extends Reso
   isPlayable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  releaseDate?: Resolver<Maybe<ResolversTypes['ReleaseDate']>, ParentType, ContextType>;
+  releaseDate?: Resolver<ResolversTypes['ReleaseDate'], ParentType, ContextType>;
   show?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
