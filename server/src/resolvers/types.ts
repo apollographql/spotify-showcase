@@ -167,12 +167,19 @@ export type ArtistAlbumsConnection = {
 
 export type Copyright = {
   __typename?: 'Copyright';
+  /** The copyright text for this content. */
   text: Scalars['String'];
+  /**
+   * The type of copyright: `C` = the copyright, `P` = the sound recording
+   * (performance) copyright.
+   */
   type?: Maybe<CopyrightType>;
 };
 
 export type CopyrightType =
+  /** The copyright */
   | 'C'
+  /** The sound recording (performance) copyright. */
   | 'P';
 
 export type CurrentUser = {
@@ -231,6 +238,8 @@ export type Episode = PlaylistTrack & {
   name: Scalars['String'];
   /** The date the episode was first released */
   releaseDate: ReleaseDate;
+  /** The user's most recent position in the episode. */
+  resumePoint: ResumePoint;
   /** The show containing the episode. */
   show: Show;
   /**
@@ -658,6 +667,14 @@ export type ResetFieldConfigResponse = {
   fieldConfig?: Maybe<FieldConfig>;
 };
 
+export type ResumePoint = {
+  __typename?: 'ResumePoint';
+  /** Whether or not the episode has been fully played by the user. */
+  fullyPlayed: Scalars['Boolean'];
+  /** The user's most recent position in the episode in milliseconds. */
+  resumePositionMs: Scalars['Int'];
+};
+
 export type SavedTrackConnection = {
   __typename?: 'SavedTrackConnection';
   /** A list of saved tracks. */
@@ -947,6 +964,7 @@ export type ResolversTypes = ResolversObject<{
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
   ResetFieldConfigResponse: ResolverTypeWrapper<Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SavedTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
   SchemaField: ResolverTypeWrapper<SchemaField>;
@@ -998,6 +1016,7 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
   ResetFieldConfigResponse: Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  ResumePoint: Spotify.Object.ResumePoint;
   SavedTrackConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;
   SavedTrackEdge: Spotify.Object.SavedTrack;
   SchemaField: SchemaField;
@@ -1102,6 +1121,7 @@ export type EpisodeResolvers<ContextType = ContextValue, ParentType extends Reso
   languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   releaseDate?: Resolver<ResolversTypes['ReleaseDate'], ParentType, ContextType>;
+  resumePoint?: Resolver<ResolversTypes['ResumePoint'], ParentType, ContextType>;
   show?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1251,6 +1271,12 @@ export type ResetFieldConfigResponseResolvers<ContextType = ContextValue, Parent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ResumePointResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePoint'] = ResolversParentTypes['ResumePoint']> = ResolversObject<{
+  fullyPlayed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  resumePositionMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type SavedTrackConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedTrackConnection'] = ResolversParentTypes['SavedTrackConnection']> = ResolversObject<{
   edges?: Resolver<Array<ResolversTypes['SavedTrackEdge']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
@@ -1362,6 +1388,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
   ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
   ResetFieldConfigResponse?: ResetFieldConfigResponseResolvers<ContextType>;
+  ResumePoint?: ResumePointResolvers<ContextType>;
   SavedTrackConnection?: SavedTrackConnectionResolvers<ContextType>;
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;

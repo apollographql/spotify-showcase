@@ -441,6 +441,11 @@ type Episode implements PlaylistTrack {
   releaseDate: ReleaseDate!
 
   """
+  The user's most recent position in the episode.
+  """
+  resumePoint: ResumePoint!
+
+  """
   The show containing the episode.
   """
   show: Show!
@@ -1044,6 +1049,18 @@ type ResetFieldConfigResponse {
   The updated field config
   """
   fieldConfig: FieldConfig
+}
+
+type ResumePoint {
+  """
+  Whether or not the episode has been fully played by the user.
+  """
+  fullyPlayed: Boolean!
+
+  """
+  The user's most recent position in the episode in milliseconds.
+  """
+  resumePositionMs: Int!
 }
 
 type SavedTrackConnection {

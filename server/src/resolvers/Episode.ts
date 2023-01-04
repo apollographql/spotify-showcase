@@ -11,6 +11,7 @@ const resolvers: EpisodeResolvers = {
   isExternallyHosted: prop('is_externally_hosted'),
   isPlayable: prop('is_playable'),
   releaseDate: itself(),
+  resumePoint: prop('resume_point'),
 };
 
 export default resolvers;
