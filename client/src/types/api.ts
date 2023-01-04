@@ -936,7 +936,7 @@ export type EpisodeRouteQueryVariables = Exact<{
 }>;
 
 
-export type EpisodeRouteQuery = { episode: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number }, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | null };
+export type EpisodeRouteQuery = { episode: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } | null };
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']>;
