@@ -36,6 +36,7 @@ const resolvers: QueryResolvers = {
         'id,collaborative,description,external_urls,images,name,owner,public,uri',
     });
   },
+  show: (_, { id }, { dataSources }) => dataSources.spotify.getShow(id),
   track: (_, { id }, { dataSources }) => {
     return dataSources.spotify.getTrack(id);
   },

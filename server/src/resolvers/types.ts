@@ -503,6 +503,11 @@ export type Query = {
    */
   recommendations?: Maybe<Recommendations>;
   /**
+   * Get Spotify catalog information for a single show identified by its unique
+   * Spotify ID.
+   */
+  show?: Maybe<Show>;
+  /**
    * Get Spotify catalog information for a single track identified by its unique
    * Spotify ID.
    */
@@ -539,6 +544,11 @@ export type QueryPlaylistArgs = {
 
 export type QueryRecommendationsArgs = {
   seeds: RecommendationSeedInput;
+};
+
+
+export type QueryShowArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -1208,6 +1218,7 @@ export type QueryResolvers<ContextType = ContextValue, ParentType extends Resolv
   me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;
   playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<QueryPlaylistArgs, 'id'>>;
   recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
+  show?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<QueryShowArgs, 'id'>>;
   track?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType, RequireFields<QueryTrackArgs, 'id'>>;
 }>;
 

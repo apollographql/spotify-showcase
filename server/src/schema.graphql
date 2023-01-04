@@ -70,6 +70,12 @@ type Query {
   ): FeaturedPlaylistConnection
 
   """
+  Get Spotify catalog information for a single show identified by its unique
+  Spotify ID.
+  """
+  show(id: ID!): Show
+
+  """
   Get Spotify catalog information for a single track identified by its unique
   Spotify ID.
   """

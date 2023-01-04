@@ -457,6 +457,7 @@ export namespace Spotify {
       '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
       '/recommendations/available-genre-seeds': Object.List<'genres', string>;
+      '/shows/:id': Object.Show;
       '/tracks/:id': Object.Track;
     }
   }
