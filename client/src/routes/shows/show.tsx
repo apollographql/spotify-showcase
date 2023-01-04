@@ -7,12 +7,11 @@ import { ShowRouteQuery, ShowRouteQueryVariables } from '../../types/api';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import CoverPhoto from '../../components/CoverPhoto';
 import DelimitedList from '../../components/DelimitedList';
-import Duration from '../../components/Duration';
 import EntityLink from '../../components/EntityLink';
+import EpisodeReleaseDate from '../../components/EpisodeReleaseDate';
 import EpisodeRemainingDuration from '../../components/EpisodeRemainingDuration';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
-import ReleaseDate from '../../components/ReleaseDate';
 import Text from '../../components/Text';
 import styles from './show.module.scss';
 
@@ -87,7 +86,7 @@ const ShowRoute = () => {
                       color="muted"
                       size="sm"
                     >
-                      <ReleaseDate releaseDate={node.releaseDate} />
+                      <EpisodeReleaseDate releaseDate={node.releaseDate} />
                       <EpisodeRemainingDuration episode={node} />
                     </DelimitedList>
                   </Flex>
