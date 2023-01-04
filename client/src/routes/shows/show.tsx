@@ -9,6 +9,7 @@ import CoverPhoto from '../../components/CoverPhoto';
 import DelimitedList from '../../components/DelimitedList';
 import Duration from '../../components/Duration';
 import EntityLink from '../../components/EntityLink';
+import EpisodeRemainingDuration from '../../components/EpisodeRemainingDuration';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
 import ReleaseDate from '../../components/ReleaseDate';
@@ -32,6 +33,8 @@ const SHOW_ROUTE_QUERY = gql`
               date
               precision
             }
+
+            ...EpisodeRemainingDuration_episode
           }
         }
       }
@@ -40,6 +43,8 @@ const SHOW_ROUTE_QUERY = gql`
       }
     }
   }
+
+  ${EpisodeRemainingDuration.fragments.episode}
 `;
 
 const ShowRoute = () => {
@@ -83,10 +88,7 @@ const ShowRoute = () => {
                       size="sm"
                     >
                       <ReleaseDate releaseDate={node.releaseDate} />
-                      <Duration
-                        durationMs={node.durationMs}
-                        format={Duration.FORMAT.LONG}
-                      />
+                      <EpisodeRemainingDuration episode={node} />
                     </DelimitedList>
                   </Flex>
                 </li>

@@ -896,6 +896,8 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null, images: Array<{ __typename: 'Image', url: string }> | null } } | null };
 
+export type EpisodeRemainingDuration_episode = { __typename: 'Episode', id: string, durationMs: number, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } };
+
 export type PlaylistTable_playlistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } };
 
 export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
@@ -963,7 +965,7 @@ export type ShowRouteQueryVariables = Exact<{
 }>;
 
 
-export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, episodes: { __typename: 'ShowEpisodesConnection', edges: Array<{ __typename: 'ShowEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision } } }> } | null, images: Array<{ __typename: 'Image', url: string }> } | null };
+export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, episodes: { __typename: 'ShowEpisodesConnection', edges: Array<{ __typename: 'ShowEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } }> } | null, images: Array<{ __typename: 'Image', url: string }> } | null };
 
 export type TrackRouteQueryVariables = Exact<{
   trackId: Scalars['ID'];
