@@ -20,6 +20,10 @@
   }
 }
 
+a.button:hover {
+  text-decoration: none;
+}
+
 .xs {
   font-size: var(--font-size--xs);
   font-weight: normal;
