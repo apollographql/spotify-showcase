@@ -16,6 +16,7 @@
     "@types/react-dom": "^18.0.9",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
+    "graphql-ws": "^5.11.2",
     "lucide-react": "^0.105.0-alpha.3",
     "node-vibrant": "3.1.6",
     "react": "^18.2.0",

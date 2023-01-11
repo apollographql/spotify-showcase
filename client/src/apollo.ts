@@ -3,10 +3,14 @@ import {
   ApolloLink,
   InMemoryCache,
   createHttpLink,
+  split,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { readAuthToken } from './utils';
 import { logout } from './auth';
+import { createClient } from 'graphql-ws';
+import { getMainDefinition } from '@apollo/client/utilities';
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_SERVER_HOST}/graphql`,
@@ -17,6 +21,17 @@ const httpLink = createHttpLink({
   },
 });
 
+const wsLink = new GraphQLWsLink(
+  createClient({
+    url: `${process.env.REACT_APP_WEBSOCKET_HOST}/graphql`,
+    connectionParams: {
+      get apiToken() {
+        return readAuthToken();
+      },
+    },
+  })
+);
+
 const removeTokenLink = onError(({ graphQLErrors }) => {
   graphQLErrors?.forEach((error) => {
     if (error.extensions.code === 'UNAUTHENTICATED') {
@@ -25,10 +40,21 @@ const removeTokenLink = onError(({ graphQLErrors }) => {
   });
 });
 
-const link = ApolloLink.from([removeTokenLink, httpLink]);
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  ApolloLink.from([removeTokenLink, httpLink])
+);
 
 export default new ApolloClient({
-  link,
+  link: splitLink,
   cache: new InMemoryCache({
     possibleTypes: {
       PlaylistTrack: ['Track', 'Episode'],
