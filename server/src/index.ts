@@ -3,13 +3,14 @@ import './env';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import { json } from 'body-parser';
 import defaultResolver from './resolvers/default';
 
-import schema from './schema.graphql';
+import typeDefs from './schema.graphql';
 import resolvers from './resolvers';
 import routes from './routes';
 import SpotifyAPI from './dataSources/spotify';
@@ -19,9 +20,10 @@ import { ContextValue } from './types';
 const app = express();
 const httpServer = http.createServer(app);
 
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
 const server = new ApolloServer<ContextValue>({
-  typeDefs: schema,
-  resolvers,
+  schema,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   fieldResolver: defaultResolver,
 });
