@@ -4,6 +4,7 @@ import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import { PubSub } from 'graphql-subscriptions';
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
@@ -18,7 +19,6 @@ import routes from './routes';
 import SpotifyAPI from './dataSources/spotify';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
-import { PubSub } from 'graphql-subscriptions';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
