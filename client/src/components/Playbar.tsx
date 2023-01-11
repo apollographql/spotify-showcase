@@ -76,18 +76,6 @@ const PLAYBAR_SUBSCRIPTION = gql`
   subscription PlaybarSubscription {
     playbackStateChanged {
       ...PlaybackStateFragment
-      device {
-        id
-        name
-      }
-
-      item {
-        __typename
-        ... on Track {
-          id
-          name
-        }
-      }
     }
   }
 
