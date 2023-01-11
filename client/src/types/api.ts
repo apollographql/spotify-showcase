@@ -12,6 +12,25 @@ export type Scalars = {
   Float: number;
   DateTime: string;
   ErrorRate: number;
+  Timestamp: unknown;
+};
+
+export enum Action {
+  InterruptingPlayback = 'INTERRUPTING_PLAYBACK',
+  Pausing = 'PAUSING',
+  Resuming = 'RESUMING',
+  Seeking = 'SEEKING',
+  SkippingNext = 'SKIPPING_NEXT',
+  SkippingPrev = 'SKIPPING_PREV',
+  TogglingRepeatContext = 'TOGGLING_REPEAT_CONTEXT',
+  TogglingRepeatTrack = 'TOGGLING_REPEAT_TRACK',
+  TogglingShuffle = 'TOGGLING_SHUFFLE',
+  TransferringPlayback = 'TRANSFERRING_PLAYBACK'
+}
+
+export type Actions = {
+  __typename: 'Actions';
+  disallows: Array<Action>;
 };
 
 /** Spotify catalog information for an album. */
@@ -180,6 +199,8 @@ export enum CopyrightType {
 
 export type CurrentUser = {
   __typename: 'CurrentUser';
+  /** Information about the user's current playback state */
+  player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists: Maybe<PlaylistConnection>;
   tracks: Maybe<SavedTrackConnection>;
@@ -197,6 +218,54 @@ export type CurrentUserplaylistsArgs = {
 export type CurrentUsertracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+};
+
+export type CurrentlyPlaying = {
+  __typename: 'CurrentlyPlaying';
+  /**
+   * Allows to update the user interface based on which playback actions are
+   * available within the current context.
+   */
+  actions: Actions;
+  /** A context object. */
+  context: Maybe<PlaybackContext>;
+  /** If something is currently playing, return `true`. */
+  isPlaying: Scalars['Boolean'];
+  /** The currently playing track or episode */
+  item: Maybe<PlaybackItem>;
+  /** Progress into the currently playing track or episode. Can be `null` */
+  progressMs: Maybe<Scalars['Int']>;
+  /** Unix Millisecond Timestamp when data was fetched. */
+  timestamp: Scalars['Timestamp'];
+};
+
+export type Device = {
+  __typename: 'Device';
+  /** The device ID */
+  id: Scalars['ID'];
+  /** If this device is the currently active device. */
+  isActive: Scalars['Boolean'];
+  /** If this device is currently in a private session. */
+  isPrivateSession: Scalars['Boolean'];
+  /**
+   * Whether controlling this device is restricted. At present if this is "true",
+   * then no Web API commands will be accepted by this device.
+   */
+  isRestricted: Scalars['Boolean'];
+  /**
+   * A human-readable name for the device. Some devices have a name that the user
+   * can configure (e.g. "Loudest speaker") and some devices have a generic name
+   * associated with the manufacturer or device model.
+   */
+  name: Scalars['String'];
+  /** Device type, such as "computer", "smartphone" or "speaker". */
+  type: Scalars['String'];
+  /**
+   * The current volume in percent.
+   *
+   * >= 0    <= 100
+   */
+  volumePercent: Scalars['Int'];
 };
 
 /** Spotify catalog information for an episode. */
@@ -365,6 +434,53 @@ export type PageInfo = {
   offset: Scalars['Int'];
   /** The total number of items returned for the page. */
   total: Scalars['Int'];
+};
+
+export type PlaybackContext = {
+  __typename: 'PlaybackContext';
+  item: Maybe<PlaybackContextItem>;
+};
+
+export type PlaybackContextItem = Album | Artist | Playlist | Show;
+
+export type PlaybackItem = Episode | Track;
+
+export type PlaybackState = {
+  __typename: 'PlaybackState';
+  /**
+   * Allows to update the user interface based on which playback actions are
+   * available within the current context.
+   */
+  actions: Actions;
+  /** A context object. */
+  context: Maybe<PlaybackContext>;
+  /** The device that is currently active. */
+  device: Device;
+  /** If something is currently playing, return `true`. */
+  isPlaying: Scalars['Boolean'];
+  /** The currently playing track or episode */
+  item: Maybe<PlaybackItem>;
+  /** Progress into the currently playing track or episode. Can be `null` */
+  progressMs: Maybe<Scalars['Int']>;
+  /** off, track, context */
+  repeatState: Scalars['String'];
+  /** If shuffle is on or off. */
+  shuffleState: Scalars['Boolean'];
+  /** Unix Millisecond Timestamp when data was fetched. */
+  timestamp: Scalars['Timestamp'];
+};
+
+export type Player = {
+  __typename: 'Player';
+  /** Information about the object currently being played on the user's Spotify account. */
+  currentlyPlaying: Maybe<CurrentlyPlaying>;
+  /** Information about a user's available devices. */
+  devices: Maybe<Array<Device>>;
+  /**
+   * Information about the user's current playback state, including track or
+   * episode, progress, and active device.
+   */
+  playbackState: Maybe<PlaybackState>;
 };
 
 /** Information about a playlist owned by a Spotify user */
@@ -769,6 +885,11 @@ export type ShowEpisodesConnection = {
   edges: Array<ShowEpisodeEdge>;
   /** Pagination information for the set of episodes */
   pageInfo: PageInfo;
+};
+
+export type Subscription = {
+  __typename: 'Subscription';
+  playbackStateChanged: Maybe<PlaybackState>;
 };
 
 export enum TextFormat {
