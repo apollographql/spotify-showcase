@@ -78,4 +78,5 @@ server.start().then(async () => {
   );
 
   console.log(`🚀 Server ready at: http://localhost:4000`);
+  console.log(`🚀 Subscription endpoint ready at ws://localhost:4000/graphql`);
 });
