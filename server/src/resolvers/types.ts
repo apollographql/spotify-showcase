@@ -22,6 +22,23 @@ export type Scalars = {
   Timestamp: unknown;
 };
 
+export type Action =
+  | 'interrupting_playback'
+  | 'pausing'
+  | 'resuming'
+  | 'seeking'
+  | 'skipping_next'
+  | 'skipping_prev'
+  | 'toggling_repeat_context'
+  | 'toggling_repeat_track'
+  | 'toggling_shuffle'
+  | 'transferring_playback';
+
+export type Actions = {
+  __typename?: 'Actions';
+  disallows: Array<Action>;
+};
+
 /** Spotify catalog information for an album. */
 export type Album = {
   __typename?: 'Album';
@@ -208,6 +225,11 @@ export type CurrentUserTracksArgs = {
 
 export type CurrentlyPlaying = {
   __typename?: 'CurrentlyPlaying';
+  /**
+   * Allows to update the user interface based on which playback actions are
+   * available within the current context.
+   */
+  actions: Actions;
   /** A context object. */
   context?: Maybe<PlaybackContext>;
   /** If something is currently playing, return `true`. */
@@ -428,6 +450,11 @@ export type PlaybackItem = Episode | Track;
 
 export type PlaybackState = {
   __typename?: 'PlaybackState';
+  /**
+   * Allows to update the user interface based on which playback actions are
+   * available within the current context.
+   */
+  actions: Actions;
   /** A context object. */
   context?: Maybe<PlaybackContext>;
   /** The device that is currently active. */
@@ -1034,6 +1061,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  Action: Action;
+  Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
   Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
   AlbumGroup: AlbumGroup;
   AlbumTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>>;
@@ -1101,6 +1130,7 @@ export type ResolversTypes = ResolversObject<{
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  Actions: Spotify.Object.Actions;
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.TrackSimplified>;
   AlbumTrackEdge: Spotify.Object.TrackSimplified;
@@ -1158,6 +1188,13 @@ export type ResolversParentTypes = ResolversObject<{
   TrackExternalIds: TrackExternalIds;
   UpdateFieldConfigResponse: Omit<UpdateFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
   User: Spotify.Object.User;
+}>;
+
+export type ActionResolvers = { INTERRUPTING_PLAYBACK: 'interrupting_playback', PAUSING: 'pausing', RESUMING: 'resuming', SEEKING: 'seeking', SKIPPING_NEXT: 'skipping_next', SKIPPING_PREV: 'skipping_prev', TOGGLING_REPEAT_CONTEXT: 'toggling_repeat_context', TOGGLING_REPEAT_TRACK: 'toggling_repeat_track', TOGGLING_SHUFFLE: 'toggling_shuffle', TRANSFERRING_PLAYBACK: 'transferring_playback' };
+
+export type ActionsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Actions'] = ResolversParentTypes['Actions']> = ResolversObject<{
+  disallows?: Resolver<Array<ResolversTypes['Action']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type AlbumResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Album'] = ResolversParentTypes['Album']> = ResolversObject<{
@@ -1236,6 +1273,7 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
 }>;
 
 export type CurrentlyPlayingResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentlyPlaying'] = ResolversParentTypes['CurrentlyPlaying']> = ResolversObject<{
+  actions?: Resolver<ResolversTypes['Actions'], ParentType, ContextType>;
   context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
   isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
@@ -1347,6 +1385,7 @@ export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends
 }>;
 
 export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState']> = ResolversObject<{
+  actions?: Resolver<ResolversTypes['Actions'], ParentType, ContextType>;
   context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
   device?: Resolver<ResolversTypes['Device'], ParentType, ContextType>;
   isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -1555,6 +1594,8 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
 }>;
 
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
+  Action?: ActionResolvers;
+  Actions?: ActionsResolvers<ContextType>;
   Album?: AlbumResolvers<ContextType>;
   AlbumGroup?: AlbumGroupResolvers;
   AlbumTrackConnection?: AlbumTrackConnectionResolvers<ContextType>;

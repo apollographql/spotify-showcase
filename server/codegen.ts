@@ -11,6 +11,7 @@ const config: CodegenConfig = {
         useIndexSignature: true,
         makeResolverTypeCallable: true,
         mappers: {
+          Actions: '../dataSources/spotify.types#Spotify#Object.Actions',
           Album:
             '../dataSources/spotify.types#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
           AlbumTrackConnection:
@@ -76,6 +77,18 @@ const config: CodegenConfig = {
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
         enumValues: {
+          Action: {
+            INTERRUPTING_PLAYBACK: 'interrupting_playback',
+            PAUSING: 'pausing',
+            RESUMING: 'resuming',
+            SEEKING: 'seeking',
+            SKIPPING_NEXT: 'skipping_next',
+            SKIPPING_PREV: 'skipping_prev',
+            TOGGLING_REPEAT_CONTEXT: 'toggling_repeat_context',
+            TOGGLING_SHUFFLE: 'toggling_shuffle',
+            TOGGLING_REPEAT_TRACK: 'toggling_repeat_track',
+            TRANSFERRING_PLAYBACK: 'transferring_playback',
+          },
           AlbumGroup: {
             ALBUM: 'album',
             APPEARS_ON: 'appears_on',
