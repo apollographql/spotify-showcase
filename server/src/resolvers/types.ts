@@ -888,6 +888,11 @@ export type ShowEpisodesConnection = {
   pageInfo: PageInfo;
 };
 
+export type Subscription = {
+  __typename?: 'Subscription';
+  playbackStateChanged: PlaybackState;
+};
+
 export type TextFormat =
   | 'HTML'
   | 'PLAIN';
@@ -1120,6 +1125,7 @@ export type ResolversTypes = ResolversObject<{
   ShowEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
   ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Subscription: ResolverTypeWrapper<{}>;
   TextFormat: TextFormat;
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
@@ -1183,6 +1189,7 @@ export type ResolversParentTypes = ResolversObject<{
   ShowEpisodeEdge: Spotify.Object.EpisodeSimplified;
   ShowEpisodesConnection: Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>;
   String: Scalars['String'];
+  Subscription: {};
   Timestamp: Scalars['Timestamp'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
@@ -1546,6 +1553,10 @@ export type ShowEpisodesConnectionResolvers<ContextType = ContextValue, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type SubscriptionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
+  playbackStateChanged?: SubscriptionResolver<ResolversTypes['PlaybackState'], "playbackStateChanged", ParentType, ContextType>;
+}>;
+
 export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
   name: 'Timestamp';
 }
@@ -1643,6 +1654,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Show?: ShowResolvers<ContextType>;
   ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;
   ShowEpisodesConnection?: ShowEpisodesConnectionResolvers<ContextType>;
+  Subscription?: SubscriptionResolvers<ContextType>;
   Timestamp?: GraphQLScalarType;
   Track?: TrackResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;

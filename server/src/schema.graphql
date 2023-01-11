@@ -106,6 +106,10 @@ type Mutation {
   resetFieldConfig(field: FieldInput!): ResetFieldConfigResponse
 }
 
+type Subscription {
+  playbackStateChanged: PlaybackState!
+}
+
 enum Action {
   INTERRUPTING_PLAYBACK
   PAUSING
