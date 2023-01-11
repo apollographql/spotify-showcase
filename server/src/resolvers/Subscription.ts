@@ -8,7 +8,7 @@ const resolvers: SubscriptionResolvers = {
       const subscription = pollPlaybackState(dataSources.spotify).subscribe(
         (playbackState) => {
           pubsub.publish(TOPICS.PLAYBACK_STATE_CHANGED, {
-            playbackStateChanged: { playbackState },
+            playbackStateChanged: playbackState,
           });
         }
       );
