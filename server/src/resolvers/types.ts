@@ -425,6 +425,8 @@ export type PlaybackState = {
 
 export type Player = {
   __typename?: 'Player';
+  /** Information about a user's available devices. */
+  devices?: Maybe<Array<Device>>;
   /**
    * Information about the user's current playback state, including track or
    * episode, progress, and active device.
@@ -1037,7 +1039,7 @@ export type ResolversTypes = ResolversObject<{
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
-  Player: ResolverTypeWrapper<Omit<Player, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  Player: ResolverTypeWrapper<Omit<Player, 'devices' | 'playbackState'> & { devices?: Maybe<Array<ResolversTypes['Device']>>, playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
   PlaylistEdge: ResolverTypeWrapper<Spotify.Object.Playlist>;
@@ -1098,7 +1100,7 @@ export type ResolversParentTypes = ResolversObject<{
   PageInfo: Spotify.Object.Paginated<unknown>;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
   PlaybackState: Spotify.Object.PlaybackState;
-  Player: Omit<Player, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  Player: Omit<Player, 'devices' | 'playbackState'> & { devices?: Maybe<Array<ResolversParentTypes['Device']>>, playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   Playlist: Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
   PlaylistEdge: Spotify.Object.Playlist;
@@ -1307,6 +1309,7 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
 }>;
 
 export type PlayerResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Player'] = ResolversParentTypes['Player']> = ResolversObject<{
+  devices?: Resolver<Maybe<Array<ResolversTypes['Device']>>, ParentType, ContextType>;
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

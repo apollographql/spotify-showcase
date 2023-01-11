@@ -148,10 +148,18 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  getPlaybackState(params?: Spotify.Request.QueryParams.GET['/me/player']) {
-    return this._get<Spotify.Response.GET['/me/player']>('/me/player', {
-      params,
-    });
+  async getPlaybackState(
+    params?: Spotify.Request.QueryParams.GET['/me/player']
+  ) {
+    const playbackState = await this._get<
+      Spotify.Response.GET['/me/player'] | ''
+    >('/me/player', { params });
+
+    if (playbackState === '') {
+      return null;
+    }
+
+    return playbackState;
   }
 
   getPlaybackQueue() {

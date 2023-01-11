@@ -650,6 +650,9 @@ type PlaybackState {
 }
 
 type Player {
+  "Information about a user's available devices."
+  devices: [Device!]
+
   """
   Information about the user's current playback state, including track or
   episode, progress, and active device.
