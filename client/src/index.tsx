@@ -14,13 +14,14 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <ApolloProvider client={client} suspenseCache={new SuspenseCache()}>
-      <BackgroundColorProvider>
-        <RouterProvider router={router} />
-      </BackgroundColorProvider>
-    </ApolloProvider>
-  </React.StrictMode>
+  // TODO: Re-enable strict mode once https://github.com/apollographql/apollo-client/issues/10428 is fixed
+  // <React.StrictMode>
+  <ApolloProvider client={client} suspenseCache={new SuspenseCache()}>
+    <BackgroundColorProvider>
+      <RouterProvider router={router} />
+    </BackgroundColorProvider>
+  </ApolloProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
