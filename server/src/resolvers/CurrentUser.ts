@@ -5,7 +5,7 @@ const resolvers: CurrentUserResolvers = {
   user: itself(),
   player: () => {
     // Return empty object since this field makes no requests to the API
-    return {} as any;
+    return {};
   },
   playlists: (_, args, { dataSources }) => {
     return dataSources.spotify.getCurrentUserPlaylists({

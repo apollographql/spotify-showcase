@@ -1050,7 +1050,7 @@ export type ResolversTypes = ResolversObject<{
   PlaybackContextItem: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show>;
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
-  Player: ResolverTypeWrapper<Omit<Player, 'devices' | 'playbackState'> & { devices?: Maybe<Array<ResolversTypes['Device']>>, playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  Player: ResolverTypeWrapper<{}>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
   PlaylistEdge: ResolverTypeWrapper<Spotify.Object.Playlist>;
@@ -1113,7 +1113,7 @@ export type ResolversParentTypes = ResolversObject<{
   PlaybackContextItem: Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
   PlaybackState: Spotify.Object.PlaybackState;
-  Player: Omit<Player, 'devices' | 'playbackState'> & { devices?: Maybe<Array<ResolversParentTypes['Device']>>, playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  Player: {};
   Playlist: Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
   PlaylistEdge: Spotify.Object.Playlist;
