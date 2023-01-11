@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.8.0-alpha.1",
+    "@apollo/client": "^3.8.0-alpha.3",
     "@radix-ui/react-dropdown-menu": "^2.0.1",
     "@radix-ui/react-progress": "^1.0.1",
     "@tanstack/react-table": "^8.7.3",
@@ -16,7 +16,9 @@
     "@types/react-dom": "^18.0.9",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
+    "deepmerge": "^4.2.2",
     "graphql-ws": "^5.11.2",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.105.0-alpha.3",
     "node-vibrant": "3.1.6",
     "react": "^18.2.0",
