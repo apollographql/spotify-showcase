@@ -73,6 +73,9 @@ export default new ApolloClient({
       Player: {
         keyFields: false,
       },
+      PlaybackState: {
+        keyFields: false,
+      },
       Query: {
         fields: {
           me: {

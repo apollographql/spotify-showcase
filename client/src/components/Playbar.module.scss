@@ -1,0 +1,32 @@
+.player {
+  align-items: center;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  color: var(--text-color--base);
+  background: var(--background--surface);
+  padding: 1rem 1.5rem;
+}
+
+.device {
+  padding: 0.25rem 1.5rem;
+  font-size: 0.875rem;
+  background-color: var(--color--theme);
+  position: relative;
+
+  &::before {
+    --arrow-size: 0.625rem;
+
+    content: '';
+    position: absolute;
+    top: 0;
+    transform: translateY(-100%);
+    border-bottom: var(--arrow-size) solid var(--color--theme);
+    border-left: var(--arrow-size) solid transparent;
+    border-right: var(--arrow-size) solid transparent;
+    pointer-events: none;
+  }
+}
+
+.coverPhoto {
+  --placeholder-cover-photo--background: var(--background--surface--hover);
+}

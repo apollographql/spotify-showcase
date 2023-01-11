@@ -6,6 +6,7 @@ import {
 import { Outlet } from 'react-router-dom';
 import { RootQuery, RootQueryVariables } from '../types/api';
 import Layout from '../components/Layout';
+import Playbar from '../components/Playbar';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './root.module.scss';
 
@@ -36,6 +37,7 @@ const Root = () => {
           <Outlet />
         </Suspense>
       </Layout.Main>
+      {isLoggedIn && <Playbar className={styles.playbar} />}
     </Layout>
   );
 };
