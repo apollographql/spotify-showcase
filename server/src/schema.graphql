@@ -624,9 +624,18 @@ type PageInfo {
   total: Int!
 }
 
+union PlaybackContextItem = Album | Artist | Playlist | Show
+
+type PlaybackContext {
+  item: PlaybackContextItem
+}
+
 union PlaybackItem = Episode | Track
 
 type PlaybackState {
+  "A context object."
+  context: PlaybackContext
+
   "The device that is currently active."
   device: Device!
 

@@ -35,6 +35,10 @@ const config: CodegenConfig = {
             '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
           PageInfo:
             '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
+          PlaybackContext:
+            '../dataSources/spotify.types#Spotify#Object.Context',
+          PlaybackContextItem:
+            '../dataSources/spotify.types#Spotify#Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show',
           PlaybackItem:
             '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.Track',
           PlaybackState:

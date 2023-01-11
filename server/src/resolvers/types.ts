@@ -403,10 +403,19 @@ export type PageInfo = {
   total: Scalars['Int'];
 };
 
+export type PlaybackContext = {
+  __typename?: 'PlaybackContext';
+  item?: Maybe<PlaybackContextItem>;
+};
+
+export type PlaybackContextItem = Album | Artist | Playlist | Show;
+
 export type PlaybackItem = Episode | Track;
 
 export type PlaybackState = {
   __typename?: 'PlaybackState';
+  /** A context object. */
+  context?: Maybe<PlaybackContext>;
   /** The device that is currently active. */
   device: Device;
   /** If something is currently playing, return `true`. */
@@ -1037,6 +1046,8 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
+  PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
+  PlaybackContextItem: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show>;
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
   Player: ResolverTypeWrapper<Omit<Player, 'devices' | 'playbackState'> & { devices?: Maybe<Array<ResolversTypes['Device']>>, playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
@@ -1098,6 +1109,8 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   Mutation: {};
   PageInfo: Spotify.Object.Paginated<unknown>;
+  PlaybackContext: Spotify.Object.Context;
+  PlaybackContextItem: Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
   PlaybackState: Spotify.Object.PlaybackState;
   Player: Omit<Player, 'devices' | 'playbackState'> & { devices?: Maybe<Array<ResolversParentTypes['Device']>>, playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
@@ -1293,11 +1306,21 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type PlaybackContextResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackContext'] = ResolversParentTypes['PlaybackContext']> = ResolversObject<{
+  item?: Resolver<Maybe<ResolversTypes['PlaybackContextItem']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PlaybackContextItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackContextItem'] = ResolversParentTypes['PlaybackContextItem']> = ResolversObject<{
+  __resolveType: TypeResolveFn<'Album' | 'Artist' | 'Playlist' | 'Show', ParentType, ContextType>;
+}>;
+
 export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
 }>;
 
 export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState']> = ResolversObject<{
+  context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
   device?: Resolver<ResolversTypes['Device'], ParentType, ContextType>;
   isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
@@ -1526,6 +1549,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Image?: ImageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
+  PlaybackContext?: PlaybackContextResolvers<ContextType>;
+  PlaybackContextItem?: PlaybackContextItemResolvers<ContextType>;
   PlaybackItem?: PlaybackItemResolvers<ContextType>;
   PlaybackState?: PlaybackStateResolvers<ContextType>;
   Player?: PlayerResolvers<ContextType>;
