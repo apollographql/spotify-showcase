@@ -77,13 +77,18 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  getCurrentlyPlaying(
+  async getCurrentlyPlaying(
     params?: Spotify.Request.QueryParams.GET['/me/player/currently-playing']
   ) {
-    return this._get<Spotify.Response.GET['/me/player/currently-playing']>(
-      '/me/player/currently-playing',
-      { params }
-    );
+    const data = await this._get<
+      Spotify.Response.GET['/me/player/currently-playing'] | ''
+    >('/me/player/currently-playing', { params });
+
+    if (data === '') {
+      return null;
+    }
+
+    return data;
   }
 
   getDevices() {
