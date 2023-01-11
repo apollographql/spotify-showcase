@@ -4,7 +4,10 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background: #282828;
+  background: var(
+    --placeholder-cover-photo--background,
+    var(--background--surface)
+  );
   position: relative;
 }
 
