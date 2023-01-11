@@ -64,9 +64,15 @@ export const getSelectionsMap = (
     switch (node.kind) {
       case Kind.FIELD:
         if (node.selectionSet) {
+          let submap = map.get(node.name.value);
+
+          if (typeof submap === 'boolean' || !submap) {
+            submap = new Map();
+          }
+
           return map.set(
             node.name.value,
-            getSelectionsMap(node.selectionSet, fragments, new Map())
+            getSelectionsMap(node.selectionSet, fragments, submap)
           );
         }
 
