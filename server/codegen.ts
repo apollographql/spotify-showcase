@@ -6,6 +6,9 @@ const config: CodegenConfig = {
     './src/resolvers/types.ts': {
       config: {
         contextType: '../types#ContextValue',
+        fieldContextTypes: [
+          'Subscription.playbackStateChanged#../types#SubscriptionContextValue',
+        ],
         defaultScalarType: 'unknown',
         enumsAsTypes: true,
         useIndexSignature: true,

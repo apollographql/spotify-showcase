@@ -29,6 +29,8 @@ const wsServer = new WebSocketServer({
   path: '/graphql',
 });
 
+const pubsub = new PubSub();
+
 const serverCleanup = useServer(
   {
     schema,
@@ -39,9 +41,12 @@ const serverCleanup = useServer(
         return false;
       }
     },
+    onDisconnect: () => {
+      pubsub.publish('DISCONNECT', true);
+    },
     context: (ctx) => {
       return {
-        pubsub: new PubSub(),
+        pubsub,
         dataSources: {
           spotify: new SpotifyAPI({
             cache: server.cache,
