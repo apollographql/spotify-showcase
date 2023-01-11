@@ -56,8 +56,6 @@ const FitText = ({
     );
   }, [minFontSize, maxFontSize, entry]);
 
-  console.log({ entry, fontSize });
-
   return cloneElement(child, {
     ref,
     style: { ...child.props.style, fontSize },
