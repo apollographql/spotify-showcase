@@ -23,10 +23,15 @@ const resolvers: SubscriptionResolvers = {
           ),
           distinctUntilChanged((prev, curr) => equal(prev, curr))
         )
-        .subscribe((playbackState) => {
-          pubsub.publish(TOPICS.PLAYBACK_STATE_CHANGED, {
-            playbackStateChanged: playbackState,
-          });
+        .subscribe({
+          error: () => {
+            // do nothing
+          },
+          next: (playbackState) => {
+            pubsub.publish(TOPICS.PLAYBACK_STATE_CHANGED, {
+              playbackStateChanged: playbackState,
+            });
+          },
         });
 
       pubsub.subscribe(TOPICS.DISCONNECT, () => {
