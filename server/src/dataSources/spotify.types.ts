@@ -7,6 +7,10 @@ type RestrictScope<
 
 export namespace Spotify {
   export namespace Object {
+    export interface Actions {
+      disallows: Disallows;
+    }
+
     export interface Album {
       album_type: AlbumType;
       artists: ArtistSimplified[];
@@ -83,6 +87,13 @@ export namespace Spotify {
       token_type: 'Bearer';
     }
 
+    export interface Context {
+      type: 'artist' | 'playlist' | 'album' | 'show';
+      href: string;
+      external_urls: ExternalUrl;
+      uri: string;
+    }
+
     export interface Copyright {
       text: string;
       type: CopyrightType;
@@ -91,6 +102,18 @@ export namespace Spotify {
     export type CopyrightType = 'C' | 'P';
 
     export type CountryCode = string;
+
+    export interface CurrentlyPlaying {
+      context: Context;
+      timestamp: number;
+      progress_ms: number;
+      is_playing: boolean;
+      item: Track | Episode | null;
+      currently_playing_type: CurrentlyPlayingType;
+      actions: Actions;
+    }
+
+    export type CurrentlyPlayingType = 'track' | 'episode' | 'ad' | 'unknown';
 
     export interface CurrentUser {
       country: RestrictScope<string, 'user-read-private'>;
@@ -111,6 +134,29 @@ export namespace Spotify {
       product: RestrictScope<string, 'user-read-private'>;
       type: 'user';
       uri: string;
+    }
+
+    export interface Device {
+      id: string;
+      is_active: boolean;
+      is_private_session: boolean;
+      is_restricted: boolean;
+      name: string;
+      type: string;
+      volume_percent: number;
+    }
+
+    export interface Disallows {
+      interrupting_playback?: boolean;
+      pausing?: boolean;
+      resuming?: boolean;
+      seeking?: boolean;
+      skipping_next?: boolean;
+      skipping_prev?: boolean;
+      toggling_repeat_context?: boolean;
+      toggling_shuffle?: boolean;
+      toggling_repeat_track?: boolean;
+      transferring_playback?: boolean;
     }
 
     export interface Episode {
@@ -190,6 +236,19 @@ export namespace Spotify {
       offset: number;
       previous: string | null;
       total: number;
+    }
+
+    export interface PlaybackState {
+      device: Device;
+      repeat_state: string;
+      shuffle_state: boolean;
+      context: Context | null;
+      timestamp: number;
+      progress_ms: number | null;
+      is_playing: boolean;
+      item: Track | Episode | null;
+      currently_playing_type: CurrentlyPlayingType;
+      actions: Actions;
     }
 
     export interface Playlist {
@@ -451,6 +510,9 @@ export namespace Spotify {
       '/episodes': Object.List<'episodes', Object.Episode>;
       '/episodes/:id': Object.Episode;
       '/me': Object.CurrentUser;
+      '/me/player': Object.PlaybackState;
+      '/me/player/currently-playing': Object.CurrentlyPlaying;
+      '/me/player/devices': Object.List<'devices', Object.Device>;
       '/me/playlists': Object.Paginated<Object.Playlist>;
       '/me/tracks': Object.Paginated<Object.SavedTrack>;
       '/playlists/:id': Object.Playlist;
@@ -495,6 +557,12 @@ export namespace Spotify {
           seed_genres?: string;
           seed_tracks?: string;
           limit?: number;
+        };
+        '/me/player': {
+          additional_types?: string;
+        };
+        '/me/player/currently-playing': {
+          additional_types?: string;
         };
         '/me/playlists': {
           limit?: number;

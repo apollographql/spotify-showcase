@@ -77,6 +77,21 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
+  getCurrentlyPlaying(
+    params?: Spotify.Request.QueryParams.GET['/me/player/currently-playing']
+  ) {
+    return this._get<Spotify.Response.GET['/me/player/currently-playing']>(
+      '/me/player/currently-playing',
+      { params }
+    );
+  }
+
+  getDevices() {
+    return this._get<Spotify.Response.GET['/me/player/devices']>(
+      '/me/player/devices'
+    );
+  }
+
   getGenres() {
     return this._get<
       Spotify.Response.GET['/recommendations/available-genre-seeds']
@@ -131,6 +146,12 @@ export default class SpotifyAPI extends RESTDataSource {
       '/browse/featured-playlists',
       { params }
     );
+  }
+
+  getPlaybackState(params?: Spotify.Request.QueryParams.GET['/me/player']) {
+    return this._get<Spotify.Response.GET['/me/player']>('/me/player', {
+      params,
+    });
   }
 
   getPlaylist(
