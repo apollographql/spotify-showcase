@@ -154,6 +154,12 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  getPlaybackQueue() {
+    return this._get<Spotify.Response.GET['/me/player/queue']>(
+      '/me/player/queue'
+    );
+  }
+
   getPlaylist(
     id: string,
     params?: Spotify.Request.QueryParams.GET['/playlists/:id']
@@ -170,6 +176,15 @@ export default class SpotifyAPI extends RESTDataSource {
   ) {
     return this._get<Spotify.Response.GET['/playlists/:id/tracks']>(
       `/playlists/${id}/tracks`,
+      { params }
+    );
+  }
+
+  getRecentlyPlayed(
+    params?: Spotify.Request.QueryParams.GET['/me/player/recently-played']
+  ) {
+    return this._get<Spotify.Response.GET['/me/player/recently-played']>(
+      '/me/player/recently-played',
       { params }
     );
   }

@@ -136,6 +136,11 @@ export namespace Spotify {
       uri: string;
     }
 
+    export interface Cursors {
+      after?: string;
+      before?: string;
+    }
+
     export interface Device {
       id: string;
       is_active: boolean;
@@ -238,6 +243,15 @@ export namespace Spotify {
       total: number;
     }
 
+    export interface PaginatedCursorBased<T> {
+      href: string;
+      items: T[];
+      limit: number;
+      next: string | null;
+      cursors: Cursors;
+      total: number;
+    }
+
     export interface PlaybackState {
       device: Device;
       repeat_state: string;
@@ -249,6 +263,17 @@ export namespace Spotify {
       item: Track | Episode | null;
       currently_playing_type: CurrentlyPlayingType;
       actions: Actions;
+    }
+
+    export interface PlaybackQueue {
+      currently_playing: Track | Episode | null;
+      queue: (Track | Episode)[];
+    }
+
+    export interface PlayHistory {
+      track: TrackSimplified;
+      played_at: string;
+      context: Context;
     }
 
     export interface Playlist {
@@ -513,6 +538,8 @@ export namespace Spotify {
       '/me/player': Object.PlaybackState;
       '/me/player/currently-playing': Object.CurrentlyPlaying;
       '/me/player/devices': Object.List<'devices', Object.Device>;
+      '/me/player/queue': Object.PlaybackQueue;
+      '/me/player/recently-played': Object.PaginatedCursorBased<Object.PlayHistory>;
       '/me/playlists': Object.Paginated<Object.Playlist>;
       '/me/tracks': Object.Paginated<Object.SavedTrack>;
       '/playlists/:id': Object.Playlist;
@@ -563,6 +590,11 @@ export namespace Spotify {
         };
         '/me/player/currently-playing': {
           additional_types?: string;
+        };
+        '/me/player/recently-played': {
+          after?: string;
+          before?: string;
+          limit?: number;
         };
         '/me/playlists': {
           limit?: number;
