@@ -4,6 +4,8 @@ import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
@@ -17,14 +19,31 @@ import SpotifyAPI from './dataSources/spotify';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
 
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
 const app = express();
 const httpServer = http.createServer(app);
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: '/graphql',
+});
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const serverCleanup = useServer({ schema }, wsServer);
 
 const server = new ApolloServer<ContextValue>({
   schema,
-  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  plugins: [
+    ApolloServerPluginDrainHttpServer({ httpServer }),
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
   fieldResolver: defaultResolver,
 });
 
