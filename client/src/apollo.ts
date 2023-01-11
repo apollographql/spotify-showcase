@@ -70,6 +70,9 @@ export default new ApolloClient({
       Image: {
         keyFields: ['url'],
       },
+      Player: {
+        keyFields: false,
+      },
       Query: {
         fields: {
           me: {
