@@ -18,6 +18,7 @@ import routes from './routes';
 import SpotifyAPI from './dataSources/spotify';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
+import { PubSub } from 'graphql-subscriptions';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
@@ -28,7 +29,30 @@ const wsServer = new WebSocketServer({
   path: '/graphql',
 });
 
-const serverCleanup = useServer({ schema }, wsServer);
+const serverCleanup = useServer(
+  {
+    schema,
+    onConnect: (ctx) => {
+      const token = ctx.connectionParams?.apiToken;
+
+      if (!token) {
+        return false;
+      }
+    },
+    context: (ctx) => {
+      return {
+        pubsub: new PubSub(),
+        dataSources: {
+          spotify: new SpotifyAPI({
+            cache: server.cache,
+            token: ctx.connectionParams!.apiToken! as string,
+          }),
+        },
+      };
+    },
+  },
+  wsServer
+);
 
 const server = new ApolloServer<ContextValue>({
   schema,
