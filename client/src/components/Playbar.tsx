@@ -98,24 +98,25 @@ const Playbar = ({ className }: PlaybarProps) => {
 
         const { playbackStateChanged } = result.data;
 
-        const updated: PlaybarQuery = {
-          me: {
-            __typename: 'CurrentUser',
-            player: {
-              __typename: 'Player',
-              playbackState:
-                playbackStateChanged === null
-                  ? null
-                  : merge(
-                      data?.me?.player.playbackState ?? {},
-                      playbackStateChanged as any,
-                      { arrayMerge: overwriteMerge }
-                    ),
+        client.writeQuery({
+          query: PLAYBAR_QUERY,
+          data: {
+            me: {
+              __typename: 'CurrentUser',
+              player: {
+                __typename: 'Player',
+                playbackState:
+                  playbackStateChanged === null
+                    ? null
+                    : merge(
+                        data?.me?.player.playbackState ?? {},
+                        playbackStateChanged,
+                        { arrayMerge: overwriteMerge }
+                      ),
+              },
             },
           },
-        };
-
-        client.writeQuery({ query: PLAYBAR_QUERY, data: updated });
+        });
       },
     }
   );
