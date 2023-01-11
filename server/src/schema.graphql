@@ -107,7 +107,7 @@ type Mutation {
 }
 
 type Subscription {
-  playbackStateChanged: PlaybackState!
+  playbackStateChanged: PlaybackState
 }
 
 enum Action {
