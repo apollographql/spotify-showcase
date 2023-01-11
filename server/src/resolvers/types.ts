@@ -19,6 +19,7 @@ export type Scalars = {
   Float: number;
   DateTime: Date;
   ErrorRate: number;
+  Timestamp: unknown;
 };
 
 /** Spotify catalog information for an album. */
@@ -997,6 +998,7 @@ export type ResolversTypes = ResolversObject<{
   ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
   String: ResolverTypeWrapper<Scalars['String']>;
   TextFormat: TextFormat;
+  Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
   UpdateFieldConfigResponse: ResolverTypeWrapper<Omit<UpdateFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
@@ -1050,6 +1052,7 @@ export type ResolversParentTypes = ResolversObject<{
   ShowEpisodeEdge: Spotify.Object.EpisodeSimplified;
   ShowEpisodesConnection: Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>;
   String: Scalars['String'];
+  Timestamp: Scalars['Timestamp'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackExternalIds: TrackExternalIds;
   UpdateFieldConfigResponse: Omit<UpdateFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
@@ -1350,6 +1353,10 @@ export type ShowEpisodesConnectionResolvers<ContextType = ContextValue, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
+  name: 'Timestamp';
+}
+
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
@@ -1434,6 +1441,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Show?: ShowResolvers<ContextType>;
   ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;
   ShowEpisodesConnection?: ShowEpisodesConnectionResolvers<ContextType>;
+  Timestamp?: GraphQLScalarType;
   Track?: TrackResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   UpdateFieldConfigResponse?: UpdateFieldConfigResponseResolvers<ContextType>;
