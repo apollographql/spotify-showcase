@@ -231,6 +231,28 @@ export default class SpotifyAPI extends RESTDataSource {
     request.headers['Content-Type'] = 'application/json';
   }
 
+  override cacheKeyFor(url: URL) {
+    if (url.pathname === '/v1/me/player') {
+      return this.generateRandomKey(10);
+    }
+
+    return url.toString();
+  }
+
+  private generateRandomKey(length: number) {
+    let result = '';
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVYWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+
+    return result;
+  }
+
   private _get<TReturn>(path: string, options?: GetRequestOptions) {
     return this.get<TReturn>(path, {
       ...options,
