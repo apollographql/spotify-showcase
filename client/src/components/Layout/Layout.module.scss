@@ -3,6 +3,13 @@
   grid-template-columns: auto 1fr;
   grid-template-areas: 'sidebar main-view';
   height: 100%;
+
+  &.isLoggedIn {
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+      'sidebar main-view'
+      'playbar playbar';
+  }
 }
 
 .layoutBackdrop {

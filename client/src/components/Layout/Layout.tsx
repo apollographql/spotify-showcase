@@ -6,6 +6,7 @@ import Header from './Header';
 import Main from './Main';
 import Sidebar from './Sidebar';
 import useBackgroundColor from '../../hooks/useBackgroundColor';
+import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
 interface LayoutProps {
   children: ReactNode;
@@ -16,10 +17,11 @@ interface BackdropStyle extends CSSProperties {
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const isLoggedIn = useIsLoggedIn();
   const [backgroundColor] = useBackgroundColor();
 
   return (
-    <div className={styles.layout}>
+    <div className={cx(styles.layout, { [styles.isLoggedIn]: isLoggedIn })}>
       <div
         className={cx(styles.layoutBackdrop, styles.withGradient)}
         style={{ '--backdrop-color': backgroundColor } as BackdropStyle}
