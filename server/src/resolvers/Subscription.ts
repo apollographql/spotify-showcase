@@ -1,20 +1,23 @@
 import { SubscriptionResolvers } from './types';
 import { pollPlaybackState } from '../utils/spotify';
+import { TOPICS } from '../constants';
 
 const resolvers: SubscriptionResolvers = {
   playbackStateChanged: {
     subscribe: async (_, __, { pubsub, dataSources }) => {
       const subscription = pollPlaybackState(dataSources.spotify).subscribe(
         (playbackState) => {
-          pubsub.publish('PLAYBACK_STATE_CHANGED', { playbackState });
+          pubsub.publish(TOPICS.PLAYBACK_STATE_CHANGED, {
+            playbackStateChanged: { playbackState },
+          });
         }
       );
 
-      pubsub.subscribe('DISCONNECT', () => {
+      pubsub.subscribe(TOPICS.DISCONNECT, () => {
         subscription.unsubscribe();
       });
 
-      return pubsub.asyncIterator('PLAYBACK_STATE_CHANGED') as any;
+      return pubsub.asyncIterator(TOPICS.PLAYBACK_STATE_CHANGED) as any;
     },
   },
 };

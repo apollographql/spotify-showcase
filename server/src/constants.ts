@@ -16,3 +16,8 @@ export const OAUTH_SCOPES = [
   'user-top-read',
   'user-read-recently-played',
 ] as const;
+
+export const TOPICS = {
+  DISCONNECT: 'DISCONNECT',
+  PLAYBACK_STATE_CHANGED: 'PLAYBACK_STATE_CHANGED',
+} as const;

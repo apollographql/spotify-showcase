@@ -19,6 +19,7 @@ import routes from './routes';
 import SpotifyAPI from './dataSources/spotify';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
+import { TOPICS } from './constants';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
@@ -42,7 +43,7 @@ const serverCleanup = useServer(
       }
     },
     onDisconnect: () => {
-      pubsub.publish('DISCONNECT', true);
+      pubsub.publish(TOPICS.DISCONNECT, true);
     },
     context: (ctx) => {
       return {
