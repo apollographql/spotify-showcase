@@ -340,6 +340,23 @@ enum CopyrightType {
   P
 }
 
+type CurrentlyPlaying {
+  "A context object."
+  context: PlaybackContext
+
+  "If something is currently playing, return `true`."
+  isPlaying: Boolean!
+
+  "The currently playing track or episode"
+  item: PlaybackItem
+
+  "Progress into the currently playing track or episode. Can be `null`"
+  progressMs: Int
+
+  "Unix Millisecond Timestamp when data was fetched."
+  timestamp: Timestamp!
+}
+
 type CurrentUser {
   """
   Detailed profile information about the current user.
@@ -659,6 +676,9 @@ type PlaybackState {
 }
 
 type Player {
+  "Information about the object currently being played on the user's Spotify account."
+  currentlyPlaying: CurrentlyPlaying
+
   "Information about a user's available devices."
   devices: [Device!]
 

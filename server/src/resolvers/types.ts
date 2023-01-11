@@ -206,6 +206,20 @@ export type CurrentUserTracksArgs = {
   offset?: InputMaybe<Scalars['Int']>;
 };
 
+export type CurrentlyPlaying = {
+  __typename?: 'CurrentlyPlaying';
+  /** A context object. */
+  context?: Maybe<PlaybackContext>;
+  /** If something is currently playing, return `true`. */
+  isPlaying: Scalars['Boolean'];
+  /** The currently playing track or episode */
+  item?: Maybe<PlaybackItem>;
+  /** Progress into the currently playing track or episode. Can be `null` */
+  progressMs?: Maybe<Scalars['Int']>;
+  /** Unix Millisecond Timestamp when data was fetched. */
+  timestamp: Scalars['Timestamp'];
+};
+
 export type Device = {
   __typename?: 'Device';
   /** The device ID */
@@ -434,6 +448,8 @@ export type PlaybackState = {
 
 export type Player = {
   __typename?: 'Player';
+  /** Information about the object currently being played on the user's Spotify account. */
+  currentlyPlaying?: Maybe<CurrentlyPlaying>;
   /** Information about a user's available devices. */
   devices?: Maybe<Array<Device>>;
   /**
@@ -1030,6 +1046,7 @@ export type ResolversTypes = ResolversObject<{
   Copyright: ResolverTypeWrapper<Copyright>;
   CopyrightType: CopyrightType;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
+  CurrentlyPlaying: ResolverTypeWrapper<Spotify.Object.CurrentlyPlaying>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Device: ResolverTypeWrapper<Spotify.Object.Device>;
   Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
@@ -1093,6 +1110,7 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   Copyright: Copyright;
   CurrentUser: Spotify.Object.CurrentUser;
+  CurrentlyPlaying: Spotify.Object.CurrentlyPlaying;
   DateTime: Scalars['DateTime'];
   Device: Spotify.Object.Device;
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
@@ -1217,6 +1235,15 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type CurrentlyPlayingResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentlyPlaying'] = ResolversParentTypes['CurrentlyPlaying']> = ResolversObject<{
+  context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
+  isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+  progressMs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  timestamp?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
@@ -1332,6 +1359,7 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
 }>;
 
 export type PlayerResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Player'] = ResolversParentTypes['Player']> = ResolversObject<{
+  currentlyPlaying?: Resolver<Maybe<ResolversTypes['CurrentlyPlaying']>, ParentType, ContextType>;
   devices?: Resolver<Maybe<Array<ResolversTypes['Device']>>, ParentType, ContextType>;
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1537,6 +1565,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   ArtistAlbumsConnection?: ArtistAlbumsConnectionResolvers<ContextType>;
   Copyright?: CopyrightResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;
+  CurrentlyPlaying?: CurrentlyPlayingResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Device?: DeviceResolvers<ContextType>;
   Episode?: EpisodeResolvers<ContextType>;

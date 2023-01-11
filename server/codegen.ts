@@ -22,6 +22,8 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
           ArtistAlbumEdge:
             '../dataSources/spotify.types#Spotify#Object.AlbumSimplified',
+          CurrentlyPlaying:
+            '../dataSources/spotify.types#Spotify#Object.CurrentlyPlaying',
           CurrentUser:
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
           Device: '../dataSources/spotify.types#Spotify#Object.Device',
