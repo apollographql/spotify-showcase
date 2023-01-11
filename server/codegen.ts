@@ -24,6 +24,7 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.AlbumSimplified',
           CurrentUser:
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
+          Device: '../dataSources/spotify.types#Spotify#Object.Device',
           Episode:
             '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
           FeaturedPlaylistConnection:
@@ -34,6 +35,10 @@ const config: CodegenConfig = {
             '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
           PageInfo:
             '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
+          PlaybackItem:
+            '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.Track',
+          PlaybackState:
+            '../dataSources/spotify.types#Spotify#Object.PlaybackState',
           Playlist:
             '../dataSources/spotify.types#Spotify#Object.Playlist | Spotify.Object.PlaylistSimplified',
           PlaylistEdge: '../dataSources/spotify.types#Spotify#Object.Playlist',

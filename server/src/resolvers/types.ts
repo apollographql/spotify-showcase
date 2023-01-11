@@ -185,6 +185,8 @@ export type CopyrightType =
 
 export type CurrentUser = {
   __typename?: 'CurrentUser';
+  /** Information about the user's current playback state */
+  player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
   tracks?: Maybe<SavedTrackConnection>;
@@ -202,6 +204,35 @@ export type CurrentUserPlaylistsArgs = {
 export type CurrentUserTracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+};
+
+export type Device = {
+  __typename?: 'Device';
+  /** The device ID */
+  id: Scalars['ID'];
+  /** If this device is the currently active device. */
+  isActive: Scalars['Boolean'];
+  /** If this device is currently in a private session. */
+  isPrivateSession: Scalars['Boolean'];
+  /**
+   * Whether controlling this device is restricted. At present if this is "true",
+   * then no Web API commands will be accepted by this device.
+   */
+  isRestricted: Scalars['Boolean'];
+  /**
+   * A human-readable name for the device. Some devices have a name that the user
+   * can configure (e.g. "Loudest speaker") and some devices have a generic name
+   * associated with the manufacturer or device model.
+   */
+  name: Scalars['String'];
+  /** Device type, such as "computer", "smartphone" or "speaker". */
+  type: Scalars['String'];
+  /**
+   * The current volume in percent.
+   *
+   * >= 0    <= 100
+   */
+  volumePercent: Scalars['Int'];
 };
 
 /** Spotify catalog information for an episode. */
@@ -370,6 +401,35 @@ export type PageInfo = {
   offset: Scalars['Int'];
   /** The total number of items returned for the page. */
   total: Scalars['Int'];
+};
+
+export type PlaybackItem = Episode | Track;
+
+export type PlaybackState = {
+  __typename?: 'PlaybackState';
+  /** The device that is currently active. */
+  device: Device;
+  /** If something is currently playing, return `true`. */
+  isPlaying: Scalars['Boolean'];
+  /** The currently playing track or episode */
+  item?: Maybe<PlaybackItem>;
+  /** Progress into the currently playing track or episode. Can be `null` */
+  progressMs?: Maybe<Scalars['Int']>;
+  /** off, track, context */
+  repeatState: Scalars['String'];
+  /** If shuffle is on or off. */
+  shuffleState: Scalars['Boolean'];
+  /** Unix Millisecond Timestamp when data was fetched. */
+  timestamp: Scalars['Timestamp'];
+};
+
+export type Player = {
+  __typename?: 'Player';
+  /**
+   * Information about the user's current playback state, including track or
+   * episode, progress, and active device.
+   */
+  playbackState?: Maybe<PlaybackState>;
 };
 
 /** Information about a playlist owned by a Spotify user */
@@ -960,6 +1020,7 @@ export type ResolversTypes = ResolversObject<{
   CopyrightType: CopyrightType;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  Device: ResolverTypeWrapper<Spotify.Object.Device>;
   Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
   ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
@@ -974,6 +1035,9 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
+  PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
+  PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
+  Player: ResolverTypeWrapper<Omit<Player, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified>;
   PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
   PlaylistEdge: ResolverTypeWrapper<Spotify.Object.Playlist>;
@@ -1017,6 +1081,7 @@ export type ResolversParentTypes = ResolversObject<{
   Copyright: Copyright;
   CurrentUser: Spotify.Object.CurrentUser;
   DateTime: Scalars['DateTime'];
+  Device: Spotify.Object.Device;
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
   ErrorRate: Scalars['ErrorRate'];
   ExternalUrl: ExternalUrl;
@@ -1031,6 +1096,9 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   Mutation: {};
   PageInfo: Spotify.Object.Paginated<unknown>;
+  PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
+  PlaybackState: Spotify.Object.PlaybackState;
+  Player: Omit<Player, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   Playlist: Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified;
   PlaylistConnection: Spotify.Object.Paginated<Spotify.Object.Playlist>;
   PlaylistEdge: Spotify.Object.Playlist;
@@ -1127,6 +1195,7 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
 }>;
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
+  player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
   tracks?: Resolver<Maybe<ResolversTypes['SavedTrackConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
@@ -1136,6 +1205,17 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
+
+export type DeviceResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Device'] = ResolversParentTypes['Device']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isActive?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPrivateSession?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  volumePercent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
 
 export type EpisodeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Episode'] = ResolversParentTypes['Episode']> = ResolversObject<{
   audioPreviewUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1208,6 +1288,26 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
+  __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
+}>;
+
+export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState']> = ResolversObject<{
+  device?: Resolver<ResolversTypes['Device'], ParentType, ContextType>;
+  isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+  progressMs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  repeatState?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  shuffleState?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  timestamp?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PlayerResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Player'] = ResolversParentTypes['Player']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1412,6 +1512,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Copyright?: CopyrightResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  Device?: DeviceResolvers<ContextType>;
   Episode?: EpisodeResolvers<ContextType>;
   ErrorRate?: GraphQLScalarType;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
@@ -1422,6 +1523,9 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Image?: ImageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
+  PlaybackItem?: PlaybackItemResolvers<ContextType>;
+  PlaybackState?: PlaybackStateResolvers<ContextType>;
+  Player?: PlayerResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;
   PlaylistConnection?: PlaylistConnectionResolvers<ContextType>;
   PlaylistEdge?: PlaylistEdgeResolvers<ContextType>;

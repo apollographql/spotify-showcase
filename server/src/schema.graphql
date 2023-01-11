@@ -347,6 +347,11 @@ type CurrentUser {
   user: User!
 
   """
+  Information about the user's current playback state
+  """
+  player: Player!
+
+  """
   Playlists owned or followed by the current Spotify user.
   """
   playlists(
@@ -376,6 +381,42 @@ type CurrentUser {
     """
     offset: Int
   ): SavedTrackConnection
+}
+
+type Device {
+  "The device ID"
+  id: ID!
+
+  "If this device is the currently active device."
+  isActive: Boolean!
+
+  "If this device is currently in a private session."
+  isPrivateSession: Boolean!
+
+  """
+  Whether controlling this device is restricted. At present if this is "true",
+  then no Web API commands will be accepted by this device.
+  """
+  isRestricted: Boolean!
+
+  """
+  A human-readable name for the device. Some devices have a name that the user
+  can configure (e.g. "Loudest speaker") and some devices have a generic name
+  associated with the manufacturer or device model.
+  """
+  name: String!
+
+  """
+  Device type, such as "computer", "smartphone" or "speaker".
+  """
+  type: String!
+
+  """
+  The current volume in percent.
+
+  >= 0    <= 100
+  """
+  volumePercent: Int!
 }
 
 "Spotify catalog information for an episode."
@@ -581,6 +622,39 @@ type PageInfo {
 
   "The total number of items returned for the page."
   total: Int!
+}
+
+union PlaybackItem = Episode | Track
+
+type PlaybackState {
+  "The device that is currently active."
+  device: Device!
+
+  "If something is currently playing, return `true`."
+  isPlaying: Boolean!
+
+  "The currently playing track or episode"
+  item: PlaybackItem
+
+  "Progress into the currently playing track or episode. Can be `null`"
+  progressMs: Int
+
+  "off, track, context"
+  repeatState: String!
+
+  "If shuffle is on or off."
+  shuffleState: Boolean!
+
+  "Unix Millisecond Timestamp when data was fetched."
+  timestamp: Timestamp!
+}
+
+type Player {
+  """
+  Information about the user's current playback state, including track or
+  episode, progress, and active device.
+  """
+  playbackState: PlaybackState
 }
 
 "Information about a playlist owned by a Spotify user"
