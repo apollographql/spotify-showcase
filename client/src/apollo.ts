@@ -57,6 +57,7 @@ export default new ApolloClient({
   link: splitLink,
   cache: new InMemoryCache({
     possibleTypes: {
+      PlaybackItem: ['Track', 'Episode'],
       PlaylistTrack: ['Track', 'Episode'],
     },
     typePolicies: {
