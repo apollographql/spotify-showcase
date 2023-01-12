@@ -401,8 +401,11 @@ export type Image = {
 
 export type Mutation = {
   __typename: 'Mutation';
+  /** Pause playback on the user's account. */
+  pausePlayback: Maybe<PausePlaybackResponse>;
   /** Reset a field's config back to its default values. */
   resetFieldConfig: Maybe<ResetFieldConfigResponse>;
+  resumePlayback: Maybe<ResumePlaybackResponse>;
   /**
    * Update configuration for a field in the schema. Allows tweaks to the
    * synthetic timeouts and error rates associated with the field. By default, both
@@ -412,8 +415,18 @@ export type Mutation = {
 };
 
 
+export type MutationpausePlaybackArgs = {
+  context?: InputMaybe<PausePlaybackContextInput>;
+};
+
+
 export type MutationresetFieldConfigArgs = {
   field: FieldInput;
+};
+
+
+export type MutationresumePlaybackArgs = {
+  context?: InputMaybe<ResumePlaybackContextInput>;
 };
 
 
@@ -434,6 +447,20 @@ export type PageInfo = {
   offset: Scalars['Int'];
   /** The total number of items returned for the page. */
   total: Scalars['Int'];
+};
+
+export type PausePlaybackContextInput = {
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['String']>;
+};
+
+export type PausePlaybackResponse = {
+  __typename: 'PausePlaybackResponse';
+  /** The updated playback state */
+  playbackState: Maybe<PlaybackState>;
 };
 
 export type PlaybackContext = {
@@ -781,6 +808,42 @@ export type ResetFieldConfigResponse = {
   fieldConfig: Maybe<FieldConfig>;
 };
 
+export type ResumePlaybackContextInput = {
+  /**
+   * Spotify URI of the context to play. Valid contexts are albums, artists &
+   * playlists.
+   */
+  contextUri?: InputMaybe<Scalars['String']>;
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['ID']>;
+  /**
+   * Indicates from where in the context playback should start. Only available when
+   * contextUri corresponds to an album or playlist object.
+   */
+  offset?: InputMaybe<ResumePlaybackOffsetInput>;
+  positionMs?: InputMaybe<Scalars['Int']>;
+  /** An array of the Spotify track URIs to play. */
+  uris?: InputMaybe<Array<Scalars['String']>>;
+};
+
+export type ResumePlaybackOffsetInput = {
+  /**
+   * Non-negative, zero-based value that corresponds to the numeric position in the
+   * album or playlist
+   */
+  position?: InputMaybe<Scalars['Int']>;
+  /** Spotify URI of the item in the album or playlist */
+  uri?: InputMaybe<Scalars['String']>;
+};
+
+export type ResumePlaybackResponse = {
+  __typename: 'ResumePlaybackResponse';
+  playbackState: Maybe<PlaybackState>;
+};
+
 export type ResumePoint = {
   __typename: 'ResumePoint';
   /** Whether or not the episode has been fully played by the user. */
@@ -1020,6 +1083,20 @@ export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __type
 export type EpisodePlaybackDetails_episode = { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } };
 
 export type EpisodeRemainingDuration_episode = { __typename: 'Episode', id: string, durationMs: number, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } };
+
+export type ResumePlaybackMutationVariables = Exact<{
+  context?: InputMaybe<ResumePlaybackContextInput>;
+}>;
+
+
+export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+
+export type PausePlaybackMutationVariables = Exact<{
+  context?: InputMaybe<PausePlaybackContextInput>;
+}>;
+
+
+export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
 
 export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
 

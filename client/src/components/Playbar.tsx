@@ -24,7 +24,7 @@ import {
   Volume,
 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
-import CircularPlayButton from './CircularPlayButton';
+import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
 import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
@@ -135,10 +135,10 @@ const Playbar = ({ className }: PlaybarProps) => {
                   playbackStateChanged === null
                     ? null
                     : merge(
-                      data?.me?.player.playbackState ?? {},
-                      playbackStateChanged,
-                      { arrayMerge: overwriteMerge }
-                    ),
+                        data?.me?.player.playbackState ?? {},
+                        playbackStateChanged,
+                        { arrayMerge: overwriteMerge }
+                      ),
               },
             },
           },
@@ -178,7 +178,7 @@ const Playbar = ({ className }: PlaybarProps) => {
               playbackState={playbackState}
               icon={<SkipBack fill="currentColor" />}
             />
-            <CircularPlayButton
+            <PlayButton
               size="2.5rem"
               playing={playbackState?.isPlaying ?? false}
             />

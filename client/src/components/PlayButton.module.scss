@@ -1,10 +1,10 @@
-.circularPlayButton {
+.playButton {
   color: var(--text-color--muted);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--circular-play-button--size);
-  height: var(--circular-play-button--size);
+  width: var(--play-button--size);
+  height: var(--play-button--size);
   border-radius: 50%;
   border: 2px solid;
   transition: 0.1s ease-in-out;
