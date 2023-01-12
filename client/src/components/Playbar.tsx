@@ -115,10 +115,10 @@ const Playbar = ({ className }: PlaybarProps) => {
                   playbackStateChanged === null
                     ? null
                     : merge(
-                        data?.me?.player.playbackState ?? {},
-                        playbackStateChanged,
-                        { arrayMerge: overwriteMerge }
-                      ),
+                      data?.me?.player.playbackState ?? {},
+                      playbackStateChanged,
+                      { arrayMerge: overwriteMerge }
+                    ),
               },
             },
           },
@@ -130,13 +130,11 @@ const Playbar = ({ className }: PlaybarProps) => {
   const playbackState = data.me?.player.playbackState;
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
-  const disallowedActions: any[] = []; //playbackState?.actions.disallows ?? [];
+  const disallowedActions = playbackState?.actions.disallows ?? [];
   const coverPhoto =
     playbackItem?.__typename === 'Track'
       ? playbackItem.album.images[0]
       : playbackItem?.show.images[0];
-
-  console.log(playbackState);
 
   return (
     <Flex as="footer" direction="column" className={cx(className)}>
