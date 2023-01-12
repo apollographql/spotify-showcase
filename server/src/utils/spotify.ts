@@ -1,5 +1,5 @@
 import SpotifyAPI from '../dataSources/spotify';
-import { from, interval, switchMap } from 'rxjs';
+import { from, interval, map, switchMap } from 'rxjs';
 
 export const parseSpotifyIDFromURI = (spotifyURI: string) => {
   const matches = spotifyURI.match(/^spotify:.*?:(.*)$/);
@@ -17,6 +17,7 @@ export const pollPlaybackState = (spotifyAPI: SpotifyAPI) => {
       return from(
         spotifyAPI.getPlaybackState({ additional_types: 'episode,track' })
       );
-    })
+    }),
+    map((result) => result && { ...result, timestamp: Date.now() })
   );
 };
