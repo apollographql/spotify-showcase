@@ -170,6 +170,7 @@ const Playbar = ({ className }: PlaybarProps) => {
             />
             <SkipToPreviousControl
               disallowed={disallowed(Action.SkippingPrev)}
+              progressMs={playbackState?.progressMs ?? 0}
             />
             <PlayButton
               disabled={!device}
