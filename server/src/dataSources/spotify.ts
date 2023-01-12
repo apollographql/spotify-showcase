@@ -3,6 +3,7 @@ import {
   RESTDataSource,
   WillSendRequestOptions,
 } from '@apollo/datasource-rest';
+import { OmitNever } from '../utils/types';
 import { Spotify } from './spotify.types';
 
 type GetRequest = NonNullable<Parameters<RESTDataSource['get']>[1]>;
@@ -19,6 +20,11 @@ interface GetRequestOptions extends Omit<GetRequest, 'params'> {
 interface PutRequestOptions extends Omit<PutRequest, 'params'> {
   params?: RawQueryParams;
 }
+
+type RequestParams<TBodyParams = never, TQueryParams = never> = OmitNever<{
+  body: TBodyParams;
+  params: TQueryParams;
+}>;
 
 export default class SpotifyAPI extends RESTDataSource {
   override baseURL = 'https://api.spotify.com/v1';
@@ -230,10 +236,25 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
-  async pausePlayback(
-    queryParams?: Spotify.Request.QueryParams.PUT['/me/player/pause']
-  ) {
-    await this._put('/me/player/pause', { params: queryParams });
+  async resumePlayback({
+    body,
+    params,
+  }: RequestParams<
+    Spotify.Request.BodyParams.PUT['/me/player/play'],
+    Spotify.Request.QueryParams.PUT['/me/player/play']
+  >) {
+    await this._put('/me/player/play', { body, params });
+
+    return true;
+  }
+
+  async pausePlayback({
+    params,
+  }: RequestParams<
+    never,
+    Spotify.Request.QueryParams.PUT['/me/player/pause']
+  >) {
+    await this._put('/me/player/pause', { params });
 
     return true;
   }
