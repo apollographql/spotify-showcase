@@ -26,6 +26,7 @@ import ProgressBar from './ProgressBar';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
 import SkipToNextControl from './SkipToNextControl';
 import SkipToPreviousControl from './SkipToPreviousControl';
+import VolumeBar from './VolumeBar';
 import { overwriteMerge } from '../utils/deepmerge';
 
 interface PlaybarProps {
@@ -199,10 +200,8 @@ const Playbar = ({ className }: PlaybarProps) => {
               disallowed={!device}
               icon={<Volume strokeWidth={1.5} />}
             />
-            <ProgressBar
-              animate={false}
-              max={100}
-              value={device?.volumePercent ?? 0}
+            <VolumeBar
+              volumePercent={device?.volumePercent ?? 0}
               width="100px"
             />
           </Flex>
@@ -220,32 +219,5 @@ const Playbar = ({ className }: PlaybarProps) => {
     </Flex>
   );
 };
-
-// interface SkipToNextControlProps {
-//   playbackState: PlaybackState | null | undefined;
-// }
-
-// const SKIP_TO_NEXT_MUTATION = gql`
-//   mutation skipToNext($context: SkipToNextContextInput) {
-//     skipToNext(context: $context) {
-//       playbackState {
-//         isPlaying
-//       }
-//     }
-//   }
-// `;
-
-// const SkipToNextControl = ({ playbackState }: SkipToNextControlProps) => {
-//   const [skipToNext] = useMutation(SKIP_TO_NEXT_MUTATION);
-
-//   return (
-//     <PlaybarControlButton
-//       action={Action.SkippingNext}
-//       playbackState={playbackState}
-//       icon={<SkipForward fill="currentColor" />}
-//       onClick={() => skipToNext()}
-//     />
-//   );
-// };
 
 export default Playbar;
