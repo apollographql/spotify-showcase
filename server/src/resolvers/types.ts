@@ -410,6 +410,8 @@ export type Mutation = {
   resetFieldConfig?: Maybe<ResetFieldConfigResponse>;
   /** Start a new context or resume current playback on the user's active device. */
   resumePlayback?: Maybe<ResumePlaybackResponse>;
+  /** Seeks to the given position in the user’s currently playing track. */
+  seekToPosition?: Maybe<SeekToPositionResponse>;
   /** Skips to next track in the user’s queue. */
   skipToNext?: Maybe<SkipToNextResponse>;
   /** Skips to previous track in the user’s queue. */
@@ -435,6 +437,12 @@ export type MutationResetFieldConfigArgs = {
 
 export type MutationResumePlaybackArgs = {
   context?: InputMaybe<ResumePlaybackContextInput>;
+};
+
+
+export type MutationSeekToPositionArgs = {
+  context?: InputMaybe<SeekToPositionContextInput>;
+  positionMs: Scalars['Int'];
 };
 
 
@@ -899,6 +907,17 @@ export type SchemaFieldInput = {
   typename: Scalars['String'];
 };
 
+export type SeekToPositionContextInput = {
+  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SeekToPositionResponse = {
+  __typename?: 'SeekToPositionResponse';
+  /** The updated state of playback after seeking to a position. */
+  playbackState?: Maybe<PlaybackState>;
+};
+
 /** Spotify catalog information for a show. */
 export type Show = {
   __typename?: 'Show';
@@ -1232,6 +1251,8 @@ export type ResolversTypes = ResolversObject<{
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
   SchemaField: ResolverTypeWrapper<SchemaField>;
   SchemaFieldInput: SchemaFieldInput;
+  SeekToPositionContextInput: SeekToPositionContextInput;
+  SeekToPositionResponse: ResolverTypeWrapper<Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
   ShowEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
   ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
@@ -1305,6 +1326,8 @@ export type ResolversParentTypes = ResolversObject<{
   SavedTrackEdge: Spotify.Object.SavedTrack;
   SchemaField: SchemaField;
   SchemaFieldInput: SchemaFieldInput;
+  SeekToPositionContextInput: SeekToPositionContextInput;
+  SeekToPositionResponse: Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
   ShowEpisodeEdge: Spotify.Object.EpisodeSimplified;
   ShowEpisodesConnection: Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>;
@@ -1492,6 +1515,7 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   pausePlayback?: Resolver<Maybe<ResolversTypes['PausePlaybackResponse']>, ParentType, ContextType, Partial<MutationPausePlaybackArgs>>;
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
   resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
+  seekToPosition?: Resolver<Maybe<ResolversTypes['SeekToPositionResponse']>, ParentType, ContextType, RequireFields<MutationSeekToPositionArgs, 'positionMs'>>;
   skipToNext?: Resolver<Maybe<ResolversTypes['SkipToNextResponse']>, ParentType, ContextType, Partial<MutationSkipToNextArgs>>;
   skipToPrevious?: Resolver<Maybe<ResolversTypes['SkipToPreviousResponse']>, ParentType, ContextType, Partial<MutationSkipToPreviousArgs>>;
   updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'config' | 'field'>>;
@@ -1663,6 +1687,11 @@ export type SchemaFieldResolvers<ContextType = ContextValue, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type SeekToPositionResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SeekToPositionResponse'] = ResolversParentTypes['SeekToPositionResponse']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
   episodes?: Resolver<Maybe<ResolversTypes['ShowEpisodesConnection']>, ParentType, ContextType, Partial<ShowEpisodesArgs>>;
@@ -1801,6 +1830,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   SavedTrackConnection?: SavedTrackConnectionResolvers<ContextType>;
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;
+  SeekToPositionResponse?: SeekToPositionResponseResolvers<ContextType>;
   Show?: ShowResolvers<ContextType>;
   ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;
   ShowEpisodesConnection?: ShowEpisodesConnectionResolvers<ContextType>;

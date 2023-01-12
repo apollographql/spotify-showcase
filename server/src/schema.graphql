@@ -129,9 +129,31 @@ type Mutation {
   ): ResumePlaybackResponse
 
   """
+  Seeks to the given position in the user’s currently playing track.
+  """
+  seekToPosition(
+    """
+    The position in milliseconds to seek to. Must be a positive number. Passing
+    in a position that is greater than the length of the track will cause the
+    player to start playing the next song.
+    """
+    positionMs: Int!
+
+    """
+    Additional context to determine the device where the action should occur.
+    """
+    context: SeekToPositionContextInput
+  ): SeekToPositionResponse
+
+  """
   Skips to next track in the user’s queue.
   """
-  skipToNext(context: SkipToNextContextInput): SkipToNextResponse
+  skipToNext(
+    """
+    Additional context to determine the device where the action should occur.
+    """
+    context: SkipToNextContextInput
+  ): SkipToNextResponse
 
   """
   Skips to previous track in the user’s queue.
@@ -1371,6 +1393,18 @@ input SchemaFieldInput {
   The name of the field in the type (ex: `firstName`)
   """
   fieldName: String!
+}
+
+input SeekToPositionContextInput {
+  """
+  The id of the device this command is targeting. If not supplied, the user's currently active device is the target.
+  """
+  deviceId: ID
+}
+
+type SeekToPositionResponse {
+  "The updated state of playback after seeking to a position."
+  playbackState: PlaybackState
 }
 
 input SkipToNextContextInput {

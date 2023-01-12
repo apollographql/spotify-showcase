@@ -49,6 +49,13 @@ const resolvers: MutationResolvers = {
 
     return { fieldConfig };
   },
+  seekToPosition: async (_, { positionMs, context }, { dataSources }) => {
+    await dataSources.spotify.seekToPosition({
+      params: { position_ms: positionMs, device_id: maybe(context?.deviceId) },
+    });
+
+    return { playbackState: null };
+  },
   skipToNext: async (_, { context }, { dataSources }) => {
     await dataSources.spotify.skipToNext({
       params: { device_id: maybe(context?.deviceId) },
