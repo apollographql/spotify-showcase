@@ -1301,7 +1301,7 @@ export type AlbumRouteQueryVariables = Exact<{
 }>;
 
 
-export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, artists: Array<{ __typename: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename: 'Copyright', text: string, type: CopyrightType | null }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, name: string, trackNumber: number | null, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
+export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename: 'Copyright', text: string, type: CopyrightType | null }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, name: string, trackNumber: number | null, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
 export type ArtistRouteQueryVariables = Exact<{
   artistId: Scalars['ID'];

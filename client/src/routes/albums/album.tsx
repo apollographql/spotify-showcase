@@ -8,12 +8,14 @@ import AlbumTracksTable from '../../components/AlbumTracksTable';
 import Page from '../../components/Page';
 import EntityLink from '../../components/EntityLink';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
+import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
 import CoverPhoto from '../../components/CoverPhoto';
 import Text from '../../components/Text';
 import ReleaseDate from '../../components/ReleaseDate';
 import Flex from '../../components/Flex';
+import PlayButton from '../../components/PlayButton';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -22,6 +24,7 @@ const ALBUM_ROUTE_QUERY = gql`
       albumType
       name
       totalTracks
+      uri
       artists {
         id
         name
@@ -62,6 +65,8 @@ const AlbumRoute = () => {
     { variables: { albumId } }
   );
 
+  const [resumePlayback] = useResumePlaybackMutation();
+
   const album = data.album!;
   const images = album.images ?? [];
   const coverPhoto = images[0];
@@ -89,6 +94,16 @@ const AlbumRoute = () => {
         ]}
       />
       <Page.Content>
+        <Page.ActionsBar>
+          <PlayButton
+            variant="primary"
+            size="3.5rem"
+            playing={false}
+            onPlay={() =>
+              resumePlayback({ context: { contextUri: album.uri } })
+            }
+          />
+        </Page.ActionsBar>
         <AlbumTracksTable
           tracks={album.tracks?.edges.map((edge) => edge.node) ?? []}
         />

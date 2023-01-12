@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Flex from '../Flex';
 
+import ActionsBar from './ActionsBar';
 import Content from './Content';
 import Details from './Details';
 import Header from './Header';
@@ -21,6 +22,7 @@ const Page = ({ children }: PageProps) => {
   );
 };
 
+Page.ActionsBar = ActionsBar;
 Page.Content = Content;
 Page.Details = Details;
 Page.Header = Header;
