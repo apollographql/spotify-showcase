@@ -11,6 +11,7 @@ import {
   PlaybarQueryVariables,
   PlaybarSubscription,
   PlaybarSubscriptionVariables,
+  PlaybarControlButton_playbackState as PlaybackState,
 } from '../types/api';
 import merge from 'deepmerge';
 import { Volume1, SkipForward, SkipBack, Shuffle, Repeat } from 'lucide-react';
@@ -19,6 +20,7 @@ import CircularPlayButton from './CircularPlayButton';
 import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
+import PlaybarControlButton from './PlaybarControlButton';
 import { overwriteMerge } from '../utils/deepmerge';
 
 interface PlaybarProps {
@@ -58,8 +60,11 @@ const PLAYBACK_STATE_FRAGMENT = gql`
         ...EpisodePlaybackDetails_episode
       }
     }
+
+    ...PlaybarControlButton_playbackState
   }
 
+  ${PlaybarControlButton.fragments.playbackState}
   ${EpisodePlaybackDetails.fragments.episode}
   ${TrackPlaybackDetails.fragments.track}
 `;
@@ -130,7 +135,6 @@ const Playbar = ({ className }: PlaybarProps) => {
   const playbackState = data.me?.player.playbackState;
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
-  const disallowedActions = playbackState?.actions.disallows ?? [];
   const coverPhoto =
     playbackItem?.__typename === 'Track'
       ? playbackItem.album.images[0]
@@ -151,34 +155,30 @@ const Playbar = ({ className }: PlaybarProps) => {
         </Flex>
         <Flex direction="column" gap="0.5rem" alignItems="center">
           <Flex alignItems="center" gap="1rem">
-            <button
-              className={styles.controlButton}
-              disabled={disallowedActions.includes(Action.TogglingShuffle)}
-            >
-              <Shuffle />
-            </button>
-            <button
-              className={styles.controlButton}
-              disabled={disallowedActions.includes(Action.SkippingPrev)}
-            >
-              <SkipBack fill="currentColor" />
-            </button>
+            <PlaybarControlButton
+              action={Action.TogglingShuffle}
+              playbackState={playbackState}
+              icon={<Shuffle />}
+            />
+            <PlaybarControlButton
+              action={Action.SkippingPrev}
+              playbackState={playbackState}
+              icon={<SkipBack fill="currentColor" />}
+            />
             <CircularPlayButton
               size="2.5rem"
               playing={playbackState?.isPlaying ?? false}
             />
-            <button
-              className={styles.controlButton}
-              disabled={disallowedActions.includes(Action.SkippingNext)}
-            >
-              <SkipForward fill="currentColor" />
-            </button>
-            <button
-              className={styles.controlButton}
-              disabled={disallowedActions.includes(Action.TogglingRepeatTrack)}
-            >
-              <Repeat />
-            </button>
+            <PlaybarControlButton
+              action={Action.SkippingNext}
+              playbackState={playbackState}
+              icon={<SkipForward fill="currentColor" />}
+            />
+            <PlaybarControlButton
+              action={Action.TogglingRepeatTrack}
+              playbackState={playbackState}
+              icon={<Repeat />}
+            />
           </Flex>
         </Flex>
         <Flex />
