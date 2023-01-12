@@ -28,7 +28,7 @@ interface PostRequestOptions extends Omit<PostRequest, 'params'> {
 
 type RequestParams<
   HTTPMethod extends Spotify.HTTPMethod,
-  Path extends string
+  Path extends Spotify.Request.Paths
 > = OmitNever<{
   body: Spotify.Request.BodyParams.Lookup<HTTPMethod, Path>;
   params: Spotify.Request.QueryParams.Lookup<HTTPMethod, Path>;

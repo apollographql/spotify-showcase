@@ -557,11 +557,15 @@ export namespace Spotify {
   }
 
   export namespace Request {
+    export type Paths = BodyParams.Paths | QueryParams.Paths;
+
     export namespace BodyParams {
       export type Lookup<
         THttpMethod extends HTTPMethod,
-        Path extends string
+        Path extends Request.Paths
       > = THttpMethod extends 'PUT' ? Prop<PUT, Path> : never;
+
+      export type Paths = keyof PUT;
 
       export interface PUT {
         '/me/player/play': {
@@ -578,7 +582,7 @@ export namespace Spotify {
     export namespace QueryParams {
       export type Lookup<
         THttpMethod extends HTTPMethod,
-        Path extends string
+        Path extends Request.Paths
       > = THttpMethod extends 'GET'
         ? Prop<GET, Path>
         : THttpMethod extends 'POST'
@@ -586,6 +590,8 @@ export namespace Spotify {
         : THttpMethod extends 'PUT'
         ? Prop<PUT, Path>
         : never;
+
+      export type Paths = keyof GET | keyof PUT | keyof POST;
 
       export interface GET {
         '/albums/:id': {
