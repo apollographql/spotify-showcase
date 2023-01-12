@@ -16,6 +16,7 @@ import Text from '../../components/Text';
 import ReleaseDate from '../../components/ReleaseDate';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
+import Skeleton from '../../components/Skeleton';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -129,6 +130,24 @@ const AlbumRoute = () => {
 export const LoadingState = () => (
   <Page>
     <Page.SkeletonHeader />
+    <Page.Content>
+      <Page.ActionsBar>
+        <PlayButton disabled variant="primary" size="3.5rem" playing={false} />
+      </Page.ActionsBar>
+      <Skeleton.Table
+        rows={10}
+        columns={[
+          <Flex gap="0.5rem" alignItems="end">
+            <Flex direction="column" flex={1} gap="0.5rem">
+              <Skeleton.Text width="25%" fontSize="1rem" />
+              <Skeleton.Text width="20%" fontSize="0.75rem" />
+            </Flex>
+          </Flex>,
+          <Skeleton.Text />,
+          <Skeleton.Text />,
+        ]}
+      />
+    </Page.Content>
   </Page>
 );
 
