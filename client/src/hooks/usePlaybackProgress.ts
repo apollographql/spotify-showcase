@@ -14,7 +14,8 @@ interface PlaybackState {
 // own timer that updates progress every second to simulate the passage of time.
 // Once the "real" timestamp is updated from the server, it will adjust if needed.
 const usePlaybackProgress = (
-  playbackState: PlaybackState | null | undefined
+  playbackState: PlaybackState | null | undefined,
+  { max }: { max: number }
 ) => {
   const isPlaying = playbackState?.isPlaying ?? false;
   const progressMs = playbackState?.progressMs ?? 0;
@@ -47,7 +48,9 @@ const usePlaybackProgress = (
     }
   }, [remoteTimestamp]);
 
-  return adjustedProgressMs;
+  // TODO: Determine why adjusted progress jumps beyond max duration first
+  // mounting
+  return Math.min(max, adjustedProgressMs);
 };
 
 export default usePlaybackProgress;

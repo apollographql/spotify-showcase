@@ -15,7 +15,7 @@ const PlaybackItemProgressBar = ({
 }: PlaybackItemProgressBarProps) => {
   const playbackItem = playbackState?.item;
   const durationMs = playbackItem?.durationMs ?? 0;
-  const progressMs = usePlaybackProgress(playbackState);
+  const progressMs = usePlaybackProgress(playbackState, { max: durationMs });
 
   return (
     <Flex gap="0.5rem" alignItems="center">
