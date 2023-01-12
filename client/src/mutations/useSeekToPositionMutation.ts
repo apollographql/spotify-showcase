@@ -1,0 +1,32 @@
+import { useCallback } from 'react';
+import { gql, useMutation } from '@apollo/client';
+import {
+  SeekToPositionMutation,
+  SeekToPositionMutationVariables,
+} from '../types/api';
+
+const SEEK_TO_POSITION_MUTATION = gql`
+  mutation SeekToPositionMutation($positionMs: Int!) {
+    seekToPosition(positionMs: $positionMs) {
+      playbackState {
+        progressMs
+      }
+    }
+  }
+`;
+
+const useSeekToPositionMutation = () => {
+  const [execute, result] = useMutation<
+    SeekToPositionMutation,
+    SeekToPositionMutationVariables
+  >(SEEK_TO_POSITION_MUTATION);
+
+  const seekToPosition = useCallback(
+    (variables: SeekToPositionMutationVariables) => execute({ variables }),
+    [execute]
+  );
+
+  return [seekToPosition, result] as const;
+};
+
+export default useSeekToPositionMutation;
