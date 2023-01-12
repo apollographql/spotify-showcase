@@ -407,6 +407,8 @@ export type Mutation = {
   resetFieldConfig: Maybe<ResetFieldConfigResponse>;
   /** Start a new context or resume current playback on the user's active device. */
   resumePlayback: Maybe<ResumePlaybackResponse>;
+  /** Seeks to the given position in the user’s currently playing track. */
+  seekToPosition: Maybe<SeekToPositionResponse>;
   /** Skips to next track in the user’s queue. */
   skipToNext: Maybe<SkipToNextResponse>;
   /** Skips to previous track in the user’s queue. */
@@ -432,6 +434,12 @@ export type MutationresetFieldConfigArgs = {
 
 export type MutationresumePlaybackArgs = {
   context?: InputMaybe<ResumePlaybackContextInput>;
+};
+
+
+export type MutationseekToPositionArgs = {
+  context?: InputMaybe<SeekToPositionContextInput>;
+  positionMs: Scalars['Int'];
 };
 
 
@@ -898,6 +906,17 @@ export type SchemaFieldInput = {
   typename: Scalars['String'];
 };
 
+export type SeekToPositionContextInput = {
+  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SeekToPositionResponse = {
+  __typename: 'SeekToPositionResponse';
+  /** The updated state of playback after seeking to a position. */
+  playbackState: Maybe<PlaybackState>;
+};
+
 /** Spotify catalog information for a show. */
 export type Show = {
   __typename: 'Show';
@@ -1140,6 +1159,13 @@ export type PausePlaybackMutationVariables = Exact<{
 
 
 export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+
+export type SeekToPositionMutationVariables = Exact<{
+  positionMs: Scalars['Int'];
+}>;
+
+
+export type SeekToPositionMutation = { seekToPosition: { __typename: 'SeekToPositionResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null } | null } | null };
 
 export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
 
