@@ -27,6 +27,7 @@
     "@apollo/datasource-rest": "^4.3.2",
     "@apollo/server": "^4.3.0",
     "@graphql-tools/schema": "^9.0.12",
+    "@types/lodash": "^4.14.191",
     "@wry/equality": "^0.5.3",
     "camelize": "^1.0.1",
     "cors": "^2.8.5",
