@@ -82,8 +82,8 @@ const AlbumRoute = () => {
               {artist.name}
             </EntityLink>
           )),
-          <span>{yearOfRelease(album.releaseDate)}</span>,
-          <span>
+          <span key="releaseDate">{yearOfRelease(album.releaseDate)}</span>,
+          <span key="song">
             {album.totalTracks} {pluralize('song', album.totalTracks)}
           </span>,
         ]}
