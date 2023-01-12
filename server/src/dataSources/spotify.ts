@@ -26,9 +26,12 @@ interface PostRequestOptions extends Omit<PostRequest, 'params'> {
   params?: RawQueryParams;
 }
 
-type RequestParams<TBodyParams = never, TQueryParams = never> = OmitNever<{
-  body: TBodyParams;
-  params: TQueryParams;
+type RequestParams<
+  HTTPMethod extends Spotify.HTTPMethod,
+  Path extends string
+> = OmitNever<{
+  body: Spotify.Request.BodyParams.Lookup<HTTPMethod, Path>;
+  params: Spotify.Request.QueryParams.Lookup<HTTPMethod, Path>;
 }>;
 
 export default class SpotifyAPI extends RESTDataSource {
@@ -244,32 +247,25 @@ export default class SpotifyAPI extends RESTDataSource {
   async resumePlayback({
     body,
     params,
-  }: RequestParams<
-    Spotify.Request.BodyParams.PUT['/me/player/play'],
-    Spotify.Request.QueryParams.PUT['/me/player/play']
-  >) {
+  }: RequestParams<'PUT', '/me/player/play'>) {
     await this._put('/me/player/play', { body, params });
 
     return true;
   }
 
-  async pausePlayback({
-    params,
-  }: RequestParams<
-    never,
-    Spotify.Request.QueryParams.PUT['/me/player/pause']
-  >) {
+  async pausePlayback({ params }: RequestParams<'PUT', '/me/player/pause'>) {
     await this._put('/me/player/pause', { params });
 
     return true;
   }
 
-  async skipToNext({
-    params,
-  }: RequestParams<
-    never,
-    Spotify.Request.QueryParams.POST['/me/player/next']
-  >) {
+  async seekToPosition({ params }: RequestParams<'PUT', '/me/player/seek'>) {
+    await this._put('/me/player/seek', { params });
+
+    return true;
+  }
+
+  async skipToNext({ params }: RequestParams<'POST', '/me/player/next'>) {
     await this._post('/me/player/next', { params });
 
     return true;
@@ -277,10 +273,7 @@ export default class SpotifyAPI extends RESTDataSource {
 
   async skipToPrevious({
     params,
-  }: RequestParams<
-    never,
-    Spotify.Request.QueryParams.POST['/me/player/previous']
-  >) {
+  }: RequestParams<'POST', '/me/player/previous'>) {
     await this._post('/me/player/previous', { params });
 
     return true;

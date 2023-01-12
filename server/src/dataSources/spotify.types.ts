@@ -5,7 +5,11 @@ type RestrictScope<
   TScope extends string
 > = TScope extends typeof OAUTH_SCOPES[number] ? T : never;
 
+type Prop<T, Key extends string> = Key extends keyof T ? T[Key] : never;
+
 export namespace Spotify {
+  export type HTTPMethod = 'GET' | 'POST' | 'PUT';
+
   export namespace Object {
     export interface Actions {
       disallows: Disallows;
@@ -554,6 +558,11 @@ export namespace Spotify {
 
   export namespace Request {
     export namespace BodyParams {
+      export type Lookup<
+        THttpMethod extends HTTPMethod,
+        Path extends string
+      > = THttpMethod extends 'PUT' ? Prop<PUT, Path> : never;
+
       export interface PUT {
         '/me/player/play': {
           context_uri?: string;
@@ -567,6 +576,17 @@ export namespace Spotify {
       }
     }
     export namespace QueryParams {
+      export type Lookup<
+        THttpMethod extends HTTPMethod,
+        Path extends string
+      > = THttpMethod extends 'GET'
+        ? Prop<GET, Path>
+        : THttpMethod extends 'POST'
+        ? Prop<POST, Path>
+        : THttpMethod extends 'PUT'
+        ? Prop<PUT, Path>
+        : never;
+
       export interface GET {
         '/albums/:id': {
           market?: string;
@@ -647,6 +667,10 @@ export namespace Spotify {
           device_id?: string;
         };
         '/me/player/play': {
+          device_id?: string;
+        };
+        '/me/player/seek': {
+          position_ms: number;
           device_id?: string;
         };
       }
