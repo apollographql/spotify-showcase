@@ -148,7 +148,7 @@ const Playbar = ({ className }: PlaybarProps) => {
       ? playbackItem.album.images[0]
       : playbackItem?.show.images[0];
 
-  const disallowed = (action: Action) => disallows.includes(action);
+  const disallowed = (action: Action) => !device || disallows.includes(action);
 
   return (
     <Flex as="footer" direction="column" className={cx(className)}>
@@ -171,6 +171,7 @@ const Playbar = ({ className }: PlaybarProps) => {
               disallowed={disallowed(Action.SkippingPrev)}
             />
             <PlayButton
+              disabled={!device}
               size="2.5rem"
               playing={playbackState?.isPlaying ?? false}
             />
@@ -195,7 +196,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           />
           <Flex gap="0.25rem" alignItems="center">
             <PlaybarControlButton
-              disallowed={false}
+              disallowed={!device}
               icon={<Volume strokeWidth={1.5} />}
             />
             <ProgressBar
