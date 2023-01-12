@@ -90,15 +90,6 @@ type Query {
 }
 
 type Mutation {
-  resumePlayback(
-    """
-    Additional context to determine where to resume playback. Useful if wanting
-    to, for example, start playback for a track in an album. Omit to simply
-    resume playback.
-    """
-    context: ResumePlaybackContextInput
-  ): ResumePlaybackResponse
-
   """
   Pause playback on the user's account.
   """
@@ -124,6 +115,18 @@ type Mutation {
   Reset a field's config back to its default values.
   """
   resetFieldConfig(field: FieldInput!): ResetFieldConfigResponse
+
+  """
+  Start a new context or resume current playback on the user's active device.
+  """
+  resumePlayback(
+    """
+    Additional context to determine where to resume playback. Useful if wanting
+    to, for example, start playback for a track in an album. Omit to simply
+    resume playback.
+    """
+    context: ResumePlaybackContextInput
+  ): ResumePlaybackResponse
 }
 
 type Subscription {

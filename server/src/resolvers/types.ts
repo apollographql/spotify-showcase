@@ -408,6 +408,7 @@ export type Mutation = {
   pausePlayback?: Maybe<PausePlaybackResponse>;
   /** Reset a field's config back to its default values. */
   resetFieldConfig?: Maybe<ResetFieldConfigResponse>;
+  /** Start a new context or resume current playback on the user's active device. */
   resumePlayback?: Maybe<ResumePlaybackResponse>;
   /**
    * Update configuration for a field in the schema. Allows tweaks to the
