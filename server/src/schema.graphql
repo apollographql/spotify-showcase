@@ -92,9 +92,11 @@ type Query {
 type Mutation {
   resumePlayback(
     """
-    The id of the device this command is targeting. If not supplied, the user's currently active device is the target.
+    Additional context to determine where to resume playback. Useful if wanting
+    to, for example, start playback for a track in an album. Omit to simply
+    resume playback.
     """
-    deviceId: ID
+    context: ResumePlaybackContextInput
   ): ResumePlaybackResponse
 
   """
@@ -102,10 +104,10 @@ type Mutation {
   """
   pausePlayback(
     """
-    The id of the device this command is targeting. If not supplied, the user's
-    currently active device is the target.
+    Additional context when pausing playback. Omit to pause playback on the
+    current device.
     """
-    deviceId: ID
+    context: PausePlaybackContextInput
   ): PausePlaybackResponse
 
   """
@@ -684,6 +686,14 @@ type PageInfo {
 
   "The total number of items returned for the page."
   total: Int!
+}
+
+input PausePlaybackContextInput {
+  """
+  The id of the device this command is targeting. If not supplied, the user's
+  currently active device is the target.
+  """
+  deviceId: String
 }
 
 type PausePlaybackResponse {
@@ -1272,6 +1282,41 @@ type SavedTrackConnection {
   "Pagination information for the set of playlists"
   """
   pageInfo: PageInfo!
+}
+
+input ResumePlaybackContextInput {
+  """
+  Spotify URI of the context to play. Valid contexts are albums, artists &
+  playlists.
+  """
+  contextUri: String
+
+  """
+  The id of the device this command is targeting. If not supplied, the user's
+  currently active device is the target.
+  """
+  deviceId: ID
+
+  """
+  Indicates from where in the context playback should start. Only available when
+  contextUri corresponds to an album or playlist object.
+  """
+  offset: ResumePlaybackOffsetInput
+
+  positionMs: Int
+}
+
+input ResumePlaybackOffsetInput {
+  """
+  Non-negative, zero-based value that corresponds to the numeric position in the
+  album or playlist
+  """
+  position: Int
+
+  """
+  Spotify URI of the item in the album or playlist
+  """
+  uri: String
 }
 
 type ResumePlaybackResponse {
