@@ -419,7 +419,7 @@ export type Mutation = {
 
 
 export type MutationPausePlaybackArgs = {
-  deviceId?: InputMaybe<Scalars['ID']>;
+  context?: InputMaybe<PausePlaybackContextInput>;
 };
 
 
@@ -429,7 +429,7 @@ export type MutationResetFieldConfigArgs = {
 
 
 export type MutationResumePlaybackArgs = {
-  deviceId?: InputMaybe<Scalars['ID']>;
+  context?: InputMaybe<ResumePlaybackContextInput>;
 };
 
 
@@ -450,6 +450,14 @@ export type PageInfo = {
   offset: Scalars['Int'];
   /** The total number of items returned for the page. */
   total: Scalars['Int'];
+};
+
+export type PausePlaybackContextInput = {
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['String']>;
 };
 
 export type PausePlaybackResponse = {
@@ -801,6 +809,37 @@ export type ResetFieldConfigResponse = {
   fieldConfig?: Maybe<FieldConfig>;
 };
 
+export type ResumePlaybackContextInput = {
+  /**
+   * Spotify URI of the context to play. Valid contexts are albums, artists &
+   * playlists.
+   */
+  contextUri?: InputMaybe<Scalars['String']>;
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['ID']>;
+  /**
+   * Indicates from where in the context playback should start. Only available when
+   * contextUri corresponds to an album or playlist object.
+   */
+  offset?: InputMaybe<ResumePlaybackOffsetInput>;
+  positionMs?: InputMaybe<Scalars['Int']>;
+  /** An array of the Spotify track URIs to play. */
+  uris?: InputMaybe<Array<Scalars['String']>>;
+};
+
+export type ResumePlaybackOffsetInput = {
+  /**
+   * Non-negative, zero-based value that corresponds to the numeric position in the
+   * album or playlist
+   */
+  position?: InputMaybe<Scalars['Int']>;
+  /** Spotify URI of the item in the album or playlist */
+  uri?: InputMaybe<Scalars['String']>;
+};
+
 export type ResumePlaybackResponse = {
   __typename?: 'ResumePlaybackResponse';
   playbackState?: Maybe<PlaybackState>;
@@ -1121,6 +1160,7 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
+  PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: ResolverTypeWrapper<Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
   PlaybackContextItem: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show>;
@@ -1141,6 +1181,8 @@ export type ResolversTypes = ResolversObject<{
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
   ResetFieldConfigResponse: ResolverTypeWrapper<Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  ResumePlaybackContextInput: ResumePlaybackContextInput;
+  ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
   ResumePlaybackResponse: ResolverTypeWrapper<Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SavedTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
@@ -1189,6 +1231,7 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   Mutation: {};
   PageInfo: Spotify.Object.Paginated<unknown>;
+  PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   PlaybackContext: Spotify.Object.Context;
   PlaybackContextItem: Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show;
@@ -1207,6 +1250,8 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
   ResetFieldConfigResponse: Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  ResumePlaybackContextInput: ResumePlaybackContextInput;
+  ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
   ResumePlaybackResponse: Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   ResumePoint: Spotify.Object.ResumePoint;
   SavedTrackConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;

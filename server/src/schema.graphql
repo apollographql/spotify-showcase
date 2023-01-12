@@ -1304,6 +1304,11 @@ input ResumePlaybackContextInput {
   offset: ResumePlaybackOffsetInput
 
   positionMs: Int
+
+  """
+  An array of the Spotify track URIs to play.
+  """
+  uris: [String!]
 }
 
 input ResumePlaybackOffsetInput {
