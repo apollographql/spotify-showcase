@@ -1351,6 +1351,7 @@ input ResumePlaybackContextInput {
   """
   offset: ResumePlaybackOffsetInput
 
+  "Indicates the position where playback should occur in milliseconds."
   positionMs: Int
 
   """

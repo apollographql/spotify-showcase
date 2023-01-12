@@ -856,6 +856,7 @@ export type ResumePlaybackContextInput = {
    * contextUri corresponds to an album or playlist object.
    */
   offset?: InputMaybe<ResumePlaybackOffsetInput>;
+  /** Indicates the position where playback should occur in milliseconds. */
   positionMs?: InputMaybe<Scalars['Int']>;
   /** An array of the Spotify track URIs to play. */
   uris?: InputMaybe<Array<Scalars['String']>>;
