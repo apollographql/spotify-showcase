@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import useInterval from './useInterval';
 
 interface PlaybackState {
@@ -17,11 +17,13 @@ const usePlaybackProgress = (
 ) => {
   const progressMs = playbackState?.progressMs ?? 0;
   const remoteTimestamp = playbackState?.timestamp;
+  const timestampRef = useRef(remoteTimestamp);
   const [adjustedProgressMs, setAdjustedProgressMs] = useState(progressMs);
-  const [timestamp, setTimestamp] = useState(remoteTimestamp);
 
   useInterval(
     () => {
+      const timestamp = timestampRef.current;
+
       if (timestamp != null) {
         setAdjustedProgressMs(progressMs + (Date.now() - timestamp));
       }
@@ -30,12 +32,14 @@ const usePlaybackProgress = (
   );
 
   useEffect(() => {
-    setAdjustedProgressMs(progressMs);
-  }, [progressMs]);
+    if (Math.abs(adjustedProgressMs - progressMs) > 1000) {
+      setAdjustedProgressMs(progressMs);
+    }
+  }, [adjustedProgressMs, progressMs]);
 
   useEffect(() => {
     if (remoteTimestamp) {
-      setTimestamp(remoteTimestamp);
+      timestampRef.current = remoteTimestamp;
     }
   }, [remoteTimestamp]);
 
