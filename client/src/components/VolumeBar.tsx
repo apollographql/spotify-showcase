@@ -1,27 +1,14 @@
-import { gql, useMutation } from '@apollo/client';
 import { CSSProperties } from 'react';
 import ProgressBar from './ProgressBar';
+import useSetVolumeMutation from '../mutations/useSetVolumeMutation';
 
 interface VolumeBarProps {
   volumePercent: number;
   width: CSSProperties['width'];
 }
 
-const SET_VOLUME_MUTATION = gql`
-  mutation SetVolumeMutation($volumePercent: Int!) {
-    setVolume(volumePercent: $volumePercent) {
-      playbackState {
-        device {
-          id
-          volumePercent
-        }
-      }
-    }
-  }
-`;
-
 const VolumeBar = ({ volumePercent, width }: VolumeBarProps) => {
-  const [setVolume] = useMutation(SET_VOLUME_MUTATION);
+  const [setVolume] = useSetVolumeMutation();
 
   return (
     <ProgressBar
@@ -30,7 +17,7 @@ const VolumeBar = ({ volumePercent, width }: VolumeBarProps) => {
       max={100}
       width={width}
       onChange={(volumePercent) =>
-        setVolume({ variables: { volumePercent: Math.ceil(volumePercent) } })
+        setVolume({ volumePercent: Math.ceil(volumePercent) })
       }
     />
   );

@@ -1208,19 +1208,19 @@ export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
-export type SetVolumeMutationVariables = Exact<{
-  volumePercent: Scalars['Int'];
-}>;
-
-
-export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } } | null } | null };
-
 export type SeekToPositionMutationVariables = Exact<{
   positionMs: Scalars['Int'];
 }>;
 
 
 export type SeekToPositionMutation = { seekToPosition: { __typename: 'SeekToPositionResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null } | null } | null };
+
+export type SetVolumeMutationVariables = Exact<{
+  volumePercent: Scalars['Int'];
+}>;
+
+
+export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } } | null } | null };
 
 export type SkipToNextMutationVariables = Exact<{ [key: string]: never; }>;
 
