@@ -155,8 +155,6 @@ const Playbar = ({ className }: PlaybarProps) => {
       ? playbackItem.album.images[0]
       : playbackItem?.show.images[0];
 
-  console.log(device);
-
   return (
     <Flex as="footer" direction="column" className={cx(className)}>
       <div className={styles.player}>
