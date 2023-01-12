@@ -410,6 +410,10 @@ export type Mutation = {
   resetFieldConfig?: Maybe<ResetFieldConfigResponse>;
   /** Start a new context or resume current playback on the user's active device. */
   resumePlayback?: Maybe<ResumePlaybackResponse>;
+  /** Skips to next track in the user’s queue. */
+  skipToNext?: Maybe<SkipToNextResponse>;
+  /** Skips to previous track in the user’s queue. */
+  skipToPrevious?: Maybe<SkipToPreviousResponse>;
   /**
    * Update configuration for a field in the schema. Allows tweaks to the
    * synthetic timeouts and error rates associated with the field. By default, both
@@ -431,6 +435,16 @@ export type MutationResetFieldConfigArgs = {
 
 export type MutationResumePlaybackArgs = {
   context?: InputMaybe<ResumePlaybackContextInput>;
+};
+
+
+export type MutationSkipToNextArgs = {
+  context?: InputMaybe<SkipToNextContextInput>;
+};
+
+
+export type MutationSkipToPreviousArgs = {
+  context?: InputMaybe<SkipToPreviousContextInput>;
 };
 
 
@@ -952,6 +966,34 @@ export type ShowEpisodesConnection = {
   pageInfo: PageInfo;
 };
 
+export type SkipToNextContextInput = {
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SkipToNextResponse = {
+  __typename?: 'SkipToNextResponse';
+  /** The updated state of playback after skipping to next. */
+  playbackState?: Maybe<PlaybackState>;
+};
+
+export type SkipToPreviousContextInput = {
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SkipToPreviousResponse = {
+  __typename?: 'SkipToPreviousResponse';
+  /** The updated state of playback after skipping to previous. */
+  playbackState?: Maybe<PlaybackState>;
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   playbackStateChanged?: Maybe<PlaybackState>;
@@ -1193,6 +1235,10 @@ export type ResolversTypes = ResolversObject<{
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
   ShowEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
   ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
+  SkipToNextContextInput: SkipToNextContextInput;
+  SkipToNextResponse: ResolverTypeWrapper<Omit<SkipToNextResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SkipToPreviousContextInput: SkipToPreviousContextInput;
+  SkipToPreviousResponse: ResolverTypeWrapper<Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
   TextFormat: TextFormat;
@@ -1262,6 +1308,10 @@ export type ResolversParentTypes = ResolversObject<{
   Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
   ShowEpisodeEdge: Spotify.Object.EpisodeSimplified;
   ShowEpisodesConnection: Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>;
+  SkipToNextContextInput: SkipToNextContextInput;
+  SkipToNextResponse: Omit<SkipToNextResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SkipToPreviousContextInput: SkipToPreviousContextInput;
+  SkipToPreviousResponse: Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   String: Scalars['String'];
   Subscription: {};
   Timestamp: Scalars['Timestamp'];
@@ -1442,6 +1492,8 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   pausePlayback?: Resolver<Maybe<ResolversTypes['PausePlaybackResponse']>, ParentType, ContextType, Partial<MutationPausePlaybackArgs>>;
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
   resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
+  skipToNext?: Resolver<Maybe<ResolversTypes['SkipToNextResponse']>, ParentType, ContextType, Partial<MutationSkipToNextArgs>>;
+  skipToPrevious?: Resolver<Maybe<ResolversTypes['SkipToPreviousResponse']>, ParentType, ContextType, Partial<MutationSkipToPreviousArgs>>;
   updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'config' | 'field'>>;
 }>;
 
@@ -1639,6 +1691,16 @@ export type ShowEpisodesConnectionResolvers<ContextType = ContextValue, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type SkipToNextResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SkipToNextResponse'] = ResolversParentTypes['SkipToNextResponse']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SkipToPreviousResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SkipToPreviousResponse'] = ResolversParentTypes['SkipToPreviousResponse']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type SubscriptionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
   playbackStateChanged?: SubscriptionResolver<Maybe<ResolversTypes['PlaybackState']>, "playbackStateChanged", ParentType, SubscriptionContextValue>;
 }>;
@@ -1742,6 +1804,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Show?: ShowResolvers<ContextType>;
   ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;
   ShowEpisodesConnection?: ShowEpisodesConnectionResolvers<ContextType>;
+  SkipToNextResponse?: SkipToNextResponseResolvers<ContextType>;
+  SkipToPreviousResponse?: SkipToPreviousResponseResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
   Timestamp?: GraphQLScalarType;
   Track?: TrackResolvers<ContextType>;

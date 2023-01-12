@@ -8,6 +8,7 @@ import { Spotify } from './spotify.types';
 
 type GetRequest = NonNullable<Parameters<RESTDataSource['get']>[1]>;
 type PutRequest = NonNullable<Parameters<RESTDataSource['put']>[1]>;
+type PostRequest = NonNullable<Parameters<RESTDataSource['post']>[1]>;
 type RawQueryParams = Record<
   string,
   string | string[] | number | null | undefined
@@ -18,6 +19,10 @@ interface GetRequestOptions extends Omit<GetRequest, 'params'> {
 }
 
 interface PutRequestOptions extends Omit<PutRequest, 'params'> {
+  params?: RawQueryParams;
+}
+
+interface PostRequestOptions extends Omit<PostRequest, 'params'> {
   params?: RawQueryParams;
 }
 
@@ -259,6 +264,28 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  async skipToNext({
+    params,
+  }: RequestParams<
+    never,
+    Spotify.Request.QueryParams.POST['/me/player/next']
+  >) {
+    await this._post('/me/player/next', { params });
+
+    return true;
+  }
+
+  async skipToPrevious({
+    params,
+  }: RequestParams<
+    never,
+    Spotify.Request.QueryParams.POST['/me/player/previous']
+  >) {
+    await this._post('/me/player/previous', { params });
+
+    return true;
+  }
+
   override willSendRequest(request: WillSendRequestOptions) {
     request.headers['Accept'] = 'application/json';
     request.headers['Authorization'] = `Bearer ${this.token}`;
@@ -295,6 +322,13 @@ export default class SpotifyAPI extends RESTDataSource {
   }
 
   private _put<TReturn>(path: string, options?: PutRequestOptions) {
+    return this.put<TReturn>(path, {
+      ...options,
+      params: this.normalizeParams(options?.params),
+    });
+  }
+
+  private _post<TReturn>(path: string, options?: PostRequestOptions) {
     return this.put<TReturn>(path, {
       ...options,
       params: this.normalizeParams(options?.params),

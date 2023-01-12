@@ -633,6 +633,15 @@ export namespace Spotify {
         '/tracks/:id': { market?: string };
       }
 
+      export interface POST {
+        '/me/player/next': {
+          device_id?: string;
+        };
+        '/me/player/previous': {
+          device_id?: string;
+        };
+      }
+
       export interface PUT {
         '/me/player/pause': {
           device_id?: string;

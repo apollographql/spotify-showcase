@@ -49,6 +49,20 @@ const resolvers: MutationResolvers = {
 
     return { fieldConfig };
   },
+  skipToNext: async (_, { context }, { dataSources }) => {
+    await dataSources.spotify.skipToNext({
+      params: { device_id: maybe(context?.deviceId) },
+    });
+
+    return { playbackState: null };
+  },
+  skipToPrevious: async (_, { context }, { dataSources }) => {
+    await dataSources.spotify.skipToPrevious({
+      params: { device_id: maybe(context?.deviceId) },
+    });
+
+    return { playbackState: null };
+  },
 };
 
 export default resolvers;
