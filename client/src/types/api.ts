@@ -409,6 +409,8 @@ export type Mutation = {
   resumePlayback: Maybe<ResumePlaybackResponse>;
   /** Seeks to the given position in the user’s currently playing track. */
   seekToPosition: Maybe<SeekToPositionResponse>;
+  /** Set the volume for the user’s current playback device. */
+  setVolume: Maybe<SetVolumeResponse>;
   /** Skips to next track in the user’s queue. */
   skipToNext: Maybe<SkipToNextResponse>;
   /** Skips to previous track in the user’s queue. */
@@ -440,6 +442,12 @@ export type MutationresumePlaybackArgs = {
 export type MutationseekToPositionArgs = {
   context?: InputMaybe<SeekToPositionContextInput>;
   positionMs: Scalars['Int'];
+};
+
+
+export type MutationsetVolumeArgs = {
+  context?: InputMaybe<SetVolumeContextInput>;
+  volumePercent: Scalars['Int'];
 };
 
 
@@ -847,6 +855,7 @@ export type ResumePlaybackContextInput = {
    * contextUri corresponds to an album or playlist object.
    */
   offset?: InputMaybe<ResumePlaybackOffsetInput>;
+  /** Indicates the position where playback should occur in milliseconds. */
   positionMs?: InputMaybe<Scalars['Int']>;
   /** An array of the Spotify track URIs to play. */
   uris?: InputMaybe<Array<Scalars['String']>>;
@@ -914,6 +923,17 @@ export type SeekToPositionContextInput = {
 export type SeekToPositionResponse = {
   __typename: 'SeekToPositionResponse';
   /** The updated state of playback after seeking to a position. */
+  playbackState: Maybe<PlaybackState>;
+};
+
+export type SetVolumeContextInput = {
+  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SetVolumeResponse = {
+  __typename: 'SetVolumeResponse';
+  /** The state of playback after the volume has been set. */
   playbackState: Maybe<PlaybackState>;
 };
 
@@ -1208,6 +1228,13 @@ export type SkipToPreviousMutation = { skipToPrevious: { __typename: 'SkipToPrev
 export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
+export type SetVolumeMutationVariables = Exact<{
+  volumePercent: Scalars['Int'];
+}>;
+
+
+export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } } | null } | null };
 
 export type AlbumRouteQueryVariables = Exact<{
   albumId: Scalars['ID'];
