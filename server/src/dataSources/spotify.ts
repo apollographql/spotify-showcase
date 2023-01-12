@@ -329,7 +329,7 @@ export default class SpotifyAPI extends RESTDataSource {
   }
 
   private _post<TReturn>(path: string, options?: PostRequestOptions) {
-    return this.put<TReturn>(path, {
+    return this.post<TReturn>(path, {
       ...options,
       params: this.normalizeParams(options?.params),
     });
