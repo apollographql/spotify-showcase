@@ -1218,13 +1218,6 @@ export type SkipToNextMutationVariables = Exact<{
 
 export type SkipToNextMutation = { skipToNext: { __typename: 'SkipToNextResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
 
-export type SkipToPreviousMutationVariables = Exact<{
-  context?: InputMaybe<SkipToPreviousContextInput>;
-}>;
-
-
-export type SkipToPreviousMutation = { skipToPrevious: { __typename: 'SkipToPreviousResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
-
 export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
