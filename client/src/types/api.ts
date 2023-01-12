@@ -1165,12 +1165,19 @@ type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string,
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
-export type skipToNextVariables = Exact<{
+export type SkipToNextMutationVariables = Exact<{
   context?: InputMaybe<SkipToNextContextInput>;
 }>;
 
 
-export type skipToNext = { skipToNext: { __typename: 'SkipToNextResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+export type SkipToNextMutation = { skipToNext: { __typename: 'SkipToNextResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+
+export type SkipToPreviousMutationVariables = Exact<{
+  context?: InputMaybe<SkipToPreviousContextInput>;
+}>;
+
+
+export type SkipToPreviousMutation = { skipToPrevious: { __typename: 'SkipToPreviousResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
 
 export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 

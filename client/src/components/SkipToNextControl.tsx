@@ -7,7 +7,7 @@ interface SkipToNextControlProps {
 }
 
 const SKIP_TO_NEXT_MUTATION = gql`
-  mutation skipToNext($context: SkipToNextContextInput) {
+  mutation SkipToNextMutation($context: SkipToNextContextInput) {
     skipToNext(context: $context) {
       playbackState {
         isPlaying

@@ -25,14 +25,12 @@ import PlaybarControlButton from './PlaybarControlButton';
 import ProgressBar from './ProgressBar';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
 import SkipToNextControl from './SkipToNextControl';
+import SkipToPreviousControl from './SkipToPreviousControl';
 import { overwriteMerge } from '../utils/deepmerge';
-import { Get } from 'type-fest';
 
 interface PlaybarProps {
   className?: string;
 }
-
-type PlaybackState = NonNullable<Get<PlaybarQuery, 'me.player.playbackState'>>;
 
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment PlaybackStateFragment on PlaybackState {
@@ -169,9 +167,8 @@ const Playbar = ({ className }: PlaybarProps) => {
               disallowed={disallowed(Action.TogglingShuffle)}
               icon={<Shuffle size="1.25rem" />}
             />
-            <PlaybarControlButton
+            <SkipToPreviousControl
               disallowed={disallowed(Action.SkippingPrev)}
-              icon={<SkipBack fill="currentColor" />}
             />
             <PlayButton
               size="2.5rem"
