@@ -1213,20 +1213,6 @@ export type EpisodePlaybackDetails_episode = { __typename: 'Episode', id: string
 
 export type EpisodeRemainingDuration_episode = { __typename: 'Episode', id: string, durationMs: number, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } };
 
-export type ResumePlaybackMutationVariables = Exact<{
-  context?: InputMaybe<ResumePlaybackContextInput>;
-}>;
-
-
-export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
-
-export type PausePlaybackMutationVariables = Exact<{
-  context?: InputMaybe<PausePlaybackContextInput>;
-}>;
-
-
-export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
-
 export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
 
 export type PlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null };
@@ -1254,6 +1240,23 @@ export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Ep
 export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
+export type CachedPlaybackStateQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CachedPlaybackStateQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } } | null };
+
+export type PausePlaybackMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+
+export type ResumePlaybackMutationVariables = Exact<{
+  context?: InputMaybe<ResumePlaybackContextInput>;
+}>;
+
+
+export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
 
 export type SeekToPositionMutationVariables = Exact<{
   positionMs: Scalars['Int'];
