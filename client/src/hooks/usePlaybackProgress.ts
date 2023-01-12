@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import useInterval from './useInterval';
 import useDidUpdateValue from './useDidUpdateValue';
 
@@ -19,13 +19,10 @@ const usePlaybackProgress = (
 ) => {
   const isPlaying = playbackState?.isPlaying ?? false;
   const progressMs = playbackState?.progressMs ?? 0;
-  const remoteTimestamp = playbackState?.timestamp;
-  const timestampRef = useRef(remoteTimestamp);
+  const timestamp = playbackState?.timestamp;
   const [adjustedProgressMs, setAdjustedProgressMs] = useState(progressMs);
 
   useInterval(() => {
-    const timestamp = timestampRef.current;
-
     if (isPlaying && timestamp != null) {
       setAdjustedProgressMs(progressMs + (Date.now() - timestamp));
     }
@@ -41,12 +38,6 @@ const usePlaybackProgress = (
       setAdjustedProgressMs(progressMs);
     }
   }, [adjustedProgressMs, progressMs]);
-
-  useEffect(() => {
-    if (remoteTimestamp) {
-      timestampRef.current = remoteTimestamp;
-    }
-  }, [remoteTimestamp]);
 
   // TODO: Determine why adjusted progress jumps beyond max duration first
   // mounting
