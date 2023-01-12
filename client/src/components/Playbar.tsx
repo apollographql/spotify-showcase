@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import CircularPlayButton from './CircularPlayButton';
+import DeviceIcon from './DeviceIcon';
 import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
@@ -46,6 +47,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     device {
       id
       name
+      type
       volumePercent
     }
     item {
@@ -153,6 +155,8 @@ const Playbar = ({ className }: PlaybarProps) => {
       ? playbackItem.album.images[0]
       : playbackItem?.show.images[0];
 
+  console.log(device);
+
   return (
     <Flex as="footer" direction="column" className={cx(className)}>
       <div className={styles.player}>
@@ -202,7 +206,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           <PlaybarControlButton
             action={Action.TransferringPlayback}
             playbackState={playbackState}
-            icon={<MonitorSpeaker strokeWidth={1} />}
+            icon={<DeviceIcon device={device} strokeWidth={1} />}
           />
           <Flex gap="0.25rem" alignItems="center">
             <PlaybarControlButton
