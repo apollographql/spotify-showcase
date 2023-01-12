@@ -9,7 +9,7 @@ type PlayButtonProps = {
   size: CSSProperties['width'];
   playing: boolean;
   variant?: 'primary' | 'secondary';
-  onPlay: () => void;
+  onPlay?: () => void;
 };
 
 interface StyleProps extends CSSProperties {
@@ -34,7 +34,7 @@ const PlayButton = ({
       })}
       style={{ '--play-button--size': size } as StyleProps}
       onClick={() => {
-        return playing ? pause() : onClickPlay();
+        return playing ? pause() : onClickPlay?.();
       }}
     >
       {playing ? (
