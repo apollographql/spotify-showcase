@@ -1204,13 +1204,6 @@ type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string,
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
-export type SkipToNextMutationVariables = Exact<{
-  context?: InputMaybe<SkipToNextContextInput>;
-}>;
-
-
-export type SkipToNextMutation = { skipToNext: { __typename: 'SkipToNextResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
-
 export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
@@ -1228,6 +1221,11 @@ export type SeekToPositionMutationVariables = Exact<{
 
 
 export type SeekToPositionMutation = { seekToPosition: { __typename: 'SeekToPositionResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null } | null } | null };
+
+export type SkipToNextMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SkipToNextMutation = { skipToNext: { __typename: 'SkipToNextResponse', playbackState: { __typename: 'PlaybackState', item: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null } | null } | null };
 
 export type SkipToPreviousMutationVariables = Exact<{ [key: string]: never; }>;
 
