@@ -409,6 +409,8 @@ export type Mutation = {
   resumePlayback: Maybe<ResumePlaybackResponse>;
   /** Seeks to the given position in the user’s currently playing track. */
   seekToPosition: Maybe<SeekToPositionResponse>;
+  /** Set the repeat mode for the user's playback. */
+  setRepeatMode: Maybe<SetRepeatModeResponse>;
   /** Set the volume for the user’s current playback device. */
   setVolume: Maybe<SetVolumeResponse>;
   /** Toggle shuffle on or off for user’s playback. */
@@ -444,6 +446,12 @@ export type MutationresumePlaybackArgs = {
 export type MutationseekToPositionArgs = {
   context?: InputMaybe<SeekToPositionContextInput>;
   positionMs: Scalars['Int'];
+};
+
+
+export type MutationsetRepeatModeArgs = {
+  context?: InputMaybe<SetRepeatModeContextInput>;
+  state: RepeatMode;
 };
 
 
@@ -529,7 +537,7 @@ export type PlaybackState = {
   /** Progress into the currently playing track or episode. Can be `null` */
   progressMs: Maybe<Scalars['Int']>;
   /** off, track, context */
-  repeatState: Scalars['String'];
+  repeatState: RepeatMode;
   /** If shuffle is on or off. */
   shuffleState: Scalars['Boolean'];
   /** Unix Millisecond Timestamp when data was fetched. */
@@ -841,6 +849,12 @@ export enum ReleaseDatePrecision {
   Year = 'YEAR'
 }
 
+export enum RepeatMode {
+  Context = 'CONTEXT',
+  Off = 'OFF',
+  Track = 'TRACK'
+}
+
 export type ResetFieldConfigResponse = {
   __typename: 'ResetFieldConfigResponse';
   /** The updated field config */
@@ -931,6 +945,17 @@ export type SeekToPositionContextInput = {
 export type SeekToPositionResponse = {
   __typename: 'SeekToPositionResponse';
   /** The updated state of playback after seeking to a position. */
+  playbackState: Maybe<PlaybackState>;
+};
+
+export type SetRepeatModeContextInput = {
+  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SetRepeatModeResponse = {
+  __typename: 'SetRepeatModeResponse';
+  /** The updated state of playback after setting a repeat mode. */
   playbackState: Maybe<PlaybackState>;
 };
 
@@ -1236,6 +1261,13 @@ export type SeekToPositionMutationVariables = Exact<{
 
 
 export type SeekToPositionMutation = { seekToPosition: { __typename: 'SeekToPositionResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null } | null } | null };
+
+export type SetRepeatModeMutationVariables = Exact<{
+  state: RepeatMode;
+}>;
+
+
+export type SetRepeatModeMutation = { setRepeatMode: { __typename: 'SetRepeatModeResponse', playbackState: { __typename: 'PlaybackState', repeatState: RepeatMode } | null } | null };
 
 export type SetVolumeMutationVariables = Exact<{
   volumePercent: Scalars['Int'];
