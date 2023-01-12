@@ -157,14 +157,14 @@ const Playbar = ({ className }: PlaybarProps) => {
     <Flex as="footer" direction="column" className={cx(className)}>
       <div className={styles.player}>
         <Flex gap="1rem" alignItems="center">
-          <CoverPhoto size="3.5rem" image={coverPhoto} />
+          <CoverPhoto size="4rem" image={coverPhoto} />
           {playbackItem?.__typename === 'Track' ? (
             <TrackPlaybackDetails track={playbackItem} />
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}
         </Flex>
-        <Flex direction="column" gap="0.75rem">
+        <Flex direction="column" gap="0.5rem">
           <Flex alignItems="center" gap="1rem" justifyContent="center">
             <PlaybarControlButton
               action={Action.TogglingShuffle}
