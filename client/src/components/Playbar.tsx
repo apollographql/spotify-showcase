@@ -14,13 +14,23 @@ import {
   PlaybarControlButton_playbackState as PlaybackState,
 } from '../types/api';
 import merge from 'deepmerge';
-import { Volume1, SkipForward, SkipBack, Shuffle, Repeat } from 'lucide-react';
+import {
+  List,
+  MonitorSpeaker,
+  Volume1,
+  SkipForward,
+  SkipBack,
+  Shuffle,
+  Repeat,
+  Volume,
+} from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import CircularPlayButton from './CircularPlayButton';
 import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
 import PlaybarControlButton from './PlaybarControlButton';
+import ProgressBar from './ProgressBar';
 import { overwriteMerge } from '../utils/deepmerge';
 
 interface PlaybarProps {
@@ -36,6 +46,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     device {
       id
       name
+      volumePercent
     }
     item {
       __typename
@@ -179,10 +190,38 @@ const Playbar = ({ className }: PlaybarProps) => {
             />
           </Flex>
         </Flex>
-        <Flex />
+        <Flex justifyContent="end" gap="1rem" alignItems="center">
+          <PlaybarControlButton
+            action={Action.TransferringPlayback}
+            playbackState={playbackState}
+            icon={<List strokeWidth={1} />}
+          />
+          <PlaybarControlButton
+            action={Action.TransferringPlayback}
+            playbackState={playbackState}
+            icon={<MonitorSpeaker strokeWidth={1} />}
+          />
+          <Flex gap="0.25rem" alignItems="center">
+            <PlaybarControlButton
+              action={Action.TransferringPlayback}
+              playbackState={playbackState}
+              icon={<Volume strokeWidth={1} />}
+            />
+            <ProgressBar
+              animate={false}
+              max={100}
+              value={device?.volumePercent ?? 0}
+              width="100px"
+            />
+          </Flex>
+        </Flex>
       </div>
       {device && (
-        <Flex alignItems="center" className={styles.device}>
+        <Flex
+          alignItems="center"
+          className={styles.device}
+          justifyContent="end"
+        >
           <Volume1 /> Listening on {device.name}
         </Flex>
       )}
