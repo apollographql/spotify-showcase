@@ -683,6 +683,10 @@ export namespace Spotify {
           volume_percent: number;
           device_id?: string;
         };
+        '/me/player/shuffle': {
+          state: boolean;
+          device_id?: string;
+        };
       }
     }
   }

@@ -66,6 +66,13 @@ const resolvers: MutationResolvers = {
 
     return { playbackState: null };
   },
+  shufflePlayback: async (_, { state, context }, { dataSources }) => {
+    await dataSources.spotify.shufflePlayback({
+      params: { state, device_id: maybe(context?.deviceId) },
+    });
+
+    return { playbackState: null };
+  },
   skipToNext: async (_, { context }, { dataSources }) => {
     await dataSources.spotify.skipToNext({
       params: { device_id: maybe(context?.deviceId) },

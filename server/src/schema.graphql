@@ -159,6 +159,22 @@ type Mutation {
   ): SetVolumeResponse
 
   """
+  Toggle shuffle on or off for user’s playback.
+  """
+  shufflePlayback(
+    """
+    `true`: Shuffle user's playback.
+    `false`: Do not shuffle user's playback.
+    """
+    state: Boolean!
+
+    """
+    Additional context to determine the device where the action should occur.
+    """
+    context: ShufflePlaybackContextInput
+  ): ShufflePlaybackResponse
+
+  """
   Skips to next track in the user’s queue.
   """
   skipToNext(
@@ -1428,6 +1444,19 @@ input SetVolumeContextInput {
 
 type SetVolumeResponse {
   "The state of playback after the volume has been set."
+  playbackState: PlaybackState
+}
+
+type ShufflePlaybackContextInput {
+  """
+  The id of the device this command is targeting. If not supplied, the user's
+  currently active device is the target.
+  """
+  deviceId: ID
+}
+
+type ShufflePlaybackResponse {
+  "The state of playback after shuffling playback."
   playbackState: PlaybackState
 }
 

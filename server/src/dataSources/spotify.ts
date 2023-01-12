@@ -11,7 +11,7 @@ type PutRequest = NonNullable<Parameters<RESTDataSource['put']>[1]>;
 type PostRequest = NonNullable<Parameters<RESTDataSource['post']>[1]>;
 type RawQueryParams = Record<
   string,
-  string | string[] | number | null | undefined
+  string | string[] | number | boolean | null | undefined
 >;
 
 interface GetRequestOptions extends Omit<GetRequest, 'params'> {
@@ -267,6 +267,14 @@ export default class SpotifyAPI extends RESTDataSource {
 
   async setVolume({ params }: RequestParams<'PUT', '/me/player/volume'>) {
     await this._put('/me/player/volume', { params });
+
+    return true;
+  }
+
+  async shufflePlayback({
+    params,
+  }: RequestParams<'PUT', '/me/player/shuffle'>) {
+    await this._put('/me/player/shuffle', { params });
 
     return true;
   }
