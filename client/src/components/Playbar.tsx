@@ -149,9 +149,7 @@ const Playbar = ({ className }: PlaybarProps) => {
             <TrackPlaybackDetails track={playbackItem} />
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
-          ) : (
-            <CoverPhoto size="3.5rem" image={null} />
-          )}
+          ) : null}
         </Flex>
         <Flex direction="column" gap="0.5rem" alignItems="center">
           <Flex alignItems="center" gap="1rem">
