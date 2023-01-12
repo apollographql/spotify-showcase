@@ -14,7 +14,7 @@ import {
   PlaybarSubscriptionVariables,
 } from '../types/api';
 import merge from 'deepmerge';
-import { List, Volume1, Shuffle, Repeat, Volume } from 'lucide-react';
+import { List, Volume1, Repeat, Volume } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
@@ -23,6 +23,7 @@ import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
 import PlaybarControlButton from './PlaybarControlButton';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
+import ShufflePlaybackControl from './ShufflePlaybackControl';
 import SkipToNextControl from './SkipToNextControl';
 import SkipToPreviousControl from './SkipToPreviousControl';
 import VolumeBar from './VolumeBar';
@@ -35,6 +36,7 @@ interface PlaybarProps {
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment PlaybackStateFragment on PlaybackState {
     isPlaying
+    shuffleState
     actions {
       disallows
     }
@@ -163,9 +165,10 @@ const Playbar = ({ className }: PlaybarProps) => {
         </Flex>
         <Flex direction="column" gap="0.5rem">
           <Flex alignItems="center" gap="1.25rem" justifyContent="center">
-            <PlaybarControlButton
+            <ShufflePlaybackControl
+              shuffled={playbackState?.shuffleState ?? false}
               disallowed={disallowed(Action.TogglingShuffle)}
-              icon={<Shuffle size="1.25rem" />}
+              size="1.25rem"
             />
             <SkipToPreviousControl
               disallowed={disallowed(Action.SkippingPrev)}
