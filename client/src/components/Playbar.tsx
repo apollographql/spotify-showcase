@@ -14,15 +14,7 @@ import {
   PlaybarSubscriptionVariables,
 } from '../types/api';
 import merge from 'deepmerge';
-import {
-  List,
-  Volume1,
-  SkipForward,
-  SkipBack,
-  Shuffle,
-  Repeat,
-  Volume,
-} from 'lucide-react';
+import { List, Volume1, SkipBack, Shuffle, Repeat, Volume } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
@@ -32,11 +24,15 @@ import TrackPlaybackDetails from './TrackPlaybackDetails';
 import PlaybarControlButton from './PlaybarControlButton';
 import ProgressBar from './ProgressBar';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
+import SkipToNextControl from './SkipToNextControl';
 import { overwriteMerge } from '../utils/deepmerge';
+import { Get } from 'type-fest';
 
 interface PlaybarProps {
   className?: string;
 }
+
+type PlaybackState = NonNullable<Get<PlaybarQuery, 'me.player.playbackState'>>;
 
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment PlaybackStateFragment on PlaybackState {
@@ -75,11 +71,9 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     }
 
     ...PlaybackItemProgressBar_playbackState
-    ...PlaybarControlButton_playbackState
   }
 
   ${PlaybackItemProgressBar.fragments.playbackState}
-  ${PlaybarControlButton.fragments.playbackState}
   ${EpisodePlaybackDetails.fragments.episode}
   ${TrackPlaybackDetails.fragments.track}
 `;
@@ -150,10 +144,13 @@ const Playbar = ({ className }: PlaybarProps) => {
   const playbackState = data.me?.player.playbackState;
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
+  const disallows = playbackState?.actions.disallows ?? [];
   const coverPhoto =
     playbackItem?.__typename === 'Track'
       ? playbackItem.album.images[0]
       : playbackItem?.show.images[0];
+
+  const disallowed = (action: Action) => disallows.includes(action);
 
   return (
     <Flex as="footer" direction="column" className={cx(className)}>
@@ -169,27 +166,20 @@ const Playbar = ({ className }: PlaybarProps) => {
         <Flex direction="column" gap="0.5rem">
           <Flex alignItems="center" gap="1.25rem" justifyContent="center">
             <PlaybarControlButton
-              action={Action.TogglingShuffle}
-              playbackState={playbackState}
+              disallowed={disallowed(Action.TogglingShuffle)}
               icon={<Shuffle size="1.25rem" />}
             />
             <PlaybarControlButton
-              action={Action.SkippingPrev}
-              playbackState={playbackState}
+              disallowed={disallowed(Action.SkippingPrev)}
               icon={<SkipBack fill="currentColor" />}
             />
             <PlayButton
               size="2.5rem"
               playing={playbackState?.isPlaying ?? false}
             />
+            <SkipToNextControl disallowed={disallowed(Action.SkippingNext)} />
             <PlaybarControlButton
-              action={Action.SkippingNext}
-              playbackState={playbackState}
-              icon={<SkipForward fill="currentColor" />}
-            />
-            <PlaybarControlButton
-              action={Action.TogglingRepeatTrack}
-              playbackState={playbackState}
+              disallowed={disallowed(Action.TogglingRepeatTrack)}
               icon={<Repeat />}
             />
           </Flex>
@@ -198,20 +188,17 @@ const Playbar = ({ className }: PlaybarProps) => {
         <Flex justifyContent="end" gap="1rem" alignItems="center">
           <Link to="/queue" className={styles.controlLink}>
             <PlaybarControlButton
-              action={Action.TransferringPlayback}
-              playbackState={playbackState}
+              disallowed={false}
               icon={<List strokeWidth={1.5} />}
             />
           </Link>
           <PlaybarControlButton
-            action={Action.TransferringPlayback}
-            playbackState={playbackState}
+            disallowed={disallowed(Action.TransferringPlayback)}
             icon={<DeviceIcon device={device} strokeWidth={1.5} />}
           />
           <Flex gap="0.25rem" alignItems="center">
             <PlaybarControlButton
-              action={Action.TransferringPlayback}
-              playbackState={playbackState}
+              disallowed={false}
               icon={<Volume strokeWidth={1.5} />}
             />
             <ProgressBar
@@ -235,5 +222,32 @@ const Playbar = ({ className }: PlaybarProps) => {
     </Flex>
   );
 };
+
+// interface SkipToNextControlProps {
+//   playbackState: PlaybackState | null | undefined;
+// }
+
+// const SKIP_TO_NEXT_MUTATION = gql`
+//   mutation skipToNext($context: SkipToNextContextInput) {
+//     skipToNext(context: $context) {
+//       playbackState {
+//         isPlaying
+//       }
+//     }
+//   }
+// `;
+
+// const SkipToNextControl = ({ playbackState }: SkipToNextControlProps) => {
+//   const [skipToNext] = useMutation(SKIP_TO_NEXT_MUTATION);
+
+//   return (
+//     <PlaybarControlButton
+//       action={Action.SkippingNext}
+//       playbackState={playbackState}
+//       icon={<SkipForward fill="currentColor" />}
+//       onClick={() => skipToNext()}
+//     />
+//   );
+// };
 
 export default Playbar;

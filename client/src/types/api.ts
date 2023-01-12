@@ -405,7 +405,12 @@ export type Mutation = {
   pausePlayback: Maybe<PausePlaybackResponse>;
   /** Reset a field's config back to its default values. */
   resetFieldConfig: Maybe<ResetFieldConfigResponse>;
+  /** Start a new context or resume current playback on the user's active device. */
   resumePlayback: Maybe<ResumePlaybackResponse>;
+  /** Skips to next track in the user’s queue. */
+  skipToNext: Maybe<SkipToNextResponse>;
+  /** Skips to previous track in the user’s queue. */
+  skipToPrevious: Maybe<SkipToPreviousResponse>;
   /**
    * Update configuration for a field in the schema. Allows tweaks to the
    * synthetic timeouts and error rates associated with the field. By default, both
@@ -427,6 +432,16 @@ export type MutationresetFieldConfigArgs = {
 
 export type MutationresumePlaybackArgs = {
   context?: InputMaybe<ResumePlaybackContextInput>;
+};
+
+
+export type MutationskipToNextArgs = {
+  context?: InputMaybe<SkipToNextContextInput>;
+};
+
+
+export type MutationskipToPreviousArgs = {
+  context?: InputMaybe<SkipToPreviousContextInput>;
 };
 
 
@@ -950,6 +965,34 @@ export type ShowEpisodesConnection = {
   pageInfo: PageInfo;
 };
 
+export type SkipToNextContextInput = {
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SkipToNextResponse = {
+  __typename: 'SkipToNextResponse';
+  /** The updated state of playback after skipping to next. */
+  playbackState: Maybe<PlaybackState>;
+};
+
+export type SkipToPreviousContextInput = {
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SkipToPreviousResponse = {
+  __typename: 'SkipToPreviousResponse';
+  /** The updated state of playback after skipping to previous. */
+  playbackState: Maybe<PlaybackState>;
+};
+
 export type Subscription = {
   __typename: 'Subscription';
   playbackStateChanged: Maybe<PlaybackState>;
@@ -1112,8 +1155,6 @@ export type PlaybarSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 export type PlaybarSubscription = { playbackStateChanged: { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null } | null };
 
-export type PlaybarControlButton_playbackState = { __typename: 'PlaybackState', actions: { __typename: 'Actions', disallows: Array<Action> } };
-
 export type PlaylistTable_playlistTrackEdges = { __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } };
 
 export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
@@ -1123,6 +1164,13 @@ type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: str
 type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
+
+export type skipToNextVariables = Exact<{
+  context?: InputMaybe<SkipToNextContextInput>;
+}>;
+
+
+export type skipToNext = { skipToNext: { __typename: 'SkipToNextResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
 
 export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
