@@ -165,7 +165,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           ) : null}
         </Flex>
         <Flex direction="column" gap="0.5rem">
-          <Flex alignItems="center" gap="1rem" justifyContent="center">
+          <Flex alignItems="center" gap="1.25rem" justifyContent="center">
             <PlaybarControlButton
               action={Action.TogglingShuffle}
               playbackState={playbackState}
