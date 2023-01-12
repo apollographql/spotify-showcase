@@ -6,14 +6,16 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import {
+  Action,
   PlaybarQuery,
   PlaybarQueryVariables,
   PlaybarSubscription,
   PlaybarSubscriptionVariables,
 } from '../types/api';
 import merge from 'deepmerge';
-import { Volume1 } from 'lucide-react';
+import { Volume1, SkipForward, SkipBack, Shuffle, Repeat } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
+import CircularPlayButton from './CircularPlayButton';
 import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
@@ -25,6 +27,10 @@ interface PlaybarProps {
 
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment PlaybackStateFragment on PlaybackState {
+    isPlaying
+    actions {
+      disallows
+    }
     device {
       id
       name
@@ -124,10 +130,13 @@ const Playbar = ({ className }: PlaybarProps) => {
   const playbackState = data.me?.player.playbackState;
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
+  const disallowedActions: any[] = []; //playbackState?.actions.disallows ?? [];
   const coverPhoto =
     playbackItem?.__typename === 'Track'
       ? playbackItem.album.images[0]
       : playbackItem?.show.images[0];
+
+  console.log(playbackState);
 
   return (
     <Flex as="footer" direction="column" className={cx(className)}>
@@ -142,6 +151,39 @@ const Playbar = ({ className }: PlaybarProps) => {
             <CoverPhoto size="3.5rem" image={null} />
           )}
         </Flex>
+        <Flex direction="column" gap="0.5rem" alignItems="center">
+          <Flex alignItems="center" gap="1rem">
+            <button
+              className={styles.controlButton}
+              disabled={disallowedActions.includes(Action.TogglingShuffle)}
+            >
+              <Shuffle />
+            </button>
+            <button
+              className={styles.controlButton}
+              disabled={disallowedActions.includes(Action.SkippingPrev)}
+            >
+              <SkipBack fill="currentColor" />
+            </button>
+            <CircularPlayButton
+              size="2.5rem"
+              playing={playbackState?.isPlaying ?? false}
+            />
+            <button
+              className={styles.controlButton}
+              disabled={disallowedActions.includes(Action.SkippingNext)}
+            >
+              <SkipForward fill="currentColor" />
+            </button>
+            <button
+              className={styles.controlButton}
+              disabled={disallowedActions.includes(Action.TogglingRepeatTrack)}
+            >
+              <Repeat />
+            </button>
+          </Flex>
+        </Flex>
+        <Flex />
       </div>
       {device && (
         <Flex alignItems="center" className={styles.device}>

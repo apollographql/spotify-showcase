@@ -19,7 +19,6 @@
   }
 
   &:hover {
-    color: var(--text-color--base);
     transform: scale(1.1, 1.1);
   }
 }
@@ -27,4 +26,16 @@
 .centeredPlayIcon {
   position: relative;
   left: 5%;
+}
+
+.primary {
+  color: #000;
+  background-color: var(--color--theme);
+  border-color: var(--color--theme);
+}
+
+.secondary {
+  color: #000;
+  background-color: var(--color--white);
+  border-color: var(--color--white);
 }

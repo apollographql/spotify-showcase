@@ -30,3 +30,21 @@
 .coverPhoto {
   --placeholder-cover-photo--background: var(--background--surface--hover);
 }
+
+.controlButton {
+  border: none;
+  background: transparent;
+  color: var(--text-color--muted);
+  padding: 0;
+  cursor: pointer;
+  transition: 0.15s color ease-out;
+
+  &:hover {
+    color: var(--color--white);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--text-color--disabled);
+  }
+}
