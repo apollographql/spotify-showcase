@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import useInterval from './useInterval';
+import useDidUpdateValue from './useDidUpdateValue';
 
 interface PlaybackState {
   isPlaying: boolean;
@@ -15,22 +16,25 @@ interface PlaybackState {
 const usePlaybackProgress = (
   playbackState: PlaybackState | null | undefined
 ) => {
+  const isPlaying = playbackState?.isPlaying ?? false;
   const progressMs = playbackState?.progressMs ?? 0;
   const remoteTimestamp = playbackState?.timestamp;
   const timestampRef = useRef(remoteTimestamp);
   const [adjustedProgressMs, setAdjustedProgressMs] = useState(progressMs);
 
-  useInterval(
-    () => {
-      const timestamp = timestampRef.current;
+  useInterval(() => {
+    const timestamp = timestampRef.current;
 
-      if (timestamp != null) {
-        setAdjustedProgressMs(progressMs + (Date.now() - timestamp));
-      }
-    },
-    playbackState?.isPlaying ? 1000 : null
-  );
+    if (isPlaying && timestamp != null) {
+      setAdjustedProgressMs(progressMs + (Date.now() - timestamp));
+    }
+  }, 1000);
 
+  // Immediately update to the most recent progress when play status changes
+  useDidUpdateValue(isPlaying, () => setAdjustedProgressMs(progressMs));
+
+  // When the user seeks inside the track, we want to more immediately update
+  // the value than waiting for the next tick of the interval.
   useEffect(() => {
     if (Math.abs(adjustedProgressMs - progressMs) > 1000) {
       setAdjustedProgressMs(progressMs);
