@@ -1,10 +1,15 @@
 .playbarControlButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   background: transparent;
   color: var(--text-color--muted);
   padding: 0;
   cursor: pointer;
   transition: 0.15s color ease-out;
+  width: 1.5rem;
+  height: 1.5rem;
 
   &:hover {
     color: var(--color--white);
@@ -13,5 +18,29 @@
   &:disabled {
     cursor: not-allowed;
     color: var(--text-color--disabled);
+  }
+}
+
+.active {
+  color: var(--color--theme);
+  position: relative;
+
+  &:hover {
+    color: var(--color--theme--light);
+  }
+
+  &::after {
+    --size: 0.25rem;
+
+    content: '';
+    position: absolute;
+    display: block;
+    background: currentColor;
+    border-radius: 50%;
+    width: var(--size);
+    height: var(--size);
+    left: 50%;
+    bottom: -0.5rem;
+    transform: translateX(-50%);
   }
 }
