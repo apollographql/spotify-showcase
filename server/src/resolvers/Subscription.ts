@@ -1,25 +1,22 @@
 import { SubscriptionResolvers } from './types';
 import { pollPlaybackState } from '../utils/spotify';
-import camelize from 'camelize';
+import { Spotify } from '../dataSources/spotify.types';
 import { TOPICS } from '../constants';
 import { map, distinctUntilChanged } from 'rxjs';
 import { equal } from '@wry/equality';
-import { getSelectionsMap, FieldSelections } from '../utils/graphql';
-import { isPlainObject } from '../utils/common';
+import { GraphQLResolveInfo } from 'graphql';
+import { omit } from 'lodash';
+import { PartialDeep } from 'type-fest';
+import { selectsField } from '../utils/graphql';
 
 const resolvers: SubscriptionResolvers = {
   playbackStateChanged: {
     subscribe: async (_, __, { pubsub, dataSources }, info) => {
-      const selections = getSelectionsMap(
-        info.fieldNodes[0].selectionSet,
-        info.fragments
-      );
-
       const subscription = pollPlaybackState(dataSources.spotify)
         .pipe(
           map(
             (playbackState) =>
-              playbackState && pickSelectedFields(playbackState, selections)
+              playbackState && maybeOmitVolatileFields(playbackState, info)
           ),
           distinctUntilChanged((prev, curr) => equal(prev, curr))
         )
@@ -43,52 +40,51 @@ const resolvers: SubscriptionResolvers = {
   },
 };
 
-const ALWAYS_KEPT_FIELDS = ['type'];
+type Operation = (
+  playbackState: PartialDeep<Spotify.Object.PlaybackState>,
+  info: GraphQLResolveInfo
+) => PartialDeep<Spotify.Object.PlaybackState>;
 
-// Return a partial representation of the object based on the selection set.
-// This allows us to more easily detect if the playback has changed only for the
-// fields that we care about
-const pickSelectedFields = <T extends object>(
-  object: T,
-  selections: FieldSelections
-): Partial<T> => {
-  const map = Object.entries(object).reduce((map, [key, value]) => {
-    const camelizedKey = camelize(key);
+const operations: Operation[] = [
+  (playbackState) => ({
+    ...playbackState,
+    item: omit(playbackState.item, 'available_markets'),
+  }),
+  (playbackState) => {
+    const playbackItem = playbackState.item;
+    const updatedItem =
+      playbackItem?.type === 'track'
+        ? omit(playbackItem, ['album.available_markets'])
+        : playbackItem;
 
-    if (ALWAYS_KEPT_FIELDS.includes(key)) {
-      return map.set(key, value);
-    }
+    return {
+      ...playbackState,
+      item: updatedItem,
+    };
+  },
+  (playbackState, info) =>
+    selectsField(['playbackStateChanged', 'timestamp'], info)
+      ? playbackState
+      : omit(playbackState, ['timestamp']),
+  (playbackState, info) =>
+    selectsField(['playbackStateChanged', 'progressMs'], info)
+      ? playbackState
+      : omit(playbackState, ['progress_ms']),
+];
 
-    if (!selections.has(camelizedKey)) {
-      return map;
-    }
-
-    if (isPlainObject(value)) {
-      return map.set(
-        key,
-        pickSelectedFields(
-          value,
-          selections.get(camelizedKey) as FieldSelections
-        )
-      );
-    }
-
-    if (Array.isArray(value)) {
-      return map.set(
-        key,
-        value.map((item) =>
-          pickSelectedFields(
-            item,
-            selections.get(camelizedKey) as FieldSelections
-          )
-        )
-      );
-    }
-
-    return map.set(key, value);
-  }, new Map());
-
-  return Object.fromEntries(map.entries());
+// Return a partial representation of the object with volatile fields removed.
+// Volatile fields are fields that change often that make it difficult to detect
+// when the playback state has changed. By removing volatile fields, this allows
+// us to more easily detect if the playback has changed only for the
+// fields that we care about, ensuring we publish on the topic less often than
+// needed.
+const maybeOmitVolatileFields = (
+  playbackState: Spotify.Object.PlaybackState,
+  info: GraphQLResolveInfo
+): PartialDeep<Spotify.Object.PlaybackState> => {
+  return operations.reduce((playbackState, operation) => {
+    return operation(playbackState, info);
+  }, playbackState as PartialDeep<Spotify.Object.PlaybackState>);
 };
 
 export default resolvers;
