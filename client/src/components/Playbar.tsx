@@ -5,6 +5,7 @@ import {
   useSubscription,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import {
   Action,
   PlaybarQuery,
@@ -15,7 +16,6 @@ import {
 import merge from 'deepmerge';
 import {
   List,
-  MonitorSpeaker,
   Volume1,
   SkipForward,
   SkipBack,
@@ -198,21 +198,23 @@ const Playbar = ({ className }: PlaybarProps) => {
           <PlaybackItemProgressBar playbackState={playbackState} />
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
+          <Link to="/queue">
+            <PlaybarControlButton
+              action={Action.TransferringPlayback}
+              playbackState={playbackState}
+              icon={<List strokeWidth={1.5} />}
+            />
+          </Link>
           <PlaybarControlButton
             action={Action.TransferringPlayback}
             playbackState={playbackState}
-            icon={<List strokeWidth={1} />}
-          />
-          <PlaybarControlButton
-            action={Action.TransferringPlayback}
-            playbackState={playbackState}
-            icon={<DeviceIcon device={device} strokeWidth={1} />}
+            icon={<DeviceIcon device={device} strokeWidth={1.5} />}
           />
           <Flex gap="0.25rem" alignItems="center">
             <PlaybarControlButton
               action={Action.TransferringPlayback}
               playbackState={playbackState}
-              icon={<Volume strokeWidth={1} />}
+              icon={<Volume strokeWidth={1.5} />}
             />
             <ProgressBar
               animate={false}
