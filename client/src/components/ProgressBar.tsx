@@ -24,6 +24,8 @@ const ProgressBar = ({
   value,
   width,
 }: ProgressBarProps) => {
+  max = max === 0 ? 1 : max;
+
   return (
     <Progress.Root
       className={cx(styles.progressBar, className)}
@@ -31,7 +33,7 @@ const ProgressBar = ({
       value={value}
       style={{ '--progress-bar--width': width } as StyleProps}
       onClick={(event) => {
-        if (!onChange) {
+        if (!onChange || max === 0) {
           return;
         }
 
