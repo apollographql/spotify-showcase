@@ -28,6 +28,7 @@ const ALBUM_ROUTE_QUERY = gql`
       }
       copyrights {
         text
+        type
       }
       images {
         url
@@ -96,7 +97,11 @@ const AlbumRoute = () => {
             <ReleaseDate releaseDate={album.releaseDate} />
           </Text>
           {album.copyrights.map((copyright) => (
-            <Text key={copyright.text} color="muted" size="xxs">
+            <Text
+              key={copyright.text.concat(copyright.type ?? '')}
+              color="muted"
+              size="xxs"
+            >
               {copyright.text}
             </Text>
           ))}
