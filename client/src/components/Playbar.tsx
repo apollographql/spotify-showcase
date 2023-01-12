@@ -162,8 +162,8 @@ const Playbar = ({ className }: PlaybarProps) => {
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}
         </Flex>
-        <Flex direction="column" gap="0.5rem" alignItems="center">
-          <Flex alignItems="center" gap="1rem">
+        <Flex direction="column" gap="0.75rem">
+          <Flex alignItems="center" gap="1rem" justifyContent="center">
             <PlaybarControlButton
               action={Action.TogglingShuffle}
               playbackState={playbackState}
@@ -188,6 +188,9 @@ const Playbar = ({ className }: PlaybarProps) => {
               playbackState={playbackState}
               icon={<Repeat />}
             />
+          </Flex>
+          <Flex gap="0.5rem">
+            <ProgressBar max={100} value={50} width="100%" />
           </Flex>
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
