@@ -22,6 +22,7 @@ import DeviceIcon from './DeviceIcon';
 import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
+import MuteControl from './MuteControl';
 import PlaybarControlButton from './PlaybarControlButton';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
 import RepeatControl from './RepeatControl';
@@ -202,9 +203,9 @@ const Playbar = ({ className }: PlaybarProps) => {
             icon={<DeviceIcon device={device} strokeWidth={1.5} />}
           />
           <Flex gap="0.25rem" alignItems="center">
-            <PlaybarControlButton
+            <MuteControl
               disallowed={!device}
-              icon={<Volume strokeWidth={1.5} />}
+              volumePercent={device?.volumePercent ?? 0}
             />
             <VolumeBar
               volumePercent={device?.volumePercent ?? 0}
