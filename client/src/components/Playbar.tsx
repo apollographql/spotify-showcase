@@ -198,7 +198,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           <PlaybackItemProgressBar playbackState={playbackState} />
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
-          <Link to="/queue">
+          <Link to="/queue" className={styles.controlLink}>
             <PlaybarControlButton
               action={Action.TransferringPlayback}
               playbackState={playbackState}
