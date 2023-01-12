@@ -169,7 +169,7 @@ const Playbar = ({ className }: PlaybarProps) => {
             <PlaybarControlButton
               action={Action.TogglingShuffle}
               playbackState={playbackState}
-              icon={<Shuffle />}
+              icon={<Shuffle size="1.25rem" />}
             />
             <PlaybarControlButton
               action={Action.SkippingPrev}
