@@ -258,7 +258,7 @@ export namespace Spotify {
 
     export interface PlaybackState {
       device: Device;
-      repeat_state: string;
+      repeat_state: RepeatMode;
       shuffle_state: boolean;
       context: Context | null;
       timestamp: number;
@@ -381,6 +381,8 @@ export namespace Spotify {
         url: string | null;
       };
     }
+
+    export type RepeatMode = 'context' | 'off' | 'track';
 
     export interface Recommendations {
       seeds: RecommendationSeed[];
@@ -675,16 +677,20 @@ export namespace Spotify {
         '/me/player/play': {
           device_id?: string;
         };
+        '/me/player/repeat': {
+          state: Object.RepeatMode;
+          device_id?: string;
+        };
         '/me/player/seek': {
           position_ms: number;
           device_id?: string;
         };
-        '/me/player/volume': {
-          volume_percent: number;
-          device_id?: string;
-        };
         '/me/player/shuffle': {
           state: boolean;
+          device_id?: string;
+        };
+        '/me/player/volume': {
+          volume_percent: number;
           device_id?: string;
         };
       }

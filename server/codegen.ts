@@ -108,6 +108,11 @@ const config: CodegenConfig = {
             MONTH: 'month',
             YEAR: 'year',
           },
+          RepeatMode: {
+            CONTEXT: 'context',
+            OFF: 'off',
+            TRACK: 'track',
+          },
         },
         scalars: {
           DateTime: 'Date',

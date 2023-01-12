@@ -412,6 +412,8 @@ export type Mutation = {
   resumePlayback?: Maybe<ResumePlaybackResponse>;
   /** Seeks to the given position in the user’s currently playing track. */
   seekToPosition?: Maybe<SeekToPositionResponse>;
+  /** Set the repeat mode for the user's playback. */
+  setRepeatMode?: Maybe<SetRepeatModeResponse>;
   /** Set the volume for the user’s current playback device. */
   setVolume?: Maybe<SetVolumeResponse>;
   /** Toggle shuffle on or off for user’s playback. */
@@ -447,6 +449,12 @@ export type MutationResumePlaybackArgs = {
 export type MutationSeekToPositionArgs = {
   context?: InputMaybe<SeekToPositionContextInput>;
   positionMs: Scalars['Int'];
+};
+
+
+export type MutationSetRepeatModeArgs = {
+  context?: InputMaybe<SetRepeatModeContextInput>;
+  state: RepeatMode;
 };
 
 
@@ -532,7 +540,7 @@ export type PlaybackState = {
   /** Progress into the currently playing track or episode. Can be `null` */
   progressMs?: Maybe<Scalars['Int']>;
   /** off, track, context */
-  repeatState: Scalars['String'];
+  repeatState: RepeatMode;
   /** If shuffle is on or off. */
   shuffleState: Scalars['Boolean'];
   /** Unix Millisecond Timestamp when data was fetched. */
@@ -842,6 +850,11 @@ export type ReleaseDatePrecision =
   | 'month'
   | 'year';
 
+export type RepeatMode =
+  | 'context'
+  | 'off'
+  | 'track';
+
 export type ResetFieldConfigResponse = {
   __typename?: 'ResetFieldConfigResponse';
   /** The updated field config */
@@ -932,6 +945,17 @@ export type SeekToPositionContextInput = {
 export type SeekToPositionResponse = {
   __typename?: 'SeekToPositionResponse';
   /** The updated state of playback after seeking to a position. */
+  playbackState?: Maybe<PlaybackState>;
+};
+
+export type SetRepeatModeContextInput = {
+  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SetRepeatModeResponse = {
+  __typename?: 'SetRepeatModeResponse';
+  /** The updated state of playback after setting a repeat mode. */
   playbackState?: Maybe<PlaybackState>;
 };
 
@@ -1284,6 +1308,7 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
+  RepeatMode: RepeatMode;
   ResetFieldConfigResponse: ResolverTypeWrapper<Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
   ResumePlaybackContextInput: ResumePlaybackContextInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
@@ -1295,6 +1320,8 @@ export type ResolversTypes = ResolversObject<{
   SchemaFieldInput: SchemaFieldInput;
   SeekToPositionContextInput: SeekToPositionContextInput;
   SeekToPositionResponse: ResolverTypeWrapper<Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SetRepeatModeContextInput: SetRepeatModeContextInput;
+  SetRepeatModeResponse: ResolverTypeWrapper<Omit<SetRepeatModeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   SetVolumeContextInput: SetVolumeContextInput;
   SetVolumeResponse: ResolverTypeWrapper<Omit<SetVolumeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
@@ -1374,6 +1401,8 @@ export type ResolversParentTypes = ResolversObject<{
   SchemaFieldInput: SchemaFieldInput;
   SeekToPositionContextInput: SeekToPositionContextInput;
   SeekToPositionResponse: Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SetRepeatModeContextInput: SetRepeatModeContextInput;
+  SetRepeatModeResponse: Omit<SetRepeatModeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   SetVolumeContextInput: SetVolumeContextInput;
   SetVolumeResponse: Omit<SetVolumeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
@@ -1566,6 +1595,7 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
   resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
   seekToPosition?: Resolver<Maybe<ResolversTypes['SeekToPositionResponse']>, ParentType, ContextType, RequireFields<MutationSeekToPositionArgs, 'positionMs'>>;
+  setRepeatMode?: Resolver<Maybe<ResolversTypes['SetRepeatModeResponse']>, ParentType, ContextType, RequireFields<MutationSetRepeatModeArgs, 'state'>>;
   setVolume?: Resolver<Maybe<ResolversTypes['SetVolumeResponse']>, ParentType, ContextType, RequireFields<MutationSetVolumeArgs, 'volumePercent'>>;
   shufflePlayback?: Resolver<Maybe<ResolversTypes['ShufflePlaybackResponse']>, ParentType, ContextType, RequireFields<MutationShufflePlaybackArgs, 'state'>>;
   skipToNext?: Resolver<Maybe<ResolversTypes['SkipToNextResponse']>, ParentType, ContextType, Partial<MutationSkipToNextArgs>>;
@@ -1607,7 +1637,7 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
   isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
   progressMs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  repeatState?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  repeatState?: Resolver<ResolversTypes['RepeatMode'], ParentType, ContextType>;
   shuffleState?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   timestamp?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1705,6 +1735,8 @@ export type ReleaseDateResolvers<ContextType = ContextValue, ParentType extends 
 
 export type ReleaseDatePrecisionResolvers = { DAY: 'day', MONTH: 'month', YEAR: 'year' };
 
+export type RepeatModeResolvers = { CONTEXT: 'context', OFF: 'off', TRACK: 'track' };
+
 export type ResetFieldConfigResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResetFieldConfigResponse'] = ResolversParentTypes['ResetFieldConfigResponse']> = ResolversObject<{
   fieldConfig?: Resolver<Maybe<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1740,6 +1772,11 @@ export type SchemaFieldResolvers<ContextType = ContextValue, ParentType extends 
 }>;
 
 export type SeekToPositionResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SeekToPositionResponse'] = ResolversParentTypes['SeekToPositionResponse']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SetRepeatModeResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SetRepeatModeResponse'] = ResolversParentTypes['SetRepeatModeResponse']> = ResolversObject<{
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -1886,6 +1923,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Recommendations?: RecommendationsResolvers<ContextType>;
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
   ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
+  RepeatMode?: RepeatModeResolvers;
   ResetFieldConfigResponse?: ResetFieldConfigResponseResolvers<ContextType>;
   ResumePlaybackResponse?: ResumePlaybackResponseResolvers<ContextType>;
   ResumePoint?: ResumePointResolvers<ContextType>;
@@ -1893,6 +1931,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;
   SeekToPositionResponse?: SeekToPositionResponseResolvers<ContextType>;
+  SetRepeatModeResponse?: SetRepeatModeResponseResolvers<ContextType>;
   SetVolumeResponse?: SetVolumeResponseResolvers<ContextType>;
   Show?: ShowResolvers<ContextType>;
   ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;

@@ -265,6 +265,12 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  async setRepeatMode({ params }: RequestParams<'PUT', '/me/player/repeat'>) {
+    await this._put('/me/player/repeat', { params });
+
+    return true;
+  }
+
   async setVolume({ params }: RequestParams<'PUT', '/me/player/volume'>) {
     await this._put('/me/player/volume', { params });
 

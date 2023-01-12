@@ -56,6 +56,16 @@ const resolvers: MutationResolvers = {
 
     return { playbackState: null };
   },
+  setRepeatMode: async (_, { state, context }, { dataSources }) => {
+    await dataSources.spotify.setRepeatMode({
+      params: {
+        state,
+        device_id: maybe(context?.deviceId),
+      },
+    });
+
+    return { playbackState: null };
+  },
   setVolume: async (_, { volumePercent, context }, { dataSources }) => {
     await dataSources.spotify.setVolume({
       params: {
