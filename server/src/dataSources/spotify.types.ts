@@ -679,6 +679,10 @@ export namespace Spotify {
           position_ms: number;
           device_id?: string;
         };
+        '/me/player/volume': {
+          volume_percent: number;
+          device_id?: string;
+        };
       }
     }
   }

@@ -412,6 +412,8 @@ export type Mutation = {
   resumePlayback?: Maybe<ResumePlaybackResponse>;
   /** Seeks to the given position in the user’s currently playing track. */
   seekToPosition?: Maybe<SeekToPositionResponse>;
+  /** Set the volume for the user’s current playback device. */
+  setVolume?: Maybe<SetVolumeResponse>;
   /** Skips to next track in the user’s queue. */
   skipToNext?: Maybe<SkipToNextResponse>;
   /** Skips to previous track in the user’s queue. */
@@ -443,6 +445,12 @@ export type MutationResumePlaybackArgs = {
 export type MutationSeekToPositionArgs = {
   context?: InputMaybe<SeekToPositionContextInput>;
   positionMs: Scalars['Int'];
+};
+
+
+export type MutationSetVolumeArgs = {
+  context?: InputMaybe<SetVolumeContextInput>;
+  volumePercent: Scalars['Int'];
 };
 
 
@@ -918,6 +926,17 @@ export type SeekToPositionResponse = {
   playbackState?: Maybe<PlaybackState>;
 };
 
+export type SetVolumeContextInput = {
+  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type SetVolumeResponse = {
+  __typename?: 'SetVolumeResponse';
+  /** The state of playback after the volume has been set. */
+  playbackState?: Maybe<PlaybackState>;
+};
+
 /** Spotify catalog information for a show. */
 export type Show = {
   __typename?: 'Show';
@@ -1253,6 +1272,8 @@ export type ResolversTypes = ResolversObject<{
   SchemaFieldInput: SchemaFieldInput;
   SeekToPositionContextInput: SeekToPositionContextInput;
   SeekToPositionResponse: ResolverTypeWrapper<Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SetVolumeContextInput: SetVolumeContextInput;
+  SetVolumeResponse: ResolverTypeWrapper<Omit<SetVolumeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
   ShowEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
   ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
@@ -1328,6 +1349,8 @@ export type ResolversParentTypes = ResolversObject<{
   SchemaFieldInput: SchemaFieldInput;
   SeekToPositionContextInput: SeekToPositionContextInput;
   SeekToPositionResponse: Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SetVolumeContextInput: SetVolumeContextInput;
+  SetVolumeResponse: Omit<SetVolumeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   Show: Spotify.Object.Show | Spotify.Object.ShowSimplified;
   ShowEpisodeEdge: Spotify.Object.EpisodeSimplified;
   ShowEpisodesConnection: Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>;
@@ -1516,6 +1539,7 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
   resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
   seekToPosition?: Resolver<Maybe<ResolversTypes['SeekToPositionResponse']>, ParentType, ContextType, RequireFields<MutationSeekToPositionArgs, 'positionMs'>>;
+  setVolume?: Resolver<Maybe<ResolversTypes['SetVolumeResponse']>, ParentType, ContextType, RequireFields<MutationSetVolumeArgs, 'volumePercent'>>;
   skipToNext?: Resolver<Maybe<ResolversTypes['SkipToNextResponse']>, ParentType, ContextType, Partial<MutationSkipToNextArgs>>;
   skipToPrevious?: Resolver<Maybe<ResolversTypes['SkipToPreviousResponse']>, ParentType, ContextType, Partial<MutationSkipToPreviousArgs>>;
   updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'config' | 'field'>>;
@@ -1692,6 +1716,11 @@ export type SeekToPositionResponseResolvers<ContextType = ContextValue, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type SetVolumeResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SetVolumeResponse'] = ResolversParentTypes['SetVolumeResponse']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
   episodes?: Resolver<Maybe<ResolversTypes['ShowEpisodesConnection']>, ParentType, ContextType, Partial<ShowEpisodesArgs>>;
@@ -1831,6 +1860,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;
   SeekToPositionResponse?: SeekToPositionResponseResolvers<ContextType>;
+  SetVolumeResponse?: SetVolumeResponseResolvers<ContextType>;
   Show?: ShowResolvers<ContextType>;
   ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;
   ShowEpisodesConnection?: ShowEpisodesConnectionResolvers<ContextType>;
