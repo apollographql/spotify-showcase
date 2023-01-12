@@ -14,7 +14,7 @@ import {
   PlaybarSubscriptionVariables,
 } from '../types/api';
 import merge from 'deepmerge';
-import { List, Volume1, SkipBack, Shuffle, Repeat, Volume } from 'lucide-react';
+import { List, Volume1, Shuffle, Repeat, Volume } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
@@ -22,7 +22,6 @@ import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
 import PlaybarControlButton from './PlaybarControlButton';
-import ProgressBar from './ProgressBar';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
 import SkipToNextControl from './SkipToNextControl';
 import SkipToPreviousControl from './SkipToPreviousControl';
