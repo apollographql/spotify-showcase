@@ -11,6 +11,7 @@ type TextProps<TElement extends ElementType = 'span'> =
       children?: ReactNode;
       interactive?: boolean;
       maxLines?: number;
+      numericVariant?: 'tabular-nums';
       overflow?: 'ellipsis';
       size?: 'base' | 'lg' | 'sm' | 'xs' | 'xxs';
       uppercase?: boolean;
@@ -30,6 +31,7 @@ const Text = <TElement extends ElementType = 'span'>({
   children,
   interactive,
   maxLines,
+  numericVariant,
   overflow,
   size,
   uppercase,
@@ -48,6 +50,7 @@ const Text = <TElement extends ElementType = 'span'>({
         [styles.color__muted]: color === 'muted',
         [styles.interactive]: interactive,
         [styles.lineClamp]: maxLines,
+        [styles.numericVariant__tabularNums]: numericVariant === 'tabular-nums',
         [styles.overflow__ellipsis]: overflow === 'ellipsis' || maxLines,
         [styles.size__base]: size === 'base',
         [styles.size__lg]: size === 'lg',

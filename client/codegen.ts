@@ -20,6 +20,7 @@ const config: CodegenConfig = {
         scalars: {
           DateTime: 'string',
           ErrorRate: 'number',
+          Timestamp: 'number',
         },
         namingConvention: {
           typeNames: 'keep',

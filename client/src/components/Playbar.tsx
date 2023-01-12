@@ -11,7 +11,6 @@ import {
   PlaybarQueryVariables,
   PlaybarSubscription,
   PlaybarSubscriptionVariables,
-  PlaybarControlButton_playbackState as PlaybackState,
 } from '../types/api';
 import merge from 'deepmerge';
 import {
@@ -31,6 +30,7 @@ import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
 import PlaybarControlButton from './PlaybarControlButton';
 import ProgressBar from './ProgressBar';
+import PlaybackItemProgressBar from './PlaybackItemProgressBar';
 import { overwriteMerge } from '../utils/deepmerge';
 
 interface PlaybarProps {
@@ -72,9 +72,11 @@ const PLAYBACK_STATE_FRAGMENT = gql`
       }
     }
 
+    ...PlaybackItemProgressBar_playbackState
     ...PlaybarControlButton_playbackState
   }
 
+  ${PlaybackItemProgressBar.fragments.playbackState}
   ${PlaybarControlButton.fragments.playbackState}
   ${EpisodePlaybackDetails.fragments.episode}
   ${TrackPlaybackDetails.fragments.track}
@@ -189,9 +191,7 @@ const Playbar = ({ className }: PlaybarProps) => {
               icon={<Repeat />}
             />
           </Flex>
-          <Flex gap="0.5rem">
-            <ProgressBar max={100} value={50} width="100%" />
-          </Flex>
+          <PlaybackItemProgressBar playbackState={playbackState} />
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
           <PlaybarControlButton
