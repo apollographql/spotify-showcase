@@ -87,11 +87,7 @@ const PlayButton = ({
       })}
       style={{ '--play-button--size': size } as StyleProps}
       onClick={() => {
-        if (playing) {
-          return handlePause();
-        }
-
-        handleResumePlayback();
+        return playing ? handlePause() : handleResumePlayback();
       }}
     >
       {playing ? (
