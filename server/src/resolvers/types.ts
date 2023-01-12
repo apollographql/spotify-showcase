@@ -1014,12 +1014,11 @@ export type ShowEpisodesConnection = {
 };
 
 export type ShufflePlaybackContextInput = {
-  __typename?: 'ShufflePlaybackContextInput';
   /**
    * The id of the device this command is targeting. If not supplied, the user's
    * currently active device is the target.
    */
-  deviceId?: Maybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']>;
 };
 
 export type ShufflePlaybackResponse = {
@@ -1301,7 +1300,7 @@ export type ResolversTypes = ResolversObject<{
   Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
   ShowEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
   ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
-  ShufflePlaybackContextInput: ResolverTypeWrapper<ShufflePlaybackContextInput>;
+  ShufflePlaybackContextInput: ShufflePlaybackContextInput;
   ShufflePlaybackResponse: ResolverTypeWrapper<Omit<ShufflePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   SkipToNextContextInput: SkipToNextContextInput;
   SkipToNextResponse: ResolverTypeWrapper<Omit<SkipToNextResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
@@ -1778,11 +1777,6 @@ export type ShowEpisodesConnectionResolvers<ContextType = ContextValue, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ShufflePlaybackContextInputResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ShufflePlaybackContextInput'] = ResolversParentTypes['ShufflePlaybackContextInput']> = ResolversObject<{
-  deviceId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
 export type ShufflePlaybackResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ShufflePlaybackResponse'] = ResolversParentTypes['ShufflePlaybackResponse']> = ResolversObject<{
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1903,7 +1897,6 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Show?: ShowResolvers<ContextType>;
   ShowEpisodeEdge?: ShowEpisodeEdgeResolvers<ContextType>;
   ShowEpisodesConnection?: ShowEpisodesConnectionResolvers<ContextType>;
-  ShufflePlaybackContextInput?: ShufflePlaybackContextInputResolvers<ContextType>;
   ShufflePlaybackResponse?: ShufflePlaybackResponseResolvers<ContextType>;
   SkipToNextResponse?: SkipToNextResponseResolvers<ContextType>;
   SkipToPreviousResponse?: SkipToPreviousResponseResolvers<ContextType>;
