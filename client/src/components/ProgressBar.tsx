@@ -9,6 +9,7 @@ interface ProgressBarProps {
   max: number;
   value: number;
   width?: CSSProperties['width'];
+  onChange?: (value: number) => void;
 }
 
 interface StyleProps extends CSSProperties {
@@ -19,6 +20,7 @@ const ProgressBar = ({
   animate = true,
   className,
   max,
+  onChange,
   value,
   width,
 }: ProgressBarProps) => {
@@ -28,6 +30,20 @@ const ProgressBar = ({
       max={max}
       value={value}
       style={{ '--progress-bar--width': width } as StyleProps}
+      onClick={(event) => {
+        if (!onChange) {
+          return;
+        }
+
+        const target = event.target as HTMLDivElement;
+        const rect = target.getBoundingClientRect();
+        const percentage = Math.min(
+          Math.max(0, (event.clientX - rect.left) / rect.width),
+          1
+        );
+
+        onChange(Math.floor(percentage * max));
+      }}
     >
       <Progress.Indicator
         className={cx(styles.progressIndicator, { [styles.animate]: animate })}
