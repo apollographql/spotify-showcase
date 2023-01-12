@@ -15,7 +15,7 @@ const SET_REPEAT_MODE_MUTATION = gql`
   }
 `;
 
-const useRepeatModeMutation = () => {
+const useSetRepeatModeMutation = () => {
   const [execute, result] = useMutation<
     SetRepeatModeMutation,
     SetRepeatModeMutationVariables
@@ -29,4 +29,4 @@ const useRepeatModeMutation = () => {
   return [setRepeatMode, result] as const;
 };
 
-export default useRepeatModeMutation;
+export default useSetRepeatModeMutation;

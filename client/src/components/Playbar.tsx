@@ -12,9 +12,10 @@ import {
   PlaybarQueryVariables,
   PlaybarSubscription,
   PlaybarSubscriptionVariables,
+  RepeatMode,
 } from '../types/api';
 import merge from 'deepmerge';
-import { List, Volume1, Repeat, Volume } from 'lucide-react';
+import { List, Volume1, Volume } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
@@ -23,6 +24,7 @@ import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
 import PlaybarControlButton from './PlaybarControlButton';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
+import RepeatControl from './RepeatControl';
 import ShufflePlaybackControl from './ShufflePlaybackControl';
 import SkipToNextControl from './SkipToNextControl';
 import SkipToPreviousControl from './SkipToPreviousControl';
@@ -36,6 +38,7 @@ interface PlaybarProps {
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment PlaybackStateFragment on PlaybackState {
     isPlaying
+    repeatState
     shuffleState
     actions {
       disallows
@@ -180,9 +183,9 @@ const Playbar = ({ className }: PlaybarProps) => {
               playing={playbackState?.isPlaying ?? false}
             />
             <SkipToNextControl disallowed={disallowed(Action.SkippingNext)} />
-            <PlaybarControlButton
+            <RepeatControl
               disallowed={disallowed(Action.TogglingRepeatTrack)}
-              icon={<Repeat />}
+              repeatState={playbackState?.repeatState ?? RepeatMode.Off}
             />
           </Flex>
           <PlaybackItemProgressBar playbackState={playbackState} />
