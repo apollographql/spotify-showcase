@@ -4,6 +4,7 @@ import styles from './ProgressBar.module.scss';
 import { CSSProperties } from 'react';
 
 interface ProgressBarProps {
+  animate?: boolean;
   className?: string;
   max: number;
   value: number;
@@ -14,7 +15,13 @@ interface StyleProps extends CSSProperties {
   '--progress-bar--width': CSSProperties['width'];
 }
 
-const ProgressBar = ({ className, max, value, width }: ProgressBarProps) => {
+const ProgressBar = ({
+  animate = true,
+  className,
+  max,
+  value,
+  width,
+}: ProgressBarProps) => {
   return (
     <Progress.Root
       className={cx(styles.progressBar, className)}
@@ -23,7 +30,7 @@ const ProgressBar = ({ className, max, value, width }: ProgressBarProps) => {
       style={{ '--progress-bar--width': width } as StyleProps}
     >
       <Progress.Indicator
-        className={styles.progressIndicator}
+        className={cx(styles.progressIndicator, { [styles.animate]: animate })}
         style={{ transform: `translateX(-${100 - (value / max) * 100}%)` }}
       />
     </Progress.Root>
