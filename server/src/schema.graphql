@@ -127,6 +127,16 @@ type Mutation {
     """
     context: ResumePlaybackContextInput
   ): ResumePlaybackResponse
+
+  """
+  Skips to next track in the user’s queue.
+  """
+  skipToNext(context: SkipToNextContextInput): SkipToNextResponse
+
+  """
+  Skips to previous track in the user’s queue.
+  """
+  skipToPrevious(context: SkipToPreviousContextInput): SkipToPreviousResponse
 }
 
 type Subscription {
@@ -1361,6 +1371,32 @@ input SchemaFieldInput {
   The name of the field in the type (ex: `firstName`)
   """
   fieldName: String!
+}
+
+input SkipToNextContextInput {
+  """
+  The id of the device this command is targeting. If not supplied, the user's
+  currently active device is the target.
+  """
+  deviceId: ID
+}
+
+type SkipToNextResponse {
+  "The updated state of playback after skipping to next."
+  playbackState: PlaybackState
+}
+
+input SkipToPreviousContextInput {
+  """
+  The id of the device this command is targeting. If not supplied, the user's
+  currently active device is the target.
+  """
+  deviceId: ID
+}
+
+type SkipToPreviousResponse {
+  "The updated state of playback after skipping to previous."
+  playbackState: PlaybackState
 }
 
 type UpdateFieldConfigResponse {
