@@ -1180,13 +1180,6 @@ export type PausePlaybackMutationVariables = Exact<{
 
 export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
 
-export type SeekToPositionMutationVariables = Exact<{
-  positionMs: Scalars['Int'];
-}>;
-
-
-export type SeekToPositionMutation = { seekToPosition: { __typename: 'SeekToPositionResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null } | null } | null };
-
 export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
 
 export type PlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null };
@@ -1228,6 +1221,18 @@ export type SetVolumeMutationVariables = Exact<{
 
 
 export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } } | null } | null };
+
+export type SeekToPositionMutationVariables = Exact<{
+  positionMs: Scalars['Int'];
+}>;
+
+
+export type SeekToPositionMutation = { seekToPosition: { __typename: 'SeekToPositionResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null } | null } | null };
+
+export type SkipToPreviousMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SkipToPreviousMutation = { skipToPrevious: { __typename: 'SkipToPreviousResponse', playbackState: { __typename: 'PlaybackState', item: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null } | null } | null };
 
 export type AlbumRouteQueryVariables = Exact<{
   albumId: Scalars['ID'];

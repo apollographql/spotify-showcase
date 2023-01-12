@@ -9,7 +9,7 @@ const SKIP_TO_PREVIOUS_MUTATION = gql`
   mutation SkipToPreviousMutation {
     skipToPrevious {
       playbackState {
-        track {
+        item {
           __typename
           ... on Track {
             id
@@ -26,6 +26,18 @@ const SKIP_TO_PREVIOUS_MUTATION = gql`
               name
             }
           }
+
+          ... on Episode {
+            id
+            name
+            show {
+              id
+              name
+              images {
+                url
+              }
+            }
+          }
         }
       }
     }
@@ -37,6 +49,7 @@ const useSkipToPreviousMutation = () => {
     SkipToPreviousMutation,
     SkipToPreviousMutationVariables
   >(SKIP_TO_PREVIOUS_MUTATION);
+
   const skipToPrevious = useCallback(() => execute(), [execute]);
 
   return [skipToPrevious, result] as const;
