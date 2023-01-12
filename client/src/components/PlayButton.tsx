@@ -1,9 +1,7 @@
 import { CSSProperties } from 'react';
 import cx from 'classnames';
 import { Play, Pause } from 'lucide-react';
-import { ResumePlaybackMutationVariables } from '../types/api';
 import styles from './PlayButton.module.scss';
-import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePausePlaybackMutation from '../mutations/usePausePlaybackMutation';
 
 type PlayButtonProps = {
@@ -11,7 +9,7 @@ type PlayButtonProps = {
   size: CSSProperties['width'];
   playing: boolean;
   variant?: 'primary' | 'secondary';
-  resumeContext?: ResumePlaybackMutationVariables['context'];
+  onPlay: () => void;
 };
 
 interface StyleProps extends CSSProperties {
@@ -21,12 +19,11 @@ interface StyleProps extends CSSProperties {
 const PlayButton = ({
   disabled,
   playing,
-  resumeContext,
   variant = 'secondary',
+  onPlay: onClickPlay,
   size,
 }: PlayButtonProps) => {
   const [pause] = usePausePlaybackMutation();
-  const [resume] = useResumePlaybackMutation();
 
   return (
     <button
@@ -37,7 +34,7 @@ const PlayButton = ({
       })}
       style={{ '--play-button--size': size } as StyleProps}
       onClick={() => {
-        return playing ? pause() : resume({ context: resumeContext });
+        return playing ? pause() : onClickPlay();
       }}
     >
       {playing ? (

@@ -30,6 +30,7 @@ import ShufflePlaybackControl from './ShufflePlaybackControl';
 import SkipToNextControl from './SkipToNextControl';
 import SkipToPreviousControl from './SkipToPreviousControl';
 import VolumeBar from './VolumeBar';
+import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import { overwriteMerge } from '../utils/deepmerge';
 
 interface PlaybarProps {
@@ -111,6 +112,8 @@ const Playbar = ({ className }: PlaybarProps) => {
     PLAYBAR_QUERY
   );
 
+  const [resumePlayback] = useResumePlaybackMutation();
+
   // TODO: Replace with subscribeToMore once https://github.com/apollographql/apollo-client/issues/10429 is complete
   useSubscription<PlaybarSubscription, PlaybarSubscriptionVariables>(
     PLAYBAR_SUBSCRIPTION,
@@ -182,6 +185,7 @@ const Playbar = ({ className }: PlaybarProps) => {
               disabled={!device}
               size="2.5rem"
               playing={playbackState?.isPlaying ?? false}
+              onPlay={() => resumePlayback()}
             />
             <SkipToNextControl disallowed={disallowed(Action.SkippingNext)} />
             <RepeatControl
