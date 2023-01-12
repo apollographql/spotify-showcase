@@ -6,12 +6,17 @@ import {
 import { Spotify } from './spotify.types';
 
 type GetRequest = NonNullable<Parameters<RESTDataSource['get']>[1]>;
+type PutRequest = NonNullable<Parameters<RESTDataSource['put']>[1]>;
 type RawQueryParams = Record<
   string,
   string | string[] | number | null | undefined
 >;
 
 interface GetRequestOptions extends Omit<GetRequest, 'params'> {
+  params?: RawQueryParams;
+}
+
+interface PutRequestOptions extends Omit<PutRequest, 'params'> {
   params?: RawQueryParams;
 }
 
@@ -225,6 +230,14 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  async pausePlayback(
+    queryParams?: Spotify.Request.QueryParams.PUT['/me/player/pause']
+  ) {
+    await this._put('/me/player/pause', { params: queryParams });
+
+    return true;
+  }
+
   override willSendRequest(request: WillSendRequestOptions) {
     request.headers['Accept'] = 'application/json';
     request.headers['Authorization'] = `Bearer ${this.token}`;
@@ -255,6 +268,13 @@ export default class SpotifyAPI extends RESTDataSource {
 
   private _get<TReturn>(path: string, options?: GetRequestOptions) {
     return this.get<TReturn>(path, {
+      ...options,
+      params: this.normalizeParams(options?.params),
+    });
+  }
+
+  private _put<TReturn>(path: string, options?: PutRequestOptions) {
+    return this.put<TReturn>(path, {
       ...options,
       params: this.normalizeParams(options?.params),
     });

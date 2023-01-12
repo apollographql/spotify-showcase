@@ -90,6 +90,24 @@ type Query {
 }
 
 type Mutation {
+  resumePlayback(
+    """
+    The id of the device this command is targeting. If not supplied, the user's currently active device is the target.
+    """
+    deviceId: ID
+  ): ResumePlaybackResponse
+
+  """
+  Pause playback on the user's account.
+  """
+  pausePlayback(
+    """
+    The id of the device this command is targeting. If not supplied, the user's
+    currently active device is the target.
+    """
+    deviceId: ID
+  ): PausePlaybackResponse
+
   """
   Update configuration for a field in the schema. Allows tweaks to the
   synthetic timeouts and error rates associated with the field. By default, both
@@ -666,6 +684,13 @@ type PageInfo {
 
   "The total number of items returned for the page."
   total: Int!
+}
+
+type PausePlaybackResponse {
+  """
+  The updated playback state
+  """
+  playbackState: PlaybackState
 }
 
 union PlaybackContextItem = Album | Artist | Playlist | Show
@@ -1247,6 +1272,10 @@ type SavedTrackConnection {
   "Pagination information for the set of playlists"
   """
   pageInfo: PageInfo!
+}
+
+type ResumePlaybackResponse {
+  playbackState: PlaybackState
 }
 
 type SavedTrackEdge {

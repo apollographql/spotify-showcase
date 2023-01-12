@@ -404,8 +404,11 @@ export type Image = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Pause playback on the user's account. */
+  pausePlayback?: Maybe<PausePlaybackResponse>;
   /** Reset a field's config back to its default values. */
   resetFieldConfig?: Maybe<ResetFieldConfigResponse>;
+  resumePlayback?: Maybe<ResumePlaybackResponse>;
   /**
    * Update configuration for a field in the schema. Allows tweaks to the
    * synthetic timeouts and error rates associated with the field. By default, both
@@ -415,8 +418,18 @@ export type Mutation = {
 };
 
 
+export type MutationPausePlaybackArgs = {
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+
 export type MutationResetFieldConfigArgs = {
   field: FieldInput;
+};
+
+
+export type MutationResumePlaybackArgs = {
+  deviceId?: InputMaybe<Scalars['ID']>;
 };
 
 
@@ -437,6 +450,12 @@ export type PageInfo = {
   offset: Scalars['Int'];
   /** The total number of items returned for the page. */
   total: Scalars['Int'];
+};
+
+export type PausePlaybackResponse = {
+  __typename?: 'PausePlaybackResponse';
+  /** The updated playback state */
+  playbackState?: Maybe<PlaybackState>;
 };
 
 export type PlaybackContext = {
@@ -782,6 +801,11 @@ export type ResetFieldConfigResponse = {
   fieldConfig?: Maybe<FieldConfig>;
 };
 
+export type ResumePlaybackResponse = {
+  __typename?: 'ResumePlaybackResponse';
+  playbackState?: Maybe<PlaybackState>;
+};
+
 export type ResumePoint = {
   __typename?: 'ResumePoint';
   /** Whether or not the episode has been fully played by the user. */
@@ -1097,6 +1121,7 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
+  PausePlaybackResponse: ResolverTypeWrapper<Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
   PlaybackContextItem: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show>;
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
@@ -1116,6 +1141,7 @@ export type ResolversTypes = ResolversObject<{
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
   ResetFieldConfigResponse: ResolverTypeWrapper<Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  ResumePlaybackResponse: ResolverTypeWrapper<Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SavedTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
@@ -1163,6 +1189,7 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   Mutation: {};
   PageInfo: Spotify.Object.Paginated<unknown>;
+  PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   PlaybackContext: Spotify.Object.Context;
   PlaybackContextItem: Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
@@ -1180,6 +1207,7 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
   ResetFieldConfigResponse: Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  ResumePlaybackResponse: Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   ResumePoint: Spotify.Object.ResumePoint;
   SavedTrackConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;
   SavedTrackEdge: Spotify.Object.SavedTrack;
@@ -1365,7 +1393,9 @@ export type ImageResolvers<ContextType = ContextValue, ParentType extends Resolv
 }>;
 
 export type MutationResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  pausePlayback?: Resolver<Maybe<ResolversTypes['PausePlaybackResponse']>, ParentType, ContextType, Partial<MutationPausePlaybackArgs>>;
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
+  resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
   updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'config' | 'field'>>;
 }>;
 
@@ -1375,6 +1405,11 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PausePlaybackResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PausePlaybackResponse'] = ResolversParentTypes['PausePlaybackResponse']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1498,6 +1533,11 @@ export type ReleaseDatePrecisionResolvers = { DAY: 'day', MONTH: 'month', YEAR: 
 
 export type ResetFieldConfigResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResetFieldConfigResponse'] = ResolversParentTypes['ResetFieldConfigResponse']> = ResolversObject<{
   fieldConfig?: Resolver<Maybe<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ResumePlaybackResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePlaybackResponse'] = ResolversParentTypes['ResumePlaybackResponse']> = ResolversObject<{
+  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1630,6 +1670,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Image?: ImageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
+  PausePlaybackResponse?: PausePlaybackResponseResolvers<ContextType>;
   PlaybackContext?: PlaybackContextResolvers<ContextType>;
   PlaybackContextItem?: PlaybackContextItemResolvers<ContextType>;
   PlaybackItem?: PlaybackItemResolvers<ContextType>;
@@ -1647,6 +1688,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
   ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
   ResetFieldConfigResponse?: ResetFieldConfigResponseResolvers<ContextType>;
+  ResumePlaybackResponse?: ResumePlaybackResponseResolvers<ContextType>;
   ResumePoint?: ResumePointResolvers<ContextType>;
   SavedTrackConnection?: SavedTrackConnectionResolvers<ContextType>;
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;

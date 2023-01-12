@@ -553,6 +553,19 @@ export namespace Spotify {
   }
 
   export namespace Request {
+    export namespace BodyParams {
+      export interface PUT {
+        '/me/player/play': {
+          context_uri?: string;
+          uris?: string[];
+          offset?: {
+            position?: number;
+            uri?: string;
+          };
+          position_ms?: number;
+        };
+      }
+    }
     export namespace QueryParams {
       export interface GET {
         '/albums/:id': {
@@ -618,6 +631,15 @@ export namespace Spotify {
           offset?: number;
         };
         '/tracks/:id': { market?: string };
+      }
+
+      export interface PUT {
+        '/me/player/pause': {
+          device_id?: string;
+        };
+        '/me/player/play': {
+          device_id?: string;
+        };
       }
     }
   }
