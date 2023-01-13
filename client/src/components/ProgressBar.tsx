@@ -28,7 +28,9 @@ const ProgressBar = ({
 
   return (
     <Progress.Root
-      className={cx(styles.progressBar, className)}
+      className={cx(styles.progressBar, className, {
+        [styles.interactive]: onChange,
+      })}
       max={max}
       value={value}
       style={{ '--progress-bar--width': width } as StyleProps}

@@ -13,6 +13,10 @@
   transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+.interactive {
+  cursor: pointer;
+}
+
 .progressIndicator {
   border-radius: 1rem;
   background: var(--color--white);
