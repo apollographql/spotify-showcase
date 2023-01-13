@@ -63,7 +63,9 @@ const TrackNumberCell = ({
       ) : preferIcon ? (
         <Music size="1rem" />
       ) : (
-        <Text numericVariant="tabular-nums">{trackNumber}</Text>
+        <Text color="muted" numericVariant="tabular-nums">
+          {trackNumber}
+        </Text>
       )}
     </Flex>
   );
