@@ -14,6 +14,7 @@ import Table from './Table';
 import PlaylistTitleCell from './PlaylistTitleCell';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Get } from 'type-fest';
+import AnimatedSoundWave from './AnimatedSoundWave';
 
 interface PlaylistTableProps {
   className?: string;
@@ -21,6 +22,14 @@ interface PlaylistTableProps {
 }
 
 type PlaylistTrackEdge = NonNullable<Get<Playlist, 'tracks.edges[0]'>>;
+
+interface CellMeta {
+  containsAllTracks: boolean;
+  containsAllEpisodes: boolean;
+  containsAddedDate: boolean;
+  currentTrack: Get<PlaylistTablePlaybackStateFragment, 'item'>;
+  isPlaying: boolean;
+}
 
 const columnHelper = createColumnHelper<PlaylistTrackEdge>();
 
@@ -33,18 +42,25 @@ const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
 };
 
 const columns = [
-  columnHelper.accessor('node.__typename', {
+  columnHelper.accessor('node', {
     id: 'type',
     header: '#',
     cell: (info) => {
-      const { meta } = info.table.options;
+      const playlistTrack = info.getValue();
+      const meta = info.table.options.meta! as CellMeta;
       const { index } = info.row;
 
-      if (meta?.containsAllTracks) {
+      const { containsAllTracks, currentTrack, isPlaying } = meta!;
+
+      if (isPlaying && playlistTrack.uri === currentTrack?.uri) {
+        return <AnimatedSoundWave />;
+      }
+
+      if (containsAllTracks) {
         return index + 1;
       }
 
-      return info.getValue() === 'Episode' ? (
+      return playlistTrack.__typename === 'Episode' ? (
         <Podcast size="1rem" />
       ) : (
         <Music size="1rem" />
@@ -140,9 +156,14 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
   const playlistTrackEdges = playlist.tracks.edges;
+  const isPlaying = playbackState?.isPlaying ?? false;
+  const isPlayingPlaylist = playbackState?.context?.uri === playlist.uri;
+  const currentTrack = playbackState?.item ?? null;
 
   const meta = useMemo(
     () => ({
+      currentTrack,
+      isPlaying: isPlaying && isPlayingPlaylist,
       containsAllTracks: playlistTrackEdges.every(
         ({ node }) => node.__typename === 'Track'
       ),
@@ -153,7 +174,7 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
         Boolean(edge.addedAt)
       ),
     }),
-    [playlistTrackEdges]
+    [currentTrack, playlistTrackEdges, isPlaying, isPlayingPlaylist]
   );
 
   return (
@@ -182,6 +203,7 @@ PlaylistTable.fragments = {
             id
             name
             durationMs
+            uri
 
             ... on Track {
               album {
