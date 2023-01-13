@@ -8,15 +8,11 @@ import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
 import ArtistTile from '../../components/ArtistTile';
 import ArtistTopTracks from '../../components/ArtistTopTracks';
-import CoverPhoto from '../../components/CoverPhoto';
 import Page from '../../components/Page';
-import Duration from '../../components/Duration';
 import Skeleton from '../../components/Skeleton';
 import Text from '../../components/Text';
 import TileGrid from '../../components/TileGrid';
 import styles from './artist.module.scss';
-import Flex from '../../components/Flex';
-import { thumbnail } from '../../utils/image';
 
 type Album = NonNullable<Get<ArtistRouteQuery, 'artist.albums.edges[0].node'>>;
 
