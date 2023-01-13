@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
-import Authenticated from './routes/authenticated';
 import Index, { LoadingState as IndexLoadingState } from './routes/index';
 import Root from './routes/root';
 import ArtistRoute, {
@@ -76,7 +75,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        element: <Authenticated />,
         loader: () => {
           const isLoggedIn = isLoggedInVar();
 
