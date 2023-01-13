@@ -1,25 +1,42 @@
-import { gql, useQuery } from '@apollo/client';
-import { CachedPlaybackStateQuery } from '../types/api';
+import {
+  useFragment_experimental as useFragment,
+  DocumentNode,
+  TypedDocumentNode,
+  OperationVariables,
+} from '@apollo/client';
+import equal from '@wry/equality';
+import { DefinitionNode, FragmentDefinitionNode, Kind } from 'graphql';
 
-const CACHED_PLAYBACK_STATE_QUERY = gql`
-  query CachedPlaybackStateQuery {
-    me {
-      player {
-        playbackState {
-          isPlaying
-        }
-      }
-    }
+interface Options<TData> {
+  fragment: DocumentNode | TypedDocumentNode<TData>;
+}
+
+const usePlaybackState = <TData>({ fragment }: Options<TData>) => {
+  const { data } = useFragment<TData, OperationVariables>({
+    fragment,
+    fragmentName: getFragmentName(fragment),
+    from: { __typename: 'PlaybackState' },
+  });
+
+  if (equal(data, {})) {
+    return null;
   }
-`;
 
-const usePlaybackState = () => {
-  const { data } = useQuery<CachedPlaybackStateQuery>(
-    CACHED_PLAYBACK_STATE_QUERY,
-    { fetchPolicy: 'cache-only' }
-  );
+  return data ?? null;
+};
 
-  return data?.me?.player.playbackState ?? null;
+const isFragmentDefinition = (
+  node: DefinitionNode
+): node is FragmentDefinitionNode => node.kind === Kind.FRAGMENT_DEFINITION;
+
+const getFragmentName = (node: DocumentNode) => {
+  const fragmentNode = node.definitions.find(isFragmentDefinition);
+
+  if (!fragmentNode) {
+    throw new Error('Fragment must contain a definition');
+  }
+
+  return fragmentNode.name.value;
 };
 
 export default usePlaybackState;
