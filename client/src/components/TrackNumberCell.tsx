@@ -53,17 +53,19 @@ const TrackNumberCell = ({
 
   const isPlaying = playbackState?.isPlaying ?? false;
   const isPlayingInContext = playbackState?.context?.uri === context.uri;
+  const isCurrentTrack = playbackState?.item?.uri === track.uri;
 
   return (
     <Flex justifyContent="end">
-      {isPlaying &&
-        isPlayingInContext &&
-        playbackState.item?.uri === track.uri ? (
+      {isPlaying && isPlayingInContext && isCurrentTrack ? (
         <AnimatedSoundWave />
       ) : preferIcon ? (
         <Music size="1rem" />
       ) : (
-        <Text color="muted" numericVariant="tabular-nums">
+        <Text
+          color={isCurrentTrack ? 'themeLight' : 'muted'}
+          numericVariant="tabular-nums"
+        >
           {trackNumber}
         </Text>
       )}
