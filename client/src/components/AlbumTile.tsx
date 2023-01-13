@@ -13,8 +13,10 @@ const AlbumTile = ({ album }: AlbumTileProps) => {
     <MediaTile
       coverPhoto={album.images[0]}
       description={[
-        <span>{yearOfRelease(album.releaseDate)}</span>,
-        <span>{capitalize(album.albumType.toLowerCase())}</span>,
+        <span key="releaseDate">{yearOfRelease(album.releaseDate)}</span>,
+        <span key="albumType">
+          {capitalize(album.albumType.toLowerCase())}
+        </span>,
       ]}
       title={album.name}
       to={`/albums/${album.id}`}

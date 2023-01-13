@@ -142,7 +142,7 @@ const AlbumSection = ({ albums, title }: AlbumSectionProps) => {
       <h2>{title}</h2>
       <TileGrid gap="1rem" minTileWidth="200px">
         {albums.map((album) => (
-          <AlbumTile album={album} />
+          <AlbumTile key={album.id} album={album} />
         ))}
       </TileGrid>
     </section>
