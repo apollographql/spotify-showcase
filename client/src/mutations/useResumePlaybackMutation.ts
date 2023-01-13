@@ -9,6 +9,9 @@ const RESUME_PLAYBACK_MUTATION = gql`
   mutation ResumePlaybackMutation($context: ResumePlaybackContextInput) {
     resumePlayback(context: $context) {
       playbackState {
+        context {
+          uri
+        }
         isPlaying
       }
     }
@@ -23,12 +26,20 @@ const useResumePlaybackMutation = () => {
 
   const resumePlayback = useCallback(
     (variables?: ResumePlaybackMutationVariables) => {
+      const contextUri = variables?.context?.contextUri;
+
       return execute({
         variables,
         optimisticResponse: {
           resumePlayback: {
             __typename: 'ResumePlaybackResponse',
-            playbackState: { __typename: 'PlaybackState', isPlaying: true },
+            playbackState: {
+              __typename: 'PlaybackState',
+              context: contextUri
+                ? { __typename: 'PlaybackContext', uri: contextUri }
+                : null,
+              isPlaying: true,
+            },
           },
         },
       });

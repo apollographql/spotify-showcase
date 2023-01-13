@@ -1263,7 +1263,7 @@ export type ResumePlaybackMutationVariables = Exact<{
 }>;
 
 
-export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null } | null } | null };
 
 export type SeekToPositionMutationVariables = Exact<{
   positionMs: Scalars['Int'];
