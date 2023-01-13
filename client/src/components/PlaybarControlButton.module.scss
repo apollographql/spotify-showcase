@@ -29,7 +29,7 @@
   color: var(--color--theme);
   position: relative;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: var(--color--theme--light);
   }
 
