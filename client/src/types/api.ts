@@ -1335,6 +1335,8 @@ export type CollectionTracksRouteQueryVariables = Exact<{ [key: string]: never; 
 
 export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'SavedTrackConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
+export type CollectionTracksRoutePlaylistStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+
 export type EpisodeRouteQueryVariables = Exact<{
   episodeId: Scalars['ID'];
 }>;

@@ -8,12 +8,14 @@ import { createColumnHelper } from '@tanstack/react-table';
 import {
   CollectionTracksRouteQuery,
   CollectionTracksRouteQueryVariables,
+  CollectionTracksRoutePlaylistStateFragment,
 } from '../../types/api';
 import DateTime from '../../components/DateTime';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
 import GradientIcon from '../../components/GradientIcon';
 import Skeleton from '../../components/Skeleton';
+import PlayButton from '../../components/PlayButton';
 import Table from '../../components/Table';
 import Text from '../../components/Text';
 import TrackTitleCell from '../../components/TrackTitleCell';
@@ -21,6 +23,8 @@ import useSetBackgroundColor from '../../hooks/useSetBackgroundColor';
 import { Clock } from 'lucide-react';
 import Duration from '../../components/Duration';
 import EntityLink from '../../components/EntityLink';
+import usePlaybackState from '../../hooks/usePlaybackState';
+import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
@@ -54,6 +58,15 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
   ${TrackTitleCell.fragments.track}
 `;
 
+const PLAYBACK_STATE_FRAGMENT = gql`
+  fragment CollectionTracksRoutePlaylistStateFragment on PlaybackState {
+    isPlaying
+    context {
+      uri
+    }
+  }
+`;
+
 const CollectionTracksRoute = () => {
   useSetBackgroundColor('#1F3363');
 
@@ -62,7 +75,17 @@ const CollectionTracksRoute = () => {
     CollectionTracksRouteQueryVariables
   >(COLLECTION_TRACKS_ROUTE_QUERY);
 
+  const [resumePlayback] = useResumePlaybackMutation();
+  const playbackState =
+    usePlaybackState<CollectionTracksRoutePlaylistStateFragment>({
+      fragment: PLAYBACK_STATE_FRAGMENT,
+    });
+
   const currentUser = data.me!;
+  const spotifyURI = `spotify:user:${currentUser.user.id}:collection`;
+
+  const isPlaying = playbackState?.isPlaying ?? false;
+  const isPlayingCollection = playbackState?.context?.uri === spotifyURI;
 
   return (
     <Page>
@@ -89,6 +112,20 @@ const CollectionTracksRoute = () => {
         ]}
       />
       <Page.Content>
+        <Page.ActionsBar>
+          <PlayButton
+            variant="primary"
+            size="3.5rem"
+            playing={isPlaying && isPlayingCollection}
+            onPlay={() => {
+              const context = isPlayingCollection
+                ? null
+                : { contextUri: spotifyURI };
+
+              resumePlayback({ context });
+            }}
+          />
+        </Page.ActionsBar>
         <Table data={currentUser.tracks?.edges ?? []} columns={columns} />
       </Page.Content>
     </Page>
