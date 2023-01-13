@@ -6,6 +6,7 @@ const SKIP_TO_NEXT_MUTATION = gql`
   mutation SkipToNextMutation {
     skipToNext {
       playbackState {
+        progressMs
         item {
           __typename
           ... on Track {
