@@ -120,11 +120,9 @@ const AlbumRoute = () => {
             size="3.5rem"
             playing={isPlaying && isPlayingAlbum}
             onPlay={() => {
-              resumePlayback({
-                context: {
-                  contextUri: isPlayingAlbum ? null : album.uri,
-                },
-              });
+              const context = isPlayingAlbum ? null : { contextUri: album.uri };
+
+              resumePlayback({ context });
             }}
           />
         </Page.ActionsBar>
