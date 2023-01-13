@@ -39,6 +39,14 @@
   th,
   td {
     text-align: left;
+
+    &:first-child {
+      padding-left: 1rem;
+    }
+
+    &:last-child {
+      padding-right: 1rem;
+    }
   }
 
   td {
@@ -46,6 +54,38 @@
 
     &[data-wrap='false'] {
       white-space: nowrap;
+    }
+  }
+
+  tr {
+    transition: 0.1s background-color ease-out;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+
+    &:hover {
+      td {
+        background-color: var(--background--surface--hover);
+      }
+    }
+  }
+
+  tbody {
+    &::before {
+      line-height: 1rem;
+      content: '\200C';
+      display: block;
+    }
+
+    td {
+      &:first-child {
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+      }
+
+      &:last-child {
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+      }
     }
   }
 }
