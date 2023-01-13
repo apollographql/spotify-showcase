@@ -21,7 +21,6 @@ import Publisher from './publisher';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
 import { TOPICS } from './constants';
-import { createPlaybackStateObservable } from './observables';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
@@ -60,7 +59,6 @@ const serverCleanup = useServer(
       return {
         token,
         defaultCountryCode,
-        playbackState$: createPlaybackStateObservable(spotify),
         publisher: new Publisher(pubsub),
         pubsub,
         dataSources: { spotify },
@@ -106,7 +104,6 @@ server.start().then(async () => {
         return {
           defaultCountryCode,
           dataSources: { spotify },
-          playbackState$: createPlaybackStateObservable(spotify),
           publisher: new Publisher(pubsub),
           pubsub,
           token,

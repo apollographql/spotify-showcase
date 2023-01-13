@@ -7,11 +7,12 @@ import { GraphQLResolveInfo } from 'graphql';
 import { omit } from 'lodash';
 import { PartialDeep } from 'type-fest';
 import { selectsField } from '../utils/graphql';
+import { createPlaybackStateObservable } from '../observables';
 
 const resolvers: SubscriptionResolvers = {
   playbackStateChanged: {
-    subscribe: async (_, __, { playbackState$, pubsub, publisher }, info) => {
-      const subscription = playbackState$
+    subscribe: async (_, __, { dataSources, pubsub, publisher }, info) => {
+      const subscription = createPlaybackStateObservable(dataSources.spotify)
         .pipe(
           map((playbackState) => {
             if (!playbackState) {
