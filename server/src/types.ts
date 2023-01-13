@@ -9,12 +9,5 @@ export interface ContextValue {
     spotify: SpotifyAPI;
   };
   playbackState$: Observable<Spotify.Object.PlaybackState | null>;
-}
-
-export interface SubscriptionContextValue {
-  playbackState$: Observable<Spotify.Object.PlaybackState | null>;
   pubsub: PubSub;
-  dataSources: {
-    spotify: SpotifyAPI;
-  };
 }

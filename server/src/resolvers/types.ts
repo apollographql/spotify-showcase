@@ -2,7 +2,7 @@ import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from '
 import { Spotify } from '../dataSources/spotify.types';
 import { FieldConfig as FieldConfigType } from '../fieldConfigs/fieldConfig';
 import { Releasable } from './mappers';
-import { ContextValue, SubscriptionContextValue } from '../types';
+import { ContextValue } from '../types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1837,7 +1837,7 @@ export type SkipToPreviousResponseResolvers<ContextType = ContextValue, ParentTy
 }>;
 
 export type SubscriptionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
-  playbackStateChanged?: SubscriptionResolver<Maybe<ResolversTypes['PlaybackState']>, "playbackStateChanged", ParentType, SubscriptionContextValue>;
+  playbackStateChanged?: SubscriptionResolver<Maybe<ResolversTypes['PlaybackState']>, "playbackStateChanged", ParentType, ContextType>;
 }>;
 
 export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {

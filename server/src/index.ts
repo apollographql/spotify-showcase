@@ -32,6 +32,9 @@ const wsServer = new WebSocketServer({
 });
 
 const pubsub = new PubSub();
+const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
+  defaultValue: 'US',
+});
 
 const serverCleanup = useServer(
   {
@@ -53,10 +56,11 @@ const serverCleanup = useServer(
       });
 
       return {
+        defaultCountryCode,
         playbackState$: createPlaybackStateObservable(spotify),
         pubsub,
         dataSources: { spotify },
-      };
+      } satisfies ContextValue;
     },
   },
   wsServer
@@ -95,11 +99,10 @@ server.start().then(async () => {
         });
 
         return {
-          playbackState$: createPlaybackStateObservable(spotify),
-          defaultCountryCode: readEnv('DEFAULT_COUNTRY_CODE', {
-            defaultValue: 'US',
-          }),
+          defaultCountryCode,
           dataSources: { spotify },
+          playbackState$: createPlaybackStateObservable(spotify),
+          pubsub,
         };
       },
     })
