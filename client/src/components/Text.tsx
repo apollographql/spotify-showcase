@@ -7,7 +7,7 @@ type TextProps<TElement extends ElementType = 'span'> =
   PolymorphicComponentProps<
     TElement,
     {
-      color?: 'muted' | 'primary';
+      color?: 'muted' | 'primary' | 'theme' | 'themeLight';
       children?: ReactNode;
       interactive?: boolean;
       maxLines?: number;
@@ -48,6 +48,8 @@ const Text = <TElement extends ElementType = 'span'>({
       className={cx(className, {
         [styles.color__primary]: color === 'primary',
         [styles.color__muted]: color === 'muted',
+        [styles.color__theme]: color === 'theme',
+        [styles.color__theme__light]: color === 'themeLight',
         [styles.interactive]: interactive,
         [styles.lineClamp]: maxLines,
         [styles.numericVariant__tabularNums]: numericVariant === 'tabular-nums',

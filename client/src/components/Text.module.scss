@@ -2,6 +2,14 @@
   color: var(--text-color--base);
 }
 
+.color__theme {
+  color: var(--color--theme);
+}
+
+.color__theme__light {
+  color: var(--color--theme--light);
+}
+
 .color__muted {
   color: var(--text-color--muted);
 
