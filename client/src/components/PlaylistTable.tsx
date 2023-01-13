@@ -60,7 +60,7 @@ const columns = [
       return <Podcast size="1rem" />;
     },
     meta: {
-      headerAlign: 'center',
+      headerAlign: 'right',
       shrink: true,
     },
   }),

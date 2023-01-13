@@ -4,6 +4,7 @@ import {
   TrackNumberCell_playbackState as PlaybackState,
 } from '../types/api';
 import AnimatedSoundWave from './AnimatedSoundWave';
+import Flex from './Flex';
 import Text from './Text';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Music } from 'lucide-react';
@@ -53,19 +54,19 @@ const TrackNumberCell = ({
   const isPlaying = playbackState?.isPlaying ?? false;
   const isPlayingInContext = playbackState?.context?.uri === context.uri;
 
-  if (
-    isPlaying &&
-    isPlayingInContext &&
-    playbackState.item?.uri === track.uri
-  ) {
-    return <AnimatedSoundWave />;
-  }
-
-  if (preferIcon) {
-    return <Music size="1rem" />;
-  }
-
-  return <Text numericVariant="tabular-nums">{trackNumber}</Text>;
+  return (
+    <Flex justifyContent="end">
+      {isPlaying &&
+        isPlayingInContext &&
+        playbackState.item?.uri === track.uri ? (
+        <AnimatedSoundWave />
+      ) : preferIcon ? (
+        <Music size="1rem" />
+      ) : (
+        <Text numericVariant="tabular-nums">{trackNumber}</Text>
+      )}
+    </Flex>
+  );
 };
 
 TrackNumberCell.fragments = {
