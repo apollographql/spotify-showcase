@@ -34,17 +34,16 @@ const PLAYLIST_QUERY = gql`
         displayName
       }
       tracks {
-        edges {
-          ...PlaylistTable_playlistTrackEdges
-        }
         pageInfo {
           total
         }
       }
+
+      ...PlaylistTable_playlist
     }
   }
 
-  ${PlaylistTable.fragments.playlistTrackEdges}
+  ${PlaylistTable.fragments.playlist}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`
@@ -111,7 +110,7 @@ const Playlist = () => {
             }}
           />
         </Page.ActionsBar>
-        <PlaylistTable playlistTrackEdges={playlist.tracks.edges} />
+        <PlaylistTable playlist={playlist} />
       </Page.Content>
     </Page>
   );

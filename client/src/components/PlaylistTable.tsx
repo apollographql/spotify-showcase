@@ -2,18 +2,25 @@ import { useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock, Music, Podcast } from 'lucide-react';
-import { PlaylistTable_playlistTrackEdges as PlaylistTrackEdge } from '../types/api';
+import {
+  PlaylistTable_playlist as Playlist,
+  PlaylistTablePlaybackStateFragment,
+} from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
 import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
 import PlaylistTitleCell from './PlaylistTitleCell';
+import usePlaybackState from '../hooks/usePlaybackState';
+import { Get } from 'type-fest';
 
 interface PlaylistTableProps {
   className?: string;
-  playlistTrackEdges: PlaylistTrackEdge[];
+  playlist: Playlist;
 }
+
+type PlaylistTrackEdge = NonNullable<Get<Playlist, 'tracks.edges[0]'>>;
 
 const columnHelper = createColumnHelper<PlaylistTrackEdge>();
 
@@ -108,10 +115,32 @@ const columns = [
   }),
 ];
 
-const PlaylistTable = ({
-  className,
-  playlistTrackEdges,
-}: PlaylistTableProps) => {
+const PLAYBACK_STATE_FRAGMENT = gql`
+  fragment PlaylistTablePlaybackStateFragment on PlaybackState {
+    isPlaying
+    context {
+      uri
+    }
+    item {
+      __typename
+      ... on Track {
+        id
+        uri
+      }
+      ... on Episode {
+        id
+        uri
+      }
+    }
+  }
+`;
+
+const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
+  const playbackState = usePlaybackState<PlaylistTablePlaybackStateFragment>({
+    fragment: PLAYBACK_STATE_FRAGMENT,
+  });
+  const playlistTrackEdges = playlist.tracks.edges;
+
   const meta = useMemo(
     () => ({
       containsAllTracks: playlistTrackEdges.every(
@@ -142,33 +171,39 @@ const PlaylistTable = ({
 };
 
 PlaylistTable.fragments = {
-  playlistTrackEdges: gql`
-    fragment PlaylistTable_playlistTrackEdges on PlaylistTrackEdge {
-      addedAt
-      node {
-        id
-        name
-        durationMs
-
-        ... on Track {
-          album {
+  playlist: gql`
+    fragment PlaylistTable_playlist on Playlist {
+      id
+      uri
+      tracks {
+        edges {
+          addedAt
+          node {
             id
             name
+            durationMs
+
+            ... on Track {
+              album {
+                id
+                name
+              }
+            }
+
+            ... on Episode {
+              releaseDate {
+                date
+                precision
+              }
+              show {
+                id
+                name
+              }
+            }
+
+            ...PlaylistTitleCell_playlistTrack
           }
         }
-
-        ... on Episode {
-          releaseDate {
-            date
-            precision
-          }
-          show {
-            id
-            name
-          }
-        }
-
-        ...PlaylistTitleCell_playlistTrack
       }
     }
 
