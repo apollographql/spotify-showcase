@@ -24,7 +24,7 @@ const DelimitedList = <TElement extends ElementType = 'span'>({
   return (
     <Element {...props}>
       {Children.toArray(children).map((child, index, list) => {
-        const key = isValidElement(child) ? child.key : index;
+        const key = isValidElement(child) ? child.key ?? index : index;
 
         return (
           <Fragment key={key}>
