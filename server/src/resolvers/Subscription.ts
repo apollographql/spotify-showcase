@@ -10,13 +10,19 @@ import { selectsField } from '../utils/graphql';
 
 const resolvers: SubscriptionResolvers = {
   playbackStateChanged: {
-    subscribe: async (_, __, { playbackState$, pubsub }, info) => {
+    subscribe: async (_, __, { playbackState$, pubsub, publisher }, info) => {
       const subscription = playbackState$
         .pipe(
-          map(
-            (playbackState) =>
-              playbackState && maybeOmitVolatileFields(playbackState, info)
-          ),
+          map((playbackState) => {
+            if (!playbackState) {
+              return null;
+            }
+
+            return maybeOmitVolatileFields(
+              playbackState,
+              info
+            ) as Spotify.Object.PlaybackState;
+          }),
           distinctUntilChanged((prev, curr) => equal(prev, curr))
         )
         .subscribe({
@@ -24,9 +30,7 @@ const resolvers: SubscriptionResolvers = {
             // do nothing
           },
           next: (playbackState) => {
-            pubsub.publish(TOPICS.PLAYBACK_STATE_CHANGED, {
-              playbackStateChanged: playbackState,
-            });
+            publisher.playbackStateChanged({ playbackState });
           },
         });
 

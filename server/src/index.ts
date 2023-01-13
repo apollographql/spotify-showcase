@@ -17,6 +17,7 @@ import typeDefs from './schema.graphql';
 import resolvers from './resolvers';
 import routes from './routes';
 import SpotifyAPI from './dataSources/spotify';
+import Publisher from './publisher';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
 import { TOPICS } from './constants';
@@ -60,6 +61,7 @@ const serverCleanup = useServer(
         token,
         defaultCountryCode,
         playbackState$: createPlaybackStateObservable(spotify),
+        publisher: new Publisher(pubsub),
         pubsub,
         dataSources: { spotify },
       } satisfies ContextValue;
@@ -105,6 +107,7 @@ server.start().then(async () => {
           defaultCountryCode,
           dataSources: { spotify },
           playbackState$: createPlaybackStateObservable(spotify),
+          publisher: new Publisher(pubsub),
           pubsub,
           token,
         };
