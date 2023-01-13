@@ -1,5 +1,4 @@
 import { SubscriptionResolvers } from './types';
-import { pollPlaybackState } from '../utils/spotify';
 import { Spotify } from '../dataSources/spotify.types';
 import { TOPICS } from '../constants';
 import { map, distinctUntilChanged } from 'rxjs';
@@ -11,8 +10,8 @@ import { selectsField } from '../utils/graphql';
 
 const resolvers: SubscriptionResolvers = {
   playbackStateChanged: {
-    subscribe: async (_, __, { pubsub, dataSources }, info) => {
-      const subscription = pollPlaybackState(dataSources.spotify)
+    subscribe: async (_, __, { playbackState$, pubsub }, info) => {
+      const subscription = playbackState$
         .pipe(
           map(
             (playbackState) =>

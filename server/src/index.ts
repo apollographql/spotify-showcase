@@ -20,6 +20,7 @@ import SpotifyAPI from './dataSources/spotify';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
 import { TOPICS } from './constants';
+import { createPlaybackStateObservable } from './observables';
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
@@ -46,14 +47,15 @@ const serverCleanup = useServer(
       pubsub.publish(TOPICS.DISCONNECT, true);
     },
     context: (ctx) => {
+      const spotify = new SpotifyAPI({
+        cache: server.cache,
+        token: ctx.connectionParams!.apiToken! as string,
+      });
+
       return {
+        playbackState$: createPlaybackStateObservable(spotify),
         pubsub,
-        dataSources: {
-          spotify: new SpotifyAPI({
-            cache: server.cache,
-            token: ctx.connectionParams!.apiToken! as string,
-          }),
-        },
+        dataSources: { spotify },
       };
     },
   },
@@ -87,17 +89,17 @@ server.start().then(async () => {
     expressMiddleware(server, {
       context: async ({ req }) => {
         const { cache } = server;
+        const spotify = new SpotifyAPI({
+          cache,
+          token: req.get('x-api-token') ?? '',
+        });
 
         return {
+          playbackState$: createPlaybackStateObservable(spotify),
           defaultCountryCode: readEnv('DEFAULT_COUNTRY_CODE', {
             defaultValue: 'US',
           }),
-          dataSources: {
-            spotify: new SpotifyAPI({
-              cache,
-              token: req.get('x-api-token') ?? '',
-            }),
-          },
+          dataSources: { spotify },
         };
       },
     })
