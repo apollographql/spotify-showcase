@@ -1,20 +1,16 @@
 import { useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
-import { Clock, Music, Podcast } from 'lucide-react';
-import {
-  PlaylistTable_playlist as Playlist,
-  PlaylistTablePlaybackStateFragment,
-} from '../types/api';
+import { Clock, Podcast } from 'lucide-react';
+import { PlaylistTable_playlist as Playlist } from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
 import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
 import PlaylistTitleCell from './PlaylistTitleCell';
-import usePlaybackState from '../hooks/usePlaybackState';
 import { Get } from 'type-fest';
-import AnimatedSoundWave from './AnimatedSoundWave';
+import TrackNumberCell from './TrackNumberCell';
 
 interface PlaylistTableProps {
   className?: string;
@@ -27,8 +23,7 @@ interface CellMeta {
   containsAllTracks: boolean;
   containsAllEpisodes: boolean;
   containsAddedDate: boolean;
-  currentTrack: Get<PlaylistTablePlaybackStateFragment, 'item'>;
-  isPlaying: boolean;
+  playlist: Playlist;
 }
 
 const columnHelper = createColumnHelper<PlaylistTrackEdge>();
@@ -49,22 +44,20 @@ const columns = [
       const playlistTrack = info.getValue();
       const meta = info.table.options.meta! as CellMeta;
       const { index } = info.row;
+      const { containsAllTracks, playlist } = meta!;
 
-      const { containsAllTracks, currentTrack, isPlaying } = meta!;
-
-      if (isPlaying && playlistTrack.uri === currentTrack?.uri) {
-        return <AnimatedSoundWave />;
+      if (playlistTrack.__typename === 'Track') {
+        return (
+          <TrackNumberCell
+            context={playlist}
+            track={playlistTrack}
+            position={index}
+            preferIcon={!containsAllTracks}
+          />
+        );
       }
 
-      if (containsAllTracks) {
-        return index + 1;
-      }
-
-      return playlistTrack.__typename === 'Episode' ? (
-        <Podcast size="1rem" />
-      ) : (
-        <Music size="1rem" />
-      );
+      return <Podcast size="1rem" />;
     },
     meta: {
       headerAlign: 'center',
@@ -131,56 +124,27 @@ const columns = [
   }),
 ];
 
-const PLAYBACK_STATE_FRAGMENT = gql`
-  fragment PlaylistTablePlaybackStateFragment on PlaybackState {
-    isPlaying
-    context {
-      uri
-    }
-    item {
-      __typename
-      ... on Track {
-        id
-        uri
-      }
-      ... on Episode {
-        id
-        uri
-      }
-    }
-  }
-`;
-
 const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
-  const playbackState = usePlaybackState<PlaylistTablePlaybackStateFragment>({
-    fragment: PLAYBACK_STATE_FRAGMENT,
-  });
-  const playlistTrackEdges = playlist.tracks.edges;
-  const isPlaying = playbackState?.isPlaying ?? false;
-  const isPlayingPlaylist = playbackState?.context?.uri === playlist.uri;
-  const currentTrack = playbackState?.item ?? null;
-
   const meta = useMemo(
     () => ({
-      currentTrack,
-      isPlaying: isPlaying && isPlayingPlaylist,
-      containsAllTracks: playlistTrackEdges.every(
+      playlist,
+      containsAllTracks: playlist.tracks.edges.every(
         ({ node }) => node.__typename === 'Track'
       ),
-      containsAllEpisodes: playlistTrackEdges.every(
+      containsAllEpisodes: playlist.tracks.edges.every(
         ({ node }) => node.__typename === 'Episode'
       ),
-      containsAddedDate: playlistTrackEdges.some((edge) =>
+      containsAddedDate: playlist.tracks.edges.some((edge) =>
         Boolean(edge.addedAt)
       ),
     }),
-    [currentTrack, playlistTrackEdges, isPlaying, isPlayingPlaylist]
+    [playlist]
   );
 
   return (
     <Table
       className={className}
-      data={playlistTrackEdges}
+      data={playlist.tracks.edges}
       columns={columns}
       meta={meta}
       visibility={{
@@ -210,6 +174,8 @@ PlaylistTable.fragments = {
                 id
                 name
               }
+
+              ...TrackNumberCell_track
             }
 
             ... on Episode {
@@ -230,6 +196,7 @@ PlaylistTable.fragments = {
     }
 
     ${PlaylistTitleCell.fragments.playlistTrack}
+    ${TrackNumberCell.fragments.track}
   `,
 };
 
