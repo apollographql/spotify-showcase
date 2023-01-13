@@ -30,6 +30,8 @@ const resolvers: SubscriptionResolvers = {
           },
         });
 
+      // TODO: Handle multiple clients. Currently this will run when any clients
+      // disconnects
       pubsub.subscribe(TOPICS.DISCONNECT, () => {
         subscription.unsubscribe();
       });
