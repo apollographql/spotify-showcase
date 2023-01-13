@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -33,9 +32,7 @@ const Root = () => {
       <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
       <Layout.Main>
         <Layout.Header />
-        <Suspense fallback="">
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </Layout.Main>
       {isLoggedIn && <Playbar className={styles.playbar} />}
     </Layout>
