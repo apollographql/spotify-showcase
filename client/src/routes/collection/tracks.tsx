@@ -23,6 +23,7 @@ import useSetBackgroundColor from '../../hooks/useSetBackgroundColor';
 import { Clock } from 'lucide-react';
 import Duration from '../../components/Duration';
 import EntityLink from '../../components/EntityLink';
+import TrackNumberCell from '../../components/TrackNumberCell';
 import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 
@@ -48,6 +49,7 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
             name
             durationMs
 
+            ...TrackNumberCell_track
             ...TrackTitleCell_track
           }
         }
@@ -56,6 +58,7 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
   }
 
   ${TrackTitleCell.fragments.track}
+  ${TrackNumberCell.fragments.track}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`
@@ -126,7 +129,11 @@ const CollectionTracksRoute = () => {
             }}
           />
         </Page.ActionsBar>
-        <Table data={currentUser.tracks?.edges ?? []} columns={columns} />
+        <Table
+          data={currentUser.tracks?.edges ?? []}
+          columns={columns}
+          meta={{ spotifyURI }}
+        />
       </Page.Content>
     </Page>
   );
@@ -168,12 +175,21 @@ export const LoadingState = () => {
 const columnHelper = createColumnHelper<SavedTrackEdge>();
 
 const columns = [
-  columnHelper.display({
+  columnHelper.accessor('node', {
     id: 'number',
     header: '#',
-    cell: (info) => <Text color="muted">{info.row.index + 1}</Text>,
+    cell: (info) => (
+      <TrackNumberCell
+        position={info.row.index}
+        track={info.getValue()}
+        context={{
+          __typename: 'Playlist',
+          uri: info.table.options.meta!.spotifyURI,
+        }}
+      />
+    ),
     meta: {
-      headerAlign: 'center',
+      headerAlign: 'right',
       shrink: true,
     },
   }),
