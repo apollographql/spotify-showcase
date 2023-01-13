@@ -515,9 +515,16 @@ export type PausePlaybackResponse = {
 
 export type PlaybackContext = {
   __typename?: 'PlaybackContext';
+  /** External URLs for this context. */
   externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the track. */
   href: Scalars['String'];
+  /** The object type, e.g. "artist", "playlist", "album", "show". */
   type: PlaybackContextType;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the context.
+   */
   uri: Scalars['String'];
 };
 
