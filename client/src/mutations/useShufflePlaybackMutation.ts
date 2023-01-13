@@ -22,7 +22,19 @@ const useShufflePlaybackMutation = () => {
   >(SHUFFLE_PLAYBACK_MUTATION);
 
   const shufflePlayback = useCallback(
-    (variables: ShufflePlaybackMutationVariables) => execute({ variables }),
+    (variables: ShufflePlaybackMutationVariables) =>
+      execute({
+        variables,
+        optimisticResponse: {
+          shufflePlayback: {
+            __typename: 'ShufflePlaybackResponse',
+            playbackState: {
+              __typename: 'PlaybackState',
+              shuffleState: variables.state,
+            },
+          },
+        },
+      }),
     [execute]
   );
 
