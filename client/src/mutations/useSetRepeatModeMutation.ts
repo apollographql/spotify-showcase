@@ -22,7 +22,19 @@ const useSetRepeatModeMutation = () => {
   >(SET_REPEAT_MODE_MUTATION);
 
   const setRepeatMode = useCallback(
-    (variables: SetRepeatModeMutationVariables) => execute({ variables }),
+    (variables: SetRepeatModeMutationVariables) =>
+      execute({
+        variables,
+        optimisticResponse: {
+          setRepeatMode: {
+            __typename: 'SetRepeatModeResponse',
+            playbackState: {
+              __typename: 'PlaybackState',
+              repeatState: variables.state,
+            },
+          },
+        },
+      }),
     [execute]
   );
 
