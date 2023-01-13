@@ -71,10 +71,10 @@ export default new ApolloClient({
         keyFields: ['url'],
       },
       Player: {
-        keyFields: false,
+        keyFields: [],
       },
       PlaybackState: {
-        keyFields: false,
+        keyFields: [],
       },
       Query: {
         fields: {
