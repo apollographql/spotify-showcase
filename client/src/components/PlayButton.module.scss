@@ -22,6 +22,10 @@
     transform: scale(1.1, 1.1);
   }
 
+  &:active:not(:disabled) {
+    transform: scale(0.99, 0.99);
+  }
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.25;
