@@ -1248,9 +1248,13 @@ export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: 
 
 export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
 
-type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
+export type PlaylistTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', uri: string } | { __typename: 'Track', uri: string } | null };
 
-type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
+export type PlaylistTitleCell_playlist = { __typename: 'Playlist', id: string, uri: string };
+
+type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: string, name: string, uri: string, show: { __typename: 'Show', id: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
+
+type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string, name: string, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 

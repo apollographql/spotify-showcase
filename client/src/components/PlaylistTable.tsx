@@ -74,7 +74,12 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
       columnHelper.accessor('node', {
         id: 'title',
         header: 'Title',
-        cell: (info) => <PlaylistTitleCell playlistTrack={info.getValue()} />,
+        cell: (info) => (
+          <PlaylistTitleCell
+            playlist={playlist}
+            playlistTrack={info.getValue()}
+          />
+        ),
       }),
       columnHelper.accessor(({ node }) => parentOf(node), {
         id: 'albumOrPodcast',
