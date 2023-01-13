@@ -11,8 +11,12 @@
   width: 1.5rem;
   height: 1.5rem;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: var(--color--white);
+  }
+
+  &:active:not(:disabled) {
+    color: var(--text-color--muted);
   }
 
   &:disabled {
