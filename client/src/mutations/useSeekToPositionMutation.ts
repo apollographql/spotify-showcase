@@ -22,7 +22,19 @@ const useSeekToPositionMutation = () => {
   >(SEEK_TO_POSITION_MUTATION);
 
   const seekToPosition = useCallback(
-    (variables: SeekToPositionMutationVariables) => execute({ variables }),
+    (variables: SeekToPositionMutationVariables) =>
+      execute({
+        variables,
+        optimisticResponse: {
+          seekToPosition: {
+            __typename: 'SeekToPositionResponse',
+            playbackState: {
+              __typename: 'PlaybackState',
+              progressMs: variables.positionMs,
+            },
+          },
+        },
+      }),
     [execute]
   );
 
