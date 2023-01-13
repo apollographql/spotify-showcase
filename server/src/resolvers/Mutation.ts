@@ -2,9 +2,24 @@ import { MutationResolvers } from './types';
 import { identify, updateFieldConfig, resetFieldConfig } from '../fieldConfigs';
 import { GraphQLError } from 'graphql';
 import { maybe, maybeDeep } from '../utils/common';
+import SpotifyAPI from '../dataSources/spotify';
+import Publisher from '../publisher';
+
+const refreshPlaybackState = async (
+  spotify: SpotifyAPI,
+  publisher: Publisher
+) => {
+  const playbackState = await spotify.getPlaybackState({
+    additional_types: 'episode,track',
+  });
+
+  publisher.playbackStateChanged({ playbackState });
+
+  return playbackState;
+};
 
 const resolvers: MutationResolvers = {
-  resumePlayback: async (_, { context }, { dataSources }) => {
+  resumePlayback: async (_, { context }, { dataSources, publisher }) => {
     await dataSources.spotify.resumePlayback({
       body: {
         context_uri: maybe(context?.contextUri),
@@ -15,16 +30,26 @@ const resolvers: MutationResolvers = {
       params: { device_id: maybe(context?.deviceId) },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
-  pausePlayback: async (_, { context }, { dataSources }) => {
+  pausePlayback: async (_, { context }, { dataSources, publisher }) => {
     await dataSources.spotify.pausePlayback({
       params: {
         device_id: maybe(context?.deviceId),
       },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
   updateFieldConfig: (_, { field, config }) => {
     if (!field.schemaField) {
@@ -49,14 +74,23 @@ const resolvers: MutationResolvers = {
 
     return { fieldConfig };
   },
-  seekToPosition: async (_, { positionMs, context }, { dataSources }) => {
+  seekToPosition: async (
+    _,
+    { positionMs, context },
+    { dataSources, publisher }
+  ) => {
     await dataSources.spotify.seekToPosition({
       params: { position_ms: positionMs, device_id: maybe(context?.deviceId) },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
-  setRepeatMode: async (_, { state, context }, { dataSources }) => {
+  setRepeatMode: async (_, { state, context }, { dataSources, publisher }) => {
     await dataSources.spotify.setRepeatMode({
       params: {
         state,
@@ -64,9 +98,18 @@ const resolvers: MutationResolvers = {
       },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
-  setVolume: async (_, { volumePercent, context }, { dataSources }) => {
+  setVolume: async (
+    _,
+    { volumePercent, context },
+    { dataSources, publisher }
+  ) => {
     await dataSources.spotify.setVolume({
       params: {
         volume_percent: volumePercent,
@@ -74,28 +117,52 @@ const resolvers: MutationResolvers = {
       },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
-  shufflePlayback: async (_, { state, context }, { dataSources }) => {
+  shufflePlayback: async (
+    _,
+    { state, context },
+    { dataSources, publisher }
+  ) => {
     await dataSources.spotify.shufflePlayback({
       params: { state, device_id: maybe(context?.deviceId) },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
-  skipToNext: async (_, { context }, { dataSources }) => {
+  skipToNext: async (_, { context }, { dataSources, publisher }) => {
     await dataSources.spotify.skipToNext({
       params: { device_id: maybe(context?.deviceId) },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
-  skipToPrevious: async (_, { context }, { dataSources }) => {
+  skipToPrevious: async (_, { context }, { dataSources, publisher }) => {
     await dataSources.spotify.skipToPrevious({
       params: { device_id: maybe(context?.deviceId) },
     });
 
-    return { playbackState: null };
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
   },
 };
 
