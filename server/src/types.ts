@@ -10,4 +10,5 @@ export interface ContextValue {
   };
   playbackState$: Observable<Spotify.Object.PlaybackState | null>;
   pubsub: PubSub;
+  token: string;
 }

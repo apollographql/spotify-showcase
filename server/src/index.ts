@@ -50,12 +50,14 @@ const serverCleanup = useServer(
       pubsub.publish(TOPICS.DISCONNECT, true);
     },
     context: (ctx) => {
+      const token = ctx.connectionParams!.apiToken! as string;
       const spotify = new SpotifyAPI({
         cache: server.cache,
-        token: ctx.connectionParams!.apiToken! as string,
+        token,
       });
 
       return {
+        token,
         defaultCountryCode,
         playbackState$: createPlaybackStateObservable(spotify),
         pubsub,
@@ -92,6 +94,7 @@ server.start().then(async () => {
     json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
+        const token = req.get('x-api-token') ?? '';
         const { cache } = server;
         const spotify = new SpotifyAPI({
           cache,
@@ -103,6 +106,7 @@ server.start().then(async () => {
           dataSources: { spotify },
           playbackState$: createPlaybackStateObservable(spotify),
           pubsub,
+          token,
         };
       },
     })
