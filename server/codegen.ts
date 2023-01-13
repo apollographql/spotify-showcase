@@ -103,6 +103,12 @@ const config: CodegenConfig = {
             COMPILATION: 'compilation',
             SINGLE: 'single',
           },
+          PlaybackContextType: {
+            ARTIST: 'artist',
+            ALBUM: 'album',
+            PLAYLIST: 'playlist',
+            SHOW: 'show',
+          },
           ReleaseDatePrecision: {
             DAY: 'day',
             MONTH: 'month',

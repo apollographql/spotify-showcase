@@ -515,10 +515,17 @@ export type PausePlaybackResponse = {
 
 export type PlaybackContext = {
   __typename?: 'PlaybackContext';
-  item?: Maybe<PlaybackContextItem>;
+  externalUrls: ExternalUrl;
+  href: Scalars['String'];
+  type: PlaybackContextType;
+  uri: Scalars['String'];
 };
 
-export type PlaybackContextItem = Album | Artist | Playlist | Show;
+export type PlaybackContextType =
+  | 'album'
+  | 'artist'
+  | 'playlist'
+  | 'show';
 
 export type PlaybackItem = Episode | Track;
 
@@ -1291,7 +1298,7 @@ export type ResolversTypes = ResolversObject<{
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: ResolverTypeWrapper<Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
-  PlaybackContextItem: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show>;
+  PlaybackContextType: PlaybackContextType;
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
   Player: ResolverTypeWrapper<{}>;
@@ -1375,7 +1382,6 @@ export type ResolversParentTypes = ResolversObject<{
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   PlaybackContext: Spotify.Object.Context;
-  PlaybackContextItem: Spotify.Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
   PlaybackState: Spotify.Object.PlaybackState;
   Player: {};
@@ -1618,13 +1624,14 @@ export type PausePlaybackResponseResolvers<ContextType = ContextValue, ParentTyp
 }>;
 
 export type PlaybackContextResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackContext'] = ResolversParentTypes['PlaybackContext']> = ResolversObject<{
-  item?: Resolver<Maybe<ResolversTypes['PlaybackContextItem']>, ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['PlaybackContextType'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackContextItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackContextItem'] = ResolversParentTypes['PlaybackContextItem']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'Album' | 'Artist' | 'Playlist' | 'Show', ParentType, ContextType>;
-}>;
+export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', PLAYLIST: 'playlist', SHOW: 'show' };
 
 export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
@@ -1908,7 +1915,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   PageInfo?: PageInfoResolvers<ContextType>;
   PausePlaybackResponse?: PausePlaybackResponseResolvers<ContextType>;
   PlaybackContext?: PlaybackContextResolvers<ContextType>;
-  PlaybackContextItem?: PlaybackContextItemResolvers<ContextType>;
+  PlaybackContextType?: PlaybackContextTypeResolvers;
   PlaybackItem?: PlaybackItemResolvers<ContextType>;
   PlaybackState?: PlaybackStateResolvers<ContextType>;
   Player?: PlayerResolvers<ContextType>;

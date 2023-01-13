@@ -785,10 +785,18 @@ type PausePlaybackResponse {
   playbackState: PlaybackState
 }
 
-union PlaybackContextItem = Album | Artist | Playlist | Show
-
 type PlaybackContext {
-  item: PlaybackContextItem
+  href: String!
+  type: PlaybackContextType!
+  externalUrls: ExternalUrl!
+  uri: String!
+}
+
+enum PlaybackContextType {
+  ARTIST
+  ALBUM
+  PLAYLIST
+  SHOW
 }
 
 union PlaybackItem = Episode | Track
