@@ -23,15 +23,7 @@ const useResumePlaybackMutation = () => {
 
   const resumePlayback = useCallback(
     (variables?: ResumePlaybackMutationVariables) => {
-      return execute({
-        variables,
-        optimisticResponse: {
-          resumePlayback: {
-            __typename: 'ResumePlaybackResponse',
-            playbackState: { __typename: 'PlaybackState', isPlaying: true },
-          },
-        },
-      });
+      return execute({ variables });
     },
     [execute]
   );

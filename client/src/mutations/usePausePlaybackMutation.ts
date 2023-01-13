@@ -22,14 +22,7 @@ const usePausePlaybackMutation = () => {
   >(PAUSE_PLAYBACK_MUTATION);
 
   const pausePlayback = useCallback(() => {
-    return execute({
-      optimisticResponse: {
-        pausePlayback: {
-          __typename: 'PausePlaybackResponse',
-          playbackState: { __typename: 'PlaybackState', isPlaying: false },
-        },
-      },
-    });
+    return execute();
   }, [execute]);
 
   return [pausePlayback, result] as const;
