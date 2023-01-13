@@ -3,7 +3,11 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { AlbumRouteQuery, AlbumRouteQueryVariables } from '../../types/api';
+import {
+  AlbumRouteQuery,
+  AlbumRouteQueryVariables,
+  AlbumRoutePlaybackStateFragment,
+} from '../../types/api';
 import AlbumTracksTable from '../../components/AlbumTracksTable';
 import Page from '../../components/Page';
 import EntityLink from '../../components/EntityLink';
@@ -17,7 +21,7 @@ import ReleaseDate from '../../components/ReleaseDate';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
 import Skeleton from '../../components/Skeleton';
-import useIsPlayingContext from '../../hooks/useIsPlayingContext';
+import usePlaybackState from '../../hooks/usePlaybackState';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -60,6 +64,15 @@ const ALBUM_ROUTE_QUERY = gql`
   ${AlbumTracksTable.fragments.tracks}
 `;
 
+const PLAYBACK_STATE_FRAGMENT = gql`
+  fragment AlbumRoutePlaybackStateFragment on PlaybackState {
+    isPlaying
+    context {
+      uri
+    }
+  }
+`;
+
 const AlbumRoute = () => {
   const { albumId } = useParams() as { albumId: 'string' };
   const { data } = useSuspenseQuery<AlbumRouteQuery, AlbumRouteQueryVariables>(
@@ -72,7 +85,11 @@ const AlbumRoute = () => {
   const album = data.album!;
   const images = album.images ?? [];
   const coverPhoto = images[0];
-  const isPlayingAlbum = useIsPlayingContext(album);
+  const playbackState = usePlaybackState<AlbumRoutePlaybackStateFragment>({
+    fragment: PLAYBACK_STATE_FRAGMENT,
+  });
+  const isPlaying = playbackState?.isPlaying ?? false;
+  const isPlayingAlbum = playbackState?.context?.uri === album.uri;
 
   useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
@@ -101,11 +118,13 @@ const AlbumRoute = () => {
           <PlayButton
             variant="primary"
             size="3.5rem"
-            playing={isPlayingAlbum}
+            playing={isPlaying && isPlayingAlbum}
             onPlay={() => {
-              const context = isPlayingAlbum ? null : { contextUri: album.uri };
-
-              resumePlayback({ context });
+              resumePlayback({
+                context: {
+                  contextUri: isPlayingAlbum ? null : album.uri,
+                },
+              });
             }}
           />
         </Page.ActionsBar>
