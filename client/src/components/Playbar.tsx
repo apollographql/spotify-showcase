@@ -15,7 +15,7 @@ import {
   RepeatMode,
 } from '../types/api';
 import merge from 'deepmerge';
-import { List, Volume1, Volume } from 'lucide-react';
+import { List, Volume1 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
