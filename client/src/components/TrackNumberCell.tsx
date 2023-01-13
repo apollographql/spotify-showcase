@@ -50,16 +50,8 @@ const TrackNumberCell = ({
   const trackNumber =
     context.__typename === 'Playlist' ? position + 1 : track.trackNumber;
 
-  if (!playbackState) {
-    return preferIcon ? (
-      <Music size="1rem" />
-    ) : (
-      <Text numericVariant="tabular-nums">{trackNumber}</Text>
-    );
-  }
-
-  const isPlaying = playbackState.isPlaying ?? false;
-  const isPlayingInContext = playbackState.context?.uri === context.uri;
+  const isPlaying = playbackState?.isPlaying ?? false;
+  const isPlayingInContext = playbackState?.context?.uri === context.uri;
 
   if (
     isPlaying &&
