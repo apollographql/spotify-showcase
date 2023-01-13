@@ -7,6 +7,7 @@ import {
   ColumnDef,
   TableMeta,
   VisibilityState,
+  Row,
 } from '@tanstack/react-table';
 import styles from './Table.module.scss';
 
@@ -16,6 +17,7 @@ interface TableProps<TData>
   columns: ColumnDef<TData, any>[];
   meta?: TableMeta<TData>;
   visibility?: VisibilityState;
+  onDoubleClickRow?: (row: Row<TData>) => void;
 }
 
 function Table<TData>({
@@ -24,6 +26,7 @@ function Table<TData>({
   data,
   meta,
   visibility,
+  onDoubleClickRow,
   ...props
 }: TableProps<TData>) {
   const table = useReactTable({
@@ -65,7 +68,7 @@ function Table<TData>({
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
+          <tr key={row.id} onDoubleClick={() => onDoubleClickRow?.(row)}>
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id} data-wrap={cell.column.columnDef.meta?.wrap}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
