@@ -9,6 +9,7 @@ const SKIP_TO_PREVIOUS_MUTATION = gql`
   mutation SkipToPreviousMutation {
     skipToPrevious {
       playbackState {
+        progressMs
         item {
           __typename
           ... on Track {
