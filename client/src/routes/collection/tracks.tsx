@@ -137,6 +137,14 @@ export const LoadingState = () => {
     <Page>
       <Page.SkeletonHeader />
       <Page.Content>
+        <Page.ActionsBar>
+          <PlayButton
+            disabled
+            variant="primary"
+            size="3.5rem"
+            playing={false}
+          />
+        </Page.ActionsBar>
         <Skeleton.Table
           rows={10}
           columns={[
