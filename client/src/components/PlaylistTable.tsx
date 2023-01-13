@@ -11,6 +11,7 @@ import Table from './Table';
 import PlaylistTitleCell from './PlaylistTitleCell';
 import { Get } from 'type-fest';
 import TrackNumberCell from './TrackNumberCell';
+import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 
 interface PlaylistTableProps {
   className?: string;
@@ -125,6 +126,8 @@ const columns = [
 ];
 
 const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
+  const [resumePlayback] = useResumePlaybackMutation();
+
   const meta = useMemo(
     () => ({
       playlist,
@@ -147,6 +150,13 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
       data={playlist.tracks.edges}
       columns={columns}
       meta={meta}
+      onDoubleClickRow={(row) => {
+        const { node } = row.original;
+
+        resumePlayback({
+          context: { contextUri: playlist.uri, offset: { uri: node.uri } },
+        });
+      }}
       visibility={{
         addedAt: meta.containsAddedDate,
         releaseDate: !meta.containsAllTracks,
