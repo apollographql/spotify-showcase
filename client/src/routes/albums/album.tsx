@@ -17,6 +17,7 @@ import ReleaseDate from '../../components/ReleaseDate';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
 import Skeleton from '../../components/Skeleton';
+import useIsPlayingContext from '../../hooks/useIsPlayingContext';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -71,6 +72,7 @@ const AlbumRoute = () => {
   const album = data.album!;
   const images = album.images ?? [];
   const coverPhoto = images[0];
+  const isPlayingAlbum = useIsPlayingContext(album);
 
   useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
@@ -99,10 +101,12 @@ const AlbumRoute = () => {
           <PlayButton
             variant="primary"
             size="3.5rem"
-            playing={false}
-            onPlay={() =>
-              resumePlayback({ context: { contextUri: album.uri } })
-            }
+            playing={isPlayingAlbum}
+            onPlay={() => {
+              const context = isPlayingAlbum ? null : { contextUri: album.uri };
+
+              resumePlayback({ context });
+            }}
           />
         </Page.ActionsBar>
         <AlbumTracksTable

@@ -19,6 +19,9 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     actions {
       disallows
     }
+    context {
+      uri
+    }
     device {
       id
       name
