@@ -105,7 +105,7 @@ const Playlist = () => {
             onPlay={() => {
               const context = isPlayingPlaylist
                 ? null
-                : { contextUri: playlist.uri };
+                : { offset: { position: 0 }, contextUri: playlist.uri };
 
               resumePlayback({ context });
             }}

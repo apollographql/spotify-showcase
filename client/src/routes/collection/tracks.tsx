@@ -120,7 +120,7 @@ const CollectionTracksRoute = () => {
             onPlay={() => {
               const context = isPlayingCollection
                 ? null
-                : { contextUri: spotifyURI };
+                : { offset: { position: 0 }, contextUri: spotifyURI };
 
               resumePlayback({ context });
             }}
