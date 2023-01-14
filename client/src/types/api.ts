@@ -1283,7 +1283,9 @@ export type TrackNumberCell_track = { __typename: 'Track', id: string, uri: stri
 
 export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
-export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
+
+export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type PausePlaybackMutationVariables = Exact<{ [key: string]: never; }>;
 
