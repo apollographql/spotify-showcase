@@ -566,7 +566,7 @@ type Device {
 }
 
 "Spotify catalog information for an episode."
-type Episode implements PlaylistTrack {
+type Episode implements PlaylistTrack & PlaybackItem {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
   """
@@ -815,7 +815,33 @@ enum PlaybackContextType {
   SHOW
 }
 
-union PlaybackItem = Episode | Track
+interface PlaybackItem {
+  "The duration for the playback item in milliseconds."
+  durationMs: Int!
+
+  "Known external URLs for this playback item."
+  externalUrls: ExternalUrl!
+
+  "A link to the Web API endpoint providing full details of the playlist item."
+  href: String!
+
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the playback item.
+  """
+  id: ID!
+
+  """
+  The name of the playlist item.
+  """
+  name: String!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the episode.
+  """
+  uri: String!
+}
 
 type PlaybackState {
   """
@@ -1180,7 +1206,7 @@ enum TextFormat {
 }
 
 "Spotify catalog information for a track."
-type Track implements PlaylistTrack {
+type Track implements PlaylistTrack & PlaybackItem {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """

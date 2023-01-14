@@ -272,7 +272,7 @@ export type Device = {
 };
 
 /** Spotify catalog information for an episode. */
-export type Episode = PlaylistTrack & {
+export type Episode = PlaybackItem & PlaylistTrack & {
   __typename?: 'Episode';
   /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
   audioPreviewUrl?: Maybe<Scalars['String']>;
@@ -534,7 +534,26 @@ export type PlaybackContextType =
   | 'playlist'
   | 'show';
 
-export type PlaybackItem = Episode | Track;
+export type PlaybackItem = {
+  /** The duration for the playback item in milliseconds. */
+  durationMs: Scalars['Int'];
+  /** Known external URLs for this playback item. */
+  externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the playlist item. */
+  href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the playback item.
+   */
+  id: Scalars['ID'];
+  /** The name of the playlist item. */
+  name: Scalars['String'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the episode.
+   */
+  uri: Scalars['String'];
+};
 
 export type PlaybackState = {
   __typename?: 'PlaybackState';
@@ -1103,7 +1122,7 @@ export type TextFormat =
   | 'PLAIN';
 
 /** Spotify catalog information for a track. */
-export type Track = PlaylistTrack & {
+export type Track = PlaybackItem & PlaylistTrack & {
   __typename?: 'Track';
   /** The album on which the track appears. */
   album: Album;
@@ -1642,6 +1661,12 @@ export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', P
 
 export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
+  durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
 export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState']> = ResolversObject<{
