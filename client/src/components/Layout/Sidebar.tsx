@@ -1,6 +1,15 @@
+import {
+  gql,
+  OperationVariables,
+  useFragment_experimental as useFragment,
+} from '@apollo/client';
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Library, Home, Search, Heart } from 'lucide-react';
+import { Library, Home, Search, Heart, Volume2 } from 'lucide-react';
+import {
+  Sidebar_currentUser as CurrentUser,
+  Sidebar_playbackState as PlaybackState,
+} from '../../types/api';
 import cx from 'classnames';
 import Flex from '../Flex';
 import ApolloLogo from '../ApolloLogo';
@@ -8,12 +17,49 @@ import GradientIcon from '../GradientIcon';
 import SpotifyLogo from '../SpotifyLogo';
 import NavLink from './NavLink';
 import styles from './Sidebar.module.scss';
+import usePlaybackState from '../../hooks/usePlaybackState';
 
 interface SidebarProps {
   children?: ReactNode;
 }
 
+const CURRENT_USER_FRAGMENT = gql`
+  fragment Sidebar_currentUser on CurrentUser {
+    user {
+      id
+    }
+  }
+`;
+
+const PLAYBACK_STATE_FRAGMENT = gql`
+  fragment Sidebar_playbackState on PlaybackState {
+    isPlaying
+    context {
+      uri
+    }
+  }
+`;
+
 const Sidebar = ({ children }: SidebarProps) => {
+  const { data: currentUser, complete } = useFragment<
+    CurrentUser,
+    OperationVariables
+  >({
+    fragment: CURRENT_USER_FRAGMENT,
+    from: { __typename: 'CurrentUser' },
+  });
+
+  const playbackState = usePlaybackState<PlaybackState>({
+    fragment: PLAYBACK_STATE_FRAGMENT,
+  });
+
+  console.log({ currentUser });
+
+  const likedSongsURI =
+    currentUser && complete && `spotify:user:${currentUser.user.id}:collection`;
+
+  console.log({ playbackState, likedSongsURI, currentUser });
+
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.sidebarNav}>
@@ -45,6 +91,12 @@ const Sidebar = ({ children }: SidebarProps) => {
             to="/collection/tracks"
           >
             Liked Songs
+            {playbackState?.isPlaying &&
+              playbackState.context?.uri === likedSongsURI && (
+                <Flex flex={1} justifyContent="end">
+                  <Volume2 color="var(--color--theme--light)" size="0.875rem" />
+                </Flex>
+              )}
           </NavLink>
         </ul>
         {children && <hr className={styles.sidebarDivider} />}
