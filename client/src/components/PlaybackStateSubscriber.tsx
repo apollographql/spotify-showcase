@@ -29,9 +29,9 @@ const PLAYBACK_STATE_FRAGMENT = gql`
       volumePercent
     }
     item {
-      __typename
+      id
+
       ... on Track {
-        id
         album {
           id
           images {
@@ -39,8 +39,8 @@ const PLAYBACK_STATE_FRAGMENT = gql`
           }
         }
       }
+
       ... on Episode {
-        id
         show {
           id
           images {

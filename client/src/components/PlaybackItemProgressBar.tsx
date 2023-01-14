@@ -47,14 +47,8 @@ PlaybackItemProgressBar.fragments = {
       progressMs
       timestamp
       item {
-        ... on Track {
-          id
-          durationMs
-        }
-        ... on Episode {
-          id
-          durationMs
-        }
+        id
+        durationMs
       }
     }
   `,

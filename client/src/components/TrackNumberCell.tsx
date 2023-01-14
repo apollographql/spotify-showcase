@@ -28,12 +28,8 @@ const PLAYBACK_STATE_FRAGMENT = gql`
       uri
     }
     item {
-      ... on Track {
-        uri
-      }
-      ... on Episode {
-        uri
-      }
+      id
+      uri
     }
   }
 `;

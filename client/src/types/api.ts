@@ -269,7 +269,7 @@ export type Device = {
 };
 
 /** Spotify catalog information for an episode. */
-export type Episode = PlaylistTrack & {
+export type Episode = PlaybackItem & PlaylistTrack & {
   __typename: 'Episode';
   /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
   audioPreviewUrl: Maybe<Scalars['String']>;
@@ -532,7 +532,26 @@ export enum PlaybackContextType {
   Show = 'SHOW'
 }
 
-export type PlaybackItem = Episode | Track;
+export type PlaybackItem = {
+  /** The duration for the playback item in milliseconds. */
+  durationMs: Scalars['Int'];
+  /** Known external URLs for this playback item. */
+  externalUrls: ExternalUrl;
+  /** A link to the Web API endpoint providing full details of the playlist item. */
+  href: Scalars['String'];
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the playback item.
+   */
+  id: Scalars['ID'];
+  /** The name of the playlist item. */
+  name: Scalars['String'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the episode.
+   */
+  uri: Scalars['String'];
+};
 
 export type PlaybackState = {
   __typename: 'PlaybackState';
@@ -1105,7 +1124,7 @@ export enum TextFormat {
 }
 
 /** Spotify catalog information for a track. */
-export type Track = PlaylistTrack & {
+export type Track = PlaybackItem & PlaylistTrack & {
   __typename: 'Track';
   /** The album on which the track appears. */
   album: Album;
@@ -1248,7 +1267,7 @@ export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: 
 
 export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
 
-export type PlaylistTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', uri: string } | { __typename: 'Track', uri: string } | null };
+export type PlaylistTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 
 export type PlaylistTitleCell_playlist = { __typename: 'Playlist', id: string, uri: string };
 
@@ -1258,7 +1277,7 @@ type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string,
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
-export type TrackNumberCell_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', uri: string } | { __typename: 'Track', uri: string } | null };
+export type TrackNumberCell_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 
 export type TrackNumberCell_track = { __typename: 'Track', id: string, uri: string, trackNumber: number | null };
 

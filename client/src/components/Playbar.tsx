@@ -133,9 +133,9 @@ Playbar.fragments = {
         volumePercent
       }
       item {
-        __typename
+        id
+
         ... on Track {
-          id
           album {
             id
             images {
@@ -145,7 +145,6 @@ Playbar.fragments = {
           ...TrackPlaybackDetails_track
         }
         ... on Episode {
-          id
           show {
             id
             images {
