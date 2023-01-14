@@ -4,12 +4,19 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { Outlet } from 'react-router-dom';
-import { RootQuery, RootQueryVariables } from '../types/api';
+import {
+  RootQuery,
+  RootQueryVariables,
+  Root_playbackState as PlaybackState,
+} from '../types/api';
 import Layout from '../components/Layout';
 import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
+import usePlaybackState from '../hooks/usePlaybackState';
 import styles from './root.module.scss';
+import { Volume2 } from 'lucide-react';
+import Flex from '../components/Flex';
 
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int!) {
@@ -19,9 +26,18 @@ const ROOT_QUERY = gql`
           node {
             id
             name
+            uri
           }
         }
       }
+    }
+  }
+`;
+
+const PLAYBACK_STATE_FRAGMENT = gql`
+  fragment Root_playbackState on PlaybackState {
+    context {
+      uri
     }
   }
 `;
@@ -49,14 +65,22 @@ const Playlists = () => {
     variables: { limit: 50 },
   });
 
+  const playbackState = usePlaybackState<PlaybackState>({
+    fragment: PLAYBACK_STATE_FRAGMENT,
+  });
+
   return (
     <Layout.Sidebar.Section className={styles.playlists}>
       {data.me?.playlists?.edges.map(({ node: playlist }) => (
         <Layout.Sidebar.NavLink
+          className={styles.playlistLink}
           key={playlist.id}
           to={`/playlists/${playlist.id}`}
         >
           {playlist.name}
+          {playlist.uri === playbackState?.context?.uri && (
+            <Volume2 color="var(--color--theme--light)" size="0.875rem" />
+          )}
         </Layout.Sidebar.NavLink>
       ))}
     </Layout.Sidebar.Section>

@@ -1393,7 +1393,9 @@ export type RootQueryVariables = Exact<{
 }>;
 
 
-export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
+export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, uri: string } }> } | null } | null };
+
+export type Root_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
 
 export type ShowRouteQueryVariables = Exact<{
   showId: Scalars['ID'];
