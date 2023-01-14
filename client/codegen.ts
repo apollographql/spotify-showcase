@@ -4,6 +4,9 @@ const config: CodegenConfig = {
   schema: 'http://localhost:4000/graphql',
   documents: ['src/**/*.{ts,tsx}'],
   generates: {
+    './src/introspection.json': {
+      plugins: ['fragment-matcher'],
+    },
     './src/types/api.ts': {
       config: {
         avoidOptionals: {

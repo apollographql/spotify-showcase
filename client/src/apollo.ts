@@ -11,6 +11,7 @@ import { readAuthToken } from './utils';
 import { logout } from './auth';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import introspection from './introspection.json';
 
 const httpLink = createHttpLink({
   uri: `${process.env.REACT_APP_SERVER_HOST}/graphql`,
@@ -56,10 +57,7 @@ const splitLink = split(
 export default new ApolloClient({
   link: splitLink,
   cache: new InMemoryCache({
-    possibleTypes: {
-      PlaybackItem: ['Track', 'Episode'],
-      PlaylistTrack: ['Track', 'Episode'],
-    },
+    possibleTypes: introspection.possibleTypes,
     typePolicies: {
       Copyright: {
         keyFields: false,
