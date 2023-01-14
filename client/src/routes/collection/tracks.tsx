@@ -133,6 +133,13 @@ const CollectionTracksRoute = () => {
           data={currentUser.tracks?.edges ?? []}
           columns={columns}
           meta={{ spotifyURI }}
+          onDoubleClickRow={(row) => {
+            const { node } = row.original;
+
+            resumePlayback({
+              context: { contextUri: spotifyURI, offset: { uri: node.uri } },
+            });
+          }}
         />
       </Page.Content>
     </Page>
@@ -195,7 +202,12 @@ const columns = [
   }),
   columnHelper.accessor('node', {
     header: 'Title',
-    cell: (info) => <TrackTitleCell track={info.getValue()} />,
+    cell: (info) => (
+      <TrackTitleCell
+        context={{ uri: info.table.options.meta!.spotifyURI }}
+        track={info.getValue()}
+      />
+    ),
   }),
   columnHelper.accessor('addedAt', {
     header: 'Date added',
