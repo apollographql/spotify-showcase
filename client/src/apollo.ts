@@ -62,6 +62,9 @@ export default new ApolloClient({
       Copyright: {
         keyFields: false,
       },
+      CurrentUser: {
+        keyFields: [],
+      },
       Followers: {
         keyFields: false,
       },
