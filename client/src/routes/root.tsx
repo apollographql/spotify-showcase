@@ -16,7 +16,6 @@ import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import usePlaybackState from '../hooks/usePlaybackState';
 import styles from './root.module.scss';
 import { Volume2 } from 'lucide-react';
-import Flex from '../components/Flex';
 
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int!) {
