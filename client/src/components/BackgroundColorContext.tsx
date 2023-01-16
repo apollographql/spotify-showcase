@@ -8,5 +8,7 @@ type BackgroundColorContext = [
 
 export default createContext<BackgroundColorContext>([
   DEFAULT_BACKGROUND_COLOR,
-  () => {},
+  () => {
+    // Do nothing
+  },
 ]);

@@ -79,8 +79,8 @@ const LoggedOut = () => {
       <p>
         To use this demo app, you will first need a Spotify developer token.
         This will allow the app to make calls to the Spotify API using this
-        app's GraphQL API. Once obtained, you will need to add these credentials
-        to the app.
+        app&apos;s GraphQL API. Once obtained, you will need to add these
+        credentials to the app.
       </p>
       <h2>Register a Spotify application</h2>
       <ol>
@@ -105,8 +105,9 @@ const LoggedOut = () => {
         </li>
         <li>
           <p>
-            In the "Edit Settings" dialogue, add this app's redirect URI for
-            this app to allow this app to sign in to your Spotify account.
+            In the &lsquo;Edit Settings&rsquo; dialogue, add this app&apos;s
+            redirect URI for this app to allow this app to sign in to your
+            Spotify account.
           </p>
           <p>
             <code>http://localhost:4000/oauth/finalize</code>
@@ -138,8 +139,8 @@ const LoggedOut = () => {
             <code>DEFAULT_COUNTRY_CODE=CA</code>
           </pre>
           <blockquote>
-            This is needed to fetch an artist's top tracks on the artist page
-            without needing geolocation.
+            This is needed to fetch an artist&apos;s top tracks on the artist
+            page without needing geolocation.
           </blockquote>
         </li>
         <li>

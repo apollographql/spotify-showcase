@@ -53,7 +53,12 @@ const ShowRoute = () => {
     { variables: { showId } }
   );
 
-  const show = data.show!;
+  const show = data.show;
+
+  if (!show) {
+    throw new Error('Show not found');
+  }
+
   const coverPhoto = show.images[0];
   const upNext = show.episodes?.edges[0].node;
 

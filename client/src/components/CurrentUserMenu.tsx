@@ -27,6 +27,10 @@ const CurrentUserMenu = () => {
     CurrentUserQueryVariables
   >(CURRENT_USER_QUERY);
 
+  if (!data.me) {
+    throw new Error('You must be logged in');
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger
@@ -34,7 +38,7 @@ const CurrentUserMenu = () => {
         variant="ghost"
         size="sm"
       >
-        <Avatar size="2rem" user={data.me!.user} />
+        <Avatar size="2rem" user={data.me.user} />
         {data.me?.user.displayName}
       </DropdownMenu.Trigger>
       <DropdownMenu.Menu align="end">

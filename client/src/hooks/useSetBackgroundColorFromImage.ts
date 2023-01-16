@@ -38,10 +38,9 @@ const useSetBackgroundColorFromImage = (
       const result = await Vibrant.from(img).getPalette();
 
       const name = PREFERRED_SWATCHES.find((name) => result[name]);
+      const swatch = name ? result[name] : undefined;
 
-      if (name) {
-        const swatch = result[name]!;
-
+      if (swatch) {
         setBackgroundColor(`rgba(${swatch.r}, ${swatch.g}, ${swatch.b}, 0.5)`);
       }
     };

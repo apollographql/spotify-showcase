@@ -84,7 +84,12 @@ const ArtistRoute = () => {
     variables: { artistId },
   });
 
-  const artist = data.artist!;
+  const artist = data.artist;
+
+  if (!artist) {
+    throw new Error('Artist not found');
+  }
+
   const image = artist.images[0];
 
   return (

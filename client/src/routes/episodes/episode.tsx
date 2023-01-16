@@ -45,7 +45,12 @@ const EpisodeRoute = () => {
     EpisodeRouteQueryVariables
   >(EPISODE_ROUTE_QUERY, { variables: { episodeId } });
 
-  const episode = data.episode!;
+  const episode = data.episode;
+
+  if (!episode) {
+    throw new Error('Episode not found');
+  }
+
   const { show } = episode;
   const coverPhoto = show.images[0];
 
@@ -58,7 +63,11 @@ const EpisodeRoute = () => {
       <Page.Header
         mediaType="podcast episode"
         coverPhoto={<CoverPhoto image={coverPhoto} />}
-        details={[<EntityLink entity={show}>{show.name}</EntityLink>]}
+        details={[
+          <EntityLink key={show.id} entity={show}>
+            {show.name}
+          </EntityLink>,
+        ]}
         title={episode.name}
       />
       <Page.Content>

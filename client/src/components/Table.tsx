@@ -14,7 +14,7 @@ import styles from './Table.module.scss';
 interface TableProps<TData>
   extends Omit<ComponentPropsWithoutRef<'table'>, 'children'> {
   data: TData[];
-  columns: ColumnDef<TData, any>[];
+  columns: ColumnDef<TData, unknown>[];
   meta?: TableMeta<TData>;
   visibility?: VisibilityState;
   onDoubleClickRow?: (row: Row<TData>) => void;

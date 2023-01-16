@@ -6,14 +6,15 @@ interface TitleProps {
   style?: CSSProperties;
 }
 
-const Title = forwardRef<HTMLHeadingElement, TitleProps>(
-  ({ children, style }, ref) => {
-    return (
-      <h1 ref={ref} className={styles.page__title} style={style}>
-        {children}
-      </h1>
-    );
-  }
-);
+const Title = forwardRef<HTMLHeadingElement, TitleProps>(function Title(
+  { children, style },
+  ref
+) {
+  return (
+    <h1 ref={ref} className={styles.page__title} style={style}>
+      {children}
+    </h1>
+  );
+});
 
 export default Title;

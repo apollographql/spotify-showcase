@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 
-const useStableCallback = <TArgs extends any[], TReturn>(
+const useStableCallback = <TArgs extends unknown[], TReturn>(
   callback: (...args: TArgs) => TReturn
 ) => {
   const ref = useRef(callback);

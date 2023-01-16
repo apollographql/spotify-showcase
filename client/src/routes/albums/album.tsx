@@ -83,7 +83,12 @@ const AlbumRoute = () => {
 
   const [resumePlayback] = useResumePlaybackMutation();
 
-  const album = data.album!;
+  const album = data.album;
+
+  if (!album) {
+    throw new Error('Album not found');
+  }
+
   const images = album.images ?? [];
   const coverPhoto = images[0];
   const playbackState = usePlaybackState<AlbumRoutePlaybackStateFragment>({
@@ -178,14 +183,14 @@ export const LoadingState = () => {
         <Skeleton.Table
           rows={10}
           columns={[
-            <Flex gap="0.5rem" alignItems="end">
+            <Flex key="heading" gap="0.5rem" alignItems="end">
               <Flex direction="column" flex={1} gap="0.5rem">
                 <Skeleton.Text width="25%" fontSize="1rem" />
                 <Skeleton.Text width="20%" fontSize="0.75rem" />
               </Flex>
             </Flex>,
-            <Skeleton.Text />,
-            <Skeleton.Text />,
+            <Skeleton.Text key="text" />,
+            <Skeleton.Text key="text2" />,
           ]}
         />
       </Page.Content>

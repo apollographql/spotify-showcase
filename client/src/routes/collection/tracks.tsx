@@ -84,7 +84,12 @@ const CollectionTracksRoute = () => {
       fragment: PLAYBACK_STATE_FRAGMENT,
     });
 
-  const currentUser = data.me!;
+  const currentUser = data.me;
+
+  if (!currentUser) {
+    throw new Error('You must be logged in');
+  }
+
   const spotifyURI = `spotify:user:${currentUser.user.id}:collection`;
 
   const isPlaying = playbackState?.isPlaying ?? false;
@@ -103,10 +108,10 @@ const CollectionTracksRoute = () => {
           />
         }
         details={[
-          <EntityLink entity={currentUser.user}>
+          <EntityLink key={currentUser.user.id} entity={currentUser.user}>
             {currentUser.user.displayName}
           </EntityLink>,
-          <Text color="muted">
+          <Text key="numTracks" color="muted">
             {new Intl.NumberFormat().format(
               currentUser.tracks?.pageInfo.total ?? 0
             )}{' '}
@@ -162,16 +167,16 @@ export const LoadingState = () => {
         <Skeleton.Table
           rows={10}
           columns={[
-            <Skeleton.Text />,
-            <Flex gap="0.5rem" alignItems="end">
+            <Skeleton.Text key="text" />,
+            <Flex key="header" gap="0.5rem" alignItems="end">
               <Skeleton.CoverPhoto size="2.5rem" />
               <Flex direction="column" flex={1} gap="0.5rem">
                 <Skeleton.Text width="25%" fontSize="1rem" />
                 <Skeleton.Text width="20%" fontSize="0.75rem" />
               </Flex>
             </Flex>,
-            <Skeleton.Text />,
-            <Skeleton.Text />,
+            <Skeleton.Text key="text2" />,
+            <Skeleton.Text key="text3" />,
           ]}
         />
       </Page.Content>

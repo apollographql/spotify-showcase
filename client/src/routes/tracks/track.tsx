@@ -64,7 +64,12 @@ const TrackRoute = () => {
     { variables: { trackId } }
   );
 
-  const track = data.track!;
+  const track = data.track;
+
+  if (!track) {
+    throw new Error('Track not found');
+  }
+
   const { album } = track;
   const coverPhoto = album.images[0];
   const primaryArtist = track.artists[0];
@@ -82,7 +87,7 @@ const TrackRoute = () => {
           <EntityLink key={primaryArtist.id} entity={primaryArtist}>
             {primaryArtist.name}
           </EntityLink>,
-          <span>
+          <span key="durationMs">
             <Duration durationMs={track.durationMs} />
           </span>,
         ]}

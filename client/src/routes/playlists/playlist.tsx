@@ -68,7 +68,12 @@ const Playlist = () => {
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
-  const playlist = data.playlist!;
+  const playlist = data.playlist;
+
+  if (!playlist) {
+    throw new Error('Playlist not found');
+  }
+
   const { tracks } = playlist;
   const images = playlist.images ?? [];
   const coverPhoto = images[0];
@@ -86,10 +91,10 @@ const Playlist = () => {
         coverPhoto={<CoverPhoto image={coverPhoto} />}
         title={playlist.name}
         details={[
-          <EntityLink entity={playlist.owner}>
+          <EntityLink key="owner" entity={playlist.owner}>
             {playlist.owner.displayName}
           </EntityLink>,
-          <span>
+          <span key="numSongs">
             {tracks.pageInfo.total}{' '}
             {tracks.pageInfo.total === 1 ? 'song' : 'songs'}
           </span>,
@@ -143,16 +148,16 @@ export const Loading = () => {
         <Skeleton.Table
           rows={10}
           columns={[
-            <Skeleton.Text />,
-            <Flex gap="0.5rem" alignItems="end">
+            <Skeleton.Text key="text" />,
+            <Flex key="header" gap="0.5rem" alignItems="end">
               <Skeleton.CoverPhoto size="2.5rem" />
               <Flex direction="column" flex={1} gap="0.5rem">
                 <Skeleton.Text width="25%" fontSize="1rem" />
                 <Skeleton.Text width="20%" fontSize="0.75rem" />
               </Flex>
             </Flex>,
-            <Skeleton.Text />,
-            <Skeleton.Text />,
+            <Skeleton.Text key="text2" />,
+            <Skeleton.Text key="text3" />,
           ]}
         />
       </Page.Content>

@@ -21,33 +21,33 @@ type ButtonCompoment = <TButtonElement extends ElementType = 'button'>(
   props: ButtonProps<TButtonElement>
 ) => ReactElement | null;
 
-const Button: ButtonCompoment = forwardRef(
-  <TButtonElement extends ElementType = 'button'>(
-    {
-      as,
-      children,
-      className,
-      size = 'md',
-      variant,
-      ...props
-    }: ButtonProps<TButtonElement>,
-    ref?: PolymorphicRef<TButtonElement>
-  ) => {
-    const ButtonElement = as || 'button';
+const Button: ButtonCompoment = forwardRef(function Button<
+  TButtonElement extends ElementType = 'button'
+>(
+  {
+    as,
+    children,
+    className,
+    size = 'md',
+    variant,
+    ...props
+  }: ButtonProps<TButtonElement>,
+  ref?: PolymorphicRef<TButtonElement>
+) {
+  const ButtonElement = as || 'button';
 
-    return (
-      <ButtonElement
-        {...props}
-        ref={ref}
-        className={cx(styles.button, className, {
-          [styles[size ?? '']]: size,
-          [styles[variant ?? '']]: variant,
-        })}
-      >
-        {children}
-      </ButtonElement>
-    );
-  }
-);
+  return (
+    <ButtonElement
+      {...props}
+      ref={ref}
+      className={cx(styles.button, className, {
+        [styles[size ?? '']]: size,
+        [styles[variant ?? '']]: variant,
+      })}
+    >
+      {children}
+    </ButtonElement>
+  );
+});
 
 export default Button;
