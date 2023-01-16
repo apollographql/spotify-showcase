@@ -53,12 +53,8 @@ const Sidebar = ({ children }: SidebarProps) => {
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
-  console.log({ currentUser });
-
   const likedSongsURI =
     currentUser && complete && `spotify:user:${currentUser.user.id}:collection`;
-
-  console.log({ playbackState, likedSongsURI, currentUser });
 
   return (
     <aside className={styles.sidebar}>
