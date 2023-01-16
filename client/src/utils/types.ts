@@ -5,7 +5,7 @@ import React from 'react';
 export type PropsOf<
   TComponent extends
     | keyof JSX.IntrinsicElements
-    | React.JSXElementConstructor<any>
+    | React.JSXElementConstructor<unknown>
 > = JSX.LibraryManagedAttributes<
   TComponent,
   React.ComponentPropsWithoutRef<TComponent>
@@ -25,8 +25,8 @@ type AsProp<TComponent extends React.ElementType> = {
  * set of props.
  */
 export type ExtendableProps<
-  ExtendedProps = {},
-  OverrideProps = {}
+  ExtendedProps = object,
+  OverrideProps = object
 > = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>;
 
 /**
@@ -36,7 +36,7 @@ export type ExtendableProps<
  */
 export type InheritableElementProps<
   TComponent extends React.ElementType,
-  Props = {}
+  Props = object
 > = ExtendableProps<PropsOf<TComponent>, Props>;
 
 /**
@@ -45,7 +45,7 @@ export type InheritableElementProps<
  */
 export type PolymorphicComponentProps<
   TComponent extends React.ElementType,
-  Props = {}
+  Props = object
 > = InheritableElementProps<TComponent, Props & AsProp<TComponent>>;
 
 /**
@@ -61,5 +61,5 @@ export type PolymorphicRef<TComponent extends React.ElementType> =
  */
 export type PolymorphicComponentPropsWithRef<
   C extends React.ElementType,
-  Props = {}
+  Props = object
 > = PolymorphicComponentProps<C, Props> & { ref?: PolymorphicRef<C> };
