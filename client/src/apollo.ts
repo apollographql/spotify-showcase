@@ -14,7 +14,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
 
 const httpLink = createHttpLink({
-  uri: `${process.env.REACT_APP_SERVER_HOST}/graphql`,
+  uri: `${import.meta.env.VITE_SERVER_HOST}/graphql`,
   headers: {
     get 'x-api-token'() {
       return readAuthToken();
@@ -24,7 +24,7 @@ const httpLink = createHttpLink({
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: `${process.env.REACT_APP_WEBSOCKET_HOST}/graphql`,
+    url: `${import.meta.env.VITE_WEBSOCKET_HOST}/graphql`,
     connectionParams: {
       get apiToken() {
         return readAuthToken();
