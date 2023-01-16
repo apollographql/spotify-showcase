@@ -60,6 +60,8 @@
     "@graphql-codegen/fragment-matcher": "^3.3.3",
     "@graphql-codegen/typescript": "^2.8.5",
     "@graphql-codegen/typescript-operations": "^2.5.10",
-    "type-fest": "^3.4.0"
+    "@vitejs/plugin-react": "^3.0.1",
+    "type-fest": "^3.4.0",
+    "vite": "^4.0.4"
   }
 }
