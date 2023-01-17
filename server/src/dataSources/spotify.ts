@@ -185,6 +185,12 @@ export default class SpotifyAPI extends RESTDataSource {
     return this._get<Spotify.Response.GET['/me']>('me');
   }
 
+  getCurrentUserAlbums(params: Spotify.Request.QueryParams.GET['/me/albums']) {
+    return this._get<Spotify.Response.GET['/me/albums']>('/me/albums', {
+      params,
+    });
+  }
+
   getCurrentUserPlaylists(
     params: Spotify.Request.QueryParams.GET['/me/playlists']
   ) {

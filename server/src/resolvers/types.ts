@@ -1457,7 +1457,7 @@ export type ResolversTypes = ResolversObject<{
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SaveAlbumsResponse: ResolverTypeWrapper<Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversTypes['SavedAlbumsConnection']> }>;
   SavedAlbumEdge: ResolverTypeWrapper<Spotify.Object.SavedAlbum>;
-  SavedAlbumsConnection: ResolverTypeWrapper<Omit<SavedAlbumsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SavedAlbumEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
+  SavedAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedAlbum>>;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
   SavedTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
   SchemaField: ResolverTypeWrapper<SchemaField>;
@@ -1544,7 +1544,7 @@ export type ResolversParentTypes = ResolversObject<{
   ResumePoint: Spotify.Object.ResumePoint;
   SaveAlbumsResponse: Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversParentTypes['SavedAlbumsConnection']> };
   SavedAlbumEdge: Spotify.Object.SavedAlbum;
-  SavedAlbumsConnection: Omit<SavedAlbumsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SavedAlbumEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
+  SavedAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.SavedAlbum>;
   SavedTrackEdge: Spotify.Object.SavedTrack;
   SavedTracksConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;
   SchemaField: SchemaField;

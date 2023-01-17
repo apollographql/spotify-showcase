@@ -1,7 +1,14 @@
 import { CurrentUserResolvers } from './types';
 import { itself } from './helpers';
+import { maybe } from '../utils/common';
 
 const resolvers: CurrentUserResolvers = {
+  albums: (_, { limit, offset }, { dataSources }) => {
+    return dataSources.spotify.getCurrentUserAlbums({
+      limit: maybe(limit),
+      offset: maybe(offset),
+    });
+  },
   contains: async (_, args, { dataSources }) => {
     const [albums, episodes, shows, tracks] = await Promise.all([
       args.albums

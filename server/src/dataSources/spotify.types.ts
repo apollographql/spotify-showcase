@@ -636,6 +636,10 @@ export namespace Spotify {
           seed_tracks?: string;
           limit?: number;
         };
+        '/me/albums': {
+          limit?: number;
+          offset?: number;
+        };
         '/me/albums/contains': {
           ids: string;
         };
