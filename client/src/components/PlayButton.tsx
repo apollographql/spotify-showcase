@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
 import cx from 'classnames';
 import { Play, Pause } from 'lucide-react';
+import Tooltip from './Tooltip';
 import styles from './PlayButton.module.scss';
 import usePausePlaybackMutation from '../mutations/usePausePlaybackMutation';
 
@@ -26,27 +27,29 @@ const PlayButton = ({
   const [pause] = usePausePlaybackMutation();
 
   return (
-    <button
-      disabled={disabled}
-      className={cx(styles.playButton, {
-        [styles.primary]: variant === 'primary',
-        [styles.secondary]: variant === 'secondary',
-      })}
-      style={{ '--play-button--size': size } as StyleProps}
-      onClick={() => {
-        return playing ? pause() : onClickPlay?.();
-      }}
-    >
-      {playing ? (
-        <Pause size="60%" fill="currentColor" />
-      ) : (
-        <Play
-          className={styles.centeredPlayIcon}
-          size="60%"
-          fill="currentColor"
-        />
-      )}
-    </button>
+    <Tooltip content={playing ? 'Pause' : 'Play'}>
+      <button
+        disabled={disabled}
+        className={cx(styles.playButton, {
+          [styles.primary]: variant === 'primary',
+          [styles.secondary]: variant === 'secondary',
+        })}
+        style={{ '--play-button--size': size } as StyleProps}
+        onClick={() => {
+          return playing ? pause() : onClickPlay?.();
+        }}
+      >
+        {playing ? (
+          <Pause size="60%" fill="currentColor" />
+        ) : (
+          <Play
+            className={styles.centeredPlayIcon}
+            size="60%"
+            fill="currentColor"
+          />
+        )}
+      </button>
+    </Tooltip>
   );
 };
 

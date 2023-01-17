@@ -28,6 +28,7 @@ const MuteControl = ({ disallowed, volumePercent }: MuteControlProps) => {
             volumePercent > 0 ? 0 : previousVolumePercentRef.current,
         });
       }}
+      tooltip={volumePercent === 0 ? 'Unmute' : 'Mute'}
     />
   );
 };

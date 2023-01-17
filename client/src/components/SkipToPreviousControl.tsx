@@ -28,6 +28,7 @@ const SkipToPreviousControl = ({
 
         skipToPrevious();
       }}
+      tooltip="Previous"
     />
   );
 };

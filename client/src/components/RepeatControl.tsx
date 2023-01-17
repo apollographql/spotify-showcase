@@ -14,6 +14,12 @@ const NEXT_REPEAT_MODE = {
   [RepeatMode.Track]: RepeatMode.Off,
 } as const;
 
+const TOOLTIP = {
+  [RepeatMode.Off]: 'Enable repeat',
+  [RepeatMode.Context]: 'Enable repeat one',
+  [RepeatMode.Track]: 'Disable repeat',
+} as const;
+
 const RepeatControl = ({ disallowed, repeatState }: RepeatControlProps) => {
   const [setRepeatMode] = useSetRepeatModeMutation();
 
@@ -23,6 +29,7 @@ const RepeatControl = ({ disallowed, repeatState }: RepeatControlProps) => {
       disallowed={disallowed}
       icon={<RepeatIcon repeatState={repeatState} />}
       onClick={() => setRepeatMode({ state: NEXT_REPEAT_MODE[repeatState] })}
+      tooltip={TOOLTIP[repeatState]}
     />
   );
 };

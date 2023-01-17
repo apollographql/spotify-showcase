@@ -17,6 +17,7 @@ const SkipForwardControl = ({ ms, progressMs }: SkipForwardControlProps) => {
       onClick={() => {
         seekToPosition({ positionMs: progressMs + ms });
       }}
+      tooltip={`Skip forward ${Math.floor(ms / 1000)} seconds`}
     />
   );
 };

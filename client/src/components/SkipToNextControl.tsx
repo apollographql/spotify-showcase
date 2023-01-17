@@ -14,6 +14,7 @@ const SkipToNextControl = ({ disallowed }: SkipToNextControlProps) => {
       disallowed={disallowed}
       icon={<SkipForward fill="currentColor" />}
       onClick={() => skipToNext()}
+      tooltip="Next"
     />
   );
 };

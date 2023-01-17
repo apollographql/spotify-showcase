@@ -23,6 +23,7 @@ const ShufflePlaybackControl = ({
       onClick={() => {
         shufflePlayback({ state: !shuffled });
       }}
+      tooltip={shuffled ? 'Disable shuffle' : 'Enable shuffle'}
     />
   );
 };

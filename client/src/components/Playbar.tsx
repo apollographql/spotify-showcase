@@ -102,11 +102,13 @@ const Playbar = ({ className }: PlaybarProps) => {
             <PlaybarControlButton
               disallowed={false}
               icon={<List strokeWidth={1.5} />}
+              tooltip="Queue"
             />
           </Link>
           <PlaybarControlButton
             disallowed={disallowed(Action.TransferringPlayback)}
             icon={<DeviceIcon device={device} strokeWidth={1.5} />}
+            tooltip="Connect to a device"
           />
           <Flex gap="0.25rem" alignItems="center">
             <MuteControl
