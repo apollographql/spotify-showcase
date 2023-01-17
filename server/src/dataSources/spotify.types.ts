@@ -701,6 +701,12 @@ export namespace Spotify {
       }
 
       export interface PUT {
+        '/me/albums': {
+          ids: string;
+        };
+        '/me/episodes': {
+          ids: string;
+        };
         '/me/player/pause': {
           device_id?: string;
         };
@@ -722,6 +728,12 @@ export namespace Spotify {
         '/me/player/volume': {
           volume_percent: number;
           device_id?: string;
+        };
+        '/me/shows': {
+          ids: string;
+        };
+        '/me/tracks': {
+          ids: string;
         };
       }
     }
