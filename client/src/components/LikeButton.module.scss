@@ -1,0 +1,11 @@
+.likeButton {
+  color: var(--text-color--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s color ease-out;
+
+  &:hover {
+    color: var(--text-color--base);
+  }
+}
