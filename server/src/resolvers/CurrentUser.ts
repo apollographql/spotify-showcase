@@ -39,7 +39,7 @@ const resolvers: CurrentUserResolvers = {
     });
   },
   tracksContains: (_, { ids }, { dataSources }) => {
-    return dataSources.spotify.checkContainsAlbums(ids.join(','));
+    return dataSources.spotify.checkContainsTracks(ids.join(','));
   },
 };
 
