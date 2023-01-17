@@ -1,3 +1,4 @@
+import { maybe } from '../utils/common';
 import { PlayerResolvers } from './types';
 
 const resolvers: PlayerResolvers = {
@@ -12,6 +13,13 @@ const resolvers: PlayerResolvers = {
   playbackState: (_, __, { dataSources }) => {
     return dataSources.spotify.getPlaybackState({
       additional_types: 'episode,track',
+    });
+  },
+  recentlyPlayed: (_, { after, before, limit }, { dataSources }) => {
+    return dataSources.spotify.getRecentlyPlayed({
+      after: maybe(after),
+      before: maybe(before),
+      limit: maybe(limit),
     });
   },
 };

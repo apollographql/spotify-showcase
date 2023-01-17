@@ -60,6 +60,10 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.PlaylistTrack>',
           PlaylistTrackEdge:
             '../dataSources/spotify.types#Spotify#Object.PlaylistTrack',
+          RecentlyPlayedConnection:
+            '../dataSources/spotify.types#Spotify#Object.PaginatedCursorBased<Spotify.Object.PlayHistory>',
+          RecentlyPlayedEdge:
+            '../dataSources/spotify.types#Spotify#Object.PlayHistory',
           Recommendations:
             '../dataSources/spotify.types#Spotify#Object.Recommendations',
           ReleaseDate: './mappers#Releasable',

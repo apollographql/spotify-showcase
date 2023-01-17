@@ -905,8 +905,12 @@ export type RecentlyPlayedConnection = {
 
 export type RecentlyPlayedEdge = {
   __typename?: 'RecentlyPlayedEdge';
+  /** The playback context for the track */
+  context?: Maybe<PlaybackContext>;
   /** The item that was recently played. */
   node: PlaybackItem;
+  /** The date and time the track was played at. */
+  playedAt: Scalars['DateTime'];
 };
 
 /** Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
@@ -1517,8 +1521,8 @@ export type ResolversTypes = ResolversObject<{
   PlaylistTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>>;
   PlaylistTrackEdge: ResolverTypeWrapper<Spotify.Object.PlaylistTrack>;
   Query: ResolverTypeWrapper<{}>;
-  RecentlyPlayedConnection: ResolverTypeWrapper<Omit<RecentlyPlayedConnection, 'edges'> & { edges: Array<ResolversTypes['RecentlyPlayedEdge']> }>;
-  RecentlyPlayedEdge: ResolverTypeWrapper<Omit<RecentlyPlayedEdge, 'node'> & { node: ResolversTypes['PlaybackItem'] }>;
+  RecentlyPlayedConnection: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>>;
+  RecentlyPlayedEdge: ResolverTypeWrapper<Spotify.Object.PlayHistory>;
   RecommendationSeed: ResolverTypeWrapper<RecommendationSeed>;
   RecommendationSeedInput: RecommendationSeedInput;
   RecommendationSeedType: RecommendationSeedType;
@@ -1614,8 +1618,8 @@ export type ResolversParentTypes = ResolversObject<{
   PlaylistTrackConnection: Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>;
   PlaylistTrackEdge: Spotify.Object.PlaylistTrack;
   Query: {};
-  RecentlyPlayedConnection: Omit<RecentlyPlayedConnection, 'edges'> & { edges: Array<ResolversParentTypes['RecentlyPlayedEdge']> };
-  RecentlyPlayedEdge: Omit<RecentlyPlayedEdge, 'node'> & { node: ResolversParentTypes['PlaybackItem'] };
+  RecentlyPlayedConnection: Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>;
+  RecentlyPlayedEdge: Spotify.Object.PlayHistory;
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;
   Recommendations: Spotify.Object.Recommendations;
@@ -1990,7 +1994,9 @@ export type RecentlyPlayedConnectionResolvers<ContextType = ContextValue, Parent
 }>;
 
 export type RecentlyPlayedEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RecentlyPlayedEdge'] = ResolversParentTypes['RecentlyPlayedEdge']> = ResolversObject<{
+  context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
   node?: Resolver<ResolversTypes['PlaybackItem'], ParentType, ContextType>;
+  playedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

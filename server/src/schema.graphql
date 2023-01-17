@@ -1189,8 +1189,18 @@ type RecentlyPlayedConnection {
 }
 
 type RecentlyPlayedEdge {
+  """
+  The date and time the track was played at.
+  """
+  playedAt: DateTime!
+
   "The item that was recently played."
   node: PlaybackItem!
+
+  """
+  The playback context for the track
+  """
+  context: PlaybackContext
 }
 
 "Information about recommendations for the current user"

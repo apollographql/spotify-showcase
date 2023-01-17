@@ -676,8 +676,8 @@ export namespace Spotify {
           additional_types?: string;
         };
         '/me/player/recently-played': {
-          after?: string;
-          before?: string;
+          after?: number;
+          before?: number;
           limit?: number;
         };
         '/me/playlists': {
