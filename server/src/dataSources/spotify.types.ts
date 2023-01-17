@@ -668,6 +668,10 @@ export namespace Spotify {
         '/me/player/previous': {
           device_id?: string;
         };
+        '/me/player/queue': {
+          uri: string;
+          device_id?: string;
+        };
       }
 
       export interface PUT {

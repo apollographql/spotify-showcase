@@ -91,6 +91,22 @@ type Query {
 
 type Mutation {
   """
+  Add an item to the end of the user's current playback queue.
+  """
+  addItemToPlaybackQueue(
+    """
+    The uri of the item to add to the queue. Must be a track or an episode uri.
+    """
+    uri: String!
+
+    """
+    Additional context when adding an item to the playback queue. Omit to add
+    the item to the playback on the current device.
+    """
+    context: AddItemToPlaybackQueueContextInput
+  ): AddItemToPlaybackQueueResponse
+
+  """
   Pause playback on the user's account.
   """
   pausePlayback(
@@ -227,6 +243,14 @@ enum Action {
 
 type Actions {
   disallows: [Action!]!
+}
+
+input AddItemToPlaybackQueueContextInput {
+  deviceId: ID
+}
+
+type AddItemToPlaybackQueueResponse {
+  queue: PlaybackQueue
 }
 
 "Spotify catalog information for an album."
@@ -513,6 +537,11 @@ type CurrentUser {
     """
     offset: Int
   ): PlaylistConnection
+
+  """
+  Get the list of objects that make up the user's queue.
+  """
+  queue: PlaybackQueue
 
   tracks(
     """
@@ -841,6 +870,11 @@ interface PlaybackItem {
   for the episode.
   """
   uri: String!
+}
+
+type PlaybackQueue {
+  currentlyPlaying: PlaybackItem
+  queue: [PlaybackItem!]!
 }
 
 type PlaybackState {

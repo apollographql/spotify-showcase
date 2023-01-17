@@ -39,6 +39,15 @@ export type Actions = {
   disallows: Array<Action>;
 };
 
+export type AddItemToPlaybackQueueContextInput = {
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type AddItemToPlaybackQueueResponse = {
+  __typename?: 'AddItemToPlaybackQueueResponse';
+  queue?: Maybe<PlaybackQueue>;
+};
+
 /** Spotify catalog information for an album. */
 export type Album = {
   __typename?: 'Album';
@@ -206,6 +215,8 @@ export type CurrentUser = {
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
+  /** Get the list of objects that make up the user's queue. */
+  queue?: Maybe<PlaybackQueue>;
   tracks?: Maybe<SavedTrackConnection>;
   /** Detailed profile information about the current user. */
   user: User;
@@ -404,6 +415,8 @@ export type Image = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Add an item to the end of the user's current playback queue. */
+  addItemToPlaybackQueue?: Maybe<AddItemToPlaybackQueueResponse>;
   /** Pause playback on the user's account. */
   pausePlayback?: Maybe<PausePlaybackResponse>;
   /** Reset a field's config back to its default values. */
@@ -428,6 +441,12 @@ export type Mutation = {
    * the timeout and error rate are set to 0.
    */
   updateFieldConfig?: Maybe<UpdateFieldConfigResponse>;
+};
+
+
+export type MutationAddItemToPlaybackQueueArgs = {
+  context?: InputMaybe<AddItemToPlaybackQueueContextInput>;
+  uri: Scalars['String'];
 };
 
 
@@ -553,6 +572,12 @@ export type PlaybackItem = {
    * for the episode.
    */
   uri: Scalars['String'];
+};
+
+export type PlaybackQueue = {
+  __typename?: 'PlaybackQueue';
+  currentlyPlaying?: Maybe<PlaybackItem>;
+  queue: Array<PlaybackItem>;
 };
 
 export type PlaybackState = {
@@ -1292,6 +1317,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Action: Action;
   Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
+  AddItemToPlaybackQueueContextInput: AddItemToPlaybackQueueContextInput;
+  AddItemToPlaybackQueueResponse: ResolverTypeWrapper<Omit<AddItemToPlaybackQueueResponse, 'queue'> & { queue?: Maybe<ResolversTypes['PlaybackQueue']> }>;
   Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
   AlbumGroup: AlbumGroup;
   AlbumTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>>;
@@ -1326,6 +1353,7 @@ export type ResolversTypes = ResolversObject<{
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
   PlaybackContextType: PlaybackContextType;
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
+  PlaybackQueue: ResolverTypeWrapper<Spotify.Object.PlaybackQueue>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
   Player: ResolverTypeWrapper<{}>;
   Playlist: ResolverTypeWrapper<Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified>;
@@ -1379,6 +1407,8 @@ export type ResolversTypes = ResolversObject<{
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
   Actions: Spotify.Object.Actions;
+  AddItemToPlaybackQueueContextInput: AddItemToPlaybackQueueContextInput;
+  AddItemToPlaybackQueueResponse: Omit<AddItemToPlaybackQueueResponse, 'queue'> & { queue?: Maybe<ResolversParentTypes['PlaybackQueue']> };
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.TrackSimplified>;
   AlbumTrackEdge: Spotify.Object.TrackSimplified;
@@ -1409,6 +1439,7 @@ export type ResolversParentTypes = ResolversObject<{
   PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   PlaybackContext: Spotify.Object.Context;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
+  PlaybackQueue: Spotify.Object.PlaybackQueue;
   PlaybackState: Spotify.Object.PlaybackState;
   Player: {};
   Playlist: Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified;
@@ -1459,6 +1490,11 @@ export type ActionResolvers = { INTERRUPTING_PLAYBACK: 'interrupting_playback', 
 
 export type ActionsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Actions'] = ResolversParentTypes['Actions']> = ResolversObject<{
   disallows?: Resolver<Array<ResolversTypes['Action']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AddItemToPlaybackQueueResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AddItemToPlaybackQueueResponse'] = ResolversParentTypes['AddItemToPlaybackQueueResponse']> = ResolversObject<{
+  queue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1532,6 +1568,7 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
+  queue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   tracks?: Resolver<Maybe<ResolversTypes['SavedTrackConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1623,6 +1660,7 @@ export type ImageResolvers<ContextType = ContextValue, ParentType extends Resolv
 }>;
 
 export type MutationResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  addItemToPlaybackQueue?: Resolver<Maybe<ResolversTypes['AddItemToPlaybackQueueResponse']>, ParentType, ContextType, RequireFields<MutationAddItemToPlaybackQueueArgs, 'uri'>>;
   pausePlayback?: Resolver<Maybe<ResolversTypes['PausePlaybackResponse']>, ParentType, ContextType, Partial<MutationPausePlaybackArgs>>;
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
   resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
@@ -1667,6 +1705,12 @@ export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+}>;
+
+export type PlaybackQueueResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackQueue'] = ResolversParentTypes['PlaybackQueue']> = ResolversObject<{
+  currentlyPlaying?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+  queue?: Resolver<Array<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState']> = ResolversObject<{
@@ -1922,6 +1966,7 @@ export type UserResolvers<ContextType = ContextValue, ParentType extends Resolve
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Action?: ActionResolvers;
   Actions?: ActionsResolvers<ContextType>;
+  AddItemToPlaybackQueueResponse?: AddItemToPlaybackQueueResponseResolvers<ContextType>;
   Album?: AlbumResolvers<ContextType>;
   AlbumGroup?: AlbumGroupResolvers;
   AlbumTrackConnection?: AlbumTrackConnectionResolvers<ContextType>;
@@ -1949,6 +1994,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   PlaybackContext?: PlaybackContextResolvers<ContextType>;
   PlaybackContextType?: PlaybackContextTypeResolvers;
   PlaybackItem?: PlaybackItemResolvers<ContextType>;
+  PlaybackQueue?: PlaybackQueueResolvers<ContextType>;
   PlaybackState?: PlaybackStateResolvers<ContextType>;
   Player?: PlayerResolvers<ContextType>;
   Playlist?: PlaylistResolvers<ContextType>;

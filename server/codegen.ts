@@ -45,6 +45,8 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show',
           PlaybackItem:
             '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.Track',
+          PlaybackQueue:
+            '../dataSources/spotify.types#Spotify#Object.PlaybackQueue',
           PlaybackState:
             '../dataSources/spotify.types#Spotify#Object.PlaybackState',
           Playlist:
