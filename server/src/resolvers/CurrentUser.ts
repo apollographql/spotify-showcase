@@ -9,27 +9,16 @@ const resolvers: CurrentUserResolvers = {
       offset: maybe(offset),
     });
   },
-  contains: async (_, args, { dataSources }) => {
-    const [albums, episodes, shows, tracks] = await Promise.all([
-      args.albums
-        ? dataSources.spotify.checkContainsAlbums(args.albums.join(','))
-        : null,
-      args.episodes
-        ? dataSources.spotify.checkContainsEpisodes(args.episodes.join(','))
-        : null,
-      args.shows
-        ? dataSources.spotify.checkContainsShows(args.shows.join(','))
-        : null,
-      args.tracks
-        ? dataSources.spotify.checkContainsTracks(args.tracks.join(','))
-        : null,
-    ]);
-
-    return { episodes, albums, shows, tracks };
+  albumsContains: (_, { ids }, { dataSources }) => {
+    return dataSources.spotify.checkContainsAlbums(ids.join(','));
+  },
+  episodesContains: (_, { ids }, { dataSources }) => {
+    return dataSources.spotify.checkContainsEpisodes(ids.join(','));
   },
   user: itself(),
-  playbackQueue: (_, __, { dataSources }) =>
-    dataSources.spotify.getPlaybackQueue(),
+  playbackQueue: (_, __, { dataSources }) => {
+    return dataSources.spotify.getPlaybackQueue();
+  },
   player: () => {
     // Return empty object since this field makes no requests to the API
     return {};
@@ -40,11 +29,17 @@ const resolvers: CurrentUserResolvers = {
       offset: args.offset ?? undefined,
     });
   },
+  showsContains: (_, { ids }, { dataSources }) => {
+    return dataSources.spotify.checkContainsShows(ids.join(','));
+  },
   tracks: (_, args, { dataSources }) => {
     return dataSources.spotify.getCurrentUserTracks({
       limit: args.limit ?? undefined,
       offset: args.offset ?? undefined,
     });
+  },
+  tracksContains: (_, { ids }, { dataSources }) => {
+    return dataSources.spotify.checkContainsAlbums(ids.join(','));
   },
 };
 

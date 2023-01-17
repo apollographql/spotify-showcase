@@ -240,15 +240,33 @@ export type CurrentUser = {
    * library.
    */
   albums?: Maybe<SavedAlbumsConnection>;
-  /** Check if one or mote items are already saved in the Spotify user's library. */
-  contains?: Maybe<Contains>;
+  /**
+   * Check if one or more albums is already saved in the current Spotify user's
+   * 'Your Music' library.
+   */
+  albumsContains?: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * Check if one or more episodes is already saved in the current Spotify user's
+   * 'Your Episodes' library.
+   */
+  episodesContains?: Maybe<Array<Scalars['Boolean']>>;
   /** Get the list of objects that make up the user's queue. */
   playbackQueue?: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
+  /**
+   * Check if one or more shows is already saved in the current Spotify user's
+   * library.
+   */
+  showsContains?: Maybe<Array<Scalars['Boolean']>>;
   tracks?: Maybe<SavedTracksConnection>;
+  /**
+   * Check if one or more tracks is already saved in the current Spotify user's
+   * 'Your Music' library.
+   */
+  tracksContains?: Maybe<Array<Scalars['Boolean']>>;
   /** Detailed profile information about the current user. */
   user: User;
 };
@@ -260,11 +278,13 @@ export type CurrentUserAlbumsArgs = {
 };
 
 
-export type CurrentUserContainsArgs = {
-  albums?: InputMaybe<Array<Scalars['ID']>>;
-  episodes?: InputMaybe<Array<Scalars['ID']>>;
-  shows?: InputMaybe<Array<Scalars['ID']>>;
-  tracks?: InputMaybe<Array<Scalars['ID']>>;
+export type CurrentUserAlbumsContainsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUserEpisodesContainsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 
@@ -274,9 +294,19 @@ export type CurrentUserPlaylistsArgs = {
 };
 
 
+export type CurrentUserShowsContainsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
 export type CurrentUserTracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUserTracksContainsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 export type CurrentlyPlaying = {
@@ -1774,11 +1804,14 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
   albums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<CurrentUserAlbumsArgs>>;
-  contains?: Resolver<Maybe<ResolversTypes['Contains']>, ParentType, ContextType, Partial<CurrentUserContainsArgs>>;
+  albumsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserAlbumsContainsArgs, 'ids'>>;
+  episodesContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserEpisodesContainsArgs, 'ids'>>;
   playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
+  showsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserShowsContainsArgs, 'ids'>>;
   tracks?: Resolver<Maybe<ResolversTypes['SavedTracksConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
+  tracksContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserTracksContainsArgs, 'ids'>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

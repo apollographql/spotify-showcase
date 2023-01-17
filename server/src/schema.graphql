@@ -600,32 +600,29 @@ type CurrentUser {
     offset: Int
   ): SavedAlbumsConnection
 
-  "Check if one or mote items are already saved in the Spotify user's library."
-  contains(
+  """
+  Check if one or more albums is already saved in the current Spotify user's
+  'Your Music' library.
+  """
+  albumsContains(
     """
     A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the albums. Maximum: 20 IDs.
     """
-    albums: [ID!]
+    ids: [ID!]!
+  ): [Boolean!]
 
+  """
+  Check if one or more episodes is already saved in the current Spotify user's
+  'Your Episodes' library.
+  """
+  episodesContains(
     """
     A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the episodes. Maximum: 50 IDs.
     """
-    episodes: [ID!]
-
-    """
-    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the shows. Maximum: 50 IDs.
-    """
-    shows: [ID!]
-
-    """
-    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the tracks. Maximum: 50 IDs.
-    """
-    tracks: [ID!]
-  ): Contains
+    ids: [ID!]!
+  ): [Boolean!]
 
   """
   Detailed profile information about the current user.
@@ -659,6 +656,18 @@ type CurrentUser {
   """
   playbackQueue: PlaybackQueue
 
+  """
+  Check if one or more shows is already saved in the current Spotify user's
+  library.
+  """
+  showsContains(
+    """
+    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the shows. Maximum: 50 IDs.
+    """
+    ids: [ID!]!
+  ): [Boolean!]
+
   tracks(
     """
     The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
@@ -672,6 +681,18 @@ type CurrentUser {
     """
     offset: Int
   ): SavedTracksConnection
+
+  """
+  Check if one or more tracks is already saved in the current Spotify user's
+  'Your Music' library.
+  """
+  tracksContains(
+    """
+    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the tracks. Maximum: 50 IDs.
+    """
+    ids: [ID!]!
+  ): [Boolean!]
 }
 
 type Device {
