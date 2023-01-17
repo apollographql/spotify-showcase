@@ -87,15 +87,21 @@ const resolvers: MutationResolvers = {
     await dataSources.spotify.saveAlbumsToLibrary({
       params: { ids: ids.join(',') },
     });
+    const { albums } = await dataSources.spotify.getAlbums({
+      ids: ids.join(','),
+    });
 
-    return {};
+    return { savedAlbums: albums };
   },
   saveTracks: async (_, { ids }, { dataSources }) => {
     await dataSources.spotify.saveTracksToLibrary({
       params: { ids: ids.join(',') },
     });
+    const { tracks } = await dataSources.spotify.getTracks({
+      ids: ids.join(','),
+    });
 
-    return {};
+    return { savedTracks: tracks };
   },
   seekToPosition: async (
     _,

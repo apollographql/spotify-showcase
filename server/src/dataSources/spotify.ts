@@ -60,6 +60,10 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  getAlbums(params: Spotify.Request.QueryParams.GET['/albums']) {
+    return this._get<Spotify.Response.GET['/albums']>('/albums', { params });
+  }
+
   getAlbumTracks(
     id: string,
     params?: Spotify.Request.QueryParams.GET['/albums/:id/tracks']
@@ -284,6 +288,10 @@ export default class SpotifyAPI extends RESTDataSource {
     return this._get<Spotify.Response.GET['/tracks/:id']>(`/tracks/${id}`, {
       params,
     });
+  }
+
+  getTracks(params: Spotify.Request.QueryParams.GET['/tracks']) {
+    return this._get<Spotify.Response.GET['/tracks']>('/tracks', { params });
   }
 
   async resumePlayback({

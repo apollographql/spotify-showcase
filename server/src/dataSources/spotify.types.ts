@@ -531,6 +531,7 @@ export namespace Spotify {
 
   export namespace Response {
     export interface GET {
+      '/albums': Object.List<'albums', Object.Album>;
       '/albums/:id': Object.Album;
       '/albums/:id/tracks': Object.Paginated<Object.TrackSimplified>;
       '/artists': Object.List<'artists', Object.Artist>;
@@ -564,6 +565,7 @@ export namespace Spotify {
       '/recommendations/available-genre-seeds': Object.List<'genres', string>;
       '/shows/:id': Object.Show;
       '/shows/:id/episodes': Object.Paginated<Object.EpisodeSimplified>;
+      '/tracks': Object.List<'tracks', Object.Track>;
       '/tracks/:id': Object.Track;
     }
   }
@@ -606,6 +608,10 @@ export namespace Spotify {
       export type Paths = keyof GET | keyof PUT | keyof POST;
 
       export interface GET {
+        '/albums': {
+          ids: string;
+          market?: string;
+        };
         '/albums/:id': {
           market?: string;
         };
@@ -683,6 +689,10 @@ export namespace Spotify {
         '/shows/:id/episodes': {
           limit?: number;
           offset?: number;
+        };
+        '/tracks': {
+          ids: string;
+          market?: string;
         };
         '/tracks/:id': { market?: string };
       }

@@ -1025,25 +1025,14 @@ export type ResumePoint = {
 
 export type SaveAlbumsResponse = {
   __typename?: 'SaveAlbumsResponse';
-  savedAlbums?: Maybe<SavedAlbumsConnection>;
-};
-
-
-export type SaveAlbumsResponseSavedAlbumsArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  /** The albums that were saved to the Spotify user's library */
+  savedAlbums?: Maybe<Array<Album>>;
 };
 
 export type SaveTracksResponse = {
   __typename?: 'SaveTracksResponse';
-  /** The saved tracks for the current user after saving tracks. */
-  savedTracks?: Maybe<SavedTracksConnection>;
-};
-
-
-export type SaveTracksResponseSavedTracksArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  /** The tracks that were saved to the Spotify user's library */
+  savedTracks?: Maybe<Array<Track>>;
 };
 
 export type SavedAlbumEdge = {
@@ -1474,8 +1463,8 @@ export type ResolversTypes = ResolversObject<{
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
   ResumePlaybackResponse: ResolverTypeWrapper<Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
-  SaveAlbumsResponse: ResolverTypeWrapper<Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversTypes['SavedAlbumsConnection']> }>;
-  SaveTracksResponse: ResolverTypeWrapper<Omit<SaveTracksResponse, 'savedTracks'> & { savedTracks?: Maybe<ResolversTypes['SavedTracksConnection']> }>;
+  SaveAlbumsResponse: ResolverTypeWrapper<Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<Array<ResolversTypes['Album']>> }>;
+  SaveTracksResponse: ResolverTypeWrapper<Omit<SaveTracksResponse, 'savedTracks'> & { savedTracks?: Maybe<Array<ResolversTypes['Track']>> }>;
   SavedAlbumEdge: ResolverTypeWrapper<Spotify.Object.SavedAlbum>;
   SavedAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedAlbum>>;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
@@ -1562,8 +1551,8 @@ export type ResolversParentTypes = ResolversObject<{
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
   ResumePlaybackResponse: Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   ResumePoint: Spotify.Object.ResumePoint;
-  SaveAlbumsResponse: Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversParentTypes['SavedAlbumsConnection']> };
-  SaveTracksResponse: Omit<SaveTracksResponse, 'savedTracks'> & { savedTracks?: Maybe<ResolversParentTypes['SavedTracksConnection']> };
+  SaveAlbumsResponse: Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<Array<ResolversParentTypes['Album']>> };
+  SaveTracksResponse: Omit<SaveTracksResponse, 'savedTracks'> & { savedTracks?: Maybe<Array<ResolversParentTypes['Track']>> };
   SavedAlbumEdge: Spotify.Object.SavedAlbum;
   SavedAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.SavedAlbum>;
   SavedTrackEdge: Spotify.Object.SavedTrack;
@@ -1957,12 +1946,12 @@ export type ResumePointResolvers<ContextType = ContextValue, ParentType extends 
 }>;
 
 export type SaveAlbumsResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveAlbumsResponse'] = ResolversParentTypes['SaveAlbumsResponse']> = ResolversObject<{
-  savedAlbums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<SaveAlbumsResponseSavedAlbumsArgs>>;
+  savedAlbums?: Resolver<Maybe<Array<ResolversTypes['Album']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type SaveTracksResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveTracksResponse'] = ResolversParentTypes['SaveTracksResponse']> = ResolversObject<{
-  savedTracks?: Resolver<Maybe<ResolversTypes['SavedTracksConnection']>, ParentType, ContextType, Partial<SaveTracksResponseSavedTracksArgs>>;
+  savedTracks?: Resolver<Maybe<Array<ResolversTypes['Track']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
