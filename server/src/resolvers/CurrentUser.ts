@@ -13,6 +13,7 @@ const resolvers: CurrentUserResolvers = {
       offset: args.offset ?? undefined,
     });
   },
+  queue: (_, __, { dataSources }) => dataSources.spotify.getPlaybackQueue(),
   tracks: (_, args, { dataSources }) => {
     return dataSources.spotify.getCurrentUserTracks({
       limit: args.limit ?? undefined,
