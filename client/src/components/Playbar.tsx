@@ -21,6 +21,8 @@ import RepeatControl from './RepeatControl';
 import ShufflePlaybackControl from './ShufflePlaybackControl';
 import SkipToNextControl from './SkipToNextControl';
 import SkipToPreviousControl from './SkipToPreviousControl';
+import SkipBackwardControl from './SkipBackwardControl';
+import SkipForwardControl from './SkipForwardControl';
 import VolumeBar from './VolumeBar';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePlaybackState from '../hooks/usePlaybackState';
@@ -28,6 +30,8 @@ import usePlaybackState from '../hooks/usePlaybackState';
 interface PlaybarProps {
   className?: string;
 }
+
+const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
 const Playbar = ({ className }: PlaybarProps) => {
   const [resumePlayback] = useResumePlaybackMutation();
@@ -63,6 +67,12 @@ const Playbar = ({ className }: PlaybarProps) => {
               disallowed={disallowed(Action.TogglingShuffle)}
               size="1.25rem"
             />
+            {playbackItem?.__typename === 'Episode' && (
+              <SkipBackwardControl
+                ms={EPISODE_SKIP_FORWARD_AMOUNT}
+                progressMs={playbackState?.progressMs ?? 0}
+              />
+            )}
             <SkipToPreviousControl
               disallowed={disallowed(Action.SkippingPrev)}
               progressMs={playbackState?.progressMs ?? 0}
@@ -74,6 +84,12 @@ const Playbar = ({ className }: PlaybarProps) => {
               onPlay={() => resumePlayback()}
             />
             <SkipToNextControl disallowed={disallowed(Action.SkippingNext)} />
+            {playbackItem?.__typename === 'Episode' && (
+              <SkipForwardControl
+                ms={EPISODE_SKIP_FORWARD_AMOUNT}
+                progressMs={playbackState?.progressMs ?? 0}
+              />
+            )}
             <RepeatControl
               disallowed={disallowed(Action.TogglingRepeatTrack)}
               repeatState={playbackState?.repeatState ?? RepeatMode.Off}
