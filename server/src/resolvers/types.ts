@@ -248,7 +248,6 @@ export type CurrentUser = {
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
-  recentlyPlayed?: Maybe<RecentlyPlayedConnection>;
   tracks?: Maybe<SavedTracksConnection>;
   /** Detailed profile information about the current user. */
   user: User;
@@ -272,13 +271,6 @@ export type CurrentUserContainsArgs = {
 export type CurrentUserPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-};
-
-
-export type CurrentUserRecentlyPlayedArgs = {
-  after?: InputMaybe<Scalars['Int']>;
-  before?: InputMaybe<Scalars['Int']>;
-  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -697,6 +689,18 @@ export type Player = {
    * episode, progress, and active device.
    */
   playbackState?: Maybe<PlaybackState>;
+  /**
+   * Get tracks from the current user's recently played tracks. **Note**: Currently
+   * doesn't support podcast episodes.
+   */
+  recentlyPlayed?: Maybe<RecentlyPlayedConnection>;
+};
+
+
+export type PlayerRecentlyPlayedArgs = {
+  after?: InputMaybe<Scalars['Int']>;
+  before?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 /** Information about a playlist owned by a Spotify user */
@@ -1750,7 +1754,6 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
-  recentlyPlayed?: Resolver<Maybe<ResolversTypes['RecentlyPlayedConnection']>, ParentType, ContextType, Partial<CurrentUserRecentlyPlayedArgs>>;
   tracks?: Resolver<Maybe<ResolversTypes['SavedTracksConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1916,6 +1919,7 @@ export type PlayerResolvers<ContextType = ContextValue, ParentType extends Resol
   currentlyPlaying?: Resolver<Maybe<ResolversTypes['CurrentlyPlaying']>, ParentType, ContextType>;
   devices?: Resolver<Maybe<Array<ResolversTypes['Device']>>, ParentType, ContextType>;
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+  recentlyPlayed?: Resolver<Maybe<ResolversTypes['RecentlyPlayedConnection']>, ParentType, ContextType, Partial<PlayerRecentlyPlayedArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

@@ -611,27 +611,6 @@ type CurrentUser {
     tracks: [ID!]
   ): Contains
 
-  recentlyPlayed(
-    """
-    A Unix timestamp in milliseconds. Returns all items after (but not
-    including) this cursor position. If after is specified, before must not be
-    specified.
-    """
-    after: Int
-
-    """
-    A Unix timestamp in milliseconds. Returns all items before (but not
-    including) this cursor position. If before is specified, after must not be
-    specified.
-    """
-    before: Int
-
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
-  ): RecentlyPlayedConnection
-
   """
   Detailed profile information about the current user.
   """
@@ -1042,6 +1021,31 @@ type Player {
   episode, progress, and active device.
   """
   playbackState: PlaybackState
+
+  """
+  Get tracks from the current user's recently played tracks. **Note**: Currently
+  doesn't support podcast episodes.
+  """
+  recentlyPlayed(
+    """
+    A Unix timestamp in milliseconds. Returns all items after (but not
+    including) this cursor position. If after is specified, before must not be
+    specified.
+    """
+    after: Int
+
+    """
+    A Unix timestamp in milliseconds. Returns all items before (but not
+    including) this cursor position. If before is specified, after must not be
+    specified.
+    """
+    before: Int
+
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+  ): RecentlyPlayedConnection
 }
 
 "Information about a playlist owned by a Spotify user"
