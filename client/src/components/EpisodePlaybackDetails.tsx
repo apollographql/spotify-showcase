@@ -10,9 +10,11 @@ interface EpisodePlaybackDetailsProps {
 
 const EpisodePlaybackDetails = ({ episode }: EpisodePlaybackDetailsProps) => {
   return (
-    <Flex direction="column">
-      <Text>{episode.name}</Text>
-      <Text>
+    <Flex direction="column" gap="0.25rem">
+      <Text size="sm">
+        <EntityLink entity={episode}>{episode.name}</EntityLink>
+      </Text>
+      <Text size="xs" color="muted">
         <EntityLink entity={episode.show}>{episode.show.name}</EntityLink>
       </Text>
     </Flex>
