@@ -33,6 +33,15 @@ export type Actions = {
   disallows: Array<Action>;
 };
 
+export type AddItemToPlaybackQueueContextInput = {
+  deviceId?: InputMaybe<Scalars['ID']>;
+};
+
+export type AddItemToPlaybackQueueResponse = {
+  __typename: 'AddItemToPlaybackQueueResponse';
+  queue: Maybe<PlaybackQueue>;
+};
+
 /** Spotify catalog information for an album. */
 export type Album = {
   __typename: 'Album';
@@ -179,6 +188,30 @@ export type ArtistAlbumsConnection = {
   pageInfo: PageInfo;
 };
 
+export type Contains = {
+  __typename: 'Contains';
+  /**
+   * List of booleans in order of albums requested. `true` means the album is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  albums: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * List of booleans in order of episodes requested. `true` means the episode is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  episodes: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * List of booleans in order of shows requested. `true` means the show is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  shows: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * List of booleans in order of tracks requested. `true` means the track is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  tracks: Maybe<Array<Scalars['Boolean']>>;
+};
+
 export type Copyright = {
   __typename: 'Copyright';
   /** The copyright text for this content. */
@@ -199,13 +232,36 @@ export enum CopyrightType {
 
 export type CurrentUser = {
   __typename: 'CurrentUser';
+  /**
+   * Get a list of the albums saved in the current Spotify user's 'Your Music'
+   * library.
+   */
+  albums: Maybe<SavedAlbumsConnection>;
+  /** Check if one or mote items are already saved in the Spotify user's library. */
+  contains: Maybe<Contains>;
+  /** Get the list of objects that make up the user's queue. */
+  playbackQueue: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists: Maybe<PlaylistConnection>;
-  tracks: Maybe<SavedTrackConnection>;
+  tracks: Maybe<SavedTracksConnection>;
   /** Detailed profile information about the current user. */
   user: User;
+};
+
+
+export type CurrentUseralbumsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUsercontainsArgs = {
+  albums?: InputMaybe<Array<Scalars['ID']>>;
+  episodes?: InputMaybe<Array<Scalars['ID']>>;
+  shows?: InputMaybe<Array<Scalars['ID']>>;
+  tracks?: InputMaybe<Array<Scalars['ID']>>;
 };
 
 
@@ -401,12 +457,18 @@ export type Image = {
 
 export type Mutation = {
   __typename: 'Mutation';
+  /** Add an item to the end of the user's current playback queue. */
+  addItemToPlaybackQueue: Maybe<AddItemToPlaybackQueueResponse>;
   /** Pause playback on the user's account. */
   pausePlayback: Maybe<PausePlaybackResponse>;
   /** Reset a field's config back to its default values. */
   resetFieldConfig: Maybe<ResetFieldConfigResponse>;
   /** Start a new context or resume current playback on the user's active device. */
   resumePlayback: Maybe<ResumePlaybackResponse>;
+  /** Save one or more albums to the current user's 'Your Music' library. */
+  saveAlbums: Maybe<SaveAlbumsResponse>;
+  /** Save one or more tracks to the current user's 'Your Music' library. */
+  saveTracks: Maybe<SaveTracksResponse>;
   /** Seeks to the given position in the user’s currently playing track. */
   seekToPosition: Maybe<SeekToPositionResponse>;
   /** Set the repeat mode for the user's playback. */
@@ -428,6 +490,12 @@ export type Mutation = {
 };
 
 
+export type MutationaddItemToPlaybackQueueArgs = {
+  context?: InputMaybe<AddItemToPlaybackQueueContextInput>;
+  uri: Scalars['String'];
+};
+
+
 export type MutationpausePlaybackArgs = {
   context?: InputMaybe<PausePlaybackContextInput>;
 };
@@ -440,6 +508,16 @@ export type MutationresetFieldConfigArgs = {
 
 export type MutationresumePlaybackArgs = {
   context?: InputMaybe<ResumePlaybackContextInput>;
+};
+
+
+export type MutationsaveAlbumsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
+export type MutationsaveTracksArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 
@@ -551,6 +629,12 @@ export type PlaybackItem = {
    * for the episode.
    */
   uri: Scalars['String'];
+};
+
+export type PlaybackQueue = {
+  __typename: 'PlaybackQueue';
+  currentlyPlaying: Maybe<PlaybackItem>;
+  queue: Array<PlaybackItem>;
 };
 
 export type PlaybackState = {
@@ -940,11 +1024,31 @@ export type ResumePoint = {
   resumePositionMs: Scalars['Int'];
 };
 
-export type SavedTrackConnection = {
-  __typename: 'SavedTrackConnection';
-  /** A list of saved tracks. */
-  edges: Array<SavedTrackEdge>;
-  /** "Pagination information for the set of playlists" */
+export type SaveAlbumsResponse = {
+  __typename: 'SaveAlbumsResponse';
+  /** The albums that were saved to the Spotify user's library */
+  savedAlbums: Maybe<Array<Album>>;
+};
+
+export type SaveTracksResponse = {
+  __typename: 'SaveTracksResponse';
+  /** The tracks that were saved to the Spotify user's library */
+  savedTracks: Maybe<Array<Track>>;
+};
+
+export type SavedAlbumEdge = {
+  __typename: 'SavedAlbumEdge';
+  /** The date the album was saved. */
+  addedAt: Scalars['DateTime'];
+  /** The album object. */
+  node: Album;
+};
+
+export type SavedAlbumsConnection = {
+  __typename: 'SavedAlbumsConnection';
+  /** The list of saved albums. */
+  edges: Array<SavedAlbumEdge>;
+  /** Pagination information for the set of playlists */
   pageInfo: PageInfo;
 };
 
@@ -954,6 +1058,14 @@ export type SavedTrackEdge = {
   addedAt: Scalars['DateTime'];
   /** The track */
   node: Track;
+};
+
+export type SavedTracksConnection = {
+  __typename: 'SavedTracksConnection';
+  /** A list of saved tracks. */
+  edges: Array<SavedTrackEdge>;
+  /** "Pagination information for the set of playlists" */
+  pageInfo: PageInfo;
 };
 
 export type SchemaField = {
@@ -1251,6 +1363,20 @@ export type Sidebar_currentUser = { __typename: 'CurrentUser', user: { __typenam
 
 export type Sidebar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 
+export type LikeControlQueryVariables = Exact<{
+  trackIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  episodeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+}>;
+
+
+export type LikeControlQuery = { me: { __typename: 'CurrentUser', contains: { __typename: 'Contains', tracks: Array<boolean> | null, episodes: Array<boolean> | null } | null } | null };
+
+type LikeControl_playbackItem_Episode_ = { __typename: 'Episode', id: string };
+
+type LikeControl_playbackItem_Track_ = { __typename: 'Track', id: string };
+
+export type LikeControl_playbackItem = LikeControl_playbackItem_Episode_ | LikeControl_playbackItem_Track_;
+
 export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
 
 export type PlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string } | null, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null };
@@ -1366,7 +1492,7 @@ export type ArtistRouteQuery_albums = { __typename: 'ArtistAlbumsConnection', ed
 export type CollectionTracksRouteQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'SavedTrackConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
+export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
 export type CollectionTracksRoutePlaylistStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 
