@@ -15,7 +15,6 @@ import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
 import MuteControl from './MuteControl';
-import LikeButton from './LikeButton';
 import LikeControl from './LikeControl';
 import PlaybarControlButton from './PlaybarControlButton';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
@@ -28,7 +27,6 @@ import SkipForwardControl from './SkipForwardControl';
 import VolumeBar from './VolumeBar';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePlaybackState from '../hooks/usePlaybackState';
-import { Suspense } from 'react';
 
 interface PlaybarProps {
   className?: string;
@@ -50,14 +48,6 @@ const Playbar = ({ className }: PlaybarProps) => {
       ? playbackItem.album.images[0]
       : playbackItem?.show.images[0];
 
-  // const { data } = useSuspenseQuery<PlaybarQuery>(PLAYBAR_QUERY, {
-  //   variables: {
-  //     trackIds: playbackItem?.__typename === 'Track' ? [playbackItem.id] : null,
-  //     episodeIds:
-  //       playbackItem?.__typename === 'Episode' ? [playbackItem.id] : null,
-  //   },
-  // });
-
   const disallowed = (action: Action) => !device || disallows.includes(action);
 
   return (
@@ -70,9 +60,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}
-          <Suspense fallback={<LikeButton liked={false} size="1.25rem" />}>
-            <LikeControl playbackItem={playbackItem} size="1.25rem" />
-          </Suspense>
+          <LikeControl playbackItem={playbackItem} size="1.25rem" />
         </Flex>
         <Flex direction="column" gap="0.5rem">
           <Flex alignItems="center" gap="1.25rem" justifyContent="center">
