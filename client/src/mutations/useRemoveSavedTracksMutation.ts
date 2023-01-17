@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, Reference } from '@apollo/client';
 import {
   RemoveSavedTracksMutation,
   RemoveSavedTracksMutationVariables,
@@ -40,6 +40,21 @@ const useRemoveSavedTracksMutation = () => {
           cache.modify({
             id: cache.identify({ __typename: 'CurrentUser' }),
             fields: {
+              tracks: (existing, { readField }) => {
+                return {
+                  ...existing,
+                  edges: input.ids.reduce<Reference[]>(
+                    (edgeRefs, id) => {
+                      return edgeRefs.filter((edgeRef) => {
+                        const node = readField<Reference>('node', edgeRef);
+
+                        return id !== readField('id', node);
+                      });
+                    },
+                    [...(readField<Reference[]>('edges', existing) ?? [])]
+                  ),
+                };
+              },
               tracksContains(existing: Record<string, boolean>) {
                 return input.ids.reduce(
                   (memo, id) => ({ ...memo, [id]: false }),
