@@ -301,6 +301,32 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  async saveAlbumsToLibrary({ params }: RequestParams<'PUT', '/me/albums'>) {
+    await this._put('/me/albums', { params });
+
+    return true;
+  }
+
+  async saveEpisodesToLibrary({
+    params,
+  }: RequestParams<'PUT', '/me/episodes'>) {
+    await this._put('/me/episode', { params });
+
+    return true;
+  }
+
+  async saveShowsToLibrary({ params }: RequestParams<'PUT', '/me/shows'>) {
+    await this._put('/me/shows', { params });
+
+    return true;
+  }
+
+  async saveTracksToLibrary({ params }: RequestParams<'PUT', '/me/tracks'>) {
+    await this._put('/me/tracks', { params });
+
+    return true;
+  }
+
   async seekToPosition({ params }: RequestParams<'PUT', '/me/player/seek'>) {
     await this._put('/me/player/seek', { params });
 
