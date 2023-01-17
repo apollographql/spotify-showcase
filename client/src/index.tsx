@@ -17,7 +17,7 @@ root.render(
   // TODO: Re-enable strict mode once https://github.com/apollographql/apollo-client/issues/10428 is fixed
   // <React.StrictMode>
   <ApolloProvider client={client} suspenseCache={new SuspenseCache()}>
-    <Tooltip.Provider delayDuration={600}>
+    <Tooltip.Provider delayDuration={300}>
       <BackgroundColorProvider>
         <RouterProvider router={router} />
       </BackgroundColorProvider>
