@@ -12,6 +12,7 @@ import { logout } from './auth';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
+import libraryContains from './fieldPolicies/libraryContains';
 
 const httpLink = createHttpLink({
   uri: `${import.meta.env.VITE_SERVER_HOST}/graphql`,
@@ -64,6 +65,12 @@ export default new ApolloClient({
       },
       CurrentUser: {
         keyFields: [],
+        fields: {
+          albumsContains: libraryContains(),
+          episodesContains: libraryContains(),
+          showsContains: libraryContains(),
+          tracksContains: libraryContains(),
+        },
       },
       Followers: {
         keyFields: false,
