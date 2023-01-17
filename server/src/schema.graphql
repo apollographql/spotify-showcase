@@ -145,6 +145,11 @@ type Mutation {
   ): ResumePlaybackResponse
 
   """
+  Save one or more albums to the current user's 'Your Music' library.
+  """
+  saveAlbums(ids: [ID!]!): SaveAlbumsResponse
+
+  """
   Seeks to the given position in the user’s currently playing track.
   """
   seekToPosition(
@@ -222,6 +227,10 @@ type Mutation {
   Skips to previous track in the user’s queue.
   """
   skipToPrevious(context: SkipToPreviousContextInput): SkipToPreviousResponse
+}
+
+type SaveAlbumsResponse {
+  savedAlbums: SavedAlbumsConnection
 }
 
 type Subscription {
@@ -537,6 +546,12 @@ type CurrentlyPlaying {
 }
 
 type CurrentUser {
+  """
+  Get a list of the albums saved in the current Spotify user's 'Your Music'
+  library.
+  """
+  albums: SavedAlbumsConnection
+
   "Check if one or mote items are already saved in the Spotify user's library."
   contains(
     """
@@ -1495,6 +1510,19 @@ type ResumePoint {
   The user's most recent position in the episode in milliseconds.
   """
   resumePositionMs: Int!
+}
+
+type SavedAlbumsConnection {
+  "The list of saved albums."
+  edges: [SavedAlbumEdge!]!
+
+  "Pagination information for the set of playlists"
+  pageInfo: PageInfo!
+}
+
+type SavedAlbumEdge {
+  "The album object."
+  node: Album!
 }
 
 type SavedTrackConnection {
