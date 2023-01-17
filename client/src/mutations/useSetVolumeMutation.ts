@@ -59,7 +59,7 @@ const useSetVolumeMutation = () => {
         },
       });
     },
-    [execute]
+    [execute, result]
   );
 
   return [setVolume, result] as const;
