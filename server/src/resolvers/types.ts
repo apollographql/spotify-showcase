@@ -470,6 +470,8 @@ export type Mutation = {
   resumePlayback?: Maybe<ResumePlaybackResponse>;
   /** Save one or more albums to the current user's 'Your Music' library. */
   saveAlbums?: Maybe<SaveAlbumsResponse>;
+  /** Save one or more tracks to the current user's 'Your Music' library. */
+  saveTracks?: Maybe<SaveTracksResponse>;
   /** Seeks to the given position in the user’s currently playing track. */
   seekToPosition?: Maybe<SeekToPositionResponse>;
   /** Set the repeat mode for the user's playback. */
@@ -513,6 +515,11 @@ export type MutationResumePlaybackArgs = {
 
 
 export type MutationSaveAlbumsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
+export type MutationSaveTracksArgs = {
   ids: Array<Scalars['ID']>;
 };
 
@@ -1027,6 +1034,18 @@ export type SaveAlbumsResponseSavedAlbumsArgs = {
   offset?: InputMaybe<Scalars['Int']>;
 };
 
+export type SaveTracksResponse = {
+  __typename?: 'SaveTracksResponse';
+  /** The saved tracks for the current user after saving tracks. */
+  savedTracks?: Maybe<SavedTracksConnection>;
+};
+
+
+export type SaveTracksResponseSavedTracksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
 export type SavedAlbumEdge = {
   __typename?: 'SavedAlbumEdge';
   /** The date the album was saved. */
@@ -1456,6 +1475,7 @@ export type ResolversTypes = ResolversObject<{
   ResumePlaybackResponse: ResolverTypeWrapper<Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SaveAlbumsResponse: ResolverTypeWrapper<Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversTypes['SavedAlbumsConnection']> }>;
+  SaveTracksResponse: ResolverTypeWrapper<Omit<SaveTracksResponse, 'savedTracks'> & { savedTracks?: Maybe<ResolversTypes['SavedTracksConnection']> }>;
   SavedAlbumEdge: ResolverTypeWrapper<Spotify.Object.SavedAlbum>;
   SavedAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedAlbum>>;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
@@ -1543,6 +1563,7 @@ export type ResolversParentTypes = ResolversObject<{
   ResumePlaybackResponse: Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   ResumePoint: Spotify.Object.ResumePoint;
   SaveAlbumsResponse: Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversParentTypes['SavedAlbumsConnection']> };
+  SaveTracksResponse: Omit<SaveTracksResponse, 'savedTracks'> & { savedTracks?: Maybe<ResolversParentTypes['SavedTracksConnection']> };
   SavedAlbumEdge: Spotify.Object.SavedAlbum;
   SavedAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.SavedAlbum>;
   SavedTrackEdge: Spotify.Object.SavedTrack;
@@ -1762,6 +1783,7 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
   resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
   saveAlbums?: Resolver<Maybe<ResolversTypes['SaveAlbumsResponse']>, ParentType, ContextType, RequireFields<MutationSaveAlbumsArgs, 'ids'>>;
+  saveTracks?: Resolver<Maybe<ResolversTypes['SaveTracksResponse']>, ParentType, ContextType, RequireFields<MutationSaveTracksArgs, 'ids'>>;
   seekToPosition?: Resolver<Maybe<ResolversTypes['SeekToPositionResponse']>, ParentType, ContextType, RequireFields<MutationSeekToPositionArgs, 'positionMs'>>;
   setRepeatMode?: Resolver<Maybe<ResolversTypes['SetRepeatModeResponse']>, ParentType, ContextType, RequireFields<MutationSetRepeatModeArgs, 'state'>>;
   setVolume?: Resolver<Maybe<ResolversTypes['SetVolumeResponse']>, ParentType, ContextType, RequireFields<MutationSetVolumeArgs, 'volumePercent'>>;
@@ -1936,6 +1958,11 @@ export type ResumePointResolvers<ContextType = ContextValue, ParentType extends 
 
 export type SaveAlbumsResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveAlbumsResponse'] = ResolversParentTypes['SaveAlbumsResponse']> = ResolversObject<{
   savedAlbums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<SaveAlbumsResponseSavedAlbumsArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SaveTracksResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveTracksResponse'] = ResolversParentTypes['SaveTracksResponse']> = ResolversObject<{
+  savedTracks?: Resolver<Maybe<ResolversTypes['SavedTracksConnection']>, ParentType, ContextType, Partial<SaveTracksResponseSavedTracksArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2129,6 +2156,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   ResumePlaybackResponse?: ResumePlaybackResponseResolvers<ContextType>;
   ResumePoint?: ResumePointResolvers<ContextType>;
   SaveAlbumsResponse?: SaveAlbumsResponseResolvers<ContextType>;
+  SaveTracksResponse?: SaveTracksResponseResolvers<ContextType>;
   SavedAlbumEdge?: SavedAlbumEdgeResolvers<ContextType>;
   SavedAlbumsConnection?: SavedAlbumsConnectionResolvers<ContextType>;
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;

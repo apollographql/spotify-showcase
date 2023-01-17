@@ -83,6 +83,20 @@ const resolvers: MutationResolvers = {
 
     return { fieldConfig };
   },
+  saveAlbums: async (_, { ids }, { dataSources }) => {
+    await dataSources.spotify.saveAlbumsToLibrary({
+      params: { ids: ids.join(',') },
+    });
+
+    return {};
+  },
+  saveTracks: async (_, { ids }, { dataSources }) => {
+    await dataSources.spotify.saveTracksToLibrary({
+      params: { ids: ids.join(',') },
+    });
+
+    return {};
+  },
   seekToPosition: async (
     _,
     { positionMs, context },

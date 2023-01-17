@@ -150,6 +150,11 @@ type Mutation {
   saveAlbums(ids: [ID!]!): SaveAlbumsResponse
 
   """
+  Save one or more tracks to the current user's 'Your Music' library.
+  """
+  saveTracks(ids: [ID!]!): SaveTracksResponse
+
+  """
   Seeks to the given position in the user’s currently playing track.
   """
   seekToPosition(
@@ -242,6 +247,22 @@ type SaveAlbumsResponse {
     """
     offset: Int
   ): SavedAlbumsConnection
+}
+
+type SaveTracksResponse {
+  "The saved tracks for the current user after saving tracks."
+  savedTracks(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with
+    limit to get the next set of items.
+    """
+    offset: Int
+  ): SavedTracksConnection
 }
 
 type Subscription {
