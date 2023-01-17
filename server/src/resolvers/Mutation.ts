@@ -99,23 +99,24 @@ const resolvers: MutationResolvers = {
 
     return { fieldConfig };
   },
-  saveAlbums: async (_, { ids }, { dataSources }) => {
+  saveAlbums: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+
     await dataSources.spotify.saveAlbumsToLibrary({
-      params: { ids: ids.join(',') },
+      params: { ids },
     });
-    const { albums } = await dataSources.spotify.getAlbums({
-      ids: ids.join(','),
-    });
+
+    const { albums } = await dataSources.spotify.getAlbums({ ids });
 
     return { savedAlbums: albums };
   },
-  saveTracks: async (_, { ids }, { dataSources }) => {
+  saveTracks: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+
     await dataSources.spotify.saveTracksToLibrary({
-      params: { ids: ids.join(',') },
+      params: { ids },
     });
-    const { tracks } = await dataSources.spotify.getTracks({
-      ids: ids.join(','),
-    });
+    const { tracks } = await dataSources.spotify.getTracks({ ids });
 
     return { savedTracks: tracks };
   },

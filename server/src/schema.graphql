@@ -157,12 +157,12 @@ type Mutation {
   """
   Save one or more albums to the current user's 'Your Music' library.
   """
-  saveAlbums(ids: [ID!]!): SaveAlbumsResponse
+  saveAlbums(input: SaveAlbumsInput!): SaveAlbumsPayload
 
   """
   Save one or more tracks to the current user's 'Your Music' library.
   """
-  saveTracks(ids: [ID!]!): SaveTracksResponse
+  saveTracks(input: SaveTracksInput!): SaveTracksPayload
 
   """
   Seeks to the given position in the user’s currently playing track.
@@ -244,12 +244,28 @@ type Mutation {
   skipToPrevious(context: SkipToPreviousContextInput): SkipToPreviousResponse
 }
 
-type SaveAlbumsResponse {
+input SaveAlbumsInput {
+  """
+  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the albums. Maximum: 20 IDs
+  """
+  ids: [ID!]!
+}
+
+type SaveAlbumsPayload {
   "The albums that were saved to the Spotify user's library"
   savedAlbums: [Album!]
 }
 
-type SaveTracksResponse {
+input SaveTracksInput {
+  """
+  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  Maximum: 50 IDs
+  """
+  ids: [ID!]!
+}
+
+type SaveTracksPayload {
   "The tracks that were saved to the Spotify user's library"
   savedTracks: [Track!]
 }
