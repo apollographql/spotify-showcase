@@ -1326,7 +1326,7 @@ export type SetVolumeMutationVariables = Exact<{
 
 export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } } | null } | null };
 
-export type SetVolumeCacheFragment = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string } };
+export type SetVolumeCacheFragment = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } };
 
 export type ShufflePlaybackMutationVariables = Exact<{
   state: Scalars['Boolean'];

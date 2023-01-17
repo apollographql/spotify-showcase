@@ -5,6 +5,7 @@ import {
   SetVolumeMutationVariables,
   SetVolumeCacheFragment,
 } from '../types/api';
+import usePlaybackState from '../hooks/usePlaybackState';
 
 const SET_VOLUME_MUTATION = gql`
   mutation SetVolumeMutation($volumePercent: Int!) {
@@ -23,6 +24,7 @@ const SET_VOLUME_CACHE_FRAGMENT = gql`
   fragment SetVolumeCacheFragment on PlaybackState {
     device {
       id
+      volumePercent
     }
   }
 `;
@@ -33,15 +35,13 @@ const useSetVolumeMutation = () => {
     SetVolumeMutationVariables
   >(SET_VOLUME_MUTATION);
 
+  const playbackState = usePlaybackState<SetVolumeCacheFragment>({
+    fragment: SET_VOLUME_CACHE_FRAGMENT,
+  });
+
   const setVolume = useCallback(
     (variables: SetVolumeMutationVariables) => {
-      const { client } = result;
-
-      const playbackState = client.readFragment<SetVolumeCacheFragment>({
-        id: client.cache.identify({ __typename: 'PlaybackState' }),
-        fragment: SET_VOLUME_CACHE_FRAGMENT,
-      });
-
+      console.log({ playbackState });
       return execute({
         variables,
         optimisticResponse: {
@@ -59,7 +59,7 @@ const useSetVolumeMutation = () => {
         },
       });
     },
-    [execute, result]
+    [execute, playbackState]
   );
 
   return [setVolume, result] as const;
