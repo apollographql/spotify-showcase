@@ -2,20 +2,25 @@ import { Heart, LucideProps } from 'lucide-react';
 import cx from 'classnames';
 import styles from './LikeButton.module.scss';
 
-interface LikeButtonProps {
+export interface LikeButtonProps {
   className?: string;
-  isLiked: boolean;
-  onClick: () => void;
+  liked: boolean;
+  onClick?: () => void;
   size?: LucideProps['size'];
 }
 
-const LikeButton = ({ className, isLiked, onClick, size }: LikeButtonProps) => {
+const LikeButton = ({
+  className,
+  liked: isLiked,
+  onClick,
+  size,
+}: LikeButtonProps) => {
   return (
-    <button className={cx(styles.likeButton, className)} onClick={onClick}>
-      <Heart
-        fill={isLiked ? 'var(--color--theme)' : 'transparent'}
-        size={size}
-      />
+    <button
+      className={cx(styles.likeButton, className, { [styles.liked]: isLiked })}
+      onClick={onClick}
+    >
+      <Heart fill={isLiked ? 'currentColor' : 'transparent'} size={size} />
     </button>
   );
 };
