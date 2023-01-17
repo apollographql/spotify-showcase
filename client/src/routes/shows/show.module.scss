@@ -18,7 +18,7 @@
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  background: var(--background--surface--low-contrast);
+  background: rgba(var(--background--surface--low-contrast--rgb), 0.75);
   transition: 0.15s background ease-out;
 
   &:hover {
