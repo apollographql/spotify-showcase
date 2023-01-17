@@ -623,7 +623,7 @@ type CurrentUser {
     Use with `limit` to get the next set of tracks.
     """
     offset: Int
-  ): SavedTrackConnection
+  ): SavedTracksConnection
 }
 
 type Device {
@@ -1525,7 +1525,7 @@ type SavedAlbumEdge {
   node: Album!
 }
 
-type SavedTrackConnection {
+type SavedTracksConnection {
   """
   A list of saved tracks.
   """

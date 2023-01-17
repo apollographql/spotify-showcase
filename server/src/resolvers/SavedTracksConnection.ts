@@ -1,7 +1,7 @@
-import { SavedTrackConnectionResolvers } from './types';
+import { SavedTracksConnectionResolvers } from './types';
 import { prop, itself } from './helpers';
 
-const resolvers: SavedTrackConnectionResolvers = {
+const resolvers: SavedTracksConnectionResolvers = {
   edges: prop('items'),
   pageInfo: itself(),
 };
