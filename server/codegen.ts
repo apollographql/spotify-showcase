@@ -65,6 +65,10 @@ const config: CodegenConfig = {
           ReleaseDate: './mappers#Releasable',
           ResumePoint:
             '../dataSources/spotify.types#Spotify#Object.ResumePoint',
+          SavedAlbumConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.SavedAlbum>',
+          SavedAlbumEdge:
+            '../dataSources/spotify.types#Spotify#Object.SavedAlbum',
           SavedTracksConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.SavedTrack>',
           SavedTrackEdge:

@@ -230,7 +230,18 @@ type Mutation {
 }
 
 type SaveAlbumsResponse {
-  savedAlbums: SavedAlbumsConnection
+  savedAlbums(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with
+    limit to get the next set of items.
+    """
+    offset: Int
+  ): SavedAlbumsConnection
 }
 
 type Subscription {
@@ -550,7 +561,18 @@ type CurrentUser {
   Get a list of the albums saved in the current Spotify user's 'Your Music'
   library.
   """
-  albums: SavedAlbumsConnection
+  albums(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with
+    limit to get the next set of items.
+    """
+    offset: Int
+  ): SavedAlbumsConnection
 
   "Check if one or mote items are already saved in the Spotify user's library."
   contains(
@@ -1521,6 +1543,9 @@ type SavedAlbumsConnection {
 }
 
 type SavedAlbumEdge {
+  "The date the album was saved."
+  addedAt: DateTime!
+
   "The album object."
   node: Album!
 }

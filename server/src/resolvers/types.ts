@@ -254,6 +254,12 @@ export type CurrentUser = {
 };
 
 
+export type CurrentUserAlbumsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type CurrentUserContainsArgs = {
   albums?: InputMaybe<Array<Scalars['ID']>>;
   episodes?: InputMaybe<Array<Scalars['ID']>>;
@@ -1015,8 +1021,16 @@ export type SaveAlbumsResponse = {
   savedAlbums?: Maybe<SavedAlbumsConnection>;
 };
 
+
+export type SaveAlbumsResponseSavedAlbumsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
 export type SavedAlbumEdge = {
   __typename?: 'SavedAlbumEdge';
+  /** The date the album was saved. */
+  addedAt: Scalars['DateTime'];
   /** The album object. */
   node: Album;
 };
@@ -1442,7 +1456,7 @@ export type ResolversTypes = ResolversObject<{
   ResumePlaybackResponse: ResolverTypeWrapper<Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SaveAlbumsResponse: ResolverTypeWrapper<Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversTypes['SavedAlbumsConnection']> }>;
-  SavedAlbumEdge: ResolverTypeWrapper<Omit<SavedAlbumEdge, 'node'> & { node: ResolversTypes['Album'] }>;
+  SavedAlbumEdge: ResolverTypeWrapper<Spotify.Object.SavedAlbum>;
   SavedAlbumsConnection: ResolverTypeWrapper<Omit<SavedAlbumsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SavedAlbumEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
   SavedTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
@@ -1529,7 +1543,7 @@ export type ResolversParentTypes = ResolversObject<{
   ResumePlaybackResponse: Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   ResumePoint: Spotify.Object.ResumePoint;
   SaveAlbumsResponse: Omit<SaveAlbumsResponse, 'savedAlbums'> & { savedAlbums?: Maybe<ResolversParentTypes['SavedAlbumsConnection']> };
-  SavedAlbumEdge: Omit<SavedAlbumEdge, 'node'> & { node: ResolversParentTypes['Album'] };
+  SavedAlbumEdge: Spotify.Object.SavedAlbum;
   SavedAlbumsConnection: Omit<SavedAlbumsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SavedAlbumEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
   SavedTrackEdge: Spotify.Object.SavedTrack;
   SavedTracksConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;
@@ -1647,7 +1661,7 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
 }>;
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
-  albums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType>;
+  albums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<CurrentUserAlbumsArgs>>;
   contains?: Resolver<Maybe<ResolversTypes['Contains']>, ParentType, ContextType, Partial<CurrentUserContainsArgs>>;
   playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
@@ -1921,11 +1935,12 @@ export type ResumePointResolvers<ContextType = ContextValue, ParentType extends 
 }>;
 
 export type SaveAlbumsResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveAlbumsResponse'] = ResolversParentTypes['SaveAlbumsResponse']> = ResolversObject<{
-  savedAlbums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType>;
+  savedAlbums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<SaveAlbumsResponseSavedAlbumsArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type SavedAlbumEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedAlbumEdge'] = ResolversParentTypes['SavedAlbumEdge']> = ResolversObject<{
+  addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

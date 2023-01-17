@@ -409,6 +409,11 @@ export namespace Spotify {
       resume_position_ms: number;
     }
 
+    export interface SavedAlbum {
+      added_at: string;
+      album: Album;
+    }
+
     export interface SavedTrack {
       added_at: string;
       track: Track;
@@ -541,6 +546,7 @@ export namespace Spotify {
       '/episodes': Object.List<'episodes', Object.Episode>;
       '/episodes/:id': Object.Episode;
       '/me': Object.CurrentUser;
+      '/me/albums': Object.Paginated<Object.SavedAlbum>;
       '/me/albums/contains': boolean[];
       '/me/episodes/contains': boolean[];
       '/me/player': Object.PlaybackState;
