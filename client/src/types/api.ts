@@ -1408,7 +1408,9 @@ export type ShowRouteQueryVariables = Exact<{
 }>;
 
 
-export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, episodes: { __typename: 'ShowEpisodesConnection', edges: Array<{ __typename: 'ShowEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } }> } | null, images: Array<{ __typename: 'Image', url: string }> } | null };
+export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, episodes: { __typename: 'ShowEpisodesConnection', edges: Array<{ __typename: 'ShowEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } }> } | null, images: Array<{ __typename: 'Image', url: string }> } | null };
+
+export type ShowRoute_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 
 export type TrackRouteQueryVariables = Exact<{
   trackId: Scalars['ID'];

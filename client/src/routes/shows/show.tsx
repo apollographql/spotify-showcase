@@ -3,7 +3,11 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { ShowRouteQuery, ShowRouteQueryVariables } from '../../types/api';
+import {
+  ShowRouteQuery,
+  ShowRouteQueryVariables,
+  ShowRoute_playbackState as PlaybackState,
+} from '../../types/api';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import CoverPhoto from '../../components/CoverPhoto';
 import DelimitedList from '../../components/DelimitedList';
@@ -14,6 +18,8 @@ import Flex from '../../components/Flex';
 import Page from '../../components/Page';
 import Text from '../../components/Text';
 import styles from './show.module.scss';
+import PlayButton from '../../components/PlayButton';
+import usePlaybackState from '../../hooks/usePlaybackState';
 
 const SHOW_ROUTE_QUERY = gql`
   query ShowRouteQuery($showId: ID!) {
@@ -28,6 +34,7 @@ const SHOW_ROUTE_QUERY = gql`
             id
             name
             durationMs
+            uri
             releaseDate {
               date
               precision
@@ -46,6 +53,17 @@ const SHOW_ROUTE_QUERY = gql`
   ${EpisodeRemainingDuration.fragments.episode}
 `;
 
+const PLAYBACK_STATE_FRAGMENT = gql`
+  fragment ShowRoute_playbackState on PlaybackState {
+    isPlaying
+    item {
+      __typename
+      id
+      uri
+    }
+  }
+`;
+
 const ShowRoute = () => {
   const { showId } = useParams() as { showId: string };
   const { data } = useSuspenseQuery<ShowRouteQuery, ShowRouteQueryVariables>(
@@ -59,6 +77,10 @@ const ShowRoute = () => {
     throw new Error('Show not found');
   }
 
+  const playbackState = usePlaybackState<PlaybackState>({
+    fragment: PLAYBACK_STATE_FRAGMENT,
+  });
+  const isPlaying = playbackState?.isPlaying ?? false;
   const coverPhoto = show.images[0];
   const upNext = show.episodes?.edges[0].node;
 
@@ -110,15 +132,23 @@ const ShowRoute = () => {
                     <EntityLink className={styles.episodeName} entity={node}>
                       {node.name}
                     </EntityLink>
-                    <DelimitedList
-                      as={Text}
-                      delimiter=" · "
-                      color="muted"
-                      size="sm"
-                    >
-                      <EpisodeReleaseDate releaseDate={node.releaseDate} />
-                      <EpisodeRemainingDuration episode={node} />
-                    </DelimitedList>
+                    <Flex gap="1rem" alignItems="center">
+                      <PlayButton
+                        size="2rem"
+                        playing={
+                          isPlaying && playbackState?.item?.uri === node.uri
+                        }
+                      />
+                      <DelimitedList
+                        as={Text}
+                        delimiter=" · "
+                        color="muted"
+                        size="sm"
+                      >
+                        <EpisodeReleaseDate releaseDate={node.releaseDate} />
+                        <EpisodeRemainingDuration episode={node} />
+                      </DelimitedList>
+                    </Flex>
                   </Flex>
                 </li>
               ))}
