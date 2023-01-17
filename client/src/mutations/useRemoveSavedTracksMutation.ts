@@ -24,7 +24,32 @@ const useRemoveSavedTracksMutation = () => {
 
   const removeSavedTracks = useCallback(
     (input: RemoveSavedTracksInput) => {
-      return execute({ variables: { input } });
+      return execute({
+        variables: { input },
+        optimisticResponse: {
+          removeSavedTracks: {
+            __typename: 'RemoveSavedTracksPayload',
+            removedTracks: input.ids.map((id) => ({ __typename: 'Track', id })),
+          },
+        },
+        update: (cache, { data }) => {
+          if (!data?.removeSavedTracks?.removedTracks) {
+            return;
+          }
+
+          cache.modify({
+            id: cache.identify({ __typename: 'CurrentUser' }),
+            fields: {
+              tracksContains(existing: Record<string, boolean>) {
+                return input.ids.reduce(
+                  (memo, id) => ({ ...memo, [id]: false }),
+                  existing
+                );
+              },
+            },
+          });
+        },
+      });
     },
     [execute]
   );

@@ -237,15 +237,33 @@ export type CurrentUser = {
    * library.
    */
   albums: Maybe<SavedAlbumsConnection>;
-  /** Check if one or mote items are already saved in the Spotify user's library. */
-  contains: Maybe<Contains>;
+  /**
+   * Check if one or more albums is already saved in the current Spotify user's
+   * 'Your Music' library.
+   */
+  albumsContains: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * Check if one or more episodes is already saved in the current Spotify user's
+   * 'Your Episodes' library.
+   */
+  episodesContains: Maybe<Array<Scalars['Boolean']>>;
   /** Get the list of objects that make up the user's queue. */
   playbackQueue: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists: Maybe<PlaylistConnection>;
+  /**
+   * Check if one or more shows is already saved in the current Spotify user's
+   * library.
+   */
+  showsContains: Maybe<Array<Scalars['Boolean']>>;
   tracks: Maybe<SavedTracksConnection>;
+  /**
+   * Check if one or more tracks is already saved in the current Spotify user's
+   * 'Your Music' library.
+   */
+  tracksContains: Maybe<Array<Scalars['Boolean']>>;
   /** Detailed profile information about the current user. */
   user: User;
 };
@@ -257,11 +275,13 @@ export type CurrentUseralbumsArgs = {
 };
 
 
-export type CurrentUsercontainsArgs = {
-  albums?: InputMaybe<Array<Scalars['ID']>>;
-  episodes?: InputMaybe<Array<Scalars['ID']>>;
-  shows?: InputMaybe<Array<Scalars['ID']>>;
-  tracks?: InputMaybe<Array<Scalars['ID']>>;
+export type CurrentUseralbumsContainsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUserepisodesContainsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 
@@ -271,9 +291,19 @@ export type CurrentUserplaylistsArgs = {
 };
 
 
+export type CurrentUsershowsContainsArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
 export type CurrentUsertracksArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUsertracksContainsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 export type CurrentlyPlaying = {
@@ -1450,12 +1480,11 @@ export type Sidebar_currentUser = { __typename: 'CurrentUser', user: { __typenam
 export type Sidebar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 
 export type LikeControlQueryVariables = Exact<{
-  trackIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
-  episodeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>;
+  ids: Array<Scalars['ID']> | Scalars['ID'];
 }>;
 
 
-export type LikeControlQuery = { me: { __typename: 'CurrentUser', contains: { __typename: 'Contains', tracks: Array<boolean> | null, episodes: Array<boolean> | null } | null } | null };
+export type LikeControlQuery = { me: { __typename: 'CurrentUser', episodesContains: Array<boolean> | null, tracksContains: Array<boolean> | null } | null };
 
 type LikeControl_playbackItem_Episode_ = { __typename: 'Episode', id: string };
 
@@ -1503,13 +1532,6 @@ export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', contex
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
-export type SaveTracksMutationVariables = Exact<{
-  input: SaveTracksInput;
-}>;
-
-
-export type SaveTracksMutation = { saveTracks: { __typename: 'SaveTracksPayload', savedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
-
 export type PausePlaybackMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1530,6 +1552,13 @@ export type ResumePlaybackMutationVariables = Exact<{
 export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null } | null } | null };
 
 export type UseResumePlaybackStateFragment = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
+
+export type SaveTracksMutationVariables = Exact<{
+  input: SaveTracksInput;
+}>;
+
+
+export type SaveTracksMutation = { saveTracks: { __typename: 'SaveTracksPayload', savedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
 
 export type SeekToPositionMutationVariables = Exact<{
   positionMs: Scalars['Int'];

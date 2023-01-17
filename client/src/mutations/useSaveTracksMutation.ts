@@ -32,8 +32,22 @@ const useSaveTracksMutation = () => {
             savedTracks: input.ids.map((id) => ({ __typename: 'Track', id })),
           },
         },
-        update: (cache, result) => {
-          console.log(result);
+        update: (cache, { data }) => {
+          if (!data?.saveTracks?.savedTracks) {
+            return;
+          }
+
+          cache.modify({
+            id: cache.identify({ __typename: 'CurrentUser' }),
+            fields: {
+              tracksContains(existing: Record<string, boolean>) {
+                return input.ids.reduce(
+                  (memo, id) => ({ ...memo, [id]: true }),
+                  existing
+                );
+              },
+            },
+          });
         },
       });
     },
