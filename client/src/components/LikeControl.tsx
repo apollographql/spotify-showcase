@@ -8,6 +8,8 @@ import {
   LikeControl_playbackItem as PlaybackItem,
 } from '../types/api';
 import LikeButton, { LikeButtonProps } from './LikeButton';
+import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
+import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
@@ -16,12 +18,10 @@ interface LikeControlProps {
 }
 
 const LIKE_CONTROL_QUERY = gql`
-  query LikeControlQuery($trackIds: [ID!], $episodeIds: [ID!]) {
+  query LikeControlQuery($ids: [ID!]!) {
     me {
-      contains(episodes: $episodeIds, tracks: $trackIds) {
-        tracks
-        episodes
-      }
+      episodesContains(ids: $ids)
+      tracksContains(ids: $ids)
     }
   }
 `;
@@ -31,23 +31,26 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
     LikeControlQuery,
     LikeControlQueryVariables
   >(LIKE_CONTROL_QUERY, {
+    errorPolicy: 'ignore',
     suspensePolicy: 'initial',
     variables: {
-      episodeIds:
-        playbackItem?.__typename === 'Episode' ? [playbackItem.id] : null,
-      trackIds: playbackItem?.__typename === 'Track' ? [playbackItem.id] : null,
+      ids: [playbackItem?.id].filter(Boolean),
     },
   });
+
+  const [saveTracks] = useSaveTracksMutation();
+  const [removeTracks] = useRemoveTracksMutation();
 
   if (!data.me) {
     throw new Error('You must be logged in');
   }
 
-  const { me } = data;
+  const {
+    me: { episodesContains, tracksContains },
+  } = data;
 
   const isLiked = Boolean(
-    me.contains?.tracks?.some((isInLibrary) => isInLibrary) ||
-      me.contains?.episodes?.some((isInLibrary) => isInLibrary)
+    episodesContains?.some(Boolean) || tracksContains?.some(Boolean)
   );
 
   return (
@@ -56,7 +59,13 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
       size={size}
       liked={isLiked}
       onClick={() => {
-        // do nothing
+        if (!playbackItem) {
+          return;
+        }
+
+        const ids = [playbackItem.id];
+
+        return isLiked ? removeTracks({ ids }) : saveTracks({ ids });
       }}
     />
   );
