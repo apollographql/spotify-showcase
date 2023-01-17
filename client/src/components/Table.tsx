@@ -14,7 +14,8 @@ import styles from './Table.module.scss';
 interface TableProps<TData>
   extends Omit<ComponentPropsWithoutRef<'table'>, 'children'> {
   data: TData[];
-  columns: ColumnDef<TData, unknown>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: ColumnDef<TData, any>[];
   meta?: TableMeta<TData>;
   visibility?: VisibilityState;
   onDoubleClickRow?: (row: Row<TData>) => void;
