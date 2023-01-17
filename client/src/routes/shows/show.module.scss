@@ -32,6 +32,10 @@
 
 .episodeName {
   font-weight: var(--font-weight--bold);
+
+  &.isCurrent {
+    color: var(--color--theme--light);
+  }
 }
 
 .upNext {

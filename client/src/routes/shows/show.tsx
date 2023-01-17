@@ -2,6 +2,7 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
+import cx from 'classnames';
 import { useParams } from 'react-router-dom';
 import {
   ShowRouteQuery,
@@ -125,33 +126,40 @@ const ShowRoute = () => {
 
             <h2>All episodes</h2>
             <ul className={styles.episodeList}>
-              {show.episodes?.edges.map(({ node }) => (
-                <li key={node.id} className={styles.episode}>
-                  <CoverPhoto image={coverPhoto} size="100px" />
-                  <Flex direction="column" justifyContent="space-between">
-                    <EntityLink className={styles.episodeName} entity={node}>
-                      {node.name}
-                    </EntityLink>
-                    <Flex gap="1rem" alignItems="center">
-                      <PlayButton
-                        size="2rem"
-                        playing={
-                          isPlaying && playbackState?.item?.uri === node.uri
-                        }
-                      />
-                      <DelimitedList
-                        as={Text}
-                        delimiter=" · "
-                        color="muted"
-                        size="sm"
+              {show.episodes?.edges.map(({ node }) => {
+                const isCurrentEpisode = node.uri === playbackState?.item?.uri;
+
+                return (
+                  <li key={node.id} className={styles.episode}>
+                    <CoverPhoto image={coverPhoto} size="100px" />
+                    <Flex direction="column" justifyContent="space-between">
+                      <EntityLink
+                        className={cx(styles.episodeName, {
+                          [styles.isCurrent]: isCurrentEpisode,
+                        })}
+                        entity={node}
                       >
-                        <EpisodeReleaseDate releaseDate={node.releaseDate} />
-                        <EpisodeRemainingDuration episode={node} />
-                      </DelimitedList>
+                        {node.name}
+                      </EntityLink>
+                      <Flex gap="1rem" alignItems="center">
+                        <PlayButton
+                          size="2rem"
+                          playing={isPlaying && isCurrentEpisode}
+                        />
+                        <DelimitedList
+                          as={Text}
+                          delimiter=" · "
+                          color="muted"
+                          size="sm"
+                        >
+                          <EpisodeReleaseDate releaseDate={node.releaseDate} />
+                          <EpisodeRemainingDuration episode={node} />
+                        </DelimitedList>
+                      </Flex>
                     </Flex>
-                  </Flex>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
           </Flex>
           <Flex direction="column" gap="1rem">
