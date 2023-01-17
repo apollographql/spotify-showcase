@@ -59,7 +59,7 @@ const TrackNumberCell = ({
         <Music size="1rem" />
       ) : (
         <Text
-          color={isCurrentTrack ? 'themeLight' : 'muted'}
+          color={isPlayingInContext && isCurrentTrack ? 'themeLight' : 'muted'}
           numericVariant="tabular-nums"
         >
           {trackNumber}
