@@ -72,6 +72,22 @@ const resolvers: MutationResolvers = {
 
     return { fieldConfig };
   },
+  removeSavedAlbums: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+
+    await dataSources.spotify.removeSavedAlbums({ params: { ids } });
+    const { albums } = await dataSources.spotify.getAlbums({ ids });
+
+    return { removedAlbums: albums };
+  },
+  removeSavedTracks: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+
+    await dataSources.spotify.removeSavedTracks({ params: { ids } });
+    const { tracks } = await dataSources.spotify.getTracks({ ids });
+
+    return { removedTracks: tracks };
+  },
   resetFieldConfig: (_, { field }) => {
     if (!field.schemaField) {
       throw new GraphQLError('You must provide field.schemaField');

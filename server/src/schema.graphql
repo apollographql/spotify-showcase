@@ -128,6 +128,16 @@ type Mutation {
   ): UpdateFieldConfigResponse
 
   """
+  Remove one or more albums from the current user's 'Your Music' library.
+  """
+  removeSavedAlbums(input: RemoveSavedAlbumsInput!): RemoveSavedAlbumsPayload
+
+  """
+  Remove one or more tracks from the current user's 'Your Music' library.
+  """
+  removeSavedTracks(input: RemoveSavedTracksInput!): RemoveSavedTracksPayload
+
+  """
   Reset a field's config back to its default values.
   """
   resetFieldConfig(field: FieldInput!): ResetFieldConfigResponse
@@ -1560,6 +1570,32 @@ type SavedTracksConnection {
   "Pagination information for the set of playlists"
   """
   pageInfo: PageInfo!
+}
+
+input RemoveSavedAlbumsInput {
+  """
+  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  Maximum 20 IDs.
+  """
+  ids: [ID!]!
+}
+
+type RemoveSavedAlbumsPayload {
+  "The albums that were removed from Spotify user's library."
+  removedAlbums: [Album!]
+}
+
+input RemoveSavedTracksInput {
+  """
+  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  Maximum 50 IDs.
+  """
+  ids: [ID!]!
+}
+
+type RemoveSavedTracksPayload {
+  "The tracks that were removed from the Spotify user's library."
+  removedTracks: [Track!]
 }
 
 input ResumePlaybackContextInput {

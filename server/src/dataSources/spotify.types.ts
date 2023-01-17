@@ -8,7 +8,7 @@ type RestrictScope<
 type Prop<T, Key extends string> = Key extends keyof T ? T[Key] : never;
 
 export namespace Spotify {
-  export type HTTPMethod = 'GET' | 'POST' | 'PUT';
+  export type HTTPMethod = 'DELETE' | 'GET' | 'POST' | 'PUT';
 
   export namespace Object {
     export interface Actions {
@@ -597,7 +597,9 @@ export namespace Spotify {
       export type Lookup<
         THttpMethod extends HTTPMethod,
         Path extends Request.Paths
-      > = THttpMethod extends 'GET'
+      > = THttpMethod extends 'DELETE'
+        ? Prop<DELETE, Path>
+        : THttpMethod extends 'GET'
         ? Prop<GET, Path>
         : THttpMethod extends 'POST'
         ? Prop<POST, Path>
@@ -605,7 +607,16 @@ export namespace Spotify {
         ? Prop<PUT, Path>
         : never;
 
-      export type Paths = keyof GET | keyof PUT | keyof POST;
+      export type Paths = keyof DELETE | keyof GET | keyof PUT | keyof POST;
+
+      export interface DELETE {
+        '/me/albums': {
+          ids: string;
+        };
+        '/me/tracks': {
+          ids: string;
+        };
+      }
 
       export interface GET {
         '/albums': {

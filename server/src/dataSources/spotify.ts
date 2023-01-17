@@ -6,6 +6,7 @@ import {
 import { OmitNever } from '../utils/types';
 import { Spotify } from './spotify.types';
 
+type DeleteRequest = NonNullable<Parameters<RESTDataSource['delete']>[1]>;
 type GetRequest = NonNullable<Parameters<RESTDataSource['get']>[1]>;
 type PutRequest = NonNullable<Parameters<RESTDataSource['put']>[1]>;
 type PostRequest = NonNullable<Parameters<RESTDataSource['post']>[1]>;
@@ -13,6 +14,10 @@ type RawQueryParams = Record<
   string,
   string | string[] | number | boolean | null | undefined
 >;
+
+interface DeleteRequestOptions extends Omit<DeleteRequest, 'params'> {
+  params?: RawQueryParams;
+}
 
 interface GetRequestOptions extends Omit<GetRequest, 'params'> {
   params?: RawQueryParams;
@@ -294,6 +299,18 @@ export default class SpotifyAPI extends RESTDataSource {
     return this._get<Spotify.Response.GET['/tracks']>('/tracks', { params });
   }
 
+  async removeSavedAlbums({ params }: RequestParams<'DELETE', '/me/albums'>) {
+    await this._delete('/me/albums', { params });
+
+    return true;
+  }
+
+  async removeSavedTracks({ params }: RequestParams<'DELETE', '/me/tracks'>) {
+    await this._delete('/me/tracks', { params });
+
+    return true;
+  }
+
   async resumePlayback({
     body,
     params,
@@ -401,6 +418,13 @@ export default class SpotifyAPI extends RESTDataSource {
     }
 
     return result;
+  }
+
+  private _delete<TReturn>(path: string, options?: DeleteRequestOptions) {
+    return this.delete<TReturn>(path, {
+      ...options,
+      params: this.normalizeParams(options?.params),
+    });
   }
 
   private _get<TReturn>(path: string, options?: GetRequestOptions) {
