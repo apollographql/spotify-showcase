@@ -94,6 +94,9 @@ export default new ApolloClient({
       ReleaseDate: {
         keyFields: false,
       },
+      SavedTrackEdge: {
+        keyFields: [['node', ['id']]],
+      },
     },
   }),
 });
