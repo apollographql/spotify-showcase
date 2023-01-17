@@ -1,0 +1,31 @@
+.tooltipContent {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  color: var(--color--white);
+  border-radius: 0.25rem;
+  background-color: var(--background--surface);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  box-shadow: 0 16px 24px rgb(0 0 0 / 30%), 0 6px 8px rgb(0 0 0 / 20%);
+  max-width: 50ch;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-state='delayed-open'] {
+    animation-name: fade;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
