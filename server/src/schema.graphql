@@ -541,7 +541,7 @@ type CurrentUser {
   """
   Get the list of objects that make up the user's queue.
   """
-  queue: PlaybackQueue
+  playbackQueue: PlaybackQueue
 
   tracks(
     """

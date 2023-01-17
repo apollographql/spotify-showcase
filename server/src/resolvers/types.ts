@@ -211,12 +211,12 @@ export type CopyrightType =
 
 export type CurrentUser = {
   __typename?: 'CurrentUser';
+  /** Get the list of objects that make up the user's queue. */
+  playbackQueue?: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
-  /** Get the list of objects that make up the user's queue. */
-  queue?: Maybe<PlaybackQueue>;
   tracks?: Maybe<SavedTrackConnection>;
   /** Detailed profile information about the current user. */
   user: User;
@@ -1566,9 +1566,9 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
 }>;
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
+  playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
-  queue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   tracks?: Resolver<Maybe<ResolversTypes['SavedTrackConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

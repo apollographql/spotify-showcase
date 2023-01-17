@@ -3,6 +3,8 @@ import { itself } from './helpers';
 
 const resolvers: CurrentUserResolvers = {
   user: itself(),
+  playbackQueue: (_, __, { dataSources }) =>
+    dataSources.spotify.getPlaybackQueue(),
   player: () => {
     // Return empty object since this field makes no requests to the API
     return {};
@@ -13,7 +15,6 @@ const resolvers: CurrentUserResolvers = {
       offset: args.offset ?? undefined,
     });
   },
-  queue: (_, __, { dataSources }) => dataSources.spotify.getPlaybackQueue(),
   tracks: (_, args, { dataSources }) => {
     return dataSources.spotify.getCurrentUserTracks({
       limit: args.limit ?? undefined,
