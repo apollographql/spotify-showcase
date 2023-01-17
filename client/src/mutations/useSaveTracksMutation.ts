@@ -24,7 +24,18 @@ const useSaveTracksMutation = () => {
 
   const saveTracks = useCallback(
     (input: SaveTracksInput) => {
-      return execute({ variables: { input } });
+      return execute({
+        variables: { input },
+        optimisticResponse: {
+          saveTracks: {
+            __typename: 'SaveTracksPayload',
+            savedTracks: input.ids.map((id) => ({ __typename: 'Track', id })),
+          },
+        },
+        update: (cache, result) => {
+          console.log(result);
+        },
+      });
     },
     [execute]
   );
