@@ -461,14 +461,18 @@ export type Mutation = {
   addItemToPlaybackQueue: Maybe<AddItemToPlaybackQueueResponse>;
   /** Pause playback on the user's account. */
   pausePlayback: Maybe<PausePlaybackResponse>;
+  /** Remove one or more albums from the current user's 'Your Music' library. */
+  removeSavedAlbums: Maybe<RemoveSavedAlbumsPayload>;
+  /** Remove one or more tracks from the current user's 'Your Music' library. */
+  removeSavedTracks: Maybe<RemoveSavedTracksPayload>;
   /** Reset a field's config back to its default values. */
   resetFieldConfig: Maybe<ResetFieldConfigResponse>;
   /** Start a new context or resume current playback on the user's active device. */
   resumePlayback: Maybe<ResumePlaybackResponse>;
   /** Save one or more albums to the current user's 'Your Music' library. */
-  saveAlbums: Maybe<SaveAlbumsResponse>;
+  saveAlbums: Maybe<SaveAlbumsPayload>;
   /** Save one or more tracks to the current user's 'Your Music' library. */
-  saveTracks: Maybe<SaveTracksResponse>;
+  saveTracks: Maybe<SaveTracksPayload>;
   /** Seeks to the given position in the user’s currently playing track. */
   seekToPosition: Maybe<SeekToPositionResponse>;
   /** Set the repeat mode for the user's playback. */
@@ -501,6 +505,16 @@ export type MutationpausePlaybackArgs = {
 };
 
 
+export type MutationremoveSavedAlbumsArgs = {
+  input: RemoveSavedAlbumsInput;
+};
+
+
+export type MutationremoveSavedTracksArgs = {
+  input: RemoveSavedTracksInput;
+};
+
+
 export type MutationresetFieldConfigArgs = {
   field: FieldInput;
 };
@@ -512,12 +526,12 @@ export type MutationresumePlaybackArgs = {
 
 
 export type MutationsaveAlbumsArgs = {
-  ids: Array<Scalars['ID']>;
+  input: SaveAlbumsInput;
 };
 
 
 export type MutationsaveTracksArgs = {
-  ids: Array<Scalars['ID']>;
+  input: SaveTracksInput;
 };
 
 
@@ -673,6 +687,18 @@ export type Player = {
    * episode, progress, and active device.
    */
   playbackState: Maybe<PlaybackState>;
+  /**
+   * Get tracks from the current user's recently played tracks. **Note**: Currently
+   * doesn't support podcast episodes.
+   */
+  recentlyPlayed: Maybe<RecentlyPlayedConnection>;
+};
+
+
+export type PlayerrecentlyPlayedArgs = {
+  after?: InputMaybe<Scalars['Int']>;
+  before?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 /** Information about a playlist owned by a Spotify user */
@@ -869,6 +895,22 @@ export type QuerytrackArgs = {
   id: Scalars['ID'];
 };
 
+export type RecentlyPlayedConnection = {
+  __typename: 'RecentlyPlayedConnection';
+  /** The list of recently played items. */
+  edges: Array<RecentlyPlayedEdge>;
+};
+
+export type RecentlyPlayedEdge = {
+  __typename: 'RecentlyPlayedEdge';
+  /** The playback context for the track */
+  context: Maybe<PlaybackContext>;
+  /** The item that was recently played. */
+  node: PlaybackItem;
+  /** The date and time the track was played at. */
+  playedAt: Scalars['DateTime'];
+};
+
 /** Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
 export type RecommendationSeed = {
   __typename: 'RecommendationSeed';
@@ -967,6 +1009,34 @@ export enum ReleaseDatePrecision {
   Year = 'YEAR'
 }
 
+export type RemoveSavedAlbumsInput = {
+  /**
+   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * Maximum 20 IDs.
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type RemoveSavedAlbumsPayload = {
+  __typename: 'RemoveSavedAlbumsPayload';
+  /** The albums that were removed from Spotify user's library. */
+  removedAlbums: Maybe<Array<Album>>;
+};
+
+export type RemoveSavedTracksInput = {
+  /**
+   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * Maximum 50 IDs.
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type RemoveSavedTracksPayload = {
+  __typename: 'RemoveSavedTracksPayload';
+  /** The tracks that were removed from the Spotify user's library. */
+  removedTracks: Maybe<Array<Track>>;
+};
+
 export enum RepeatMode {
   Context = 'CONTEXT',
   Off = 'OFF',
@@ -1024,14 +1094,30 @@ export type ResumePoint = {
   resumePositionMs: Scalars['Int'];
 };
 
-export type SaveAlbumsResponse = {
-  __typename: 'SaveAlbumsResponse';
+export type SaveAlbumsInput = {
+  /**
+   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the albums. Maximum: 20 IDs
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type SaveAlbumsPayload = {
+  __typename: 'SaveAlbumsPayload';
   /** The albums that were saved to the Spotify user's library */
   savedAlbums: Maybe<Array<Album>>;
 };
 
-export type SaveTracksResponse = {
-  __typename: 'SaveTracksResponse';
+export type SaveTracksInput = {
+  /**
+   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * Maximum: 50 IDs
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type SaveTracksPayload = {
+  __typename: 'SaveTracksPayload';
   /** The tracks that were saved to the Spotify user's library */
   savedTracks: Maybe<Array<Track>>;
 };
@@ -1417,10 +1503,24 @@ export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', contex
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
+export type SaveTracksMutationVariables = Exact<{
+  input: SaveTracksInput;
+}>;
+
+
+export type SaveTracksMutation = { saveTracks: { __typename: 'SaveTracksPayload', savedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
+
 export type PausePlaybackMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+
+export type RemoveSavedTracksMutationVariables = Exact<{
+  input: RemoveSavedTracksInput;
+}>;
+
+
+export type RemoveSavedTracksMutation = { removeSavedTracks: { __typename: 'RemoveSavedTracksPayload', removedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
 
 export type ResumePlaybackMutationVariables = Exact<{
   context?: InputMaybe<ResumePlaybackContextInput>;
