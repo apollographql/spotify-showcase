@@ -192,6 +192,30 @@ export type ArtistAlbumsConnection = {
   pageInfo: PageInfo;
 };
 
+export type Contains = {
+  __typename?: 'Contains';
+  /**
+   * List of booleans in order of albums requested. `true` means the album is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  albums?: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * List of booleans in order of episodes requested. `true` means the episode is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  episodes?: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * List of booleans in order of shows requested. `true` means the show is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  shows?: Maybe<Array<Scalars['Boolean']>>;
+  /**
+   * List of booleans in order of tracks requested. `true` means the track is in
+   * the Spotify user's library. This field is `null` if omitted in the request.
+   */
+  tracks?: Maybe<Array<Scalars['Boolean']>>;
+};
+
 export type Copyright = {
   __typename?: 'Copyright';
   /** The copyright text for this content. */
@@ -211,6 +235,8 @@ export type CopyrightType =
 
 export type CurrentUser = {
   __typename?: 'CurrentUser';
+  /** Check if one or mote items are already saved in the Spotify user's library. */
+  contains?: Maybe<Contains>;
   /** Get the list of objects that make up the user's queue. */
   playbackQueue?: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
@@ -220,6 +246,14 @@ export type CurrentUser = {
   tracks?: Maybe<SavedTrackConnection>;
   /** Detailed profile information about the current user. */
   user: User;
+};
+
+
+export type CurrentUserContainsArgs = {
+  albums?: InputMaybe<Array<Scalars['ID']>>;
+  episodes?: InputMaybe<Array<Scalars['ID']>>;
+  shows?: InputMaybe<Array<Scalars['ID']>>;
+  tracks?: InputMaybe<Array<Scalars['ID']>>;
 };
 
 
@@ -1328,6 +1362,7 @@ export type ResolversTypes = ResolversObject<{
   ArtistAlbumEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
   ArtistAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Contains: ResolverTypeWrapper<Contains>;
   Copyright: ResolverTypeWrapper<Copyright>;
   CopyrightType: CopyrightType;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
@@ -1416,6 +1451,7 @@ export type ResolversParentTypes = ResolversObject<{
   ArtistAlbumEdge: Spotify.Object.AlbumSimplified;
   ArtistAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>;
   Boolean: Scalars['Boolean'];
+  Contains: Contains;
   Copyright: Copyright;
   CurrentUser: Spotify.Object.CurrentUser;
   CurrentlyPlaying: Spotify.Object.CurrentlyPlaying;
@@ -1559,6 +1595,14 @@ export type ArtistAlbumsConnectionResolvers<ContextType = ContextValue, ParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type ContainsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Contains'] = ResolversParentTypes['Contains']> = ResolversObject<{
+  albums?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
+  episodes?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
+  shows?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
+  tracks?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type CopyrightResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Copyright'] = ResolversParentTypes['Copyright']> = ResolversObject<{
   text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['CopyrightType']>, ParentType, ContextType>;
@@ -1566,6 +1610,7 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
 }>;
 
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
+  contains?: Resolver<Maybe<ResolversTypes['Contains']>, ParentType, ContextType, Partial<CurrentUserContainsArgs>>;
   playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
@@ -1975,6 +2020,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Artist?: ArtistResolvers<ContextType>;
   ArtistAlbumEdge?: ArtistAlbumEdgeResolvers<ContextType>;
   ArtistAlbumsConnection?: ArtistAlbumsConnectionResolvers<ContextType>;
+  Contains?: ContainsResolvers<ContextType>;
   Copyright?: CopyrightResolvers<ContextType>;
   CurrentUser?: CurrentUserResolvers<ContextType>;
   CurrentlyPlaying?: CurrentlyPlayingResolvers<ContextType>;

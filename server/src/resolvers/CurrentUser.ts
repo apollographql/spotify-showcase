@@ -2,6 +2,24 @@ import { CurrentUserResolvers } from './types';
 import { itself } from './helpers';
 
 const resolvers: CurrentUserResolvers = {
+  contains: async (_, args, { dataSources }) => {
+    const [albums, episodes, shows, tracks] = await Promise.all([
+      args.albums
+        ? dataSources.spotify.checkContainsAlbums(args.albums.join(','))
+        : null,
+      args.episodes
+        ? dataSources.spotify.checkContainsEpisodes(args.episodes.join(','))
+        : null,
+      args.shows
+        ? dataSources.spotify.checkContainsShows(args.shows.join(','))
+        : null,
+      args.tracks
+        ? dataSources.spotify.checkContainsTracks(args.tracks.join(','))
+        : null,
+    ]);
+
+    return { episodes, albums, shows, tracks };
+  },
   user: itself(),
   playbackQueue: (_, __, { dataSources }) =>
     dataSources.spotify.getPlaybackQueue(),

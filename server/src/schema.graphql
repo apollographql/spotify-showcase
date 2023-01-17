@@ -468,6 +468,32 @@ type ArtistAlbumEdge {
   node: Album!
 }
 
+type Contains {
+  """
+  List of booleans in order of albums requested. `true` means the album is in
+  the Spotify user's library. This field is `null` if omitted in the request.
+  """
+  albums: [Boolean!]
+
+  """
+  List of booleans in order of episodes requested. `true` means the episode is in
+  the Spotify user's library. This field is `null` if omitted in the request.
+  """
+  episodes: [Boolean!]
+
+  """
+  List of booleans in order of shows requested. `true` means the show is in
+  the Spotify user's library. This field is `null` if omitted in the request.
+  """
+  shows: [Boolean!]
+
+  """
+  List of booleans in order of tracks requested. `true` means the track is in
+  the Spotify user's library. This field is `null` if omitted in the request.
+  """
+  tracks: [Boolean!]
+}
+
 type Copyright {
   "The copyright text for this content."
   text: String!
@@ -511,6 +537,33 @@ type CurrentlyPlaying {
 }
 
 type CurrentUser {
+  "Check if one or mote items are already saved in the Spotify user's library."
+  contains(
+    """
+    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the albums. Maximum: 20 IDs.
+    """
+    albums: [ID!]
+
+    """
+    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the episodes. Maximum: 50 IDs.
+    """
+    episodes: [ID!]
+
+    """
+    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the shows. Maximum: 50 IDs.
+    """
+    shows: [ID!]
+
+    """
+    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the tracks. Maximum: 50 IDs.
+    """
+    tracks: [ID!]
+  ): Contains
+
   """
   Detailed profile information about the current user.
   """

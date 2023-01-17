@@ -541,13 +541,17 @@ export namespace Spotify {
       '/episodes': Object.List<'episodes', Object.Episode>;
       '/episodes/:id': Object.Episode;
       '/me': Object.CurrentUser;
+      '/me/albums/contains': boolean[];
+      '/me/episodes/contains': boolean[];
       '/me/player': Object.PlaybackState;
       '/me/player/currently-playing': Object.CurrentlyPlaying;
       '/me/player/devices': Object.List<'devices', Object.Device>;
       '/me/player/queue': Object.PlaybackQueue;
       '/me/player/recently-played': Object.PaginatedCursorBased<Object.PlayHistory>;
       '/me/playlists': Object.Paginated<Object.Playlist>;
+      '/me/shows/contains': boolean[];
       '/me/tracks': Object.Paginated<Object.SavedTrack>;
+      '/me/tracks/contains': boolean[];
       '/playlists/:id': Object.Playlist;
       '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
@@ -625,6 +629,18 @@ export namespace Spotify {
           seed_genres?: string;
           seed_tracks?: string;
           limit?: number;
+        };
+        '/me/albums/contains': {
+          ids: string;
+        };
+        '/me/episodes/contains': {
+          ids: string;
+        };
+        '/me/shows/contains': {
+          ids: string;
+        };
+        '/me/tracks/contains': {
+          ids: string;
         };
         '/me/player': {
           additional_types?: string;

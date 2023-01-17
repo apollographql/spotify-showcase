@@ -104,6 +104,34 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
+  checkContainsAlbums(ids: string) {
+    return this._get<Spotify.Response.GET['/me/albums/contains']>(
+      '/me/albums/contains',
+      { params: { ids } }
+    );
+  }
+
+  checkContainsEpisodes(ids: string) {
+    return this._get<Spotify.Response.GET['/me/episodes/contains']>(
+      '/me/episodes/contains',
+      { params: { ids } }
+    );
+  }
+
+  checkContainsShows(ids: string) {
+    return this._get<Spotify.Response.GET['/me/shows/contains']>(
+      '/me/shows/contains',
+      { params: { ids } }
+    );
+  }
+
+  checkContainsTracks(ids: string) {
+    return this._get<Spotify.Response.GET['/me/tracks/contains']>(
+      '/me/tracks/contains',
+      { params: { ids } }
+    );
+  }
+
   async getCurrentlyPlaying(
     params?: Spotify.Request.QueryParams.GET['/me/player/currently-playing']
   ) {
