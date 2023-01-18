@@ -24,7 +24,8 @@ const resolvers: SubscriptionResolvers = {
               info
             ) as Spotify.Object.PlaybackState;
           }),
-          distinctUntilChanged((prev, curr) => equal(prev, curr))
+          distinctUntilChanged((prev, curr) => equal(prev, curr)),
+          map((result) => result && { ...result, timestamp: Date.now() })
         )
         .subscribe({
           error: () => {
