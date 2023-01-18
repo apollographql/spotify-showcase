@@ -5,7 +5,7 @@ import {
 } from '@apollo/client';
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Library, Home, Search, Heart, Volume2 } from 'lucide-react';
+import { Library, Home, Search, Heart, Volume2, Bookmark } from 'lucide-react';
 import {
   Sidebar_currentUser as CurrentUser,
   Sidebar_playbackState as PlaybackState,
@@ -56,6 +56,11 @@ const Sidebar = ({ children }: SidebarProps) => {
   const likedSongsURI =
     currentUser && complete && `spotify:user:${currentUser.user.id}:collection`;
 
+  const yourEpisodesURI =
+    currentUser &&
+    complete &&
+    `spotify:user:${currentUser.user.id}:collection:your-episodes`;
+
   return (
     <aside className={styles.sidebar}>
       <nav className={styles.sidebarNav}>
@@ -89,6 +94,20 @@ const Sidebar = ({ children }: SidebarProps) => {
             Liked Songs
             {playbackState?.isPlaying &&
               playbackState.context?.uri === likedSongsURI && (
+                <Flex flex={1} justifyContent="end">
+                  <Volume2 color="var(--color--theme--light)" size="0.875rem" />
+                </Flex>
+              )}
+          </NavLink>
+          <NavLink
+            icon={
+              <GradientIcon backgroundColor="#056952" lucideIcon={Bookmark} />
+            }
+            to="/collection/episodes"
+          >
+            Your Episodes
+            {playbackState?.isPlaying &&
+              playbackState.context?.uri === yourEpisodesURI && (
                 <Flex flex={1} justifyContent="end">
                   <Volume2 color="var(--color--theme--light)" size="0.875rem" />
                 </Flex>
