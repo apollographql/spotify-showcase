@@ -16,6 +16,7 @@ import ApolloLogo from '../ApolloLogo';
 import GradientIcon from '../GradientIcon';
 import SpotifyLogo from '../SpotifyLogo';
 import NavLink from './NavLink';
+import Text from '../Text';
 import styles from './Sidebar.module.scss';
 import usePlaybackState from '../../hooks/usePlaybackState';
 
@@ -101,7 +102,11 @@ const Sidebar = ({ children }: SidebarProps) => {
           </NavLink>
           <NavLink
             icon={
-              <GradientIcon backgroundColor="#056952" lucideIcon={Bookmark} />
+              <GradientIcon
+                fill="var(--color--theme)"
+                backgroundColor="#056952"
+                lucideIcon={Bookmark}
+              />
             }
             to="/collection/episodes"
           >
