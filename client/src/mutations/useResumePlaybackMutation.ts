@@ -8,6 +8,7 @@ import {
 } from '../types/api';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Get } from 'type-fest';
+import { parseTypenameFromURI, parseSpotifyIDFromURI } from '../utils/spotify';
 
 type PlaybackState = NonNullable<
   Get<ResumePlaybackMutation, 'resumePlayback.playbackState'>
@@ -70,6 +71,34 @@ const useResumePlaybackMutation = () => {
             __typename: 'ResumePlaybackPayload',
             playbackState: optimisticPlaybackState,
           },
+        },
+        update: (cache) => {
+          cache.modify({
+            id: cache.identify({ __typename: 'PlaybackState' }),
+            fields: {
+              progressMs: (existing) => {
+                if (!input) {
+                  return existing;
+                }
+
+                return input.positionMs ?? 0;
+              },
+              item: (existing, { toReference }) => {
+                const uri = input?.offset?.uri || input?.uris?.[0];
+
+                if (!uri) {
+                  return existing;
+                }
+
+                const ref = toReference({
+                  __typename: parseTypenameFromURI(uri),
+                  id: parseSpotifyIDFromURI(uri),
+                });
+
+                return ref ? ref : existing;
+              },
+            },
+          });
         },
       });
     },
