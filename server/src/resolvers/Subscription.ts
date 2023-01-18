@@ -68,6 +68,10 @@ const operations: Operation[] = [
       item: updatedItem,
     };
   },
+  (playbackState) => ({
+    ...playbackState,
+    item: equal(playbackState.item, {}) ? null : playbackState.item,
+  }),
   (playbackState, info) =>
     selectsField(['playbackStateChanged', 'timestamp'], info)
       ? playbackState
