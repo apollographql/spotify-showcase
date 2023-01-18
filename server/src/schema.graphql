@@ -145,14 +145,7 @@ type Mutation {
   """
   Start a new context or resume current playback on the user's active device.
   """
-  resumePlayback(
-    """
-    Additional context to determine where to resume playback. Useful if wanting
-    to, for example, start playback for a track in an album. Omit to simply
-    resume playback.
-    """
-    context: ResumePlaybackContextInput
-  ): ResumePlaybackResponse
+  resumePlayback(input: ResumePlaybackInput): ResumePlaybackPayload
 
   """
   Save one or more albums to the current user's 'Your Music' library.
@@ -1680,7 +1673,7 @@ type RemoveSavedTracksPayload {
   removedTracks: [Track!]
 }
 
-input ResumePlaybackContextInput {
+input ResumePlaybackInput {
   """
   Spotify URI of the context to play. Valid contexts are albums, artists &
   playlists.
@@ -1721,7 +1714,7 @@ input ResumePlaybackOffsetInput {
   uri: String
 }
 
-type ResumePlaybackResponse {
+type ResumePlaybackPayload {
   playbackState: PlaybackState
 }
 

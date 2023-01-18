@@ -501,7 +501,7 @@ export type Mutation = {
   /** Reset a field's config back to its default values. */
   resetFieldConfig?: Maybe<ResetFieldConfigResponse>;
   /** Start a new context or resume current playback on the user's active device. */
-  resumePlayback?: Maybe<ResumePlaybackResponse>;
+  resumePlayback?: Maybe<ResumePlaybackPayload>;
   /** Save one or more albums to the current user's 'Your Music' library. */
   saveAlbums?: Maybe<SaveAlbumsPayload>;
   /** Save one or more tracks to the current user's 'Your Music' library. */
@@ -554,7 +554,7 @@ export type MutationResetFieldConfigArgs = {
 
 
 export type MutationResumePlaybackArgs = {
-  context?: InputMaybe<ResumePlaybackContextInput>;
+  input?: InputMaybe<ResumePlaybackInput>;
 };
 
 
@@ -1078,7 +1078,7 @@ export type ResetFieldConfigResponse = {
   fieldConfig?: Maybe<FieldConfig>;
 };
 
-export type ResumePlaybackContextInput = {
+export type ResumePlaybackInput = {
   /**
    * Spotify URI of the context to play. Valid contexts are albums, artists &
    * playlists.
@@ -1110,8 +1110,8 @@ export type ResumePlaybackOffsetInput = {
   uri?: InputMaybe<Scalars['String']>;
 };
 
-export type ResumePlaybackResponse = {
-  __typename?: 'ResumePlaybackResponse';
+export type ResumePlaybackPayload = {
+  __typename?: 'ResumePlaybackPayload';
   playbackState?: Maybe<PlaybackState>;
 };
 
@@ -1581,9 +1581,9 @@ export type ResolversTypes = ResolversObject<{
   RemoveSavedTracksPayload: ResolverTypeWrapper<Omit<RemoveSavedTracksPayload, 'removedTracks'> & { removedTracks?: Maybe<Array<ResolversTypes['Track']>> }>;
   RepeatMode: RepeatMode;
   ResetFieldConfigResponse: ResolverTypeWrapper<Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
-  ResumePlaybackContextInput: ResumePlaybackContextInput;
+  ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
-  ResumePlaybackResponse: ResolverTypeWrapper<Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  ResumePlaybackPayload: ResolverTypeWrapper<Omit<ResumePlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SaveAlbumsInput: SaveAlbumsInput;
   SaveAlbumsPayload: ResolverTypeWrapper<Omit<SaveAlbumsPayload, 'savedAlbums'> & { savedAlbums?: Maybe<Array<ResolversTypes['Album']>> }>;
@@ -1677,9 +1677,9 @@ export type ResolversParentTypes = ResolversObject<{
   RemoveSavedTracksInput: RemoveSavedTracksInput;
   RemoveSavedTracksPayload: Omit<RemoveSavedTracksPayload, 'removedTracks'> & { removedTracks?: Maybe<Array<ResolversParentTypes['Track']>> };
   ResetFieldConfigResponse: Omit<ResetFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
-  ResumePlaybackContextInput: ResumePlaybackContextInput;
+  ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
-  ResumePlaybackResponse: Omit<ResumePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  ResumePlaybackPayload: Omit<ResumePlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   ResumePoint: Spotify.Object.ResumePoint;
   SaveAlbumsInput: SaveAlbumsInput;
   SaveAlbumsPayload: Omit<SaveAlbumsPayload, 'savedAlbums'> & { savedAlbums?: Maybe<Array<ResolversParentTypes['Album']>> };
@@ -1907,7 +1907,7 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   removeSavedAlbums?: Resolver<Maybe<ResolversTypes['RemoveSavedAlbumsPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedAlbumsArgs, 'input'>>;
   removeSavedTracks?: Resolver<Maybe<ResolversTypes['RemoveSavedTracksPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedTracksArgs, 'input'>>;
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
-  resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackResponse']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
+  resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackPayload']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
   saveAlbums?: Resolver<Maybe<ResolversTypes['SaveAlbumsPayload']>, ParentType, ContextType, RequireFields<MutationSaveAlbumsArgs, 'input'>>;
   saveTracks?: Resolver<Maybe<ResolversTypes['SaveTracksPayload']>, ParentType, ContextType, RequireFields<MutationSaveTracksArgs, 'input'>>;
   seekToPosition?: Resolver<Maybe<ResolversTypes['SeekToPositionResponse']>, ParentType, ContextType, RequireFields<MutationSeekToPositionArgs, 'positionMs'>>;
@@ -2094,7 +2094,7 @@ export type ResetFieldConfigResponseResolvers<ContextType = ContextValue, Parent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ResumePlaybackResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePlaybackResponse'] = ResolversParentTypes['ResumePlaybackResponse']> = ResolversObject<{
+export type ResumePlaybackPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePlaybackPayload'] = ResolversParentTypes['ResumePlaybackPayload']> = ResolversObject<{
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -2306,7 +2306,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   RemoveSavedTracksPayload?: RemoveSavedTracksPayloadResolvers<ContextType>;
   RepeatMode?: RepeatModeResolvers;
   ResetFieldConfigResponse?: ResetFieldConfigResponseResolvers<ContextType>;
-  ResumePlaybackResponse?: ResumePlaybackResponseResolvers<ContextType>;
+  ResumePlaybackPayload?: ResumePlaybackPayloadResolvers<ContextType>;
   ResumePoint?: ResumePointResolvers<ContextType>;
   SaveAlbumsPayload?: SaveAlbumsPayloadResolvers<ContextType>;
   SaveTracksPayload?: SaveTracksPayloadResolvers<ContextType>;

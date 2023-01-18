@@ -28,15 +28,15 @@ const resolvers: MutationResolvers = {
 
     return { queue };
   },
-  resumePlayback: async (_, { context }, { dataSources, publisher }) => {
+  resumePlayback: async (_, { input }, { dataSources, publisher }) => {
     await dataSources.spotify.resumePlayback({
       body: {
-        context_uri: maybe(context?.contextUri),
-        offset: maybeDeep(context?.offset),
-        position_ms: maybe(context?.positionMs),
-        uris: maybe(context?.uris),
+        context_uri: maybe(input?.contextUri),
+        offset: maybeDeep(input?.offset),
+        position_ms: maybe(input?.positionMs),
+        uris: maybe(input?.uris),
       },
-      params: { device_id: maybe(context?.deviceId) },
+      params: { device_id: maybe(input?.deviceId) },
     });
 
     const playbackState = await refreshPlaybackState(
