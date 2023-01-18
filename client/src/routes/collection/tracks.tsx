@@ -126,11 +126,11 @@ const CollectionTracksRoute = () => {
             size="3.5rem"
             playing={isPlaying && isPlayingCollection}
             onPlay={() => {
-              const context = isPlayingCollection
-                ? null
+              const input = isPlayingCollection
+                ? undefined
                 : { offset: { position: 0 }, contextUri: spotifyURI };
 
-              resumePlayback({ context });
+              resumePlayback(input);
             }}
           />
         </Page.ActionsBar>
@@ -142,7 +142,8 @@ const CollectionTracksRoute = () => {
             const { node } = row.original;
 
             resumePlayback({
-              context: { contextUri: spotifyURI, offset: { uri: node.uri } },
+              contextUri: spotifyURI,
+              offset: { uri: node.uri },
             });
           }}
         />

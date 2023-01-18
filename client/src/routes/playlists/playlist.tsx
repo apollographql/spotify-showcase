@@ -107,11 +107,11 @@ const Playlist = () => {
             size="3.5rem"
             playing={isPlaying && isPlayingPlaylist}
             onPlay={() => {
-              const context = isPlayingPlaylist
-                ? null
+              const input = isPlayingPlaylist
+                ? undefined
                 : { offset: { position: 0 }, contextUri: playlist.uri };
 
-              resumePlayback({ context });
+              resumePlayback(input);
             }}
           />
         </Page.ActionsBar>

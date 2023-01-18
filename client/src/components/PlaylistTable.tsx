@@ -146,7 +146,8 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
         const { node } = row.original;
 
         resumePlayback({
-          context: { contextUri: playlist.uri, offset: { uri: node.uri } },
+          contextUri: playlist.uri,
+          offset: { uri: node.uri },
         });
       }}
       visibility={{
