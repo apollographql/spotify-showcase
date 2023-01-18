@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
+  ResumePlaybackInput,
   ResumePlaybackMutation,
   ResumePlaybackMutationVariables,
   UseResumePlaybackStateFragment,
@@ -13,8 +14,8 @@ type PlaybackState = NonNullable<
 >;
 
 const RESUME_PLAYBACK_MUTATION = gql`
-  mutation ResumePlaybackMutation($context: ResumePlaybackContextInput) {
-    resumePlayback(context: $context) {
+  mutation ResumePlaybackMutation($input: ResumePlaybackInput) {
+    resumePlayback(input: $input) {
       playbackState {
         context {
           uri
@@ -44,9 +45,9 @@ const useResumePlaybackMutation = () => {
   });
 
   const resumePlayback = useCallback(
-    (variables?: ResumePlaybackMutationVariables) => {
+    (input?: ResumePlaybackInput) => {
       const context = playbackState?.context;
-      const contextUri = variables?.context?.contextUri;
+      const contextUri = input?.contextUri;
 
       const optimisticPlaybackState: PlaybackState = {
         __typename: 'PlaybackState',
@@ -63,10 +64,10 @@ const useResumePlaybackMutation = () => {
       }
 
       return execute({
-        variables,
+        variables: { input },
         optimisticResponse: {
           resumePlayback: {
-            __typename: 'ResumePlaybackResponse',
+            __typename: 'ResumePlaybackPayload',
             playbackState: optimisticPlaybackState,
           },
         },

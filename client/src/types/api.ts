@@ -498,7 +498,7 @@ export type Mutation = {
   /** Reset a field's config back to its default values. */
   resetFieldConfig: Maybe<ResetFieldConfigResponse>;
   /** Start a new context or resume current playback on the user's active device. */
-  resumePlayback: Maybe<ResumePlaybackResponse>;
+  resumePlayback: Maybe<ResumePlaybackPayload>;
   /** Save one or more albums to the current user's 'Your Music' library. */
   saveAlbums: Maybe<SaveAlbumsPayload>;
   /** Save one or more tracks to the current user's 'Your Music' library. */
@@ -551,7 +551,7 @@ export type MutationresetFieldConfigArgs = {
 
 
 export type MutationresumePlaybackArgs = {
-  context?: InputMaybe<ResumePlaybackContextInput>;
+  input?: InputMaybe<ResumePlaybackInput>;
 };
 
 
@@ -1079,7 +1079,7 @@ export type ResetFieldConfigResponse = {
   fieldConfig: Maybe<FieldConfig>;
 };
 
-export type ResumePlaybackContextInput = {
+export type ResumePlaybackInput = {
   /**
    * Spotify URI of the context to play. Valid contexts are albums, artists &
    * playlists.
@@ -1111,8 +1111,8 @@ export type ResumePlaybackOffsetInput = {
   uri?: InputMaybe<Scalars['String']>;
 };
 
-export type ResumePlaybackResponse = {
-  __typename: 'ResumePlaybackResponse';
+export type ResumePlaybackPayload = {
+  __typename: 'ResumePlaybackPayload';
   playbackState: Maybe<PlaybackState>;
 };
 
@@ -1545,11 +1545,11 @@ export type RemoveSavedTracksMutationVariables = Exact<{
 export type RemoveSavedTracksMutation = { removeSavedTracks: { __typename: 'RemoveSavedTracksPayload', removedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
 
 export type ResumePlaybackMutationVariables = Exact<{
-  context?: InputMaybe<ResumePlaybackContextInput>;
+  input?: InputMaybe<ResumePlaybackInput>;
 }>;
 
 
-export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null } | null } | null };
+export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackPayload', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null } | null } | null };
 
 export type UseResumePlaybackStateFragment = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
 
