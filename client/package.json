@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.8.0-alpha.3",
+    "@apollo/client": "^3.8.0-alpha.5",
     "@radix-ui/react-dropdown-menu": "^2.0.1",
     "@radix-ui/react-progress": "^1.0.1",
     "@radix-ui/react-slider": "^1.1.0",
