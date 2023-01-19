@@ -34,8 +34,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "lint": "eslint . --ext .ts,.tsx",
-    "generate": "graphql-codegen"
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "browserslist": {
     "production": [
@@ -50,10 +49,6 @@
     ]
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.16.1",
-    "@graphql-codegen/fragment-matcher": "^3.3.3",
-    "@graphql-codegen/typescript": "^2.8.5",
-    "@graphql-codegen/typescript-operations": "^2.5.10",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "@vitejs/plugin-react": "^3.0.1",
