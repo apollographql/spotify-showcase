@@ -80,9 +80,26 @@ export default new ApolloClient({
       },
       Player: {
         keyFields: [],
+        fields: {
+          playbackState: {
+            merge: (existing, incoming, { cache, mergeObjects }) => {
+              if (incoming === null) {
+                cache.evict({
+                  id: cache.identify({ __typename: 'PlaybackState' }),
+                });
+                cache.gc();
+
+                return null;
+              }
+
+              return mergeObjects(existing, incoming);
+            },
+          },
+        },
       },
       PlaybackState: {
         keyFields: [],
+        merge: true,
       },
       Query: {
         fields: {
