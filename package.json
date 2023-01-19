@@ -2,6 +2,7 @@
   "name": "react-apollo-spotify-demo",
   "private": true,
   "scripts": {
+    "generate": "graphql-codegen",
     "start": "concurrently \"npm:start:*\"",
     "start:client": "cd client && npm start",
     "start:server": "cd server && npm start",
@@ -10,6 +11,11 @@
     "postinstall": "concurrently \"npm:setup:*\""
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.16.4",
+    "@graphql-codegen/fragment-matcher": "^3.3.3",
+    "@graphql-codegen/typescript": "^2.8.7",
+    "@graphql-codegen/typescript-operations": "^2.5.12",
+    "@graphql-codegen/typescript-resolvers": "^2.7.12",
     "concurrently": "^7.6.0",
     "prettier": "^2.8.1"
   },
