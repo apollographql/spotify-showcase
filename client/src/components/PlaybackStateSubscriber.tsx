@@ -91,19 +91,18 @@ const PlaybackStateSubscriber = () => {
       updateQuery: (prev, { subscriptionData }) => {
         const { playbackStateChanged } = subscriptionData.data;
 
+        const playbackState = playbackStateChanged
+          ? merge(prev.me?.player.playbackState ?? {}, playbackStateChanged, {
+              arrayMerge: overwriteMerge,
+            })
+          : null;
+
         return {
           me: {
             __typename: 'CurrentUser',
             player: {
               __typename: 'Player',
-              playbackState:
-                playbackStateChanged === null
-                  ? null
-                  : merge(
-                      prev.me?.player.playbackState ?? {},
-                      playbackStateChanged,
-                      { arrayMerge: overwriteMerge }
-                    ),
+              playbackState,
             },
           },
         };
