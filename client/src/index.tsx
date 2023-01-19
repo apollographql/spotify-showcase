@@ -8,6 +8,7 @@ import router from './router';
 import client from './apollo';
 import './reset.scss';
 import './index.scss';
+import './index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
