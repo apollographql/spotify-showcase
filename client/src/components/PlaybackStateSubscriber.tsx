@@ -1,6 +1,6 @@
+import { useEffect } from 'react';
 import {
   gql,
-  useSubscription,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import {
@@ -81,42 +81,37 @@ const PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION = gql`
 `;
 
 const PlaybackStateSubscriber = () => {
-  const { data } = useSuspenseQuery<PlaybackStateSubscriberQuery>(
+  const { subscribeToMore } = useSuspenseQuery<PlaybackStateSubscriberQuery>(
     PLAYBACK_STATE_SUBSCRIBER_QUERY
   );
 
-  // TODO: Replace with subscribeToMore once https://github.com/apollographql/apollo-client/issues/10429 is complete
-  useSubscription<PlaybackStateSubscriberSubscription>(
-    PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION,
-    {
-      onData: ({ client, data: result }) => {
-        if (!result.data) {
-          return;
-        }
+  useEffect(() => {
+    return subscribeToMore<PlaybackStateSubscriberSubscription>({
+      document: PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        const { playbackStateChanged } = subscriptionData.data;
 
-        const { playbackStateChanged } = result.data;
-
-        const playbackState =
-          playbackStateChanged === null
-            ? null
-            : merge(
-                data?.me?.player.playbackState ?? {},
-                playbackStateChanged,
-                { arrayMerge: overwriteMerge }
-              );
-
-        client.writeQuery({
-          query: PLAYBACK_STATE_SUBSCRIBER_QUERY,
-          data: {
-            me: {
-              __typename: 'CurrentUser',
-              player: { __typename: 'Player', playbackState },
+        return {
+          me: {
+            __typename: 'CurrentUser',
+            player: {
+              __typename: 'Player',
+              playbackState:
+                playbackStateChanged === null
+                  ? null
+                  : merge(
+                      prev.me?.player.playbackState ?? {},
+                      playbackStateChanged,
+                      { arrayMerge: overwriteMerge }
+                    ),
             },
           },
-        });
+        };
       },
-    }
-  );
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return null;
 };
