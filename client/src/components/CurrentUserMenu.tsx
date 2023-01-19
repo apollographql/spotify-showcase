@@ -5,7 +5,6 @@ import {
 import { CurrentUserQuery, CurrentUserQueryVariables } from '../types/api';
 import DropdownMenu from './DropdownMenu';
 import Avatar from './Avatar';
-import styles from './CurrentUserMenu.module.scss';
 
 const CURRENT_USER_QUERY = gql`
   query CurrentUserQuery {
@@ -34,7 +33,7 @@ const CurrentUserMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger
-        className={styles.dropdownTrigger}
+        className="hover:bg-surface aria-expanded:bg-surface py-[0.125rem] pl-[0.125rem] pr-2 text-sm normal-case tracking-normal"
         variant="ghost"
         size="sm"
       >
