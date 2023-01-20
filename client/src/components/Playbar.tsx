@@ -24,7 +24,6 @@ import MuteControl from './MuteControl';
 import LikeControl from './LikeControl';
 import PlaybarControlButton from './PlaybarControlButton';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
-import Popover from './Popover';
 import RepeatControl from './RepeatControl';
 import ShufflePlaybackControl from './ShufflePlaybackControl';
 import SkipToNextControl from './SkipToNextControl';
