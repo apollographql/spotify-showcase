@@ -190,6 +190,14 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
               />
             )}
             <ContextMenu.Separator />
+            <ContextMenu.SubMenu
+              content={
+                <ContextMenuAction.CopyLinkToEntity entity={playlistItem} />
+              }
+            >
+              Share
+            </ContextMenu.SubMenu>
+            <ContextMenu.Separator />
             <ContextMenuAction.OpenDesktopApp
               uri={playlistItem.uri}
               context={playlist}
