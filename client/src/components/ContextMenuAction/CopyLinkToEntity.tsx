@@ -20,7 +20,9 @@ const CopyLinkToEntity = ({ entity }: CopyLinkToEntityProps) => {
   return (
     <ContextMenu.Action
       onSelect={() => {
-        copyToClipboard(getEntityPathname(entity));
+        copyToClipboard(
+          [window.location.origin, getEntityPathname(entity)].join('')
+        );
       }}
     >
       {LABELS[entity.__typename]}
