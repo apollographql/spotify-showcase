@@ -8,6 +8,7 @@ import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
 import Duration from './Duration';
 import Table from './Table';
+import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 
 type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
 
@@ -37,10 +38,20 @@ const columns = [
 ];
 
 const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
+  const [resumePlayback] = useResumePlaybackMutation();
+
   return (
     <Table
       columns={columns}
       data={album.tracks?.edges.map((edge) => edge.node) ?? []}
+      onDoubleClickRow={(row) => {
+        const track = row.original;
+
+        resumePlayback({
+          contextUri: album.uri,
+          offset: { uri: track.uri },
+        });
+      }}
       contextMenu={(row) => {
         const track = row.original;
 
