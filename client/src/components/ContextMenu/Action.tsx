@@ -4,12 +4,16 @@ import Item from './Item';
 interface ActionProps {
   disabled?: boolean;
   children?: ReactNode;
+  onClick?: () => void;
 }
 
-const Action = ({ children, disabled }: ActionProps) => {
+const Action = ({ children, disabled, onClick }: ActionProps) => {
   return (
     <Item disabled={disabled}>
-      <button className="block w-full appearance-none text-left">
+      <button
+        className="block w-full appearance-none text-left"
+        onClick={onClick}
+      >
         {children}
       </button>
     </Item>
