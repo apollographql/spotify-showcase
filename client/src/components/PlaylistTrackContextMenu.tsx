@@ -52,6 +52,9 @@ const PlaylistTrackContextMenu = ({
           uri={track.uri}
         />
       )}
+
+      <ContextMenu.Separator />
+      <ContextMenuAction.OpenDesktopApp uri={track.uri} />
     </>
   );
 };

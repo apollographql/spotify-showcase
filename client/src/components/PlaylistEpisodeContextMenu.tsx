@@ -46,6 +46,8 @@ const PlaylistEpisodeContextMenu = ({
           uri={episode.uri}
         />
       )}
+      <ContextMenu.Separator />
+      <ContextMenuAction.OpenDesktopApp uri={episode.uri} />
     </>
   );
 };

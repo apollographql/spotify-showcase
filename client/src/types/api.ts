@@ -1536,6 +1536,8 @@ export type ArtistTopTracks_tracks = { __typename: 'Track', id: string, duration
 
 export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
 
+export type OpenDesktopApp_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
+
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
