@@ -497,6 +497,8 @@ export type Mutation = {
   addItemToPlaybackQueue: Maybe<AddItemToPlaybackQueuePayload>;
   /** Pause playback on the user's account. */
   pausePlayback: Maybe<PausePlaybackResponse>;
+  /** Remove one or more items from a user's playlist. */
+  removeItemFromPlaylist: Maybe<RemoveItemFromPlaylistPayload>;
   /** Remove one or more albums from the current user's 'Your Music' library. */
   removeSavedAlbums: Maybe<RemoveSavedAlbumsPayload>;
   /** Remove one or more tracks from the current user's 'Your Music' library. */
@@ -539,6 +541,11 @@ export type MutationaddItemToPlaybackQueueArgs = {
 
 export type MutationpausePlaybackArgs = {
   context?: InputMaybe<PausePlaybackContextInput>;
+};
+
+
+export type MutationremoveItemFromPlaylistArgs = {
+  input: RemoveItemFromPlaylistInput;
 };
 
 
@@ -1050,6 +1057,38 @@ export enum ReleaseDatePrecision {
   Month = 'MONTH',
   Year = 'YEAR'
 }
+
+export type RemoveItemFromPlaylistInput = {
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * of the playlist.
+   */
+  playlistId: Scalars['ID'];
+  /**
+   * The playlist's snapshot ID against which you want to make the changes. The API
+   * will validate that the specified items exist and in the specified positions
+   * and make the changes, even if more recent changes have been made to the
+   * playlist.
+   */
+  snapshotId?: InputMaybe<Scalars['ID']>;
+  /**
+   * An array of objects containing [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * of the tracks or episodes to remove.
+   */
+  tracks: Array<RemoveItemFromPlaylistTrackInput>;
+};
+
+export type RemoveItemFromPlaylistPayload = {
+  __typename: 'RemoveItemFromPlaylistPayload';
+  /** The playlist after the item was removed */
+  playlist: Maybe<Playlist>;
+  /** A snapshot ID for the playlist */
+  snapshotId: Maybe<Scalars['ID']>;
+};
+
+export type RemoveItemFromPlaylistTrackInput = {
+  uri: Scalars['String'];
+};
 
 export type RemoveSavedAlbumsInput = {
   /**

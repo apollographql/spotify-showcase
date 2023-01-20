@@ -72,6 +72,16 @@ const resolvers: MutationResolvers = {
 
     return { fieldConfig };
   },
+  removeItemFromPlaylist: async (_, { input }, { dataSources }) => {
+    const { snapshot_id } = await dataSources.spotify.removeItemFromPlaylist(
+      input.playlistId,
+      { body: { snapshot_id: maybe(input.snapshotId), tracks: input.tracks } }
+    );
+
+    const playlist = await dataSources.spotify.getPlaylist(input.playlistId);
+
+    return { playlist, snapshotId: snapshot_id };
+  },
   removeSavedAlbums: async (_, { input }, { dataSources }) => {
     const ids = input.ids.join(',');
 

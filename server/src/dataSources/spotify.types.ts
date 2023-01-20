@@ -530,6 +530,12 @@ export namespace Spotify {
   }
 
   export namespace Response {
+    export interface DELETE {
+      '/playlists/:id/tracks': {
+        snapshot_id: string;
+      };
+    }
+
     export interface GET {
       '/albums': Object.List<'albums', Object.Album>;
       '/albums/:id': Object.Album;
@@ -577,9 +583,22 @@ export namespace Spotify {
       export type Lookup<
         THttpMethod extends HTTPMethod,
         Path extends Request.Paths
-      > = THttpMethod extends 'PUT' ? Prop<PUT, Path> : never;
+      > = THttpMethod extends 'PUT'
+        ? Prop<PUT, Path>
+        : THttpMethod extends 'DELETE'
+        ? Prop<DELETE, Path>
+        : never;
 
-      export type Paths = keyof PUT;
+      export type Paths = keyof PUT | keyof DELETE;
+
+      export interface DELETE {
+        '/playlists/:id/tracks': {
+          snapshot_id?: string;
+          tracks: {
+            uri: string;
+          }[];
+        };
+      }
 
       export interface PUT {
         '/me/player': {

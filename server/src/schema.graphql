@@ -119,6 +119,13 @@ type Mutation {
   ): UpdateFieldConfigResponse
 
   """
+  Remove one or more items from a user's playlist.
+  """
+  removeItemFromPlaylist(
+    input: RemoveItemFromPlaylistInput!
+  ): RemoveItemFromPlaylistPayload
+
+  """
   Remove one or more albums from the current user's 'Your Music' library.
   """
   removeSavedAlbums(input: RemoveSavedAlbumsInput!): RemoveSavedAlbumsPayload
@@ -1650,6 +1657,44 @@ type SavedTracksConnection {
   "Pagination information for the set of playlists"
   """
   pageInfo: PageInfo!
+}
+
+input RemoveItemFromPlaylistInput {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  of the playlist.
+  """
+  playlistId: ID!
+
+  """
+  The playlist's snapshot ID against which you want to make the changes. The API
+  will validate that the specified items exist and in the specified positions
+  and make the changes, even if more recent changes have been made to the
+  playlist.
+  """
+  snapshotId: ID
+
+  """
+  An array of objects containing [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  of the tracks or episodes to remove.
+  """
+  tracks: [RemoveItemFromPlaylistTrackInput!]!
+}
+
+input RemoveItemFromPlaylistTrackInput {
+  uri: String!
+}
+
+type RemoveItemFromPlaylistPayload {
+  """
+  A snapshot ID for the playlist
+  """
+  snapshotId: ID
+
+  """
+  The playlist after the item was removed
+  """
+  playlist: Playlist
 }
 
 input RemoveSavedAlbumsInput {

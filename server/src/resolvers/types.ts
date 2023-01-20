@@ -500,6 +500,8 @@ export type Mutation = {
   addItemToPlaybackQueue?: Maybe<AddItemToPlaybackQueuePayload>;
   /** Pause playback on the user's account. */
   pausePlayback?: Maybe<PausePlaybackResponse>;
+  /** Remove one or more items from a user's playlist. */
+  removeItemFromPlaylist?: Maybe<RemoveItemFromPlaylistPayload>;
   /** Remove one or more albums from the current user's 'Your Music' library. */
   removeSavedAlbums?: Maybe<RemoveSavedAlbumsPayload>;
   /** Remove one or more tracks from the current user's 'Your Music' library. */
@@ -542,6 +544,11 @@ export type MutationAddItemToPlaybackQueueArgs = {
 
 export type MutationPausePlaybackArgs = {
   context?: InputMaybe<PausePlaybackContextInput>;
+};
+
+
+export type MutationRemoveItemFromPlaylistArgs = {
+  input: RemoveItemFromPlaylistInput;
 };
 
 
@@ -1050,6 +1057,38 @@ export type ReleaseDatePrecision =
   | 'day'
   | 'month'
   | 'year';
+
+export type RemoveItemFromPlaylistInput = {
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * of the playlist.
+   */
+  playlistId: Scalars['ID'];
+  /**
+   * The playlist's snapshot ID against which you want to make the changes. The API
+   * will validate that the specified items exist and in the specified positions
+   * and make the changes, even if more recent changes have been made to the
+   * playlist.
+   */
+  snapshotId?: InputMaybe<Scalars['ID']>;
+  /**
+   * An array of objects containing [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * of the tracks or episodes to remove.
+   */
+  tracks: Array<RemoveItemFromPlaylistTrackInput>;
+};
+
+export type RemoveItemFromPlaylistPayload = {
+  __typename?: 'RemoveItemFromPlaylistPayload';
+  /** The playlist after the item was removed */
+  playlist?: Maybe<Playlist>;
+  /** A snapshot ID for the playlist */
+  snapshotId?: Maybe<Scalars['ID']>;
+};
+
+export type RemoveItemFromPlaylistTrackInput = {
+  uri: Scalars['String'];
+};
 
 export type RemoveSavedAlbumsInput = {
   /**
@@ -1606,6 +1645,9 @@ export type ResolversTypes = ResolversObject<{
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
+  RemoveItemFromPlaylistInput: RemoveItemFromPlaylistInput;
+  RemoveItemFromPlaylistPayload: ResolverTypeWrapper<Omit<RemoveItemFromPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversTypes['Playlist']> }>;
+  RemoveItemFromPlaylistTrackInput: RemoveItemFromPlaylistTrackInput;
   RemoveSavedAlbumsInput: RemoveSavedAlbumsInput;
   RemoveSavedAlbumsPayload: ResolverTypeWrapper<Omit<RemoveSavedAlbumsPayload, 'removedAlbums'> & { removedAlbums?: Maybe<Array<ResolversTypes['Album']>> }>;
   RemoveSavedTracksInput: RemoveSavedTracksInput;
@@ -1705,6 +1747,9 @@ export type ResolversParentTypes = ResolversObject<{
   RecommendationSeedInput: RecommendationSeedInput;
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
+  RemoveItemFromPlaylistInput: RemoveItemFromPlaylistInput;
+  RemoveItemFromPlaylistPayload: Omit<RemoveItemFromPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversParentTypes['Playlist']> };
+  RemoveItemFromPlaylistTrackInput: RemoveItemFromPlaylistTrackInput;
   RemoveSavedAlbumsInput: RemoveSavedAlbumsInput;
   RemoveSavedAlbumsPayload: Omit<RemoveSavedAlbumsPayload, 'removedAlbums'> & { removedAlbums?: Maybe<Array<ResolversParentTypes['Album']>> };
   RemoveSavedTracksInput: RemoveSavedTracksInput;
@@ -1939,6 +1984,7 @@ export type ImageResolvers<ContextType = ContextValue, ParentType extends Resolv
 export type MutationResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addItemToPlaybackQueue?: Resolver<Maybe<ResolversTypes['AddItemToPlaybackQueuePayload']>, ParentType, ContextType, RequireFields<MutationAddItemToPlaybackQueueArgs, 'input'>>;
   pausePlayback?: Resolver<Maybe<ResolversTypes['PausePlaybackResponse']>, ParentType, ContextType, Partial<MutationPausePlaybackArgs>>;
+  removeItemFromPlaylist?: Resolver<Maybe<ResolversTypes['RemoveItemFromPlaylistPayload']>, ParentType, ContextType, RequireFields<MutationRemoveItemFromPlaylistArgs, 'input'>>;
   removeSavedAlbums?: Resolver<Maybe<ResolversTypes['RemoveSavedAlbumsPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedAlbumsArgs, 'input'>>;
   removeSavedTracks?: Resolver<Maybe<ResolversTypes['RemoveSavedTracksPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedTracksArgs, 'input'>>;
   resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'field'>>;
@@ -2112,6 +2158,12 @@ export type ReleaseDateResolvers<ContextType = ContextValue, ParentType extends 
 }>;
 
 export type ReleaseDatePrecisionResolvers = { DAY: 'day', MONTH: 'month', YEAR: 'year' };
+
+export type RemoveItemFromPlaylistPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RemoveItemFromPlaylistPayload'] = ResolversParentTypes['RemoveItemFromPlaylistPayload']> = ResolversObject<{
+  playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType>;
+  snapshotId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
 
 export type RemoveSavedAlbumsPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RemoveSavedAlbumsPayload'] = ResolversParentTypes['RemoveSavedAlbumsPayload']> = ResolversObject<{
   removedAlbums?: Resolver<Maybe<Array<ResolversTypes['Album']>>, ParentType, ContextType>;
@@ -2343,6 +2395,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Recommendations?: RecommendationsResolvers<ContextType>;
   ReleaseDate?: ReleaseDateResolvers<ContextType>;
   ReleaseDatePrecision?: ReleaseDatePrecisionResolvers;
+  RemoveItemFromPlaylistPayload?: RemoveItemFromPlaylistPayloadResolvers<ContextType>;
   RemoveSavedAlbumsPayload?: RemoveSavedAlbumsPayloadResolvers<ContextType>;
   RemoveSavedTracksPayload?: RemoveSavedTracksPayloadResolvers<ContextType>;
   RepeatMode?: RepeatModeResolvers;

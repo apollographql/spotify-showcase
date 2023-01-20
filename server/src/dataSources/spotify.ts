@@ -299,6 +299,16 @@ export default class SpotifyAPI extends RESTDataSource {
     return this._get<Spotify.Response.GET['/tracks']>('/tracks', { params });
   }
 
+  removeItemFromPlaylist(
+    playlistId: string,
+    { body }: RequestParams<'DELETE', '/playlists/:id/tracks'>
+  ) {
+    return this._delete<Spotify.Response.DELETE['/playlists/:id/tracks']>(
+      `/playlists/${playlistId}/tracks`,
+      { body }
+    );
+  }
+
   async removeSavedAlbums({ params }: RequestParams<'DELETE', '/me/albums'>) {
     await this._delete('/me/albums', { params });
 
