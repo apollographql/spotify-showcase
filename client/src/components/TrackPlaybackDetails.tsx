@@ -60,6 +60,7 @@ const TrackPlaybackDetails = ({
         <DelimitedList delimiter=", ">
           {track.artists.map((artist) => (
             <ContextMenu
+              key={artist.id}
               content={
                 <>
                   <ContextMenu.SubMenu
