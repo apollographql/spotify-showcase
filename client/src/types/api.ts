@@ -669,8 +669,14 @@ export type PlaybackContext = {
 export enum PlaybackContextType {
   Album = 'ALBUM',
   Artist = 'ARTIST',
+  AudioFeatures = 'AUDIO_FEATURES',
+  Collection = 'COLLECTION',
+  Episode = 'EPISODE',
+  Genre = 'GENRE',
   Playlist = 'PLAYLIST',
-  Show = 'SHOW'
+  Show = 'SHOW',
+  Track = 'TRACK',
+  User = 'USER'
 }
 
 export type PlaybackItem = {

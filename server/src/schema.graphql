@@ -980,10 +980,16 @@ type PlaybackContext {
 }
 
 enum PlaybackContextType {
-  ARTIST
   ALBUM
+  ARTIST
+  AUDIO_FEATURES
+  COLLECTION
+  EPISODE
+  GENRE
   PLAYLIST
   SHOW
+  TRACK
+  USER
 }
 
 interface PlaybackItem {

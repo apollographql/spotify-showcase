@@ -672,8 +672,14 @@ export type PlaybackContext = {
 export type PlaybackContextType =
   | 'album'
   | 'artist'
+  | 'audio_features'
+  | 'collection'
+  | 'episode'
+  | 'genre'
   | 'playlist'
-  | 'show';
+  | 'show'
+  | 'track'
+  | 'user';
 
 export type PlaybackItem = {
   /** The duration for the playback item in milliseconds. */
@@ -2023,7 +2029,7 @@ export type PlaybackContextResolvers<ContextType = ContextValue, ParentType exte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', PLAYLIST: 'playlist', SHOW: 'show' };
+export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', AUDIO_FEATURES: 'audio_features', COLLECTION: 'collection', EPISODE: 'episode', GENRE: 'genre', PLAYLIST: 'playlist', SHOW: 'show', TRACK: 'track', USER: 'user' };
 
 export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
