@@ -51,7 +51,7 @@ export type AddItemToPlaybackQueueInput = {
 
 export type AddItemToPlaybackQueuePayload = {
   __typename?: 'AddItemToPlaybackQueuePayload';
-  queue?: Maybe<PlaybackQueue>;
+  playbackQueue?: Maybe<PlaybackQueue>;
 };
 
 /** Spotify catalog information for an album. */
@@ -1552,7 +1552,7 @@ export type ResolversTypes = ResolversObject<{
   Action: Action;
   Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
-  AddItemToPlaybackQueuePayload: ResolverTypeWrapper<Omit<AddItemToPlaybackQueuePayload, 'queue'> & { queue?: Maybe<ResolversTypes['PlaybackQueue']> }>;
+  AddItemToPlaybackQueuePayload: ResolverTypeWrapper<Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversTypes['PlaybackQueue']> }>;
   Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
   AlbumGroup: AlbumGroup;
   AlbumTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>>;
@@ -1657,7 +1657,7 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Actions: Spotify.Object.Actions;
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
-  AddItemToPlaybackQueuePayload: Omit<AddItemToPlaybackQueuePayload, 'queue'> & { queue?: Maybe<ResolversParentTypes['PlaybackQueue']> };
+  AddItemToPlaybackQueuePayload: Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversParentTypes['PlaybackQueue']> };
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.TrackSimplified>;
   AlbumTrackEdge: Spotify.Object.TrackSimplified;
@@ -1758,7 +1758,7 @@ export type ActionsResolvers<ContextType = ContextValue, ParentType extends Reso
 }>;
 
 export type AddItemToPlaybackQueuePayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AddItemToPlaybackQueuePayload'] = ResolversParentTypes['AddItemToPlaybackQueuePayload']> = ResolversObject<{
-  queue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
+  playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

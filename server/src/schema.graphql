@@ -294,7 +294,7 @@ input AddItemToPlaybackQueueInput {
 }
 
 type AddItemToPlaybackQueuePayload {
-  queue: PlaybackQueue
+  playbackQueue: PlaybackQueue
 }
 
 "Spotify catalog information for an album."

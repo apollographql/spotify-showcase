@@ -24,9 +24,9 @@ const resolvers: MutationResolvers = {
       params: { uri: input.uri, device_id: maybe(input.deviceId) },
     });
 
-    const queue = await dataSources.spotify.getPlaybackQueue();
+    const playbackQueue = await dataSources.spotify.getPlaybackQueue();
 
-    return { queue };
+    return { playbackQueue };
   },
   resumePlayback: async (_, { input }, { dataSources, publisher }) => {
     await dataSources.spotify.resumePlayback({
