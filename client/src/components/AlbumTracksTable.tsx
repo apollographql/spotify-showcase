@@ -42,7 +42,9 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
         id: 'title',
         header: 'Title',
         cell: (info) => {
-          return <AlbumTrackTitleCell track={info.row.original} />;
+          return (
+            <AlbumTrackTitleCell album={album} track={info.row.original} />
+          );
         },
       }),
       columnHelper.accessor('durationMs', {
@@ -112,8 +114,11 @@ AlbumTracksTable.fragments = {
           }
         }
       }
+
+      ...AlbumTrackTitleCell_album
     }
 
+    ${AlbumTrackTitleCell.fragments.album}
     ${AlbumTrackTitleCell.fragments.track}
   `,
 };

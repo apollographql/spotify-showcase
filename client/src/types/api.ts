@@ -1526,7 +1526,11 @@ export type User = {
 
 export type AlbumTile_album = { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> };
 
-export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+export type AlbumTrackTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
+
+export type AlbumTrackTitleCell_album = { __typename: 'Album', uri: string };
+
+export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type AlbumTracksTable_album = { __typename: 'Album', id: string, uri: string, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null };
 
