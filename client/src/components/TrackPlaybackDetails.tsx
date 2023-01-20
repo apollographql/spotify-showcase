@@ -64,6 +64,14 @@ const TrackPlaybackDetails = ({
             <ContextMenu
               content={
                 <>
+                  <ContextMenu.SubMenu
+                    content={
+                      <ContextMenuAction.CopyLinkToEntity entity={artist} />
+                    }
+                  >
+                    Share
+                  </ContextMenu.SubMenu>
+                  <ContextMenu.Separator />
                   <ContextMenuAction.OpenDesktopApp uri={artist.uri} />
                 </>
               }
