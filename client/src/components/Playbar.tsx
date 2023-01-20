@@ -86,7 +86,9 @@ const Playbar = ({ className }: PlaybarProps) => {
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}
-          <LikeControl playbackItem={playbackItem} size="1.25rem" />
+          {playbackState && (
+            <LikeControl playbackItem={playbackItem} size="1.25rem" />
+          )}
         </Flex>
         <Flex direction="column" gap="0.5rem">
           <Flex alignItems="center" gap="1.25rem" justifyContent="center">
