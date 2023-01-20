@@ -33,7 +33,7 @@ const CurrentUserMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger
-        className="hover:bg-surface aria-expanded:bg-surface py-[0.125rem] pl-[0.125rem] pr-2 text-sm normal-case tracking-normal"
+        className="hover:bg-surface aria-expanded:bg-surface bg-black-pure py-[0.125rem] pl-[0.125rem] pr-2 text-sm normal-case tracking-normal"
         variant="ghost"
         size="sm"
       >
