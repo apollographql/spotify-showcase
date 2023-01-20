@@ -17,6 +17,7 @@ interface DevicePopoverProps {
 
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment DevicePopover_playbackState on PlaybackState {
+    isPlaying
     device {
       id
     }
@@ -41,7 +42,15 @@ const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
         <div>
           {currentDevice && (
             <div className="flex items-center gap-4 p-4">
-              <AnimatedSoundWave size="1.5rem" />
+              {playbackState?.isPlaying ? (
+                <AnimatedSoundWave size="1.5rem" />
+              ) : (
+                <DeviceIcon
+                  size="1.5rem"
+                  device={currentDevice}
+                  className="text-green"
+                />
+              )}
               <div className="flex flex-col">
                 <h3 className="text-base font-bold">Current device</h3>
                 <span className="text-green-light text-sm">

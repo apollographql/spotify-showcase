@@ -1497,7 +1497,7 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null, images: Array<{ __typename: 'Image', url: string }> | null } } | null };
 
-export type DevicePopover_playbackState = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string } };
+export type DevicePopover_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, device: { __typename: 'Device', id: string } };
 
 export type DevicePopover_devices = { __typename: 'Device', id: string, name: string, type: string };
 
