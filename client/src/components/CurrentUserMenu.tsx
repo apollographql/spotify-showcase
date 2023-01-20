@@ -30,6 +30,8 @@ const CurrentUserMenu = () => {
     throw new Error('You must be logged in');
   }
 
+  const { user } = data.me;
+
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger
@@ -37,8 +39,8 @@ const CurrentUserMenu = () => {
         variant="ghost"
         size="sm"
       >
-        <Avatar size="2rem" user={data.me.user} />
-        {data.me?.user.displayName}
+        <Avatar size="2rem" user={user} />
+        {user.displayName}
       </DropdownMenu.Trigger>
       <DropdownMenu.Menu align="end">
         <DropdownMenu.Item to="/logout">Logout</DropdownMenu.Item>
