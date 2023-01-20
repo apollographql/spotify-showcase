@@ -1,7 +1,11 @@
 export const parseSpotifyIDFromURI = (spotifyURI: string) => {
   const matches = spotifyURI.match(/^spotify:.*?:(.*)$/);
 
-  return matches?.[1];
+  if (!matches) {
+    throw new Error('Could not get Spotify ID from URI');
+  }
+
+  return matches[1];
 };
 
 export const parseSpotifyTypeFromURI = (spotifyURI: string) => {

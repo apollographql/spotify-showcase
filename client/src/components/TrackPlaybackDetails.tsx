@@ -37,7 +37,7 @@ const TrackPlaybackDetails = ({
               {context?.type === PlaybackContextType.Playlist && (
                 <>
                   <ContextMenuAction.RemoveFromPlaylist
-                    playlistId={parseSpotifyIDFromURI(context.uri)!}
+                    playlistId={parseSpotifyIDFromURI(context.uri)}
                     uri={track.uri}
                   />
                   <ContextMenu.Separator />
