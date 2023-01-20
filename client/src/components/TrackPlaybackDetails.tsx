@@ -37,12 +37,14 @@ const TrackPlaybackDetails = ({
               </ContextMenu.Link>
               <ContextMenu.Separator />
               {context?.type === PlaybackContextType.Playlist && (
-                <ContextMenuAction.RemoveFromPlaylist
-                  playlistId={parseSpotifyIDFromURI(context.uri)!}
-                  uri={track.uri}
-                />
+                <>
+                  <ContextMenuAction.RemoveFromPlaylist
+                    playlistId={parseSpotifyIDFromURI(context.uri)!}
+                    uri={track.uri}
+                  />
+                  <ContextMenu.Separator />
+                </>
               )}
-              <ContextMenu.Separator />
               <ContextMenuAction.OpenDesktopApp uri={track.uri} />
             </>
           }
