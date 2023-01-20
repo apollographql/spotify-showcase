@@ -157,10 +157,14 @@ const Playbar = ({ className }: PlaybarProps) => {
       {device && (
         <Flex
           alignItems="center"
-          className={styles.device}
+          className={cx(
+            styles.device,
+            'bg-green relative py-1 px-6 text-sm leading-none',
+            'pointer-events-none before:absolute before:top-0 before:right-[10.5rem] before:-translate-y-full'
+          )}
           justifyContent="end"
         >
-          <Volume1 /> Listening on {device.name}
+          <Volume1 size="1.125rem" /> Listening on {device.name}
         </Flex>
       )}
     </Flex>
