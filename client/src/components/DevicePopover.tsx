@@ -46,11 +46,11 @@ const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
             </div>
           )}
           <h4 className="my-2 px-4">Select another device</h4>
-          <ul className="flex list-none flex-col gap-2">
+          <ul className="flex list-none flex-col">
             {devices.map((device) => (
               <li
                 key={device.id}
-                className="flex cursor-pointer gap-4 rounded p-4 hover:bg-white/10"
+                className="flex cursor-pointer items-center gap-4 rounded p-4 text-sm hover:bg-white/10"
               >
                 <DeviceIcon device={device} />
                 {device.name}
