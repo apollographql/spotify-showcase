@@ -1,16 +1,22 @@
 import cx from 'classnames';
 import styles from './Playbar.module.scss';
-import { gql } from '@apollo/client';
+import {
+  gql,
+  useSuspenseQuery_experimental as useSuspenseQuery,
+} from '@apollo/client';
 import { Link } from 'react-router-dom';
 import {
   Action,
   RepeatMode,
+  PlaybarQuery,
+  PlaybarQueryVariables,
   Playbar_playbackState as PlaybackState,
 } from '../types/api';
 import { List, Volume1 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
+import DevicePopover from './DevicePopover';
 import Flex from './Flex';
 import EpisodePlaybackDetails from './EpisodePlaybackDetails';
 import TrackPlaybackDetails from './TrackPlaybackDetails';
@@ -18,6 +24,7 @@ import MuteControl from './MuteControl';
 import LikeControl from './LikeControl';
 import PlaybarControlButton from './PlaybarControlButton';
 import PlaybackItemProgressBar from './PlaybackItemProgressBar';
+import Popover from './Popover';
 import RepeatControl from './RepeatControl';
 import ShufflePlaybackControl from './ShufflePlaybackControl';
 import SkipToNextControl from './SkipToNextControl';
@@ -34,7 +41,25 @@ interface PlaybarProps {
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
+const PLAYBAR_QUERY = gql`
+  query PlaybarQuery {
+    me {
+      player {
+        devices {
+          id
+          ...DevicePopover_devices
+        }
+      }
+    }
+  }
+
+  ${DevicePopover.fragments.devices}
+`;
+
 const Playbar = ({ className }: PlaybarProps) => {
+  const { data } = useSuspenseQuery<PlaybarQuery, PlaybarQueryVariables>(
+    PLAYBAR_QUERY
+  );
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: Playbar.fragments.playbackState,
@@ -42,6 +67,7 @@ const Playbar = ({ className }: PlaybarProps) => {
 
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
+  const devices = data.me?.player.devices ?? [];
   const disallows = playbackState?.actions.disallows ?? [];
   const coverPhoto =
     playbackItem?.__typename === 'Track'
@@ -107,11 +133,13 @@ const Playbar = ({ className }: PlaybarProps) => {
               tooltip="Queue"
             />
           </Link>
-          <PlaybarControlButton
-            disallowed={disallowed(Action.TransferringPlayback)}
-            icon={<DeviceIcon device={device} strokeWidth={1.5} />}
-            tooltip="Connect to a device"
-          />
+          <DevicePopover devices={devices}>
+            <PlaybarControlButton
+              disallowed={disallowed(Action.TransferringPlayback)}
+              icon={<DeviceIcon device={device} strokeWidth={1.5} />}
+              tooltip="Connect to a device"
+            />
+          </DevicePopover>
           <Flex gap="0.25rem" alignItems="center">
             <MuteControl
               disallowed={!device}

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { forwardRef, ReactElement } from 'react';
 import { LucideProps } from 'lucide-react';
 import Tooltip from './Tooltip';
 import cx from 'classnames';
@@ -12,16 +12,14 @@ interface PlaybarControlButtonProps {
   onClick?: () => void;
 }
 
-const PlaybarControlButton = ({
-  active,
-  disallowed,
-  icon,
-  onClick,
-  tooltip,
-}: PlaybarControlButtonProps) => {
+const PlaybarControlButton = forwardRef<
+  HTMLButtonElement,
+  PlaybarControlButtonProps
+>(({ active, disallowed, icon, onClick, tooltip }, ref) => {
   return (
     <Tooltip content={tooltip}>
       <button
+        ref={ref}
         className={cx(styles.playbarControlButton, { [styles.active]: active })}
         disabled={disallowed}
         onClick={onClick}
@@ -30,6 +28,6 @@ const PlaybarControlButton = ({
       </button>
     </Tooltip>
   );
-};
+});
 
 export default PlaybarControlButton;
