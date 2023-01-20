@@ -55,9 +55,17 @@ const TrackPlaybackDetails = ({
       <Text size="xs" color="muted">
         <DelimitedList delimiter=", ">
           {track.artists.map((artist) => (
-            <EntityLink key={artist.id} entity={artist}>
-              {artist.name}
-            </EntityLink>
+            <ContextMenu
+              content={
+                <>
+                  <ContextMenuAction.OpenDesktopApp uri={artist.uri} />
+                </>
+              }
+            >
+              <EntityLink key={artist.id} entity={artist}>
+                {artist.name}
+              </EntityLink>
+            </ContextMenu>
           ))}
         </DelimitedList>
       </Text>
@@ -83,6 +91,7 @@ TrackPlaybackDetails.fragments = {
       }
       artists {
         id
+        uri
         name
       }
     }
