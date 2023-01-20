@@ -392,6 +392,12 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  async transferPlayback({ body }: RequestParams<'PUT', '/me/player'>) {
+    await this._put('/me/player', { body });
+
+    return true;
+  }
+
   override willSendRequest(request: WillSendRequestOptions) {
     request.headers['Accept'] = 'application/json';
     request.headers['Authorization'] = `Bearer ${this.token}`;

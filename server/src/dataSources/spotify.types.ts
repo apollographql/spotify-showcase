@@ -582,6 +582,10 @@ export namespace Spotify {
       export type Paths = keyof PUT;
 
       export interface PUT {
+        '/me/player': {
+          device_ids: string[];
+          play?: boolean;
+        };
         '/me/player/play': {
           context_uri?: string;
           uris?: string[];
