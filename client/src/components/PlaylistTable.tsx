@@ -1,10 +1,18 @@
 import { useMemo } from 'react';
-import { gql } from '@apollo/client';
+import {
+  gql,
+  OperationVariables,
+  useFragment_experimental as useFragment,
+} from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock, Podcast } from 'lucide-react';
-import { PlaylistTable_playlist as Playlist } from '../types/api';
+import {
+  PlaylistTable_playlist as Playlist,
+  PlaylistTable_currentUser as CurrentUser,
+} from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
+import ContextMenu from './ContextMenu';
 import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
@@ -30,7 +38,22 @@ const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
   return playlistItem.album;
 };
 
+const PLAYLIST_TABLE_CURRENT_USER_FRAGMENT = gql`
+  fragment PlaylistTable_currentUser on CurrentUser {
+    user {
+      id
+    }
+  }
+`;
+
 const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
+  const { data } = useFragment<CurrentUser, OperationVariables>({
+    from: { __typename: 'CurrentUser' },
+    fragment: PLAYLIST_TABLE_CURRENT_USER_FRAGMENT,
+    fragmentName: 'PlaylistTable_currentUser',
+  });
+
+  const currentUser = data?.user;
   const [resumePlayback] = useResumePlaybackMutation();
 
   const containsAllTracks = playlist.tracks.edges.every(
@@ -142,6 +165,29 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
       className={className}
       data={playlist.tracks.edges}
       columns={columns}
+      contextMenu={(row) => {
+        const playlistItem = row.original.node;
+
+        return (
+          <>
+            <ContextMenu.Action>Add to queue</ContextMenu.Action>
+            <ContextMenu.Separator />
+            {playlistItem.__typename === 'Track' && (
+              <>
+                <ContextMenu.Link to={`/artists/${playlistItem.artists[0].id}`}>
+                  Go to artist
+                </ContextMenu.Link>
+                <ContextMenu.Link to={`/albums/${playlistItem.album.id}`}>
+                  Go to album
+                </ContextMenu.Link>
+              </>
+            )}
+            {playlist.owner.id === currentUser?.id && (
+              <ContextMenu.Action>Remove from this playlist</ContextMenu.Action>
+            )}
+          </>
+        );
+      }}
       onDoubleClickRow={(row) => {
         const { node } = row.original;
 
@@ -163,6 +209,9 @@ PlaylistTable.fragments = {
     fragment PlaylistTable_playlist on Playlist {
       id
       uri
+      owner {
+        id
+      }
       tracks {
         edges {
           addedAt
