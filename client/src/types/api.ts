@@ -1635,6 +1635,13 @@ export type PausePlaybackMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
 
+export type RemoveFromPlaylistMutationVariables = Exact<{
+  input: RemoveItemFromPlaylistInput;
+}>;
+
+
+export type RemoveFromPlaylistMutation = { removeItemFromPlaylist: { __typename: 'RemoveItemFromPlaylistPayload', playlist: { __typename: 'Playlist', id: string } | null } | null };
+
 export type RemoveSavedTracksMutationVariables = Exact<{
   input: RemoveSavedTracksInput;
 }>;
