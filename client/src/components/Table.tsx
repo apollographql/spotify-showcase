@@ -84,7 +84,9 @@ function Table<TData>({
 
           if (contextMenu) {
             return (
-              <ContextMenu content={contextMenu(row)}>{tableRow}</ContextMenu>
+              <ContextMenu key={row.id} content={contextMenu(row)}>
+                {tableRow}
+              </ContextMenu>
             );
           }
 
