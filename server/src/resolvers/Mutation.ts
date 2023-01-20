@@ -19,9 +19,9 @@ const refreshPlaybackState = async (
 };
 
 const resolvers: MutationResolvers = {
-  addItemToPlaybackQueue: async (_, { uri, context }, { dataSources }) => {
+  addItemToPlaybackQueue: async (_, { input }, { dataSources }) => {
     await dataSources.spotify.addItemToPlaybackQueue({
-      params: { uri, device_id: maybe(context?.deviceId) },
+      params: { uri: input.uri, device_id: maybe(input.deviceId) },
     });
 
     const queue = await dataSources.spotify.getPlaybackQueue();

@@ -33,12 +33,18 @@ export type Actions = {
   disallows: Array<Action>;
 };
 
-export type AddItemToPlaybackQueueContextInput = {
+export type AddItemToPlaybackQueueInput = {
+  /**
+   * The id of the device this command is targeting. If not supplied, the user's
+   * currently active device is the target.
+   */
   deviceId?: InputMaybe<Scalars['ID']>;
+  /** The uri of the item to add to the queue. Must be a track or an episode uri. */
+  uri: Scalars['String'];
 };
 
-export type AddItemToPlaybackQueueResponse = {
-  __typename: 'AddItemToPlaybackQueueResponse';
+export type AddItemToPlaybackQueuePayload = {
+  __typename: 'AddItemToPlaybackQueuePayload';
   queue: Maybe<PlaybackQueue>;
 };
 
@@ -488,7 +494,7 @@ export type Image = {
 export type Mutation = {
   __typename: 'Mutation';
   /** Add an item to the end of the user's current playback queue. */
-  addItemToPlaybackQueue: Maybe<AddItemToPlaybackQueueResponse>;
+  addItemToPlaybackQueue: Maybe<AddItemToPlaybackQueuePayload>;
   /** Pause playback on the user's account. */
   pausePlayback: Maybe<PausePlaybackResponse>;
   /** Remove one or more albums from the current user's 'Your Music' library. */
@@ -527,8 +533,7 @@ export type Mutation = {
 
 
 export type MutationaddItemToPlaybackQueueArgs = {
-  context?: InputMaybe<AddItemToPlaybackQueueContextInput>;
-  uri: Scalars['String'];
+  input: AddItemToPlaybackQueueInput;
 };
 
 
