@@ -143,7 +143,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           </Link>
           <DevicePopover devices={devices}>
             <PlaybarControlButton
-              disallowed={disallowed(Action.TransferringPlayback)}
+              disallowed={devices.length === 0}
               icon={<DeviceIcon device={device} strokeWidth={1.5} />}
               tooltip="Connect to a device"
             />
