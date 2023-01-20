@@ -1,19 +1,26 @@
 import { useMemo } from 'react';
-import { gql } from '@apollo/client';
+import {
+  gql,
+  useFragment_experimental as useFragment,
+  OperationVariables,
+} from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock, Podcast } from 'lucide-react';
-import { PlaylistTable_playlist as Playlist } from '../types/api';
+import {
+  PlaylistTable_currentUser as CurrentUser,
+  PlaylistTable_playlist as Playlist,
+} from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
 import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
-import PlaylistEpisodeContextMenu from './PlaylistEpisodeContextMenu';
 import PlaylistTitleCell from './PlaylistTitleCell';
-import PlaylistTrackContextMenu from './PlaylistTrackContextMenu';
 import { Get } from 'type-fest';
 import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
+import ContextMenuAction from './ContextMenuAction';
+import ContextMenu from './ContextMenu';
 
 interface PlaylistTableProps {
   className?: string;
@@ -24,6 +31,14 @@ type PlaylistTrackEdge = NonNullable<Get<Playlist, 'tracks.edges[0]'>>;
 
 const columnHelper = createColumnHelper<PlaylistTrackEdge>();
 
+const CURRENT_USER_FRAGMENT = gql`
+  fragment PlaylistTable_currentUser on CurrentUser {
+    user {
+      id
+    }
+  }
+`;
+
 const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
   if (playlistItem.__typename === 'Episode') {
     return playlistItem.show;
@@ -33,6 +48,13 @@ const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
 };
 
 const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
+  const { data } = useFragment<CurrentUser, OperationVariables>({
+    from: { __typename: 'CurrentUser' },
+    fragment: CURRENT_USER_FRAGMENT,
+    fragmentName: 'PlaylistTable_currentUser',
+  });
+
+  const currentUser = data?.user;
   const [resumePlayback] = useResumePlaybackMutation();
 
   const containsAllTracks = playlist.tracks.edges.every(
@@ -147,13 +169,32 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
       contextMenu={(row) => {
         const playlistItem = row.original.node;
 
-        return playlistItem.__typename === 'Track' ? (
-          <PlaylistTrackContextMenu track={playlistItem} playlist={playlist} />
-        ) : (
-          <PlaylistEpisodeContextMenu
-            episode={playlistItem}
-            playlist={playlist}
-          />
+        return (
+          <>
+            <ContextMenuAction.AddToQueue uri={playlistItem.uri} />
+            <ContextMenu.Separator />
+            {playlistItem.__typename === 'Track' && (
+              <>
+                <ContextMenu.Link to={`/artists/${playlistItem.artists[0].id}`}>
+                  Go to artist
+                </ContextMenu.Link>
+                <ContextMenu.Link to={`/albums/${playlistItem.album.id}`}>
+                  Go to album
+                </ContextMenu.Link>
+              </>
+            )}
+            {playlist.owner.id === currentUser?.id && (
+              <ContextMenuAction.RemoveFromPlaylist
+                playlistId={playlist.id}
+                uri={playlistItem.uri}
+              />
+            )}
+            <ContextMenu.Separator />
+            <ContextMenuAction.OpenDesktopApp
+              uri={playlistItem.uri}
+              context={playlist}
+            />
+          </>
         );
       }}
       onDoubleClickRow={(row) => {
@@ -177,6 +218,9 @@ PlaylistTable.fragments = {
     fragment PlaylistTable_playlist on Playlist {
       id
       uri
+      owner {
+        id
+      }
       tracks {
         edges {
           addedAt
@@ -192,7 +236,6 @@ PlaylistTable.fragments = {
                 name
               }
 
-              ...PlaylistTrackContextMenu_track
               ...TrackNumberCell_track
             }
 
@@ -205,24 +248,15 @@ PlaylistTable.fragments = {
                 id
                 name
               }
-
-              ...PlaylistEpisodeContextMenu_episode
             }
 
             ...PlaylistTitleCell_playlistTrack
           }
         }
       }
-
-      ...PlaylistEpisodeContextMenu_playlist
-      ...PlaylistTrackContextMenu_playlist
     }
 
-    ${PlaylistEpisodeContextMenu.fragments.episode}
-    ${PlaylistEpisodeContextMenu.fragments.playlist}
     ${PlaylistTitleCell.fragments.playlistTrack}
-    ${PlaylistTrackContextMenu.fragments.playlist}
-    ${PlaylistTrackContextMenu.fragments.track}
     ${TrackNumberCell.fragments.track}
   `,
 };

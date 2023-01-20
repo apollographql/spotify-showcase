@@ -1587,13 +1587,9 @@ export type PlaybarQuery = { me: { __typename: 'CurrentUser', player: { __typena
 
 export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null };
 
-export type PlaylistEpisodeContextMenu_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
+export type PlaylistTable_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
 
-export type PlaylistEpisodeContextMenu_episode = { __typename: 'Episode', id: string, uri: string };
-
-export type PlaylistEpisodeContextMenu_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string } };
-
-export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: string, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> }, owner: { __typename: 'User', id: string } };
+export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } };
 
 export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
 
@@ -1606,12 +1602,6 @@ type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: str
 type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string, name: string, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
-
-export type PlaylistTrackContextMenu_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
-
-export type PlaylistTrackContextMenu_track = { __typename: 'Track', id: string, uri: string, artists: Array<{ __typename: 'Artist', id: string }>, album: { __typename: 'Album', id: string } };
-
-export type PlaylistTrackContextMenu_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string } };
 
 export type TrackNumberCell_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 
