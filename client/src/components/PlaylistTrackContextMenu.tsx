@@ -54,7 +54,7 @@ const PlaylistTrackContextMenu = ({
       )}
 
       <ContextMenu.Separator />
-      <ContextMenuAction.OpenDesktopApp uri={track.uri} />
+      <ContextMenuAction.OpenDesktopApp uri={track.uri} context={playlist} />
     </>
   );
 };
@@ -75,6 +75,7 @@ PlaylistTrackContextMenu.fragments = {
   playlist: gql`
     fragment PlaylistTrackContextMenu_playlist on Playlist {
       id
+      uri
       owner {
         id
       }

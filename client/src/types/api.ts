@@ -1591,7 +1591,7 @@ export type PlaylistEpisodeContextMenu_currentUser = { __typename: 'CurrentUser'
 
 export type PlaylistEpisodeContextMenu_episode = { __typename: 'Episode', id: string, uri: string };
 
-export type PlaylistEpisodeContextMenu_playlist = { __typename: 'Playlist', id: string, owner: { __typename: 'User', id: string } };
+export type PlaylistEpisodeContextMenu_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string } };
 
 export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: string, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> }, owner: { __typename: 'User', id: string } };
 
@@ -1611,7 +1611,7 @@ export type PlaylistTrackContextMenu_currentUser = { __typename: 'CurrentUser', 
 
 export type PlaylistTrackContextMenu_track = { __typename: 'Track', id: string, uri: string, artists: Array<{ __typename: 'Artist', id: string }>, album: { __typename: 'Album', id: string } };
 
-export type PlaylistTrackContextMenu_playlist = { __typename: 'Playlist', id: string, owner: { __typename: 'User', id: string } };
+export type PlaylistTrackContextMenu_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string } };
 
 export type TrackNumberCell_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 

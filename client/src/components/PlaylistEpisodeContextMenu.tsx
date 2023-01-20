@@ -47,7 +47,7 @@ const PlaylistEpisodeContextMenu = ({
         />
       )}
       <ContextMenu.Separator />
-      <ContextMenuAction.OpenDesktopApp uri={episode.uri} />
+      <ContextMenuAction.OpenDesktopApp uri={episode.uri} context={playlist} />
     </>
   );
 };
@@ -62,6 +62,7 @@ PlaylistEpisodeContextMenu.fragments = {
   playlist: gql`
     fragment PlaylistEpisodeContextMenu_playlist on Playlist {
       id
+      uri
       owner {
         id
       }
