@@ -8,7 +8,9 @@ import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
 import Duration from './Duration';
 import Table from './Table';
+import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
+import { useMemo } from 'react';
 
 type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
 
@@ -18,27 +20,42 @@ interface AlbumTracksTableProps {
 
 const columnHelper = createColumnHelper<Track>();
 
-const columns = [
-  columnHelper.accessor('trackNumber', { header: '#', meta: { shrink: true } }),
-  columnHelper.display({
-    id: 'title',
-    header: 'Title',
-    cell: (info) => {
-      return <AlbumTrackTitleCell track={info.row.original} />;
-    },
-  }),
-  columnHelper.accessor('durationMs', {
-    header: () => <Clock size="1rem" />,
-    cell: (info) => <Duration durationMs={info.getValue()} />,
-    meta: {
-      headerAlign: 'right',
-      shrink: true,
-    },
-  }),
-];
-
 const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
   const [resumePlayback] = useResumePlaybackMutation();
+
+  const columns = useMemo(
+    () => [
+      columnHelper.accessor((track) => track, {
+        header: '#',
+        meta: { shrink: true },
+        cell: (info) => {
+          return (
+            <TrackNumberCell
+              context={album}
+              track={info.getValue()}
+              position={info.row.index}
+            />
+          );
+        },
+      }),
+      columnHelper.display({
+        id: 'title',
+        header: 'Title',
+        cell: (info) => {
+          return <AlbumTrackTitleCell track={info.row.original} />;
+        },
+      }),
+      columnHelper.accessor('durationMs', {
+        header: () => <Clock size="1rem" />,
+        cell: (info) => <Duration durationMs={info.getValue()} />,
+        meta: {
+          headerAlign: 'right',
+          shrink: true,
+        },
+      }),
+    ],
+    [album]
+  );
 
   return (
     <Table
