@@ -10,7 +10,7 @@ interface SubMenuProps {
 const SubMenu = ({ children, content }: SubMenuProps) => {
   return (
     <ContextMenu.Sub>
-      <ContextMenu.SubTrigger className="data-open:bg-white/10 flex items-center justify-between gap-1 rounded-sm p-2 hover:bg-white/10 hover:outline-0">
+      <ContextMenu.SubTrigger className="data-open:bg-white/10 flex cursor-pointer items-center justify-between gap-1 rounded-sm p-2 hover:bg-white/10 hover:outline-0">
         {children}
         <ChevronRight size="1em" />
       </ContextMenu.SubTrigger>
