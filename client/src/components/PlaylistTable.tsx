@@ -20,6 +20,7 @@ import PlaylistTitleCell from './PlaylistTitleCell';
 import { Get } from 'type-fest';
 import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
+import useAddToQueueMutation from '../mutations/useAddToQueueMutation';
 
 interface PlaylistTableProps {
   className?: string;
@@ -55,6 +56,7 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
 
   const currentUser = data?.user;
   const [resumePlayback] = useResumePlaybackMutation();
+  const [addToQueue] = useAddToQueueMutation();
 
   const containsAllTracks = playlist.tracks.edges.every(
     ({ node }) => node.__typename === 'Track'
@@ -170,7 +172,13 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
 
         return (
           <>
-            <ContextMenu.Action>Add to queue</ContextMenu.Action>
+            <ContextMenu.Action
+              onSelect={() => {
+                addToQueue({ uri: playlistItem.uri });
+              }}
+            >
+              Add to queue
+            </ContextMenu.Action>
             <ContextMenu.Separator />
             {playlistItem.__typename === 'Track' && (
               <>
@@ -183,7 +191,13 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
               </>
             )}
             {playlist.owner.id === currentUser?.id && (
-              <ContextMenu.Action>Remove from this playlist</ContextMenu.Action>
+              <ContextMenu.Action
+                onSelect={() => {
+                  console.log('remove this playlist');
+                }}
+              >
+                Remove from this playlist
+              </ContextMenu.Action>
             )}
           </>
         );

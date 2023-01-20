@@ -45,7 +45,7 @@ export type AddItemToPlaybackQueueInput = {
 
 export type AddItemToPlaybackQueuePayload = {
   __typename: 'AddItemToPlaybackQueuePayload';
-  queue: Maybe<PlaybackQueue>;
+  playbackQueue: Maybe<PlaybackQueue>;
 };
 
 /** Spotify catalog information for an album. */
@@ -1573,6 +1573,13 @@ export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name
 export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
+export type AddToQueueMutationVariables = Exact<{
+  input: AddItemToPlaybackQueueInput;
+}>;
+
+
+export type AddToQueueMutation = { addItemToPlaybackQueue: { __typename: 'AddItemToPlaybackQueuePayload', playbackQueue: { __typename: 'PlaybackQueue', currentlyPlaying: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string } | null } | null } | null };
 
 export type PausePlaybackMutationVariables = Exact<{ [key: string]: never; }>;
 
