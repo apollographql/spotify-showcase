@@ -29,15 +29,8 @@ const TRACK_ROUTE_QUERY = gql`
         images {
           url
         }
-        tracks {
-          edges {
-            node {
-              id
 
-              ...AlbumTracksTable_tracks
-            }
-          }
-        }
+        ...AlbumTracksTable_album
       }
       artists {
         id
@@ -52,7 +45,7 @@ const TRACK_ROUTE_QUERY = gql`
     }
   }
 
-  ${AlbumTracksTable.fragments.tracks}
+  ${AlbumTracksTable.fragments.album}
   ${ArtistTile.fragments.artist}
   ${ArtistTopTracks.fragments.tracks}
 `;
@@ -115,9 +108,7 @@ const TrackRoute = () => {
               </Text>
             </Flex>
           </Flex>
-          <AlbumTracksTable
-            tracks={album.tracks?.edges.map((edge) => edge.node) ?? []}
-          />
+          <AlbumTracksTable album={album} />
         </Flex>
       </Page.Content>
     </Page>

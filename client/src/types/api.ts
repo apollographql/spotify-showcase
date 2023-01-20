@@ -1530,8 +1530,6 @@ export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name:
 
 export type AlbumTracksTable_album = { __typename: 'Album', id: string, uri: string, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null };
 
-export type AlbumTracksTable_tracks = { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
-
 export type ArtistTile_artist = { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> };
 
 export type ArtistTopTracks_tracks = { __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } };
@@ -1719,7 +1717,7 @@ export type AlbumRouteQueryVariables = Exact<{
 }>;
 
 
-export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename: 'Copyright', text: string, type: CopyrightType | null }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, durationMs: number, name: string, trackNumber: number | null, uri: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
+export type AlbumRouteQuery = { album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename: 'Copyright', text: string, type: CopyrightType | null }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
 export type AlbumRoutePlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 
@@ -1786,4 +1784,4 @@ export type TrackRouteQueryVariables = Exact<{
 }>;
 
 
-export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, images: Array<{ __typename: 'Image', url: string }>, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null }, artists: Array<{ __typename: 'Artist', id: string, name: string, topTracks: Array<{ __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }>, images: Array<{ __typename: 'Image', url: string }> }> } | null };
+export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, uri: string, images: Array<{ __typename: 'Image', url: string }>, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null }, artists: Array<{ __typename: 'Artist', id: string, name: string, topTracks: Array<{ __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }>, images: Array<{ __typename: 'Image', url: string }> }> } | null };
