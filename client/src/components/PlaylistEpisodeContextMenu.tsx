@@ -8,9 +8,8 @@ import {
   PlaylistEpisodeContextMenu_episode as Episode,
   PlaylistEpisodeContextMenu_playlist as Playlist,
 } from '../types/api';
+import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
-import useAddToQueueMutation from '../mutations/useAddToQueueMutation';
-import useRemoveFromPlaylistMutation from '../mutations/useRemoveFromPlaylistMutation';
 
 interface PlaylistEpisodeContextMenuProps {
   episode: Episode;
@@ -29,8 +28,6 @@ const PlaylistEpisodeContextMenu = ({
   episode,
   playlist,
 }: PlaylistEpisodeContextMenuProps) => {
-  const [addToQueue] = useAddToQueueMutation();
-  const [removeFromPlaylist] = useRemoveFromPlaylistMutation();
   const { data } = useFragment<CurrentUser, OperationVariables>({
     from: { __typename: 'CurrentUser' },
     fragment: CURRENT_USER_FRAGMENT,
@@ -41,25 +38,13 @@ const PlaylistEpisodeContextMenu = ({
 
   return (
     <>
-      <ContextMenu.Action
-        onSelect={() => {
-          addToQueue({ uri: episode.uri });
-        }}
-      >
-        Add to queue
-      </ContextMenu.Action>
+      <ContextMenuAction.AddToQueue uri={episode.uri} />
       <ContextMenu.Separator />
       {playlist.owner.id === currentUser?.id && (
-        <ContextMenu.Action
-          onSelect={() => {
-            removeFromPlaylist({
-              playlistId: playlist.id,
-              tracks: [{ uri: episode.uri }],
-            });
-          }}
-        >
-          Remove from this playlist
-        </ContextMenu.Action>
+        <ContextMenuAction.RemoveFromPlaylist
+          playlistId={playlist.id}
+          uri={episode.uri}
+        />
       )}
     </>
   );
