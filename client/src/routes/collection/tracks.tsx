@@ -26,6 +26,8 @@ import EntityLink from '../../components/EntityLink';
 import TrackNumberCell from '../../components/TrackNumberCell';
 import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
+import ContextMenuAction from '../../components/ContextMenuAction';
+import ContextMenu from '../../components/ContextMenu';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
@@ -145,6 +147,31 @@ const CollectionTracksRoute = () => {
               contextUri: spotifyURI,
               offset: { uri: node.uri },
             });
+          }}
+          contextMenu={(row) => {
+            const { node } = row.original;
+
+            return (
+              <>
+                <ContextMenuAction.AddToQueue uri={node.uri} />
+                <ContextMenu.Separator />
+                <ContextMenuAction.LinkToArtist artists={node.artists} />
+                <ContextMenu.Link to={`/albums/${node.album.id}`}>
+                  Go to album
+                </ContextMenu.Link>
+                <ContextMenu.Separator />
+                <ContextMenu.SubMenu
+                  content={<ContextMenuAction.CopyLinkToEntity entity={node} />}
+                >
+                  Share
+                </ContextMenu.SubMenu>
+                <ContextMenu.Separator />
+                <ContextMenuAction.OpenDesktopApp
+                  uri={node.uri}
+                  context={{ uri: spotifyURI }}
+                />
+              </>
+            );
           }}
         />
       </Page.Content>
