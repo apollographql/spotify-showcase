@@ -1528,6 +1528,8 @@ export type AlbumTile_album = { __typename: 'Album', id: string, name: string, a
 
 export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
+export type AlbumTracksTable_album = { __typename: 'Album', uri: string };
+
 export type AlbumTracksTable_tracks = { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type ArtistTile_artist = { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> };
@@ -1535,8 +1537,6 @@ export type ArtistTile_artist = { __typename: 'Artist', id: string, name: string
 export type ArtistTopTracks_tracks = { __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } };
 
 export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
-
-export type OpenDesktopApp_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 

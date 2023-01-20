@@ -59,9 +59,12 @@ const ALBUM_ROUTE_QUERY = gql`
           }
         }
       }
+
+      ...AlbumTracksTable_album
     }
   }
 
+  ${AlbumTracksTable.fragments.album}
   ${AlbumTracksTable.fragments.tracks}
 `;
 
@@ -138,6 +141,7 @@ const AlbumRoute = () => {
           />
         </Page.ActionsBar>
         <AlbumTracksTable
+          album={album}
           tracks={album.tracks?.edges.map((edge) => edge.node) ?? []}
         />
         <Flex direction="column">

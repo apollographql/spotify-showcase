@@ -1,7 +1,10 @@
 import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock } from 'lucide-react';
-import { AlbumTracksTable_tracks as Track } from '../types/api';
+import {
+  AlbumTracksTable_album as Album,
+  AlbumTracksTable_tracks as Track,
+} from '../types/api';
 import AlbumTrackTitleCell from './AlbumTrackTitleCell';
 import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
@@ -9,6 +12,7 @@ import Duration from './Duration';
 import Table from './Table';
 
 interface AlbumTracksTableProps {
+  album: Album;
   tracks: Track[];
 }
 
@@ -33,7 +37,7 @@ const columns = [
   }),
 ];
 
-const AlbumTracksTable = ({ tracks }: AlbumTracksTableProps) => {
+const AlbumTracksTable = ({ album, tracks }: AlbumTracksTableProps) => {
   return (
     <Table
       columns={columns}
@@ -49,7 +53,7 @@ const AlbumTracksTable = ({ tracks }: AlbumTracksTableProps) => {
               Go to artist
             </ContextMenu.Link>
             <ContextMenu.Separator />
-            <ContextMenuAction.OpenDesktopApp uri={track.uri} />
+            <ContextMenuAction.OpenDesktopApp uri={track.uri} context={album} />
           </>
         );
       }}
@@ -58,6 +62,11 @@ const AlbumTracksTable = ({ tracks }: AlbumTracksTableProps) => {
 };
 
 AlbumTracksTable.fragments = {
+  album: gql`
+    fragment AlbumTracksTable_album on Album {
+      uri
+    }
+  `,
   tracks: gql`
     fragment AlbumTracksTable_tracks on Track {
       id
