@@ -1,17 +1,26 @@
 import { gql } from '@apollo/client';
-import { TrackPlaybackDetails_track as Track } from '../types/api';
+import {
+  TrackPlaybackDetails_context as Context,
+  TrackPlaybackDetails_track as Track,
+  PlaybackContextType,
+} from '../types/api';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
 import DelimitedList from './DelimitedList';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
 import Text from './Text';
+import { parseSpotifyIDFromURI } from '../utils/spotify';
 
 interface TrackPlaybackDetailsProps {
+  context: Context | null;
   track: Track;
 }
 
-const TrackPlaybackDetails = ({ track }: TrackPlaybackDetailsProps) => {
+const TrackPlaybackDetails = ({
+  context,
+  track,
+}: TrackPlaybackDetailsProps) => {
   return (
     <Flex direction="column" gap="0.25rem">
       <Text size="sm">
@@ -26,6 +35,13 @@ const TrackPlaybackDetails = ({ track }: TrackPlaybackDetailsProps) => {
               <ContextMenu.Link to={`/albums/${track.album.id}`}>
                 Go to album
               </ContextMenu.Link>
+              <ContextMenu.Separator />
+              {context?.type === PlaybackContextType.Playlist && (
+                <ContextMenuAction.RemoveFromPlaylist
+                  playlistId={parseSpotifyIDFromURI(context.uri)!}
+                  uri={track.uri}
+                />
+              )}
               <ContextMenu.Separator />
               <ContextMenuAction.OpenDesktopApp uri={track.uri} />
             </>
@@ -48,6 +64,12 @@ const TrackPlaybackDetails = ({ track }: TrackPlaybackDetailsProps) => {
 };
 
 TrackPlaybackDetails.fragments = {
+  context: gql`
+    fragment TrackPlaybackDetails_context on PlaybackContext {
+      uri
+      type
+    }
+  `,
   track: gql`
     fragment TrackPlaybackDetails_track on Track {
       id

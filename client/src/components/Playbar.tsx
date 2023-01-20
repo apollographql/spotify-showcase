@@ -81,7 +81,10 @@ const Playbar = ({ className }: PlaybarProps) => {
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
           {playbackItem?.__typename === 'Track' ? (
-            <TrackPlaybackDetails track={playbackItem} />
+            <TrackPlaybackDetails
+              context={playbackState?.context ?? null}
+              track={playbackItem}
+            />
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}
@@ -183,6 +186,9 @@ Playbar.fragments = {
       actions {
         disallows
       }
+      context {
+        ...TrackPlaybackDetails_context
+      }
       device {
         id
         name
@@ -217,6 +223,7 @@ Playbar.fragments = {
 
     ${PlaybackItemProgressBar.fragments.playbackState}
     ${EpisodePlaybackDetails.fragments.episode}
+    ${TrackPlaybackDetails.fragments.context}
     ${TrackPlaybackDetails.fragments.track}
   `,
 };
