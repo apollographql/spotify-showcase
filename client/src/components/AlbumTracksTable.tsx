@@ -48,9 +48,13 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
           <>
             <ContextMenuAction.AddToQueue uri={track.uri} />
             <ContextMenu.Separator />
-            <ContextMenu.Link to={`/artists/${track.artists[0].id}`}>
-              Go to artist
-            </ContextMenu.Link>
+            <ContextMenuAction.LinkToArtist artists={track.artists} />
+            <ContextMenu.Separator />
+            <ContextMenu.SubMenu
+              content={<ContextMenuAction.CopyLinkToEntity entity={track} />}
+            >
+              Share
+            </ContextMenu.SubMenu>
             <ContextMenu.Separator />
             <ContextMenuAction.OpenDesktopApp uri={track.uri} context={album} />
           </>
