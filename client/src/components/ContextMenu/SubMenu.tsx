@@ -12,7 +12,7 @@ const SubMenu = ({ children, content }: SubMenuProps) => {
     <ContextMenu.Sub>
       <ContextMenu.SubTrigger className="data-open:bg-white/10 flex items-center justify-between gap-1 rounded-sm p-2 hover:bg-white/10 hover:outline-0">
         {children}
-        <ChevronRight size="1rem" />
+        <ChevronRight size="1em" />
       </ContextMenu.SubTrigger>
       <ContextMenu.Portal>
         <ContextMenu.SubContent className="bg-surface max-w[350px] z-10 min-w-[160px] rounded p-1 text-sm text-white shadow-xl">
