@@ -9,6 +9,10 @@ export const parseSpotifyIDFromURI = (spotifyURI: string) => {
 };
 
 export const parseSpotifyTypeFromURI = (spotifyURI: string) => {
+  if (/^spotify:user:\w+:collection$/.test(spotifyURI)) {
+    return 'collection';
+  }
+
   const matches = spotifyURI.match(/^spotify:(.*?):.*$/);
 
   return matches?.[1];

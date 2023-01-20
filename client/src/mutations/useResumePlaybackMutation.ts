@@ -48,6 +48,8 @@ const getContextTypeFromURI = (contextURI: string) => {
       return PlaybackContextType.Album;
     case 'artist':
       return PlaybackContextType.Artist;
+    case 'collection':
+      return PlaybackContextType.Collection;
     case 'playlist':
       return PlaybackContextType.Playlist;
     case 'show':
