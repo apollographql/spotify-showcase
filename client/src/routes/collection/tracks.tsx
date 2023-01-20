@@ -28,6 +28,7 @@ import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
+import { useEffect } from 'react';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
@@ -75,10 +76,31 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 const CollectionTracksRoute = () => {
   useSetBackgroundColor('#1F3363');
 
-  const { data } = useSuspenseQuery<
+  const { client, data } = useSuspenseQuery<
     CollectionTracksRouteQuery,
     CollectionTracksRouteQueryVariables
   >(COLLECTION_TRACKS_ROUTE_QUERY);
+
+  useEffect(() => {
+    const { cache } = client;
+    const trackIds = data.me?.tracks?.edges.map((edge) => edge.node.id) ?? [];
+
+    if (trackIds.length === 0) {
+      return;
+    }
+
+    cache.modify({
+      id: cache.identify({ __typename: 'CurrentUser' }),
+      fields: {
+        tracksContains: (existing: Record<string, boolean>) => {
+          return trackIds.reduce(
+            (memo, id) => ({ ...memo, [id]: true }),
+            existing
+          );
+        },
+      },
+    });
+  }, [client, data]);
 
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState =
