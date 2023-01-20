@@ -1564,6 +1564,12 @@ type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string,
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
+export type PlaylistTrackContextMenu_currentUser = { __typename: 'User', id: string };
+
+export type PlaylistTrackContextMenu_track = { __typename: 'Track', id: string, uri: string, artists: Array<{ __typename: 'Artist', id: string }>, album: { __typename: 'Album', id: string } };
+
+export type PlaylistTrackContextMenu_playlist = { __typename: 'Playlist', id: string, owner: { __typename: 'User', id: string } };
+
 export type TrackNumberCell_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 
 export type TrackNumberCell_track = { __typename: 'Track', id: string, uri: string, trackNumber: number | null };

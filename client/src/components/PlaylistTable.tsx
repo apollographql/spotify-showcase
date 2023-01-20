@@ -17,6 +17,7 @@ import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
 import PlaylistTitleCell from './PlaylistTitleCell';
+import PlaylistTrackContextMenu from './PlaylistTrackContextMenu';
 import { Get } from 'type-fest';
 import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
@@ -43,8 +44,11 @@ const PLAYLIST_TABLE_CURRENT_USER_FRAGMENT = gql`
   fragment PlaylistTable_currentUser on CurrentUser {
     user {
       id
+      ...PlaylistTrackContextMenu_currentUser
     }
   }
+
+  ${PlaylistTrackContextMenu.fragments.currentUser}
 `;
 
 const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
@@ -170,6 +174,16 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
       contextMenu={(row) => {
         const playlistItem = row.original.node;
 
+        if (playlistItem.__typename === 'Track') {
+          return (
+            <PlaylistTrackContextMenu
+              currentUser={currentUser}
+              track={playlistItem}
+              playlist={playlist}
+            />
+          );
+        }
+
         return (
           <>
             <ContextMenu.Action
@@ -180,24 +194,8 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
               Add to queue
             </ContextMenu.Action>
             <ContextMenu.Separator />
-            {playlistItem.__typename === 'Track' && (
-              <>
-                <ContextMenu.Link to={`/artists/${playlistItem.artists[0].id}`}>
-                  Go to artist
-                </ContextMenu.Link>
-                <ContextMenu.Link to={`/albums/${playlistItem.album.id}`}>
-                  Go to album
-                </ContextMenu.Link>
-              </>
-            )}
             {playlist.owner.id === currentUser?.id && (
-              <ContextMenu.Action
-                onSelect={() => {
-                  console.log('remove this playlist');
-                }}
-              >
-                Remove from this playlist
-              </ContextMenu.Action>
+              <ContextMenu.Action>Remove from this playlist</ContextMenu.Action>
             )}
           </>
         );
@@ -241,6 +239,7 @@ PlaylistTable.fragments = {
                 name
               }
 
+              ...PlaylistTrackContextMenu_track
               ...TrackNumberCell_track
             }
 
@@ -259,9 +258,13 @@ PlaylistTable.fragments = {
           }
         }
       }
+
+      ...PlaylistTrackContextMenu_playlist
     }
 
     ${PlaylistTitleCell.fragments.playlistTrack}
+    ${PlaylistTrackContextMenu.fragments.playlist}
+    ${PlaylistTrackContextMenu.fragments.track}
     ${TrackNumberCell.fragments.track}
   `,
 };
