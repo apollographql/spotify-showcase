@@ -8,6 +8,7 @@ import Popover from './Popover';
 import AnimatedSoundWave from './AnimatedSoundWave';
 import DeviceIcon from './DeviceIcon';
 import usePlaybackState from '../hooks/usePlaybackState';
+import useTransferPlaybackMutation from '../mutations/useTransferPlaybackMutation';
 
 interface DevicePopoverProps {
   devices: Device[];
@@ -23,6 +24,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 `;
 
 const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
+  const [transferPlayback] = useTransferPlaybackMutation();
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
@@ -48,12 +50,16 @@ const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
           <h4 className="my-2 px-4">Select another device</h4>
           <ul className="flex list-none flex-col">
             {devices.map((device) => (
-              <li
-                key={device.id}
-                className="flex cursor-pointer items-center gap-4 rounded p-4 text-sm hover:bg-white/10"
-              >
-                <DeviceIcon device={device} />
-                {device.name}
+              <li key={device.id}>
+                <button
+                  className="flex w-full cursor-pointer items-center gap-4 rounded p-4 text-sm hover:bg-white/10"
+                  onClick={() => {
+                    transferPlayback({ deviceId: device.id });
+                  }}
+                >
+                  <DeviceIcon device={device} />
+                  {device.name}
+                </button>
               </li>
             ))}
           </ul>
