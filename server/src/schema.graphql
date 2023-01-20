@@ -235,6 +235,11 @@ type Mutation {
   Skips to previous track in the user’s queue.
   """
   skipToPrevious(context: SkipToPreviousContextInput): SkipToPreviousResponse
+
+  """
+  Transfer playback to a new device and determine if it should start playing.
+  """
+  transferPlayback(input: TransferPlaybackInput!): TransferPlaybackPayload
 }
 
 input SaveAlbumsInput {
@@ -1820,6 +1825,25 @@ input SkipToPreviousContextInput {
 
 type SkipToPreviousResponse {
   "The updated state of playback after skipping to previous."
+  playbackState: PlaybackState
+}
+
+input TransferPlaybackInput {
+  """
+  A list containing the ID of the device on which playback should be
+  started/transferred.
+  """
+  deviceIds: [ID!]!
+
+  """
+  `true`: ensure playback happens on new device.
+  `false` or not provided: keep the current playback state.
+  """
+  play: Boolean
+}
+
+type TransferPlaybackPayload {
+  "The state of playback after transferring devices."
   playbackState: PlaybackState
 }
 

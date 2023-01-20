@@ -210,6 +210,18 @@ const resolvers: MutationResolvers = {
 
     return { playbackState };
   },
+  transferPlayback: async (_, { input }, { dataSources, publisher }) => {
+    await dataSources.spotify.transferPlayback({
+      body: { device_ids: input.deviceIds, play: maybe(input.play) },
+    });
+
+    const playbackState = await refreshPlaybackState(
+      dataSources.spotify,
+      publisher
+    );
+
+    return { playbackState };
+  },
 };
 
 export default resolvers;

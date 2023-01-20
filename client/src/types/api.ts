@@ -515,6 +515,8 @@ export type Mutation = {
   skipToNext: Maybe<SkipToNextResponse>;
   /** Skips to previous track in the user’s queue. */
   skipToPrevious: Maybe<SkipToPreviousResponse>;
+  /** Transfer playback to a new device and determine if it should start playing. */
+  transferPlayback: Maybe<TransferPlaybackPayload>;
   /**
    * Update configuration for a field in the schema. Allows tweaks to the
    * synthetic timeouts and error rates associated with the field. By default, both
@@ -596,6 +598,11 @@ export type MutationskipToNextArgs = {
 
 export type MutationskipToPreviousArgs = {
   context?: InputMaybe<SkipToPreviousContextInput>;
+};
+
+
+export type MutationtransferPlaybackArgs = {
+  input: TransferPlaybackInput;
 };
 
 
@@ -1424,6 +1431,25 @@ export type TrackExternalIds = {
   isrc: Maybe<Scalars['String']>;
   /** [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code) */
   upc: Maybe<Scalars['String']>;
+};
+
+export type TransferPlaybackInput = {
+  /**
+   * A list containing the ID of the device on which playback should be
+   * started/transferred.
+   */
+  deviceIds: Array<Scalars['ID']>;
+  /**
+   * `true`: ensure playback happens on new device.
+   * `false` or not provided: keep the current playback state.
+   */
+  play?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type TransferPlaybackPayload = {
+  __typename: 'TransferPlaybackPayload';
+  /** The state of playback after transferring devices. */
+  playbackState: Maybe<PlaybackState>;
 };
 
 export type UpdateFieldConfigResponse = {
