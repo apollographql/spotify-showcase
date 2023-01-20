@@ -10,15 +10,17 @@ import {
   Row,
 } from '@tanstack/react-table';
 import styles from './Table.module.scss';
+import ContextMenu from './ContextMenu';
 
 interface TableProps<TData>
-  extends Omit<ComponentPropsWithoutRef<'table'>, 'children'> {
+  extends Omit<ComponentPropsWithoutRef<'table'>, 'children' | 'contextMenu'> {
   data: TData[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<TData, any>[];
   meta?: TableMeta<TData>;
   visibility?: VisibilityState;
   onDoubleClickRow?: (row: Row<TData>) => void;
+  contextMenu?: (row: Row<TData>) => JSX.Element;
 }
 
 function Table<TData>({
@@ -28,6 +30,7 @@ function Table<TData>({
   meta,
   visibility,
   onDoubleClickRow,
+  contextMenu,
   ...props
 }: TableProps<TData>) {
   const table = useReactTable({
@@ -68,15 +71,25 @@ function Table<TData>({
         ))}
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} onDoubleClick={() => onDoubleClickRow?.(row)}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} data-wrap={cell.column.columnDef.meta?.wrap}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {table.getRowModel().rows.map((row) => {
+          const tableRow = (
+            <tr onDoubleClick={() => onDoubleClickRow?.(row)}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} data-wrap={cell.column.columnDef.meta?.wrap}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          );
+
+          if (contextMenu) {
+            return (
+              <ContextMenu content={contextMenu(row)}>{tableRow}</ContextMenu>
+            );
+          }
+
+          return tableRow;
+        })}
       </tbody>
     </table>
   );
