@@ -2,8 +2,9 @@ import * as RadixContextMenu from '@radix-ui/react-context-menu';
 import { ReactNode } from 'react';
 
 import Action from './Action';
-import Separator from './Separator';
 import Link from './Link';
+import Separator from './Separator';
+import SubMenu from './SubMenu';
 
 interface ContextMenuProps {
   children: ReactNode;
@@ -26,5 +27,6 @@ const ContextMenu = ({ children, content }: ContextMenuProps) => {
 ContextMenu.Action = Action;
 ContextMenu.Link = Link;
 ContextMenu.Separator = Separator;
+ContextMenu.SubMenu = SubMenu;
 
 export default ContextMenu;
