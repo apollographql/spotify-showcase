@@ -1,6 +1,5 @@
 import { gql, useMutation, Reference } from '@apollo/client';
 import {
-  SavedTrackEdge,
   SaveTracksMutation,
   SaveTracksMutationVariables,
   SaveTracksInput,
