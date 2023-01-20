@@ -12,16 +12,15 @@ import {
 } from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
-import ContextMenu from './ContextMenu';
 import EntityLink from './EntityLink';
 import ReleaseDate from './ReleaseDate';
 import Table from './Table';
+import PlaylistEpisodeContextMenu from './PlaylistEpisodeContextMenu';
 import PlaylistTitleCell from './PlaylistTitleCell';
 import PlaylistTrackContextMenu from './PlaylistTrackContextMenu';
 import { Get } from 'type-fest';
 import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
-import useAddToQueueMutation from '../mutations/useAddToQueueMutation';
 
 interface PlaylistTableProps {
   className?: string;
@@ -60,7 +59,6 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
 
   const currentUser = data?.user;
   const [resumePlayback] = useResumePlaybackMutation();
-  const [addToQueue] = useAddToQueueMutation();
 
   const containsAllTracks = playlist.tracks.edges.every(
     ({ node }) => node.__typename === 'Track'
@@ -174,30 +172,17 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
       contextMenu={(row) => {
         const playlistItem = row.original.node;
 
-        if (playlistItem.__typename === 'Track') {
-          return (
-            <PlaylistTrackContextMenu
-              currentUser={currentUser}
-              track={playlistItem}
-              playlist={playlist}
-            />
-          );
-        }
-
-        return (
-          <>
-            <ContextMenu.Action
-              onSelect={() => {
-                addToQueue({ uri: playlistItem.uri });
-              }}
-            >
-              Add to queue
-            </ContextMenu.Action>
-            <ContextMenu.Separator />
-            {playlist.owner.id === currentUser?.id && (
-              <ContextMenu.Action>Remove from this playlist</ContextMenu.Action>
-            )}
-          </>
+        return playlistItem.__typename === 'Track' ? (
+          <PlaylistTrackContextMenu
+            currentUser={currentUser}
+            track={playlistItem}
+            playlist={playlist}
+          />
+        ) : (
+          <PlaylistEpisodeContextMenu
+            episode={playlistItem}
+            playlist={playlist}
+          />
         );
       }}
       onDoubleClickRow={(row) => {
@@ -221,9 +206,6 @@ PlaylistTable.fragments = {
     fragment PlaylistTable_playlist on Playlist {
       id
       uri
-      owner {
-        id
-      }
       tracks {
         edges {
           addedAt
@@ -252,6 +234,8 @@ PlaylistTable.fragments = {
                 id
                 name
               }
+
+              ...PlaylistEpisodeContextMenu_episode
             }
 
             ...PlaylistTitleCell_playlistTrack
@@ -259,9 +243,12 @@ PlaylistTable.fragments = {
         }
       }
 
+      ...PlaylistEpisodeContextMenu_playlist
       ...PlaylistTrackContextMenu_playlist
     }
 
+    ${PlaylistEpisodeContextMenu.fragments.episode}
+    ${PlaylistEpisodeContextMenu.fragments.playlist}
     ${PlaylistTitleCell.fragments.playlistTrack}
     ${PlaylistTrackContextMenu.fragments.playlist}
     ${PlaylistTrackContextMenu.fragments.track}
