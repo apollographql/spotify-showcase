@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 
 interface EntityLinkProps extends Omit<LinkProps, 'to'> {
@@ -19,10 +20,14 @@ const ENTITYS_TO_PATHS: Record<string, string> = {
   User: '/users',
 };
 
-const EntityLink = ({ entity, ...props }: EntityLinkProps) => {
-  const path = ENTITYS_TO_PATHS[entity.__typename];
+const EntityLink = forwardRef<HTMLAnchorElement, EntityLinkProps>(
+  ({ entity, ...props }, ref) => {
+    const path = ENTITYS_TO_PATHS[entity.__typename];
 
-  return path ? <Link {...props} to={`${path}/${entity.id}`} /> : null;
-};
+    return path ? (
+      <Link ref={ref} {...props} to={`${path}/${entity.id}`} />
+    ) : null;
+  }
+);
 
 export default EntityLink;
