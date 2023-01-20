@@ -494,7 +494,7 @@ type Artist {
   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the artist.
   """
-  uri: String
+  uri: String!
 }
 
 type ArtistAlbumsConnection {

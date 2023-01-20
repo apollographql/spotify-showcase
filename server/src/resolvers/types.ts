@@ -171,7 +171,7 @@ export type Artist = {
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the artist.
    */
-  uri?: Maybe<Scalars['String']>;
+  uri: Scalars['String'];
 };
 
 
@@ -1852,7 +1852,7 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   popularity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   relatedArtists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   topTracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
-  uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
