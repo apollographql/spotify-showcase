@@ -31,6 +31,9 @@ const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
   const currentDevice = devices.find(
     (device) => device.id === playbackState?.device.id
   );
+  const availableDevices = devices.filter(
+    (device) => device.id !== currentDevice?.id
+  );
 
   return (
     <Popover
@@ -47,9 +50,11 @@ const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
               </div>
             </div>
           )}
-          <h4 className="my-2 px-4">Select another device</h4>
+          {availableDevices.length > 0 && (
+            <h4 className="my-2 px-4">Select another device</h4>
+          )}
           <ul className="flex list-none flex-col">
-            {devices.map((device) => (
+            {availableDevices.map((device) => (
               <li key={device.id}>
                 <button
                   className="flex w-full cursor-pointer items-center gap-4 rounded p-4 text-sm hover:bg-white/10"
