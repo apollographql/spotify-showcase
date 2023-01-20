@@ -91,11 +91,13 @@ const Playbar = ({ className }: PlaybarProps) => {
         </Flex>
         <Flex direction="column" gap="0.5rem">
           <Flex alignItems="center" gap="1.25rem" justifyContent="center">
-            <ShufflePlaybackControl
-              shuffled={playbackState?.shuffleState ?? false}
-              disallowed={disallowed(Action.TogglingShuffle)}
-              size="1.25rem"
-            />
+            {playbackItem?.__typename === 'Track' && (
+              <ShufflePlaybackControl
+                shuffled={playbackState?.shuffleState ?? false}
+                disallowed={disallowed(Action.TogglingShuffle)}
+                size="1.25rem"
+              />
+            )}
             {playbackItem?.__typename === 'Episode' && (
               <SkipBackwardControl
                 ms={EPISODE_SKIP_FORWARD_AMOUNT}
@@ -119,10 +121,12 @@ const Playbar = ({ className }: PlaybarProps) => {
                 progressMs={playbackState?.progressMs ?? 0}
               />
             )}
-            <RepeatControl
-              disallowed={disallowed(Action.TogglingRepeatTrack)}
-              repeatState={playbackState?.repeatState ?? RepeatMode.Off}
-            />
+            {playbackItem?.__typename === 'Track' && (
+              <RepeatControl
+                disallowed={disallowed(Action.TogglingRepeatTrack)}
+                repeatState={playbackState?.repeatState ?? RepeatMode.Off}
+              />
+            )}
           </Flex>
           <PlaybackItemProgressBar playbackState={playbackState} />
         </Flex>
