@@ -1,19 +1,18 @@
 import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock } from 'lucide-react';
-import {
-  AlbumTracksTable_album as Album,
-  AlbumTracksTable_tracks as Track,
-} from '../types/api';
+import { Get } from 'type-fest';
+import { AlbumTracksTable_album as Album } from '../types/api';
 import AlbumTrackTitleCell from './AlbumTrackTitleCell';
 import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
 import Duration from './Duration';
 import Table from './Table';
 
+type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
+
 interface AlbumTracksTableProps {
   album: Album;
-  tracks: Track[];
 }
 
 const columnHelper = createColumnHelper<Track>();
@@ -37,11 +36,11 @@ const columns = [
   }),
 ];
 
-const AlbumTracksTable = ({ album, tracks }: AlbumTracksTableProps) => {
+const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
   return (
     <Table
       columns={columns}
-      data={tracks}
+      data={album.tracks?.edges.map((edge) => edge.node) ?? []}
       contextMenu={(row) => {
         const track = row.original;
 
@@ -64,20 +63,23 @@ const AlbumTracksTable = ({ album, tracks }: AlbumTracksTableProps) => {
 AlbumTracksTable.fragments = {
   album: gql`
     fragment AlbumTracksTable_album on Album {
-      uri
-    }
-  `,
-  tracks: gql`
-    fragment AlbumTracksTable_tracks on Track {
       id
       uri
-      durationMs
-      trackNumber
-      artists {
-        id
-      }
+      tracks {
+        edges {
+          node {
+            id
+            uri
+            durationMs
+            trackNumber
+            artists {
+              id
+            }
 
-      ...AlbumTrackTitleCell_track
+            ...AlbumTrackTitleCell_track
+          }
+        }
+      }
     }
 
     ${AlbumTrackTitleCell.fragments.track}

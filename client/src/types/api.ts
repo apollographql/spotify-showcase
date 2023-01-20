@@ -1528,7 +1528,7 @@ export type AlbumTile_album = { __typename: 'Album', id: string, name: string, a
 
 export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
-export type AlbumTracksTable_album = { __typename: 'Album', uri: string };
+export type AlbumTracksTable_album = { __typename: 'Album', id: string, uri: string, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null };
 
 export type AlbumTracksTable_tracks = { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 

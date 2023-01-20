@@ -47,25 +47,12 @@ const ALBUM_ROUTE_QUERY = gql`
         date
         precision
       }
-      tracks {
-        edges {
-          node {
-            id
-            durationMs
-            name
-            trackNumber
-
-            ...AlbumTracksTable_tracks
-          }
-        }
-      }
 
       ...AlbumTracksTable_album
     }
   }
 
   ${AlbumTracksTable.fragments.album}
-  ${AlbumTracksTable.fragments.tracks}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`
@@ -140,10 +127,7 @@ const AlbumRoute = () => {
             }}
           />
         </Page.ActionsBar>
-        <AlbumTracksTable
-          album={album}
-          tracks={album.tracks?.edges.map((edge) => edge.node) ?? []}
-        />
+        <AlbumTracksTable album={album} />
         <Flex direction="column">
           <Text as="div" color="muted" size="sm">
             <ReleaseDate releaseDate={album.releaseDate} />
