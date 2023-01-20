@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
+  PlaybackContextType,
   ResumePlaybackInput,
   ResumePlaybackMutation,
   ResumePlaybackMutationVariables,
@@ -8,7 +9,11 @@ import {
 } from '../types/api';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Get } from 'type-fest';
-import { parseTypenameFromURI, parseSpotifyIDFromURI } from '../utils/spotify';
+import {
+  parseTypenameFromURI,
+  parseSpotifyIDFromURI,
+  parseSpotifyTypeFromURI,
+} from '../utils/spotify';
 
 type PlaybackState = NonNullable<
   Get<ResumePlaybackMutation, 'resumePlayback.playbackState'>
@@ -20,6 +25,7 @@ const RESUME_PLAYBACK_MUTATION = gql`
       playbackState {
         context {
           uri
+          type
         }
         isPlaying
       }
@@ -31,9 +37,25 @@ const USE_RESUME_PLAYBACK_STATE_FRAGMENT = gql`
   fragment UseResumePlaybackStateFragment on PlaybackState {
     context {
       uri
+      type
     }
   }
 `;
+
+const getContextTypeFromURI = (contextURI: string) => {
+  switch (parseSpotifyTypeFromURI(contextURI)) {
+    case 'album':
+      return PlaybackContextType.Album;
+    case 'artist':
+      return PlaybackContextType.Artist;
+    case 'playlist':
+      return PlaybackContextType.Playlist;
+    case 'show':
+      return PlaybackContextType.Show;
+    default:
+      throw new Error('Could not parse context type from URI');
+  }
+};
 
 const useResumePlaybackMutation = () => {
   const [execute, result] = useMutation<
@@ -61,6 +83,7 @@ const useResumePlaybackMutation = () => {
           ...optimisticPlaybackState.context,
           __typename: 'PlaybackContext',
           uri: contextUri,
+          type: getContextTypeFromURI(contextUri),
         };
       }
 

@@ -1646,9 +1646,9 @@ export type ResumePlaybackMutationVariables = Exact<{
 }>;
 
 
-export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackPayload', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null } | null } | null };
+export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackPayload', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null } | null } | null };
 
-export type UseResumePlaybackStateFragment = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
+export type UseResumePlaybackStateFragment = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null };
 
 export type SaveTracksMutationVariables = Exact<{
   input: SaveTracksInput;
