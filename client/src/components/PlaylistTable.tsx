@@ -1,15 +1,8 @@
 import { useMemo } from 'react';
-import {
-  gql,
-  OperationVariables,
-  useFragment_experimental as useFragment,
-} from '@apollo/client';
+import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock, Podcast } from 'lucide-react';
-import {
-  PlaylistTable_playlist as Playlist,
-  PlaylistTable_currentUser as CurrentUser,
-} from '../types/api';
+import { PlaylistTable_playlist as Playlist } from '../types/api';
 import DateTime from './DateTime';
 import Duration from './Duration';
 import EntityLink from './EntityLink';
@@ -39,25 +32,7 @@ const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
   return playlistItem.album;
 };
 
-const PLAYLIST_TABLE_CURRENT_USER_FRAGMENT = gql`
-  fragment PlaylistTable_currentUser on CurrentUser {
-    user {
-      id
-      ...PlaylistTrackContextMenu_currentUser
-    }
-  }
-
-  ${PlaylistTrackContextMenu.fragments.currentUser}
-`;
-
 const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
-  const { data } = useFragment<CurrentUser, OperationVariables>({
-    from: { __typename: 'CurrentUser' },
-    fragment: PLAYLIST_TABLE_CURRENT_USER_FRAGMENT,
-    fragmentName: 'PlaylistTable_currentUser',
-  });
-
-  const currentUser = data?.user;
   const [resumePlayback] = useResumePlaybackMutation();
 
   const containsAllTracks = playlist.tracks.edges.every(
@@ -173,11 +148,7 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
         const playlistItem = row.original.node;
 
         return playlistItem.__typename === 'Track' ? (
-          <PlaylistTrackContextMenu
-            currentUser={currentUser}
-            track={playlistItem}
-            playlist={playlist}
-          />
+          <PlaylistTrackContextMenu track={playlistItem} playlist={playlist} />
         ) : (
           <PlaylistEpisodeContextMenu
             episode={playlistItem}

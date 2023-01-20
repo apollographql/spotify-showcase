@@ -1,4 +1,8 @@
-import { gql } from '@apollo/client';
+import {
+  gql,
+  useFragment_experimental as useFragment,
+  OperationVariables,
+} from '@apollo/client';
 import {
   PlaylistTrackContextMenu_currentUser as CurrentUser,
   PlaylistTrackContextMenu_playlist as Playlist,
@@ -8,17 +12,30 @@ import ContextMenu from './ContextMenu';
 import useAddToQueueMutation from '../mutations/useAddToQueueMutation';
 
 interface PlaylistTrackContextMenuProps {
-  currentUser?: CurrentUser;
   playlist: Playlist;
   track: Track;
 }
 
+const CURRENT_USER_FRAGMENT = gql`
+  fragment PlaylistTrackContextMenu_currentUser on CurrentUser {
+    user {
+      id
+    }
+  }
+`;
+
 const PlaylistTrackContextMenu = ({
-  currentUser,
   track,
   playlist,
 }: PlaylistTrackContextMenuProps) => {
   const [addToQueue] = useAddToQueueMutation();
+  const { data } = useFragment<CurrentUser, OperationVariables>({
+    from: { __typename: 'CurrentUser' },
+    fragment: CURRENT_USER_FRAGMENT,
+    fragmentName: 'PlaylistTrackContextMenu_currentUser',
+  });
+
+  const currentUser = data?.user;
 
   return (
     <>
@@ -44,11 +61,6 @@ const PlaylistTrackContextMenu = ({
 };
 
 PlaylistTrackContextMenu.fragments = {
-  currentUser: gql`
-    fragment PlaylistTrackContextMenu_currentUser on User {
-      id
-    }
-  `,
   track: gql`
     fragment PlaylistTrackContextMenu_track on Track {
       id
