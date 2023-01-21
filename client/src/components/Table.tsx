@@ -88,7 +88,6 @@ function Table<TData>({
   enableShiftSelect = false,
   ...props
 }: TableProps<TData>) {
-  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const [selectedRowStack, setSelectedRowStack] = useState<number[]>([]);
   const rowSelectionType = useRowSelectionType({
     enableMetaSelect,
@@ -101,13 +100,13 @@ function Table<TData>({
     meta,
     state: {
       columnVisibility: visibility,
-      rowSelection,
     },
     enableRowSelection,
     enableMultiRowSelection: enableMetaSelect || enableShiftSelect,
     getCoreRowModel: getCoreRowModel(),
-    onRowSelectionChange: setRowSelection,
   });
+
+  const { rowSelection } = table.getState();
 
   const selectedRows = useMemo(() => {
     return Object.entries(rowSelection)
@@ -194,7 +193,6 @@ function Table<TData>({
 
           const tableRow = (
             <tr
-              data-state={row.getIsSelected() ? 'selected' : null}
               key={row.id}
               onClick={() => handleSelectRow(row)}
               onDoubleClick={() => onDoubleClickRow?.(row)}
@@ -225,9 +223,12 @@ function Table<TData>({
             </tr>
           );
 
-          if (contextMenu && selectedRows.length) {
+          if (contextMenu) {
             return (
-              <ContextMenu key={row.id} content={contextMenu(selectedRows)}>
+              <ContextMenu
+                key={row.id}
+                content={selectedRows.length ? contextMenu(selectedRows) : null}
+              >
                 {tableRow}
               </ContextMenu>
             );
