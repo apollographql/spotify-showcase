@@ -20,6 +20,7 @@ module.exports = {
         base: '#121212',
         pure: '#000',
       },
+      blue: '#0d72ea',
       green: {
         DEFAULT: 'hsl(140, 63%, 44%)',
         light: 'hsl(140, 63%, 54%)',
@@ -43,6 +44,8 @@ module.exports = {
     },
     extend: {
       animation: {
+        'fade-in': 'fade-in 400ms ease-out',
+        'fade-out': 'fade-out 400ms ease-out',
         'slide-up-fade': 'slide-up-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         'slide-down-fade':
           'slide-down-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -55,6 +58,14 @@ module.exports = {
         xxs: ['0.625rem', '0.875rem'],
       },
       keyframes: {
+        'fade-in': {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        'fade-out': {
+          from: { opacity: 1 },
+          to: { opacity: 0 },
+        },
         'slide-up-fade': {
           from: {
             opacity: 0,

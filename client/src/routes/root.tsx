@@ -16,6 +16,7 @@ import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import usePlaybackState from '../hooks/usePlaybackState';
 import styles from './root.module.scss';
 import { Volume2 } from 'lucide-react';
+import NotificationManager from '../components/NotificationManager';
 
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int!) {
@@ -46,16 +47,19 @@ const Root = () => {
   const Wrapper = isLoggedIn ? AuthenticatedWrapper : Fragment;
 
   return (
-    <Layout>
-      <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
-      <Layout.Main>
-        <Layout.Header />
-        <Wrapper>
-          <Outlet />
-        </Wrapper>
-      </Layout.Main>
-      {isLoggedIn && <Playbar className={styles.playbar} />}
-    </Layout>
+    <>
+      <Layout>
+        <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
+        <Layout.Main>
+          <Layout.Header />
+          <Wrapper>
+            <Outlet />
+          </Wrapper>
+        </Layout.Main>
+        {isLoggedIn && <Playbar className={styles.playbar} />}
+      </Layout>
+      <NotificationManager />
+    </>
   );
 };
 
