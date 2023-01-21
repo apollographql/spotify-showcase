@@ -5,6 +5,7 @@ import {
   flexRender,
   useReactTable,
   ColumnDef,
+  TableOptions,
   TableMeta,
   VisibilityState,
   Row,
@@ -21,6 +22,8 @@ interface TableProps<TData>
   visibility?: VisibilityState;
   onDoubleClickRow?: (row: Row<TData>) => void;
   contextMenu?: (row: Row<TData>) => JSX.Element;
+  enableRowSelection?: TableOptions<TData>['enableRowSelection'];
+  enableMultiRowSelection?: TableOptions<TData>['enableMultiRowSelection'];
 }
 
 function Table<TData>({
@@ -31,6 +34,8 @@ function Table<TData>({
   visibility,
   onDoubleClickRow,
   contextMenu,
+  enableRowSelection = false,
+  enableMultiRowSelection = false,
   ...props
 }: TableProps<TData>) {
   const table = useReactTable({
@@ -40,6 +45,8 @@ function Table<TData>({
     state: {
       columnVisibility: visibility,
     },
+    enableRowSelection,
+    enableMultiRowSelection,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -75,8 +82,10 @@ function Table<TData>({
           const tableRow = (
             <tr
               key={row.id}
+              onClick={row.getToggleSelectedHandler()}
               onDoubleClick={() => onDoubleClickRow?.(row)}
-              className="group"
+              className={cx('group', { 'bg-white/30': row.getIsSelected() })}
+              onContextMenu={row.getToggleSelectedHandler()}
             >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} data-wrap={cell.column.columnDef.meta?.wrap}>
