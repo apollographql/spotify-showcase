@@ -21,6 +21,7 @@ import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
+import TrackLikeButtonCell from './TrackLikeButtonCell';
 
 interface PlaylistTableProps {
   className?: string;
@@ -148,6 +149,22 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
         },
         meta: {
           wrap: false,
+        },
+      }),
+      columnHelper.accessor('node', {
+        id: 'liked',
+        header: '',
+        cell: (info) => {
+          const playlistItem = info.getValue();
+
+          if (playlistItem.__typename === 'Episode') {
+            return null;
+          }
+
+          return <TrackLikeButtonCell liked={false} track={playlistItem} />;
+        },
+        meta: {
+          shrink: true,
         },
       }),
       columnHelper.accessor('node.durationMs', {
