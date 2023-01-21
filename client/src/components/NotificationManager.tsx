@@ -1,12 +1,13 @@
 import cx from 'classnames';
 import { useReactiveVar } from '@apollo/client';
-import { notificationsVar, Notification } from '../vars';
+import { notificationsVar, Notification as NotificationType } from '../vars';
+import Notification from './Notification';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import { useEffect, useRef } from 'react';
 
 const scheduleRemoval = (
-  notification: Notification,
-  onRemoved: (notification: Notification) => void
+  notification: NotificationType,
+  onRemoved: (notification: NotificationType) => void
 ) => {
   return setTimeout(() => {
     notificationsVar(notificationsVar().filter((n) => n !== notification));
@@ -15,12 +16,12 @@ const scheduleRemoval = (
 };
 
 const NotificationManager = () => {
-  const ref = useRef<Map<Notification, NodeJS.Timeout>>(new Map());
+  const ref = useRef<Map<NotificationType, NodeJS.Timeout>>(new Map());
   const notifications = useReactiveVar(notificationsVar);
   const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
-    const unset = (notification: Notification) => {
+    const unset = (notification: NotificationType) => {
       ref.current.delete(notification);
     };
 
@@ -44,14 +45,7 @@ const NotificationManager = () => {
       )}
     >
       {notifications.map((notification, index) => {
-        return (
-          <div
-            key={index}
-            className="bg-blue animate-fade-in w-max rounded p-4 text-center text-white"
-          >
-            {notification.message}
-          </div>
-        );
+        return <Notification key={index} notification={notification} />;
       })}
     </div>
   );
