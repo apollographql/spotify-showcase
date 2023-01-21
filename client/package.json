@@ -10,7 +10,7 @@
     "@radix-ui/react-progress": "^1.0.1",
     "@radix-ui/react-slider": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.0.2",
-    "@tanstack/react-table": "^8.7.3",
+    "@tanstack/react-table": "^8.7.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
