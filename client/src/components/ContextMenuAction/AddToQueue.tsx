@@ -11,9 +11,7 @@ const AddToQueue = ({ uris }: AddToQueueProps) => {
   return (
     <ContextMenu.Action
       onSelect={() => {
-        uris.forEach((uri) => {
-          addToQueue({ uri });
-        });
+        Promise.all(uris.map((uri) => addToQueue({ uri })));
       }}
     >
       Add to queue
