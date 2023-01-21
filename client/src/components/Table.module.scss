@@ -68,24 +68,4 @@
       }
     }
   }
-
-  tbody {
-    &::before {
-      line-height: 1rem;
-      content: '\200C';
-      display: block;
-    }
-
-    td {
-      &:first-child {
-        border-top-left-radius: 0.25rem;
-        border-bottom-left-radius: 0.25rem;
-      }
-
-      &:last-child {
-        border-top-right-radius: 0.25rem;
-        border-bottom-right-radius: 0.25rem;
-      }
-    }
-  }
 }

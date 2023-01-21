@@ -35,6 +35,7 @@ module.exports = {
     data: {
       open: 'state="open"',
       closed: 'state="closed"',
+      selected: 'state="selected"',
       'side-right': 'side="right"',
       'side-bottom': 'side="bottom"',
       'side-left': 'side="left"',
