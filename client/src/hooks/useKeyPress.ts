@@ -53,6 +53,7 @@ const isTypingInInput = (event: KeyboardEvent) =>
   (event.target as HTMLElement).matches('textarea');
 
 interface Options {
+  active?: boolean;
   ignoreTextInput?: boolean;
   keyup?: boolean;
   keydown?: boolean;
@@ -63,7 +64,12 @@ type KeyPressHandler = (event: KeyboardEvent) => void;
 const useKeyPress = (
   keys: string | string[],
   handler: KeyPressHandler,
-  { ignoreTextInput = true, keyup = false, keydown = true }: Options = {}
+  {
+    active = true,
+    ignoreTextInput = true,
+    keyup = false,
+    keydown = true,
+  }: Options = {}
 ) => {
   const handlerRef = useRef(handler);
   const combinations = useDeepMemo(
@@ -89,11 +95,11 @@ const useKeyPress = (
       }
     };
 
-    if (keydown) {
+    if (active && keydown) {
       document.addEventListener('keydown', handleKeyPress);
     }
 
-    if (keyup) {
+    if (active && keyup) {
       document.addEventListener('keyup', handleKeyPress);
     }
 
@@ -101,7 +107,7 @@ const useKeyPress = (
       document.removeEventListener('keydown', handleKeyPress);
       document.removeEventListener('keyup', handleKeyPress);
     };
-  }, [combinations, ignoreTextInput, keyup, keydown]);
+  }, [active, combinations, ignoreTextInput, keyup, keydown]);
 };
 
 export default useKeyPress;
