@@ -3,13 +3,26 @@ import useDeepMemo from './useDeepMemo';
 
 type KeyCombination = [modifier: string | null, key: string];
 
-const normalizeKeyCombination = (keys: string): KeyCombination => {
-  const [modifier, k] = keys.split(/\s*\+\s*/);
-
-  return k == null ? [null, modifier] : [modifier, k];
+const KEY_ALIASES: Record<string, string> = {
+  cmd: 'Meta',
+  ctrl: 'Control',
+  shift: 'Shift',
+  alt: 'alt',
 };
 
-const matchesModifierKey = (modifier: string | null, event: KeyboardEvent) => {
+const normalizeKey = (key: string) => {
+  return KEY_ALIASES[key] || key;
+};
+
+const normalizeKeyCombination = (keys: string): KeyCombination => {
+  const [modifier, key] = keys.split(/\s*\+\s*/);
+
+  return key == null
+    ? [null, normalizeKey(modifier)]
+    : [modifier, normalizeKey(key)];
+};
+
+const matchesModifier = (modifier: string | null, event: KeyboardEvent) => {
   switch (modifier) {
     case null:
       return true;
@@ -30,10 +43,9 @@ const matchesAnyCombination = (
   combinations: KeyCombination[],
   event: KeyboardEvent
 ) => {
-  return combinations.some(
-    ([modifier, key]) =>
-      event.key === key && matchesModifierKey(modifier, event)
-  );
+  return combinations.some(([modifier, key]) => {
+    return matchesModifier(modifier, event) && event.key === key;
+  });
 };
 
 const isTypingInInput = (event: KeyboardEvent) =>
@@ -42,14 +54,18 @@ const isTypingInInput = (event: KeyboardEvent) =>
 
 interface Options {
   ignoreTextInput?: boolean;
+  keyup?: boolean;
+  keydown?: boolean;
 }
+
+type KeyPressHandler = (event: KeyboardEvent) => void;
 
 const useKeyPress = (
   keys: string | string[],
-  handler: (event: Event) => void,
-  { ignoreTextInput = true }: Options = {}
+  handler: KeyPressHandler,
+  { ignoreTextInput = true, keyup = false, keydown = true }: Options = {}
 ) => {
-  const savedHandler = useRef(handler);
+  const handlerRef = useRef(handler);
   const combinations = useDeepMemo(
     () =>
       Array.isArray(keys)
@@ -59,26 +75,33 @@ const useKeyPress = (
   );
 
   useEffect(() => {
-    savedHandler.current = handler;
+    handlerRef.current = handler;
   }, [handler]);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyPress = (event: KeyboardEvent) => {
       if (ignoreTextInput && isTypingInInput(event)) {
         return;
       }
 
       if (matchesAnyCombination(combinations, event)) {
-        savedHandler.current(event);
+        handlerRef.current(event);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    if (keydown) {
+      document.addEventListener('keydown', handleKeyPress);
+    }
+
+    if (keyup) {
+      document.addEventListener('keyup', handleKeyPress);
+    }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener('keyup', handleKeyPress);
     };
-  }, [combinations, ignoreTextInput]);
+  }, [combinations, ignoreTextInput, keyup, keydown]);
 };
 
 export default useKeyPress;
