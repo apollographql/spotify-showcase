@@ -133,6 +133,10 @@ function Table<TData>({
   };
 
   const handleSelectRow = (row: Row<TData>) => {
+    if (!enableRowSelection) {
+      return;
+    }
+
     trackRowSelection(row);
 
     switch (rowSelectionType) {
