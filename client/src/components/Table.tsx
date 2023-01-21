@@ -104,8 +104,7 @@ function Table<TData>({
       rowSelection,
     },
     enableRowSelection,
-    enableMultiRowSelection:
-      rowSelectionType === 'multi' || rowSelectionType === 'range',
+    enableMultiRowSelection: enableMetaSelect || enableShiftSelect,
     getCoreRowModel: getCoreRowModel(),
     onRowSelectionChange: setRowSelection,
   });
