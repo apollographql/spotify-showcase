@@ -29,6 +29,7 @@ import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
 import { useEffect } from 'react';
+import TrackLikeButtonCell from '../../components/TrackLikeButtonCell';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
@@ -256,6 +257,7 @@ const columns = [
     },
   }),
   columnHelper.accessor('node', {
+    id: 'title',
     header: 'Title',
     cell: (info) => (
       <TrackTitleCell
@@ -269,6 +271,16 @@ const columns = [
     cell: (info) => (
       <DateTime date={info.getValue()} format={DateTime.FORMAT.timeAgo} />
     ),
+  }),
+  columnHelper.accessor('node', {
+    id: 'likeButton',
+    header: '',
+    cell: (info) => {
+      return <TrackLikeButtonCell liked={true} track={info.getValue()} />;
+    },
+    meta: {
+      shrink: true,
+    },
   }),
   columnHelper.accessor('node.durationMs', {
     header: () => <Clock size="1rem" />,
