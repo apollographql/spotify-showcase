@@ -30,7 +30,7 @@ const PlayButton = ({
       <button
         disabled={disabled}
         className={cx(
-          'flex h-[length:var(--play-button--size)] w-[length:var(--play-button--size)] scale-100 transform-gpu cursor-pointer items-center justify-center rounded-full border-2 border-solid p-0 transition-all ease-in-out [backface-visibility:hidden]',
+          'flex h-[var(--play-button--size)] w-[var(--play-button--size)] scale-100 transform-gpu cursor-pointer items-center justify-center rounded-full border-2 border-solid p-0 transition-all ease-in-out [backface-visibility:hidden]',
           '[&:hover:not(:disabled)]:scale-110 [&:active:not(:disabled)]:scale-105',
           'focus:outline-0',
           'disabled:cursor-not-allowed disabled:opacity-25',
