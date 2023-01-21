@@ -2,14 +2,20 @@ import useAddToQueueMutation from '../../mutations/useAddToQueueMutation';
 import ContextMenu from '../ContextMenu';
 
 interface AddToQueueProps {
-  uri: string;
+  uris: string[];
 }
 
-const AddToQueue = ({ uri }: AddToQueueProps) => {
+const AddToQueue = ({ uris }: AddToQueueProps) => {
   const [addToQueue] = useAddToQueueMutation();
 
   return (
-    <ContextMenu.Action onSelect={() => addToQueue({ uri })}>
+    <ContextMenu.Action
+      onSelect={() => {
+        uris.forEach((uri) => {
+          addToQueue({ uri });
+        });
+      }}
+    >
       Add to queue
     </ContextMenu.Action>
   );
