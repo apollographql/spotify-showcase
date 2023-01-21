@@ -35,7 +35,7 @@ const NotificationManager = () => {
     <div
       className={cx(
         'fixed left-1/2 flex max-w-md -translate-x-1/2 flex-col items-center gap-4',
-        isLoggedIn ? 'bottom-32' : 'bottom-8',
+        isLoggedIn ? 'bottom-36' : 'bottom-8',
         {
           hidden: notifications.length === 0,
         }
