@@ -73,7 +73,11 @@ function Table<TData>({
       <tbody>
         {table.getRowModel().rows.map((row) => {
           const tableRow = (
-            <tr key={row.id} onDoubleClick={() => onDoubleClickRow?.(row)}>
+            <tr
+              key={row.id}
+              onDoubleClick={() => onDoubleClickRow?.(row)}
+              className="group"
+            >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} data-wrap={cell.column.columnDef.meta?.wrap}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

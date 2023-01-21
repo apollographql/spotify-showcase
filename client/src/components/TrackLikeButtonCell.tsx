@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import useRemoveSavedTracksMutation from '../mutations/useRemoveSavedTracksMutation';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import LikeButton from './LikeButton';
@@ -17,16 +18,20 @@ const TrackLikeButtonCell = ({ liked, track }: TrackLikeButtonCellProps) => {
   const [removeSavedTracks] = useRemoveSavedTracksMutation();
 
   return (
-    <LikeButton
-      liked={liked}
-      size="1rem"
-      className="relative top-px"
-      onClick={() => {
-        return liked
-          ? removeSavedTracks({ ids: [track.id] })
-          : saveTracks({ ids: [track.id] });
-      }}
-    />
+    <div className="px-2">
+      <LikeButton
+        liked={liked}
+        size="1rem"
+        className={cx('relative top-[2px] group-hover:visible', {
+          invisible: !liked,
+        })}
+        onClick={() => {
+          return liked
+            ? removeSavedTracks({ ids: [track.id] })
+            : saveTracks({ ids: [track.id] });
+        }}
+      />
+    </div>
   );
 };
 
