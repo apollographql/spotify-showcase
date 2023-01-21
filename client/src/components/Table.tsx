@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useMemo, useRef, useState } from 'react';
+import { ComponentPropsWithoutRef, useMemo, useState } from 'react';
 import cx from 'classnames';
 import {
   getCoreRowModel,
@@ -26,17 +26,17 @@ interface TableProps<TData>
   visibility?: VisibilityState;
   onDoubleClickRow?: (rows: Row<TData>) => void;
   contextMenu?: (rows: Row<TData>[]) => JSX.Element;
-  enableRowSelection?: boolean;
-  enableMetaSelect?: boolean;
-  enableShiftSelect?: boolean;
+  rowSelection?: boolean;
+  multiSelect?: boolean;
+  rangeSelect?: boolean;
 }
 
 const useRowSelectionType = ({
-  enableShiftSelect,
-  enableMetaSelect,
+  multiSelect,
+  rangeSelect,
 }: {
-  enableShiftSelect: boolean;
-  enableMetaSelect: boolean;
+  multiSelect: boolean;
+  rangeSelect: boolean;
 }) => {
   const [rowSelectionType, setRowSelectionType] =
     useState<RowSelectionType>('single');
@@ -53,12 +53,12 @@ const useRowSelectionType = ({
     };
 
   useKeyPress('cmd', changeRowSelectionType('multi'), {
-    active: enableMetaSelect,
+    active: rangeSelect,
     keyup: true,
   });
 
   useKeyPress('shift', changeRowSelectionType('range'), {
-    active: enableShiftSelect,
+    active: multiSelect,
     keyup: true,
   });
 
@@ -83,16 +83,13 @@ function Table<TData>({
   visibility,
   onDoubleClickRow,
   contextMenu,
-  enableRowSelection = false,
-  enableMetaSelect = false,
-  enableShiftSelect = false,
+  rowSelection: enableRowSelection = false,
+  multiSelect = false,
+  rangeSelect = false,
   ...props
 }: TableProps<TData>) {
   const [selectedRowStack, setSelectedRowStack] = useState<number[]>([]);
-  const rowSelectionType = useRowSelectionType({
-    enableMetaSelect,
-    enableShiftSelect,
-  });
+  const rowSelectionType = useRowSelectionType({ rangeSelect, multiSelect });
 
   const table = useReactTable({
     data,
@@ -102,7 +99,7 @@ function Table<TData>({
       columnVisibility: visibility,
     },
     enableRowSelection,
-    enableMultiRowSelection: enableMetaSelect || enableShiftSelect,
+    enableMultiRowSelection: multiSelect || rangeSelect,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -141,21 +138,29 @@ function Table<TData>({
 
     switch (rowSelectionType) {
       case 'single':
-        return table.setRowSelection({ [row.index]: !row.getIsSelected() });
-      case 'multi':
-        return table.setRowSelection((old) => ({
-          ...old,
-          [row.index]: !row.getIsSelected(),
-        }));
-      case 'range': {
-        const lower = selectedRowStack[0];
-        const upper = row.index > lower ? row.index + 1 : row.index - 1;
-        const rows = range(lower, upper).reduce(
-          (memo, index) => ({ ...memo, [index]: true }),
-          rowSelection
-        );
+        table.setRowSelection({ [row.index]: !row.getIsSelected() });
 
-        table.setRowSelection(rows);
+        break;
+      case 'multi':
+        if (multiSelect) {
+          table.setRowSelection((old) => ({
+            ...old,
+            [row.index]: !row.getIsSelected(),
+          }));
+        }
+
+        break;
+      case 'range': {
+        if (rangeSelect) {
+          const lower = selectedRowStack[0];
+          const upper = row.index > lower ? row.index + 1 : row.index - 1;
+          const rows = range(lower, upper).reduce(
+            (memo, index) => ({ ...memo, [index]: true }),
+            rowSelection
+          );
+
+          table.setRowSelection(rows);
+        }
       }
     }
   };
