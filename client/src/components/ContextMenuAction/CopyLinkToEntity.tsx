@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { copyToClipboard } from '../../utils/copyToClipboard';
 import { Entity, getEntityPathname } from '../../utils/navigation';
+import notificationManager from '../../notificationManager';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
 interface CopyLinkToEntityProps {
@@ -24,10 +25,12 @@ const CopyLinkToEntity = ({
 }: CopyLinkToEntityProps) => {
   return (
     <ContextMenu.Action
-      onSelect={() => {
-        copyToClipboard(
+      onSelect={async () => {
+        await copyToClipboard(
           [window.location.origin, getEntityPathname(entity)].join('')
         );
+
+        notificationManager.add({ message: 'Link copied to clipboard' });
       }}
     >
       {children}
