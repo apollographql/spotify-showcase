@@ -160,7 +160,7 @@ const CollectionTracksRoute = () => {
           />
         </Page.ActionsBar>
         <Table
-          enableRowSelection
+          rowSelection
           multiSelect
           rangeSelect
           data={currentUser.tracks?.edges ?? []}
@@ -175,6 +175,10 @@ const CollectionTracksRoute = () => {
             });
           }}
           contextMenu={(rows) => {
+            if (rows.length === 0) {
+              return null;
+            }
+
             const [row] = rows;
             const { node } = row.original;
 

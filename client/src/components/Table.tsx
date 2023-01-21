@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, useMemo, useState } from 'react';
+import { ComponentPropsWithoutRef, ReactNode, useMemo, useState } from 'react';
 import cx from 'classnames';
 import {
   getCoreRowModel,
@@ -25,7 +25,7 @@ interface TableProps<TData>
   meta?: TableMeta<TData>;
   visibility?: VisibilityState;
   onDoubleClickRow?: (rows: Row<TData>) => void;
-  contextMenu?: (rows: Row<TData>[]) => JSX.Element;
+  contextMenu?: (rows: Row<TData>[]) => ReactNode;
   rowSelection?: boolean;
   multiSelect?: boolean;
   rangeSelect?: boolean;
@@ -112,13 +112,11 @@ function Table<TData>({
   }, [table, rowSelection]);
 
   const trackRowSelection = (row: Row<TData>) => {
-    if (row.getIsSelected()) {
-      return setSelectedRowStack((stack) => {
-        return stack.filter((index) => row.index !== index);
-      });
-    }
-
     setSelectedRowStack((stack) => {
+      if (row.getIsSelected()) {
+        return stack.filter((index) => row.index !== index);
+      }
+
       switch (rowSelectionType) {
         case 'single':
           return [row.index];
