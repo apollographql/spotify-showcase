@@ -160,9 +160,9 @@ const CollectionTracksRoute = () => {
           />
         </Page.ActionsBar>
         <Table
-          rowSelection
-          multiSelect
-          rangeSelect
+          enableRowSelection
+          enableMultiSelect
+          enableRangeSelect
           data={currentUser.tracks?.edges ?? []}
           columns={columns}
           meta={{ spotifyURI }}

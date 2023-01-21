@@ -26,9 +26,9 @@ interface TableProps<TData>
   visibility?: VisibilityState;
   onDoubleClickRow?: (rows: Row<TData>) => void;
   contextMenu?: (rows: Row<TData>[]) => ReactNode;
-  rowSelection?: boolean;
-  multiSelect?: boolean;
-  rangeSelect?: boolean;
+  enableRowSelection?: boolean;
+  enableMultiSelect?: boolean;
+  enableRangeSelect?: boolean;
 }
 
 const useRowSelectionType = ({
@@ -83,13 +83,16 @@ function Table<TData>({
   visibility,
   onDoubleClickRow,
   contextMenu,
-  rowSelection: enableRowSelection = false,
-  multiSelect = false,
-  rangeSelect = false,
+  enableRowSelection = false,
+  enableMultiSelect = false,
+  enableRangeSelect = false,
   ...props
 }: TableProps<TData>) {
   const [selectedRowStack, setSelectedRowStack] = useState<number[]>([]);
-  const rowSelectionType = useRowSelectionType({ rangeSelect, multiSelect });
+  const rowSelectionType = useRowSelectionType({
+    rangeSelect: enableRangeSelect,
+    multiSelect: enableMultiSelect,
+  });
 
   const table = useReactTable({
     data,
@@ -99,7 +102,7 @@ function Table<TData>({
       columnVisibility: visibility,
     },
     enableRowSelection,
-    enableMultiRowSelection: multiSelect || rangeSelect,
+    enableMultiRowSelection: enableMultiSelect || enableRangeSelect,
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -140,7 +143,7 @@ function Table<TData>({
 
         break;
       case 'multi':
-        if (multiSelect) {
+        if (enableMultiSelect) {
           table.setRowSelection((old) => ({
             ...old,
             [row.index]: !row.getIsSelected(),
@@ -149,7 +152,7 @@ function Table<TData>({
 
         break;
       case 'range': {
-        if (rangeSelect) {
+        if (enableRangeSelect) {
           const lower = selectedRowStack[0];
           const upper = row.index > lower ? row.index + 1 : row.index - 1;
           const rows = range(lower, upper).reduce(
