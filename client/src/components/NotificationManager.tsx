@@ -3,17 +3,10 @@ import { useReactiveVar } from '@apollo/client';
 import { notificationsVar, Notification as NotificationType } from '../vars';
 import Notification from './Notification';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
+import notificationManager from '../notificationManager';
 import { useEffect, useRef } from 'react';
 
-const scheduleRemoval = (
-  notification: NotificationType,
-  onRemoved: (notification: NotificationType) => void
-) => {
-  return setTimeout(() => {
-    notificationsVar(notificationsVar().filter((n) => n !== notification));
-    onRemoved(notification);
-  }, 3000);
-};
+const NOTIFICATION_TIMEOUT = 5000;
 
 const NotificationManager = () => {
   const ref = useRef<Map<NotificationType, NodeJS.Timeout>>(new Map());
@@ -27,7 +20,11 @@ const NotificationManager = () => {
 
     notifications.forEach((notification) => {
       if (!ref.current.has(notification)) {
-        const id = scheduleRemoval(notification, unset);
+        const id = notificationManager.scheduleRemoval(
+          notification,
+          NOTIFICATION_TIMEOUT,
+          { onRemoved: unset }
+        );
 
         ref.current.set(notification, id);
       }
