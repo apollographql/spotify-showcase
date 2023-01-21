@@ -160,6 +160,9 @@ const CollectionTracksRoute = () => {
           />
         </Page.ActionsBar>
         <Table
+          enableRowSelection
+          enableMetaSelect
+          enableShiftSelect
           data={currentUser.tracks?.edges ?? []}
           columns={columns}
           meta={{ spotifyURI }}
@@ -171,28 +174,37 @@ const CollectionTracksRoute = () => {
               offset: { uri: node.uri },
             });
           }}
-          contextMenu={(row) => {
+          contextMenu={(rows) => {
+            const [row] = rows;
             const { node } = row.original;
 
             return (
               <>
-                <ContextMenuAction.AddToQueue uri={node.uri} />
-                <ContextMenu.Separator />
-                <ContextMenuAction.LinkToArtist artists={node.artists} />
-                <ContextMenu.Link to={`/albums/${node.album.id}`}>
-                  Go to album
-                </ContextMenu.Link>
-                <ContextMenu.Separator />
-                <ContextMenu.SubMenu
-                  content={<ContextMenuAction.CopyLinkToEntity entity={node} />}
-                >
-                  Share
-                </ContextMenu.SubMenu>
-                <ContextMenu.Separator />
-                <ContextMenuAction.OpenDesktopApp
-                  uri={node.uri}
-                  context={{ uri: spotifyURI }}
+                <ContextMenuAction.AddToQueue
+                  uris={rows.map((row) => row.original.node.uri)}
                 />
+                {rows.length === 1 && (
+                  <>
+                    <ContextMenu.Separator />
+                    <ContextMenuAction.LinkToArtist artists={node.artists} />
+                    <ContextMenu.Link to={`/albums/${node.album.id}`}>
+                      Go to album
+                    </ContextMenu.Link>
+                    <ContextMenu.Separator />
+                    <ContextMenu.SubMenu
+                      content={
+                        <ContextMenuAction.CopyLinkToEntity entity={node} />
+                      }
+                    >
+                      Share
+                    </ContextMenu.SubMenu>
+                    <ContextMenu.Separator />
+                    <ContextMenuAction.OpenDesktopApp
+                      uri={node.uri}
+                      context={{ uri: spotifyURI }}
+                    />
+                  </>
+                )}
               </>
             );
           }}
