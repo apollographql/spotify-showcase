@@ -1,4 +1,10 @@
-import { ComponentPropsWithoutRef, ReactNode, useMemo, useState } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ReactNode,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import cx from 'classnames';
 import {
   getCoreRowModel,
@@ -88,6 +94,7 @@ function Table<TData>({
   enableRangeSelect = false,
   ...props
 }: TableProps<TData>) {
+  const tableRef = useRef<HTMLTableElement>(null);
   const [selectedRowStack, setSelectedRowStack] = useState<number[]>([]);
   const rowSelectionType = useRowSelectionType({
     rangeSelect: enableRangeSelect,
@@ -104,6 +111,12 @@ function Table<TData>({
     enableRowSelection,
     enableMultiRowSelection: enableMultiSelect || enableRangeSelect,
     getCoreRowModel: getCoreRowModel(),
+  });
+
+  useEventListener('click', (event) => {
+    if (!tableRef.current?.contains(event.target as Node)) {
+      table.toggleAllRowsSelected(false);
+    }
   });
 
   const { rowSelection } = table.getState();
@@ -167,7 +180,7 @@ function Table<TData>({
   };
 
   return (
-    <table className={cx(styles.table, className)} {...props}>
+    <table ref={tableRef} className={cx(styles.table, className)} {...props}>
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
