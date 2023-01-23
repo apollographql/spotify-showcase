@@ -11,6 +11,7 @@ import LikeButton, { LikeButtonProps } from './LikeButton';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
 import { notify } from '../notifications';
+import { NOTIFICATION } from '../constants';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
@@ -68,10 +69,10 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
 
         if (isLiked) {
           await removeTracks({ ids });
-          notify('Removed from your Liked Songs');
+          notify(NOTIFICATION.REMOVED_SAVED_TRACK);
         } else {
           await saveTracks({ ids });
-          notify('Added to your Liked Songs');
+          notify(NOTIFICATION.SAVED_TRACK);
         }
       }}
     />
