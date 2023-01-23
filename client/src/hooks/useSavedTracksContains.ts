@@ -31,6 +31,7 @@ const SAVED_TRACKS_CONTAINS_FRAGMENT = gql`
 `;
 
 const MAX_ALLOWED_IDS = 50;
+const INITIAL_BATCH_COUNT = 20;
 
 const useSavedTracksContains = (ids: string[]) => {
   const client = useApolloClient();
@@ -45,24 +46,27 @@ const useSavedTracksContains = (ids: string[]) => {
     },
   });
 
-  // We can only check 50 results at a time so we pick the first 50 ids and load
-  // those. We then recursively load the rest in useEffect to get the rest since
-  // the list of ids is an unknown size. This should be ok since this allows us
-  // to load the set of results above the fold and (hopefully) have the rest of
-  // the items fully loaded once the user scrolls down the page.
+  // We can only check 50 results at a time. We pick an initial amount to load
+  // results that are displayed above the fold. This query is suspended to allow
+  // the results to load with the rest of the parent context (such as a playlist).
+  // A lower initial count allows us to speed up the initial query. We then
+  // recursively load the rest in useEffect to get the rest since the list of
+  // ids is an unknown size. This should be ok since this allows us to load the
+  // set of results above the fold and (hopefully) have the rest of the items
+  // fully loaded once the user scrolls down the page.
   //
-  // We rely on the useFragment above to actually pull the results for us, should
-  // we don't need to read any of the data loaded by this query or the query
-  // in the useEffect.
+  // We rely on the useFragment above to actually return the results for us.
+  // This means we can ignore the result returned from this query and the
+  // queries loaded in useEffect.
   useSuspenseQuery(SAVED_TRACKS_CONTAINS_QUERY, {
     errorPolicy: 'ignore',
-    variables: { ids: ids.slice(0, MAX_ALLOWED_IDS) },
+    variables: { ids: ids.slice(0, INITIAL_BATCH_COUNT) },
   });
 
   useEffect(() => {
     // We've already loaded the first 50 in the useSuspenseQuery above, so we
     // only need to load the rest
-    const batches = chunk(ids.slice(MAX_ALLOWED_IDS), MAX_ALLOWED_IDS);
+    const batches = chunk(ids.slice(INITIAL_BATCH_COUNT), MAX_ALLOWED_IDS);
 
     batches.forEach((ids) => {
       client.query({ query: SAVED_TRACKS_CONTAINS_QUERY, variables: { ids } });
