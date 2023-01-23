@@ -6,7 +6,7 @@ interface NotificationProps {
 
 const Notification = ({ notification }: NotificationProps) => {
   return (
-    <div className="bg-blue animate-fade-in w-max rounded p-4 text-center text-sm text-white">
+    <div className="bg-blue animate-fade-in w-max select-none rounded p-4 text-center text-white">
       {notification.message}
     </div>
   );
