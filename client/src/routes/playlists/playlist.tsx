@@ -19,6 +19,7 @@ import Skeleton from '../../components/Skeleton';
 import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 import { parseSpotifyIDFromURI } from '../../utils/spotify';
+import useSavedTracksContains from '../../hooks/useSavedTracksContains';
 
 const PLAYLIST_QUERY = gql`
   query PlaylistQuery($id: ID!) {
@@ -61,18 +62,23 @@ const Playlist = () => {
     PLAYLIST_QUERY,
     { variables: { id: playlistId } }
   );
+  const playlist = data.playlist;
+
+  if (!playlist) {
+    throw new Error('Playlist not found');
+  }
+
+  const tracksContains = useSavedTracksContains(
+    playlist.tracks.edges
+      .filter((edge) => edge.node.__typename === 'Track')
+      .map((edge) => edge.node.id)
+  );
 
   const [resumePlayback] = useResumePlaybackMutation();
 
   const playbackState = usePlaybackState<PlaylistRoutePlaybackStateFragment>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
-
-  const playlist = data.playlist;
-
-  if (!playlist) {
-    throw new Error('Playlist not found');
-  }
 
   const { tracks } = playlist;
   const images = playlist.images ?? [];
@@ -115,7 +121,7 @@ const Playlist = () => {
             }}
           />
         </Page.ActionsBar>
-        <PlaylistTable playlist={playlist} />
+        <PlaylistTable playlist={playlist} tracksContains={tracksContains} />
       </Page.Content>
     </Page>
   );
@@ -132,6 +138,8 @@ export const Loading = () => {
   const isPlayingPlaylist = contextUri
     ? parseSpotifyIDFromURI(contextUri) === playlistId
     : false;
+
+  console.log('render playlist loading');
 
   return (
     <Page>

@@ -22,11 +22,11 @@ import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
 import TrackLikeButtonCell from './TrackLikeButtonCell';
-import useSavedTracksContains from '../hooks/useSavedTracksContains';
 
 interface PlaylistTableProps {
   className?: string;
   playlist: Playlist;
+  tracksContains: Map<string, boolean>;
 }
 
 type PlaylistTrackEdge = NonNullable<Get<Playlist, 'tracks.edges[0]'>>;
@@ -49,18 +49,16 @@ const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
   return playlistItem.album;
 };
 
-const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
+const PlaylistTable = ({
+  className,
+  playlist,
+  tracksContains,
+}: PlaylistTableProps) => {
   const { data } = useFragment<CurrentUser, OperationVariables>({
     from: { __typename: 'CurrentUser' },
     fragment: CURRENT_USER_FRAGMENT,
     fragmentName: 'PlaylistTable_currentUser',
   });
-
-  const tracksContains = useSavedTracksContains(
-    playlist.tracks.edges
-      .filter((edge) => edge.node.__typename === 'Track')
-      .map((edge) => edge.node.id)
-  );
 
   const currentUser = data?.user;
   const [resumePlayback] = useResumePlaybackMutation();
