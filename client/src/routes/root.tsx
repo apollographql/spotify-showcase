@@ -17,6 +17,8 @@ import usePlaybackState from '../hooks/usePlaybackState';
 import styles from './root.module.scss';
 import { Volume2 } from 'lucide-react';
 import NotificationManager from '../components/NotificationManager';
+import ContextMenu from '../components/ContextMenu';
+import ContextMenuAction from '../components/ContextMenuAction';
 
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int!) {
@@ -75,16 +77,30 @@ const Playlists = () => {
   return (
     <Layout.Sidebar.Section className={styles.playlists}>
       {data.me?.playlists?.edges.map(({ node: playlist }) => (
-        <Layout.Sidebar.NavLink
-          className={styles.playlistLink}
+        <ContextMenu
           key={playlist.id}
-          to={`/playlists/${playlist.id}`}
+          content={
+            <>
+              <ContextMenu.SubMenu
+                content={
+                  <ContextMenuAction.CopyLinkToEntity entity={playlist} />
+                }
+              >
+                Share
+              </ContextMenu.SubMenu>
+            </>
+          }
         >
-          {playlist.name}
-          {playlist.uri === playbackState?.context?.uri && (
-            <Volume2 color="var(--color--theme--light)" size="0.875rem" />
-          )}
-        </Layout.Sidebar.NavLink>
+          <Layout.Sidebar.NavLink
+            className={styles.playlistLink}
+            to={`/playlists/${playlist.id}`}
+          >
+            {playlist.name}
+            {playlist.uri === playbackState?.context?.uri && (
+              <Volume2 color="var(--color--theme--light)" size="0.875rem" />
+            )}
+          </Layout.Sidebar.NavLink>
+        </ContextMenu>
       ))}
     </Layout.Sidebar.Section>
   );
