@@ -61,6 +61,9 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
 
   return (
     <Table
+      enableRowSelection
+      enableMultiSelect
+      enableRangeSelect
       columns={columns}
       data={album.tracks?.edges.map((edge) => edge.node) ?? []}
       onDoubleClickRow={(row) => {
@@ -71,8 +74,20 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
           offset: { uri: track.uri },
         });
       }}
-      contextMenu={(row) => {
-        const track = row.original;
+      contextMenu={(rows) => {
+        const tracks = rows.map((row) => row.original);
+
+        if (tracks.length > 1) {
+          return (
+            <>
+              <ContextMenuAction.AddToQueue
+                uris={tracks.map((track) => track.uri)}
+              />
+            </>
+          );
+        }
+
+        const [track] = tracks;
 
         return (
           <>
