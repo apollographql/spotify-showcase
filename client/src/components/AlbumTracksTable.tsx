@@ -104,12 +104,12 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
           return (
             <>
               <ContextMenuAction.AddToQueue uris={uris} />
-              <ContextMenuAction.AddToPlaylist uris={uris} />
               {areAllSavedTracks ? (
                 <ContextMenuAction.RemoveSavedTracks ids={ids} />
               ) : (
                 <ContextMenuAction.SaveTracks ids={ids} />
               )}
+              <ContextMenuAction.AddToPlaylist uris={uris} />
             </>
           );
         }
