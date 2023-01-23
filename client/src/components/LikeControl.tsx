@@ -42,7 +42,7 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
   const [removeTracks] = useRemoveTracksMutation();
 
   if (!data.me) {
-    throw new Error('You must be logged in');
+    throw new Response('You must be logged in', { status: 401 });
   }
 
   const {
