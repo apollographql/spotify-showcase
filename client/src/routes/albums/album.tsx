@@ -24,9 +24,13 @@ import Skeleton from '../../components/Skeleton';
 import usePlaybackState from '../../hooks/usePlaybackState';
 import { parseSpotifyIDFromURI } from '../../utils/spotify';
 import useSavedTracksContains from '../../hooks/useSavedTracksContains';
+import LikeButton from '../../components/LikeButton';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
+    me {
+      albumsContains(ids: [$albumId])
+    }
     album(id: $albumId) {
       id
       albumType
@@ -75,6 +79,7 @@ const AlbumRoute = () => {
   const [resumePlayback] = useResumePlaybackMutation();
 
   const album = data.album;
+  const me = data.me;
 
   if (!album) {
     throw new Error('Album not found');
@@ -131,6 +136,7 @@ const AlbumRoute = () => {
               });
             }}
           />
+          <LikeButton liked={me?.albumsContains?.[0] ?? false} size="2rem" />
         </Page.ActionsBar>
         <AlbumTracksTable album={album} tracksContains={tracksContains} />
         <Flex direction="column">
