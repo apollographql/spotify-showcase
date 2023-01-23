@@ -176,16 +176,16 @@ const CollectionTracksRoute = () => {
           }}
           contextMenu={(rows) => {
             const tracks = rows.map((row) => row.original.node);
+            const uris = tracks.map((track) => track.uri);
 
             if (tracks.length > 1) {
               return (
                 <>
-                  <ContextMenuAction.AddToQueue
-                    uris={tracks.map((track) => track.uri)}
-                  />
+                  <ContextMenuAction.AddToQueue uris={uris} />
                   <ContextMenuAction.RemoveSavedTracks
                     ids={tracks.map((track) => track.id)}
                   />
+                  <ContextMenuAction.AddToPlaylist uris={uris} />
                 </>
               );
             }
