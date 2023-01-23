@@ -200,6 +200,7 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
                   uris={uris}
                 />
               )}
+              <ContextMenuAction.AddToPlaylist uris={uris} />
             </>
           );
         }
@@ -228,6 +229,7 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
                 />
               </>
             )}
+            <ContextMenuAction.AddToPlaylist uri={playlistItem.uri} />
             <ContextMenu.Separator />
             <ContextMenu.SubMenu
               content={
