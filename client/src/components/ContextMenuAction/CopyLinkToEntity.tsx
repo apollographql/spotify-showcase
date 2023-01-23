@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { copyToClipboard } from '../../utils/copyToClipboard';
 import { Entity, getEntityPathname } from '../../utils/navigation';
-import notificationManager from '../../notificationManager';
+import { notify } from '../../notifications';
 import ContextMenu from '../ContextMenu/ContextMenu';
 
 interface CopyLinkToEntityProps {
@@ -30,7 +30,7 @@ const CopyLinkToEntity = ({
           [window.location.origin, getEntityPathname(entity)].join('')
         );
 
-        notificationManager.add({ message: 'Link copied to clipboard' });
+        notify('Link copied to clipboard');
       }}
     >
       {children}

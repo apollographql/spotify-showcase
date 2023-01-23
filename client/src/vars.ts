@@ -6,4 +6,4 @@ export interface Notification {
 }
 
 export const isLoggedInVar = makeVar(Boolean(readAuthToken()));
-export const notificationsVar = makeVar<Notification[]>([]);
+export const notificationVar = makeVar<Notification | null>(null);

@@ -1,5 +1,5 @@
 import useAddToQueueMutation from '../../mutations/useAddToQueueMutation';
-import notificationManager from '../../notificationManager';
+import { notify } from '../../notifications';
 import ContextMenu from '../ContextMenu';
 
 interface AddToQueueProps {
@@ -15,13 +15,11 @@ const AddToQueue = ({ uris }: AddToQueueProps) => {
         try {
           await Promise.all(uris.map((uri) => addToQueue({ uri })));
 
-          notificationManager.add({ message: 'Added to queue' });
+          notify('Added to queue');
         } catch (e) {
-          notificationManager.add({
-            message: `Could not add ${
-              uris.length === 1 ? 'item' : 'items'
-            } to queue`,
-          });
+          notify(
+            `Could not add ${uris.length === 1 ? 'item' : 'items'} to queue`
+          );
         }
       }}
     >
