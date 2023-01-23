@@ -1,7 +1,11 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 import { notify } from '../notifications';
-import { AddItemToPlaybackQueueInput } from '../types/api';
+import {
+  AddToQueueMutation,
+  AddToQueueMutationVariables,
+  AddItemToPlaybackQueueInput,
+} from '../types/api';
 import { NOTIFICATION } from '../constants';
 
 const ADD_TO_QUEUE_MUTATION = gql`
@@ -22,7 +26,10 @@ interface Options {
 }
 
 const useAddToQueueMutation = ({ notification = true }: Options = {}) => {
-  const [execute, result] = useMutation(ADD_TO_QUEUE_MUTATION, {
+  const [execute, result] = useMutation<
+    AddToQueueMutation,
+    AddToQueueMutationVariables
+  >(ADD_TO_QUEUE_MUTATION, {
     onError: () => {
       if (notification) {
         notify('Could not add item to queue');
