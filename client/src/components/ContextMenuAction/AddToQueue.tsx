@@ -9,7 +9,7 @@ type AddToQueueProps =
 
 const AddToQueue = ({ uri, uris }: AddToQueueProps) => {
   const allUris = uris || [uri];
-  const [addToQueue] = useAddToQueueMutation();
+  const [addToQueue] = useAddToQueueMutation({ notification: false });
 
   return (
     <ContextMenu.Action
