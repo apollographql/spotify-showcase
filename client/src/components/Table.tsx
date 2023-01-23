@@ -219,7 +219,7 @@ function Table<TData>({
               key={row.id}
               onClick={() => handleSelectRow(row)}
               onDoubleClick={() => onDoubleClickRow?.(row)}
-              className={cx('group peer', {
+              className={cx('group peer hover:bg-white/30', {
                 'bg-white/30': row.getIsSelected(),
                 'select-none': rowSelectionType !== 'single',
               })}

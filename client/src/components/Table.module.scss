@@ -61,11 +61,5 @@
     transition: 0.1s background-color ease-out;
     margin: 0 -1rem;
     padding: 0 1rem;
-
-    &:hover {
-      td {
-        background-color: var(--background--surface--hover);
-      }
-    }
   }
 }
