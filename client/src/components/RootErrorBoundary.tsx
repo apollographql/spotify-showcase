@@ -11,14 +11,17 @@ import ErrorActionLink from './ErrorActionLink';
 import Layout from './Layout';
 
 const didBecomeUnauthenticated = (error: unknown) => {
-  if (!(error instanceof ApolloError)) {
-    return false;
+  if (
+    (isRouteErrorResponse(error) || error instanceof Response) &&
+    error.status === 401
+  ) {
+    return true;
   }
 
-  for (const graphqlError of error.graphQLErrors) {
-    if (graphqlError.extensions.code === 'UNAUTHENTICATED') {
-      return true;
-    }
+  if (error instanceof ApolloError) {
+    return error.graphQLErrors.some(
+      (error) => error.extensions.code === 'UNAUTHENTICATED'
+    );
   }
 
   return false;
@@ -26,8 +29,6 @@ const didBecomeUnauthenticated = (error: unknown) => {
 
 const RootErrorBoundary = () => {
   const error = useRouteError();
-
-  console.log(error);
 
   return (
     <Layout>
@@ -59,13 +60,17 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
     );
   }
 
-  if (isRouteErrorResponse(error) && error.status === 401) {
+  if (didBecomeUnauthenticated(error)) {
     return (
       <>
         <ErrorTitle>You were logged out</ErrorTitle>
         <ErrorDescription>
           Your access token is invalid or might have expired. Try logging in
-          again.
+          again or{' '}
+          <Link to="/" className="underline">
+            go back home
+          </Link>
+          .
         </ErrorDescription>
         <ErrorActionLink to="/login">Log in</ErrorActionLink>
       </>
