@@ -1,4 +1,6 @@
+import { ApolloServerErrorCode } from '@apollo/server/errors';
 import { KeyValueCache } from '@apollo/utils.keyvaluecache';
+import { FetcherResponse } from '@apollo/utils.fetcher';
 import {
   RESTDataSource,
   DeleteRequest,
@@ -6,10 +8,12 @@ import {
   PostRequest,
   PutRequest,
   AugmentedRequest,
+  RequestOptions,
 } from '@apollo/datasource-rest';
 import { OmitNever } from '../utils/types';
 import { Spotify } from './spotify.types';
 import path from 'path';
+import { GraphQLError } from 'graphql';
 
 type RawQueryParams = Record<
   string,
@@ -425,6 +429,38 @@ export default class SpotifyAPI extends RESTDataSource {
     }
 
     return url.toString();
+  }
+
+  override async errorFromResponse({
+    response,
+    parsedBody,
+  }: {
+    url: URL;
+    request: RequestOptions;
+    response: FetcherResponse;
+    parsedBody: Spotify.Error.RegularError;
+  }) {
+    const { error } = parsedBody;
+
+    return new GraphQLError(error.message, {
+      extensions: {
+        code: this.getCodeFromStatus(response),
+        reason: error.reason,
+      },
+    });
+  }
+
+  private getCodeFromStatus(response: FetcherResponse) {
+    switch (response.status) {
+      case 401:
+        return 'UNAUTHENTICATED';
+      case 403:
+        return 'FORBIDDEN';
+      case 400:
+        return ApolloServerErrorCode.BAD_USER_INPUT;
+      default:
+        return ApolloServerErrorCode.INTERNAL_SERVER_ERROR;
+    }
   }
 
   private generateRandomKey(length: number) {

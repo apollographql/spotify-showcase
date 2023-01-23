@@ -10,6 +10,21 @@ type Prop<T, Key extends string> = Key extends keyof T ? T[Key] : never;
 export namespace Spotify {
   export type HTTPMethod = 'DELETE' | 'GET' | 'POST' | 'PUT';
 
+  export namespace Error {
+    export interface AuthenticationError {
+      error: string;
+      error_description: string;
+    }
+
+    export interface RegularError {
+      error: {
+        status: number;
+        message: string;
+        reason?: string;
+      };
+    }
+  }
+
   export namespace Object {
     export interface Actions {
       disallows: Disallows;
