@@ -15,7 +15,10 @@ const SubMenu = ({ children, content }: SubMenuProps) => {
         <ChevronRight size="1em" />
       </ContextMenu.SubTrigger>
       <ContextMenu.Portal>
-        <ContextMenu.SubContent className="bg-surface max-w[350px] z-10 min-w-[160px] rounded p-1 text-sm text-white shadow-xl">
+        <ContextMenu.SubContent
+          className="bg-surface max-w[350px] z-10 max-h-[calc(100vh-1rem*2)] min-w-[160px] overflow-auto rounded p-1 text-sm text-white shadow-xl"
+          collisionPadding={20}
+        >
           {content}
         </ContextMenu.SubContent>
       </ContextMenu.Portal>
