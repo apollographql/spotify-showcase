@@ -5,6 +5,7 @@ import {
   isRouteErrorResponse,
   Link,
   To,
+  useLocation,
 } from 'react-router-dom';
 import Button from './Button';
 import Layout from './Layout';
@@ -44,6 +45,8 @@ interface ErrorBodyProps {
 }
 
 const ErrorBody = ({ error }: ErrorBodyProps) => {
+  const location = useLocation();
+
   if (isRouteErrorResponse(error) && error.status === 404) {
     return (
       <>
@@ -73,7 +76,11 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
     <>
       <ErrorTitle>Oops.</ErrorTitle>
       <ErrorDescription>
-        Something went wrong. Try reloading the page, otherwise you may go{' '}
+        Something went wrong. Try{' '}
+        <a className="underline" href={location.pathname}>
+          reloading the page
+        </a>
+        , otherwise you may go{' '}
         <Link to="/" className="underline">
           back home
         </Link>
