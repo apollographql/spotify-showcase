@@ -185,7 +185,6 @@ const PlaylistTable = ({
         },
       }),
     ];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlist, containsAllEpisodes, containsAllTracks]);
 
   return (
