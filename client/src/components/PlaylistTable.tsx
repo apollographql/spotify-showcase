@@ -180,11 +180,30 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
 
   return (
     <Table
+      enableRowSelection
+      enableMultiSelect
+      enableRangeSelect
       className={className}
       data={playlist.tracks.edges}
       columns={columns}
-      contextMenu={(row) => {
-        const playlistItem = row.original.node;
+      contextMenu={(rows) => {
+        const playlistItems = rows.map((row) => row.original.node);
+        const uris = playlistItems.map((item) => item.uri);
+
+        if (playlistItems.length > 1) {
+          return (
+            <>
+              <ContextMenuAction.AddToQueue uris={uris} />
+              {playlist.owner.id === currentUser?.id && (
+                <ContextMenuAction.RemoveFromPlaylist
+                  playlistId={playlist.id}
+                  uris={uris}
+                />
+              )}
+            </>
+          );
+        }
+        const [playlistItem] = playlistItems;
 
         return (
           <>
