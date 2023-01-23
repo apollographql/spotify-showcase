@@ -48,6 +48,34 @@ export type AddItemToPlaybackQueuePayload = {
   playbackQueue: Maybe<PlaybackQueue>;
 };
 
+export type AddItemsToPlaylistInput = {
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * of the playlist.
+   */
+  playlistId: Scalars['ID'];
+  /**
+   * The position to insert the items, a zero-based index. For example, to insert
+   * the items in the first position: **position=0**; to insert the items in the
+   * third position: **position=2**. If omitted, the items will be appended to the
+   * playlist. Items are added in the order they are listed in the query string or
+   * request body.
+   */
+  position?: InputMaybe<Scalars['Int']>;
+  /**
+   * A comma-separated list of [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * to add, can be track or episode URIs. A maximum of 100 items can be added in
+   * one request.
+   */
+  uris: Array<Scalars['String']>;
+};
+
+export type AddItemsToPlaylistPayload = {
+  __typename: 'AddItemsToPlaylistPayload';
+  /** The playlist that contains the newly added items */
+  playlist: Maybe<Playlist>;
+};
+
 /** Spotify catalog information for an album. */
 export type Album = {
   __typename: 'Album';
@@ -495,6 +523,8 @@ export type Mutation = {
   __typename: 'Mutation';
   /** Add an item to the end of the user's current playback queue. */
   addItemToPlaybackQueue: Maybe<AddItemToPlaybackQueuePayload>;
+  /** Add one or more items to a user's playlist. */
+  addItemsToPlaylist: Maybe<AddItemsToPlaylistPayload>;
   /** Pause playback on the user's account. */
   pausePlayback: Maybe<PausePlaybackResponse>;
   /** Remove one or more items from a user's playlist. */
@@ -536,6 +566,11 @@ export type Mutation = {
 
 export type MutationaddItemToPlaybackQueueArgs = {
   input: AddItemToPlaybackQueueInput;
+};
+
+
+export type MutationaddItemsToPlaylistArgs = {
+  input: AddItemsToPlaylistInput;
 };
 
 

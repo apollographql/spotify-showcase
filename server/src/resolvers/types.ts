@@ -54,6 +54,34 @@ export type AddItemToPlaybackQueuePayload = {
   playbackQueue?: Maybe<PlaybackQueue>;
 };
 
+export type AddItemsToPlaylistInput = {
+  /**
+   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * of the playlist.
+   */
+  playlistId: Scalars['ID'];
+  /**
+   * The position to insert the items, a zero-based index. For example, to insert
+   * the items in the first position: **position=0**; to insert the items in the
+   * third position: **position=2**. If omitted, the items will be appended to the
+   * playlist. Items are added in the order they are listed in the query string or
+   * request body.
+   */
+  position?: InputMaybe<Scalars['Int']>;
+  /**
+   * A comma-separated list of [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * to add, can be track or episode URIs. A maximum of 100 items can be added in
+   * one request.
+   */
+  uris: Array<Scalars['String']>;
+};
+
+export type AddItemsToPlaylistPayload = {
+  __typename?: 'AddItemsToPlaylistPayload';
+  /** The playlist that contains the newly added items */
+  playlist?: Maybe<Playlist>;
+};
+
 /** Spotify catalog information for an album. */
 export type Album = {
   __typename?: 'Album';
@@ -498,6 +526,8 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Add an item to the end of the user's current playback queue. */
   addItemToPlaybackQueue?: Maybe<AddItemToPlaybackQueuePayload>;
+  /** Add one or more items to a user's playlist. */
+  addItemsToPlaylist?: Maybe<AddItemsToPlaylistPayload>;
   /** Pause playback on the user's account. */
   pausePlayback?: Maybe<PausePlaybackResponse>;
   /** Remove one or more items from a user's playlist. */
@@ -539,6 +569,11 @@ export type Mutation = {
 
 export type MutationAddItemToPlaybackQueueArgs = {
   input: AddItemToPlaybackQueueInput;
+};
+
+
+export type MutationAddItemsToPlaylistArgs = {
+  input: AddItemsToPlaylistInput;
 };
 
 
@@ -1598,6 +1633,8 @@ export type ResolversTypes = ResolversObject<{
   Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
   AddItemToPlaybackQueuePayload: ResolverTypeWrapper<Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversTypes['PlaybackQueue']> }>;
+  AddItemsToPlaylistInput: AddItemsToPlaylistInput;
+  AddItemsToPlaylistPayload: ResolverTypeWrapper<Omit<AddItemsToPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversTypes['Playlist']> }>;
   Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
   AlbumGroup: AlbumGroup;
   AlbumTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>>;
@@ -1706,6 +1743,8 @@ export type ResolversParentTypes = ResolversObject<{
   Actions: Spotify.Object.Actions;
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
   AddItemToPlaybackQueuePayload: Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversParentTypes['PlaybackQueue']> };
+  AddItemsToPlaylistInput: AddItemsToPlaylistInput;
+  AddItemsToPlaylistPayload: Omit<AddItemsToPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversParentTypes['Playlist']> };
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.TrackSimplified>;
   AlbumTrackEdge: Spotify.Object.TrackSimplified;
@@ -1810,6 +1849,11 @@ export type ActionsResolvers<ContextType = ContextValue, ParentType extends Reso
 
 export type AddItemToPlaybackQueuePayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AddItemToPlaybackQueuePayload'] = ResolversParentTypes['AddItemToPlaybackQueuePayload']> = ResolversObject<{
   playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type AddItemsToPlaylistPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AddItemsToPlaylistPayload'] = ResolversParentTypes['AddItemsToPlaylistPayload']> = ResolversObject<{
+  playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1989,6 +2033,7 @@ export type ImageResolvers<ContextType = ContextValue, ParentType extends Resolv
 
 export type MutationResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   addItemToPlaybackQueue?: Resolver<Maybe<ResolversTypes['AddItemToPlaybackQueuePayload']>, ParentType, ContextType, RequireFields<MutationAddItemToPlaybackQueueArgs, 'input'>>;
+  addItemsToPlaylist?: Resolver<Maybe<ResolversTypes['AddItemsToPlaylistPayload']>, ParentType, ContextType, RequireFields<MutationAddItemsToPlaylistArgs, 'input'>>;
   pausePlayback?: Resolver<Maybe<ResolversTypes['PausePlaybackResponse']>, ParentType, ContextType, Partial<MutationPausePlaybackArgs>>;
   removeItemFromPlaylist?: Resolver<Maybe<ResolversTypes['RemoveItemFromPlaylistPayload']>, ParentType, ContextType, RequireFields<MutationRemoveItemFromPlaylistArgs, 'input'>>;
   removeSavedAlbums?: Resolver<Maybe<ResolversTypes['RemoveSavedAlbumsPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedAlbumsArgs, 'input'>>;
@@ -2357,6 +2402,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Action?: ActionResolvers;
   Actions?: ActionsResolvers<ContextType>;
   AddItemToPlaybackQueuePayload?: AddItemToPlaybackQueuePayloadResolvers<ContextType>;
+  AddItemsToPlaylistPayload?: AddItemsToPlaylistPayloadResolvers<ContextType>;
   Album?: AlbumResolvers<ContextType>;
   AlbumGroup?: AlbumGroupResolvers;
   AlbumTrackConnection?: AlbumTrackConnectionResolvers<ContextType>;

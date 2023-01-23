@@ -28,6 +28,16 @@ const resolvers: MutationResolvers = {
 
     return { playbackQueue };
   },
+  addItemsToPlaylist: async (_, { input }, { dataSources }) => {
+    await dataSources.spotify.addItemsToPlaylist(input.playlistId, {
+      params: {},
+      body: { uris: input.uris, position: maybe(input.position) },
+    });
+
+    const playlist = await dataSources.spotify.getPlaylist(input.playlistId);
+
+    return { playlist };
+  },
   resumePlayback: async (_, { input }, { dataSources, publisher }) => {
     await dataSources.spotify.resumePlayback({
       body: {
