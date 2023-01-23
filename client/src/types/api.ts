@@ -1641,7 +1641,7 @@ export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: bo
 
 export type PlaylistTable_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
 
-export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } };
+export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, explicit: boolean, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } };
 
 export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, images: Array<{ __typename: 'Image', url: string }> };
 
@@ -1649,9 +1649,9 @@ export type PlaylistTitleCell_playbackState = { __typename: 'PlaybackState', con
 
 export type PlaylistTitleCell_playlist = { __typename: 'Playlist', id: string, uri: string };
 
-type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', id: string, name: string, uri: string, show: { __typename: 'Show', id: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
+type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', explicit: boolean, id: string, name: string, uri: string, show: { __typename: 'Show', id: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
 
-type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', id: string, name: string, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
+type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', explicit: boolean, id: string, name: string, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
 
 export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
 
@@ -1820,7 +1820,7 @@ export type PlaylistQueryVariables = Exact<{
 }>;
 
 
-export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, uri: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } } | null };
+export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, uri: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, explicit: boolean, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } } | null };
 
 export type PlaylistRoutePlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 

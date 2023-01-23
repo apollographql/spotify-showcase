@@ -11,6 +11,7 @@ import {
   PlaylistTitleCell_playbackState as PlaybackState,
 } from '../types/api';
 import usePlaybackState from '../hooks/usePlaybackState';
+import ExplicitBadge from './ExplicitBadge';
 
 interface PlaylistTitleCellProps {
   playlist: Playlist;
@@ -61,23 +62,26 @@ const PlaylistTitleCell = ({
         >
           {playlistTrack.name}
         </Text>
-        {playlistTrack.__typename === 'Track' ? (
-          <CommaSeparatedList>
-            {playlistTrack.artists.map((artist) => (
-              <Text
-                interactive
-                key={artist.id}
-                as={EntityLink}
-                color="muted"
-                entity={artist}
-              >
-                {artist.name}
-              </Text>
-            ))}
-          </CommaSeparatedList>
-        ) : (
-          <Text color="muted">{playlistTrack.show.publisher}</Text>
-        )}
+        <Flex gap="0.5rem" alignItems="center">
+          {playlistTrack.explicit && <ExplicitBadge />}
+          {playlistTrack.__typename === 'Track' ? (
+            <CommaSeparatedList>
+              {playlistTrack.artists.map((artist) => (
+                <Text
+                  interactive
+                  key={artist.id}
+                  as={EntityLink}
+                  color="muted"
+                  entity={artist}
+                >
+                  {artist.name}
+                </Text>
+              ))}
+            </CommaSeparatedList>
+          ) : (
+            <Text color="muted">{playlistTrack.show.publisher}</Text>
+          )}
+        </Flex>
       </Flex>
     </Flex>
   );
@@ -97,6 +101,7 @@ PlaylistTitleCell.fragments = {
       uri
 
       ... on Episode {
+        explicit
         show {
           id
           publisher
@@ -107,6 +112,7 @@ PlaylistTitleCell.fragments = {
       }
 
       ... on Track {
+        explicit
         artists {
           id
           name
