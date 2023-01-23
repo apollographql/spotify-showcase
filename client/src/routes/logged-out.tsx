@@ -4,11 +4,9 @@ import ErrorActionLink from '../components/ErrorActionLink';
 import ErrorDescription from '../components/ErrorDescription';
 import ErrorTitle from '../components/ErrorTitle';
 import Layout from '../components/Layout';
-import client from '../apollo';
 
 export const loader = () => {
   logout();
-  client.clearStore();
 
   return null;
 };

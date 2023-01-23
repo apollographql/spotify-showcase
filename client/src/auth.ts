@@ -1,5 +1,6 @@
 import { isLoggedInVar } from './vars';
 import { removeAuthToken, writeAuthToken } from './utils';
+import client from './apollo';
 
 export const login = (token: string) => {
   writeAuthToken(token);
@@ -9,4 +10,5 @@ export const login = (token: string) => {
 export const logout = () => {
   removeAuthToken();
   isLoggedInVar(false);
+  client.clearStore();
 };
