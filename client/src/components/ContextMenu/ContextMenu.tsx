@@ -7,14 +7,17 @@ import Separator from './Separator';
 import SubMenu from './SubMenu';
 
 interface ContextMenuProps {
+  disabled?: boolean;
   children: ReactNode;
   content: ReactNode;
 }
 
-const ContextMenu = ({ children, content }: ContextMenuProps) => {
+const ContextMenu = ({ disabled, children, content }: ContextMenuProps) => {
   return (
     <RadixContextMenu.Root>
-      <RadixContextMenu.Trigger asChild>{children}</RadixContextMenu.Trigger>
+      <RadixContextMenu.Trigger disabled={disabled} asChild>
+        {children}
+      </RadixContextMenu.Trigger>
       <RadixContextMenu.Portal>
         <RadixContextMenu.Content className="bg-surface min-w-[160px] max-w-[350px] rounded p-1 text-sm text-white shadow-lg">
           {content}

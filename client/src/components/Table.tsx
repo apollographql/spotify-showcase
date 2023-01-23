@@ -237,6 +237,7 @@ function Table<TData>({
             return (
               <ContextMenu
                 key={row.id}
+                disabled={!enableRowSelection}
                 content={selectedRows.length ? contextMenu(selectedRows) : null}
               >
                 {tableRow}
