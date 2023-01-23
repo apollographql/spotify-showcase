@@ -220,10 +220,13 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
               </>
             )}
             {playlist.owner.id === currentUser?.id && (
-              <ContextMenuAction.RemoveFromPlaylist
-                playlistId={playlist.id}
-                uri={playlistItem.uri}
-              />
+              <>
+                <ContextMenu.Separator />
+                <ContextMenuAction.RemoveFromPlaylist
+                  playlistId={playlist.id}
+                  uri={playlistItem.uri}
+                />
+              </>
             )}
             <ContextMenu.Separator />
             <ContextMenu.SubMenu
