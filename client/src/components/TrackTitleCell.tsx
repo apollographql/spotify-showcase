@@ -9,6 +9,7 @@ import Flex from './Flex';
 import CommaSeparatedList from './CommaSeparatedList';
 import Text from './Text';
 import usePlaybackState from '../hooks/usePlaybackState';
+import ExplicitBadge from './ExplicitBadge';
 
 interface Context {
   uri: string;
@@ -51,19 +52,22 @@ const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
         >
           {track.name}
         </Text>
-        <CommaSeparatedList>
-          {track.artists.map((artist) => (
-            <Text
-              interactive
-              as={EntityLink}
-              key={artist.id}
-              color="muted"
-              entity={artist}
-            >
-              {artist.name}
-            </Text>
-          ))}
-        </CommaSeparatedList>
+        <Flex gap="0.5rem" alignItems="center">
+          {track.explicit && <ExplicitBadge />}
+          <CommaSeparatedList>
+            {track.artists.map((artist) => (
+              <Text
+                interactive
+                as={EntityLink}
+                key={artist.id}
+                color="muted"
+                entity={artist}
+              >
+                {artist.name}
+              </Text>
+            ))}
+          </CommaSeparatedList>
+        </Flex>
       </Flex>
     </Flex>
   );
@@ -73,6 +77,7 @@ TrackTitleCell.fragments = {
   track: gql`
     fragment TrackTitleCell_track on Track {
       id
+      explicit
       name
       uri
       album {

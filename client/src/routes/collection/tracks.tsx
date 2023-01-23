@@ -270,7 +270,7 @@ const columns = [
         track={info.getValue()}
         context={{
           __typename: 'Playlist',
-          uri: info.table.options.meta!.spotifyURI,
+          uri: info.table.options.meta?.spotifyURI,
         }}
       />
     ),
@@ -284,7 +284,7 @@ const columns = [
     header: 'Title',
     cell: (info) => (
       <TrackTitleCell
-        context={{ uri: info.table.options.meta!.spotifyURI }}
+        context={{ uri: info.table.options.meta?.spotifyURI }}
         track={info.getValue()}
       />
     ),
