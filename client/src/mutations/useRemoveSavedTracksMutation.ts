@@ -50,18 +50,17 @@ const useRemoveSavedTracksMutation = () => {
             id: cache.identify({ __typename: 'CurrentUser' }),
             fields: {
               tracks: (existing, { readField }) => {
+                const edgeRefs =
+                  readField<Reference[]>('edges', existing) ?? [];
+
                 return {
                   ...existing,
-                  edges: input.ids.reduce<Reference[]>(
-                    (edgeRefs, id) => {
-                      return edgeRefs.filter((edgeRef) => {
-                        const node = readField<Reference>('node', edgeRef);
+                  edges: edgeRefs.filter((ref) => {
+                    const node = readField<Reference>('node', ref);
+                    const id = readField<string>('id', node) ?? 'UNKNOWN';
 
-                        return id !== readField('id', node);
-                      });
-                    },
-                    [...(readField<Reference[]>('edges', existing) ?? [])]
-                  ),
+                    return input.ids.indexOf(id) === -1;
+                  }),
                 };
               },
               tracksContains(existing: Record<string, boolean>) {
