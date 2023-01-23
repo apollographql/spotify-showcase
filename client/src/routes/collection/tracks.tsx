@@ -175,12 +175,6 @@ const CollectionTracksRoute = () => {
             });
           }}
           contextMenu={(rows) => {
-            if (rows.length === 0) {
-              return null;
-            }
-
-            const [row] = rows;
-            const { node } = row.original;
             const tracks = rows.map((row) => row.original.node);
 
             if (tracks.length > 1) {
@@ -196,29 +190,29 @@ const CollectionTracksRoute = () => {
               );
             }
 
+            const [track] = tracks;
+
             return (
               <>
-                <ContextMenuAction.AddToQueue
-                  uris={tracks.map((track) => track.uri)}
-                />
+                <ContextMenuAction.AddToQueue uri={track.uri} />
                 <ContextMenu.Separator />
-                <ContextMenuAction.LinkToArtist artists={node.artists} />
-                <ContextMenu.Link to={`/albums/${node.album.id}`}>
+                <ContextMenuAction.LinkToArtist artists={track.artists} />
+                <ContextMenu.Link to={`/albums/${track.album.id}`}>
                   Go to album
                 </ContextMenu.Link>
                 <ContextMenu.Separator />
-                <ContextMenuAction.RemoveSavedTracks
-                  ids={tracks.map((track) => track.id)}
-                />
+                <ContextMenuAction.RemoveSavedTracks ids={[track.id]} />
                 <ContextMenu.Separator />
                 <ContextMenu.SubMenu
-                  content={<ContextMenuAction.CopyLinkToEntity entity={node} />}
+                  content={
+                    <ContextMenuAction.CopyLinkToEntity entity={track} />
+                  }
                 >
                   Share
                 </ContextMenu.SubMenu>
                 <ContextMenu.Separator />
                 <ContextMenuAction.OpenDesktopApp
-                  uri={node.uri}
+                  uri={track.uri}
                   context={{ uri: spotifyURI }}
                 />
               </>
