@@ -11,22 +11,19 @@ import Table from './Table';
 import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import { useMemo } from 'react';
-import useSavedTracksContains from '../hooks/useSavedTracksContains';
 import TrackLikeButtonCell from './TrackLikeButtonCell';
 
 type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
 
 interface AlbumTracksTableProps {
   album: Album;
+  tracksContains: Map<string, boolean>;
 }
 
 const columnHelper = createColumnHelper<Track>();
 
-const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
+const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
   const [resumePlayback] = useResumePlaybackMutation();
-  const tracksContains = useSavedTracksContains(
-    album.tracks?.edges.map((edge) => edge.node.id) ?? []
-  );
 
   const columns = useMemo(
     () => [

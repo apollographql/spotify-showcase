@@ -23,6 +23,7 @@ import PlayButton from '../../components/PlayButton';
 import Skeleton from '../../components/Skeleton';
 import usePlaybackState from '../../hooks/usePlaybackState';
 import { parseSpotifyIDFromURI } from '../../utils/spotify';
+import useSavedTracksContains from '../../hooks/useSavedTracksContains';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -79,6 +80,10 @@ const AlbumRoute = () => {
     throw new Error('Album not found');
   }
 
+  const tracksContains = useSavedTracksContains(
+    album.tracks?.edges.map((edge) => edge.node.id) ?? []
+  );
+
   const images = album.images ?? [];
   const coverPhoto = images[0];
   const playbackState = usePlaybackState<AlbumRoutePlaybackStateFragment>({
@@ -127,7 +132,7 @@ const AlbumRoute = () => {
             }}
           />
         </Page.ActionsBar>
-        <AlbumTracksTable album={album} />
+        <AlbumTracksTable album={album} tracksContains={tracksContains} />
         <Flex direction="column">
           <Text as="div" color="muted" size="sm">
             <ReleaseDate releaseDate={album.releaseDate} />
