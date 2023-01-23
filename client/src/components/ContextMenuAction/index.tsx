@@ -4,6 +4,7 @@ import CopyLinkToEntity from './CopyLinkToEntity';
 import LinkToArtist from './LinkToArtist';
 import RemoveFromPlaylist from './RemoveFromPlaylist';
 import RemoveSavedTracks from './RemoveSavedTracks';
+import SaveTracks from './SaveTracks';
 import OpenDesktopApp from './OpenDesktopApp';
 
 export default {
@@ -13,5 +14,6 @@ export default {
   LinkToArtist,
   RemoveFromPlaylist,
   RemoveSavedTracks,
+  SaveTracks,
   OpenDesktopApp,
 };

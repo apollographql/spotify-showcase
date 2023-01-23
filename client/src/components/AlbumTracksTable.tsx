@@ -95,12 +95,21 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
       contextMenu={(rows) => {
         const tracks = rows.map((row) => row.original);
         const uris = tracks.map((track) => track.uri);
+        const ids = tracks.map((track) => track.id);
+        const areAllSavedTracks = tracks.every((track) =>
+          tracksContains.get(track.id)
+        );
 
         if (tracks.length > 1) {
           return (
             <>
               <ContextMenuAction.AddToQueue uris={uris} />
               <ContextMenuAction.AddToPlaylist uris={uris} />
+              {areAllSavedTracks ? (
+                <ContextMenuAction.RemoveSavedTracks ids={ids} />
+              ) : (
+                <ContextMenuAction.SaveTracks ids={ids} />
+              )}
             </>
           );
         }
@@ -113,6 +122,11 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
             <ContextMenu.Separator />
             <ContextMenuAction.LinkToArtist artists={track.artists} />
             <ContextMenu.Separator />
+            {tracksContains.get(track.id) ? (
+              <ContextMenuAction.RemoveSavedTracks ids={[track.id]} />
+            ) : (
+              <ContextMenuAction.SaveTracks ids={[track.id]} />
+            )}
             <ContextMenuAction.AddToPlaylist uri={track.uri} />
             <ContextMenu.Separator />
             <ContextMenu.SubMenu
