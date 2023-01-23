@@ -181,34 +181,46 @@ const CollectionTracksRoute = () => {
 
             const [row] = rows;
             const { node } = row.original;
+            const tracks = rows.map((row) => row.original.node);
+
+            if (tracks.length > 1) {
+              return (
+                <>
+                  <ContextMenuAction.AddToQueue
+                    uris={tracks.map((track) => track.uri)}
+                  />
+                  <ContextMenuAction.RemoveSavedTracks
+                    ids={tracks.map((track) => track.id)}
+                  />
+                </>
+              );
+            }
 
             return (
               <>
                 <ContextMenuAction.AddToQueue
-                  uris={rows.map((row) => row.original.node.uri)}
+                  uris={tracks.map((track) => track.uri)}
                 />
-                {rows.length === 1 && (
-                  <>
-                    <ContextMenu.Separator />
-                    <ContextMenuAction.LinkToArtist artists={node.artists} />
-                    <ContextMenu.Link to={`/albums/${node.album.id}`}>
-                      Go to album
-                    </ContextMenu.Link>
-                    <ContextMenu.Separator />
-                    <ContextMenu.SubMenu
-                      content={
-                        <ContextMenuAction.CopyLinkToEntity entity={node} />
-                      }
-                    >
-                      Share
-                    </ContextMenu.SubMenu>
-                    <ContextMenu.Separator />
-                    <ContextMenuAction.OpenDesktopApp
-                      uri={node.uri}
-                      context={{ uri: spotifyURI }}
-                    />
-                  </>
-                )}
+                <ContextMenu.Separator />
+                <ContextMenuAction.LinkToArtist artists={node.artists} />
+                <ContextMenu.Link to={`/albums/${node.album.id}`}>
+                  Go to album
+                </ContextMenu.Link>
+                <ContextMenu.Separator />
+                <ContextMenuAction.RemoveSavedTracks
+                  ids={tracks.map((track) => track.id)}
+                />
+                <ContextMenu.Separator />
+                <ContextMenu.SubMenu
+                  content={<ContextMenuAction.CopyLinkToEntity entity={node} />}
+                >
+                  Share
+                </ContextMenu.SubMenu>
+                <ContextMenu.Separator />
+                <ContextMenuAction.OpenDesktopApp
+                  uri={node.uri}
+                  context={{ uri: spotifyURI }}
+                />
               </>
             );
           }}
