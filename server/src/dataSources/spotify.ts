@@ -53,6 +53,16 @@ export default class SpotifyAPI extends RESTDataSource {
     this.token = options.token;
   }
 
+  addItemsToPlaylist(
+    playlistId: string,
+    { params, body }: RequestParams<'POST', '/playlists/:id/tracks'>
+  ) {
+    return this._post<Spotify.Response.POST['/playlists/:id/tracks']>(
+      `/playlists/${playlistId}/tracks`,
+      { body, params }
+    );
+  }
+
   async addItemToPlaybackQueue({
     params,
   }: RequestParams<'POST', '/me/player/queue'>) {
