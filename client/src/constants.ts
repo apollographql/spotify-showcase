@@ -4,6 +4,7 @@ export const LOGIN_URL = `${import.meta.env.VITE_SERVER_HOST}/oauth/init`;
 
 export const NOTIFICATION = {
   ADDED_TO_QUEUE: 'Added to queue',
+  ADDED_TO_PLAYLIST: 'Added to Playlist',
   REMOVED_SAVED_TRACK: 'Removed from your Liked Songs',
   REMOVED_SAVED_TRACK_ERROR: 'Could not remove from your Liked Songs',
   SAVED_TRACK: 'Added to your Liked Songs',

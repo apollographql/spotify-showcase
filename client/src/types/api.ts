@@ -1581,6 +1581,11 @@ export type ArtistTopTracks_tracks = { __typename: 'Track', id: string, duration
 
 export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
 
+export type AddToPlaylistQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AddToPlaylistQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
+
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1661,6 +1666,13 @@ export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name
 export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
+export type AddToPlaylistMutationVariables = Exact<{
+  input: AddItemsToPlaylistInput;
+}>;
+
+
+export type AddToPlaylistMutation = { addItemsToPlaylist: { __typename: 'AddItemsToPlaylistPayload', playlist: { __typename: 'Playlist', id: string } | null } | null };
 
 export type AddToQueueMutationVariables = Exact<{
   input: AddItemToPlaybackQueueInput;
