@@ -136,6 +136,18 @@ type Mutation {
   removeSavedAlbums(input: RemoveSavedAlbumsInput!): RemoveSavedAlbumsPayload
 
   """
+  Remove one or more episodes from the current user's library.
+  """
+  removeSavedEpisodes(
+    input: RemoveSavedEpisodesInput!
+  ): RemoveSavedEpisodesPayload
+
+  """
+  Delete one or more shows from current Spotify user's library.
+  """
+  removeSavedShows(input: RemoveSavedShowsInput!): RemoveSavedShowsPayload
+
+  """
   Remove one or more tracks from the current user's 'Your Music' library.
   """
   removeSavedTracks(input: RemoveSavedTracksInput!): RemoveSavedTracksPayload
@@ -154,6 +166,16 @@ type Mutation {
   Save one or more albums to the current user's 'Your Music' library.
   """
   saveAlbums(input: SaveAlbumsInput!): SaveAlbumsPayload
+
+  """
+  Save one or more episodes to the current user's library.
+  """
+  saveEpisodes(input: SaveEpisodesInput!): SaveEpisodesPayload
+
+  """
+  Save one or more shows to current Spotify user's library.
+  """
+  saveShows(input: SaveShowsInput!): SaveShowsPayload
 
   """
   Save one or more tracks to the current user's 'Your Music' library.
@@ -1715,15 +1737,45 @@ type RemoveItemFromPlaylistPayload {
 
 input RemoveSavedAlbumsInput {
   """
-  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
   Maximum 20 IDs.
   """
   ids: [ID!]!
 }
 
 type RemoveSavedAlbumsPayload {
-  "The albums that were removed from Spotify user's library."
+  "The albums that were removed from the Spotify user's library."
   removedAlbums: [Album!]
+}
+
+input RemoveSavedEpisodesInput {
+  """
+  A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  Maximum 50 IDs.
+  """
+  ids: [ID!]!
+}
+
+type RemoveSavedEpisodesPayload {
+  """
+  The episodes that were removed from the Spotify user's library.
+  """
+  removedEpisodes: [Episode!]
+}
+
+input RemoveSavedShowsInput {
+  """
+  A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  for the shows. Maximum 50 IDs.
+  """
+  ids: [ID!]!
+}
+
+type RemoveSavedShowsPayload {
+  """
+  The shows that were removed from the Spotify user's library.
+  """
+  removedShows: [Show!]
 }
 
 input RemoveSavedTracksInput {
@@ -1786,7 +1838,7 @@ type ResumePlaybackPayload {
 
 input SaveAlbumsInput {
   """
-  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the albums. Maximum: 20 IDs
   """
   ids: [ID!]!
@@ -1797,9 +1849,39 @@ type SaveAlbumsPayload {
   savedAlbums: [Album!]
 }
 
+input SaveEpisodesInput {
+  """
+  An list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  Maximum: 50 IDs
+  """
+  ids: [ID!]!
+}
+
+type SaveEpisodesPayload {
+  """
+  The episodes that were saved to the Spotify user's library
+  """
+  savedEpisodes: [Episode!]
+}
+
+input SaveShowsInput {
+  """
+  An list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  for the shows. Maximum: 50 IDs
+  """
+  ids: [ID!]!
+}
+
+type SaveShowsPayload {
+  """
+  The shows that were saved to the Spotify user's library
+  """
+  savedShows: [Show!]
+}
+
 input SaveTracksInput {
   """
-  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
   Maximum: 50 IDs
   """
   ids: [ID!]!

@@ -531,6 +531,10 @@ export type Mutation = {
   removeItemFromPlaylist: Maybe<RemoveItemFromPlaylistPayload>;
   /** Remove one or more albums from the current user's 'Your Music' library. */
   removeSavedAlbums: Maybe<RemoveSavedAlbumsPayload>;
+  /** Remove one or more episodes from the current user's library. */
+  removeSavedEpisodes: Maybe<RemoveSavedEpisodesPayload>;
+  /** Delete one or more shows from current Spotify user's library. */
+  removeSavedShows: Maybe<RemoveSavedShowsPayload>;
   /** Remove one or more tracks from the current user's 'Your Music' library. */
   removeSavedTracks: Maybe<RemoveSavedTracksPayload>;
   /** Reset a field's config back to its default values. */
@@ -539,6 +543,10 @@ export type Mutation = {
   resumePlayback: Maybe<ResumePlaybackPayload>;
   /** Save one or more albums to the current user's 'Your Music' library. */
   saveAlbums: Maybe<SaveAlbumsPayload>;
+  /** Save one or more episodes to the current user's library. */
+  saveEpisodes: Maybe<SaveEpisodesPayload>;
+  /** Save one or more shows to current Spotify user's library. */
+  saveShows: Maybe<SaveShowsPayload>;
   /** Save one or more tracks to the current user's 'Your Music' library. */
   saveTracks: Maybe<SaveTracksPayload>;
   /** Seeks to the given position in the user’s currently playing track. */
@@ -589,6 +597,16 @@ export type MutationremoveSavedAlbumsArgs = {
 };
 
 
+export type MutationremoveSavedEpisodesArgs = {
+  input: RemoveSavedEpisodesInput;
+};
+
+
+export type MutationremoveSavedShowsArgs = {
+  input: RemoveSavedShowsInput;
+};
+
+
 export type MutationremoveSavedTracksArgs = {
   input: RemoveSavedTracksInput;
 };
@@ -606,6 +624,16 @@ export type MutationresumePlaybackArgs = {
 
 export type MutationsaveAlbumsArgs = {
   input: SaveAlbumsInput;
+};
+
+
+export type MutationsaveEpisodesArgs = {
+  input: SaveEpisodesInput;
+};
+
+
+export type MutationsaveShowsArgs = {
+  input: SaveShowsInput;
 };
 
 
@@ -1133,7 +1161,7 @@ export type RemoveItemFromPlaylistTrackInput = {
 
 export type RemoveSavedAlbumsInput = {
   /**
-   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
    * Maximum 20 IDs.
    */
   ids: Array<Scalars['ID']>;
@@ -1141,8 +1169,36 @@ export type RemoveSavedAlbumsInput = {
 
 export type RemoveSavedAlbumsPayload = {
   __typename: 'RemoveSavedAlbumsPayload';
-  /** The albums that were removed from Spotify user's library. */
+  /** The albums that were removed from the Spotify user's library. */
   removedAlbums: Maybe<Array<Album>>;
+};
+
+export type RemoveSavedEpisodesInput = {
+  /**
+   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * Maximum 50 IDs.
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type RemoveSavedEpisodesPayload = {
+  __typename: 'RemoveSavedEpisodesPayload';
+  /** The episodes that were removed from the Spotify user's library. */
+  removedEpisodes: Maybe<Array<Episode>>;
+};
+
+export type RemoveSavedShowsInput = {
+  /**
+   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * for the shows. Maximum 50 IDs.
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type RemoveSavedShowsPayload = {
+  __typename: 'RemoveSavedShowsPayload';
+  /** The shows that were removed from the Spotify user's library. */
+  removedShows: Maybe<Array<Show>>;
 };
 
 export type RemoveSavedTracksInput = {
@@ -1218,7 +1274,7 @@ export type ResumePoint = {
 
 export type SaveAlbumsInput = {
   /**
-   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the albums. Maximum: 20 IDs
    */
   ids: Array<Scalars['ID']>;
@@ -1230,9 +1286,37 @@ export type SaveAlbumsPayload = {
   savedAlbums: Maybe<Array<Album>>;
 };
 
+export type SaveEpisodesInput = {
+  /**
+   * An list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * Maximum: 50 IDs
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type SaveEpisodesPayload = {
+  __typename: 'SaveEpisodesPayload';
+  /** The episodes that were saved to the Spotify user's library */
+  savedEpisodes: Maybe<Array<Episode>>;
+};
+
+export type SaveShowsInput = {
+  /**
+   * An list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * for the shows. Maximum: 50 IDs
+   */
+  ids: Array<Scalars['ID']>;
+};
+
+export type SaveShowsPayload = {
+  __typename: 'SaveShowsPayload';
+  /** The shows that were saved to the Spotify user's library */
+  savedShows: Maybe<Array<Show>>;
+};
+
 export type SaveTracksInput = {
   /**
-   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
    * Maximum: 50 IDs
    */
   ids: Array<Scalars['ID']>;

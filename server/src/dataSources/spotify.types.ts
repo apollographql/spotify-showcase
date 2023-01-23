@@ -590,6 +590,7 @@ export namespace Spotify {
       '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
       '/recommendations/available-genre-seeds': Object.List<'genres', string>;
+      '/shows': Object.List<'shows', Object.Show>;
       '/shows/:id': Object.Show;
       '/shows/:id/episodes': Object.Paginated<Object.EpisodeSimplified>;
       '/tracks': Object.List<'tracks', Object.Track>;
@@ -722,6 +723,10 @@ export namespace Spotify {
           offset?: number;
           timestamp?: string;
         };
+        '/episodes': {
+          ids: string;
+          market?: string;
+        };
         '/recommendations': {
           seed_artists?: string;
           seed_genres?: string;
@@ -770,6 +775,10 @@ export namespace Spotify {
         '/playlists/:id': {
           additional_types?: string;
           fields?: string;
+          market?: string;
+        };
+        '/shows': {
+          ids: string;
           market?: string;
         };
         '/shows/:id/episodes': {

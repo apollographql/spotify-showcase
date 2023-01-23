@@ -95,15 +95,34 @@ const resolvers: MutationResolvers = {
   removeSavedAlbums: async (_, { input }, { dataSources }) => {
     const ids = input.ids.join(',');
 
-    await dataSources.spotify.removeSavedAlbums({ params: { ids } });
+    await dataSources.spotify.removeSavedAlbums({ body: {}, params: { ids } });
     const { albums } = await dataSources.spotify.getAlbums({ ids });
 
     return { removedAlbums: albums };
   },
+  removeSavedEpisodes: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+    await dataSources.spotify.removeSavedEpisodes({
+      body: {},
+      params: { ids },
+    });
+    const { episodes } = await dataSources.spotify.getEpisodes({ ids });
+
+    return { removedEpisodes: episodes };
+  },
+  removeSavedShows: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+    await dataSources.spotify.removeSavedShows({
+      params: { ids },
+    });
+    const { shows } = await dataSources.spotify.getShows({ ids });
+
+    return { removedShows: shows };
+  },
   removeSavedTracks: async (_, { input }, { dataSources }) => {
     const ids = input.ids.join(',');
 
-    await dataSources.spotify.removeSavedTracks({ params: { ids } });
+    await dataSources.spotify.removeSavedTracks({ body: {}, params: { ids } });
     const { tracks } = await dataSources.spotify.getTracks({ ids });
 
     return { removedTracks: tracks };
@@ -123,12 +142,36 @@ const resolvers: MutationResolvers = {
     const ids = input.ids.join(',');
 
     await dataSources.spotify.saveAlbumsToLibrary({
+      body: {},
       params: { ids },
     });
 
     const { albums } = await dataSources.spotify.getAlbums({ ids });
 
     return { savedAlbums: albums };
+  },
+  saveEpisodes: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+
+    await dataSources.spotify.saveEpisodesToLibrary({
+      body: {},
+      params: { ids },
+    });
+
+    const { episodes } = await dataSources.spotify.getEpisodes({ ids });
+
+    return { savedEpisodes: episodes };
+  },
+  saveShows: async (_, { input }, { dataSources }) => {
+    const ids = input.ids.join(',');
+
+    await dataSources.spotify.saveShowsToLibrary({
+      params: { ids },
+    });
+
+    const { shows } = await dataSources.spotify.getShows({ ids });
+
+    return { savedShows: shows };
   },
   saveTracks: async (_, { input }, { dataSources }) => {
     const ids = input.ids.join(',');
