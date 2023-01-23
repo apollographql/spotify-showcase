@@ -50,7 +50,9 @@ const useRemoveSavedAlbumsMutation = () => {
                 albumsContains(ids: $ids)
               }
             `,
-            data: input.ids.map(() => false),
+            data: {
+              albumsContains: input.ids.map(() => false),
+            },
             variables: {
               ids: input.ids,
             },
