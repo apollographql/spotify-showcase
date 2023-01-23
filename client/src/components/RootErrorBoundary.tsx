@@ -54,7 +54,7 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
       <>
         <ErrorTitle>Page not found</ErrorTitle>
         <ErrorDescription>
-          We can't seem to find the page you are looking for.
+          We can&apos;t seem to find the page you are looking for.
         </ErrorDescription>
         <ErrorActionLink to="/">Home</ErrorActionLink>
       </>
@@ -67,7 +67,7 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
 
   return (
     <>
-      <ErrorTitle>Oops.</ErrorTitle>
+      <ErrorTitle>Oops</ErrorTitle>
       <ErrorDescription>
         Something went wrong. Try{' '}
         <a className="underline" href={location.pathname}>
