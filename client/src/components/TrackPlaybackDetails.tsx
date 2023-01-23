@@ -27,7 +27,7 @@ const TrackPlaybackDetails = ({
         <ContextMenu
           content={
             <>
-              <ContextMenuAction.AddToQueue uris={[track.uri]} />
+              <ContextMenuAction.AddToQueue uri={track.uri} />
               <ContextMenu.Separator />
               <ContextMenuAction.LinkToArtist artists={track.artists} />
               <ContextMenu.Link to={`/albums/${track.album.id}`}>

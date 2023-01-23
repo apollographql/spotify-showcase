@@ -2,23 +2,24 @@ import useAddToQueueMutation from '../../mutations/useAddToQueueMutation';
 import { notify } from '../../notifications';
 import ContextMenu from '../ContextMenu';
 
-interface AddToQueueProps {
-  uris: string[];
-}
+type AddToQueueProps =
+  | { uri: string; uris?: never }
+  | { uri?: never; uris: string[] };
 
-const AddToQueue = ({ uris }: AddToQueueProps) => {
+const AddToQueue = ({ uri, uris }: AddToQueueProps) => {
+  const allUris = uris || [uri];
   const [addToQueue] = useAddToQueueMutation();
 
   return (
     <ContextMenu.Action
       onSelect={async () => {
         try {
-          await Promise.all(uris.map((uri) => addToQueue({ uri })));
+          await Promise.all(allUris.map((uri) => addToQueue({ uri })));
 
           notify('Added to queue');
         } catch (e) {
           notify(
-            `Could not add ${uris.length === 1 ? 'item' : 'items'} to queue`
+            `Could not add ${allUris.length === 1 ? 'item' : 'items'} to queue`
           );
         }
       }}
