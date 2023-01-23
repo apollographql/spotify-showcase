@@ -20,8 +20,8 @@ const LoggedOutRoute = () => {
         <div className="flex h-full flex-col items-center justify-center">
           <ErrorTitle>You were logged out</ErrorTitle>
           <ErrorDescription>
-            Your access token is invalid or might have expired. Try logging in
-            again or{' '}
+            Your access token might have expired or it was invalid. Try logging
+            in again or{' '}
             <Link to="/" className="underline">
               go back home
             </Link>
