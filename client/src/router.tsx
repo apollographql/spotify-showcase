@@ -29,6 +29,7 @@ import { isLoggedInVar } from './vars';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
 import RootLoadingState from './components/RootLoadingState';
+import client from './apollo';
 
 import { LOGIN_URL } from './constants';
 
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
     path: '/logout',
     loader: () => {
       logout();
+      client.clearStore();
       return redirect('/');
     },
   },
