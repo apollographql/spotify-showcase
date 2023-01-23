@@ -24,6 +24,7 @@ import ShowRoute, {
 import TrackRoute, {
   LoadingState as TrackRouteLoadingState,
 } from './routes/tracks/track';
+import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
 import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
 
@@ -58,6 +59,11 @@ const router = createBrowserRouter([
       client.clearStore();
       return redirect('/');
     },
+  },
+  {
+    path: '/logged-out',
+    loader: loggedOutLoader,
+    element: <LoggedOutRoute />,
   },
   {
     path: '/',

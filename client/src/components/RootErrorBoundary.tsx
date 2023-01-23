@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client';
 import {
   useRouteError,
   isRouteErrorResponse,
+  Navigate,
   Link,
   useLocation,
 } from 'react-router-dom';
@@ -61,20 +62,7 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
   }
 
   if (didBecomeUnauthenticated(error)) {
-    return (
-      <>
-        <ErrorTitle>You were logged out</ErrorTitle>
-        <ErrorDescription>
-          Your access token is invalid or might have expired. Try logging in
-          again or{' '}
-          <Link to="/" className="underline">
-            go back home
-          </Link>
-          .
-        </ErrorDescription>
-        <ErrorActionLink to="/login">Log in</ErrorActionLink>
-      </>
-    );
+    return <Navigate to="/logged-out" />;
   }
 
   return (
