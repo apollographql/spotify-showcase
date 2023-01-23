@@ -25,6 +25,8 @@ import usePlaybackState from '../../hooks/usePlaybackState';
 import { parseSpotifyIDFromURI } from '../../utils/spotify';
 import useSavedTracksContains from '../../hooks/useSavedTracksContains';
 import LikeButton from '../../components/LikeButton';
+import useSaveAlbumsMutation from '../../mutations/useSaveAlbumsMutation';
+import useRemoveSavedAlbumsMutation from '../../mutations/useRemoveSavedAlbumsMutation';
 
 const ALBUM_ROUTE_QUERY = gql`
   query AlbumRouteQuery($albumId: ID!) {
@@ -77,6 +79,8 @@ const AlbumRoute = () => {
   );
 
   const [resumePlayback] = useResumePlaybackMutation();
+  const [saveAlbums] = useSaveAlbumsMutation();
+  const [removeSavedAlbums] = useRemoveSavedAlbumsMutation();
 
   const album = data.album;
   const me = data.me;
@@ -96,6 +100,7 @@ const AlbumRoute = () => {
   });
   const isPlaying = playbackState?.isPlaying ?? false;
   const isPlayingAlbum = playbackState?.context?.uri === album.uri;
+  const isLiked = me?.albumsContains?.[0] ?? false;
 
   useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
@@ -136,7 +141,15 @@ const AlbumRoute = () => {
               });
             }}
           />
-          <LikeButton liked={me?.albumsContains?.[0] ?? false} size="2rem" />
+          <LikeButton
+            liked={isLiked}
+            size="2rem"
+            onClick={() => {
+              return isLiked
+                ? removeSavedAlbums({ ids: [album.id] })
+                : saveAlbums({ ids: [album.id] });
+            }}
+          />
         </Page.ActionsBar>
         <AlbumTracksTable album={album} tracksContains={tracksContains} />
         <Flex direction="column">
