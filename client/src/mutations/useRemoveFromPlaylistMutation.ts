@@ -27,15 +27,6 @@ const useRemoveFromPlaylistMutation = () => {
     (input: RemoveItemFromPlaylistInput) => {
       return execute({
         variables: { input },
-        optimisticResponse: {
-          removeItemFromPlaylist: {
-            __typename: 'RemoveItemFromPlaylistPayload',
-            playlist: {
-              __typename: 'Playlist',
-              id: input.playlistId,
-            },
-          },
-        },
         update: (cache) => {
           cache.modify({
             id: cache.identify({
