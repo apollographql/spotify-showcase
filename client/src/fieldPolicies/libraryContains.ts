@@ -3,28 +3,39 @@ import { FieldPolicy } from '@apollo/client';
 const libraryContains = (): FieldPolicy => {
   return {
     keyArgs: false,
-    read(existing: Record<string, boolean> = {}, { args }) {
-      const ids = (args?.ids as string[]) ?? [];
+    read(_: boolean[] = [], { args, storage }) {
+      storage.libraryContains =
+        storage.libraryContains ?? new Map<string, boolean>();
 
-      if (ids.some((id) => existing[id] == null)) {
+      const ids = (args?.ids as string[]) ?? [];
+      const incomplete = ids.some(
+        (id) => storage.libraryContains.get(id) == null
+      );
+
+      if (incomplete) {
         return;
       }
 
-      return ids.map((id) => existing[id]);
+      return ids.map((id) => storage.libraryContains.get(id));
     },
     merge: (
-      existing: Record<string, boolean> = {},
+      existing: boolean[] = [],
       incoming: boolean[],
-      { args }
+      { args, storage }
     ) => {
       if (!args) {
         return existing;
       }
 
-      return (args.ids as string[]).reduce(
-        (memo, id, index) => ({ ...memo, [id]: incoming[index] }),
-        existing
+      storage.libraryContains =
+        storage.libraryContains ?? new Map<string, boolean>();
+
+      const result = (args.ids as string[]).reduce(
+        (contains, id, index) => contains.set(id, incoming[index]),
+        storage.libraryContains as Map<string, boolean>
       );
+
+      return [...result.values()];
     },
   };
 };
