@@ -76,13 +76,13 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
       }}
       contextMenu={(rows) => {
         const tracks = rows.map((row) => row.original);
+        const uris = tracks.map((track) => track.uri);
 
         if (tracks.length > 1) {
           return (
             <>
-              <ContextMenuAction.AddToQueue
-                uris={tracks.map((track) => track.uri)}
-              />
+              <ContextMenuAction.AddToQueue uris={uris} />
+              <ContextMenuAction.AddToPlaylist uris={uris} />
             </>
           );
         }
@@ -94,6 +94,8 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
             <ContextMenuAction.AddToQueue uri={track.uri} />
             <ContextMenu.Separator />
             <ContextMenuAction.LinkToArtist artists={track.artists} />
+            <ContextMenu.Separator />
+            <ContextMenuAction.AddToPlaylist uri={track.uri} />
             <ContextMenu.Separator />
             <ContextMenu.SubMenu
               content={<ContextMenuAction.CopyLinkToEntity entity={track} />}
