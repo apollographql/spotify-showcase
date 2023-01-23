@@ -202,6 +202,7 @@ const CollectionTracksRoute = () => {
                 </ContextMenu.Link>
                 <ContextMenu.Separator />
                 <ContextMenuAction.RemoveSavedTracks ids={[track.id]} />
+                <ContextMenuAction.AddToPlaylist uri={track.uri} />
                 <ContextMenu.Separator />
                 <ContextMenu.SubMenu
                   content={
