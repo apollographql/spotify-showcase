@@ -1,4 +1,3 @@
-import { NOTIFICATION } from '../../constants';
 import useAddToQueueMutation from '../../mutations/useAddToQueueMutation';
 import { notify } from '../../notifications';
 import ContextMenu from '../ContextMenu';
@@ -9,15 +8,13 @@ type AddToQueueProps =
 
 const AddToQueue = ({ uri, uris }: AddToQueueProps) => {
   const allUris = uris || [uri];
-  const [addToQueue] = useAddToQueueMutation({ notification: false });
+  const [addToQueue] = useAddToQueueMutation();
 
   return (
     <ContextMenu.Action
       onSelect={async () => {
         try {
           await Promise.all(allUris.map((uri) => addToQueue({ uri })));
-
-          notify(NOTIFICATION.ADDED_TO_QUEUE);
         } catch (e) {
           notify(
             `Could not add ${allUris.length === 1 ? 'item' : 'items'} to queue`

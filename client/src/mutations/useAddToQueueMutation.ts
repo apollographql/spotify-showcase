@@ -30,11 +30,6 @@ const useAddToQueueMutation = ({ notification = true }: Options = {}) => {
     AddToQueueMutation,
     AddToQueueMutationVariables
   >(ADD_TO_QUEUE_MUTATION, {
-    onError: () => {
-      if (notification) {
-        notify('Could not add item to queue');
-      }
-    },
     onCompleted: () => {
       if (notification) {
         notify(NOTIFICATION.ADDED_TO_QUEUE);
