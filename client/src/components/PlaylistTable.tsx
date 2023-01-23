@@ -199,6 +199,10 @@ const PlaylistTable = ({
       contextMenu={(rows) => {
         const playlistItems = rows.map((row) => row.original.node);
         const uris = playlistItems.map((item) => item.uri);
+        const ids = playlistItems.map((item) => item.id);
+        const areAllSaved = playlistItems.every((item) =>
+          tracksContains.get(item.id)
+        );
 
         if (playlistItems.length > 1) {
           return (
@@ -209,6 +213,11 @@ const PlaylistTable = ({
                   playlistId={playlist.id}
                   uris={uris}
                 />
+              )}
+              {areAllSaved ? (
+                <ContextMenuAction.RemoveSavedTracks ids={ids} />
+              ) : (
+                <ContextMenuAction.SaveTracks ids={ids} />
               )}
               <ContextMenuAction.AddToPlaylist uris={uris} />
             </>
@@ -230,9 +239,14 @@ const PlaylistTable = ({
                 </ContextMenu.Link>
               </>
             )}
+            <ContextMenu.Separator />
+            {tracksContains.get(playlistItem.id) ? (
+              <ContextMenuAction.RemoveSavedTracks ids={[playlistItem.id]} />
+            ) : (
+              <ContextMenuAction.SaveTracks ids={[playlistItem.id]} />
+            )}
             {playlist.owner.id === currentUser?.id && (
               <>
-                <ContextMenu.Separator />
                 <ContextMenuAction.RemoveFromPlaylist
                   playlistId={playlist.id}
                   uri={playlistItem.uri}
