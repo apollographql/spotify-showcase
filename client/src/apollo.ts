@@ -5,10 +5,8 @@ import {
   createHttpLink,
   split,
 } from '@apollo/client';
-import { onError } from '@apollo/client/link/error';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { readAuthToken } from './utils';
-import { logout } from './auth';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
@@ -34,14 +32,6 @@ const wsLink = new GraphQLWsLink(
   })
 );
 
-const removeTokenLink = onError(({ graphQLErrors }) => {
-  graphQLErrors?.forEach((error) => {
-    if (error.extensions.code === 'UNAUTHENTICATED') {
-      logout();
-    }
-  });
-});
-
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
@@ -52,7 +42,7 @@ const splitLink = split(
     );
   },
   wsLink,
-  ApolloLink.from([removeTokenLink, httpLink])
+  ApolloLink.from([httpLink])
 );
 
 export default new ApolloClient({
