@@ -50,6 +50,13 @@ export default new ApolloClient({
   cache: new InMemoryCache({
     possibleTypes: introspection.possibleTypes,
     typePolicies: {
+      Album: {
+        fields: {
+          releaseDate: {
+            merge: true,
+          },
+        },
+      },
       Copyright: {
         keyFields: false,
       },
