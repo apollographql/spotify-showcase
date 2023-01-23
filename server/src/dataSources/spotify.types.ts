@@ -551,6 +551,12 @@ export namespace Spotify {
       };
     }
 
+    export interface POST {
+      '/playlists/:id/tracks': {
+        snapshot_id: string;
+      };
+    }
+
     export interface GET {
       '/albums': Object.List<'albums', Object.Album>;
       '/albums/:id': Object.Album;
@@ -600,11 +606,13 @@ export namespace Spotify {
         Path extends Request.Paths
       > = THttpMethod extends 'PUT'
         ? Prop<PUT, Path>
+        : THttpMethod extends 'POST'
+        ? Prop<POST, Path>
         : THttpMethod extends 'DELETE'
         ? Prop<DELETE, Path>
         : never;
 
-      export type Paths = keyof PUT | keyof DELETE;
+      export type Paths = keyof POST | keyof PUT | keyof DELETE;
 
       export interface DELETE {
         '/playlists/:id/tracks': {
@@ -612,6 +620,13 @@ export namespace Spotify {
           tracks: {
             uri: string;
           }[];
+        };
+      }
+
+      export interface POST {
+        '/playlists/:id/tracks': {
+          uris?: string[];
+          position?: number;
         };
       }
 
@@ -756,6 +771,10 @@ export namespace Spotify {
         '/me/player/queue': {
           uri: string;
           device_id?: string;
+        };
+        '/playlists/:id/tracks': {
+          position?: number;
+          uris?: string[];
         };
       }
 
