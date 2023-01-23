@@ -240,32 +240,6 @@ type Mutation {
   transferPlayback(input: TransferPlaybackInput!): TransferPlaybackPayload
 }
 
-input SaveAlbumsInput {
-  """
-  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-  for the albums. Maximum: 20 IDs
-  """
-  ids: [ID!]!
-}
-
-type SaveAlbumsPayload {
-  "The albums that were saved to the Spotify user's library"
-  savedAlbums: [Album!]
-}
-
-input SaveTracksInput {
-  """
-  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-  Maximum: 50 IDs
-  """
-  ids: [ID!]!
-}
-
-type SaveTracksPayload {
-  "The tracks that were saved to the Spotify user's library"
-  savedTracks: [Track!]
-}
-
 type Subscription {
   playbackStateChanged: PlaybackState
 }
@@ -1772,6 +1746,32 @@ input ResumePlaybackOffsetInput {
 
 type ResumePlaybackPayload {
   playbackState: PlaybackState
+}
+
+input SaveAlbumsInput {
+  """
+  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the albums. Maximum: 20 IDs
+  """
+  ids: [ID!]!
+}
+
+type SaveAlbumsPayload {
+  "The albums that were saved to the Spotify user's library"
+  savedAlbums: [Album!]
+}
+
+input SaveTracksInput {
+  """
+  A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
+  Maximum: 50 IDs
+  """
+  ids: [ID!]!
+}
+
+type SaveTracksPayload {
+  "The tracks that were saved to the Spotify user's library"
+  savedTracks: [Track!]
 }
 
 type SavedTrackEdge {
