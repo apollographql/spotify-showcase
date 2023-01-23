@@ -22,6 +22,7 @@ import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
 import TrackLikeButtonCell from './TrackLikeButtonCell';
+import useSavedTracksContains from '../hooks/useSavedTracksContains';
 
 interface PlaylistTableProps {
   className?: string;
@@ -54,6 +55,12 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
     fragment: CURRENT_USER_FRAGMENT,
     fragmentName: 'PlaylistTable_currentUser',
   });
+
+  const tracksContains = useSavedTracksContains(
+    playlist.tracks.edges
+      .filter((edge) => edge.node.__typename === 'Track')
+      .map((edge) => edge.node.id)
+  );
 
   const currentUser = data?.user;
   const [resumePlayback] = useResumePlaybackMutation();
@@ -161,7 +168,11 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
             return null;
           }
 
-          return <TrackLikeButtonCell liked={false} track={playlistItem} />;
+          const liked =
+            info.table.options.meta?.tracksContains?.get(playlistItem.id) ??
+            false;
+
+          return <TrackLikeButtonCell liked={liked} track={playlistItem} />;
         },
         meta: {
           shrink: true,
@@ -176,6 +187,7 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
         },
       }),
     ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playlist, containsAllEpisodes, containsAllTracks]);
 
   return (
@@ -186,6 +198,7 @@ const PlaylistTable = ({ className, playlist }: PlaylistTableProps) => {
       className={className}
       data={playlist.tracks.edges}
       columns={columns}
+      meta={{ tracksContains }}
       contextMenu={(rows) => {
         const playlistItems = rows.map((row) => row.original.node);
         const uris = playlistItems.map((item) => item.uri);
