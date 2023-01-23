@@ -16,7 +16,6 @@ import ApolloLogo from '../ApolloLogo';
 import GradientIcon from '../GradientIcon';
 import SpotifyLogo from '../SpotifyLogo';
 import NavLink from './NavLink';
-import Text from '../Text';
 import styles from './Sidebar.module.scss';
 import usePlaybackState from '../../hooks/usePlaybackState';
 
