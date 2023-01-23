@@ -1,13 +1,13 @@
 import { ApolloError } from '@apollo/client';
-import { ReactNode } from 'react';
 import {
   useRouteError,
   isRouteErrorResponse,
   Link,
-  To,
   useLocation,
 } from 'react-router-dom';
-import Button from './Button';
+import ErrorTitle from './ErrorTitle';
+import ErrorDescription from './ErrorDescription';
+import ErrorActionLink from './ErrorActionLink';
 import Layout from './Layout';
 
 const didBecomeUnauthenticated = (error: unknown) => {
@@ -87,35 +87,6 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
         .
       </ErrorDescription>
     </>
-  );
-};
-
-interface ErrorTitleProps {
-  children: ReactNode;
-}
-
-const ErrorTitle = ({ children }: ErrorTitleProps) => {
-  return <h1 className="mb-4 text-5xl">{children}</h1>;
-};
-
-interface ErrorDescriptionProps {
-  children: ReactNode;
-}
-
-const ErrorDescription = ({ children }: ErrorDescriptionProps) => {
-  return <p className="mb-8 max-w-lg text-center text-lg">{children}</p>;
-};
-
-interface ErrorActionLinkProps {
-  children: ReactNode;
-  to: To;
-}
-
-const ErrorActionLink = ({ children, to }: ErrorActionLinkProps) => {
-  return (
-    <Button as={Link} to={to} variant="secondary">
-      {children}
-    </Button>
   );
 };
 
