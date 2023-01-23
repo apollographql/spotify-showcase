@@ -63,12 +63,21 @@ const useRemoveSavedTracksMutation = () => {
                   }),
                 };
               },
-              tracksContains(existing: Record<string, boolean>) {
-                return input.ids.reduce(
-                  (memo, id) => ({ ...memo, [id]: false }),
-                  existing
-                );
-              },
+            },
+          });
+
+          cache.writeFragment({
+            id: cache.identify({ __typename: 'CurrentUser' }),
+            fragment: gql`
+              fragment RemovedSavedTracksMutationFragment on CurrentUser {
+                tracksContains(ids: $ids)
+              }
+            `,
+            data: {
+              tracksContains: input.ids.map(() => false),
+            },
+            variables: {
+              ids: input.ids,
             },
           });
         },

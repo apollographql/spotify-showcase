@@ -1667,6 +1667,15 @@ export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', contex
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
+export type SavedTracksContainsQueryVariables = Exact<{
+  ids: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type SavedTracksContainsQuery = { me: { __typename: 'CurrentUser', tracksContains: Array<boolean> | null } | null };
+
+export type SavedTracksContainsFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
+
 export type AddToPlaylistMutationVariables = Exact<{
   input: AddItemsToPlaylistInput;
 }>;
@@ -1700,6 +1709,8 @@ export type RemoveSavedTracksMutationVariables = Exact<{
 
 export type RemoveSavedTracksMutation = { removeSavedTracks: { __typename: 'RemoveSavedTracksPayload', removedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
 
+export type RemovedSavedTracksMutationFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
+
 export type ResumePlaybackMutationVariables = Exact<{
   input?: InputMaybe<ResumePlaybackInput>;
 }>;
@@ -1715,6 +1726,8 @@ export type SaveTracksMutationVariables = Exact<{
 
 
 export type SaveTracksMutation = { saveTracks: { __typename: 'SaveTracksPayload', savedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
+
+export type SaveTracksMutationFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
 
 export type SeekToPositionMutationVariables = Exact<{
   positionMs: Scalars['Int'];

@@ -72,12 +72,21 @@ const useSaveTracksMutation = () => {
                   }, Array.from(readField<Reference[]>('edges', existing) ?? [])),
                 };
               },
-              tracksContains(existing: Record<string, boolean>) {
-                return input.ids.reduce(
-                  (memo, id) => ({ ...memo, [id]: true }),
-                  existing
-                );
-              },
+            },
+          });
+
+          cache.writeFragment({
+            id: cache.identify({ __typename: 'CurrentUser' }),
+            fragment: gql`
+              fragment SaveTracksMutationFragment on CurrentUser {
+                tracksContains(ids: $ids)
+              }
+            `,
+            data: {
+              tracksContains: input.ids.map(() => true),
+            },
+            variables: {
+              ids: input.ids,
             },
           });
         },
