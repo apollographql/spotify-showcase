@@ -615,6 +615,15 @@ export namespace Spotify {
       export type Paths = keyof POST | keyof PUT | keyof DELETE;
 
       export interface DELETE {
+        '/me/albums': {
+          ids?: string[];
+        };
+        '/me/episodes': {
+          ids?: string[];
+        };
+        '/me/tracks': {
+          ids?: string[];
+        };
         '/playlists/:id/tracks': {
           snapshot_id?: string;
           tracks: {
@@ -631,6 +640,12 @@ export namespace Spotify {
       }
 
       export interface PUT {
+        '/me/albums': {
+          ids?: string[];
+        };
+        '/me/episodes': {
+          ids?: string[];
+        };
         '/me/player': {
           device_ids: string[];
           play?: boolean;
@@ -665,6 +680,13 @@ export namespace Spotify {
       export interface DELETE {
         '/me/albums': {
           ids: string;
+        };
+        '/me/episodes': {
+          ids: string;
+        };
+        '/me/shows': {
+          ids: string;
+          market?: string;
         };
         '/me/tracks': {
           ids: string;

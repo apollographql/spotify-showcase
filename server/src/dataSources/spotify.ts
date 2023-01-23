@@ -324,14 +324,35 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
-  async removeSavedAlbums({ params }: RequestParams<'DELETE', '/me/albums'>) {
-    await this._delete('/me/albums', { params });
+  async removeSavedAlbums({
+    body,
+    params,
+  }: RequestParams<'DELETE', '/me/albums'>) {
+    await this._delete('/me/albums', { body, params });
 
     return true;
   }
 
-  async removeSavedTracks({ params }: RequestParams<'DELETE', '/me/tracks'>) {
-    await this._delete('/me/tracks', { params });
+  async removeSavedEpisodes({
+    body,
+    params,
+  }: RequestParams<'DELETE', '/me/episodes'>) {
+    await this._delete('/me/episodes', { body, params });
+
+    return true;
+  }
+
+  async removeSavedShows({ params }: RequestParams<'DELETE', '/me/shows'>) {
+    await this._delete('/me/shows', { params });
+
+    return true;
+  }
+
+  async removeSavedTracks({
+    body,
+    params,
+  }: RequestParams<'DELETE', '/me/tracks'>) {
+    await this._delete('/me/tracks', { body, params });
 
     return true;
   }
@@ -351,16 +372,20 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
-  async saveAlbumsToLibrary({ params }: RequestParams<'PUT', '/me/albums'>) {
-    await this._put('/me/albums', { params });
+  async saveAlbumsToLibrary({
+    body,
+    params,
+  }: RequestParams<'PUT', '/me/albums'>) {
+    await this._put('/me/albums', { body, params });
 
     return true;
   }
 
   async saveEpisodesToLibrary({
+    body,
     params,
   }: RequestParams<'PUT', '/me/episodes'>) {
-    await this._put('/me/episode', { params });
+    await this._put('/me/episode', { body, params });
 
     return true;
   }
