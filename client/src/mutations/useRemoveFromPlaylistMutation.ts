@@ -44,19 +44,17 @@ const useRemoveFromPlaylistMutation = () => {
             }),
             fields: {
               tracks: (tracks: Playlist['tracks'], { readField }) => {
-                const edges = readField<Playlist['tracks']['edges']>(
-                  'edges',
-                  tracks
-                );
+                const uris = input.tracks.map((track) => track.uri);
+                const edges =
+                  readField<Playlist['tracks']['edges']>('edges', tracks) ?? [];
 
                 return {
                   ...tracks,
-                  edges: edges?.filter((edge) => {
+                  edges: edges.filter((edge) => {
                     const node = readField<Reference>('node', edge);
+                    const uri = readField<string>('uri', node) ?? 'UNKNOWN';
 
-                    return !input.tracks
-                      .map((track) => track.uri)
-                      .includes(readField<string>('uri', node) ?? '');
+                    return uris.indexOf(uri) === -1;
                   }),
                 };
               },
