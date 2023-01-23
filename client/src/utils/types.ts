@@ -1,6 +1,7 @@
 // Helpers thanks to Ben Ilegbodu
 // https://www.benmvp.com/blog/forwarding-refs-polymorphic-react-component-typescript/
 import React from 'react';
+import { Reference } from '@apollo/client';
 
 export type PropsOf<
   TComponent extends
@@ -63,3 +64,7 @@ export type PolymorphicComponentPropsWithRef<
   C extends React.ElementType,
   Props = object
 > = PolymorphicComponentProps<C, Props> & { ref?: PolymorphicRef<C> };
+
+export type WithRef<T, Key extends keyof T> = Omit<T, Key> & {
+  [K in Key]: Reference;
+};
