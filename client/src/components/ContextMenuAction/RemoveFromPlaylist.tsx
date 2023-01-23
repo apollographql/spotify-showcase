@@ -1,17 +1,30 @@
 import useRemoveFromPlaylistMutation from '../../mutations/useRemoveFromPlaylistMutation';
 import ContextMenu from '../ContextMenu';
 
-interface RemoveFromPlaylistProps {
-  playlistId: string;
-  uri: string;
-}
+type RemoveFromPlaylistUris =
+  | { uri: string; uris?: never }
+  | { uri?: never; uris: string[] };
 
-const RemoveFromPlaylist = ({ playlistId, uri }: RemoveFromPlaylistProps) => {
+type RemoveFromPlaylistProps = RemoveFromPlaylistUris & {
+  playlistId: string;
+};
+
+const RemoveFromPlaylist = ({
+  playlistId,
+  uri,
+  uris,
+}: RemoveFromPlaylistProps) => {
+  const allUris = uris || [uri];
   const [removeFromPlaylist] = useRemoveFromPlaylistMutation();
 
   return (
     <ContextMenu.Action
-      onSelect={() => removeFromPlaylist({ playlistId, tracks: [{ uri }] })}
+      onSelect={() =>
+        removeFromPlaylist({
+          playlistId,
+          tracks: allUris.map((uri) => ({ uri })),
+        })
+      }
     >
       Remove from this playlist
     </ContextMenu.Action>
