@@ -1,8 +1,6 @@
 import cx from 'classnames';
-import { NOTIFICATION } from '../constants';
 import useRemoveSavedTracksMutation from '../mutations/useRemoveSavedTracksMutation';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
-import { notify } from '../notifications';
 import LikeButton from './LikeButton';
 
 interface Track {
@@ -27,15 +25,10 @@ const TrackLikeButtonCell = ({ liked, track }: TrackLikeButtonCellProps) => {
         className={cx('relative top-[2px] group-hover:visible', {
           invisible: !liked,
         })}
-        onClick={async () => {
-          if (liked) {
-            await removeSavedTracks({ ids: [track.id] });
-            notify(NOTIFICATION.REMOVED_SAVED_TRACK);
-          } else {
-            await saveTracks({ ids: [track.id] });
-            notify(NOTIFICATION.SAVED_TRACK);
-          }
-          return liked;
+        onClick={() => {
+          return liked
+            ? removeSavedTracks({ ids: [track.id] })
+            : saveTracks({ ids: [track.id] });
         }}
       />
     </div>

@@ -5,6 +5,8 @@ import {
   RemoveSavedTracksInput,
 } from '../types/api';
 import { useCallback } from 'react';
+import { notify } from '../notifications';
+import { NOTIFICATION } from '../constants';
 
 const REMOVE_SAVED_TRACKS_MUTATION = gql`
   mutation RemoveSavedTracksMutation($input: RemoveSavedTracksInput!) {
@@ -20,7 +22,14 @@ const useRemoveSavedTracksMutation = () => {
   const [execute, result] = useMutation<
     RemoveSavedTracksMutation,
     RemoveSavedTracksMutationVariables
-  >(REMOVE_SAVED_TRACKS_MUTATION);
+  >(REMOVE_SAVED_TRACKS_MUTATION, {
+    onError: () => {
+      notify(NOTIFICATION.REMOVED_SAVED_TRACK_ERROR);
+    },
+    onCompleted: () => {
+      notify(NOTIFICATION.REMOVED_SAVED_TRACK);
+    },
+  });
 
   const removeSavedTracks = useCallback(
     (input: RemoveSavedTracksInput) => {

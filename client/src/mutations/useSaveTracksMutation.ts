@@ -5,6 +5,8 @@ import {
   SaveTracksInput,
 } from '../types/api';
 import { useCallback } from 'react';
+import { notify } from '../notifications';
+import { NOTIFICATION } from '../constants';
 
 const SAVE_TRACKS_MUTATION = gql`
   mutation SaveTracksMutation($input: SaveTracksInput!) {
@@ -20,7 +22,14 @@ const useSaveTracksMutation = () => {
   const [execute, result] = useMutation<
     SaveTracksMutation,
     SaveTracksMutationVariables
-  >(SAVE_TRACKS_MUTATION);
+  >(SAVE_TRACKS_MUTATION, {
+    onError: () => {
+      notify(NOTIFICATION.SAVED_TRACK_ERROR);
+    },
+    onCompleted: () => {
+      notify(NOTIFICATION.SAVED_TRACK);
+    },
+  });
 
   const saveTracks = useCallback(
     (input: SaveTracksInput) => {

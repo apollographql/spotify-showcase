@@ -10,8 +10,6 @@ import {
 import LikeButton, { LikeButtonProps } from './LikeButton';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
-import { notify } from '../notifications';
-import { NOTIFICATION } from '../constants';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
@@ -60,20 +58,14 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
       className={className}
       size={size}
       liked={isLiked}
-      onClick={async () => {
+      onClick={() => {
         if (!playbackItem) {
           return;
         }
 
         const ids = [playbackItem.id];
 
-        if (isLiked) {
-          await removeTracks({ ids });
-          notify(NOTIFICATION.REMOVED_SAVED_TRACK);
-        } else {
-          await saveTracks({ ids });
-          notify(NOTIFICATION.SAVED_TRACK);
-        }
+        isLiked ? removeTracks({ ids }) : saveTracks({ ids });
       }}
     />
   );
