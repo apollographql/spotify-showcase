@@ -1,15 +1,15 @@
 import { KeyValueCache } from '@apollo/utils.keyvaluecache';
 import {
   RESTDataSource,
-  WillSendRequestOptions,
+  DeleteRequest,
+  GetRequest,
+  PostRequest,
+  PutRequest,
+  AugmentedRequest,
 } from '@apollo/datasource-rest';
 import { OmitNever } from '../utils/types';
 import { Spotify } from './spotify.types';
 
-type DeleteRequest = NonNullable<Parameters<RESTDataSource['delete']>[1]>;
-type GetRequest = NonNullable<Parameters<RESTDataSource['get']>[1]>;
-type PutRequest = NonNullable<Parameters<RESTDataSource['put']>[1]>;
-type PostRequest = NonNullable<Parameters<RESTDataSource['post']>[1]>;
 type RawQueryParams = Record<
   string,
   string | string[] | number | boolean | null | undefined
@@ -408,7 +408,7 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
-  override willSendRequest(request: WillSendRequestOptions) {
+  override willSendRequest(_path: string, request: AugmentedRequest) {
     request.headers['Accept'] = 'application/json';
     request.headers['Authorization'] = `Bearer ${this.token}`;
     request.headers['Content-Type'] = 'application/json';
