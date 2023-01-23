@@ -1786,6 +1786,15 @@ export type RemoveFromPlaylistMutationVariables = Exact<{
 
 export type RemoveFromPlaylistMutation = { removeItemFromPlaylist: { __typename: 'RemoveItemFromPlaylistPayload', playlist: { __typename: 'Playlist', id: string } | null } | null };
 
+export type RemoveSavedAlbumsMutationVariables = Exact<{
+  input: RemoveSavedAlbumsInput;
+}>;
+
+
+export type RemoveSavedAlbumsMutation = { removeSavedAlbums: { __typename: 'RemoveSavedAlbumsPayload', removedAlbums: Array<{ __typename: 'Album', id: string }> | null } | null };
+
+export type RemovedSavedAlbumsMutationFragment = { __typename: 'CurrentUser', albumsContains: Array<boolean> | null };
+
 export type RemoveSavedTracksMutationVariables = Exact<{
   input: RemoveSavedTracksInput;
 }>;
@@ -1803,6 +1812,15 @@ export type ResumePlaybackMutationVariables = Exact<{
 export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackPayload', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null } | null } | null };
 
 export type UseResumePlaybackStateFragment = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null };
+
+export type SaveAlbumsMutationVariables = Exact<{
+  input: SaveAlbumsInput;
+}>;
+
+
+export type SaveAlbumsMutation = { saveAlbums: { __typename: 'SaveAlbumsPayload', savedAlbums: Array<{ __typename: 'Album', id: string }> | null } | null };
+
+export type SaveAlbumsMutationFragment = { __typename: 'CurrentUser', albumsContains: Array<boolean> | null };
 
 export type SaveTracksMutationVariables = Exact<{
   input: SaveTracksInput;
