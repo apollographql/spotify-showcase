@@ -19,7 +19,10 @@ const ContextMenu = ({ disabled, children, content }: ContextMenuProps) => {
         {children}
       </RadixContextMenu.Trigger>
       <RadixContextMenu.Portal>
-        <RadixContextMenu.Content className="bg-surface min-w-[160px] max-w-[350px] rounded p-1 text-sm text-white shadow-lg">
+        <RadixContextMenu.Content
+          className="bg-surface min-w-[160px] max-w-[350px] rounded p-1 text-sm text-white shadow-lg"
+          collisionPadding={20}
+        >
           {content}
         </RadixContextMenu.Content>
       </RadixContextMenu.Portal>
