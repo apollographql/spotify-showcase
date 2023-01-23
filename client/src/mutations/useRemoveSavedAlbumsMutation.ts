@@ -1,5 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
+import { NOTIFICATION } from '../constants';
+import { notify } from '../notifications';
 import {
   RemoveSavedAlbumsInput,
   RemoveSavedAlbumsMutation,
@@ -20,7 +22,11 @@ const useRemoveSavedAlbumsMutation = () => {
   const [execute, result] = useMutation<
     RemoveSavedAlbumsMutation,
     RemoveSavedAlbumsMutationVariables
-  >(REMOVE_SAVED_ALBUMS_MUTATION);
+  >(REMOVE_SAVED_ALBUMS_MUTATION, {
+    onCompleted: () => {
+      notify(NOTIFICATION.REMOVED_SAVED_ALBUM);
+    },
+  });
 
   const removeSavedAlbums = useCallback(
     (input: RemoveSavedAlbumsInput) => {

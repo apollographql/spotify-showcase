@@ -1,5 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
+import { NOTIFICATION } from '../constants';
+import { notify } from '../notifications';
 import {
   SaveAlbumsInput,
   SaveAlbumsMutation,
@@ -20,7 +22,11 @@ const useSaveAlbumsMutation = () => {
   const [execute, result] = useMutation<
     SaveAlbumsMutation,
     SaveAlbumsMutationVariables
-  >(SAVE_ALBUMS_MUTATION);
+  >(SAVE_ALBUMS_MUTATION, {
+    onCompleted: () => {
+      notify(NOTIFICATION.SAVED_ALBUM);
+    },
+  });
 
   const saveAlbums = useCallback(
     (input: SaveAlbumsInput) => {
