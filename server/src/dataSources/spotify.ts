@@ -9,6 +9,7 @@ import {
 } from '@apollo/datasource-rest';
 import { OmitNever } from '../utils/types';
 import { Spotify } from './spotify.types';
+import path from 'path';
 
 type RawQueryParams = Record<
   string,
@@ -40,7 +41,7 @@ type RequestParams<
 }>;
 
 export default class SpotifyAPI extends RESTDataSource {
-  override baseURL = 'https://api.spotify.com/v1';
+  override baseURL = 'https://api.spotify.com';
   private token: string;
 
   constructor(options: { token: string; cache: KeyValueCache }) {
@@ -406,6 +407,10 @@ export default class SpotifyAPI extends RESTDataSource {
     await this._put('/me/player', { body });
 
     return true;
+  }
+
+  override resolveURL(urlPath: string) {
+    return new URL(path.join('/v1/', urlPath), this.baseURL);
   }
 
   override willSendRequest(_path: string, request: AugmentedRequest) {
