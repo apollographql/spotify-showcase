@@ -11,6 +11,8 @@ import Table from './Table';
 import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import { useMemo } from 'react';
+import useSavedTracksContains from '../hooks/useSavedTracksContains';
+import TrackLikeButtonCell from './TrackLikeButtonCell';
 
 type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
 
@@ -22,6 +24,9 @@ const columnHelper = createColumnHelper<Track>();
 
 const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
   const [resumePlayback] = useResumePlaybackMutation();
+  const tracksContains = useSavedTracksContains(
+    album.tracks?.edges.map((edge) => edge.node.id) ?? []
+  );
 
   const columns = useMemo(
     () => [
@@ -47,6 +52,21 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
           );
         },
       }),
+      columnHelper.display({
+        id: 'liked',
+        header: '',
+        cell: (info) => {
+          const track = info.row.original;
+
+          const liked =
+            info.table.options.meta?.tracksContains?.get(track.id) ?? false;
+
+          return <TrackLikeButtonCell liked={liked} track={track} />;
+        },
+        meta: {
+          shrink: true,
+        },
+      }),
       columnHelper.accessor('durationMs', {
         header: () => <Clock size="1rem" />,
         cell: (info) => <Duration durationMs={info.getValue()} />,
@@ -66,6 +86,7 @@ const AlbumTracksTable = ({ album }: AlbumTracksTableProps) => {
       enableRangeSelect
       columns={columns}
       data={album.tracks?.edges.map((edge) => edge.node) ?? []}
+      meta={{ tracksContains }}
       onDoubleClickRow={(row) => {
         const track = row.original;
 
