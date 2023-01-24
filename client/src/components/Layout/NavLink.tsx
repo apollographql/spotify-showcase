@@ -1,4 +1,4 @@
-import { cloneElement, ReactElement } from 'react';
+import { cloneElement, forwardRef, ReactElement } from 'react';
 import {
   NavLink as ReactRouterNavLink,
   NavLinkProps as ReactRouterNavLinkProps,
@@ -15,22 +15,24 @@ interface NavLinkProps extends ReactRouterNavLinkProps {
   icon?: ReactElement<IconProps>;
 }
 
-const NavLink = ({ children, className, icon, ...props }: NavLinkProps) => {
-  return (
-    <li className={styles.navLink}>
-      <ReactRouterNavLink
-        {...props}
-        className={({ isActive }) =>
-          cx(styles.navLinkAnchor, className, { [styles.active]: isActive })
-        }
-      >
-        <>
-          {icon && cloneElement(icon, { size: '1.5rem' })}
-          {children}
-        </>
-      </ReactRouterNavLink>
-    </li>
-  );
-};
+const NavLink = forwardRef<HTMLLIElement, NavLinkProps>(
+  ({ children, className, icon, ...props }, ref) => {
+    return (
+      <li className={styles.navLink} ref={ref}>
+        <ReactRouterNavLink
+          {...props}
+          className={({ isActive }) =>
+            cx(styles.navLinkAnchor, className, { [styles.active]: isActive })
+          }
+        >
+          <>
+            {icon && cloneElement(icon, { size: '1.5rem' })}
+            {children}
+          </>
+        </ReactRouterNavLink>
+      </li>
+    );
+  }
+);
 
 export default NavLink;
