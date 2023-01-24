@@ -10,6 +10,11 @@ type Query {
   artist(id: ID!): Artist
 
   """
+  Get a list of developer-specific settings, such as GraphQL field configuration.
+  """
+  developer: Developer!
+
+  """
   Get Spotify catalog information for a single episode identified by its unique
   Spotify ID.
   """
@@ -730,6 +735,13 @@ type CurrentUser {
     """
     ids: [ID!]!
   ): [Boolean!]
+}
+
+type Developer {
+  """
+  A list of configured GraphQL fields
+  """
+  fieldConfigs: [FieldConfig!]!
 }
 
 type Device {

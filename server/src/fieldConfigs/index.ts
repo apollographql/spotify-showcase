@@ -21,6 +21,10 @@ export const getFieldConfig = (id: FieldConfigID): FieldConfig => {
   return configs[id] ?? new FieldConfig(id);
 };
 
+export const getFieldConfigs = () => {
+  return Object.values(configs);
+};
+
 export const resetFieldConfig = (id: FieldConfigID) => {
   const fieldConfig = configs[id] || new FieldConfig(id);
 

@@ -362,6 +362,12 @@ export type CurrentlyPlaying = {
   timestamp: Scalars['Timestamp'];
 };
 
+export type Developer = {
+  __typename?: 'Developer';
+  /** A list of configured GraphQL fields */
+  fieldConfigs: Array<FieldConfig>;
+};
+
 export type Device = {
   __typename?: 'Device';
   /** The device ID */
@@ -930,6 +936,8 @@ export type Query = {
   album?: Maybe<Album>;
   /** Spotify catalog information for an artist. */
   artist?: Maybe<Artist>;
+  /** Get a list of developer-specific settings, such as GraphQL field configuration. */
+  developer: Developer;
   /**
    * Get Spotify catalog information for a single episode identified by its unique
    * Spotify ID.
@@ -1734,6 +1742,7 @@ export type ResolversTypes = ResolversObject<{
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   CurrentlyPlaying: ResolverTypeWrapper<Spotify.Object.CurrentlyPlaying>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
+  Developer: ResolverTypeWrapper<{}>;
   Device: ResolverTypeWrapper<Spotify.Object.Device>;
   Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
   ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']>;
@@ -1849,6 +1858,7 @@ export type ResolversParentTypes = ResolversObject<{
   CurrentUser: Spotify.Object.CurrentUser;
   CurrentlyPlaying: Spotify.Object.CurrentlyPlaying;
   DateTime: Scalars['DateTime'];
+  Developer: {};
   Device: Spotify.Object.Device;
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
   ErrorRate: Scalars['ErrorRate'];
@@ -2060,6 +2070,11 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'DateTime';
 }
 
+export type DeveloperResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Developer'] = ResolversParentTypes['Developer']> = ResolversObject<{
+  fieldConfigs?: Resolver<Array<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type DeviceResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Device'] = ResolversParentTypes['Device']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isActive?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -2268,6 +2283,7 @@ export type PlaylistTrackEdgeResolvers<ContextType = ContextValue, ParentType ex
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   album?: Resolver<Maybe<ResolversTypes['Album']>, ParentType, ContextType, RequireFields<QueryAlbumArgs, 'id'>>;
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
+  developer?: Resolver<ResolversTypes['Developer'], ParentType, ContextType>;
   episode?: Resolver<Maybe<ResolversTypes['Episode']>, ParentType, ContextType, RequireFields<QueryEpisodeArgs, 'id'>>;
   featuredPlaylists?: Resolver<Maybe<ResolversTypes['FeaturedPlaylistConnection']>, ParentType, ContextType, Partial<QueryFeaturedPlaylistsArgs>>;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
@@ -2540,6 +2556,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   CurrentUser?: CurrentUserResolvers<ContextType>;
   CurrentlyPlaying?: CurrentlyPlayingResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  Developer?: DeveloperResolvers<ContextType>;
   Device?: DeviceResolvers<ContextType>;
   Episode?: EpisodeResolvers<ContextType>;
   ErrorRate?: GraphQLScalarType;

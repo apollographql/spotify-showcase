@@ -4,6 +4,10 @@ import { format } from 'date-fns';
 const resolvers: QueryResolvers = {
   album: (_, { id }, { dataSources }) => dataSources.spotify.getAlbum(id),
   artist: (_, { id }, { dataSources }) => dataSources.spotify.getArtist(id),
+  developer: () => {
+    // Return empty object since this field is used as a namespace
+    return {};
+  },
   episode: (_, { id }, { dataSources }) => dataSources.spotify.getEpisode(id),
   featuredPlaylists: (_, { limit, offset, timestamp }, { dataSources }) => {
     return dataSources.spotify.getFeaturedPlaylists({

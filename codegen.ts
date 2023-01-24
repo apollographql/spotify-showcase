@@ -55,6 +55,7 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.CurrentlyPlaying',
           CurrentUser:
             '../dataSources/spotify.types#Spotify#Object.CurrentUser',
+          Developer: '{}',
           Device: '../dataSources/spotify.types#Spotify#Object.Device',
           Episode:
             '../dataSources/spotify.types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',

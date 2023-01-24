@@ -359,6 +359,12 @@ export type CurrentlyPlaying = {
   timestamp: Scalars['Timestamp'];
 };
 
+export type Developer = {
+  __typename: 'Developer';
+  /** A list of configured GraphQL fields */
+  fieldConfigs: Array<FieldConfig>;
+};
+
 export type Device = {
   __typename: 'Device';
   /** The device ID */
@@ -928,6 +934,8 @@ export type Query = {
   album: Maybe<Album>;
   /** Spotify catalog information for an artist. */
   artist: Maybe<Artist>;
+  /** Get a list of developer-specific settings, such as GraphQL field configuration. */
+  developer: Developer;
   /**
    * Get Spotify catalog information for a single episode identified by its unique
    * Spotify ID.
