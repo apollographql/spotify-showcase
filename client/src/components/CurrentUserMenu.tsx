@@ -43,6 +43,7 @@ const CurrentUserMenu = () => {
         {user.displayName}
       </DropdownMenu.Trigger>
       <DropdownMenu.Menu align="end">
+        <DropdownMenu.Item to="/settings">Settings</DropdownMenu.Item>
         <DropdownMenu.Item to="/logout">Logout</DropdownMenu.Item>
       </DropdownMenu.Menu>
     </DropdownMenu>
