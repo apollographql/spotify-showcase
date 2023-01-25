@@ -1,19 +1,22 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { forwardRef, ComponentPropsWithRef } from 'react';
 import cx from 'classnames';
 
-type TextFieldProps = ComponentPropsWithoutRef<'input'>;
+type TextFieldProps = ComponentPropsWithRef<'input'>;
 
-const TextField = ({ className, type = 'text', ...props }: TextFieldProps) => {
-  return (
-    <input
-      {...props}
-      className={cx(
-        className,
-        'h-10 rounded bg-[#333] px-4 text-sm text-white disabled:cursor-not-allowed disabled:opacity-50'
-      )}
-      type={type}
-    />
-  );
-};
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+  ({ className, type = 'text', ...props }, ref) => {
+    return (
+      <input
+        {...props}
+        ref={ref}
+        type={type}
+        className={cx(
+          className,
+          'h-10 rounded bg-[#333] px-4 text-sm text-white disabled:cursor-not-allowed disabled:opacity-50'
+        )}
+      />
+    );
+  }
+);
 
 export default TextField;
