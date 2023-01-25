@@ -72,6 +72,9 @@ export default new ApolloClient({
       Developer: {
         keyFields: [],
       },
+      FieldConfig: {
+        keyFields: ['schemaField', ['fieldName', 'typename']],
+      },
       Followers: {
         keyFields: false,
       },
