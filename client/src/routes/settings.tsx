@@ -7,6 +7,7 @@ import GraphQLFieldConfigurationForm from '../components/GraphQLFieldConfigurati
 import Page from '../components/Page';
 import Skeleton from '../components/Skeleton';
 import Text from '../components/Text';
+import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutation';
 
 const SETTINGS_QUERY = gql`
   query SettingsQuery {
@@ -38,6 +39,8 @@ const Settings = () => {
     SETTINGS_QUERY
   );
 
+  const [updateFieldConfig] = useUpdateFieldConfigMutation();
+
   const {
     __schema,
     developer: { fieldConfigs },
@@ -67,7 +70,20 @@ const Settings = () => {
         </div>
         <GraphQLFieldConfigurationForm
           types={objectTypes}
-          onSubmit={(config) => console.log(config)}
+          onSubmit={(config) => {
+            return updateFieldConfig({
+              field: {
+                schemaField: {
+                  fieldName: config.fieldName,
+                  typename: config.typename,
+                },
+              },
+              config: {
+                timeout: config.timeout,
+                errorRate: config.errorRate,
+              },
+            });
+          }}
         />
       </section>
     </div>
