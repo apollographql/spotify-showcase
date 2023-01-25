@@ -23,19 +23,19 @@ type TextFieldTypeProps = {
     : { type?: Type };
 }[TextFieldType];
 
-type TextFieldType = 'text' | 'int' | 'float';
+type TextFieldType = 'text' | 'number' | 'float';
 
 // Allow numbers to have partially typed negative number or empty string
 type PartialNumberValue = '' | '-';
 
 type TextFieldValueByType = {
   text: string;
-  int: number | PartialNumberValue;
+  number: number | PartialNumberValue;
   float: number | PartialNumberValue;
 };
 
 interface BaseTextFieldProps extends ForwardedInputProps {
-  label: string;
+  label?: string;
   name: string;
   description?: string;
   orientation?: 'horizontal' | 'vertical';
@@ -44,7 +44,6 @@ interface BaseTextFieldProps extends ForwardedInputProps {
 type TextFieldProps = TextFieldTypeProps & BaseTextFieldProps;
 
 const REMAPPED_TYPES: Partial<Record<TextFieldType, string>> = {
-  int: 'number',
   float: 'number',
 };
 
@@ -58,7 +57,7 @@ type ParsersMap = {
 };
 
 const parsers: ParsersMap = {
-  int: (event) => {
+  number: (event) => {
     const min = event.target.min ? parseFloat(event.target.min) : -Infinity;
     const max = event.target.max ? parseFloat(event.target.max) : Infinity;
     const value = parseIntValue(event.target.value);
