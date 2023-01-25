@@ -32,6 +32,7 @@ function Form<
   );
 }
 
+Form.Select = Select;
 Form.TextField = TextField;
 
 export default Form;
