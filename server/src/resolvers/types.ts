@@ -580,7 +580,7 @@ export type Mutation = {
    * synthetic timeouts and error rates associated with the field. By default, both
    * the timeout and error rate are set to 0.
    */
-  updateFieldConfig?: Maybe<UpdateFieldConfigResponse>;
+  updateFieldConfig?: Maybe<UpdateFieldConfigPayload>;
 };
 
 
@@ -694,8 +694,7 @@ export type MutationTransferPlaybackArgs = {
 
 
 export type MutationUpdateFieldConfigArgs = {
-  config: FieldConfigInput;
-  field: FieldInput;
+  input: UpdateFieldConfigInput;
 };
 
 export type PageInfo = {
@@ -1630,8 +1629,13 @@ export type TransferPlaybackPayload = {
   playbackState?: Maybe<PlaybackState>;
 };
 
-export type UpdateFieldConfigResponse = {
-  __typename?: 'UpdateFieldConfigResponse';
+export type UpdateFieldConfigInput = {
+  config: FieldConfigInput;
+  field: FieldInput;
+};
+
+export type UpdateFieldConfigPayload = {
+  __typename?: 'UpdateFieldConfigPayload';
   /** The updated field config */
   fieldConfig?: Maybe<FieldConfig>;
 };
@@ -2025,7 +2029,8 @@ export type ResolversTypes = ResolversObject<{
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
   TransferPlaybackInput: TransferPlaybackInput;
   TransferPlaybackPayload: ResolverTypeWrapper<Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
-  UpdateFieldConfigResponse: ResolverTypeWrapper<Omit<UpdateFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  UpdateFieldConfigInput: UpdateFieldConfigInput;
+  UpdateFieldConfigPayload: ResolverTypeWrapper<Omit<UpdateFieldConfigPayload, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
   User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
@@ -2136,7 +2141,8 @@ export type ResolversParentTypes = ResolversObject<{
   TrackExternalIds: TrackExternalIds;
   TransferPlaybackInput: TransferPlaybackInput;
   TransferPlaybackPayload: Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
-  UpdateFieldConfigResponse: Omit<UpdateFieldConfigResponse, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  UpdateFieldConfigInput: UpdateFieldConfigInput;
+  UpdateFieldConfigPayload: Omit<UpdateFieldConfigPayload, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
   User: Spotify.Object.User;
 }>;
 
@@ -2358,7 +2364,7 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   skipToNext?: Resolver<Maybe<ResolversTypes['SkipToNextResponse']>, ParentType, ContextType, Partial<MutationSkipToNextArgs>>;
   skipToPrevious?: Resolver<Maybe<ResolversTypes['SkipToPreviousResponse']>, ParentType, ContextType, Partial<MutationSkipToPreviousArgs>>;
   transferPlayback?: Resolver<Maybe<ResolversTypes['TransferPlaybackPayload']>, ParentType, ContextType, RequireFields<MutationTransferPlaybackArgs, 'input'>>;
-  updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigResponse']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'config' | 'field'>>;
+  updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigPayload']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'input'>>;
 }>;
 
 export type PageInfoResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
@@ -2712,7 +2718,7 @@ export type TransferPlaybackPayloadResolvers<ContextType = ContextValue, ParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type UpdateFieldConfigResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UpdateFieldConfigResponse'] = ResolversParentTypes['UpdateFieldConfigResponse']> = ResolversObject<{
+export type UpdateFieldConfigPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UpdateFieldConfigPayload'] = ResolversParentTypes['UpdateFieldConfigPayload']> = ResolversObject<{
   fieldConfig?: Resolver<Maybe<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -2810,7 +2816,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Track?: TrackResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   TransferPlaybackPayload?: TransferPlaybackPayloadResolvers<ContextType>;
-  UpdateFieldConfigResponse?: UpdateFieldConfigResponseResolvers<ContextType>;
+  UpdateFieldConfigPayload?: UpdateFieldConfigPayloadResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 }>;
 

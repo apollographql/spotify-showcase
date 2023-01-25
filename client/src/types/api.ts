@@ -577,7 +577,7 @@ export type Mutation = {
    * synthetic timeouts and error rates associated with the field. By default, both
    * the timeout and error rate are set to 0.
    */
-  updateFieldConfig: Maybe<UpdateFieldConfigResponse>;
+  updateFieldConfig: Maybe<UpdateFieldConfigPayload>;
 };
 
 
@@ -691,8 +691,7 @@ export type MutationtransferPlaybackArgs = {
 
 
 export type MutationupdateFieldConfigArgs = {
-  config: FieldConfigInput;
-  field: FieldInput;
+  input: UpdateFieldConfigInput;
 };
 
 export type PageInfo = {
@@ -1632,8 +1631,13 @@ export type TransferPlaybackPayload = {
   playbackState: Maybe<PlaybackState>;
 };
 
-export type UpdateFieldConfigResponse = {
-  __typename: 'UpdateFieldConfigResponse';
+export type UpdateFieldConfigInput = {
+  config: FieldConfigInput;
+  field: FieldInput;
+};
+
+export type UpdateFieldConfigPayload = {
+  __typename: 'UpdateFieldConfigPayload';
   /** The updated field config */
   fieldConfig: Maybe<FieldConfig>;
 };
@@ -2077,6 +2081,13 @@ export type TransferPlaybackMutationVariables = Exact<{
 
 
 export type TransferPlaybackMutation = { transferPlayback: { __typename: 'TransferPlaybackPayload', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string } } | null } | null };
+
+export type UpdateFieldConfigMutationVariables = Exact<{
+  input: UpdateFieldConfigInput;
+}>;
+
+
+export type UpdateFieldConfigMutation = { updateFieldConfig: { __typename: 'UpdateFieldConfigPayload', fieldConfig: { __typename: 'FieldConfig', timeout: number, errorRate: number, schemaField: { __typename: 'SchemaField', fieldName: string, typename: string } } | null } | null };
 
 export type AlbumRouteQueryVariables = Exact<{
   albumId: Scalars['ID'];

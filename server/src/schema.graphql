@@ -123,10 +123,7 @@ type Mutation {
   synthetic timeouts and error rates associated with the field. By default, both
   the timeout and error rate are set to 0.
   """
-  updateFieldConfig(
-    config: FieldConfigInput!
-    field: FieldInput!
-  ): UpdateFieldConfigResponse
+  updateFieldConfig(input: UpdateFieldConfigInput!): UpdateFieldConfigPayload
 
   """
   Remove one or more items from a user's playlist.
@@ -2029,7 +2026,12 @@ type TransferPlaybackPayload {
   playbackState: PlaybackState
 }
 
-type UpdateFieldConfigResponse {
+input UpdateFieldConfigInput {
+  config: FieldConfigInput!
+  field: FieldInput!
+}
+
+type UpdateFieldConfigPayload {
   """
   The updated field config
   """

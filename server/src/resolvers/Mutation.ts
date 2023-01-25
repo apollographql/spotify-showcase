@@ -70,7 +70,9 @@ const resolvers: MutationResolvers = {
 
     return { playbackState };
   },
-  updateFieldConfig: (_, { field, config }) => {
+  updateFieldConfig: (_, { input }) => {
+    const { field, config } = input;
+
     if (!field.schemaField) {
       throw new GraphQLError('You must provide field.schemaField');
     }
