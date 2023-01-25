@@ -111,7 +111,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
         value={field.value ?? ''}
         className={cx(
           className,
-          'h-10 rounded bg-[#333] text-sm text-white disabled:cursor-not-allowed disabled:opacity-50',
+          'h-10 rounded bg-[#333] px-4 text-sm text-white disabled:cursor-not-allowed disabled:opacity-50',
           { 'min-w-[200px]': orientation === 'horizontal' }
         )}
         onChange={(event) => {
