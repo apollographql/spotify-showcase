@@ -25,6 +25,14 @@ export const min = (min: number, message: string): Validator<number | null> => {
   };
 };
 
+export const max = (max: number, message: string): Validator<number | null> => {
+  return (value) => {
+    if (value != null && value > max) {
+      return message;
+    }
+  };
+};
+
 export const required = (message: string): Validator<unknown> => {
   return (value) => {
     if (typeof value === 'string' && value === '') {
