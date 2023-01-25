@@ -88,16 +88,20 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
 
   return (
     <Field orientation={orientation}>
-      <div
-        className={cx('flex flex-col gap-1', {
-          'flex-1': orientation === 'horizontal',
-        })}
-      >
-        <label htmlFor={name}>{label}</label>
-        {description && (
-          <span className="text-offwhite max-w-lg text-sm">{description}</span>
-        )}
-      </div>
+      {(label || description) && (
+        <div
+          className={cx('flex flex-col gap-1', {
+            'flex-1': orientation === 'horizontal',
+          })}
+        >
+          {label && <label htmlFor={name}>{label}</label>}
+          {description && (
+            <span className="text-offwhite max-w-lg text-sm">
+              {description}
+            </span>
+          )}
+        </div>
+      )}
       <input
         {...field}
         {...omit(rest, 'scale')}
