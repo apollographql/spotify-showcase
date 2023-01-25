@@ -8,19 +8,10 @@ import Page from '../components/Page';
 import Skeleton from '../components/Skeleton';
 import Text from '../components/Text';
 import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutation';
+import { BARE_INTROSPECTION_FRAGMENT } from '../utils/graphql';
 
 const SETTINGS_QUERY = gql`
   query SettingsQuery {
-    __schema {
-      types {
-        name
-        kind
-        fields {
-          name
-          description
-        }
-      }
-    }
     developer {
       fieldConfigs {
         schemaField {
@@ -31,7 +22,11 @@ const SETTINGS_QUERY = gql`
         errorRate
       }
     }
+
+    ...BareIntrospectionFragment
   }
+
+  ${BARE_INTROSPECTION_FRAGMENT}
 `;
 
 const Settings = () => {
