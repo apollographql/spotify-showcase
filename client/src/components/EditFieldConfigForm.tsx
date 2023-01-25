@@ -80,7 +80,7 @@ const EditFieldConfigForm = ({
           min={0}
         />
         <div className="flex flex-1 justify-end">
-          <Button size="xs" variant="hollow">
+          <Button type="button" size="xs" variant="hollow">
             Remove
           </Button>
         </div>
