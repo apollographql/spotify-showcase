@@ -12,6 +12,7 @@ import {
   ValidationSchema,
 } from '../utils/formValidation';
 import useForm from '../hooks/useForm';
+import { __TypeKind } from '../types/api';
 
 interface FormState {
   typename: string | null;
@@ -27,9 +28,16 @@ interface SchemaType {
   fields: SchemaField[] | null;
 }
 
+interface SchemaSubType {
+  name: string | null;
+  kind: __TypeKind;
+  ofType?: SchemaSubType | null;
+}
+
 interface SchemaField {
   name: string;
   description: string | null;
+  type: SchemaSubType;
 }
 
 interface GraphQLFieldConfigurationFormProps {
@@ -53,6 +61,17 @@ const validationSchema: ValidationSchema<FormState> = {
     max(1, 'Error rate must be less than or equal to 1'),
     required('The timeout must be configured')
   ),
+};
+
+export const typename = (type: SchemaSubType): string => {
+  switch (type.kind) {
+    case __TypeKind.NonNull:
+      return typename(type.ofType!);
+    case __TypeKind.List:
+      return `${typename(type.ofType!)}[]`;
+    default:
+      return type.name ?? '';
+  }
 };
 
 const GraphQLFieldConfigurationForm = ({
@@ -102,13 +121,16 @@ const GraphQLFieldConfigurationForm = ({
             name="fieldName"
             disabled={!selectedType}
             description={
-              selectedField &&
-              selectedField.description && (
+              selectedField && (
                 <Markdown
                   className="text-offwhite line-clamp-2 text-xs"
                   title={getTitleFromMarkdown(selectedField.description ?? '')}
                 >
-                  {selectedField.description}
+                  {`\`${typename(selectedField.type)}\` ${
+                    selectedField.description
+                      ? ` - ${selectedField.description}`
+                      : ''
+                  }`}
                 </Markdown>
               )
             }
