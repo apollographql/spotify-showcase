@@ -92,14 +92,7 @@ const GraphQLFieldConfigurationForm = ({
         timeout: null,
         errorRate: null,
       }}
-      validate={(values) => {
-        console.log('validate', {
-          values,
-          result: validate(values, validationSchema),
-        });
-
-        return validate(values, validationSchema);
-      }}
+      validate={(values) => validate(values, validationSchema)}
       onSubmit={onSubmit}
     >
       <div className="flex flex-col gap-4">
