@@ -2,7 +2,11 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
-import { SettingsQuery, SettingsQueryVariables } from '../types/api';
+import {
+  SettingsQuery,
+  SettingsQueryVariables,
+  __TypeKind,
+} from '../types/api';
 import EditFieldConfigForm from '../components/EditFieldConfigForm';
 import GraphQLFieldConfigurationForm from '../components/GraphQLFieldConfigurationForm';
 import Page from '../components/Page';
@@ -10,6 +14,14 @@ import Skeleton from '../components/Skeleton';
 import Text from '../components/Text';
 import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutation';
 import { BARE_INTROSPECTION_FRAGMENT } from '../utils/graphql';
+import { Get } from 'type-fest';
+
+type SchemaField = NonNullable<
+  Get<SettingsQuery, 'developer.fieldConfigs[0].schemaField'>
+>;
+
+type IntrospectionType = NonNullable<Get<SettingsQuery, '__schema.types[0]'>>;
+type IntrospectionField = NonNullable<Get<IntrospectionType, 'fields[0]'>>;
 
 const SETTINGS_QUERY = gql`
   query SettingsQuery {
@@ -30,6 +42,27 @@ const SETTINGS_QUERY = gql`
   ${BARE_INTROSPECTION_FRAGMENT}
 `;
 
+const isObjectType = (type: IntrospectionType) =>
+  type.kind === __TypeKind.Object;
+
+const isIntrospectionSchemaType = (type: IntrospectionType) =>
+  Boolean(type.name?.startsWith('__'));
+
+const filterConfiguredFields = (
+  typename: string,
+  fields: IntrospectionField[],
+  configuredFields: SchemaField[]
+) => {
+  return fields.filter((field) => {
+    return !configuredFields.some((schemaField) => {
+      return (
+        schemaField.fieldName === field.name &&
+        schemaField.typename === typename
+      );
+    });
+  });
+};
+
 const Settings = () => {
   const { data } = useSuspenseQuery<SettingsQuery, SettingsQueryVariables>(
     SETTINGS_QUERY
@@ -42,9 +75,19 @@ const Settings = () => {
     developer: { fieldConfigs },
   } = data;
 
-  const objectTypes = __schema.types.filter(
-    (type) => type.kind === 'OBJECT' && !type.name?.startsWith('__')
-  );
+  const schemaFields = fieldConfigs.map((field) => field.schemaField);
+
+  const objectTypes = __schema.types
+    .filter((type) => isObjectType(type) && !isIntrospectionSchemaType(type))
+    .map((objectType) => ({
+      ...objectType,
+      fields: filterConfiguredFields(
+        objectType.name ?? '',
+        objectType.fields ?? [],
+        schemaFields
+      ),
+    }))
+    .filter((objectType) => objectType.fields?.length ?? 0 > 0);
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
