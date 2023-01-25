@@ -77,7 +77,7 @@ const Settings = () => {
             );
           })}
         </div>
-        <div className="grid max-w-[75%] grid-cols-2 gap-8">
+        <div className="grid  grid-cols-2 gap-8">
           <div className="flex flex-1 flex-col gap-2">
             <label htmlFor="typename" className="text-sm">
               Type name
