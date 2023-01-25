@@ -3,6 +3,7 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import { SettingsQuery, SettingsQueryVariables } from '../types/api';
+import EditFieldConfigForm from '../components/EditFieldConfigForm';
 import GraphQLFieldConfigurationForm from '../components/GraphQLFieldConfigurationForm';
 import Page from '../components/Page';
 import Skeleton from '../components/Skeleton';
@@ -54,12 +55,24 @@ const Settings = () => {
           Configure sythetic errors and timeouts for a GraphQL field. These are
           cleared each time the server is restarted.
         </Text>
-        <div className="mt-4">
+        <div className="mt-4 mb-8 flex flex-col gap-4">
           {fieldConfigs.map((config) => {
             return (
-              <div key={config.schemaField.fieldName}>
-                {config.schemaField.typename}.{config.schemaField.fieldName}
-              </div>
+              <EditFieldConfigForm
+                key={config.schemaField.fieldName}
+                fieldConfig={config}
+                onSubmit={(values, { schemaField }) => {
+                  return updateFieldConfig({
+                    field: {
+                      schemaField: {
+                        fieldName: schemaField.fieldName,
+                        typename: schemaField.typename,
+                      },
+                    },
+                    config: values,
+                  });
+                }}
+              />
             );
           })}
         </div>
