@@ -59,7 +59,10 @@ const Settings = () => {
           {fieldConfigs.map((config) => {
             return (
               <EditFieldConfigForm
-                key={config.schemaField.fieldName}
+                key={[
+                  config.schemaField.typename,
+                  config.schemaField.fieldName,
+                ].join('.')}
                 fieldConfig={config}
                 onSubmit={(values, { schemaField }) => {
                   return updateFieldConfig({
