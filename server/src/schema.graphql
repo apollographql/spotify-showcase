@@ -157,7 +157,7 @@ type Mutation {
   """
   Reset a field's config back to its default values.
   """
-  resetFieldConfig(field: FieldInput!): ResetFieldConfigResponse
+  resetFieldConfig(input: ResetFieldConfigInput!): ResetFieldConfigPayload
 
   """
   Start a new context or resume current playback on the user's active device.
@@ -901,6 +901,11 @@ type FieldConfig {
   The synthetic error rate configured for the field.
   """
   errorRate: ErrorRate!
+}
+
+input ResetFieldConfigInput {
+  "The field that will be reset to its default values"
+  field: FieldInput!
 }
 
 input FieldInput {
@@ -1660,7 +1665,7 @@ input RecommendationSeedInput {
   limit: Int
 }
 
-type ResetFieldConfigResponse {
+type ResetFieldConfigPayload {
   """
   The updated field config
   """

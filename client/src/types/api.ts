@@ -547,7 +547,7 @@ export type Mutation = {
   /** Remove one or more tracks from the current user's 'Your Music' library. */
   removeSavedTracks: Maybe<RemoveSavedTracksPayload>;
   /** Reset a field's config back to its default values. */
-  resetFieldConfig: Maybe<ResetFieldConfigResponse>;
+  resetFieldConfig: Maybe<ResetFieldConfigPayload>;
   /** Start a new context or resume current playback on the user's active device. */
   resumePlayback: Maybe<ResumePlaybackPayload>;
   /** Save one or more albums to the current user's 'Your Music' library. */
@@ -622,7 +622,7 @@ export type MutationremoveSavedTracksArgs = {
 
 
 export type MutationresetFieldConfigArgs = {
-  field: FieldInput;
+  input: ResetFieldConfigInput;
 };
 
 
@@ -1231,8 +1231,13 @@ export enum RepeatMode {
   Track = 'TRACK'
 }
 
-export type ResetFieldConfigResponse = {
-  __typename: 'ResetFieldConfigResponse';
+export type ResetFieldConfigInput = {
+  /** The field that will be reset to its default values */
+  field: FieldInput;
+};
+
+export type ResetFieldConfigPayload = {
+  __typename: 'ResetFieldConfigPayload';
   /** The updated field config */
   fieldConfig: Maybe<FieldConfig>;
 };

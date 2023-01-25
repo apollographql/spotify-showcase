@@ -129,7 +129,9 @@ const resolvers: MutationResolvers = {
 
     return { removedTracks: tracks };
   },
-  resetFieldConfig: (_, { field }) => {
+  resetFieldConfig: (_, { input }) => {
+    const { field } = input;
+
     if (!field.schemaField) {
       throw new GraphQLError('You must provide field.schemaField');
     }
