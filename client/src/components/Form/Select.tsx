@@ -32,12 +32,19 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const [field] = useField(name);
 
     return (
-      <Field
-        label={label}
-        name={name}
-        description={description}
-        orientation={orientation}
-      >
+      <Field orientation={orientation}>
+        <div
+          className={cx('flex flex-col gap-1', {
+            'flex-1': orientation === 'horizontal',
+          })}
+        >
+          <label htmlFor={name}>{label}</label>
+          {description && (
+            <span className="text-offwhite max-w-lg text-sm">
+              {description}
+            </span>
+          )}
+        </div>
         <select
           {...field}
           {...props}

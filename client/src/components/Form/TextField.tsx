@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { useField } from 'formik';
 import { clamp, omit } from 'lodash';
 import { parseFloatValue, parseIntValue } from '../../utils/form';
+import Field from './Field';
 
 type ForwardedInputProps = Omit<
   ComponentPropsWithoutRef<'input'>,
@@ -85,15 +86,10 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   } = props;
   const inputType = REMAPPED_TYPES[type] || type;
   const parser = parsers[type];
-  const [field, meta, { setValue }] = useField({ name, type: inputType });
+  const [field, , { setValue }] = useField({ name, type: inputType });
 
   return (
-    <div
-      className={cx(className, 'flex flex-1 gap-2', {
-        'flex-col': orientation === 'vertical',
-        'items-center justify-between': orientation === 'horizontal',
-      })}
-    >
+    <Field orientation={orientation}>
       <div
         className={cx('flex flex-col gap-1', {
           'flex-1': orientation === 'horizontal',
@@ -120,7 +116,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
           }
         }}
       />
-    </div>
+    </Field>
   );
 });
 
