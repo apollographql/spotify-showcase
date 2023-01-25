@@ -7,6 +7,7 @@ import {
   SettingsQueryVariables,
   __TypeKind,
 } from '../types/api';
+import Button from '../components/Button';
 import EditFieldConfigForm from '../components/EditFieldConfigForm';
 import GraphQLFieldConfigurationForm from '../components/GraphQLFieldConfigurationForm';
 import Page from '../components/Page';
@@ -15,6 +16,7 @@ import Text from '../components/Text';
 import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutation';
 import { BARE_INTROSPECTION_FRAGMENT } from '../utils/graphql';
 import { Get } from 'type-fest';
+import { useState } from 'react';
 
 type SchemaField = NonNullable<
   Get<SettingsQuery, 'developer.fieldConfigs[0].schemaField'>
@@ -69,6 +71,7 @@ const Settings = () => {
   );
 
   const [updateFieldConfig] = useUpdateFieldConfigMutation();
+  const [isAddingNewFieldConfig, setIsAddingNewFieldConfig] = useState(false);
 
   const {
     __schema,
@@ -90,7 +93,7 @@ const Settings = () => {
     .filter((objectType) => objectType.fields?.length ?? 0 > 0);
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
+    <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 py-8">
       <h1>Settings</h1>
       <section>
         <h2 className="text-xl">GraphQL Field Configuration</h2>
@@ -98,7 +101,7 @@ const Settings = () => {
           Configure sythetic errors and timeouts for a GraphQL field. These are
           cleared each time the server is restarted.
         </Text>
-        <div className="mt-4 mb-8 flex flex-col gap-4">
+        <div className="border-b-surface-lowContrast mt-4 mb-8 flex flex-col gap-4 border-b-2">
           {fieldConfigs.map((config) => {
             return (
               <EditFieldConfigForm
@@ -122,23 +125,37 @@ const Settings = () => {
             );
           })}
         </div>
-        <GraphQLFieldConfigurationForm
-          types={objectTypes}
-          onSubmit={(config) => {
-            return updateFieldConfig({
-              field: {
-                schemaField: {
-                  fieldName: config.fieldName,
-                  typename: config.typename,
+        {isAddingNewFieldConfig ? (
+          <GraphQLFieldConfigurationForm
+            types={objectTypes}
+            onCancel={() => setIsAddingNewFieldConfig(false)}
+            onSubmit={async (config) => {
+              setIsAddingNewFieldConfig(false);
+              await updateFieldConfig({
+                field: {
+                  schemaField: {
+                    fieldName: config.fieldName,
+                    typename: config.typename,
+                  },
                 },
-              },
-              config: {
-                timeout: config.timeout,
-                errorRate: config.errorRate,
-              },
-            });
-          }}
-        />
+                config: {
+                  timeout: config.timeout,
+                  errorRate: config.errorRate,
+                },
+              });
+            }}
+          />
+        ) : (
+          <div className="flex justify-end">
+            <Button
+              variant="hollow"
+              size="xs"
+              onClick={() => setIsAddingNewFieldConfig(true)}
+            >
+              Add field
+            </Button>
+          </div>
+        )}
       </section>
     </div>
   );
