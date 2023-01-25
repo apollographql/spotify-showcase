@@ -8,7 +8,7 @@ const Select = ({ className, ...props }: SelectProps) => {
     <select
       className={cx(
         className,
-        'text-offwhite h-8 rounded bg-[#333] px-2 text-sm'
+        'text-offwhite h-8 rounded bg-[#333] px-2 text-sm disabled:cursor-not-allowed disabled:opacity-50'
       )}
       {...props}
     />
