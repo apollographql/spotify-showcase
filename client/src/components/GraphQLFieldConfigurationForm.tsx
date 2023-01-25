@@ -1,26 +1,23 @@
-import { useState } from 'react';
 import Button from './Button';
-import FormField from './FormField';
 import Form from './Form';
 import Markdown from './Markdown';
-import Select from './Select';
 import { stripSingleLineBreak } from '../utils/common';
 import { toPlainText } from '../utils/markdown';
 import { SetNonNullable } from 'type-fest';
 import {
   combine,
-  validate,
   min,
   max,
   required,
   ValidationSchema,
 } from '../utils/formValidation';
+import useForm from '../hooks/useForm';
 
 interface FormState {
   typename: string | null;
   fieldName: string | null;
-  timeout: number | null;
-  errorRate: number | null;
+  timeout: number;
+  errorRate: number;
 }
 
 type SubmittedFormState = SetNonNullable<FormState, keyof FormState>;
@@ -62,98 +59,67 @@ const GraphQLFieldConfigurationForm = ({
   onSubmit,
   types,
 }: GraphQLFieldConfigurationFormProps) => {
-  const [state, setState] = useState<FormState>({
-    typename: null,
-    fieldName: null,
-    timeout: null,
-    errorRate: null,
+  const form = useForm<FormState, SubmittedFormState>({
+    initialValues: {
+      typename: null,
+      fieldName: null,
+      timeout: 0,
+      errorRate: 0,
+    },
+    onSubmit,
+    validationSchema,
   });
 
-  const selectedType = types.find((type) => type.name === state.typename);
+  const selectedType = types.find((type) => type.name === form.values.typename);
   const selectedField = selectedType?.fields?.find(
-    (field) => field.name === state.fieldName
+    (field) => field.name === form.values.fieldName
   );
 
-  const handleChange = <
-    TKey extends keyof FormState,
-    TValue extends FormState[TKey]
-  >(
-    name: TKey,
-    value: TValue
-  ) => {
-    setState((state) => ({ ...state, [name]: value }));
-  };
-
   return (
-    <Form<FormState, SubmittedFormState>
-      initialValues={{
-        typename: null,
-        fieldName: null,
-        timeout: null,
-        errorRate: null,
-      }}
-      validate={(values) => validate(values, validationSchema)}
-      onSubmit={onSubmit}
-    >
+    <Form<FormState> form={form}>
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-8">
-          <FormField name="typename" label="Type name">
-            <Select
-              id="typename"
-              value={selectedType?.name ?? ''}
-              onChange={(e) => {
-                const schemaType = types.find(
-                  (type) => type.name === e.target.value
-                );
+          <Form.Select
+            label="Type name"
+            name="typename"
+            onChange={(value) => {
+              const type = types.find((type) => type.name === value);
 
-                if (schemaType) {
-                  handleChange('typename', schemaType.name);
-                  handleChange(
-                    'fieldName',
-                    schemaType.fields?.[0].name ?? null
-                  );
-                }
-              }}
-            >
-              {!selectedType && <option>-- Select a typename --</option>}
-              {types.map((type) => (
-                <option key={type.name} value={type.name ?? ''}>
-                  {type.name}
-                </option>
-              ))}
-            </Select>
-          </FormField>
-          <FormField name="fieldname" label="Field name">
-            <Select
-              id="fieldname"
-              disabled={!selectedType}
-              value={selectedField?.name ?? ''}
-              onChange={(e) => {
-                const field = selectedType?.fields?.find(
-                  (field) => field.name === e.target.value
-                );
-
-                if (field) {
-                  handleChange('fieldName', field.name);
-                }
-              }}
-            >
-              {!selectedField && <option>-- Select a field --</option>}
-              {selectedType?.fields?.map((field) => (
-                <option key={field.name} value={field.name}>
-                  {field.name}
-                </option>
-              ))}
-            </Select>
-            {selectedField && selectedField.description && (
-              <Markdown
-                className="text-offwhite line-clamp-2 text-xs"
-                title={getTitleFromMarkdown(selectedField.description ?? '')}
-              >
-                {selectedField.description}
-              </Markdown>
-            )}
-          </FormField>
+              if (type) {
+                form.setFieldValue('fieldName', type.fields?.[0]?.name ?? null);
+              }
+            }}
+          >
+            {!selectedType && <option>-- Select a typename --</option>}
+            {types.map((type) => (
+              <option key={type.name} value={type.name ?? ''}>
+                {type.name}
+              </option>
+            ))}
+          </Form.Select>
+          <Form.Select
+            label="Field name"
+            name="fieldName"
+            disabled={!selectedType}
+            description={
+              selectedField &&
+              selectedField.description && (
+                <Markdown
+                  className="text-offwhite line-clamp-2 text-xs"
+                  title={getTitleFromMarkdown(selectedField.description ?? '')}
+                >
+                  {selectedField.description}
+                </Markdown>
+              )
+            }
+          >
+            {!selectedField && <option>-- Select a field --</option>}
+            {selectedType?.fields?.map((field) => (
+              <option key={field.name} value={field.name}>
+                {field.name}
+              </option>
+            ))}
+          </Form.Select>
         </div>
         <Form.TextField
           label="Timeout (ms)"
