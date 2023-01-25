@@ -6,6 +6,7 @@ import {
 } from '@apollo/client';
 import { SettingsQuery, SettingsQueryVariables } from '../types/api';
 import Button from '../components/Button';
+import FormField from '../components/FormField';
 import Page from '../components/Page';
 import Select from '../components/Select';
 import Skeleton from '../components/Skeleton';
@@ -178,43 +179,6 @@ const Settings = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
-};
-
-interface FormFieldProps {
-  children?: ReactNode;
-  description?: string;
-  id: string;
-  label: string;
-  orientation?: 'vertical' | 'horizontal';
-}
-
-const FormField = ({
-  children,
-  description,
-  id,
-  label,
-  orientation = 'vertical',
-}: FormFieldProps) => {
-  return (
-    <div
-      className={cx('flex flex-1 gap-2', {
-        'flex-col': orientation === 'vertical',
-        'items-center justify-between': orientation === 'horizontal',
-      })}
-    >
-      <div
-        className={cx('flex flex-col gap-1', {
-          'flex-1': orientation === 'horizontal',
-        })}
-      >
-        <label htmlFor={id}>{label}</label>
-        {description && (
-          <span className="text-offwhite max-w-lg text-sm">{description}</span>
-        )}
-      </div>
-      {children}
     </div>
   );
 };
