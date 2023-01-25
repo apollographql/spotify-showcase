@@ -38,6 +38,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           {...field}
           {...props}
           ref={ref}
+          value={field.value ?? ''}
           onChange={(event) => {
             field.onChange(event);
             onChange?.(event.target.value);
