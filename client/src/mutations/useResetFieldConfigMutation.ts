@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, Reference, useMutation } from '@apollo/client';
 import { useCallback } from 'react';
 import {
   ResetFieldConfigInput,
@@ -14,8 +14,6 @@ const RESET_FIELD_CONFIG_MUTATION = gql`
           fieldName
           typename
         }
-        timeout
-        errorRate
       }
     }
   }
@@ -29,7 +27,38 @@ const useResetFieldConfigMutation = () => {
 
   const resetFieldConfig = useCallback(
     (input: ResetFieldConfigInput) => {
-      return execute({ variables: { input } });
+      return execute({
+        variables: { input },
+        update: (cache, { data }) => {
+          if (!data?.resetFieldConfig?.fieldConfig) {
+            return;
+          }
+          const {
+            fieldConfig: { schemaField },
+          } = data.resetFieldConfig;
+
+          cache.modify({
+            id: cache.identify({ __typename: 'Developer' }),
+            fields: {
+              fieldConfigs: (existing: Reference[] = [], { readField }) => {
+                return existing.filter((ref) => {
+                  const schemaFieldRef = readField<Reference>(
+                    'schemaField',
+                    ref
+                  );
+
+                  return (
+                    readField('fieldName', schemaFieldRef) !==
+                      schemaField.fieldName ||
+                    readField('typename', schemaFieldRef) !==
+                      schemaField.typename
+                  );
+                });
+              },
+            },
+          });
+        },
+      });
     },
     [execute]
   );

@@ -2018,7 +2018,7 @@ export type ResetFieldConfigMutationVariables = Exact<{
 }>;
 
 
-export type ResetFieldConfigMutation = { resetFieldConfig: { __typename: 'ResetFieldConfigPayload', fieldConfig: { __typename: 'FieldConfig', timeout: number, errorRate: number, schemaField: { __typename: 'SchemaField', fieldName: string, typename: string } } | null } | null };
+export type ResetFieldConfigMutation = { resetFieldConfig: { __typename: 'ResetFieldConfigPayload', fieldConfig: { __typename: 'FieldConfig', schemaField: { __typename: 'SchemaField', fieldName: string, typename: string } } | null } | null };
 
 export type ResumePlaybackMutationVariables = Exact<{
   input?: InputMaybe<ResumePlaybackInput>;
