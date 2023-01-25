@@ -4,7 +4,7 @@ import cx from 'classnames';
 interface FormFieldProps {
   children?: ReactNode;
   description?: string;
-  id: string;
+  name: string;
   label: string;
   orientation?: 'vertical' | 'horizontal';
 }
@@ -12,7 +12,7 @@ interface FormFieldProps {
 const FormField = ({
   children,
   description,
-  id,
+  name,
   label,
   orientation = 'vertical',
 }: FormFieldProps) => {
@@ -28,7 +28,7 @@ const FormField = ({
           'flex-1': orientation === 'horizontal',
         })}
       >
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={name}>{label}</label>
         {description && (
           <span className="text-offwhite max-w-lg text-sm">{description}</span>
         )}

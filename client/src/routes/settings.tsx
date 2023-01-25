@@ -83,7 +83,7 @@ const Settings = () => {
         </div>
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-8">
-            <FormField id="typename" label="Type name">
+            <FormField name="typename" label="Type name">
               <Select
                 id="typename"
                 value={selectedSchemaType?.name ?? ''}
@@ -108,7 +108,7 @@ const Settings = () => {
                 ))}
               </Select>
             </FormField>
-            <FormField id="fieldname" label="Field name">
+            <FormField name="fieldname" label="Field name">
               <Select
                 id="fieldname"
                 disabled={!selectedSchemaType}
@@ -143,7 +143,7 @@ const Settings = () => {
             </FormField>
           </div>
           <FormField
-            id="timeout"
+            name="timeout"
             label="Timeout (ms)"
             orientation="horizontal"
             description="The synthetic latency that will be applied when querying the field in milliseconds."
@@ -157,7 +157,7 @@ const Settings = () => {
             />
           </FormField>
           <FormField
-            id="errorRate"
+            name="errorRate"
             label="Error rate"
             orientation="horizontal"
             description="Determines how often this field should return a synthetic error. This value should be between 0 and 1 where 0 returns no errors and 1 indicates an error is returned 100% of the time."
