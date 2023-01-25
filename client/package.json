@@ -33,6 +33,7 @@
     "remark": "^14.0.2",
     "remark-parse": "^10.0.1",
     "sass": "^1.56.2",
+    "strip-markdown": "^5.0.0",
     "typescript": "^4.9.4",
     "web-vitals": "^2.1.4"
   },
