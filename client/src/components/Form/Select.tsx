@@ -33,18 +33,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     return (
       <Field orientation={orientation}>
-        <div
-          className={cx('flex flex-col gap-1', {
-            'flex-1': orientation === 'horizontal',
-          })}
-        >
-          <label htmlFor={name}>{label}</label>
-          {description && (
-            <span className="text-offwhite max-w-lg text-sm">
-              {description}
-            </span>
-          )}
-        </div>
+        <label htmlFor={name}>{label}</label>
         <select
           {...field}
           {...props}
@@ -58,6 +47,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             'text-offwhite h-8 rounded bg-[#333] px-2 text-sm disabled:cursor-not-allowed disabled:opacity-50'
           )}
         />
+        {orientation === 'vertical' && description && (
+          <span className="text-offwhite text-sm">{description}</span>
+        )}
       </Field>
     );
   }
