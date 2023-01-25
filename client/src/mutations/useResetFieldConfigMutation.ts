@@ -21,7 +21,7 @@ const RESET_FIELD_CONFIG_MUTATION = gql`
   }
 `;
 
-const resetFieldConfigMutation = () => {
+const useResetFieldConfigMutation = () => {
   const [execute, result] = useMutation<
     ResetFieldConfigMutation,
     ResetFieldConfigMutationVariables
@@ -33,7 +33,7 @@ const resetFieldConfigMutation = () => {
     },
     [execute]
   );
-  return [resetFieldConfig, result];
+  return [resetFieldConfig, result] as const;
 };
 
-export default resetFieldConfigMutation;
+export default useResetFieldConfigMutation;

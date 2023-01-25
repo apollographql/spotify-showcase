@@ -2013,6 +2013,13 @@ export type RemoveSavedTracksMutation = { removeSavedTracks: { __typename: 'Remo
 
 export type RemovedSavedTracksMutationFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
 
+export type ResetFieldConfigMutationVariables = Exact<{
+  input: ResetFieldConfigInput;
+}>;
+
+
+export type ResetFieldConfigMutation = { resetFieldConfig: { __typename: 'ResetFieldConfigPayload', fieldConfig: { __typename: 'FieldConfig', timeout: number, errorRate: number, schemaField: { __typename: 'SchemaField', fieldName: string, typename: string } } | null } | null };
+
 export type ResumePlaybackMutationVariables = Exact<{
   input?: InputMaybe<ResumePlaybackInput>;
 }>;
