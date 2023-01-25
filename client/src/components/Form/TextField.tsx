@@ -76,7 +76,6 @@ const parsers: ParsersMap = {
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   const {
-    className,
     description,
     label,
     name,
