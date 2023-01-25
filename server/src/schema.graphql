@@ -739,7 +739,8 @@ type CurrentUser {
 
 type Developer {
   """
-  A list of configured GraphQL fields
+  A list of configured GraphQL fields. Only fields that have non-zero timeouts
+  and error rates will be listed.
   """
   fieldConfigs: [FieldConfig!]!
 }
