@@ -4,6 +4,7 @@ import { GraphQLError } from 'graphql';
 import { maybe, maybeDeep } from '../utils/common';
 import SpotifyAPI from '../dataSources/spotify';
 import Publisher from '../publisher';
+import { FieldConfig } from '../fieldConfigs';
 
 const refreshPlaybackState = async (
   spotify: SpotifyAPI,
@@ -136,11 +137,10 @@ const resolvers: MutationResolvers = {
       throw new GraphQLError('You must provide field.schemaField');
     }
 
-    const fieldConfig = resetFieldConfig(
-      identify.fromSchemaField(field.schemaField)
-    );
+    const id = identify.fromSchemaField(field.schemaField);
+    resetFieldConfig(id);
 
-    return { fieldConfig };
+    return { fieldConfig: new FieldConfig(id) };
   },
   saveAlbums: async (_, { input }, { dataSources }) => {
     const ids = input.ids.join(',');

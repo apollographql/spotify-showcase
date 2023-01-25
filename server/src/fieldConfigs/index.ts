@@ -2,6 +2,8 @@ import { GraphQLResolveInfo } from 'graphql';
 import { NullifyOptionalProperties } from '../utils/types';
 import { FieldConfig, FieldConfigID, Config } from './fieldConfig';
 
+export { FieldConfig };
+
 interface SchemaField {
   typename: string;
   fieldName: string;
@@ -26,11 +28,7 @@ export const getFieldConfigs = () => {
 };
 
 export const resetFieldConfig = (id: FieldConfigID) => {
-  const fieldConfig = configs[id] || new FieldConfig(id);
-
-  configs[id] = fieldConfig.update({ timeout: 0, errorRate: 0 });
-
-  return fieldConfig;
+  delete configs[id];
 };
 
 export const updateFieldConfig = (
