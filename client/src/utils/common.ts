@@ -12,5 +12,5 @@ export const range = (lower: number, upper: number) => {
 
 // Replace newlines not followed by another newline with a space.
 export const stripSingleLineBreak = (content: string) => {
-  return content.replace(/(?<!\n)\n(?!\n)/, ' ').trim();
+  return content.replace(/(?<!\n)\n(?!\n)/g, ' ').trim();
 };
