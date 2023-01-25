@@ -41,7 +41,10 @@ const useUpdateFieldConfigMutation = () => {
           cache.modify({
             id: cache.identify({ __typename: 'Developer' }),
             fields: {
-              fieldConfigs: (existing: Reference[] = [], { readField }) => {
+              fieldConfigs: (
+                existing: Reference[] = [],
+                { readField, toReference }
+              ) => {
                 const exists = existing.some((ref) => {
                   const { schemaField } = fieldConfig;
                   const schemaFieldRef = readField<Reference>(
@@ -57,7 +60,9 @@ const useUpdateFieldConfigMutation = () => {
                   );
                 });
 
-                return exists ? existing : [...existing, fieldConfig];
+                return exists
+                  ? existing
+                  : [...existing, toReference(fieldConfig)];
               },
             },
           });
