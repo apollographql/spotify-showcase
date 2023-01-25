@@ -41,6 +41,7 @@ interface SchemaField {
 }
 
 interface GraphQLFieldConfigurationFormProps {
+  onCancel: () => void;
   onSubmit: (state: SubmittedFormState) => void;
   types: SchemaType[];
 }
@@ -75,6 +76,7 @@ export const typename = (type: SchemaSubType): string => {
 };
 
 const GraphQLFieldConfigurationForm = ({
+  onCancel,
   onSubmit,
   types,
 }: GraphQLFieldConfigurationFormProps) => {
@@ -165,7 +167,17 @@ const GraphQLFieldConfigurationForm = ({
           max={1}
           scale={2}
         />
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2">
+          <Button
+            variant="ghost"
+            size="xs"
+            onClick={() => {
+              form.resetForm();
+              onCancel();
+            }}
+          >
+            Cancel
+          </Button>
           <Button type="submit" variant="hollow" size="xs">
             Add
           </Button>
