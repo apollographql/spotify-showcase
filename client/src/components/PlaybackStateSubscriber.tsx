@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import {
+  ApolloError,
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
@@ -10,6 +11,7 @@ import {
 import merge from 'deepmerge';
 import Playbar from './Playbar';
 import { overwriteMerge } from '../utils/deepmerge';
+import { useNavigate } from 'react-router-dom';
 
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment PlaybackStateFragment on PlaybackState {
@@ -85,9 +87,21 @@ const PlaybackStateSubscriber = () => {
     PLAYBACK_STATE_SUBSCRIBER_QUERY
   );
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     return subscribeToMore<PlaybackStateSubscriberSubscription>({
       document: PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION,
+      onError: (error) => {
+        if (
+          error instanceof ApolloError &&
+          error.graphQLErrors.some(
+            (error) => error.extensions.code === 'UNAUTHENTICATED'
+          )
+        ) {
+          navigate('/logged-out');
+        }
+      },
       updateQuery: (prev, { subscriptionData }) => {
         const { playbackStateChanged } = subscriptionData.data;
 
