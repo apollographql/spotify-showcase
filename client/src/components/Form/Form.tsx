@@ -1,34 +1,23 @@
 import { ReactNode } from 'react';
-import { Formik, FormikConfig, FormikValues } from 'formik';
+import { FormikContext, FormikProps, FormikValues } from 'formik';
+import Select from './Select';
 import TextField from './TextField';
 
-type ForwardedFormikProps<TValues> = Pick<
-  FormikConfig<TValues>,
-  'initialValues' | 'validate'
->;
-
-interface FormProps<TValues, TSubmittedValues extends TValues = TValues>
-  extends ForwardedFormikProps<TValues> {
+interface FormProps<TValues> {
   children: ReactNode;
-  onSubmit: (values: TSubmittedValues) => void | Promise<unknown>;
+  form: FormikProps<TValues>;
 }
 
-function Form<
-  TValues extends FormikValues,
-  TSubmittedValues extends TValues = TValues
->({ children, onSubmit, ...props }: FormProps<TValues, TSubmittedValues>) {
+function Form<TValues extends FormikValues>({
+  children,
+  form,
+}: FormProps<TValues>) {
   return (
-    <Formik
-      {...props}
-      onSubmit={(values) => onSubmit(values as TSubmittedValues)}
-      enableReinitialize={true}
-      validateOnBlur={false}
-      validateOnChange={false}
-    >
-      {({ handleSubmit }) => {
-        return <form onSubmit={handleSubmit}>{children}</form>;
-      }}
-    </Formik>
+    <FormikContext.Provider value={form}>
+      <form onReset={form.handleReset} onSubmit={form.handleSubmit}>
+        {children}
+      </form>
+    </FormikContext.Provider>
   );
 }
 
