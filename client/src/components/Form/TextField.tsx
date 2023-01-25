@@ -75,6 +75,7 @@ const parsers: ParsersMap = {
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   const {
+    className,
     description,
     label,
     name,
@@ -109,7 +110,8 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
         type={inputType}
         value={field.value ?? ''}
         className={cx(
-          'h-10 rounded bg-[#333] px-4 text-sm text-white disabled:cursor-not-allowed disabled:opacity-50',
+          className,
+          'h-10 rounded bg-[#333] text-sm text-white disabled:cursor-not-allowed disabled:opacity-50',
           { 'min-w-[200px]': orientation === 'horizontal' }
         )}
         onChange={(event) => {
