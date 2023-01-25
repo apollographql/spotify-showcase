@@ -11,3 +11,27 @@
     @apply text-2xl;
   }
 }
+
+@layer components {
+  .markdown p:not(:last-child) {
+    @apply mb-2;
+  }
+
+  .markdown code {
+    @apply bg-surface;
+    @apply rounded-sm;
+    @apply py-px;
+    @apply px-1;
+  }
+
+  .markdown a {
+    @apply underline;
+  }
+
+  .markdown blockquote {
+    @apply border-l-4;
+    @apply border-l-surface;
+    @apply pl-2;
+    @apply text-offwhite/80;
+  }
+}
