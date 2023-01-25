@@ -4,6 +4,7 @@ import useForm from '../hooks/useForm';
 import { combine, max, min, required } from '../utils/formValidation';
 import Button from './Button';
 import Form from './Form';
+import useResetFieldConfigMutation from '../mutations/useResetFieldConfigMutation';
 
 interface FieldConfig {
   errorRate: number;
@@ -28,6 +29,7 @@ const EditFieldConfigForm = ({
   fieldConfig,
   onSubmit,
 }: EditFieldConfigFormProps) => {
+  const [resetFieldConfig] = useResetFieldConfigMutation();
   const { schemaField } = fieldConfig;
   const form = useForm({
     initialValues: {
@@ -80,7 +82,21 @@ const EditFieldConfigForm = ({
           min={0}
         />
         <div className="flex flex-1 justify-end">
-          <Button type="button" size="xs" variant="hollow">
+          <Button
+            type="button"
+            size="xs"
+            variant="hollow"
+            onClick={() => {
+              resetFieldConfig({
+                field: {
+                  schemaField: {
+                    fieldName: schemaField.fieldName,
+                    typename: schemaField.typename,
+                  },
+                },
+              });
+            }}
+          >
             Remove
           </Button>
         </div>
