@@ -24,6 +24,9 @@ import ShowRoute, {
 import TrackRoute, {
   LoadingState as TrackRouteLoadingState,
 } from './routes/tracks/track';
+import Settings, {
+  LoadingState as SettingsLoadingState,
+} from './routes/settings';
 import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
 import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
@@ -91,6 +94,14 @@ const router = createBrowserRouter([
           return null;
         },
         children: [
+          {
+            path: '/settings',
+            element: (
+              <Suspense fallback={<SettingsLoadingState />}>
+                <Settings />
+              </Suspense>
+            ),
+          },
           {
             path: '/albums/:albumId',
             element: (

@@ -9,3 +9,8 @@ export const range = (lower: number, upper: number) => {
     (key) => key * step + lower
   );
 };
+
+// Replace newlines not followed by another newline with a space.
+export const stripSingleLineBreak = (content: string) => {
+  return content.replace(/(?<!\n)\n(?!\n)/, ' ').trim();
+};
