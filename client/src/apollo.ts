@@ -69,6 +69,9 @@ export default new ApolloClient({
           tracksContains: libraryContains(),
         },
       },
+      Developer: {
+        keyFields: [],
+      },
       Followers: {
         keyFields: false,
       },
