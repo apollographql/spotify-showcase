@@ -4,17 +4,23 @@ import Select from './Select';
 import TextField from './TextField';
 
 interface FormProps<TValues> {
+  className?: string;
   children: ReactNode;
   form: FormikProps<TValues>;
 }
 
 function Form<TValues extends FormikValues>({
+  className,
   children,
   form,
 }: FormProps<TValues>) {
   return (
     <FormikContext.Provider value={form}>
-      <form onReset={form.handleReset} onSubmit={form.handleSubmit}>
+      <form
+        className={className}
+        onReset={form.handleReset}
+        onSubmit={form.handleSubmit}
+      >
         {children}
       </form>
     </FormikContext.Provider>
