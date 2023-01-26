@@ -252,6 +252,10 @@ export namespace Spotify {
       weight: number | null;
     }
 
+    export interface NewReleases {
+      albums: Paginated<AlbumSimplified>;
+    }
+
     export interface Paginated<T> {
       items: T[];
       href: string;
@@ -571,6 +575,7 @@ export namespace Spotify {
         | { error: string; state?: string };
       '/api/token': Object.AuthorizationCodeCredentials;
       '/browse/featured-playlists': Object.FeaturedPlaylists;
+      '/browse/new-releases': Object.NewReleases;
       '/episodes': Object.List<'episodes', Object.Episode>;
       '/episodes/:id': Object.Episode;
       '/me': Object.CurrentUser;
@@ -722,6 +727,11 @@ export namespace Spotify {
           limit?: number;
           offset?: number;
           timestamp?: string;
+        };
+        '/browse/new-releases': {
+          country?: string;
+          limit?: number;
+          offset?: number;
         };
         '/episodes': {
           ids: string;
