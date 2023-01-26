@@ -325,6 +325,12 @@ export default class SpotifyAPI extends RESTDataSource {
     return this._get<Spotify.Response.GET['/tracks']>('/tracks', { params });
   }
 
+  getTrackAudioFeatures(trackId: string) {
+    return this._get<Spotify.Response.GET['/audio-features/:id']>(
+      `/audio-features/${trackId}`
+    );
+  }
+
   removeItemFromPlaylist(
     playlistId: string,
     { body }: RequestParams<'DELETE', '/playlists/:id/tracks'>

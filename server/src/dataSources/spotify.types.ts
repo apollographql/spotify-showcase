@@ -520,6 +520,26 @@ export namespace Spotify {
       uri: string;
     }
 
+    export interface TrackAudioFeatures {
+      acousticness: number;
+      analysis_url: string;
+      danceability: number;
+      duration_ms: number;
+      energy: number;
+      id: string;
+      instrumentalness: number;
+      key: number;
+      liveness: number;
+      loudness: number;
+      mode: number;
+      speechiness: number;
+      tempo: number;
+      time_signature: number;
+      track_href: string;
+      uri: string;
+      valence: number;
+    }
+
     export interface TrackSimplifiedLinkedFrom {
       external_urls: ExternalUrl;
       href: string;
@@ -570,6 +590,7 @@ export namespace Spotify {
       '/artists/:id/albums': Object.Paginated<Object.AlbumSimplified>;
       '/artists/:id/related-artists': Object.List<'artists', Object.Artist>;
       '/artists/:id/top-tracks': Object.ArtistTopTracks;
+      '/audio-features/:id': Object.TrackAudioFeatures;
       '/authorize':
         | { code: string; state?: string }
         | { error: string; state?: string };
