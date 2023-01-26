@@ -80,6 +80,13 @@ const resolvers: QueryResolvers = {
   track: (_, { id }, { dataSources }) => {
     return dataSources.spotify.getTrack(id);
   },
+  tracks: async (_, { ids }, { dataSources }) => {
+    const { tracks } = await dataSources.spotify.getTracks({
+      ids: ids.join(','),
+    });
+
+    return tracks;
+  },
 };
 
 export default resolvers;

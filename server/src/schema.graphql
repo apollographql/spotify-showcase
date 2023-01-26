@@ -143,6 +143,16 @@ type Query {
     """
     id: ID!
   ): Track
+
+  """
+  Get Spotify catalog information for multiple tracks based on their Spotify IDs.
+  """
+  tracks(
+    """
+    A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the tracks. Maximum: 50 IDs.
+    """
+    ids: [ID!]!
+  ): [Track!]
 }
 
 type Mutation {
