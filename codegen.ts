@@ -118,6 +118,8 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.EpisodeSimplified',
           Track:
             '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
+          TrackAudioFeatures:
+            '../dataSources/spotify.types#Spotify#Object.TrackAudioFeatures',
           User: '../dataSources/spotify.types#Spotify#Object.User',
         },
         enumValues: {

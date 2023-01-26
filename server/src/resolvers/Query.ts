@@ -149,6 +149,13 @@ const resolvers: QueryResolvers = {
 
     return tracks;
   },
+  tracksAudioFeatures: async (_, { ids }, { dataSources }) => {
+    const { audio_features } = await dataSources.spotify.getTracksAudioFeatures(
+      { ids: ids.join(',') }
+    );
+
+    return audio_features;
+  },
 };
 
 export default resolvers;

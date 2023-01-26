@@ -1006,6 +1006,8 @@ export type Query = {
   track: Maybe<Track>;
   /** Get Spotify catalog information for multiple tracks based on their Spotify IDs. */
   tracks: Maybe<Array<Track>>;
+  /** Get audio features for multiple tracks based on their Spotify IDs. */
+  tracksAudioFeatures: Array<TrackAudioFeatures>;
 };
 
 
@@ -1094,6 +1096,11 @@ export type QuerytrackArgs = {
 
 
 export type QuerytracksArgs = {
+  ids: Array<Scalars['ID']>;
+};
+
+
+export type QuerytracksAudioFeaturesArgs = {
   ids: Array<Scalars['ID']>;
 };
 

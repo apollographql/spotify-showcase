@@ -181,6 +181,16 @@ type Query {
     """
     ids: [ID!]!
   ): [Track!]
+
+  """
+  Get audio features for multiple tracks based on their Spotify IDs.
+  """
+  tracksAudioFeatures(
+    """
+    A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the tracks. Maximum: 100 IDs.
+    """
+    ids: [ID!]!
+  ): [TrackAudioFeatures!]!
 }
 
 type Mutation {
