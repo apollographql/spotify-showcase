@@ -1061,7 +1061,22 @@ export type QueryPlaylistArgs = {
 
 
 export type QueryRecommendationsArgs = {
+  acousticness?: InputMaybe<RecommendationAcousticnessInput>;
+  danceability?: InputMaybe<RecommendationDanceabilityInput>;
+  durationMs?: InputMaybe<RecommendationDurationMsInput>;
+  energy?: InputMaybe<RecommendationEnergyInput>;
+  instrumentalness?: InputMaybe<RecommendationInstrumentalnessInput>;
+  key?: InputMaybe<RecommendationKeyInput>;
+  limit?: InputMaybe<Scalars['Int']>;
+  liveness?: InputMaybe<RecommendationLivenessInput>;
+  loudness?: InputMaybe<RecommendationLoudnessInput>;
+  mode?: InputMaybe<RecommendationModeInput>;
+  popularity?: InputMaybe<RecommendationPopularityInput>;
   seeds: RecommendationSeedInput;
+  speechiness?: InputMaybe<RecommendationSpeechinessInput>;
+  tempo?: InputMaybe<RecommendationTempoInput>;
+  timeSignature?: InputMaybe<RecommendationtimeSignatureInput>;
+  valence?: InputMaybe<RecommendationValenceInput>;
 };
 
 
@@ -1100,6 +1115,66 @@ export type RecentlyPlayedEdge = {
   playedAt: Scalars['DateTime'];
 };
 
+export type RecommendationAcousticnessInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationDanceabilityInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationDurationMsInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationEnergyInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationInstrumentalnessInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationKeyInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationLivenessInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationLoudnessInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationModeInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationPopularityInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
 /** Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
 export type RecommendationSeed = {
   __typename?: 'RecommendationSeed';
@@ -1130,17 +1205,6 @@ export type RecommendationSeed = {
 
 export type RecommendationSeedInput = {
   /**
-   * The target size of the list of recommended tracks. For seeds with unusually
-   * small pools or when highly restrictive filtering is applied, it may be
-   * impossible to generate the requested number of recommended tracks. Debugging
-   * information for such cases is available in the response.
-   *
-   * Default value: 20.
-   * Minimum value: 1.
-   * Maximum value: 100.
-   */
-  limit?: InputMaybe<Scalars['Int']>;
-  /**
    * A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for seed artists. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
    *
    * Example value: ["4NHQUGzhtTLFvgF5SZesLK"]
@@ -1168,6 +1232,24 @@ export type RecommendationSeedType =
   | 'GENRE'
   | 'TRACK';
 
+export type RecommendationSpeechinessInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationTempoInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
+export type RecommendationValenceInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
+};
+
 /** Information about recommendations for the current user */
 export type Recommendations = {
   __typename?: 'Recommendations';
@@ -1178,6 +1260,12 @@ export type Recommendations = {
    * ordered according to the parameters supplied.
    */
   tracks: Array<Track>;
+};
+
+export type RecommendationtimeSignatureInput = {
+  max?: InputMaybe<Scalars['Float']>;
+  min?: InputMaybe<Scalars['Float']>;
+  target?: InputMaybe<Scalars['Float']>;
 };
 
 export type ReleaseDate = {
@@ -2011,6 +2099,7 @@ export type ResolversTypes = ResolversObject<{
   FieldConfig: ResolverTypeWrapper<FieldConfigType>;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
@@ -2036,10 +2125,24 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   RecentlyPlayedConnection: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>>;
   RecentlyPlayedEdge: ResolverTypeWrapper<Spotify.Object.PlayHistory>;
+  RecommendationAcousticnessInput: RecommendationAcousticnessInput;
+  RecommendationDanceabilityInput: RecommendationDanceabilityInput;
+  RecommendationDurationMsInput: RecommendationDurationMsInput;
+  RecommendationEnergyInput: RecommendationEnergyInput;
+  RecommendationInstrumentalnessInput: RecommendationInstrumentalnessInput;
+  RecommendationKeyInput: RecommendationKeyInput;
+  RecommendationLivenessInput: RecommendationLivenessInput;
+  RecommendationLoudnessInput: RecommendationLoudnessInput;
+  RecommendationModeInput: RecommendationModeInput;
+  RecommendationPopularityInput: RecommendationPopularityInput;
   RecommendationSeed: ResolverTypeWrapper<RecommendationSeed>;
   RecommendationSeedInput: RecommendationSeedInput;
   RecommendationSeedType: RecommendationSeedType;
+  RecommendationSpeechinessInput: RecommendationSpeechinessInput;
+  RecommendationTempoInput: RecommendationTempoInput;
+  RecommendationValenceInput: RecommendationValenceInput;
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
+  RecommendationtimeSignatureInput: RecommendationtimeSignatureInput;
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
   RemoveItemFromPlaylistInput: RemoveItemFromPlaylistInput;
@@ -2132,6 +2235,7 @@ export type ResolversParentTypes = ResolversObject<{
   FieldConfig: FieldConfigType;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
+  Float: Scalars['Float'];
   Followers: Followers;
   ID: Scalars['ID'];
   Image: Image;
@@ -2156,9 +2260,23 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   RecentlyPlayedConnection: Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>;
   RecentlyPlayedEdge: Spotify.Object.PlayHistory;
+  RecommendationAcousticnessInput: RecommendationAcousticnessInput;
+  RecommendationDanceabilityInput: RecommendationDanceabilityInput;
+  RecommendationDurationMsInput: RecommendationDurationMsInput;
+  RecommendationEnergyInput: RecommendationEnergyInput;
+  RecommendationInstrumentalnessInput: RecommendationInstrumentalnessInput;
+  RecommendationKeyInput: RecommendationKeyInput;
+  RecommendationLivenessInput: RecommendationLivenessInput;
+  RecommendationLoudnessInput: RecommendationLoudnessInput;
+  RecommendationModeInput: RecommendationModeInput;
+  RecommendationPopularityInput: RecommendationPopularityInput;
   RecommendationSeed: RecommendationSeed;
   RecommendationSeedInput: RecommendationSeedInput;
+  RecommendationSpeechinessInput: RecommendationSpeechinessInput;
+  RecommendationTempoInput: RecommendationTempoInput;
+  RecommendationValenceInput: RecommendationValenceInput;
   Recommendations: Spotify.Object.Recommendations;
+  RecommendationtimeSignatureInput: RecommendationtimeSignatureInput;
   ReleaseDate: Releasable;
   RemoveItemFromPlaylistInput: RemoveItemFromPlaylistInput;
   RemoveItemFromPlaylistPayload: Omit<RemoveItemFromPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversParentTypes['Playlist']> };

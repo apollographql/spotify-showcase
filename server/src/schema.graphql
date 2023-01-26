@@ -58,7 +58,35 @@ type Query {
   For artists and tracks that are very new or obscure there might not be enough
   data to generate a list of tracks.
   """
-  recommendations(seeds: RecommendationSeedInput!): Recommendations
+  recommendations(
+    seeds: RecommendationSeedInput!
+    acousticness: RecommendationAcousticnessInput
+    danceability: RecommendationDanceabilityInput
+    durationMs: RecommendationDurationMsInput
+    energy: RecommendationEnergyInput
+    instrumentalness: RecommendationInstrumentalnessInput
+    key: RecommendationKeyInput
+    liveness: RecommendationLivenessInput
+    loudness: RecommendationLoudnessInput
+    mode: RecommendationModeInput
+    popularity: RecommendationPopularityInput
+    speechiness: RecommendationSpeechinessInput
+    tempo: RecommendationTempoInput
+    timeSignature: RecommendationtimeSignatureInput
+    valence: RecommendationValenceInput
+
+    """
+    The target size of the list of recommended tracks. For seeds with unusually
+    small pools or when highly restrictive filtering is applied, it may be
+    impossible to generate the requested number of recommended tracks. Debugging
+    information for such cases is available in the response.
+
+    Default value: 20.
+    Minimum value: 1.
+    Maximum value: 100.
+    """
+    limit: Int
+  ): Recommendations
 
   """
   Information about the current logged-in user.
@@ -1386,6 +1414,90 @@ type Recommendations {
   tracks: [Track!]!
 }
 
+input RecommendationAcousticnessInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationDanceabilityInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationDurationMsInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationEnergyInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationInstrumentalnessInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationKeyInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationLivenessInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationLoudnessInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationModeInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationPopularityInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationSpeechinessInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationTempoInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationtimeSignatureInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
+input RecommendationValenceInput {
+  min: Float
+  max: Float
+  target: Float
+}
+
 """
 Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject).
 """
@@ -1725,18 +1837,6 @@ input RecommendationSeedInput {
   Example value: ["0c6xIDDpzE81m2q797ordA"]
   """
   seedTracks: [ID!]
-
-  """
-  The target size of the list of recommended tracks. For seeds with unusually
-  small pools or when highly restrictive filtering is applied, it may be
-  impossible to generate the requested number of recommended tracks. Debugging
-  information for such cases is available in the response.
-
-  Default value: 20.
-  Minimum value: 1.
-  Maximum value: 100.
-  """
-  limit: Int
 }
 
 type ResetFieldConfigPayload {
