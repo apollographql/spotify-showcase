@@ -56,6 +56,9 @@ module.exports = {
       fontSize: {
         xxs: ['0.625rem', '0.875rem'],
       },
+      textColor: ({ theme }) => ({
+        muted: theme('colors.offwhite'),
+      }),
       keyframes: {
         'fade-in': {
           from: { opacity: 0 },
