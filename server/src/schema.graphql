@@ -145,6 +145,46 @@ type Query {
   ): FeaturedPlaylistConnection
 
   """
+  Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks that match a keyword string.
+
+  **Note: Audiobooks are only available for the US, UK, Ireland, New Zealand and Australia markets.**
+  """
+  search(
+    """
+    Your search query.
+
+    You can narrow down your search using field filters. The available filters are album, artist, track, year, upc, tag:hipster, tag:new, isrc, and genre. Each field filter only applies to certain result types.
+
+    The artist and year filters can be used while searching albums, artists and tracks. You can filter on a single year or a range (e.g. 1955-1960).
+    The album filter can be used while searching albums and tracks.
+    The genre filter can be used while searching artists and tracks.
+    The isrc and track filters can be used while searching tracks.
+    The upc, tag:new and tag:hipster filters can only be used while searching albums. The tag:new filter will return albums released in the past two weeks and tag:hipster can be used to return only albums with the lowest 10% popularity.
+    """
+    q: String!
+
+    """
+    If `includeExternal=audio` is specified it signals that the client can play externally hosted audio content, and marks the content as playable in the response. By default externally hosted audio content is marked as unplayable in the response.
+    """
+    includeExternal: SearchExternalValue
+
+    """
+    The maximum number of results to return in each item type.
+    """
+    limit: Int
+
+    """
+    The index of the first result to return. Use with `limit` to get the next page of search results.
+    """
+    offset: Int
+
+    """
+    A list of item types to search across. Search results include hits from all the specified item types.
+    """
+    type: [SearchType!]!
+  ): SearchResults
+
+  """
   Get Spotify catalog information for a single show identified by its unique
   Spotify ID.
   """
@@ -2213,6 +2253,129 @@ input SchemaFieldInput {
   The name of the field in the type (ex: `firstName`)
   """
   fieldName: String!
+}
+
+enum SearchExternalValue {
+  AUDIO
+}
+
+enum SearchType {
+  ALBUM
+  ARTIST
+  EPISODE
+  PLAYLIST
+  TRACK
+  SHOW
+}
+
+type SearchResults {
+  """
+  The set of albums returned from the search query. Only available if the search `type` includes `ALBUM`.
+  """
+  albums: SearchAlbumsConnection
+
+  """
+  The set of artists returned from the search query. Only available if the search `type` includes `ARTIST`.
+  """
+  artists: SearchArtistsConnection
+
+  """
+  The set of episodes returned from the search query. Only available if the search `type` includes `EPISODE`.
+  """
+  episodes: SearchEpisodesConnection
+
+  """
+  The set of playlists returned from the search query. Only available if the search `type` includes `PLAYLIST`.
+  """
+  playlists: SearchPlaylistsConnection
+
+  """
+  The set of shows returned from the search query. Only available if the search `type` includes `SHOW`.
+  """
+  shows: SearchShowsConnection
+
+  """
+  The set of tracks returned from the search query. Only available if the search `type` includes `TRACK`.
+  """
+  tracks: SearchTracksConnection
+}
+
+type SearchAlbumsConnection {
+  "The list of albums returned from the search"
+  edges: [SearchAlbumEdge!]!
+
+  "Pagination information for albums in a search"
+  pageInfo: PageInfo!
+}
+
+type SearchAlbumEdge {
+  "The album returned from the search"
+  node: Album!
+}
+
+type SearchArtistsConnection {
+  "The list of artists returned from the search"
+  edges: [SearchArtistEdge!]!
+
+  "Pagination information for artists in a search"
+  pageInfo: PageInfo!
+}
+
+type SearchArtistEdge {
+  "The artist returned from the search"
+  node: Artist!
+}
+
+type SearchEpisodesConnection {
+  "The list of episodes returned from the search"
+  edges: [SearchEpisodeEdge!]!
+
+  "Pagination information for episodes in a search"
+  pageInfo: PageInfo!
+}
+
+type SearchEpisodeEdge {
+  "The episode returned from the search"
+  node: Episode!
+}
+
+type SearchPlaylistsConnection {
+  "The list of playlists returned from the search"
+  edges: [SearchPlaylistEdge!]!
+
+  "Pagination information for playlists in a search"
+  pageInfo: PageInfo!
+}
+
+type SearchPlaylistEdge {
+  "The playlist returned from the search"
+  node: Playlist!
+}
+
+type SearchTracksConnection {
+  "The list of tracks returned from the search"
+  edges: [SearchTrackEdge!]!
+
+  "Pagination information for tracks in a search"
+  pageInfo: PageInfo!
+}
+
+type SearchTrackEdge {
+  "The track returned in the search"
+  node: Track!
+}
+
+type SearchShowsConnection {
+  "The list of shows returned from the search"
+  edges: [SearchShowEdge!]!
+
+  "Pagination information for shows in a search"
+  pageInfo: PageInfo!
+}
+
+type SearchShowEdge {
+  "The show returned from the search"
+  node: Show!
 }
 
 input SeekToPositionContextInput {

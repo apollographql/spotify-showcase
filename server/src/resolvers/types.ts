@@ -995,6 +995,12 @@ export type Query = {
    */
   recommendations?: Maybe<Recommendations>;
   /**
+   * Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks that match a keyword string.
+   *
+   * **Note: Audiobooks are only available for the US, UK, Ireland, New Zealand and Australia markets.**
+   */
+  search?: Maybe<SearchResults>;
+  /**
    * Get Spotify catalog information for a single show identified by its unique
    * Spotify ID.
    */
@@ -1079,6 +1085,15 @@ export type QueryRecommendationsArgs = {
   tempo?: InputMaybe<RecommendationTempoInput>;
   timeSignature?: InputMaybe<RecommendationTimeSignatureInput>;
   valence?: InputMaybe<RecommendationValenceInput>;
+};
+
+
+export type QuerySearchArgs = {
+  includeExternal?: InputMaybe<SearchExternalValue>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  q: Scalars['String'];
+  type: Array<SearchType>;
 };
 
 
@@ -1542,6 +1557,117 @@ export type SchemaFieldInput = {
   /** The parent type name in the schema (ex: `User`) */
   typename: Scalars['String'];
 };
+
+export type SearchAlbumEdge = {
+  __typename?: 'SearchAlbumEdge';
+  /** The album returned from the search */
+  node: Album;
+};
+
+export type SearchAlbumsConnection = {
+  __typename?: 'SearchAlbumsConnection';
+  /** The list of albums returned from the search */
+  edges: Array<SearchAlbumEdge>;
+  /** Pagination information for albums in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchArtistEdge = {
+  __typename?: 'SearchArtistEdge';
+  /** The artist returned from the search */
+  node: Artist;
+};
+
+export type SearchArtistsConnection = {
+  __typename?: 'SearchArtistsConnection';
+  /** The list of artists returned from the search */
+  edges: Array<SearchArtistEdge>;
+  /** Pagination information for artists in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchEpisodeEdge = {
+  __typename?: 'SearchEpisodeEdge';
+  /** The episode returned from the search */
+  node: Episode;
+};
+
+export type SearchEpisodesConnection = {
+  __typename?: 'SearchEpisodesConnection';
+  /** The list of episodes returned from the search */
+  edges: Array<SearchEpisodeEdge>;
+  /** Pagination information for episodes in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchExternalValue =
+  | 'AUDIO';
+
+export type SearchPlaylistEdge = {
+  __typename?: 'SearchPlaylistEdge';
+  /** The playlist returned from the search */
+  node: Playlist;
+};
+
+export type SearchPlaylistsConnection = {
+  __typename?: 'SearchPlaylistsConnection';
+  /** The list of playlists returned from the search */
+  edges: Array<SearchPlaylistEdge>;
+  /** Pagination information for playlists in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchResults = {
+  __typename?: 'SearchResults';
+  /** The set of albums returned from the search query. Only available if the search `type` includes `ALBUM`. */
+  albums?: Maybe<SearchAlbumsConnection>;
+  /** The set of artists returned from the search query. Only available if the search `type` includes `ARTIST`. */
+  artists?: Maybe<SearchArtistsConnection>;
+  /** The set of episodes returned from the search query. Only available if the search `type` includes `EPISODE`. */
+  episodes?: Maybe<SearchEpisodesConnection>;
+  /** The set of playlists returned from the search query. Only available if the search `type` includes `PLAYLIST`. */
+  playlists?: Maybe<SearchPlaylistsConnection>;
+  /** The set of shows returned from the search query. Only available if the search `type` includes `SHOW`. */
+  shows?: Maybe<SearchShowsConnection>;
+  /** The set of tracks returned from the search query. Only available if the search `type` includes `TRACK`. */
+  tracks?: Maybe<SearchTracksConnection>;
+};
+
+export type SearchShowEdge = {
+  __typename?: 'SearchShowEdge';
+  /** The show returned from the search */
+  node: Show;
+};
+
+export type SearchShowsConnection = {
+  __typename?: 'SearchShowsConnection';
+  /** The list of shows returned from the search */
+  edges: Array<SearchShowEdge>;
+  /** Pagination information for shows in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchTrackEdge = {
+  __typename?: 'SearchTrackEdge';
+  /** The track returned in the search */
+  node: Track;
+};
+
+export type SearchTracksConnection = {
+  __typename?: 'SearchTracksConnection';
+  /** The list of tracks returned from the search */
+  edges: Array<SearchTrackEdge>;
+  /** Pagination information for tracks in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchType =
+  | 'ALBUM'
+  | 'ARTIST'
+  | 'EPISODE'
+  | 'PLAYLIST'
+  | 'SHOW'
+  | 'TRACK';
 
 export type SeekToPositionContextInput = {
   /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
@@ -2224,6 +2350,21 @@ export type ResolversTypes = ResolversObject<{
   SavedTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
   SchemaField: ResolverTypeWrapper<SchemaField>;
   SchemaFieldInput: SchemaFieldInput;
+  SearchAlbumEdge: ResolverTypeWrapper<Omit<SearchAlbumEdge, 'node'> & { node: ResolversTypes['Album'] }>;
+  SearchAlbumsConnection: ResolverTypeWrapper<Omit<SearchAlbumsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SearchAlbumEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
+  SearchArtistEdge: ResolverTypeWrapper<Omit<SearchArtistEdge, 'node'> & { node: ResolversTypes['Artist'] }>;
+  SearchArtistsConnection: ResolverTypeWrapper<Omit<SearchArtistsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SearchArtistEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
+  SearchEpisodeEdge: ResolverTypeWrapper<Omit<SearchEpisodeEdge, 'node'> & { node: ResolversTypes['Episode'] }>;
+  SearchEpisodesConnection: ResolverTypeWrapper<Omit<SearchEpisodesConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SearchEpisodeEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
+  SearchExternalValue: SearchExternalValue;
+  SearchPlaylistEdge: ResolverTypeWrapper<Omit<SearchPlaylistEdge, 'node'> & { node: ResolversTypes['Playlist'] }>;
+  SearchPlaylistsConnection: ResolverTypeWrapper<Omit<SearchPlaylistsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SearchPlaylistEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
+  SearchResults: ResolverTypeWrapper<Omit<SearchResults, 'albums' | 'artists' | 'episodes' | 'playlists' | 'shows' | 'tracks'> & { albums?: Maybe<ResolversTypes['SearchAlbumsConnection']>, artists?: Maybe<ResolversTypes['SearchArtistsConnection']>, episodes?: Maybe<ResolversTypes['SearchEpisodesConnection']>, playlists?: Maybe<ResolversTypes['SearchPlaylistsConnection']>, shows?: Maybe<ResolversTypes['SearchShowsConnection']>, tracks?: Maybe<ResolversTypes['SearchTracksConnection']> }>;
+  SearchShowEdge: ResolverTypeWrapper<Omit<SearchShowEdge, 'node'> & { node: ResolversTypes['Show'] }>;
+  SearchShowsConnection: ResolverTypeWrapper<Omit<SearchShowsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SearchShowEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
+  SearchTrackEdge: ResolverTypeWrapper<Omit<SearchTrackEdge, 'node'> & { node: ResolversTypes['Track'] }>;
+  SearchTracksConnection: ResolverTypeWrapper<Omit<SearchTracksConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['SearchTrackEdge']>, pageInfo: ResolversTypes['PageInfo'] }>;
+  SearchType: SearchType;
   SeekToPositionContextInput: SeekToPositionContextInput;
   SeekToPositionResponse: ResolverTypeWrapper<Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   SetRepeatModeContextInput: SetRepeatModeContextInput;
@@ -2357,6 +2498,19 @@ export type ResolversParentTypes = ResolversObject<{
   SavedTracksConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;
   SchemaField: SchemaField;
   SchemaFieldInput: SchemaFieldInput;
+  SearchAlbumEdge: Omit<SearchAlbumEdge, 'node'> & { node: ResolversParentTypes['Album'] };
+  SearchAlbumsConnection: Omit<SearchAlbumsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SearchAlbumEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
+  SearchArtistEdge: Omit<SearchArtistEdge, 'node'> & { node: ResolversParentTypes['Artist'] };
+  SearchArtistsConnection: Omit<SearchArtistsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SearchArtistEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
+  SearchEpisodeEdge: Omit<SearchEpisodeEdge, 'node'> & { node: ResolversParentTypes['Episode'] };
+  SearchEpisodesConnection: Omit<SearchEpisodesConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SearchEpisodeEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
+  SearchPlaylistEdge: Omit<SearchPlaylistEdge, 'node'> & { node: ResolversParentTypes['Playlist'] };
+  SearchPlaylistsConnection: Omit<SearchPlaylistsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SearchPlaylistEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
+  SearchResults: Omit<SearchResults, 'albums' | 'artists' | 'episodes' | 'playlists' | 'shows' | 'tracks'> & { albums?: Maybe<ResolversParentTypes['SearchAlbumsConnection']>, artists?: Maybe<ResolversParentTypes['SearchArtistsConnection']>, episodes?: Maybe<ResolversParentTypes['SearchEpisodesConnection']>, playlists?: Maybe<ResolversParentTypes['SearchPlaylistsConnection']>, shows?: Maybe<ResolversParentTypes['SearchShowsConnection']>, tracks?: Maybe<ResolversParentTypes['SearchTracksConnection']> };
+  SearchShowEdge: Omit<SearchShowEdge, 'node'> & { node: ResolversParentTypes['Show'] };
+  SearchShowsConnection: Omit<SearchShowsConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SearchShowEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
+  SearchTrackEdge: Omit<SearchTrackEdge, 'node'> & { node: ResolversParentTypes['Track'] };
+  SearchTracksConnection: Omit<SearchTracksConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['SearchTrackEdge']>, pageInfo: ResolversParentTypes['PageInfo'] };
   SeekToPositionContextInput: SeekToPositionContextInput;
   SeekToPositionResponse: Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   SetRepeatModeContextInput: SetRepeatModeContextInput;
@@ -2744,6 +2898,7 @@ export type QueryResolvers<ContextType = ContextValue, ParentType extends Resolv
   newReleases?: Resolver<Maybe<ResolversTypes['NewReleasesConnection']>, ParentType, ContextType, Partial<QueryNewReleasesArgs>>;
   playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<QueryPlaylistArgs, 'id'>>;
   recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
+  search?: Resolver<Maybe<ResolversTypes['SearchResults']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'q' | 'type'>>;
   show?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<QueryShowArgs, 'id'>>;
   shows?: Resolver<Maybe<Array<ResolversTypes['Show']>>, ParentType, ContextType, RequireFields<QueryShowsArgs, 'ids'>>;
   track?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType, RequireFields<QueryTrackArgs, 'id'>>;
@@ -2878,6 +3033,82 @@ export type SavedTracksConnectionResolvers<ContextType = ContextValue, ParentTyp
 export type SchemaFieldResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SchemaField'] = ResolversParentTypes['SchemaField']> = ResolversObject<{
   fieldName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   typename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchAlbumEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchAlbumEdge'] = ResolversParentTypes['SearchAlbumEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchAlbumsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchAlbumsConnection'] = ResolversParentTypes['SearchAlbumsConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SearchAlbumEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchArtistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchArtistEdge'] = ResolversParentTypes['SearchArtistEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchArtistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchArtistsConnection'] = ResolversParentTypes['SearchArtistsConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SearchArtistEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchEpisodeEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchEpisodeEdge'] = ResolversParentTypes['SearchEpisodeEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Episode'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchEpisodesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchEpisodesConnection'] = ResolversParentTypes['SearchEpisodesConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SearchEpisodeEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchPlaylistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchPlaylistEdge'] = ResolversParentTypes['SearchPlaylistEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchPlaylistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchPlaylistsConnection'] = ResolversParentTypes['SearchPlaylistsConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SearchPlaylistEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchResultsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchResults'] = ResolversParentTypes['SearchResults']> = ResolversObject<{
+  albums?: Resolver<Maybe<ResolversTypes['SearchAlbumsConnection']>, ParentType, ContextType>;
+  artists?: Resolver<Maybe<ResolversTypes['SearchArtistsConnection']>, ParentType, ContextType>;
+  episodes?: Resolver<Maybe<ResolversTypes['SearchEpisodesConnection']>, ParentType, ContextType>;
+  playlists?: Resolver<Maybe<ResolversTypes['SearchPlaylistsConnection']>, ParentType, ContextType>;
+  shows?: Resolver<Maybe<ResolversTypes['SearchShowsConnection']>, ParentType, ContextType>;
+  tracks?: Resolver<Maybe<ResolversTypes['SearchTracksConnection']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchShowEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchShowEdge'] = ResolversParentTypes['SearchShowEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchShowsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchShowsConnection'] = ResolversParentTypes['SearchShowsConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SearchShowEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchTrackEdge'] = ResolversParentTypes['SearchTrackEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SearchTracksConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchTracksConnection'] = ResolversParentTypes['SearchTracksConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SearchTrackEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3088,6 +3319,19 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SavedTracksConnection?: SavedTracksConnectionResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;
+  SearchAlbumEdge?: SearchAlbumEdgeResolvers<ContextType>;
+  SearchAlbumsConnection?: SearchAlbumsConnectionResolvers<ContextType>;
+  SearchArtistEdge?: SearchArtistEdgeResolvers<ContextType>;
+  SearchArtistsConnection?: SearchArtistsConnectionResolvers<ContextType>;
+  SearchEpisodeEdge?: SearchEpisodeEdgeResolvers<ContextType>;
+  SearchEpisodesConnection?: SearchEpisodesConnectionResolvers<ContextType>;
+  SearchPlaylistEdge?: SearchPlaylistEdgeResolvers<ContextType>;
+  SearchPlaylistsConnection?: SearchPlaylistsConnectionResolvers<ContextType>;
+  SearchResults?: SearchResultsResolvers<ContextType>;
+  SearchShowEdge?: SearchShowEdgeResolvers<ContextType>;
+  SearchShowsConnection?: SearchShowsConnectionResolvers<ContextType>;
+  SearchTrackEdge?: SearchTrackEdgeResolvers<ContextType>;
+  SearchTracksConnection?: SearchTracksConnectionResolvers<ContextType>;
   SeekToPositionResponse?: SeekToPositionResponseResolvers<ContextType>;
   SetRepeatModeResponse?: SetRepeatModeResponseResolvers<ContextType>;
   SetVolumeResponse?: SetVolumeResponseResolvers<ContextType>;

@@ -993,6 +993,12 @@ export type Query = {
    */
   recommendations: Maybe<Recommendations>;
   /**
+   * Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks that match a keyword string.
+   *
+   * **Note: Audiobooks are only available for the US, UK, Ireland, New Zealand and Australia markets.**
+   */
+  search: Maybe<SearchResults>;
+  /**
    * Get Spotify catalog information for a single show identified by its unique
    * Spotify ID.
    */
@@ -1077,6 +1083,15 @@ export type QueryrecommendationsArgs = {
   tempo?: InputMaybe<RecommendationTempoInput>;
   timeSignature?: InputMaybe<RecommendationTimeSignatureInput>;
   valence?: InputMaybe<RecommendationValenceInput>;
+};
+
+
+export type QuerysearchArgs = {
+  includeExternal?: InputMaybe<SearchExternalValue>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  q: Scalars['String'];
+  type: Array<SearchType>;
 };
 
 
@@ -1543,6 +1558,119 @@ export type SchemaFieldInput = {
   /** The parent type name in the schema (ex: `User`) */
   typename: Scalars['String'];
 };
+
+export type SearchAlbumEdge = {
+  __typename: 'SearchAlbumEdge';
+  /** The album returned from the search */
+  node: Album;
+};
+
+export type SearchAlbumsConnection = {
+  __typename: 'SearchAlbumsConnection';
+  /** The list of albums returned from the search */
+  edges: Array<SearchAlbumEdge>;
+  /** Pagination information for albums in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchArtistEdge = {
+  __typename: 'SearchArtistEdge';
+  /** The artist returned from the search */
+  node: Artist;
+};
+
+export type SearchArtistsConnection = {
+  __typename: 'SearchArtistsConnection';
+  /** The list of artists returned from the search */
+  edges: Array<SearchArtistEdge>;
+  /** Pagination information for artists in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchEpisodeEdge = {
+  __typename: 'SearchEpisodeEdge';
+  /** The episode returned from the search */
+  node: Episode;
+};
+
+export type SearchEpisodesConnection = {
+  __typename: 'SearchEpisodesConnection';
+  /** The list of episodes returned from the search */
+  edges: Array<SearchEpisodeEdge>;
+  /** Pagination information for episodes in a search */
+  pageInfo: PageInfo;
+};
+
+export enum SearchExternalValue {
+  Audio = 'AUDIO'
+}
+
+export type SearchPlaylistEdge = {
+  __typename: 'SearchPlaylistEdge';
+  /** The playlist returned from the search */
+  node: Playlist;
+};
+
+export type SearchPlaylistsConnection = {
+  __typename: 'SearchPlaylistsConnection';
+  /** The list of playlists returned from the search */
+  edges: Array<SearchPlaylistEdge>;
+  /** Pagination information for playlists in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchResults = {
+  __typename: 'SearchResults';
+  /** The set of albums returned from the search query. Only available if the search `type` includes `ALBUM`. */
+  albums: Maybe<SearchAlbumsConnection>;
+  /** The set of artists returned from the search query. Only available if the search `type` includes `ARTIST`. */
+  artists: Maybe<SearchArtistsConnection>;
+  /** The set of episodes returned from the search query. Only available if the search `type` includes `EPISODE`. */
+  episodes: Maybe<SearchEpisodesConnection>;
+  /** The set of playlists returned from the search query. Only available if the search `type` includes `PLAYLIST`. */
+  playlists: Maybe<SearchPlaylistsConnection>;
+  /** The set of shows returned from the search query. Only available if the search `type` includes `SHOW`. */
+  shows: Maybe<SearchShowsConnection>;
+  /** The set of tracks returned from the search query. Only available if the search `type` includes `TRACK`. */
+  tracks: Maybe<SearchTracksConnection>;
+};
+
+export type SearchShowEdge = {
+  __typename: 'SearchShowEdge';
+  /** The show returned from the search */
+  node: Show;
+};
+
+export type SearchShowsConnection = {
+  __typename: 'SearchShowsConnection';
+  /** The list of shows returned from the search */
+  edges: Array<SearchShowEdge>;
+  /** Pagination information for shows in a search */
+  pageInfo: PageInfo;
+};
+
+export type SearchTrackEdge = {
+  __typename: 'SearchTrackEdge';
+  /** The track returned in the search */
+  node: Track;
+};
+
+export type SearchTracksConnection = {
+  __typename: 'SearchTracksConnection';
+  /** The list of tracks returned from the search */
+  edges: Array<SearchTrackEdge>;
+  /** Pagination information for tracks in a search */
+  pageInfo: PageInfo;
+};
+
+export enum SearchType {
+  Album = 'ALBUM',
+  Artist = 'ARTIST',
+  Episode = 'EPISODE',
+  Playlist = 'PLAYLIST',
+  Show = 'SHOW',
+  Track = 'TRACK'
+}
 
 export type SeekToPositionContextInput = {
   /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
