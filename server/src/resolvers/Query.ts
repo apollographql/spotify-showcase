@@ -12,6 +12,13 @@ const resolvers: QueryResolvers = {
     return albums;
   },
   artist: (_, { id }, { dataSources }) => dataSources.spotify.getArtist(id),
+  artists: async (_, { ids }, { dataSources }) => {
+    const { artists } = await dataSources.spotify.getArtists({
+      ids: ids.join(','),
+    });
+
+    return artists;
+  },
   developer: () => {
     // Return empty object since this field is used as a namespace
     return {};

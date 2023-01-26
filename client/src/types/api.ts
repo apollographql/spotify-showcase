@@ -953,6 +953,8 @@ export type Query = {
   albums: Maybe<Array<Album>>;
   /** Spotify catalog information for an artist. */
   artist: Maybe<Artist>;
+  /** Get Spotify catalog information for several artists based on their Spotify IDs. */
+  artists: Maybe<Array<Artist>>;
   /** Get a list of developer-specific settings, such as GraphQL field configuration. */
   developer: Developer;
   /**
@@ -1013,6 +1015,11 @@ export type QueryalbumsArgs = {
 
 export type QueryartistArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryartistsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 

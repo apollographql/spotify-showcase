@@ -16,6 +16,11 @@ type Query {
   artist(id: ID!): Artist
 
   """
+  Get Spotify catalog information for several artists based on their Spotify IDs.
+  """
+  artists(ids: [ID!]!): [Artist!]
+
+  """
   Get a list of developer-specific settings, such as GraphQL field configuration.
   """
   developer: Developer!
