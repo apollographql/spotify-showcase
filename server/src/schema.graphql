@@ -72,7 +72,7 @@ type Query {
     popularity: RecommendationPopularityInput
     speechiness: RecommendationSpeechinessInput
     tempo: RecommendationTempoInput
-    timeSignature: RecommendationtimeSignatureInput
+    timeSignature: RecommendationTimeSignatureInput
     valence: RecommendationValenceInput
 
     """
@@ -1437,9 +1437,9 @@ input RecommendationDanceabilityInput {
 }
 
 input RecommendationDurationMsInput {
-  min: Float
-  max: Float
-  target: Float
+  min: Int
+  max: Int
+  target: Int
 }
 
 input RecommendationEnergyInput {
@@ -1455,9 +1455,9 @@ input RecommendationInstrumentalnessInput {
 }
 
 input RecommendationKeyInput {
-  min: Float
-  max: Float
-  target: Float
+  min: Int
+  max: Int
+  target: Int
 }
 
 input RecommendationLivenessInput {
@@ -1473,9 +1473,9 @@ input RecommendationLoudnessInput {
 }
 
 input RecommendationModeInput {
-  min: Float
-  max: Float
-  target: Float
+  min: Int
+  max: Int
+  target: Int
 }
 
 input RecommendationPopularityInput {
@@ -1496,10 +1496,10 @@ input RecommendationTempoInput {
   target: Float
 }
 
-input RecommendationtimeSignatureInput {
-  min: Float
-  max: Float
-  target: Float
+input RecommendationTimeSignatureInput {
+  min: Int
+  max: Int
+  target: Int
 }
 
 input RecommendationValenceInput {

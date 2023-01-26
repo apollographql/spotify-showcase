@@ -1075,7 +1075,7 @@ export type QueryrecommendationsArgs = {
   seeds: RecommendationSeedInput;
   speechiness?: InputMaybe<RecommendationSpeechinessInput>;
   tempo?: InputMaybe<RecommendationTempoInput>;
-  timeSignature?: InputMaybe<RecommendationtimeSignatureInput>;
+  timeSignature?: InputMaybe<RecommendationTimeSignatureInput>;
   valence?: InputMaybe<RecommendationValenceInput>;
 };
 
@@ -1133,9 +1133,9 @@ export type RecommendationDanceabilityInput = {
 };
 
 export type RecommendationDurationMsInput = {
-  max?: InputMaybe<Scalars['Float']>;
-  min?: InputMaybe<Scalars['Float']>;
-  target?: InputMaybe<Scalars['Float']>;
+  max?: InputMaybe<Scalars['Int']>;
+  min?: InputMaybe<Scalars['Int']>;
+  target?: InputMaybe<Scalars['Int']>;
 };
 
 export type RecommendationEnergyInput = {
@@ -1151,9 +1151,9 @@ export type RecommendationInstrumentalnessInput = {
 };
 
 export type RecommendationKeyInput = {
-  max?: InputMaybe<Scalars['Float']>;
-  min?: InputMaybe<Scalars['Float']>;
-  target?: InputMaybe<Scalars['Float']>;
+  max?: InputMaybe<Scalars['Int']>;
+  min?: InputMaybe<Scalars['Int']>;
+  target?: InputMaybe<Scalars['Int']>;
 };
 
 export type RecommendationLivenessInput = {
@@ -1169,9 +1169,9 @@ export type RecommendationLoudnessInput = {
 };
 
 export type RecommendationModeInput = {
-  max?: InputMaybe<Scalars['Float']>;
-  min?: InputMaybe<Scalars['Float']>;
-  target?: InputMaybe<Scalars['Float']>;
+  max?: InputMaybe<Scalars['Int']>;
+  min?: InputMaybe<Scalars['Int']>;
+  target?: InputMaybe<Scalars['Int']>;
 };
 
 export type RecommendationPopularityInput = {
@@ -1250,6 +1250,12 @@ export type RecommendationTempoInput = {
   target?: InputMaybe<Scalars['Float']>;
 };
 
+export type RecommendationTimeSignatureInput = {
+  max?: InputMaybe<Scalars['Int']>;
+  min?: InputMaybe<Scalars['Int']>;
+  target?: InputMaybe<Scalars['Int']>;
+};
+
 export type RecommendationValenceInput = {
   max?: InputMaybe<Scalars['Float']>;
   min?: InputMaybe<Scalars['Float']>;
@@ -1266,12 +1272,6 @@ export type Recommendations = {
    * ordered according to the parameters supplied.
    */
   tracks: Array<Track>;
-};
-
-export type RecommendationtimeSignatureInput = {
-  max?: InputMaybe<Scalars['Float']>;
-  min?: InputMaybe<Scalars['Float']>;
-  target?: InputMaybe<Scalars['Float']>;
 };
 
 export type ReleaseDate = {
