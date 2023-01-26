@@ -41,7 +41,6 @@ const useSetVolumeMutation = () => {
 
   const setVolume = useCallback(
     (variables: SetVolumeMutationVariables) => {
-      console.log({ playbackState });
       return execute({
         variables,
         optimisticResponse: {

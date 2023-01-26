@@ -139,8 +139,6 @@ export const Loading = () => {
     ? parseSpotifyIDFromURI(contextUri) === playlistId
     : false;
 
-  console.log('render playlist loading');
-
   return (
     <Page>
       <Page.SkeletonHeader />
