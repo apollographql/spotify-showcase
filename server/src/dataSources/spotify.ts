@@ -428,6 +428,10 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  search(params: Spotify.Request.QueryParams.GET['/search']) {
+    return this._get<Spotify.Response.GET['/search']>('/search', { params });
+  }
+
   async seekToPosition({ params }: RequestParams<'PUT', '/me/player/seek'>) {
     await this._put('/me/player/seek', { params });
 

@@ -438,6 +438,15 @@ export namespace Spotify {
       track: Track;
     }
 
+    export interface SearchResults {
+      albums?: Paginated<AlbumSimplified>;
+      artists?: Paginated<ArtistSimplified>;
+      episodes?: Paginated<EpisodeSimplified>;
+      playlists?: Paginated<PlaylistSimplified>;
+      tracks?: Paginated<TrackSimplified>;
+      shows?: Paginated<ShowSimplified>;
+    }
+
     export interface Show {
       available_markets: CountryCode[];
       copyrights: Copyright[];
@@ -620,6 +629,7 @@ export namespace Spotify {
       '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
       '/recommendations/available-genre-seeds': Object.List<'genres', string>;
+      '/search': Object.SearchResults;
       '/shows': Object.List<'shows', Object.Show>;
       '/shows/:id': Object.Show;
       '/shows/:id/episodes': Object.Paginated<Object.EpisodeSimplified>;
@@ -856,6 +866,14 @@ export namespace Spotify {
           additional_types?: string;
           fields?: string;
           market?: string;
+        };
+        '/search': {
+          q: string;
+          type: string;
+          include_external?: 'audio';
+          limit?: number;
+          market?: string;
+          offset?: number;
         };
         '/shows': {
           ids: string;
