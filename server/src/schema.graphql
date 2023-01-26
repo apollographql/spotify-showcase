@@ -113,6 +113,16 @@ type Query {
   show(id: ID!): Show
 
   """
+  Get Spotify catalog information for several shows based on their Spotify IDs.
+  """
+  shows(
+    """
+    A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the shows. Maximum: 50 IDs.
+    """
+    ids: [ID!]!
+  ): [Show!]
+
+  """
   Get Spotify catalog information for a single track identified by its unique
   Spotify ID.
   """

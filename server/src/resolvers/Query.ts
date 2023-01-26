@@ -63,6 +63,13 @@ const resolvers: QueryResolvers = {
     });
   },
   show: (_, { id }, { dataSources }) => dataSources.spotify.getShow(id),
+  shows: async (_, { ids }, { dataSources }) => {
+    const { shows } = await dataSources.spotify.getShows({
+      ids: ids.join(','),
+    });
+
+    return shows;
+  },
   track: (_, { id }, { dataSources }) => {
     return dataSources.spotify.getTrack(id);
   },
