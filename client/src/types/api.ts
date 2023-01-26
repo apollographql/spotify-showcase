@@ -962,6 +962,8 @@ export type Query = {
    * Spotify ID.
    */
   episode: Maybe<Episode>;
+  /** Get Spotify catalog information for several episodes based on their Spotify IDs. */
+  episodes: Maybe<Array<Episode>>;
   /**
    * A list of Spotify featured playlists (shown, for example, on a Spotify
    * player's 'Browse' tab).
@@ -1027,6 +1029,11 @@ export type QueryartistsArgs = {
 
 export type QueryepisodeArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryepisodesArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 

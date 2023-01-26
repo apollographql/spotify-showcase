@@ -32,6 +32,16 @@ type Query {
   episode(id: ID!): Episode
 
   """
+  Get Spotify catalog information for several episodes based on their Spotify IDs.
+  """
+  episodes(
+    """
+    A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episodes. Maximum: 50 IDs.
+    """
+    ids: [ID!]!
+  ): [Episode!]
+
+  """
   A list of available genres seed parameter values for
   [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
   """

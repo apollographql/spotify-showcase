@@ -24,6 +24,13 @@ const resolvers: QueryResolvers = {
     return {};
   },
   episode: (_, { id }, { dataSources }) => dataSources.spotify.getEpisode(id),
+  episodes: async (_, { ids }, { dataSources }) => {
+    const { episodes } = await dataSources.spotify.getEpisodes({
+      ids: ids.join(','),
+    });
+
+    return episodes;
+  },
   featuredPlaylists: (_, { limit, offset, timestamp }, { dataSources }) => {
     return dataSources.spotify.getFeaturedPlaylists({
       limit: limit ?? undefined,
