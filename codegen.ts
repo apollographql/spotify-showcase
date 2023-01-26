@@ -191,6 +191,17 @@ const config: CodegenConfig = {
             OFF: 'off',
             TRACK: 'track',
           },
+          SearchExternalValue: {
+            AUDIO: 'audio',
+          },
+          SearchType: {
+            ALBUM: 'album',
+            ARTIST: 'artist',
+            EPISODE: 'episode',
+            PLAYLIST: 'playlist',
+            TRACK: 'track',
+            SHOW: 'show',
+          },
         },
         scalars: {
           CountryCode: 'string',
