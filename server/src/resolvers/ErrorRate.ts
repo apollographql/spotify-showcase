@@ -38,10 +38,9 @@ const config: ErrorRateScalarConfig = {
   },
   parseLiteral(ast) {
     if (ast.kind !== Kind.INT && ast.kind !== Kind.FLOAT) {
-      throw new GraphQLError(
-        'Provided value is must be a number between 0 and 1',
-        { extensions: { code: 'BAD_USER_INPUT' } }
-      );
+      throw new GraphQLError('Provided value is not a number', {
+        extensions: { code: 'BAD_USER_INPUT' },
+      });
     }
 
     const value = parseFloat(ast.value);
