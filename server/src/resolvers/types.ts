@@ -17,7 +17,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  CountryCode: unknown;
+  CountryCode: string;
   DateTime: Date;
   ErrorRate: number;
   Timestamp: unknown;
@@ -1988,8 +1988,8 @@ export type ResolversTypes = ResolversObject<{
   Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
-  NewReleaseEdge: ResolverTypeWrapper<Omit<NewReleaseEdge, 'node'> & { node: ResolversTypes['Album'] }>;
-  NewReleasesConnection: ResolverTypeWrapper<Omit<NewReleasesConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['NewReleaseEdge']>, pageInfo?: Maybe<ResolversTypes['PageInfo']> }>;
+  NewReleaseEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
+  NewReleasesConnection: ResolverTypeWrapper<Spotify.Object.NewReleases>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: ResolverTypeWrapper<Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
@@ -2109,8 +2109,8 @@ export type ResolversParentTypes = ResolversObject<{
   Image: Image;
   Int: Scalars['Int'];
   Mutation: {};
-  NewReleaseEdge: Omit<NewReleaseEdge, 'node'> & { node: ResolversParentTypes['Album'] };
-  NewReleasesConnection: Omit<NewReleasesConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['NewReleaseEdge']>, pageInfo?: Maybe<ResolversParentTypes['PageInfo']> };
+  NewReleaseEdge: Spotify.Object.AlbumSimplified;
+  NewReleasesConnection: Spotify.Object.NewReleases;
   PageInfo: Spotify.Object.Paginated<unknown>;
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };

@@ -1,5 +1,6 @@
 import { QueryResolvers } from './types';
 import { format } from 'date-fns';
+import { maybe } from '../utils/common';
 
 const resolvers: QueryResolvers = {
   album: (_, { id }, { dataSources }) => dataSources.spotify.getAlbum(id),
@@ -31,6 +32,13 @@ const resolvers: QueryResolvers = {
     return genres;
   },
   me: (_, __, { dataSources }) => dataSources.spotify.getCurrentUser(),
+  newReleases: (_, { country, limit, offset }, { dataSources }) => {
+    return dataSources.spotify.getNewReleases({
+      country: maybe(country),
+      limit: maybe(limit),
+      offset: maybe(offset),
+    });
+  },
   recommendations: async (_, { seeds }, { dataSources }) => {
     return dataSources.spotify.getRecommendations({
       limit: seeds.limit ?? undefined,

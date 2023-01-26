@@ -21,6 +21,7 @@ const config: CodegenConfig = {
         omitOperationSuffix: true,
         skipTypeNameForRoot: true,
         scalars: {
+          CountryCode: 'string',
           DateTime: 'string',
           ErrorRate: 'number',
           Timestamp: 'number',
@@ -65,6 +66,10 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.PlaylistSimplified',
           FieldConfig:
             '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
+          NewReleasesConnection:
+            '../dataSources/spotify.types#Spotify#Object.NewReleases',
+          NewReleaseEdge:
+            '../dataSources/spotify.types#Spotify#Object.AlbumSimplified',
           PageInfo:
             '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
           Player: '{}',
@@ -163,6 +168,7 @@ const config: CodegenConfig = {
           },
         },
         scalars: {
+          CountryCode: 'string',
           DateTime: 'Date',
           ErrorRate: 'number',
         },

@@ -10,7 +10,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  CountryCode: unknown;
+  CountryCode: string;
   DateTime: string;
   ErrorRate: number;
   Timestamp: number;
