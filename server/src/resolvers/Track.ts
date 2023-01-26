@@ -24,6 +24,9 @@ const resolvers: TrackResolvers = {
 
     return track.artists as Spotify.Object.Artist[];
   },
+  audioFeatures: (track, _, { dataSources }) => {
+    return dataSources.spotify.getTrackAudioFeatures(track.id);
+  },
   discNumber: prop('disc_number'),
   durationMs: prop('duration_ms'),
   externalUrls: prop('external_urls'),
