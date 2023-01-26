@@ -1,3 +1,4 @@
+scalar CountryCode
 scalar DateTime
 scalar ErrorRate
 scalar Timestamp
@@ -48,6 +49,26 @@ type Query {
   Information about the current logged-in user.
   """
   me: CurrentUser
+
+  """
+  Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
+  """
+  newReleases(
+    """
+    A country: an [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). Provide this parameter if you want the list of returned items to be relevant to a particular country. If omitted, the returned items will be relevant to all countries.
+    """
+    country: CountryCode
+
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with `limit` to get the next set of items.
+    """
+    offset: Int
+  ): NewReleasesConnection
 
   """
   A playlist owned by a Spotify user.
@@ -972,6 +993,19 @@ type Image {
   The image width in pixels.
   """
   width: Int
+}
+
+type NewReleasesConnection {
+  "The list of new releases"
+  edges: [NewReleaseEdge!]!
+
+  "Pagination infomration for the new releases"
+  pageInfo: PageInfo
+}
+
+type NewReleaseEdge {
+  "The newly released album"
+  node: Album!
 }
 
 type PageInfo {

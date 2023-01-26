@@ -10,6 +10,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  CountryCode: unknown;
   DateTime: string;
   ErrorRate: number;
   Timestamp: number;
@@ -694,6 +695,20 @@ export type MutationupdateFieldConfigArgs = {
   input: UpdateFieldConfigInput;
 };
 
+export type NewReleaseEdge = {
+  __typename: 'NewReleaseEdge';
+  /** The newly released album */
+  node: Album;
+};
+
+export type NewReleasesConnection = {
+  __typename: 'NewReleasesConnection';
+  /** The list of new releases */
+  edges: Array<NewReleaseEdge>;
+  /** Pagination infomration for the new releases */
+  pageInfo: Maybe<PageInfo>;
+};
+
 export type PageInfo = {
   __typename: 'PageInfo';
   /** Whether there is a next page of items. */
@@ -957,6 +972,8 @@ export type Query = {
   genres: Array<Scalars['String']>;
   /** Information about the current logged-in user. */
   me: Maybe<CurrentUser>;
+  /** Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab). */
+  newReleases: Maybe<NewReleasesConnection>;
   /** A playlist owned by a Spotify user. */
   playlist: Maybe<Playlist>;
   /**
@@ -1008,6 +1025,13 @@ export type QueryfeaturedPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   timestamp?: InputMaybe<Scalars['DateTime']>;
+};
+
+
+export type QuerynewReleasesArgs = {
+  country?: InputMaybe<Scalars['CountryCode']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 

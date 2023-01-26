@@ -17,6 +17,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  CountryCode: unknown;
   DateTime: Date;
   ErrorRate: number;
   Timestamp: unknown;
@@ -697,6 +698,20 @@ export type MutationUpdateFieldConfigArgs = {
   input: UpdateFieldConfigInput;
 };
 
+export type NewReleaseEdge = {
+  __typename?: 'NewReleaseEdge';
+  /** The newly released album */
+  node: Album;
+};
+
+export type NewReleasesConnection = {
+  __typename?: 'NewReleasesConnection';
+  /** The list of new releases */
+  edges: Array<NewReleaseEdge>;
+  /** Pagination infomration for the new releases */
+  pageInfo?: Maybe<PageInfo>;
+};
+
 export type PageInfo = {
   __typename?: 'PageInfo';
   /** Whether there is a next page of items. */
@@ -959,6 +974,8 @@ export type Query = {
   genres: Array<Scalars['String']>;
   /** Information about the current logged-in user. */
   me?: Maybe<CurrentUser>;
+  /** Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab). */
+  newReleases?: Maybe<NewReleasesConnection>;
   /** A playlist owned by a Spotify user. */
   playlist?: Maybe<Playlist>;
   /**
@@ -1010,6 +1027,13 @@ export type QueryFeaturedPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   timestamp?: InputMaybe<Scalars['DateTime']>;
+};
+
+
+export type QueryNewReleasesArgs = {
+  country?: InputMaybe<Scalars['CountryCode']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1945,6 +1969,7 @@ export type ResolversTypes = ResolversObject<{
   Contains: ResolverTypeWrapper<Contains>;
   Copyright: ResolverTypeWrapper<Copyright>;
   CopyrightType: CopyrightType;
+  CountryCode: ResolverTypeWrapper<Scalars['CountryCode']>;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   CurrentlyPlaying: ResolverTypeWrapper<Spotify.Object.CurrentlyPlaying>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
@@ -1963,6 +1988,8 @@ export type ResolversTypes = ResolversObject<{
   Image: ResolverTypeWrapper<Image>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
+  NewReleaseEdge: ResolverTypeWrapper<Omit<NewReleaseEdge, 'node'> & { node: ResolversTypes['Album'] }>;
+  NewReleasesConnection: ResolverTypeWrapper<Omit<NewReleasesConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversTypes['NewReleaseEdge']>, pageInfo?: Maybe<ResolversTypes['PageInfo']> }>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: ResolverTypeWrapper<Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
@@ -2063,6 +2090,7 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   Contains: Contains;
   Copyright: Copyright;
+  CountryCode: Scalars['CountryCode'];
   CurrentUser: Spotify.Object.CurrentUser;
   CurrentlyPlaying: Spotify.Object.CurrentlyPlaying;
   DateTime: Scalars['DateTime'];
@@ -2081,6 +2109,8 @@ export type ResolversParentTypes = ResolversObject<{
   Image: Image;
   Int: Scalars['Int'];
   Mutation: {};
+  NewReleaseEdge: Omit<NewReleaseEdge, 'node'> & { node: ResolversParentTypes['Album'] };
+  NewReleasesConnection: Omit<NewReleasesConnection, 'edges' | 'pageInfo'> & { edges: Array<ResolversParentTypes['NewReleaseEdge']>, pageInfo?: Maybe<ResolversParentTypes['PageInfo']> };
   PageInfo: Spotify.Object.Paginated<unknown>;
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
@@ -2252,6 +2282,10 @@ export type CopyrightResolvers<ContextType = ContextValue, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export interface CountryCodeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['CountryCode'], any> {
+  name: 'CountryCode';
+}
+
 export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
   albums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<CurrentUserAlbumsArgs>>;
   albumsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserAlbumsContainsArgs, 'ids'>>;
@@ -2381,6 +2415,17 @@ export type MutationResolvers<ContextType = ContextValue, ParentType extends Res
   updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigPayload']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'input'>>;
 }>;
 
+export type NewReleaseEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['NewReleaseEdge'] = ResolversParentTypes['NewReleaseEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type NewReleasesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['NewReleasesConnection'] = ResolversParentTypes['NewReleasesConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['NewReleaseEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type PageInfoResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
   hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -2499,6 +2544,7 @@ export type QueryResolvers<ContextType = ContextValue, ParentType extends Resolv
   featuredPlaylists?: Resolver<Maybe<ResolversTypes['FeaturedPlaylistConnection']>, ParentType, ContextType, Partial<QueryFeaturedPlaylistsArgs>>;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;
+  newReleases?: Resolver<Maybe<ResolversTypes['NewReleasesConnection']>, ParentType, ContextType, Partial<QueryNewReleasesArgs>>;
   playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<QueryPlaylistArgs, 'id'>>;
   recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
   show?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<QueryShowArgs, 'id'>>;
@@ -2764,6 +2810,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   ArtistAlbumsConnection?: ArtistAlbumsConnectionResolvers<ContextType>;
   Contains?: ContainsResolvers<ContextType>;
   Copyright?: CopyrightResolvers<ContextType>;
+  CountryCode?: GraphQLScalarType;
   CurrentUser?: CurrentUserResolvers<ContextType>;
   CurrentlyPlaying?: CurrentlyPlayingResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
@@ -2778,6 +2825,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Followers?: FollowersResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  NewReleaseEdge?: NewReleaseEdgeResolvers<ContextType>;
+  NewReleasesConnection?: NewReleasesConnectionResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
   PausePlaybackResponse?: PausePlaybackResponseResolvers<ContextType>;
   PlaybackContext?: PlaybackContextResolvers<ContextType>;
