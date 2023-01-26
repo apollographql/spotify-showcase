@@ -111,6 +111,29 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.SavedTrack>',
           SavedTrackEdge:
             '../dataSources/spotify.types#Spotify#Object.SavedTrack',
+          SearchAlbumsConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Albums>',
+          SearchAlbumEdge: '../dataSources/spotify.types#Spotify#Object.Album',
+          SearchArtistsConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Artist>',
+          SearchArtistEdge:
+            '../dataSources/spotify.types#Spotify#Object.Artist',
+          SearchEpisodesConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Episode>',
+          SearchEpisodeEdge:
+            '../dataSources/spotify.types#Spotify#Object.Episode',
+          SearchPlaylistsConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
+          SearchPlaylistEdge:
+            '../dataSources/spotify.types#Spotify#Object.Playlist',
+          SearchTracksConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Track>',
+          SearchTrackEdge: '../dataSources/spotify.types#Spotify#Object.Track',
+          SearchShowsConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Show>',
+          SearchShowEdge: '../dataSources/spotify.types#Spotify#Object.Show',
+          SearchResults:
+            '../dataSources/spotify.types#Spotify#Object.SearchResults',
           Show: '../dataSources/spotify.types#Spotify#Object.Show | Spotify.Object.ShowSimplified',
           ShowEpisodesConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
