@@ -131,6 +131,15 @@ const resolvers: QueryResolvers = {
         'id,collaborative,description,external_urls,images,name,owner,public,uri',
     });
   },
+  search: (_, { q, includeExternal, limit, offset, type }, { dataSources }) => {
+    return dataSources.spotify.search({
+      q,
+      include_external: maybe(includeExternal),
+      limit: maybe(limit),
+      offset: maybe(offset),
+      type: type.join(','),
+    });
+  },
   show: (_, { id }, { dataSources }) => dataSources.spotify.getShow(id),
   shows: async (_, { ids }, { dataSources }) => {
     const { shows } = await dataSources.spotify.getShows({
