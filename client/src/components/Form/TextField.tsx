@@ -7,7 +7,7 @@ import Field from './Field';
 
 type ForwardedInputProps = Omit<
   ComponentPropsWithoutRef<'input'>,
-  'onChange' | 'value'
+  'onChange' | 'value' | 'size'
 >;
 
 // Props allowed with specific input types
@@ -39,6 +39,7 @@ interface BaseTextFieldProps extends ForwardedInputProps {
   name: string;
   description?: string;
   orientation?: 'horizontal' | 'vertical';
+  size?: 'md' | 'sm';
 }
 
 type TextFieldProps = TextFieldTypeProps & BaseTextFieldProps;
@@ -81,6 +82,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
     name,
     type = 'text',
     orientation = 'vertical',
+    size = 'md',
     ...rest
   } = props;
   const inputType = REMAPPED_TYPES[type] || type;
@@ -111,8 +113,12 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
         value={field.value ?? ''}
         className={cx(
           className,
-          'h-10 rounded bg-[#333] px-4 text-sm text-white disabled:cursor-not-allowed disabled:opacity-50',
-          { 'min-w-[200px]': orientation === 'horizontal' }
+          'rounded bg-[#333] text-sm text-white disabled:cursor-not-allowed disabled:opacity-50',
+          {
+            'min-w-[200px]': orientation === 'horizontal',
+            'h-10 px-4': size === 'md',
+            'h-7 px-2': size === 'sm',
+          }
         )}
         onChange={(event) => {
           if (parser) {

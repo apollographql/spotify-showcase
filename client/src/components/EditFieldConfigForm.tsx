@@ -144,7 +144,7 @@ const FieldValue = ({
 
   return (
     <div className="flex flex-col gap-px">
-      <span className="text-offwhite text-xs">{label}</span>
+      <span className="text-muted text-xs">{label}</span>
       {editing ? (
         <Form.TextField
           {...props}
@@ -153,8 +153,8 @@ const FieldValue = ({
           name={name}
           onBlur={handleSubmit}
           className={sharedClassNames}
-          size={4}
           type={type}
+          size="sm"
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               handleSubmit();
