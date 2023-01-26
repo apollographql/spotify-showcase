@@ -321,13 +321,22 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  getTrackAudioFeatures(trackId: string) {
+    return this._get<Spotify.Response.GET['/audio-features/:id']>(
+      `/audio-features/${trackId}`
+    );
+  }
+
   getTracks(params: Spotify.Request.QueryParams.GET['/tracks']) {
     return this._get<Spotify.Response.GET['/tracks']>('/tracks', { params });
   }
 
-  getTrackAudioFeatures(trackId: string) {
-    return this._get<Spotify.Response.GET['/audio-features/:id']>(
-      `/audio-features/${trackId}`
+  getTracksAudioFeatures(
+    params: Spotify.Request.QueryParams.GET['/audio-features']
+  ) {
+    return this._get<Spotify.Response.GET['/audio-features']>(
+      '/audio-features',
+      { params }
     );
   }
 

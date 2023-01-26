@@ -590,6 +590,10 @@ export namespace Spotify {
       '/artists/:id/albums': Object.Paginated<Object.AlbumSimplified>;
       '/artists/:id/related-artists': Object.List<'artists', Object.Artist>;
       '/artists/:id/top-tracks': Object.ArtistTopTracks;
+      '/audio-features': Object.List<
+        'audio_features',
+        Object.TrackAudioFeatures
+      >;
       '/audio-features/:id': Object.TrackAudioFeatures;
       '/authorize':
         | { code: string; state?: string }
@@ -743,6 +747,9 @@ export namespace Spotify {
         };
         '/artists/:id/top-tracks': {
           market: string;
+        };
+        '/audio-features': {
+          ids: string;
         };
         '/browse/featured-playlists': {
           limit?: number;
