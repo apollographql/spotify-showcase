@@ -1694,6 +1694,8 @@ export type Track = PlaybackItem & PlaylistTrack & {
   album: Album;
   /** The artists who performed the track. */
   artists: Array<Artist>;
+  /** The track's audio feature information */
+  audioFeatures?: Maybe<TrackAudioFeatures>;
   /** The disc number (usually `1` unless the album consists of more than one disc). */
   discNumber: Scalars['Int'];
   /** The track length in milliseconds */
@@ -1750,6 +1752,44 @@ export type Track = PlaybackItem & PlaylistTrack & {
    * for the track.
    */
   uri: Scalars['String'];
+};
+
+export type TrackAudioFeatures = {
+  __typename?: 'TrackAudioFeatures';
+  /** A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic. */
+  acousticness: Scalars['Float'];
+  /** A URL to access the full audio analysis of this track. An access token is required to access this data. */
+  analysisUrl: Scalars['String'];
+  /** Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable. */
+  danceability: Scalars['Float'];
+  /** The duration of the track in milliseconds. */
+  durationMs: Scalars['Int'];
+  /** Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy. */
+  energy: Scalars['Float'];
+  /** The Spotify ID for the track. */
+  id: Scalars['ID'];
+  /** Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0. */
+  instrumentalness: Scalars['Float'];
+  /** The key the track is in. Integers map to pitches using standard [Pitch Class notation](https://en.wikipedia.org/wiki/Pitch_class). E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1. */
+  key: Scalars['Int'];
+  /** Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live. */
+  liveness: Scalars['Float'];
+  /** The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db. */
+  loudness: Scalars['Float'];
+  /** Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0. */
+  mode: Scalars['Int'];
+  /** Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks. */
+  speechiness: Scalars['Float'];
+  /** The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration. */
+  tempo: Scalars['Float'];
+  /** An estimated time signature. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure). The time signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4". */
+  timeSignature: Scalars['Int'];
+  /** A link to the Web API endpoint providing full details of the track. */
+  trackHref: Scalars['String'];
+  /** The Spotify URI for the track. */
+  uri: Scalars['String'];
+  /** A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry). */
+  valence: Scalars['Float'];
 };
 
 export type TrackExternalIds = {
@@ -2197,6 +2237,7 @@ export type ResolversTypes = ResolversObject<{
   TextFormat: TextFormat;
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
+  TrackAudioFeatures: ResolverTypeWrapper<TrackAudioFeatures>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
   TransferPlaybackInput: TransferPlaybackInput;
   TransferPlaybackPayload: ResolverTypeWrapper<Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
@@ -2328,6 +2369,7 @@ export type ResolversParentTypes = ResolversObject<{
   Subscription: {};
   Timestamp: Scalars['Timestamp'];
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
+  TrackAudioFeatures: TrackAudioFeatures;
   TrackExternalIds: TrackExternalIds;
   TransferPlaybackInput: TransferPlaybackInput;
   TransferPlaybackPayload: Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
@@ -2900,6 +2942,7 @@ export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<Resolvers
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
+  audioFeatures?: Resolver<Maybe<ResolversTypes['TrackAudioFeatures']>, ParentType, ContextType>;
   discNumber?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -2914,6 +2957,27 @@ export type TrackResolvers<ContextType = ContextValue, ParentType extends Resolv
   previewUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   trackNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TrackAudioFeaturesResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TrackAudioFeatures'] = ResolversParentTypes['TrackAudioFeatures']> = ResolversObject<{
+  acousticness?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  analysisUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  danceability?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  energy?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  instrumentalness?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  key?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  liveness?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  loudness?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  mode?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  speechiness?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  tempo?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  timeSignature?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  trackHref?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  valence?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -3028,6 +3092,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Subscription?: SubscriptionResolvers<ContextType>;
   Timestamp?: GraphQLScalarType;
   Track?: TrackResolvers<ContextType>;
+  TrackAudioFeatures?: TrackAudioFeaturesResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   TransferPlaybackPayload?: TransferPlaybackPayloadResolvers<ContextType>;
   UpdateFieldConfigPayload?: UpdateFieldConfigPayloadResolvers<ContextType>;
