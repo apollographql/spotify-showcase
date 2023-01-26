@@ -240,6 +240,15 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
+  getNewReleases(
+    params: Spotify.Request.QueryParams.GET['/browse/new-releases']
+  ) {
+    return this._get<Spotify.Response.GET['/browse/new-releases']>(
+      '/browse/new-releases',
+      { params }
+    );
+  }
+
   async getPlaybackState(
     params?: Spotify.Request.QueryParams.GET['/me/player']
   ) {
