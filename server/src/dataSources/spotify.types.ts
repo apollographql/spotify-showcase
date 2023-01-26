@@ -440,10 +440,10 @@ export namespace Spotify {
 
     export interface SearchResults {
       albums?: Paginated<AlbumSimplified>;
-      artists?: Paginated<ArtistSimplified>;
+      artists?: Paginated<Artist>;
       episodes?: Paginated<EpisodeSimplified>;
       playlists?: Paginated<PlaylistSimplified>;
-      tracks?: Paginated<TrackSimplified>;
+      tracks?: Paginated<Track>;
       shows?: Paginated<ShowSimplified>;
     }
 
