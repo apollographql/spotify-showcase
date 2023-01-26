@@ -6,6 +6,11 @@ type Query {
   "Spotify catalog information for an album."
   album(id: ID!): Album
 
+  """
+  Get Spotify catalog information for multiple albums identified by their Spotify IDs.
+  """
+  albums(ids: [ID!]!): [Album!]
+
   "Spotify catalog information for an artist."
   artist(id: ID!): Artist
 

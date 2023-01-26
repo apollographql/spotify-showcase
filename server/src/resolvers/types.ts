@@ -936,6 +936,8 @@ export type Query = {
   __typename?: 'Query';
   /** Spotify catalog information for an album. */
   album?: Maybe<Album>;
+  /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
+  albums?: Maybe<Array<Album>>;
   /** Spotify catalog information for an artist. */
   artist?: Maybe<Artist>;
   /** Get a list of developer-specific settings, such as GraphQL field configuration. */
@@ -986,6 +988,11 @@ export type Query = {
 
 export type QueryAlbumArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryAlbumsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 
@@ -2485,6 +2492,7 @@ export type PlaylistTrackEdgeResolvers<ContextType = ContextValue, ParentType ex
 
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   album?: Resolver<Maybe<ResolversTypes['Album']>, ParentType, ContextType, RequireFields<QueryAlbumArgs, 'id'>>;
+  albums?: Resolver<Maybe<Array<ResolversTypes['Album']>>, ParentType, ContextType, RequireFields<QueryAlbumsArgs, 'ids'>>;
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
   developer?: Resolver<ResolversTypes['Developer'], ParentType, ContextType>;
   episode?: Resolver<Maybe<ResolversTypes['Episode']>, ParentType, ContextType, RequireFields<QueryEpisodeArgs, 'id'>>;

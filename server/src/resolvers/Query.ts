@@ -3,6 +3,13 @@ import { format } from 'date-fns';
 
 const resolvers: QueryResolvers = {
   album: (_, { id }, { dataSources }) => dataSources.spotify.getAlbum(id),
+  albums: async (_, { ids }, { dataSources }) => {
+    const { albums } = await dataSources.spotify.getAlbums({
+      ids: ids.join(','),
+    });
+
+    return albums;
+  },
   artist: (_, { id }, { dataSources }) => dataSources.spotify.getArtist(id),
   developer: () => {
     // Return empty object since this field is used as a namespace

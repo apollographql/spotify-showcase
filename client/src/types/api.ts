@@ -934,6 +934,8 @@ export type Query = {
   __typename: 'Query';
   /** Spotify catalog information for an album. */
   album: Maybe<Album>;
+  /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
+  albums: Maybe<Array<Album>>;
   /** Spotify catalog information for an artist. */
   artist: Maybe<Artist>;
   /** Get a list of developer-specific settings, such as GraphQL field configuration. */
@@ -984,6 +986,11 @@ export type Query = {
 
 export type QueryalbumArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryalbumsArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 
