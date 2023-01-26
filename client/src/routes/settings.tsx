@@ -97,40 +97,58 @@ const Settings = () => {
       <h1>Settings</h1>
       <section>
         <h2 className="text-xl">GraphQL Field Configuration</h2>
-        <Text as="p" color="muted" size="base" className="text-sm">
+        <Text as="p" color="muted" size="base" className="mb-4 text-sm">
           Configure sythetic errors and timeouts for a GraphQL field. These are
           cleared each time the server is restarted.
         </Text>
-        <div className="border-b-surface-lowContrast mt-4 mb-8 flex flex-col gap-4 border-b-2">
-          {fieldConfigs.map((config) => {
-            return (
-              <EditFieldConfigForm
-                key={[
-                  config.schemaField.typename,
-                  config.schemaField.fieldName,
-                ].join('.')}
-                fieldConfig={config}
-                onSubmit={(values, { schemaField }) => {
-                  return updateFieldConfig({
-                    field: {
-                      schemaField: {
-                        fieldName: schemaField.fieldName,
-                        typename: schemaField.typename,
+        {fieldConfigs.length > 0 ? (
+          <div className="border-b-surface-lowContrast mb-8 flex flex-col gap-4 border-b-2">
+            {fieldConfigs.map((config) => {
+              return (
+                <EditFieldConfigForm
+                  key={[
+                    config.schemaField.typename,
+                    config.schemaField.fieldName,
+                  ].join('.')}
+                  fieldConfig={config}
+                  onSubmit={(values, { schemaField }) => {
+                    return updateFieldConfig({
+                      field: {
+                        schemaField: {
+                          fieldName: schemaField.fieldName,
+                          typename: schemaField.typename,
+                        },
                       },
-                    },
-                    config: values,
-                  });
-                }}
-              />
-            );
-          })}
-        </div>
+                      config: values,
+                    });
+                  }}
+                />
+              );
+            })}
+          </div>
+        ) : !isAddingNewFieldConfig ? (
+          <div className="mt-12 flex flex-col pl-12">
+            <h3 className="text-md text-2xl">All set!</h3>
+            <p className="text-offwhite mb-6 text-sm">
+              There are no fields configured with synthetic errors or timeouts.
+              Click the button below if you would like to configure a new field.
+            </p>
+            <div>
+              <Button
+                variant="hollow"
+                size="xs"
+                onClick={() => setIsAddingNewFieldConfig(true)}
+              >
+                Add field
+              </Button>
+            </div>
+          </div>
+        ) : null}
         {isAddingNewFieldConfig ? (
           <GraphQLFieldConfigurationForm
             types={objectTypes}
             onCancel={() => setIsAddingNewFieldConfig(false)}
             onSubmit={async (config) => {
-              setIsAddingNewFieldConfig(false);
               await updateFieldConfig({
                 field: {
                   schemaField: {
@@ -143,9 +161,11 @@ const Settings = () => {
                   errorRate: config.errorRate,
                 },
               });
+
+              setIsAddingNewFieldConfig(false);
             }}
           />
-        ) : (
+        ) : fieldConfigs.length > 0 ? (
           <div className="flex justify-end">
             <Button
               variant="hollow"
@@ -155,7 +175,7 @@ const Settings = () => {
               Add field
             </Button>
           </div>
-        )}
+        ) : null}
       </section>
     </div>
   );

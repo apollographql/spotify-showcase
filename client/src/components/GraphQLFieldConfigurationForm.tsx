@@ -172,8 +172,8 @@ const GraphQLFieldConfigurationForm = ({
             variant="ghost"
             size="xs"
             onClick={() => {
-              form.resetForm();
               onCancel();
+              form.resetForm();
             }}
           >
             Cancel
