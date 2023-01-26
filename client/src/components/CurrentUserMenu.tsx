@@ -44,6 +44,10 @@ const CurrentUserMenu = () => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Menu align="end">
         <DropdownMenu.Item to="/settings">Settings</DropdownMenu.Item>
+        <DropdownMenu.Item to={`${import.meta.env.VITE_SERVER_HOST}/graphql`}>
+          Explore the schema
+        </DropdownMenu.Item>
+        <DropdownMenu.Separator />
         <DropdownMenu.Item to="/logout">Logout</DropdownMenu.Item>
       </DropdownMenu.Menu>
     </DropdownMenu>
