@@ -1,9 +1,9 @@
+import { forwardRef, ReactNode } from 'react';
 import {
   gql,
   OperationVariables,
   useFragment_experimental as useFragment,
 } from '@apollo/client';
-import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Library, Home, Search, Heart, Volume2, Bookmark } from 'lucide-react';
 import {
@@ -130,8 +130,12 @@ interface SectionProps {
   children?: ReactNode;
 }
 
-const Section = ({ className, children }: SectionProps) => (
-  <ul className={cx(styles.sidebarNavSection, className)}>{children}</ul>
+const Section = forwardRef<HTMLUListElement, SectionProps>(
+  ({ className, children }, ref) => (
+    <ul ref={ref} className={cx(styles.sidebarNavSection, className)}>
+      {children}
+    </ul>
+  )
 );
 
 Sidebar.Section = Section;

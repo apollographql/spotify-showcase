@@ -1,4 +1,4 @@
-import { Fragment, ReactNode, useRef } from 'react';
+import { Fragment, ReactNode, useRef, useState } from 'react';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -20,11 +20,17 @@ import NotificationManager from '../components/NotificationManager';
 import ContextMenu from '../components/ContextMenu';
 import ContextMenuAction from '../components/ContextMenuAction';
 import ScrollContainerContext from '../components/ScrollContainerContext';
+import PaginationObserver from '../components/PaginationObserver';
 
 const ROOT_QUERY = gql`
-  query RootQuery($offset: Int, $limit: Int!) {
+  query RootQuery($offset: Int, $limit: Int) {
     me {
       playlists(offset: $offset, limit: $limit) {
+        pageInfo {
+          offset
+          limit
+          hasNextPage
+        }
         edges {
           node {
             id
@@ -68,16 +74,22 @@ const Root = () => {
 };
 
 const Playlists = () => {
-  const { data } = useSuspenseQuery<RootQuery, RootQueryVariables>(ROOT_QUERY, {
-    variables: { limit: 50 },
-  });
+  const [scrollContainer, setScrollContainerRef] =
+    useState<HTMLUListElement | null>(null);
+  const { data, fetchMore } = useSuspenseQuery<RootQuery, RootQueryVariables>(
+    ROOT_QUERY,
+    { suspensePolicy: 'initial', variables: { limit: 50 } }
+  );
 
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
   return (
-    <Layout.Sidebar.Section className={styles.playlists}>
+    <Layout.Sidebar.Section
+      ref={setScrollContainerRef}
+      className="flex-1 overflow-y-auto"
+    >
       {data.me?.playlists?.edges.map(({ node: playlist }) => (
         <ContextMenu
           key={playlist.id}
@@ -94,7 +106,7 @@ const Playlists = () => {
           }
         >
           <Layout.Sidebar.NavLink
-            className={styles.playlistLink}
+            className="justify-between"
             to={`/playlists/${playlist.id}`}
           >
             {playlist.name}
@@ -104,6 +116,11 @@ const Playlists = () => {
           </Layout.Sidebar.NavLink>
         </ContextMenu>
       ))}
+      <PaginationObserver
+        pageInfo={data.me?.playlists?.pageInfo}
+        fetchMore={fetchMore}
+        scrollContainer={scrollContainer}
+      />
     </Layout.Sidebar.Section>
   );
 };

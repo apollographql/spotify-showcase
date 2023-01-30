@@ -2476,11 +2476,11 @@ export type PlaylistRoutePlaybackStateFragment = { __typename: 'PlaybackState', 
 
 export type RootQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
-  limit: Scalars['Int'];
+  limit?: InputMaybe<Scalars['Int']>;
 }>;
 
 
-export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, uri: string } }> } | null } | null };
+export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, uri: string } }> } | null } | null };
 
 export type Root_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
 

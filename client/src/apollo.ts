@@ -67,6 +67,7 @@ export default new ApolloClient({
           albumsContains: libraryContains(),
           episodesContains: libraryContains(),
           showsContains: libraryContains(),
+          playlists: offsetConnectionPagination(),
           tracksContains: libraryContains(),
           tracks: offsetConnectionPagination(),
         },
