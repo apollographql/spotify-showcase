@@ -33,25 +33,16 @@ const usePaginationObserver = (
       root: defaultScrollContainer || scrollContainer || null,
       rootMargin: `0px 0px ${threshold} 0px`,
     },
-    async ([entry]) => {
-      const { isIntersecting } = entry;
+    async ([{ isIntersecting }]) => {
+      if (isIntersecting && pageInfo?.hasNextPage && !isLoadingRef.current) {
+        const { offset, limit } = pageInfo;
 
-      if (
-        isLoadingRef.current ||
-        !isIntersecting ||
-        !pageInfo ||
-        !pageInfo.hasNextPage
-      ) {
-        return;
+        isLoadingRef.current = true;
+
+        await fetchMore({ variables: { offset: offset + limit } });
+
+        isLoadingRef.current = false;
       }
-
-      const { offset, limit } = pageInfo;
-
-      isLoadingRef.current = true;
-
-      await fetchMore({ variables: { offset: offset + limit } });
-
-      isLoadingRef.current = false;
     }
   );
 };
