@@ -1,4 +1,4 @@
-import { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode, useRef } from 'react';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -19,6 +19,7 @@ import { Volume2 } from 'lucide-react';
 import NotificationManager from '../components/NotificationManager';
 import ContextMenu from '../components/ContextMenu';
 import ContextMenuAction from '../components/ContextMenuAction';
+import ScrollContainerContext from '../components/ScrollContainerContext';
 
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int!) {
@@ -45,14 +46,15 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 `;
 
 const Root = () => {
+  const ref = useRef<HTMLElement>(null);
   const isLoggedIn = useIsLoggedIn();
   const Wrapper = isLoggedIn ? AuthenticatedWrapper : Fragment;
 
   return (
-    <>
+    <ScrollContainerContext.Provider value={ref}>
       <Layout>
         <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
-        <Layout.Main>
+        <Layout.Main ref={ref}>
           <Layout.Header />
           <Wrapper>
             <Outlet />
@@ -61,7 +63,7 @@ const Root = () => {
         {isLoggedIn && <Playbar className={styles.playbar} />}
       </Layout>
       <NotificationManager />
-    </>
+    </ScrollContainerContext.Provider>
   );
 };
 
