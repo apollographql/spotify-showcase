@@ -4,7 +4,6 @@ import {
   TrackNumberCell_playbackState as PlaybackState,
 } from '../types/api';
 import AnimatedSoundWave from './AnimatedSoundWave';
-import Flex from './Flex';
 import Text from './Text';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Music } from 'lucide-react';
@@ -52,7 +51,7 @@ const TrackNumberCell = ({
   const isCurrentTrack = playbackState?.item?.uri === track.uri;
 
   return (
-    <Flex justifyContent="end">
+    <div className="flex min-w-[3ch] justify-end">
       {isPlaying && isPlayingInContext && isCurrentTrack ? (
         <AnimatedSoundWave />
       ) : preferIcon ? (
@@ -65,7 +64,7 @@ const TrackNumberCell = ({
           {trackNumber}
         </Text>
       )}
-    </Flex>
+    </div>
   );
 };
 
