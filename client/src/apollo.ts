@@ -11,6 +11,7 @@ import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
 import libraryContains from './fieldPolicies/libraryContains';
+import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
 
 const httpLink = createHttpLink({
   uri: `${import.meta.env.VITE_SERVER_HOST}/graphql`,
@@ -67,6 +68,7 @@ export default new ApolloClient({
           episodesContains: libraryContains(),
           showsContains: libraryContains(),
           tracksContains: libraryContains(),
+          tracks: offsetConnectionPagination(),
         },
       },
       Developer: {
