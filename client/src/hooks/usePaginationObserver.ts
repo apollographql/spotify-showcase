@@ -11,7 +11,7 @@ interface PageInfo {
 export interface UsePaginationObserverOptions {
   fetchMore: (options: { variables: { offset: number } }) => Promise<unknown>;
   pageInfo: PageInfo | undefined;
-  scrollContainer?: Element;
+  scrollContainer?: Element | null;
   threshold?: `${string}px`;
 }
 
@@ -30,7 +30,7 @@ const usePaginationObserver = (
   useIntersectionObserver(
     ref,
     {
-      root: defaultScrollContainer || scrollContainer || null,
+      root: scrollContainer || defaultScrollContainer || null,
       rootMargin: `0px 0px ${threshold} 0px`,
     },
     async ([{ isIntersecting }]) => {
