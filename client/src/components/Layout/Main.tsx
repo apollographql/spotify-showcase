@@ -1,16 +1,16 @@
-import { ReactNode } from 'react';
+import { forwardRef, ReactNode } from 'react';
 import styles from './Main.module.scss';
 
 interface MainProps {
   children: ReactNode;
 }
 
-const Main = ({ children }: MainProps) => {
+const Main = forwardRef<HTMLElement, MainProps>(({ children }, ref) => {
   return (
-    <main className={styles.main}>
+    <main className={styles.main} ref={ref}>
       <article className={styles.mainContent}>{children}</article>
     </main>
   );
-};
+});
 
 export default Main;
