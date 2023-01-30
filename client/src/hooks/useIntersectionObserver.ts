@@ -1,12 +1,14 @@
 import { RefObject, useState, useEffect } from 'react';
 import noop from '../utils/noop';
+import useStableCallback from './useStableCallback';
 
 const useIntersectionObserver = (
-  ref: RefObject<Element>,
+  ref: RefObject<Element | undefined>,
   options: IntersectionObserverInit = {},
   callback: IntersectionObserverCallback = noop
 ) => {
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
+  const stableCallback = useStableCallback(callback);
 
   useEffect(() => {
     if (!ref.current) {
@@ -15,7 +17,7 @@ const useIntersectionObserver = (
 
     const observer = new IntersectionObserver((entries, observer) => {
       setEntry(entries[0]);
-      callback(entries, observer);
+      stableCallback(entries, observer);
     }, options);
 
     observer.observe(ref.current);
@@ -23,7 +25,7 @@ const useIntersectionObserver = (
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [stableCallback]);
 
   return { entry };
 };
