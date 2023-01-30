@@ -2441,10 +2441,13 @@ export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, nam
 
 export type ArtistRouteQuery_albums = { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> };
 
-export type CollectionTracksRouteQueryVariables = Exact<{ [key: string]: never; }>;
+export type CollectionTracksRouteQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
 
 
-export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
+export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', hasNextPage: boolean, offset: number, limit: number, total: number }, edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
 
 export type CollectionTracksRoutePlaylistStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 

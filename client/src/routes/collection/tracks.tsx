@@ -28,22 +28,27 @@ import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
-import { useEffect } from 'react';
+import PaginationObserver from '../../components/PaginationObserver';
+import { useEffect, useRef } from 'react';
 import TrackLikeButtonCell from '../../components/TrackLikeButtonCell';
+import usePaginationObserver from '../../hooks/usePaginationObserver';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
 >;
 
 const COLLECTION_TRACKS_ROUTE_QUERY = gql`
-  query CollectionTracksRouteQuery {
+  query CollectionTracksRouteQuery($offset: Int, $limit: Int) {
     me {
       user {
         id
         displayName
       }
-      tracks {
+      tracks(offset: $offset, limit: $limit) {
         pageInfo {
+          hasNextPage
+          offset
+          limit
           total
         }
         edges {
@@ -77,10 +82,13 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 const CollectionTracksRoute = () => {
   useSetBackgroundColor('#1F3363');
 
-  const { client, data } = useSuspenseQuery<
+  const { client, data, fetchMore } = useSuspenseQuery<
     CollectionTracksRouteQuery,
     CollectionTracksRouteQueryVariables
-  >(COLLECTION_TRACKS_ROUTE_QUERY);
+  >(COLLECTION_TRACKS_ROUTE_QUERY, {
+    suspensePolicy: 'initial',
+    variables: { limit: 50 },
+  });
 
   useEffect(() => {
     const { cache } = client;
@@ -221,6 +229,11 @@ const CollectionTracksRoute = () => {
           }}
         />
       </Page.Content>
+      <PaginationObserver
+        fetchMore={fetchMore}
+        pageInfo={currentUser.tracks?.pageInfo}
+        threshold="1000px"
+      />
     </Page>
   );
 };
