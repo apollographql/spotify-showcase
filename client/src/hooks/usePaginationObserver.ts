@@ -8,7 +8,7 @@ interface PageInfo {
   hasNextPage: boolean;
 }
 
-interface Options {
+export interface UsePaginationObserverOptions {
   fetchMore: (options: { variables: { offset: number } }) => Promise<unknown>;
   pageInfo: PageInfo | undefined;
   scrollContainer?: Element;
@@ -17,7 +17,12 @@ interface Options {
 
 const usePaginationObserver = (
   ref: RefObject<Element | undefined>,
-  { fetchMore, scrollContainer, pageInfo, threshold = '500px' }: Options
+  {
+    fetchMore,
+    scrollContainer,
+    pageInfo,
+    threshold = '500px',
+  }: UsePaginationObserverOptions
 ) => {
   const isLoadingRef = useRef(false);
   const defaultScrollContainer = useScrollContainer();
