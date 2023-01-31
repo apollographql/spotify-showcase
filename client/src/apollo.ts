@@ -107,6 +107,11 @@ export default new ApolloClient({
         keyFields: [],
         merge: true,
       },
+      Playlist: {
+        fields: {
+          tracks: offsetConnectionPagination(),
+        },
+      },
       Query: {
         fields: {
           me: {

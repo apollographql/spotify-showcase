@@ -15,6 +15,7 @@ import Page from '../../components/Page';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import PlaylistTable from '../../components/PlaylistTable';
 import PlayButton from '../../components/PlayButton';
+import PaginationObserver from '../../components/PaginationObserver';
 import Skeleton from '../../components/Skeleton';
 import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
@@ -22,7 +23,7 @@ import { parseSpotifyIDFromURI } from '../../utils/spotify';
 import useSavedTracksContains from '../../hooks/useSavedTracksContains';
 
 const PLAYLIST_QUERY = gql`
-  query PlaylistQuery($id: ID!) {
+  query PlaylistQuery($id: ID!, $offset: Int) {
     playlist(id: $id) {
       id
       name
@@ -34,8 +35,11 @@ const PLAYLIST_QUERY = gql`
         id
         displayName
       }
-      tracks {
+      tracks(offset: $offset) {
         pageInfo {
+          hasNextPage
+          offset
+          limit
           total
         }
       }
@@ -58,10 +62,13 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 
 const Playlist = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
-  const { data } = useSuspenseQuery<PlaylistQuery, PlaylistQueryVariables>(
-    PLAYLIST_QUERY,
-    { variables: { id: playlistId } }
-  );
+  const { data, fetchMore } = useSuspenseQuery<
+    PlaylistQuery,
+    PlaylistQueryVariables
+  >(PLAYLIST_QUERY, {
+    suspensePolicy: 'initial',
+    variables: { id: playlistId },
+  });
   const playlist = data.playlist;
 
   if (!playlist) {
@@ -122,6 +129,7 @@ const Playlist = () => {
           />
         </Page.ActionsBar>
         <PlaylistTable playlist={playlist} tracksContains={tracksContains} />
+        <PaginationObserver fetchMore={fetchMore} pageInfo={tracks.pageInfo} />
       </Page.Content>
     </Page>
   );

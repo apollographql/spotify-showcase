@@ -294,7 +294,7 @@ PlaylistTable.fragments = {
       owner {
         id
       }
-      tracks {
+      tracks(offset: $offset) {
         edges {
           addedAt
           node {
