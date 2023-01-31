@@ -510,6 +510,12 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  async unfollowPlaylist(playlistId: string) {
+    await this._delete(`/playlists/${playlistId}/followers`);
+
+    return true;
+  }
+
   override resolveURL(urlPath: string) {
     return new URL(path.join('/v1/', urlPath), this.baseURL);
   }
