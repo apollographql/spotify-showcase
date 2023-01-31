@@ -641,6 +641,7 @@ export namespace Spotify {
       '/shows/:id/episodes': Object.Paginated<Object.EpisodeSimplified>;
       '/tracks': Object.List<'tracks', Object.Track>;
       '/tracks/:id': Object.Track;
+      '/users/:id': Object.User;
     }
   }
 

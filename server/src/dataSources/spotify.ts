@@ -378,6 +378,10 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
+  getUser(userId: string) {
+    return this._get<Spotify.Response.GET['/users/:id']>(`/useres/${userId}`);
+  }
+
   removeItemFromPlaylist(
     playlistId: string,
     { body }: RequestParams<'DELETE', '/playlists/:id/tracks'>
