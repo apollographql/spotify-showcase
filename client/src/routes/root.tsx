@@ -25,7 +25,8 @@ import PaginationObserver from '../components/PaginationObserver';
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int) {
     me {
-      playlists(offset: $offset, limit: $limit) {
+      playlists(offset: $offset, limit: $limit)
+        @connection(key: "rootPlaylists") {
         pageInfo {
           offset
           limit
