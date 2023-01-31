@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import {
   gql,
   useFragment_experimental as useFragment,
@@ -74,119 +73,6 @@ const PlaylistTable = ({
     Boolean(edge.addedAt)
   );
 
-  const columns = useMemo(() => {
-    return [
-      columnHelper.accessor('node', {
-        id: 'type',
-        header: '#',
-        cell: (info) => {
-          const playlistTrack = info.getValue();
-          const { index } = info.row;
-
-          if (playlistTrack.__typename === 'Track') {
-            return (
-              <TrackNumberCell
-                context={playlist}
-                track={playlistTrack}
-                position={index}
-                preferIcon={!containsAllTracks}
-              />
-            );
-          }
-
-          return <Podcast size="1rem" />;
-        },
-        meta: {
-          headerAlign: 'right',
-          shrink: true,
-        },
-      }),
-      columnHelper.accessor('node', {
-        id: 'title',
-        header: 'Title',
-        cell: (info) => (
-          <PlaylistTitleCell
-            playlist={playlist}
-            playlistTrack={info.getValue()}
-          />
-        ),
-      }),
-      columnHelper.accessor(({ node }) => parentOf(node), {
-        id: 'albumOrPodcast',
-        header: () => {
-          switch (true) {
-            case containsAllTracks:
-              return 'Album';
-            case containsAllEpisodes:
-              return 'Podcast';
-            default:
-              return 'Album or podcast';
-          }
-        },
-        cell: (info) => {
-          const parent = info.getValue();
-
-          return <EntityLink entity={parent}>{parent.name}</EntityLink>;
-        },
-      }),
-      columnHelper.accessor(
-        ({ node }) => {
-          return node.__typename === 'Episode' ? node.releaseDate : null;
-        },
-        {
-          id: 'releaseDate',
-          header: 'Release date',
-          cell: (info) => {
-            const releaseDate = info.getValue();
-
-            return releaseDate && <ReleaseDate releaseDate={releaseDate} />;
-          },
-        }
-      ),
-      columnHelper.accessor('addedAt', {
-        header: 'Date added',
-        cell: (info) => {
-          const date = info.getValue();
-
-          return (
-            date && <DateTime date={date} format={DateTime.FORMAT.timeAgo} />
-          );
-        },
-        meta: {
-          wrap: false,
-        },
-      }),
-      columnHelper.accessor('node', {
-        id: 'liked',
-        header: '',
-        cell: (info) => {
-          const playlistItem = info.getValue();
-
-          if (playlistItem.__typename === 'Episode') {
-            return null;
-          }
-
-          const liked =
-            info.table.options.meta?.tracksContains?.get(playlistItem.id) ??
-            false;
-
-          return <TrackLikeButtonCell liked={liked} track={playlistItem} />;
-        },
-        meta: {
-          shrink: true,
-        },
-      }),
-      columnHelper.accessor('node.durationMs', {
-        header: () => <Clock size="1rem" />,
-        cell: (info) => <Duration durationMs={info.getValue()} />,
-        meta: {
-          shrink: true,
-          headerAlign: 'right',
-        },
-      }),
-    ];
-  }, [playlist, containsAllEpisodes, containsAllTracks]);
-
   return (
     <Table
       enableRowSelection
@@ -195,7 +81,12 @@ const PlaylistTable = ({
       className={className}
       data={playlist.tracks.edges}
       columns={columns}
-      meta={{ tracksContains }}
+      meta={{
+        containsAllTracks,
+        containsAllEpisodes,
+        tracksContains,
+        playlist,
+      }}
       contextMenu={(rows) => {
         const playlistItems = rows.map((row) => row.original.node);
         const uris = playlistItems.map((item) => item.uri);
@@ -333,5 +224,120 @@ PlaylistTable.fragments = {
     ${TrackNumberCell.fragments.track}
   `,
 };
+
+const columns = [
+  columnHelper.accessor('node', {
+    id: 'type',
+    header: '#',
+    cell: (info) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const { containsAllTracks, playlist } = info.table.options.meta!;
+      const playlistTrack = info.getValue();
+      const { index } = info.row;
+
+      if (playlistTrack.__typename === 'Track') {
+        return (
+          <TrackNumberCell
+            context={playlist}
+            track={playlistTrack}
+            position={index}
+            preferIcon={!containsAllTracks}
+          />
+        );
+      }
+
+      return <Podcast size="1rem" />;
+    },
+    meta: {
+      headerAlign: 'right',
+      shrink: true,
+    },
+  }),
+  columnHelper.accessor('node', {
+    id: 'title',
+    header: 'Title',
+    cell: (info) => (
+      <PlaylistTitleCell
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        playlist={info.table.options.meta!.playlist}
+        playlistTrack={info.getValue()}
+      />
+    ),
+  }),
+  columnHelper.accessor(({ node }) => parentOf(node), {
+    id: 'albumOrPodcast',
+    header: (info) => {
+      const { containsAllTracks, containsAllEpisodes } =
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        info.table.options.meta!;
+
+      switch (true) {
+        case containsAllTracks:
+          return 'Album';
+        case containsAllEpisodes:
+          return 'Podcast';
+        default:
+          return 'Album or podcast';
+      }
+    },
+    cell: (info) => {
+      const parent = info.getValue();
+
+      return <EntityLink entity={parent}>{parent.name}</EntityLink>;
+    },
+  }),
+  columnHelper.accessor(
+    ({ node }) => {
+      return node.__typename === 'Episode' ? node.releaseDate : null;
+    },
+    {
+      id: 'releaseDate',
+      header: 'Release date',
+      cell: (info) => {
+        const releaseDate = info.getValue();
+
+        return releaseDate && <ReleaseDate releaseDate={releaseDate} />;
+      },
+    }
+  ),
+  columnHelper.accessor('addedAt', {
+    header: 'Date added',
+    cell: (info) => {
+      const date = info.getValue();
+
+      return date && <DateTime date={date} format={DateTime.FORMAT.timeAgo} />;
+    },
+    meta: {
+      wrap: false,
+    },
+  }),
+  columnHelper.accessor('node', {
+    id: 'liked',
+    header: '',
+    cell: (info) => {
+      const playlistItem = info.getValue();
+
+      if (playlistItem.__typename === 'Episode') {
+        return null;
+      }
+
+      const liked =
+        info.table.options.meta?.tracksContains?.get(playlistItem.id) ?? false;
+
+      return <TrackLikeButtonCell liked={liked} track={playlistItem} />;
+    },
+    meta: {
+      shrink: true,
+    },
+  }),
+  columnHelper.accessor('node.durationMs', {
+    header: () => <Clock size="1rem" />,
+    cell: (info) => <Duration durationMs={info.getValue()} />,
+    meta: {
+      shrink: true,
+      headerAlign: 'right',
+    },
+  }),
+];
 
 export default PlaylistTable;
