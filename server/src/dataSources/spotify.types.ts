@@ -620,6 +620,7 @@ export namespace Spotify {
         'artists',
         Object.PaginatedCursorBased<Object.Artist>
       >;
+      '/me/following/contains': boolean[];
       '/me/player': Object.PlaybackState;
       '/me/player/currently-playing': Object.CurrentlyPlaying;
       '/me/player/devices': Object.List<'devices', Object.Device>;
@@ -857,6 +858,10 @@ export namespace Spotify {
           type: 'artist';
           after?: string;
           limit?: number;
+        };
+        '/me/following/contains': {
+          ids: string;
+          type: 'artist' | 'user';
         };
         '/me/shows/contains': {
           ids: string;

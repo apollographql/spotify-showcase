@@ -171,6 +171,15 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
+  checkFollowing(
+    params: Spotify.Request.QueryParams.GET['/me/following/contains']
+  ) {
+    return this._get<Spotify.Response.GET['/me/following/contains']>(
+      '/me/following/contains',
+      { params }
+    );
+  }
+
   async getCurrentlyPlaying(
     params?: Spotify.Request.QueryParams.GET['/me/player/currently-playing']
   ) {
