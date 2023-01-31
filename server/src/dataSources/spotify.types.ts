@@ -668,6 +668,9 @@ export namespace Spotify {
         '/me/episodes': {
           ids?: string[];
         };
+        '/me/following': {
+          ids?: string[];
+        };
         '/me/tracks': {
           ids?: string[];
         };
@@ -937,6 +940,10 @@ export namespace Spotify {
         };
         '/me/episodes': {
           ids: string;
+        };
+        '/me/following': {
+          ids: string;
+          type: 'artist' | 'user';
         };
         '/me/player/pause': {
           device_id?: string;
