@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Flex from '../Flex';
+import cx from 'classnames';
 
 import ActionsBar from './ActionsBar';
 import Content from './Content';
@@ -12,13 +12,12 @@ import MediaType from './MediaType';
 
 interface PageProps {
   children?: ReactNode;
+  className?: string;
 }
 
-const Page = ({ children }: PageProps) => {
+const Page = ({ children, className }: PageProps) => {
   return (
-    <Flex direction="column" flex={1}>
-      {children}
-    </Flex>
+    <div className={cx(className, 'flex flex-1 flex-col')}>{children}</div>
   );
 };
 
