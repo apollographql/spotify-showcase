@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Code2 } from 'lucide-react';
 import Button from '../Button';
 import CurrentUserMenu from '../CurrentUserMenu';
 import useNavigationStack from '../../hooks/useNavigationStack';
@@ -26,7 +26,13 @@ const Header = () => {
           <ChevronRight size={20} />
         </NavButton>
       </Flex>
-      <Flex gap="1rem" className={styles.clickable}>
+      <Flex alignItems="center" gap="1rem" className={styles.clickable}>
+        <Button
+          variant="secondary"
+          className="h-9 w-9 justify-center rounded-full !p-px opacity-80 hover:opacity-100"
+        >
+          <Code2 size="1.25rem" />
+        </Button>
         {isLoggedIn ? (
           <CurrentUserMenu />
         ) : (
