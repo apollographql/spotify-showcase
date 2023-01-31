@@ -131,7 +131,7 @@ const Settings = () => {
             <h3 className="text-md text-2xl">All set!</h3>
             <p className="text-offwhite mb-6 text-sm">
               There are no fields configured with synthetic errors or timeouts.
-              Click the button below if you would like to configure a new field.
+              Click the button below to configure a field.
             </p>
             <div>
               <Button
@@ -139,7 +139,7 @@ const Settings = () => {
                 size="xs"
                 onClick={() => setIsAddingNewFieldConfig(true)}
               >
-                Add field
+                Configure field
               </Button>
             </div>
           </div>
