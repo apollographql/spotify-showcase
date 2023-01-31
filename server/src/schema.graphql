@@ -1171,26 +1171,25 @@ type PageInfo {
 }
 
 type PageInfoCursorBased {
-  "Whether there is a next page of items"
-  hasNextPage: Boolean!
-
-  "Whether there is a previous page of items"
-  hasPreviousPage: Boolean!
-
   """
   A link to the Web API endpoint returning the full result of the request.
   """
   href: String!
 
   """
-  The cursors used to find the next set of items.
-  """
-  cursors: Cursors!
-
-  """
   The maximum number of items in the response (as set in the query or default)
   """
   limit: Int!
+
+  """
+  URL to the next page of items. (`null` if none)
+  """
+  next: String
+
+  """
+  The cursors used to find the next set of items.
+  """
+  cursors: Cursors
 
   "The total number of items available to return."
   total: Int!

@@ -759,15 +759,13 @@ export type PageInfo = {
 export type PageInfoCursorBased = {
   __typename?: 'PageInfoCursorBased';
   /** The cursors used to find the next set of items. */
-  cursors: Cursors;
-  /** Whether there is a next page of items */
-  hasNextPage: Scalars['Boolean'];
-  /** Whether there is a previous page of items */
-  hasPreviousPage: Scalars['Boolean'];
+  cursors?: Maybe<Cursors>;
   /** A link to the Web API endpoint returning the full result of the request. */
   href: Scalars['String'];
   /** The maximum number of items in the response (as set in the query or default) */
   limit: Scalars['Int'];
+  /** URL to the next page of items. (`null` if none) */
+  next?: Maybe<Scalars['String']>;
   /** The total number of items available to return. */
   total: Scalars['Int'];
 };
@@ -2857,11 +2855,10 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
 }>;
 
 export type PageInfoCursorBasedResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfoCursorBased'] = ResolversParentTypes['PageInfoCursorBased']> = ResolversObject<{
-  cursors?: Resolver<ResolversTypes['Cursors'], ParentType, ContextType>;
-  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  cursors?: Resolver<Maybe<ResolversTypes['Cursors']>, ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  next?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

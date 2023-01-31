@@ -756,15 +756,13 @@ export type PageInfo = {
 export type PageInfoCursorBased = {
   __typename: 'PageInfoCursorBased';
   /** The cursors used to find the next set of items. */
-  cursors: Cursors;
-  /** Whether there is a next page of items */
-  hasNextPage: Scalars['Boolean'];
-  /** Whether there is a previous page of items */
-  hasPreviousPage: Scalars['Boolean'];
+  cursors: Maybe<Cursors>;
   /** A link to the Web API endpoint returning the full result of the request. */
   href: Scalars['String'];
   /** The maximum number of items in the response (as set in the query or default) */
   limit: Scalars['Int'];
+  /** URL to the next page of items. (`null` if none) */
+  next: Maybe<Scalars['String']>;
   /** The total number of items available to return. */
   total: Scalars['Int'];
 };

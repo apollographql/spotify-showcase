@@ -15,6 +15,15 @@ const resolvers: CurrentUserResolvers = {
   episodesContains: (_, { ids }, { dataSources }) => {
     return dataSources.spotify.checkContainsEpisodes(ids.join(','));
   },
+  followedArtists: async (_, { after, limit }, { dataSources }) => {
+    const { artists } = await dataSources.spotify.getFollowed({
+      type: 'artist',
+      after: maybe(after),
+      limit: maybe(limit),
+    });
+
+    return artists;
+  },
   user: itself(),
   playbackQueue: (_, __, { dataSources }) => {
     return dataSources.spotify.getPlaybackQueue();
