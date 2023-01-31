@@ -60,6 +60,7 @@ const useSavedTracksContains = (ids: string[]) => {
   // queries loaded in useEffect.
   useSuspenseQuery(SAVED_TRACKS_CONTAINS_QUERY, {
     errorPolicy: 'ignore',
+    suspensePolicy: 'initial',
     variables: { ids: ids.slice(0, INITIAL_BATCH_COUNT) },
   });
 
