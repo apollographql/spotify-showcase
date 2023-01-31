@@ -129,7 +129,11 @@ const Playlist = () => {
           />
         </Page.ActionsBar>
         <PlaylistTable playlist={playlist} tracksContains={tracksContains} />
-        <PaginationObserver fetchMore={fetchMore} pageInfo={tracks.pageInfo} />
+        <PaginationObserver
+          fetchMore={fetchMore}
+          pageInfo={tracks.pageInfo}
+          threshold="1000px"
+        />
       </Page.Content>
     </Page>
   );
