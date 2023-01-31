@@ -7,6 +7,8 @@ type RestrictScope<
 
 type Prop<T, Key extends string> = Key extends keyof T ? T[Key] : never;
 
+type WithinKey<Key extends string, T> = { [K in Key]: T };
+
 export namespace Spotify {
   export type HTTPMethod = 'DELETE' | 'GET' | 'POST' | 'PUT';
 
@@ -242,9 +244,7 @@ export namespace Spotify {
       total: number;
     }
 
-    export type List<Key extends string, TObject> = {
-      [K in Key]: TObject[];
-    };
+    export type List<Key extends string, TObject> = WithinKey<Key, TObject[]>;
 
     export interface Image {
       url: string;
@@ -616,6 +616,10 @@ export namespace Spotify {
       '/me/albums': Object.Paginated<Object.SavedAlbum>;
       '/me/albums/contains': boolean[];
       '/me/episodes/contains': boolean[];
+      '/me/following': WithinKey<
+        'artists',
+        Object.PaginatedCursorBased<Object.Artist>
+      >;
       '/me/player': Object.PlaybackState;
       '/me/player/currently-playing': Object.CurrentlyPlaying;
       '/me/player/devices': Object.List<'devices', Object.Device>;
@@ -832,6 +836,11 @@ export namespace Spotify {
         };
         '/me/episodes/contains': {
           ids: string;
+        };
+        '/me/following': {
+          type: 'artist';
+          after?: string;
+          limit?: number;
         };
         '/me/shows/contains': {
           ids: string;
