@@ -3,7 +3,7 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import {
   RootQuery,
   RootQueryVariables,
@@ -53,6 +53,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 `;
 
 const Root = () => {
+  const params = useParams();
   const ref = useRef<HTMLElement>(null);
   const isLoggedIn = useIsLoggedIn();
   const Wrapper = isLoggedIn ? AuthenticatedWrapper : Fragment;
@@ -64,7 +65,7 @@ const Root = () => {
         <Layout.Main ref={ref}>
           <Layout.Header />
           <Wrapper>
-            <Outlet />
+            <Outlet key={JSON.stringify(params)} />
           </Wrapper>
         </Layout.Main>
         {isLoggedIn && <Playbar className={styles.playbar} />}
