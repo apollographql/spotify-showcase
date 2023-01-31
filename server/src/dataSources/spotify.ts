@@ -192,6 +192,12 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  getFollowed(params: Spotify.Request.QueryParams.GET['/me/following']) {
+    return this._get<Spotify.Response.GET['/me/following']>('/me/following', {
+      params,
+    });
+  }
+
   getShows(params: Spotify.Request.QueryParams.GET['/shows']) {
     return this._get<Spotify.Response.GET['/shows']>('/shows', {
       params,
