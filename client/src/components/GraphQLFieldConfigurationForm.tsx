@@ -179,7 +179,7 @@ const GraphQLFieldConfigurationForm = ({
           >
             Cancel
           </Button>
-          <Button type="submit" variant="hollow" size="xs">
+          <Button type="submit" variant="secondary" size="xs">
             Save
           </Button>
         </div>
