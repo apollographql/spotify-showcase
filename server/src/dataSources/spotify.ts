@@ -71,6 +71,15 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  async followPlaylist(
+    playlistId: string,
+    { body }: RequestParams<'PUT', '/playlists/:id/followers'>
+  ) {
+    await this._put(`/playlists/${playlistId}/followers`, { body });
+
+    return true;
+  }
+
   getAlbum(
     id: string,
     params?: Spotify.Request.QueryParams.GET['/albums/:id']

@@ -706,6 +706,9 @@ export namespace Spotify {
           };
           position_ms?: number;
         };
+        '/playlists/:id/followers': {
+          public?: boolean;
+        };
       }
     }
     export namespace QueryParams {
