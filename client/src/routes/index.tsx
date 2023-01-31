@@ -9,7 +9,7 @@ import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
-import { LOGIN_URL } from '../constants';
+import { DEFAULT_BACKGROUND_COLOR, LOGIN_URL } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
@@ -62,6 +62,8 @@ const LoggedIn = () => {
 };
 
 const LoggedOut = () => {
+  useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+
   return (
     <div className={cx(styles.container, styles.instructions)}>
       <h1>Welcome to the Apollo Spotify demo</h1>

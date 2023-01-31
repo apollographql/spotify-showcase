@@ -10,6 +10,8 @@ import ErrorTitle from './ErrorTitle';
 import ErrorDescription from './ErrorDescription';
 import ErrorActionLink from './ErrorActionLink';
 import Layout from './Layout';
+import { DEFAULT_BACKGROUND_COLOR } from '../constants';
+import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 
 const didBecomeUnauthenticated = (error: unknown) => {
   if (
@@ -30,6 +32,8 @@ const didBecomeUnauthenticated = (error: unknown) => {
 
 const RootErrorBoundary = () => {
   const error = useRouteError();
+
+  useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
   return (
     <Layout>

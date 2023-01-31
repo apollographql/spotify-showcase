@@ -17,6 +17,8 @@ import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutat
 import { BARE_INTROSPECTION_FRAGMENT } from '../utils/graphql';
 import { Get } from 'type-fest';
 import { useState } from 'react';
+import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
+import { DEFAULT_BACKGROUND_COLOR } from '../constants';
 
 type SchemaField = NonNullable<
   Get<SettingsQuery, 'developer.fieldConfigs[0].schemaField'>
@@ -66,6 +68,8 @@ const filterConfiguredFields = (
 };
 
 const Settings = () => {
+  useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+
   const { data } = useSuspenseQuery<SettingsQuery, SettingsQueryVariables>(
     SETTINGS_QUERY
   );
@@ -93,7 +97,7 @@ const Settings = () => {
     .filter((objectType) => objectType.fields?.length ?? 0 > 0);
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-6 py-8">
+    <Page className="mx-auto w-full max-w-4xl gap-6 py-8">
       <h1>Settings</h1>
       <section>
         <h2 className="text-xl">GraphQL Field Configuration</h2>
@@ -177,7 +181,7 @@ const Settings = () => {
           </div>
         ) : null}
       </section>
-    </div>
+    </Page>
   );
 };
 
