@@ -43,8 +43,8 @@ module.exports = {
     },
     extend: {
       animation: {
-        'fade-in': 'fade-in 400ms ease-out',
-        'fade-out': 'fade-out 400ms ease-out',
+        'fade-in': 'fade-in var(--animate-duration, 400ms) ease-out',
+        'fade-out': 'fade-out var(--animate-duration, 400ms) ease-out',
         'slide-up-fade': 'slide-up-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         'slide-down-fade':
           'slide-down-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -57,6 +57,7 @@ module.exports = {
         xxs: ['0.625rem', '0.875rem'],
       },
       textColor: ({ theme }) => ({
+        base: theme('colors.white'),
         muted: theme('colors.offwhite'),
       }),
       keyframes: {
@@ -71,7 +72,7 @@ module.exports = {
         'slide-up-fade': {
           from: {
             opacity: 0,
-            transform: 'translateY(2px)',
+            transform: 'translateY(var(--animate-slide-distance, 2px))',
           },
           to: {
             opacity: 1,
@@ -81,7 +82,8 @@ module.exports = {
         'slide-down-fade': {
           from: {
             opacity: 0,
-            transform: 'translateY(-2px)',
+            transform:
+              'translateY(calc(var(--animate-slide-distance, 2px) * -1))',
           },
           to: {
             opacity: 1,
@@ -91,7 +93,7 @@ module.exports = {
         'slide-left-fade': {
           from: {
             opacity: 0,
-            transform: 'translateX(2px)',
+            transform: 'translateX(var(--animate-slide-distance, 2px))',
           },
           to: {
             opacity: 1,
@@ -101,7 +103,8 @@ module.exports = {
         'slide-right-fade': {
           from: {
             opacity: 0,
-            transform: 'translateX(-2px)',
+            transform:
+              'translateX(calc(var(--animate-slide-distance, 2px) * -1))',
           },
           to: {
             opacity: 1,
