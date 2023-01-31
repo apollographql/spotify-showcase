@@ -861,6 +861,46 @@ type CurrentUser {
     ids: [ID!]!
   ): [Boolean!]
 
+  """
+  Get the current user's top artists based on calculated affinity.
+  """
+  topArtists(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
+    """
+    offset: Int
+
+    """
+    Over what time frame the affinities are computed. Valid values: `LONG_TERM` (calculated from several years of data and including all new data as it becomes available), `MEDIUM_TERM` (approximately last 6 months), `SHORT_TERM` (approximately last 4 weeks). Default: `MEDIUM_TERM`
+    """
+    timeRange: TimeRange
+  ): TopArtistsConnection
+
+  """
+  Get the current user's top tracks based on calculated affinity.
+  """
+  topTracks(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
+    """
+    offset: Int
+
+    """
+    Over what time frame the affinities are computed. Valid values: `LONG_TERM` (calculated from several years of data and including all new data as it becomes available), `MEDIUM_TERM` (approximately last 6 months), `SHORT_TERM` (approximately last 4 weeks). Default: `MEDIUM_TERM`
+    """
+    timeRange: TimeRange
+  ): TopTracksConnection
+
   tracks(
     """
     The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
@@ -2514,6 +2554,12 @@ type SkipToPreviousResponse {
   playbackState: PlaybackState
 }
 
+enum TimeRange {
+  LONG_TERM
+  MEDIUM_TERM
+  SHORT_TERM
+}
+
 input TransferPlaybackInput {
   """
   A list containing the ID of the device on which playback should be
@@ -2531,6 +2577,38 @@ input TransferPlaybackInput {
 type TransferPlaybackPayload {
   "The state of playback after transferring devices."
   playbackState: PlaybackState
+}
+
+type TopArtistsConnection {
+  """
+  The list of top tracks.
+  """
+  edges: [TopArtistEdge!]!
+
+  "Pagination information for the set of top tracks."
+  pageInfo: PageInfo!
+}
+
+type TopArtistEdge {
+  """
+  The artist.
+  """
+  node: Artist!
+}
+
+type TopTracksConnection {
+  """
+  The list of top tracks.
+  """
+  edges: [TopTrackEdge!]!
+
+  "Pagination information for the set of top tracks."
+  pageInfo: PageInfo!
+}
+
+type TopTrackEdge {
+  "The track."
+  node: Track!
 }
 
 input UpdateFieldConfigInput {

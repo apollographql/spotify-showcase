@@ -295,6 +295,10 @@ export type CurrentUser = {
    * library.
    */
   showsContains: Maybe<Array<Scalars['Boolean']>>;
+  /** Get the current user's top artists based on calculated affinity. */
+  topArtists: Maybe<TopArtistsConnection>;
+  /** Get the current user's top tracks based on calculated affinity. */
+  topTracks: Maybe<TopTracksConnection>;
   tracks: Maybe<SavedTracksConnection>;
   /**
    * Check if one or more tracks is already saved in the current Spotify user's
@@ -336,6 +340,20 @@ export type CurrentUserplaylistsArgs = {
 
 export type CurrentUsershowsContainsArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUsertopArtistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  timeRange?: InputMaybe<TimeRange>;
+};
+
+
+export type CurrentUsertopTracksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  timeRange?: InputMaybe<TimeRange>;
 };
 
 
@@ -1867,6 +1885,40 @@ export enum TextFormat {
   Html = 'HTML',
   Plain = 'PLAIN'
 }
+
+export enum TimeRange {
+  LongTerm = 'LONG_TERM',
+  MediumTerm = 'MEDIUM_TERM',
+  ShortTerm = 'SHORT_TERM'
+}
+
+export type TopArtistEdge = {
+  __typename: 'TopArtistEdge';
+  /** The artist. */
+  node: Artist;
+};
+
+export type TopArtistsConnection = {
+  __typename: 'TopArtistsConnection';
+  /** The list of top tracks. */
+  edges: Array<TopArtistEdge>;
+  /** Pagination information for the set of top tracks. */
+  pageInfo: PageInfo;
+};
+
+export type TopTrackEdge = {
+  __typename: 'TopTrackEdge';
+  /** The track. */
+  node: Track;
+};
+
+export type TopTracksConnection = {
+  __typename: 'TopTracksConnection';
+  /** The list of top tracks. */
+  edges: Array<TopTrackEdge>;
+  /** Pagination information for the set of top tracks. */
+  pageInfo: PageInfo;
+};
 
 /** Spotify catalog information for a track. */
 export type Track = PlaybackItem & PlaylistTrack & {

@@ -147,6 +147,12 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
           ShowEpisodeEdge:
             '../dataSources/spotify.types#Spotify#Object.EpisodeSimplified',
+          TopArtistsConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Artist>',
+          TopArtistEdge: '../dataSources/spotify.types#Spotify#Object.Artist',
+          TopTracksConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.Track>',
+          TopTrackEdge: '../dataSources/spotify.types#Spotify#Object.Track',
           Track:
             '../dataSources/spotify.types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
           TrackAudioFeatures:
@@ -209,6 +215,11 @@ const config: CodegenConfig = {
             PLAYLIST: 'playlist',
             TRACK: 'track',
             SHOW: 'show',
+          },
+          TimeRange: {
+            LONG_TERM: 'long_term',
+            MEDIUM_TERM: 'medium_term',
+            SHORT_TERM: 'short_term',
           },
         },
         scalars: {

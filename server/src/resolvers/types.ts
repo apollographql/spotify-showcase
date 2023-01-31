@@ -298,6 +298,10 @@ export type CurrentUser = {
    * library.
    */
   showsContains?: Maybe<Array<Scalars['Boolean']>>;
+  /** Get the current user's top artists based on calculated affinity. */
+  topArtists?: Maybe<TopArtistsConnection>;
+  /** Get the current user's top tracks based on calculated affinity. */
+  topTracks?: Maybe<TopTracksConnection>;
   tracks?: Maybe<SavedTracksConnection>;
   /**
    * Check if one or more tracks is already saved in the current Spotify user's
@@ -339,6 +343,20 @@ export type CurrentUserPlaylistsArgs = {
 
 export type CurrentUserShowsContainsArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUserTopArtistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  timeRange?: InputMaybe<TimeRange>;
+};
+
+
+export type CurrentUserTopTracksArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  timeRange?: InputMaybe<TimeRange>;
 };
 
 
@@ -1864,6 +1882,39 @@ export type TextFormat =
   | 'HTML'
   | 'PLAIN';
 
+export type TimeRange =
+  | 'long_term'
+  | 'medium_term'
+  | 'short_term';
+
+export type TopArtistEdge = {
+  __typename?: 'TopArtistEdge';
+  /** The artist. */
+  node: Artist;
+};
+
+export type TopArtistsConnection = {
+  __typename?: 'TopArtistsConnection';
+  /** The list of top tracks. */
+  edges: Array<TopArtistEdge>;
+  /** Pagination information for the set of top tracks. */
+  pageInfo: PageInfo;
+};
+
+export type TopTrackEdge = {
+  __typename?: 'TopTrackEdge';
+  /** The track. */
+  node: Track;
+};
+
+export type TopTracksConnection = {
+  __typename?: 'TopTracksConnection';
+  /** The list of top tracks. */
+  edges: Array<TopTrackEdge>;
+  /** Pagination information for the set of top tracks. */
+  pageInfo: PageInfo;
+};
+
 /** Spotify catalog information for a track. */
 export type Track = PlaybackItem & PlaylistTrack & {
   __typename?: 'Track';
@@ -2431,7 +2482,12 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
   TextFormat: TextFormat;
+  TimeRange: TimeRange;
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>;
+  TopArtistEdge: ResolverTypeWrapper<Spotify.Object.Artist>;
+  TopArtistsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Artist>>;
+  TopTrackEdge: ResolverTypeWrapper<Spotify.Object.Track>;
+  TopTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Track>>;
   Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
   TrackAudioFeatures: ResolverTypeWrapper<Spotify.Object.TrackAudioFeatures>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
@@ -2581,6 +2637,10 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   Subscription: {};
   Timestamp: Scalars['Timestamp'];
+  TopArtistEdge: Spotify.Object.Artist;
+  TopArtistsConnection: Spotify.Object.Paginated<Spotify.Object.Artist>;
+  TopTrackEdge: Spotify.Object.Track;
+  TopTracksConnection: Spotify.Object.Paginated<Spotify.Object.Track>;
   Track: Spotify.Object.Track | Spotify.Object.TrackSimplified;
   TrackAudioFeatures: Spotify.Object.TrackAudioFeatures;
   TrackExternalIds: TrackExternalIds;
@@ -2696,6 +2756,8 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
   showsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserShowsContainsArgs, 'ids'>>;
+  topArtists?: Resolver<Maybe<ResolversTypes['TopArtistsConnection']>, ParentType, ContextType, Partial<CurrentUserTopArtistsArgs>>;
+  topTracks?: Resolver<Maybe<ResolversTypes['TopTracksConnection']>, ParentType, ContextType, Partial<CurrentUserTopTracksArgs>>;
   tracks?: Resolver<Maybe<ResolversTypes['SavedTracksConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
   tracksContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserTracksContainsArgs, 'ids'>>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
@@ -3257,9 +3319,33 @@ export type SubscriptionResolvers<ContextType = ContextValue, ParentType extends
   playbackStateChanged?: SubscriptionResolver<Maybe<ResolversTypes['PlaybackState']>, "playbackStateChanged", ParentType, ContextType>;
 }>;
 
+export type TimeRangeResolvers = { LONG_TERM: 'long_term', MEDIUM_TERM: 'medium_term', SHORT_TERM: 'short_term' };
+
 export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
   name: 'Timestamp';
 }
+
+export type TopArtistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopArtistEdge'] = ResolversParentTypes['TopArtistEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TopArtistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopArtistsConnection'] = ResolversParentTypes['TopArtistsConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['TopArtistEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TopTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopTrackEdge'] = ResolversParentTypes['TopTrackEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TopTracksConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopTracksConnection'] = ResolversParentTypes['TopTracksConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['TopTrackEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
 
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
@@ -3431,7 +3517,12 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   SkipToNextResponse?: SkipToNextResponseResolvers<ContextType>;
   SkipToPreviousResponse?: SkipToPreviousResponseResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
+  TimeRange?: TimeRangeResolvers;
   Timestamp?: GraphQLScalarType;
+  TopArtistEdge?: TopArtistEdgeResolvers<ContextType>;
+  TopArtistsConnection?: TopArtistsConnectionResolvers<ContextType>;
+  TopTrackEdge?: TopTrackEdgeResolvers<ContextType>;
+  TopTracksConnection?: TopTracksConnectionResolvers<ContextType>;
   Track?: TrackResolvers<ContextType>;
   TrackAudioFeatures?: TrackAudioFeaturesResolvers<ContextType>;
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
