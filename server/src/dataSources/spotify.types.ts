@@ -633,6 +633,7 @@ export namespace Spotify {
       '/me/tracks': Object.Paginated<Object.SavedTrack>;
       '/me/tracks/contains': boolean[];
       '/playlists/:id': Object.Playlist;
+      '/playlists/:id/followers/contains': boolean[];
       '/playlists/:id/tracks': Object.Paginated<Object.PlaylistTrack>;
       '/recommendations': Object.Recommendations;
       '/recommendations/available-genre-seeds': Object.List<'genres', string>;
@@ -897,6 +898,9 @@ export namespace Spotify {
         '/me/tracks': {
           limit?: number;
           offset?: number;
+        };
+        '/playlists/:id/followers/contains': {
+          ids: string;
         };
         '/playlists/:id/tracks': {
           limit?: number;
