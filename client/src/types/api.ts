@@ -282,6 +282,8 @@ export type CurrentUser = {
    * 'Your Episodes' library.
    */
   episodesContains: Maybe<Array<Scalars['Boolean']>>;
+  /** Get the current user's followed artists. */
+  followedArtists: Maybe<FollowedArtistsConnection>;
   /** Get the list of objects that make up the user's queue. */
   playbackQueue: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
@@ -317,6 +319,12 @@ export type CurrentUseralbumsContainsArgs = {
 
 export type CurrentUserepisodesContainsArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUserfollowedArtistsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -358,6 +366,14 @@ export type CurrentlyPlaying = {
   progressMs: Maybe<Scalars['Int']>;
   /** Unix Millisecond Timestamp when data was fetched. */
   timestamp: Scalars['Timestamp'];
+};
+
+export type Cursors = {
+  __typename: 'Cursors';
+  /** The cursor to use as key to find the next page of items. */
+  after: Maybe<Scalars['String']>;
+  /** The ursor to use as key to find the previous page of items. */
+  before: Maybe<Scalars['String']>;
 };
 
 export type Developer = {
@@ -511,6 +527,20 @@ export type FieldInput = {
    * take precendence as it has broader impact.
    */
   schemaField?: InputMaybe<SchemaFieldInput>;
+};
+
+export type FollowedArtistEdge = {
+  __typename: 'FollowedArtistEdge';
+  /** The followed artist */
+  node: Artist;
+};
+
+export type FollowedArtistsConnection = {
+  __typename: 'FollowedArtistsConnection';
+  /** The list of followed artists. */
+  edges: Array<FollowedArtistEdge>;
+  /** Pagination information for the set of followed artists. */
+  pageInfo: PageInfoCursorBased;
 };
 
 export type Followers = {
@@ -720,6 +750,22 @@ export type PageInfo = {
   /** The offset of the items returned (as set in the query or default) */
   offset: Scalars['Int'];
   /** The total number of items returned for the page. */
+  total: Scalars['Int'];
+};
+
+export type PageInfoCursorBased = {
+  __typename: 'PageInfoCursorBased';
+  /** The cursors used to find the next set of items. */
+  cursors: Cursors;
+  /** Whether there is a next page of items */
+  hasNextPage: Scalars['Boolean'];
+  /** Whether there is a previous page of items */
+  hasPreviousPage: Scalars['Boolean'];
+  /** A link to the Web API endpoint returning the full result of the request. */
+  href: Scalars['String'];
+  /** The maximum number of items in the response (as set in the query or default) */
+  limit: Scalars['Int'];
+  /** The total number of items available to return. */
   total: Scalars['Int'];
 };
 

@@ -803,6 +803,21 @@ type CurrentUser {
   ): [Boolean!]
 
   """
+  Get the current user's followed artists.
+  """
+  followedArtists(
+    """
+    The last artist ID retrieved from the previous request.
+    """
+    after: String
+
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+  ): FollowedArtistsConnection
+
+  """
   Detailed profile information about the current user.
   """
   user: User!
@@ -1042,6 +1057,21 @@ type FieldConfig {
   errorRate: ErrorRate!
 }
 
+type FollowedArtistsConnection {
+  "The list of followed artists."
+  edges: [FollowedArtistEdge!]!
+
+  """
+  Pagination information for the set of followed artists.
+  """
+  pageInfo: PageInfoCursorBased!
+}
+
+type FollowedArtistEdge {
+  "The followed artist"
+  node: Artist!
+}
+
 input ResetFieldConfigInput {
   "The field that will be reset to its default values"
   field: FieldInput!
@@ -1138,6 +1168,40 @@ type PageInfo {
 
   "The total number of items returned for the page."
   total: Int!
+}
+
+type PageInfoCursorBased {
+  "Whether there is a next page of items"
+  hasNextPage: Boolean!
+
+  "Whether there is a previous page of items"
+  hasPreviousPage: Boolean!
+
+  """
+  A link to the Web API endpoint returning the full result of the request.
+  """
+  href: String!
+
+  """
+  The cursors used to find the next set of items.
+  """
+  cursors: Cursors!
+
+  """
+  The maximum number of items in the response (as set in the query or default)
+  """
+  limit: Int!
+
+  "The total number of items available to return."
+  total: Int!
+}
+
+type Cursors {
+  "The cursor to use as key to find the next page of items."
+  after: String
+
+  "The ursor to use as key to find the previous page of items."
+  before: String
 }
 
 input PausePlaybackContextInput {

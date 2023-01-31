@@ -285,6 +285,8 @@ export type CurrentUser = {
    * 'Your Episodes' library.
    */
   episodesContains?: Maybe<Array<Scalars['Boolean']>>;
+  /** Get the current user's followed artists. */
+  followedArtists?: Maybe<FollowedArtistsConnection>;
   /** Get the list of objects that make up the user's queue. */
   playbackQueue?: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
@@ -320,6 +322,12 @@ export type CurrentUserAlbumsContainsArgs = {
 
 export type CurrentUserEpisodesContainsArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUserFollowedArtistsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -361,6 +369,14 @@ export type CurrentlyPlaying = {
   progressMs?: Maybe<Scalars['Int']>;
   /** Unix Millisecond Timestamp when data was fetched. */
   timestamp: Scalars['Timestamp'];
+};
+
+export type Cursors = {
+  __typename?: 'Cursors';
+  /** The cursor to use as key to find the next page of items. */
+  after?: Maybe<Scalars['String']>;
+  /** The ursor to use as key to find the previous page of items. */
+  before?: Maybe<Scalars['String']>;
 };
 
 export type Developer = {
@@ -514,6 +530,20 @@ export type FieldInput = {
    * take precendence as it has broader impact.
    */
   schemaField?: InputMaybe<SchemaFieldInput>;
+};
+
+export type FollowedArtistEdge = {
+  __typename?: 'FollowedArtistEdge';
+  /** The followed artist */
+  node: Artist;
+};
+
+export type FollowedArtistsConnection = {
+  __typename?: 'FollowedArtistsConnection';
+  /** The list of followed artists. */
+  edges: Array<FollowedArtistEdge>;
+  /** Pagination information for the set of followed artists. */
+  pageInfo: PageInfoCursorBased;
 };
 
 export type Followers = {
@@ -723,6 +753,22 @@ export type PageInfo = {
   /** The offset of the items returned (as set in the query or default) */
   offset: Scalars['Int'];
   /** The total number of items returned for the page. */
+  total: Scalars['Int'];
+};
+
+export type PageInfoCursorBased = {
+  __typename?: 'PageInfoCursorBased';
+  /** The cursors used to find the next set of items. */
+  cursors: Cursors;
+  /** Whether there is a next page of items */
+  hasNextPage: Scalars['Boolean'];
+  /** Whether there is a previous page of items */
+  hasPreviousPage: Scalars['Boolean'];
+  /** A link to the Web API endpoint returning the full result of the request. */
+  href: Scalars['String'];
+  /** The maximum number of items in the response (as set in the query or default) */
+  limit: Scalars['Int'];
+  /** The total number of items available to return. */
   total: Scalars['Int'];
 };
 
@@ -2261,6 +2307,7 @@ export type ResolversTypes = ResolversObject<{
   CountryCode: ResolverTypeWrapper<Scalars['CountryCode']>;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   CurrentlyPlaying: ResolverTypeWrapper<Spotify.Object.CurrentlyPlaying>;
+  Cursors: ResolverTypeWrapper<Cursors>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   Developer: ResolverTypeWrapper<{}>;
   Device: ResolverTypeWrapper<Spotify.Object.Device>;
@@ -2273,6 +2320,8 @@ export type ResolversTypes = ResolversObject<{
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  FollowedArtistEdge: ResolverTypeWrapper<Spotify.Object.Artist>;
+  FollowedArtistsConnection: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<Spotify.Object.Artist>>;
   Followers: ResolverTypeWrapper<Followers>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
@@ -2281,6 +2330,7 @@ export type ResolversTypes = ResolversObject<{
   NewReleaseEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
   NewReleasesConnection: ResolverTypeWrapper<Spotify.Object.NewReleases>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
+  PageInfoCursorBased: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<unknown>>;
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: ResolverTypeWrapper<Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
@@ -2413,6 +2463,7 @@ export type ResolversParentTypes = ResolversObject<{
   CountryCode: Scalars['CountryCode'];
   CurrentUser: Spotify.Object.CurrentUser;
   CurrentlyPlaying: Spotify.Object.CurrentlyPlaying;
+  Cursors: Cursors;
   DateTime: Scalars['DateTime'];
   Developer: {};
   Device: Spotify.Object.Device;
@@ -2425,6 +2476,8 @@ export type ResolversParentTypes = ResolversObject<{
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
   Float: Scalars['Float'];
+  FollowedArtistEdge: Spotify.Object.Artist;
+  FollowedArtistsConnection: Spotify.Object.PaginatedCursorBased<Spotify.Object.Artist>;
   Followers: Followers;
   ID: Scalars['ID'];
   Image: Image;
@@ -2433,6 +2486,7 @@ export type ResolversParentTypes = ResolversObject<{
   NewReleaseEdge: Spotify.Object.AlbumSimplified;
   NewReleasesConnection: Spotify.Object.NewReleases;
   PageInfo: Spotify.Object.Paginated<unknown>;
+  PageInfoCursorBased: Spotify.Object.PaginatedCursorBased<unknown>;
   PausePlaybackContextInput: PausePlaybackContextInput;
   PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   PlaybackContext: Spotify.Object.Context;
@@ -2639,6 +2693,7 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   albums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<CurrentUserAlbumsArgs>>;
   albumsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserAlbumsContainsArgs, 'ids'>>;
   episodesContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserEpisodesContainsArgs, 'ids'>>;
+  followedArtists?: Resolver<Maybe<ResolversTypes['FollowedArtistsConnection']>, ParentType, ContextType, Partial<CurrentUserFollowedArtistsArgs>>;
   playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
@@ -2656,6 +2711,12 @@ export type CurrentlyPlayingResolvers<ContextType = ContextValue, ParentType ext
   item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
   progressMs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   timestamp?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CursorsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Cursors'] = ResolversParentTypes['Cursors']> = ResolversObject<{
+  after?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  before?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2727,6 +2788,17 @@ export type FieldConfigResolvers<ContextType = ContextValue, ParentType extends 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type FollowedArtistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FollowedArtistEdge'] = ResolversParentTypes['FollowedArtistEdge']> = ResolversObject<{
+  node?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type FollowedArtistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FollowedArtistsConnection'] = ResolversParentTypes['FollowedArtistsConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['FollowedArtistEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfoCursorBased'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type FollowersResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Followers'] = ResolversParentTypes['Followers']> = ResolversObject<{
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -2780,6 +2852,16 @@ export type PageInfoResolvers<ContextType = ContextValue, ParentType extends Res
   hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type PageInfoCursorBasedResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfoCursorBased'] = ResolversParentTypes['PageInfoCursorBased']> = ResolversObject<{
+  cursors?: Resolver<ResolversTypes['Cursors'], ParentType, ContextType>;
+  hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -3270,6 +3352,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   CountryCode?: GraphQLScalarType;
   CurrentUser?: CurrentUserResolvers<ContextType>;
   CurrentlyPlaying?: CurrentlyPlayingResolvers<ContextType>;
+  Cursors?: CursorsResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Developer?: DeveloperResolvers<ContextType>;
   Device?: DeviceResolvers<ContextType>;
@@ -3279,12 +3362,15 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   FeaturedPlaylistConnection?: FeaturedPlaylistConnectionResolvers<ContextType>;
   FeaturedPlaylistEdge?: FeaturedPlaylistEdgeResolvers<ContextType>;
   FieldConfig?: FieldConfigResolvers<ContextType>;
+  FollowedArtistEdge?: FollowedArtistEdgeResolvers<ContextType>;
+  FollowedArtistsConnection?: FollowedArtistsConnectionResolvers<ContextType>;
   Followers?: FollowersResolvers<ContextType>;
   Image?: ImageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   NewReleaseEdge?: NewReleaseEdgeResolvers<ContextType>;
   NewReleasesConnection?: NewReleasesConnectionResolvers<ContextType>;
   PageInfo?: PageInfoResolvers<ContextType>;
+  PageInfoCursorBased?: PageInfoCursorBasedResolvers<ContextType>;
   PausePlaybackResponse?: PausePlaybackResponseResolvers<ContextType>;
   PlaybackContext?: PlaybackContextResolvers<ContextType>;
   PlaybackContextType?: PlaybackContextTypeResolvers;

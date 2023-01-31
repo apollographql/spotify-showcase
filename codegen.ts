@@ -66,12 +66,18 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.PlaylistSimplified',
           FieldConfig:
             '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
+          FollowedArtistsConnection:
+            '../dataSources/spotify.types#Spotify#Object.PaginatedCursorBased<Spotify.Object.Artist>',
+          FollowedArtistEdge:
+            '../dataSources/spotify.types#Spotify#Object.Artist',
           NewReleasesConnection:
             '../dataSources/spotify.types#Spotify#Object.NewReleases',
           NewReleaseEdge:
             '../dataSources/spotify.types#Spotify#Object.AlbumSimplified',
           PageInfo:
             '../dataSources/spotify.types#Spotify#Object.Paginated<unknown>',
+          PageInfoCursorBased:
+            '../dataSources/spotify.types#Spotify#Object.PaginatedCursorBased<unknown>',
           Player: '{}',
           PlaybackContext:
             '../dataSources/spotify.types#Spotify#Object.Context',
