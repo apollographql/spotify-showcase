@@ -697,6 +697,9 @@ export namespace Spotify {
         '/me/episodes': {
           ids?: string[];
         };
+        '/me/following': {
+          ids?: string[];
+        };
         '/me/player': {
           device_ids: string[];
           play?: boolean;
@@ -737,6 +740,10 @@ export namespace Spotify {
         };
         '/me/episodes': {
           ids: string;
+        };
+        '/me/following': {
+          ids: string;
+          type: 'artist' | 'user';
         };
         '/me/shows': {
           ids: string;

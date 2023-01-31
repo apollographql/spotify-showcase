@@ -520,6 +520,10 @@ export default class SpotifyAPI extends RESTDataSource {
     return true;
   }
 
+  async unfollow({ body, params }: RequestParams<'DELETE', '/me/following'>) {
+    await this._delete('/me/following', { body, params });
+  }
+
   async unfollowPlaylist(playlistId: string) {
     await this._delete(`/playlists/${playlistId}/followers`);
 
