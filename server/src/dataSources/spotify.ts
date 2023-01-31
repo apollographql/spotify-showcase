@@ -231,6 +231,23 @@ export default class SpotifyAPI extends RESTDataSource {
     });
   }
 
+  getCurrentUserTopArtists(
+    params: Spotify.Request.QueryParams.GET['/me/top/artists']
+  ) {
+    return this._get<Spotify.Response.GET['/me/top/artists']>(
+      '/me/top/artists',
+      { params }
+    );
+  }
+
+  getCurrentUserTopTracks(
+    params: Spotify.Request.QueryParams.GET['/me/top/tracks']
+  ) {
+    return this._get<Spotify.Response.GET['/me/top/tracks']>('/me/top/tracks', {
+      params,
+    });
+  }
+
   getCurrentUserTracks(params?: Spotify.Request.QueryParams.GET['/me/tracks']) {
     return this._get<Spotify.Response.GET['/me/tracks']>('/me/tracks', {
       params,

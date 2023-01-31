@@ -627,6 +627,8 @@ export namespace Spotify {
       '/me/player/recently-played': Object.PaginatedCursorBased<Object.PlayHistory>;
       '/me/playlists': Object.Paginated<Object.Playlist>;
       '/me/shows/contains': boolean[];
+      '/me/top/artists': Object.Paginated<Object.Artist>;
+      '/me/top/tracks': Object.Paginated<Object.Track>;
       '/me/tracks': Object.Paginated<Object.SavedTrack>;
       '/me/tracks/contains': boolean[];
       '/playlists/:id': Object.Playlist;
@@ -844,6 +846,16 @@ export namespace Spotify {
         };
         '/me/shows/contains': {
           ids: string;
+        };
+        '/me/top/artists': {
+          limit?: number;
+          offset?: number;
+          time_range?: 'long_term' | 'medium_term' | 'short_term';
+        };
+        '/me/top/tracks': {
+          limit?: number;
+          offset?: number;
+          time_range?: 'long_term' | 'medium_term' | 'short_term';
         };
         '/me/tracks/contains': {
           ids: string;

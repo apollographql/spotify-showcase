@@ -41,6 +41,20 @@ const resolvers: CurrentUserResolvers = {
   showsContains: (_, { ids }, { dataSources }) => {
     return dataSources.spotify.checkContainsShows(ids.join(','));
   },
+  topArtists: (_, { limit, offset, timeRange }, { dataSources }) => {
+    return dataSources.spotify.getCurrentUserTopArtists({
+      limit: maybe(limit),
+      offset: maybe(offset),
+      time_range: maybe(timeRange),
+    });
+  },
+  topTracks: (_, { limit, offset, timeRange }, { dataSources }) => {
+    return dataSources.spotify.getCurrentUserTopTracks({
+      limit: maybe(limit),
+      offset: maybe(offset),
+      time_range: maybe(timeRange),
+    });
+  },
   tracks: (_, args, { dataSources }) => {
     return dataSources.spotify.getCurrentUserTracks({
       limit: args.limit ?? undefined,
