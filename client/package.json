@@ -60,6 +60,7 @@
   "devDependencies": {
     "@mdx-js/rollup": "^2.2.1",
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/mdx": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
     "@vitejs/plugin-react": "^3.0.1",

@@ -3,7 +3,7 @@
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "typeRoots": ["./node_modules/@types", "./src/@types"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "mdx"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

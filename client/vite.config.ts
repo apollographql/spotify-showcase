@@ -15,7 +15,7 @@ export default defineConfig(async () => {
       mdx.default({
         remarkPlugins: [
           remarkFrontmatter.default,
-          remarkMdxFrontmatter.default,
+          [remarkMdxFrontmatter.default, { name: 'frontmatter' }],
         ],
       }),
       react(),
