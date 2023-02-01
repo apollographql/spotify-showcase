@@ -18,7 +18,11 @@ export default defineConfig(async () => {
           [remarkMdxFrontmatter.default, { name: 'frontmatter' }],
         ],
       }),
-      react(),
+      react({
+        babel: {
+          plugins: [['prismjs', { languages: ['js', 'ts', 'jsx', 'tsx'] }]],
+        },
+      }),
     ],
   };
 });
