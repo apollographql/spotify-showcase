@@ -13,11 +13,15 @@
 }
 
 @layer components {
+  h1 {
+    @apply mb-2;
+  }
+
   .markdown p:not(:last-child) {
     @apply mb-2;
   }
 
-  .markdown code {
+  .markdown :not(pre) > code {
     @apply bg-surface;
     @apply rounded-sm;
     @apply py-px;
