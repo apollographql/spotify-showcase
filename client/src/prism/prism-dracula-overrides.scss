@@ -1,13 +1,24 @@
 pre[class*='language-'] {
+  --color--cyan: #8be9fd;
+  --color--offwhite: #f8f8f2;
+
   margin: 0;
   padding: 1rem;
 }
 
 .language-tsx,
 .language-jsx {
-  --color-white: #f8f8f2;
-
   .token.tag.punctuation {
-    color: var(--color-white);
+    color: var(--color--offwhite);
+  }
+}
+
+.token.graphql {
+  &.property {
+    color: var(--color--offwhite);
+  }
+
+  &.punctuation {
+    color: var(--color--cyan);
   }
 }
