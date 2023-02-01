@@ -22,7 +22,10 @@
   }
 
   .markdown :not(pre) > code {
-    @apply bg-surface;
+    background-color: var(
+      --markdown-bg-inline-code,
+      var(--background--surface)
+    );
     @apply rounded-sm;
     @apply py-px;
     @apply px-1;
