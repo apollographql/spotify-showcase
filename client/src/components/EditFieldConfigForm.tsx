@@ -80,6 +80,9 @@ const EditFieldConfigForm = ({
           step={0.1}
           max={1}
           min={0}
+          onSubmit={() => {
+            form.submitForm();
+          }}
         />
         <div className="flex flex-1 justify-end">
           <Button
