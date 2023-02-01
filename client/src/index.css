@@ -17,8 +17,13 @@
     @apply mb-2;
   }
 
+  .markdown {
+    --block-element-spacing: 1.5rem;
+    --text-spacing: 1.25rem;
+  }
+
   .markdown p:not(:last-child) {
-    @apply mb-2;
+    margin-bottom: var(--text-spacing);
   }
 
   .markdown :not(pre) > code {
@@ -40,5 +45,9 @@
     @apply border-l-surface;
     @apply pl-2;
     @apply text-offwhite/80;
+  }
+
+  .markdown blockquote:not(:last-child) {
+    margin-bottom: var(--block-element-spacing);
   }
 }

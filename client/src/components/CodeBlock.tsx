@@ -22,7 +22,7 @@ const CodeBlock = ({ language, code }: CodeBlockProps) => {
       language={language as Language}
     >
       {({ className, getLineProps, getTokenProps, tokens }) => (
-        <pre className={cx(className, 'rounded')}>
+        <pre className={cx(className, 'rounded border border-white/5')}>
           <code>
             {tokens.map((line, index) => (
               <div key={index} {...getLineProps({ line, key: index })}>
