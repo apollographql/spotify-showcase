@@ -20,7 +20,9 @@ export default defineConfig(async () => {
       }),
       react({
         babel: {
-          plugins: [['prismjs', { languages: ['js', 'ts', 'jsx', 'tsx'] }]],
+          plugins: [
+            ['prismjs', { languages: ['js', 'ts', 'jsx', 'tsx', 'graphql'] }],
+          ],
         },
       }),
     ],
