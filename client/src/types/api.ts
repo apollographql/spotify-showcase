@@ -406,7 +406,7 @@ export type Developer = {
 export type Device = {
   __typename: 'Device';
   /** The device ID */
-  id: Scalars['ID'];
+  id: Maybe<Scalars['ID']>;
   /** If this device is the currently active device. */
   isActive: Scalars['Boolean'];
   /** If this device is currently in a private session. */
@@ -2305,9 +2305,9 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null, images: Array<{ __typename: 'Image', url: string }> | null } } | null };
 
-export type DevicePopover_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, device: { __typename: 'Device', id: string } };
+export type DevicePopover_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, device: { __typename: 'Device', id: string | null } };
 
-export type DevicePopover_devices = { __typename: 'Device', id: string, name: string, type: string };
+export type DevicePopover_devices = { __typename: 'Device', id: string | null, name: string, type: string };
 
 export type EpisodePlaybackDetails_episode = { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } };
 
@@ -2330,28 +2330,28 @@ type LikeControl_playbackItem_Track_ = { __typename: 'Track', id: string };
 
 export type LikeControl_playbackItem = LikeControl_playbackItem_Episode_ | LikeControl_playbackItem_Track_;
 
-export type NotificationManager_playbackState = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string } };
+export type NotificationManager_playbackState = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null } };
 
 export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
 
-export type PlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
+export type PlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
 
 export type PlaybackStateSubscriberQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlaybackStateSubscriberQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null } | null } } | null };
+export type PlaybackStateSubscriberQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null } | null } } | null };
 
 export type PlaybackStateSubscriberSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlaybackStateSubscriberSubscription = { playbackStateChanged: { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null } | null };
+export type PlaybackStateSubscriberSubscription = { playbackStateChanged: { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null } | null };
 
 export type PlaybarQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlaybarQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string, name: string, type: string }> | null } } | null };
+export type PlaybarQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string | null, name: string, type: string }> | null } } | null };
 
-export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
+export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
 
 export type PlaylistTable_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
 
@@ -2487,9 +2487,9 @@ export type SetVolumeMutationVariables = Exact<{
 }>;
 
 
-export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } } | null } | null };
+export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null, volumePercent: number } } | null } | null };
 
-export type SetVolumeCacheFragment = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string, volumePercent: number } };
+export type SetVolumeCacheFragment = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null, volumePercent: number } };
 
 export type ShufflePlaybackMutationVariables = Exact<{
   state: Scalars['Boolean'];
@@ -2513,7 +2513,7 @@ export type TransferPlaybackMutationVariables = Exact<{
 }>;
 
 
-export type TransferPlaybackMutation = { transferPlayback: { __typename: 'TransferPlaybackPayload', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string } } | null } | null };
+export type TransferPlaybackMutation = { transferPlayback: { __typename: 'TransferPlaybackPayload', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null } } | null } | null };
 
 export type UpdateFieldConfigMutationVariables = Exact<{
   input: UpdateFieldConfigInput;
