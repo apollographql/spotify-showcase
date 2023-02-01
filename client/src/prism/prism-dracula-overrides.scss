@@ -1,3 +1,8 @@
+pre[class*='language-'] {
+  margin: 0;
+  padding: 1rem;
+}
+
 .language-tsx,
 .language-jsx {
   --color-white: #f8f8f2;
