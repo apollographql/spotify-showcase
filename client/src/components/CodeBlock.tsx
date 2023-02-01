@@ -3,28 +3,26 @@ import cx from 'classnames';
 import Highlight, { Language } from 'prism-react-renderer';
 import Prism from 'prismjs';
 import 'prism-themes/themes/prism-dracula.css';
-import '../../prism/prism-dracula-overrides.scss';
+import '../prism/prism-dracula-overrides.scss';
 
-interface MDXCodeBlockProps {
-  className?: string;
-  children: string;
+interface CodeBlockProps {
+  language: string | undefined;
+  code: string;
 }
 
-const Code = ({ className, children }: MDXCodeBlockProps) => {
-  const language = className?.replace('language-', '');
-
-  if (language == null) {
-    return <code>{children}</code>;
+const CodeBlock = ({ language, code }: CodeBlockProps) => {
+  if (['javascript', 'js'].includes(language ?? '')) {
+    language = 'jsx';
   }
 
   return (
     <Highlight
       Prism={Prism as any}
-      code={children.trim()}
+      code={code.trim()}
       language={language as Language}
     >
       {({ className, getLineProps, getTokenProps, tokens }) => (
-        <pre className={cx(className, 'bg-surface-active rounded p-4')}>
+        <pre className={cx(className, 'rounded')}>
           <code>
             {tokens.map((line, index) => (
               <div key={index} {...getLineProps({ line, key: index })}>
@@ -40,4 +38,4 @@ const Code = ({ className, children }: MDXCodeBlockProps) => {
   );
 };
 
-export default Code;
+export default CodeBlock;
