@@ -27,7 +27,7 @@ const ContextualGuidanceDialog = ({
               <X size="1.5rem" />
             </Button>
           </Dialog.Close>
-          {content}
+          <div className="markdown">{content}</div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

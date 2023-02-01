@@ -8,6 +8,7 @@ import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';
 import styles from './Header.module.scss';
 import { LOGIN_URL } from '../../constants';
+import * as Welcome from '../../routes/index.welcome-contextual.mdx';
 
 const Header = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -28,7 +29,14 @@ const Header = () => {
         </NavButton>
       </Flex>
       <Flex alignItems="center" gap="1rem" className={styles.clickable}>
-        <ContextualGuidanceDialog content={<div>Stuff in here</div>}>
+        <ContextualGuidanceDialog
+          content={
+            <>
+              <Welcome.default />
+              {Welcome.tab}
+            </>
+          }
+        >
           <Button
             variant="secondary"
             className="h-9 w-9 justify-center rounded-full !p-px opacity-80 hover:opacity-100"
