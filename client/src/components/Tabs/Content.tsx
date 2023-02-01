@@ -10,7 +10,10 @@ interface ContentProps {
 
 const Content = ({ children, className, id }: ContentProps) => {
   return (
-    <Tabs.Content value={id} className={cx('outline-0', className)}>
+    <Tabs.Content
+      value={id}
+      className={cx('flex-1 overflow-y-auto outline-0', className)}
+    >
       {children}
     </Tabs.Content>
   );

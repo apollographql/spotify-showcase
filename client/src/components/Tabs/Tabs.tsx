@@ -15,7 +15,10 @@ interface TabsProps {
 
 const Tabs = ({ children, tabs }: TabsProps) => {
   return (
-    <RadixTabs.Root defaultValue={tabs[0].id} className="flex flex-col gap-8">
+    <RadixTabs.Root
+      defaultValue={tabs[0].id}
+      className="flex h-full flex-col gap-8"
+    >
       <RadixTabs.List className="flex gap-2">
         {tabs.map((tab) => (
           <RadixTabs.Trigger
