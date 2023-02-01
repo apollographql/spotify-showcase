@@ -1,0 +1,24 @@
+---
+tab: Welcome
+---
+
+# The demo
+
+This dialog will provide contextual help throughout while using the app. To
+learn more about about how the app is structured, refer back to this dialog.
+
+```tsx
+const QUERY = gql`
+  query TestQuery {
+    spotify {
+      nice
+    }
+  }
+`
+
+const Comp = () => {
+  const { data } = useSuspenseQuery(QUERY);
+}
+```
+
+

@@ -1,0 +1,26 @@
+---
+tab: Loading with Suspense
+---
+
+This page loads data with Apollo's `useSuspenseQuery` hook.
+
+```tsx
+import {
+  gql,
+  useSuspenseQuery_experimental as useSuspenseQuery,
+} from '@apollo/client';
+
+const ROOT_QUERY = gql`
+  query RootQuery($offset: Int, $limit: Int) {
+    me {
+      # ...
+    }
+  }
+`;
+
+const RootRoute = () => {
+  const { data } = useSuspenseQuery(ROOT_QUERY);
+
+  // ...
+};
+```

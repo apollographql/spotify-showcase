@@ -25,7 +25,7 @@ const ContextualGuidanceDialog = ({
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-surface/50 animate-fade-in fixed inset-0 [--animate-duration:200ms]" />
-        <Dialog.Content className="bg-surface-lowContrast animate-slide-left-fade fixed inset-3 left-1/3 rounded p-4 text-base shadow-2xl outline-0 [--animate-slide-distance:30px]">
+        <Dialog.Content className="bg-surface animate-slide-left-fade fixed inset-3 left-1/3 rounded p-4 text-base shadow-2xl outline-0 [--animate-slide-distance:30px]">
           <Dialog.Close asChild>
             <Button
               variant="ghost"
@@ -43,7 +43,7 @@ const ContextualGuidanceDialog = ({
           >
             {documents.map((document) => (
               <Tabs.Content
-                className="markdown"
+                className="markdown [--markdown-bg-inline-code:var(--background--surface--hover)]"
                 key={document.frontmatter.tab as string}
                 id={document.frontmatter.tab as string}
               >
