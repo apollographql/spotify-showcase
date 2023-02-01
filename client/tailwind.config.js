@@ -34,6 +34,7 @@ module.exports = {
       white: '#fff',
     },
     data: {
+      active: 'state="active"',
       open: 'state="open"',
       closed: 'state="closed"',
       'side-right': 'side="right"',
@@ -56,6 +57,9 @@ module.exports = {
       fontSize: {
         xxs: ['0.625rem', '0.875rem'],
       },
+      backgroundColor: () => ({
+        'surface-active': 'hsla(0, 0%, 100%, 0.1)',
+      }),
       textColor: ({ theme }) => ({
         base: theme('colors.white'),
         muted: theme('colors.offwhite'),
