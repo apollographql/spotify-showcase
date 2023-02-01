@@ -25,7 +25,7 @@ const CodeBlock = ({ language, code }: CodeBlockProps) => {
         <pre
           className={cx(
             className,
-            'max-h-[400px] rounded border border-white/5'
+            'max-h-[400px] rounded border border-white/5 text-sm'
           )}
         >
           <code>
