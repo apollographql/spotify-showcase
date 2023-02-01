@@ -6,18 +6,22 @@ import 'prism-themes/themes/prism-dracula.css';
 import '../../prism/prism-dracula-overrides.scss';
 
 interface MDXCodeBlockProps {
-  className: string;
+  className?: string;
   children: string;
 }
 
 const Code = ({ className, children }: MDXCodeBlockProps) => {
-  const language = className.replace('language-', '');
+  const language = className?.replace('language-', '');
+
+  if (language == null) {
+    return <code>{children}</code>;
+  }
 
   return (
     <Highlight
       Prism={Prism as any}
       code={children.trim()}
-      language={language === 'javascript' ? 'jsx' : (language as Language)}
+      language={language as Language}
     >
       {({ className, getLineProps, getTokenProps, tokens }) => (
         <pre className={cx(className, 'bg-surface-active rounded p-4')}>
