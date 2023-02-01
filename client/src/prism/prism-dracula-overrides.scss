@@ -1,0 +1,8 @@
+.language-tsx,
+.language-jsx {
+  --color-white: #f8f8f2;
+
+  .token.tag.punctuation {
+    color: var(--color-white);
+  }
+}
