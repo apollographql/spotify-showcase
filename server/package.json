@@ -4,13 +4,15 @@
   "version": "1.0.0",
   "scripts": {
     "ts-node": "ts-node",
-    "start": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
+    "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts",
+    "start": "ts-node src/index.ts"
   },
   "author": "Jerel Miller",
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/node": "^18.11.13",
     "@types/node-fetch": "^2.6.2",
+    "@types/ws": "^8.5.4",
     "dotenv": "^16.0.3",
     "graphql-import-node": "^0.0.5",
     "nodemon": "^2.0.20",
