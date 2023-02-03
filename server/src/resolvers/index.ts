@@ -1,12 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import { GraphQLScalarType } from 'graphql';
-import { Resolver } from './types';
+import { Resolver, Resolvers } from './types';
 import { wrapWithSynthetics } from './helpers';
 
 type EnumResolver = Record<string, string>;
 type ResolverMap = Record<string, EnumResolver | Resolver<unknown>>;
-type Resolvers = Record<string, ResolverMap>;
 
 const IGNORED_FILES = [
   path.basename(__filename),

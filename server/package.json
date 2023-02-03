@@ -23,7 +23,7 @@
   "dependencies": {
     "@apollo/datasource-rest": "^5.0.1",
     "@apollo/server": "^4.3.0",
-    "@graphql-tools/schema": "^9.0.12",
+    "@apollo/subgraph": "^2.3.0",
     "@types/lodash": "^4.14.191",
     "@wry/equality": "^0.5.3",
     "camelize": "^1.0.1",

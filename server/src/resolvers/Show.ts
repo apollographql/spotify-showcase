@@ -14,6 +14,9 @@ const resolvers: ShowResolvers = {
   externalUrls: prop('external_urls'),
   isExternallyHosted: prop('is_externally_hosted'),
   mediaType: prop('media_type'),
+  __resolveReference: (show, { dataSources }) => {
+    return dataSources.spotify.getShow(show.id);
+  },
 };
 
 export default resolvers;

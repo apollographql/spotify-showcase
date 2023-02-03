@@ -12,6 +12,9 @@ const resolvers: EpisodeResolvers = {
   isPlayable: prop('is_playable'),
   releaseDate: itself(),
   resumePoint: prop('resume_point'),
+  __resolveReference: (episode, { dataSources }) => {
+    return dataSources.spotify.getEpisode(episode.id);
+  },
 };
 
 export default resolvers;
