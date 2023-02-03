@@ -3,7 +3,7 @@ import './env';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import { makeExecutableSchema } from '@graphql-tools/schema';
+import { buildSubgraphSchema } from '@apollo/subgraph';
 import { PubSub } from 'graphql-subscriptions';
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
@@ -22,7 +22,7 @@ import { readEnv } from './utils/env';
 import { ContextValue } from './types';
 import { TOPICS } from './constants';
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = buildSubgraphSchema({ typeDefs, resolvers });
 
 const app = express();
 const httpServer = http.createServer(app);

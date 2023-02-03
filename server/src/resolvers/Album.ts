@@ -16,6 +16,9 @@ const resolvers: AlbumResolvers = {
       offset: args.offset ?? undefined,
     });
   },
+  __resolveReference: (album, { dataSources }) => {
+    return dataSources.spotify.getAlbum(album.id);
+  },
 };
 
 export default resolvers;

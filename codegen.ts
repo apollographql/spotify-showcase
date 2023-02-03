@@ -38,6 +38,7 @@ const config: CodegenConfig = {
         defaultScalarType: 'unknown',
         enumsAsTypes: true,
         useIndexSignature: true,
+        federation: true,
         makeResolverTypeCallable: true,
         mappers: {
           Actions: '../dataSources/spotify.types#Spotify#Object.Actions',

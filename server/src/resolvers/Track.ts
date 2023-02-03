@@ -36,6 +36,9 @@ const resolvers: TrackResolvers = {
     is_playable === undefined ? true : is_playable,
   previewUrl: prop('preview_url'),
   trackNumber: prop('track_number'),
+  __resolveReference: (track, { dataSources }) => {
+    return dataSources.spotify.getTrack(track.id);
+  },
 };
 
 export default resolvers;

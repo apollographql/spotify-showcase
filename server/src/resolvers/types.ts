@@ -21,6 +21,7 @@ export type Scalars = {
   DateTime: Date;
   ErrorRate: number;
   Timestamp: unknown;
+  _FieldSet: unknown;
 };
 
 export type Action =
@@ -2082,109 +2083,6 @@ export type User = {
   uri: Scalars['String'];
 };
 
-/**
- * A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
- *
- * In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
- */
-export type __Directive = {
-  __typename?: '__Directive';
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  isRepeatable: Scalars['Boolean'];
-  locations: Array<__DirectiveLocation>;
-  args: Array<__InputValue>;
-};
-
-
-/**
- * A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
- *
- * In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
- */
-export type __DirectiveArgsArgs = {
-  includeDeprecated?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies. */
-export type __DirectiveLocation =
-  /** Location adjacent to a query operation. */
-  | 'QUERY'
-  /** Location adjacent to a mutation operation. */
-  | 'MUTATION'
-  /** Location adjacent to a subscription operation. */
-  | 'SUBSCRIPTION'
-  /** Location adjacent to a field. */
-  | 'FIELD'
-  /** Location adjacent to a fragment definition. */
-  | 'FRAGMENT_DEFINITION'
-  /** Location adjacent to a fragment spread. */
-  | 'FRAGMENT_SPREAD'
-  /** Location adjacent to an inline fragment. */
-  | 'INLINE_FRAGMENT'
-  /** Location adjacent to a variable definition. */
-  | 'VARIABLE_DEFINITION'
-  /** Location adjacent to a schema definition. */
-  | 'SCHEMA'
-  /** Location adjacent to a scalar definition. */
-  | 'SCALAR'
-  /** Location adjacent to an object type definition. */
-  | 'OBJECT'
-  /** Location adjacent to a field definition. */
-  | 'FIELD_DEFINITION'
-  /** Location adjacent to an argument definition. */
-  | 'ARGUMENT_DEFINITION'
-  /** Location adjacent to an interface definition. */
-  | 'INTERFACE'
-  /** Location adjacent to a union definition. */
-  | 'UNION'
-  /** Location adjacent to an enum definition. */
-  | 'ENUM'
-  /** Location adjacent to an enum value definition. */
-  | 'ENUM_VALUE'
-  /** Location adjacent to an input object type definition. */
-  | 'INPUT_OBJECT'
-  /** Location adjacent to an input object field definition. */
-  | 'INPUT_FIELD_DEFINITION';
-
-/** One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string. */
-export type __EnumValue = {
-  __typename?: '__EnumValue';
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  isDeprecated: Scalars['Boolean'];
-  deprecationReason?: Maybe<Scalars['String']>;
-};
-
-/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
-export type __Field = {
-  __typename?: '__Field';
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  args: Array<__InputValue>;
-  type: __Type;
-  isDeprecated: Scalars['Boolean'];
-  deprecationReason?: Maybe<Scalars['String']>;
-};
-
-
-/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
-export type __FieldArgsArgs = {
-  includeDeprecated?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value. */
-export type __InputValue = {
-  __typename?: '__InputValue';
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  type: __Type;
-  /** A GraphQL-formatted string representing the default value for this input value. */
-  defaultValue?: Maybe<Scalars['String']>;
-  isDeprecated: Scalars['Boolean'];
-  deprecationReason?: Maybe<Scalars['String']>;
-};
-
 /** A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations. */
 export type __Schema = {
   __typename?: '__Schema';
@@ -2269,11 +2167,125 @@ export type __TypeKind =
   /** Indicates this type is a non-null. `ofType` is a valid field. */
   | 'NON_NULL';
 
+/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
+export type __Field = {
+  __typename?: '__Field';
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  args: Array<__InputValue>;
+  type: __Type;
+  isDeprecated: Scalars['Boolean'];
+  deprecationReason?: Maybe<Scalars['String']>;
+};
+
+
+/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
+export type __FieldArgsArgs = {
+  includeDeprecated?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value. */
+export type __InputValue = {
+  __typename?: '__InputValue';
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  type: __Type;
+  /** A GraphQL-formatted string representing the default value for this input value. */
+  defaultValue?: Maybe<Scalars['String']>;
+  isDeprecated: Scalars['Boolean'];
+  deprecationReason?: Maybe<Scalars['String']>;
+};
+
+/** One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string. */
+export type __EnumValue = {
+  __typename?: '__EnumValue';
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  isDeprecated: Scalars['Boolean'];
+  deprecationReason?: Maybe<Scalars['String']>;
+};
+
+/**
+ * A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
+ *
+ * In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
+ */
+export type __Directive = {
+  __typename?: '__Directive';
+  name: Scalars['String'];
+  description?: Maybe<Scalars['String']>;
+  isRepeatable: Scalars['Boolean'];
+  locations: Array<__DirectiveLocation>;
+  args: Array<__InputValue>;
+};
+
+
+/**
+ * A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
+ *
+ * In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
+ */
+export type __DirectiveArgsArgs = {
+  includeDeprecated?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies. */
+export type __DirectiveLocation =
+  /** Location adjacent to a query operation. */
+  | 'QUERY'
+  /** Location adjacent to a mutation operation. */
+  | 'MUTATION'
+  /** Location adjacent to a subscription operation. */
+  | 'SUBSCRIPTION'
+  /** Location adjacent to a field. */
+  | 'FIELD'
+  /** Location adjacent to a fragment definition. */
+  | 'FRAGMENT_DEFINITION'
+  /** Location adjacent to a fragment spread. */
+  | 'FRAGMENT_SPREAD'
+  /** Location adjacent to an inline fragment. */
+  | 'INLINE_FRAGMENT'
+  /** Location adjacent to a variable definition. */
+  | 'VARIABLE_DEFINITION'
+  /** Location adjacent to a schema definition. */
+  | 'SCHEMA'
+  /** Location adjacent to a scalar definition. */
+  | 'SCALAR'
+  /** Location adjacent to an object type definition. */
+  | 'OBJECT'
+  /** Location adjacent to a field definition. */
+  | 'FIELD_DEFINITION'
+  /** Location adjacent to an argument definition. */
+  | 'ARGUMENT_DEFINITION'
+  /** Location adjacent to an interface definition. */
+  | 'INTERFACE'
+  /** Location adjacent to a union definition. */
+  | 'UNION'
+  /** Location adjacent to an enum definition. */
+  | 'ENUM'
+  /** Location adjacent to an enum value definition. */
+  | 'ENUM_VALUE'
+  /** Location adjacent to an input object type definition. */
+  | 'INPUT_OBJECT'
+  /** Location adjacent to an input object field definition. */
+  | 'INPUT_FIELD_DEFINITION';
+
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
+export type ReferenceResolver<TResult, TReference, TContext> = (
+      reference: TReference,
+      context: TContext,
+      info: GraphQLResolveInfo
+    ) => Promise<TResult> | TResult;
+
+      type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
+      type NullableCheck<T, S> = Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
+      type ListCheck<T, S> = T extends (infer U)[] ? NullableCheck<U, S>[] : GraphQLRecursivePick<T, S>;
+      export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
+    
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
@@ -2338,8 +2350,11 @@ export type ResolversTypes = ResolversObject<{
   Action: Action;
   Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   AddItemToPlaybackQueuePayload: ResolverTypeWrapper<Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversTypes['PlaybackQueue']> }>;
   AddItemsToPlaylistInput: AddItemsToPlaylistInput;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   AddItemsToPlaylistPayload: ResolverTypeWrapper<Omit<AddItemsToPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversTypes['Playlist']> }>;
   Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
   AlbumGroup: AlbumGroup;
@@ -2349,8 +2364,8 @@ export type ResolversTypes = ResolversObject<{
   Artist: ResolverTypeWrapper<Spotify.Object.Artist>;
   ArtistAlbumEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
   ArtistAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Contains: ResolverTypeWrapper<Contains>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Copyright: ResolverTypeWrapper<Copyright>;
   CopyrightType: CopyrightType;
   CountryCode: ResolverTypeWrapper<Scalars['CountryCode']>;
@@ -2368,13 +2383,10 @@ export type ResolversTypes = ResolversObject<{
   FieldConfig: ResolverTypeWrapper<FieldConfigType>;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
   FollowedArtistEdge: ResolverTypeWrapper<Spotify.Object.Artist>;
   FollowedArtistsConnection: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<Spotify.Object.Artist>>;
   Followers: ResolverTypeWrapper<Followers>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Image: ResolverTypeWrapper<Image>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   Mutation: ResolverTypeWrapper<{}>;
   NewReleaseEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
   NewReleasesConnection: ResolverTypeWrapper<Spotify.Object.NewReleases>;
@@ -2398,6 +2410,7 @@ export type ResolversTypes = ResolversObject<{
   RecentlyPlayedConnection: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>>;
   RecentlyPlayedEdge: ResolverTypeWrapper<Spotify.Object.PlayHistory>;
   RecommendationAcousticnessInput: RecommendationAcousticnessInput;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   RecommendationDanceabilityInput: RecommendationDanceabilityInput;
   RecommendationDurationMsInput: RecommendationDurationMsInput;
   RecommendationEnergyInput: RecommendationEnergyInput;
@@ -2479,7 +2492,6 @@ export type ResolversTypes = ResolversObject<{
   SkipToNextResponse: ResolverTypeWrapper<Omit<SkipToNextResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   SkipToPreviousContextInput: SkipToPreviousContextInput;
   SkipToPreviousResponse: ResolverTypeWrapper<Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
   TextFormat: TextFormat;
   TimeRange: TimeRange;
@@ -2502,8 +2514,11 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Actions: Spotify.Object.Actions;
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
+  ID: Scalars['ID'];
+  String: Scalars['String'];
   AddItemToPlaybackQueuePayload: Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversParentTypes['PlaybackQueue']> };
   AddItemsToPlaylistInput: AddItemsToPlaylistInput;
+  Int: Scalars['Int'];
   AddItemsToPlaylistPayload: Omit<AddItemsToPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversParentTypes['Playlist']> };
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.TrackSimplified>;
@@ -2511,8 +2526,8 @@ export type ResolversParentTypes = ResolversObject<{
   Artist: Spotify.Object.Artist;
   ArtistAlbumEdge: Spotify.Object.AlbumSimplified;
   ArtistAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>;
-  Boolean: Scalars['Boolean'];
   Contains: Contains;
+  Boolean: Scalars['Boolean'];
   Copyright: Copyright;
   CountryCode: Scalars['CountryCode'];
   CurrentUser: Spotify.Object.CurrentUser;
@@ -2529,13 +2544,10 @@ export type ResolversParentTypes = ResolversObject<{
   FieldConfig: FieldConfigType;
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
-  Float: Scalars['Float'];
   FollowedArtistEdge: Spotify.Object.Artist;
   FollowedArtistsConnection: Spotify.Object.PaginatedCursorBased<Spotify.Object.Artist>;
   Followers: Followers;
-  ID: Scalars['ID'];
   Image: Image;
-  Int: Scalars['Int'];
   Mutation: {};
   NewReleaseEdge: Spotify.Object.AlbumSimplified;
   NewReleasesConnection: Spotify.Object.NewReleases;
@@ -2558,6 +2570,7 @@ export type ResolversParentTypes = ResolversObject<{
   RecentlyPlayedConnection: Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>;
   RecentlyPlayedEdge: Spotify.Object.PlayHistory;
   RecommendationAcousticnessInput: RecommendationAcousticnessInput;
+  Float: Scalars['Float'];
   RecommendationDanceabilityInput: RecommendationDanceabilityInput;
   RecommendationDurationMsInput: RecommendationDurationMsInput;
   RecommendationEnergyInput: RecommendationEnergyInput;
@@ -2634,7 +2647,6 @@ export type ResolversParentTypes = ResolversObject<{
   SkipToNextResponse: Omit<SkipToNextResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   SkipToPreviousContextInput: SkipToPreviousContextInput;
   SkipToPreviousResponse: Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
-  String: Scalars['String'];
   Subscription: {};
   Timestamp: Scalars['Timestamp'];
   TopArtistEdge: Spotify.Object.Artist;
@@ -2669,6 +2681,7 @@ export type AddItemsToPlaylistPayloadResolvers<ContextType = ContextValue, Paren
 }>;
 
 export type AlbumResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Album'] = ResolversParentTypes['Album']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Album']>, { __typename: 'Album' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   albumType?: Resolver<ResolversTypes['AlbumType'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   copyrights?: Resolver<Array<ResolversTypes['Copyright']>, ParentType, ContextType>;
@@ -2702,6 +2715,7 @@ export type AlbumTrackEdgeResolvers<ContextType = ContextValue, ParentType exten
 export type AlbumTypeResolvers = { ALBUM: 'album', COMPILATION: 'compilation', SINGLE: 'single' };
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Artist']>, { __typename: 'Artist' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   albums?: Resolver<Maybe<ResolversTypes['ArtistAlbumsConnection']>, ParentType, ContextType, Partial<ArtistAlbumsArgs>>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
@@ -2801,6 +2815,7 @@ export type DeviceResolvers<ContextType = ContextValue, ParentType extends Resol
 }>;
 
 export type EpisodeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Episode'] = ResolversParentTypes['Episode']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Episode']>, { __typename: 'Episode' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   audioPreviewUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<EpisodeDescriptionArgs, 'format'>>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -2978,6 +2993,7 @@ export type PlayerResolvers<ContextType = ContextValue, ParentType extends Resol
 }>;
 
 export type PlaylistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Playlist']>, { __typename: 'Playlist' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   collaborative?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
@@ -3273,6 +3289,7 @@ export type SetVolumeResponseResolvers<ContextType = ContextValue, ParentType ex
 }>;
 
 export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Show']>, { __typename: 'Show' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
   episodes?: Resolver<Maybe<ResolversTypes['ShowEpisodesConnection']>, ParentType, ContextType, Partial<ShowEpisodesArgs>>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -3348,6 +3365,7 @@ export type TopTracksConnectionResolvers<ContextType = ContextValue, ParentType 
 }>;
 
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Track']>, { __typename: 'Track' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   audioFeatures?: Resolver<Maybe<ResolversTypes['TrackAudioFeatures']>, ParentType, ContextType>;
@@ -3407,6 +3425,7 @@ export type UpdateFieldConfigPayloadResolvers<ContextType = ContextValue, Parent
 }>;
 
 export type UserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;

@@ -24,6 +24,9 @@ const resolvers: ArtistResolvers = {
 
     return tracks;
   },
+  __resolveReference: (artist, { dataSources }) => {
+    return dataSources.spotify.getArtist(artist.id);
+  },
 };
 
 export default resolvers;

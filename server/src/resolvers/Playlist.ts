@@ -19,6 +19,9 @@ const resolvers: PlaylistResolvers = {
       items: playlistTracks.items.filter((item) => item.track),
     };
   },
+  __resolveReference: (playlist, { dataSources }) => {
+    return dataSources.spotify.getPlaylist(playlist.id);
+  },
 };
 
 export default resolvers;
