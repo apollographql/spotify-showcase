@@ -12,9 +12,11 @@ const resolvers: EpisodeResolvers = {
   isPlayable: prop('is_playable'),
   releaseDate: itself(),
   resumePoint: prop('resume_point'),
-  __resolveReference: (episode, { dataSources }) => {
-    return dataSources.spotify.getEpisode(episode.id);
-  },
+  // TODO: Add back when @apollo/subgraph adds subscription support
+  // https://github.com/apollographql/graphos-subscriptions/issues/123
+  // __resolveReference: (episode, { dataSources }) => {
+  //   return dataSources.spotify.getEpisode(episode.id);
+  // },
 };
 
 export default resolvers;

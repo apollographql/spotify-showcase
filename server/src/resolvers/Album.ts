@@ -16,9 +16,11 @@ const resolvers: AlbumResolvers = {
       offset: args.offset ?? undefined,
     });
   },
-  __resolveReference: (album, { dataSources }) => {
-    return dataSources.spotify.getAlbum(album.id);
-  },
+  // TODO: Add back when @apollo/subgraph adds subscription support
+  // https://github.com/apollographql/graphos-subscriptions/issues/123
+  // __resolveReference: (album, { dataSources }) => {
+  //   return dataSources.spotify.getAlbum(album.id);
+  // },
 };
 
 export default resolvers;

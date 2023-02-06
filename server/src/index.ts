@@ -3,7 +3,9 @@ import './env';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
-import { buildSubgraphSchema } from '@apollo/subgraph';
+// TODO: Add me back when @apollo/subgraph adds subscription support
+// https://github.com/apollographql/graphos-subscriptions/issues/123
+// import { buildSubgraphSchema } from '@apollo/subgraph';
 import { PubSub } from 'graphql-subscriptions';
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
@@ -21,8 +23,11 @@ import Publisher from './publisher';
 import { readEnv } from './utils/env';
 import { ContextValue } from './types';
 import { TOPICS } from './constants';
+// TODO: Remove me when @apollo/subgraph adds subscription support
+// https://github.com/apollographql/graphos-subscriptions/issues/123
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
-const schema = buildSubgraphSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const app = express();
 const httpServer = http.createServer(app);

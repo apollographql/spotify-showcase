@@ -14,9 +14,11 @@ const resolvers: ShowResolvers = {
   externalUrls: prop('external_urls'),
   isExternallyHosted: prop('is_externally_hosted'),
   mediaType: prop('media_type'),
-  __resolveReference: (show, { dataSources }) => {
-    return dataSources.spotify.getShow(show.id);
-  },
+  // TODO: Add back when @apollo/subgraph adds subscription support
+  // https://github.com/apollographql/graphos-subscriptions/issues/123
+  // __resolveReference: (show, { dataSources }) => {
+  //   return dataSources.spotify.getShow(show.id);
+  // },
 };
 
 export default resolvers;
