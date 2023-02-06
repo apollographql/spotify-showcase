@@ -16,11 +16,11 @@ export type ButtonProps<TButtonElement extends ElementType = 'button'> =
     }
   >;
 
-type ButtonCompoment = <TButtonElement extends ElementType = 'button'>(
+type ButtonComponent = <TButtonElement extends ElementType = 'button'>(
   props: ButtonProps<TButtonElement>
 ) => ReactElement | null;
 
-const Button: ButtonCompoment = forwardRef(function Button<
+const Button: ButtonComponent = forwardRef(function Button<
   TButtonElement extends ElementType = 'button'
 >(
   {
