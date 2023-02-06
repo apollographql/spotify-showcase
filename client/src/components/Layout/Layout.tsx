@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from 'react';
+import { ComponentPropsWithoutRef, CSSProperties, ReactNode } from 'react';
 import cx from 'classnames';
 import styles from './Layout.module.scss';
 
@@ -8,7 +8,8 @@ import Sidebar from './Sidebar';
 import useBackgroundColor from '../../hooks/useBackgroundColor';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
-interface LayoutProps {
+interface LayoutProps
+  extends Omit<ComponentPropsWithoutRef<'div'>, 'className'> {
   children: ReactNode;
 }
 
@@ -16,12 +17,15 @@ interface BackdropStyle extends CSSProperties {
   '--backdrop-color': string;
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, ...props }: LayoutProps) => {
   const isLoggedIn = useIsLoggedIn();
   const [backgroundColor] = useBackgroundColor();
 
   return (
-    <div className={cx(styles.layout, { [styles.isLoggedIn]: isLoggedIn })}>
+    <div
+      {...props}
+      className={cx(styles.layout, { [styles.isLoggedIn]: isLoggedIn })}
+    >
       <div
         className={cx(styles.layoutBackdrop, styles.withGradient)}
         style={{ '--backdrop-color': backgroundColor } as BackdropStyle}
