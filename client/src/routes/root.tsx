@@ -104,6 +104,8 @@ const Playlists = () => {
               >
                 Share
               </ContextMenu.SubMenu>
+              <ContextMenu.Separator />
+              <ContextMenuAction.OpenDesktopApp uri={playlist.uri} />
             </>
           }
         >
