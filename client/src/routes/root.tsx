@@ -60,7 +60,7 @@ const Root = () => {
 
   return (
     <ScrollContainerContext.Provider value={ref}>
-      <Layout>
+      <Layout onContextMenu={(e) => e.preventDefault()}>
         <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
         <Layout.Main ref={ref}>
           <Layout.Header />
@@ -104,6 +104,8 @@ const Playlists = () => {
               >
                 Share
               </ContextMenu.SubMenu>
+              <ContextMenu.Separator />
+              <ContextMenuAction.OpenDesktopApp uri={playlist.uri} />
             </>
           }
         >

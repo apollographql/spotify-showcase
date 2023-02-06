@@ -1,55 +1,48 @@
-import { ReactNode } from 'react';
+import { ReactNode, forwardRef } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
+import cx from 'classnames';
 import CoverPhoto, { CoverPhotoProps } from './CoverPhoto';
 import Text from './Text';
 import styles from './MediaTile.module.scss';
 import DelimitedList from './DelimitedList';
-import Flex from './Flex';
 
-interface MediaTileProps {
+interface MediaTileProps extends LinkProps {
   coverPhoto: CoverPhotoProps['image'];
   coverPhotoShape?: CoverPhotoProps['shape'];
   title: string;
   description: ReactNode;
-  to: LinkProps['to'];
 }
 
-const MediaTile = ({
-  coverPhoto,
-  coverPhotoShape,
-  description,
-  title,
-  to,
-}: MediaTileProps) => {
-  return (
-    <Flex
-      as={Link}
-      direction="column"
-      gap="1rem"
-      to={to}
-      className={styles.mediaTile}
-    >
-      <CoverPhoto
-        className={styles.coverPhoto}
-        image={coverPhoto}
-        shape={coverPhotoShape}
-      />
-      <Flex direction="column">
-        <Text wrap={false} overflow="ellipsis" weight="bold" title={title}>
-          {title}
-        </Text>
-        <DelimitedList
-          as={Text}
-          color="muted"
-          delimiter=" · "
-          size="sm"
-          maxLines={2}
-        >
-          {description}
-        </DelimitedList>
-      </Flex>
-    </Flex>
-  );
-};
+const MediaTile = forwardRef<HTMLAnchorElement, MediaTileProps>(
+  ({ coverPhoto, coverPhotoShape, description, title, ...props }, ref) => {
+    return (
+      <Link
+        {...props}
+        className={cx(styles.mediaTile, 'flex flex-col gap-4')}
+        ref={ref}
+      >
+        <CoverPhoto
+          className={styles.coverPhoto}
+          image={coverPhoto}
+          shape={coverPhotoShape}
+        />
+        <div className="flex flex-col">
+          <Text wrap={false} overflow="ellipsis" weight="bold" title={title}>
+            {title}
+          </Text>
+          <DelimitedList
+            as={Text}
+            color="muted"
+            delimiter=" · "
+            size="sm"
+            maxLines={2}
+          >
+            {description}
+          </DelimitedList>
+        </div>
+      </Link>
+    );
+  }
+);
 
 export default MediaTile;
