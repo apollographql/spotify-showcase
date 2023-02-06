@@ -24,9 +24,11 @@ const resolvers: ArtistResolvers = {
 
     return tracks;
   },
-  __resolveReference: (artist, { dataSources }) => {
-    return dataSources.spotify.getArtist(artist.id);
-  },
+  // TODO: Add back when @apollo/subgraph adds subscription support
+  // https://github.com/apollographql/graphos-subscriptions/issues/123
+  // __resolveReference: (artist, { dataSources }) => {
+  //   return dataSources.spotify.getArtist(artist.id);
+  // },
 };
 
 export default resolvers;

@@ -19,9 +19,11 @@ const resolvers: PlaylistResolvers = {
       items: playlistTracks.items.filter((item) => item.track),
     };
   },
-  __resolveReference: (playlist, { dataSources }) => {
-    return dataSources.spotify.getPlaylist(playlist.id);
-  },
+  // TODO: Add back when @apollo/subgraph adds subscription support
+  // https://github.com/apollographql/graphos-subscriptions/issues/123
+  // __resolveReference: (playlist, { dataSources }) => {
+  //   return dataSources.spotify.getPlaylist(playlist.id);
+  // },
 };
 
 export default resolvers;

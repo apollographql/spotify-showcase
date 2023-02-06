@@ -2275,17 +2275,6 @@ export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
-export type ReferenceResolver<TResult, TReference, TContext> = (
-      reference: TReference,
-      context: TContext,
-      info: GraphQLResolveInfo
-    ) => Promise<TResult> | TResult;
-
-      type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
-      type NullableCheck<T, S> = Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
-      type ListCheck<T, S> = T extends (infer U)[] ? NullableCheck<U, S>[] : GraphQLRecursivePick<T, S>;
-      export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
-    
 export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
@@ -2681,7 +2670,6 @@ export type AddItemsToPlaylistPayloadResolvers<ContextType = ContextValue, Paren
 }>;
 
 export type AlbumResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Album'] = ResolversParentTypes['Album']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Album']>, { __typename: 'Album' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   albumType?: Resolver<ResolversTypes['AlbumType'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   copyrights?: Resolver<Array<ResolversTypes['Copyright']>, ParentType, ContextType>;
@@ -2715,7 +2703,6 @@ export type AlbumTrackEdgeResolvers<ContextType = ContextValue, ParentType exten
 export type AlbumTypeResolvers = { ALBUM: 'album', COMPILATION: 'compilation', SINGLE: 'single' };
 
 export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Artist']>, { __typename: 'Artist' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   albums?: Resolver<Maybe<ResolversTypes['ArtistAlbumsConnection']>, ParentType, ContextType, Partial<ArtistAlbumsArgs>>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
@@ -2815,7 +2802,6 @@ export type DeviceResolvers<ContextType = ContextValue, ParentType extends Resol
 }>;
 
 export type EpisodeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Episode'] = ResolversParentTypes['Episode']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Episode']>, { __typename: 'Episode' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   audioPreviewUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<EpisodeDescriptionArgs, 'format'>>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -2993,7 +2979,6 @@ export type PlayerResolvers<ContextType = ContextValue, ParentType extends Resol
 }>;
 
 export type PlaylistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Playlist']>, { __typename: 'Playlist' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   collaborative?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
@@ -3289,7 +3274,6 @@ export type SetVolumeResponseResolvers<ContextType = ContextValue, ParentType ex
 }>;
 
 export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Show']>, { __typename: 'Show' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
   episodes?: Resolver<Maybe<ResolversTypes['ShowEpisodesConnection']>, ParentType, ContextType, Partial<ShowEpisodesArgs>>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -3365,7 +3349,6 @@ export type TopTracksConnectionResolvers<ContextType = ContextValue, ParentType 
 }>;
 
 export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Track']>, { __typename: 'Track' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
   audioFeatures?: Resolver<Maybe<ResolversTypes['TrackAudioFeatures']>, ParentType, ContextType>;
@@ -3425,7 +3408,6 @@ export type UpdateFieldConfigPayloadResolvers<ContextType = ContextValue, Parent
 }>;
 
 export type UserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
   displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;

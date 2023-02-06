@@ -478,7 +478,7 @@ type AddItemsToPlaylistPayload {
 }
 
 "Spotify catalog information for an album."
-type Album @key(fields:"id") {
+type Album { # @key(fields: "id")
   "The type of the album."
   albumType: AlbumType!
 
@@ -584,7 +584,7 @@ enum AlbumType {
 """
 Spotify catalog information for an artist.
 """
-type Artist @key(fields:"id") {
+type Artist { # @key(fields: "id")
   """
   Spotify catalog information about an artist's albums.
   """
@@ -973,7 +973,7 @@ type Device {
 }
 
 "Spotify catalog information for an episode."
-type Episode implements PlaylistTrack & PlaybackItem @key(fields:"id") {
+type Episode implements PlaylistTrack & PlaybackItem { # @key(fields: "id")
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
   """
@@ -1399,7 +1399,7 @@ type Player {
 }
 
 "Information about a playlist owned by a Spotify user"
-type Playlist @key(fields:"id") {
+type Playlist { # @key(fields:"id")
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the playlist.
@@ -1718,7 +1718,7 @@ enum RepeatMode {
 }
 
 "Spotify catalog information for a show."
-type Show @key(fields:"id") {
+type Show { # @key(fields: "id")
   "A description of the show."
   description(format: TextFormat = PLAIN): String!
 
@@ -1819,7 +1819,7 @@ enum TextFormat {
 }
 
 "Spotify catalog information for a track."
-type Track implements PlaylistTrack & PlaybackItem @key(fields:"id") {
+type Track implements PlaylistTrack & PlaybackItem { # @key(fields: "id")
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """
@@ -2023,7 +2023,7 @@ type TrackExternalIds {
 }
 
 "Public profile information about a Spotify user."
-type User @key(fields:"id") {
+type User { # @key(fields: "id")
   """
   The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
   """
