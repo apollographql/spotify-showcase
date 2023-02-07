@@ -3,13 +3,14 @@ import {
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import cx from 'classnames';
+import { Link } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
 import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
-import { DEFAULT_BACKGROUND_COLOR, LOGIN_URL } from '../constants';
+import { DEFAULT_BACKGROUND_COLOR } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
@@ -150,7 +151,7 @@ const LoggedOut = () => {
         </li>
       </ol>
       <p>
-        You are ready to go! <a href={LOGIN_URL}>Log in</a> to use the app.
+        You are ready to go! <Link to="/login">Log in</Link> to use the app.
       </p>
     </div>
   );

@@ -6,7 +6,7 @@ import {
   split,
 } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { readAuthToken } from './utils';
+import { readToken } from './auth';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
@@ -17,7 +17,7 @@ const httpLink = createHttpLink({
   uri: `${import.meta.env.VITE_SERVER_HOST}/graphql`,
   headers: {
     get 'x-api-token'() {
-      return readAuthToken();
+      return readToken('access');
     },
   },
 });
@@ -27,7 +27,7 @@ const wsLink = new GraphQLWsLink(
     url: `${import.meta.env.VITE_WEBSOCKET_HOST}/graphql`,
     connectionParams: {
       get apiToken() {
-        return readAuthToken();
+        return readToken('access');
       },
     },
   })

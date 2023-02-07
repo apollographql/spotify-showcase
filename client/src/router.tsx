@@ -28,13 +28,13 @@ import Settings, {
   LoadingState as SettingsLoadingState,
 } from './routes/settings';
 import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
+import { loader as loginLoader } from './routes/login';
 import { logout, login } from './auth';
+import { loader as oauthFinalizeLoader } from './routes/oauth/finalize';
 import { isLoggedInVar } from './vars';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
 import RootLoadingState from './components/RootLoadingState';
-
-import { LOGIN_URL } from './constants';
 
 const router = createBrowserRouter([
   {
@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    loader: () => redirect(LOGIN_URL),
+    loader: loginLoader,
   },
   {
     path: '/logout',
@@ -60,6 +60,11 @@ const router = createBrowserRouter([
       logout();
       return redirect('/');
     },
+  },
+  {
+    path: '/oauth/finalize',
+    errorElement: <RootErrorBoundary />,
+    loader: oauthFinalizeLoader,
   },
   {
     path: '/logged-out',

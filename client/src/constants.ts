@@ -1,6 +1,11 @@
-export const AUTH_TOKEN_KEY = 'authToken';
 export const DEFAULT_BACKGROUND_COLOR = 'var(--background--base)';
-export const LOGIN_URL = `${import.meta.env.VITE_SERVER_HOST}/oauth/init`;
+
+export const STORAGE_KEYS = {
+  ACCESS_TOKEN: 'access_token',
+  CODE_VERIFIER: 'codeVerifier',
+  REFRESH_TOKEN: 'refresh_token',
+  STATE: 'state',
+} as const;
 
 export const NOTIFICATION = {
   ADDED_TO_QUEUE: 'Added to queue',
@@ -12,3 +17,22 @@ export const NOTIFICATION = {
   SAVED_TRACK: 'Added to your Liked Songs',
   SAVED_TRACK_ERROR: 'Could not save to your Liked Songs',
 } as const;
+
+export const OAUTH_SCOPES = [
+  'streaming',
+  'user-follow-modify',
+  'user-follow-read',
+  'playlist-read-private',
+  'playlist-modify-private',
+  'playlist-read-collaborative',
+  'playlist-modify-public',
+  'user-modify-playback-state',
+  'user-read-email',
+  'user-read-currently-playing',
+  'user-read-playback-position',
+  'user-read-playback-state',
+  'user-library-read',
+  'user-library-modify',
+  'user-top-read',
+  'user-read-recently-played',
+] as const;

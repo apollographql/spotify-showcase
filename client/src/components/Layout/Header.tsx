@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight, Code2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Button from '../Button';
 import CurrentUserMenu from '../CurrentUserMenu';
 import ContextualGuidanceDialog from '../ContextualGuidanceDialog';
@@ -7,7 +8,6 @@ import useNavigationStack from '../../hooks/useNavigationStack';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';
 import styles from './Header.module.scss';
-import { LOGIN_URL } from '../../constants';
 import * as Welcome from '../../routes/index.welcome.mdx';
 import * as SuspenseContent from '../../routes/root.suspense.mdx';
 
@@ -41,7 +41,7 @@ const Header = () => {
         {isLoggedIn ? (
           <CurrentUserMenu />
         ) : (
-          <Button as="a" size="sm" variant="primary" href={LOGIN_URL}>
+          <Button as={Link} size="sm" variant="primary" to="/login">
             Log in
           </Button>
         )}
