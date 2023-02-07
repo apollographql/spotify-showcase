@@ -16,11 +16,6 @@ import offsetConnectionPagination from './fieldPolicies/offsetConnectionPaginati
 
 const httpLink = createHttpLink({
   uri: `${import.meta.env.VITE_SERVER_HOST}/graphql`,
-  headers: {
-    get 'x-api-token'() {
-      return readToken('access');
-    },
-  },
 });
 
 const wsLink = new GraphQLWsLink(
