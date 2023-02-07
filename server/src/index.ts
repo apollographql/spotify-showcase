@@ -99,12 +99,9 @@ server.start().then(async () => {
     json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
-        const token = req.get('x-api-token') ?? '';
+        const token = req.get('x-access-token') ?? '';
         const { cache } = server;
-        const spotify = new SpotifyAPI({
-          cache,
-          token: req.get('x-api-token') ?? '',
-        });
+        const spotify = new SpotifyAPI({ cache, token });
 
         return {
           defaultCountryCode,
