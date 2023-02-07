@@ -1,16 +1,13 @@
 import { isLoggedInVar } from './vars';
 import client from './apollo';
 import { STORAGE_KEYS } from './constants';
+import {
+  AccessTokenResponse,
+  RefreshAccessTokenResponse,
+  refreshAccessToken,
+} from './utils/oauth';
 
 type TokenType = 'access' | 'refresh';
-
-interface AccessTokenResponse {
-  access_token: string;
-  token_type: 'Bearer';
-  refresh_token: string;
-  expires_in: number;
-  scope: string;
-}
 
 const TOKEN_TO_STORAGE_KEYS = {
   access: STORAGE_KEYS.ACCESS_TOKEN,
@@ -30,13 +27,41 @@ const writeToken = (tokenType: TokenType, value: string) => {
 };
 
 export const login = (response: AccessTokenResponse) => {
+  const now = new Date();
+  const expiresAt = now.setSeconds(now.getSeconds() + response.expires_in);
+
   writeToken('access', response.access_token);
   writeToken('refresh', response.refresh_token);
+  localStorage.setItem(STORAGE_KEYS.EXPIRES_AT, String(expiresAt));
+
   isLoggedInVar(true);
+};
+
+export const refreshSession = (response: RefreshAccessTokenResponse) => {
+  const now = new Date();
+  const expiresAt = now.setSeconds(now.getSeconds() + response.expires_in);
+
+  writeToken('access', response.access_token);
+  localStorage.setItem(STORAGE_KEYS.EXPIRES_AT, String(expiresAt));
 };
 
 export const logout = () => {
   localStorage.clear();
   client.clearStore();
   isLoggedInVar(false);
+};
+
+export const getAccessToken = async () => {
+  const accessToken = readToken('access');
+  const expiresAt = Number(localStorage.getItem(STORAGE_KEYS.EXPIRES_AT));
+
+  if (accessToken && Date.now() < expiresAt) {
+    return accessToken;
+  }
+
+  const data = await refreshAccessToken();
+
+  refreshSession(data);
+
+  return data.access_token;
 };

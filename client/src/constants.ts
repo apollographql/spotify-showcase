@@ -1,9 +1,10 @@
 export const DEFAULT_BACKGROUND_COLOR = 'var(--background--base)';
 
 export const STORAGE_KEYS = {
-  ACCESS_TOKEN: 'access_token',
+  ACCESS_TOKEN: 'accessToken',
   CODE_VERIFIER: 'codeVerifier',
-  REFRESH_TOKEN: 'refresh_token',
+  EXPIRES_AT: 'expiresAt',
+  REFRESH_TOKEN: 'refreshToken',
   STATE: 'state',
 } as const;
 

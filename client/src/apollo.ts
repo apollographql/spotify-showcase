@@ -1,14 +1,15 @@
 import {
   ApolloClient,
-  ApolloLink,
   InMemoryCache,
   createHttpLink,
+  from,
   split,
 } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { readToken } from './auth';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
+import httpAuthLink from './apollo/httpAuthLink';
 import introspection from './introspection.json';
 import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
@@ -43,7 +44,7 @@ const splitLink = split(
     );
   },
   wsLink,
-  ApolloLink.from([httpLink])
+  from([httpAuthLink, httpLink])
 );
 
 export default new ApolloClient({
