@@ -14,7 +14,6 @@ import cx from 'classnames';
 import Flex from '../Flex';
 import ApolloLogo from '../ApolloLogo';
 import GradientIcon from '../GradientIcon';
-import SpotifyLogo from '../SpotifyLogo';
 import NavLink from './NavLink';
 import styles from './Sidebar.module.scss';
 import usePlaybackState from '../../hooks/usePlaybackState';
@@ -67,7 +66,6 @@ const Sidebar = ({ children }: SidebarProps) => {
         <div className={styles.sidebarLogo}>
           <Flex as={Link} to="/" inline alignItems="end" direction="column">
             <ApolloLogo size="225px" />
-            <SpotifyLogo size="100px" />
           </Flex>
         </div>
         <ul className={styles.sidebarNavSection}>
