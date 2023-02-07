@@ -45,7 +45,7 @@ const serverCleanup = useServer(
   {
     schema,
     onConnect: (ctx) => {
-      const token = ctx.connectionParams?.apiToken;
+      const token = ctx.connectionParams?.accessToken;
 
       if (!token) {
         return false;
@@ -55,7 +55,7 @@ const serverCleanup = useServer(
       pubsub.publish(TOPICS.DISCONNECT, true);
     },
     context: (ctx) => {
-      const token = ctx.connectionParams!.apiToken! as string;
+      const token = ctx.connectionParams!.accessToken! as string;
       const spotify = new SpotifyAPI({
         cache: server.cache,
         token,

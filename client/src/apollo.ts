@@ -6,7 +6,7 @@ import {
   split,
 } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { readToken } from './auth';
+import { getAccessToken } from './auth';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import httpAuthLink from './apollo/httpAuthLink';
@@ -21,11 +21,9 @@ const httpLink = createHttpLink({
 const wsLink = new GraphQLWsLink(
   createClient({
     url: `${import.meta.env.VITE_WEBSOCKET_HOST}/graphql`,
-    connectionParams: {
-      get apiToken() {
-        return readToken('access');
-      },
-    },
+    connectionParams: async () => ({
+      accessToken: await getAccessToken(),
+    }),
   })
 );
 
