@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { PlaylistTile_playlist as Playlist } from '../types/api';
 import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
+import CoverPhoto from './CoverPhoto';
 import MediaTile from './MediaTile';
 
 interface PlaylistTileProps {
@@ -24,7 +25,7 @@ const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
       }
     >
       <MediaTile
-        coverPhoto={playlist.images[0]}
+        coverPhoto={<CoverPhoto image={playlist.images[0]} />}
         description={
           <span
             dangerouslySetInnerHTML={{ __html: playlist.description ?? '' }}
