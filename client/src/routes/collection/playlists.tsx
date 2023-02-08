@@ -53,7 +53,11 @@ const CollectionPlaylistsRoute = () => {
           <PlaylistTile key={playlist.id} playlist={playlist} />
         ))}
       </TileGrid>
-      <PaginationObserver fetchMore={fetchMore} pageInfo={pageInfo} />
+      <PaginationObserver
+        fetchMore={fetchMore}
+        pageInfo={playlistPageInfo}
+        threshold="500px"
+      />
     </div>
   );
 };
