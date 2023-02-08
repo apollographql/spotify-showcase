@@ -54,7 +54,9 @@ const CollectionPlaylistsRoute = () => {
         ))}
       </TileGrid>
       <PaginationObserver
-        fetchMore={fetchMore}
+        fetchMore={({ variables }) =>
+          fetchMore({ query: PAGINATED_QUERY, variables })
+        }
         pageInfo={playlistPageInfo}
         threshold="500px"
       />
