@@ -14,6 +14,17 @@ module.exports = {
         'MS Gothic',
         'sans-serif',
       ],
+      title: [
+        'CircularSpTitle',
+        'CircularSpTitle-Tall',
+        'Helvetica Neue',
+        'Helvetica',
+        'Arial',
+        'Hiragino Kaku Gothic Pro',
+        'Meiryo',
+        'MS Gothic',
+        'sans-serif',
+      ],
     },
     colors: {
       black: {
