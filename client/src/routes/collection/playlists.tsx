@@ -117,9 +117,11 @@ const CollectionPlaylistsRoute = () => {
           description={`${episodePageInfo.total} episodes`}
           coverPhoto={
             <GradientIcon
-              backgroundColor="var(--color--theme)"
+              backgroundColor="#056952"
               lucideIcon={Bookmark}
-              iconSize="100px"
+              className="w-full rounded"
+              iconSize="50%"
+              fill="var(--color--theme)"
             />
           }
         />
