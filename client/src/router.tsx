@@ -27,6 +27,7 @@ import TrackRoute, {
 import Settings, {
   LoadingState as SettingsLoadingState,
 } from './routes/settings';
+import CollectionRoute from './routes/collection';
 import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
 import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
@@ -157,6 +158,10 @@ const router = createBrowserRouter([
                 <CollectionTracksRoute />
               </Suspense>
             ),
+          },
+          {
+            path: 'collection',
+            element: <CollectionRoute />,
           },
         ],
       },
