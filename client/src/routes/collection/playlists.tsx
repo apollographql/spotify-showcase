@@ -9,9 +9,53 @@ import {
 import PlaylistTile from '../../components/PlaylistTile';
 import TileGrid from '../../components/TileGrid';
 import PaginationObserver from '../../components/PaginationObserver';
+import LikedSongsTile from '../../components/LikedSongsTile';
 
 const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
   query CollectionPlaylistsRouteQuery($offset: Int, $limit: Int) {
+    me {
+      tracks(limit: 10) @connection(key: "collectionPlaylistsTracks") {
+        # We need to select this data here even though its present in the
+        # fragment due to a bug in the cache. Without re-selecting the fields
+        # here, the data comes back empty.
+        pageInfo {
+          total
+        }
+        edges {
+          node {
+            id
+            name
+            artists {
+              id
+              name
+            }
+          }
+        }
+        ...LikedSongsTile_connection
+      }
+      playlists(offset: $offset, limit: $limit)
+        @connection(key: "collectionPlaylists") {
+        pageInfo {
+          offset
+          limit
+          hasNextPage
+        }
+        edges {
+          node {
+            id
+            ...PlaylistTile_playlist
+          }
+        }
+      }
+    }
+  }
+
+  ${LikedSongsTile.fragments.connection}
+  ${PlaylistTile.fragments.playlist}
+`;
+
+const PAGINATED_QUERY = gql`
+  query CollectionPlaylistsRoutePaginatedQuery($offset: Int, $limit: Int) {
     me {
       playlists(offset: $offset, limit: $limit)
         @connection(key: "collectionPlaylists") {
@@ -42,13 +86,22 @@ const CollectionPlaylistsRoute = () => {
     variables: { limit: 50 },
   });
 
-  const pageInfo = data.me?.playlists?.pageInfo;
-  const playlists = data.me?.playlists?.edges?.map((edge) => edge.node) ?? [];
+  if (!data.me || !data.me.playlists || !data.me.tracks) {
+    throw new Error('Something went wrong');
+  }
+
+  const {
+    playlists: { pageInfo: playlistPageInfo, edges: playlistEdges },
+    tracks,
+  } = data.me;
+
+  const playlists = playlistEdges.map((edge) => edge.node);
 
   return (
     <div className="flex flex-col gap-4">
       <h1 className="mb-0 text-2xl">Playlists</h1>
       <TileGrid gap="1.5rem" minTileWidth="200px">
+        <LikedSongsTile connection={tracks} className="col-span-2" />
         {playlists.map((playlist) => (
           <PlaylistTile key={playlist.id} playlist={playlist} />
         ))}
