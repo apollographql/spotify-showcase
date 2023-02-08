@@ -790,6 +790,18 @@ type CurrentUser {
     ids: [ID!]!
   ): [Boolean!]
 
+  episodes(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with `limit` to get the next set of items.
+    """
+    offset: Int
+  ): SavedEpisodesConnection
+
   """
   Check if one or more episodes is already saved in the current Spotify user's
   'Your Episodes' library.
@@ -2117,6 +2129,26 @@ type SavedAlbumEdge {
 
   "The album object."
   node: Album!
+}
+
+type SavedEpisodesConnection {
+  """
+  The list of saved episodes.
+  """
+  edges: [SavedEpisodeEdge!]!
+
+  """
+  Pagination information for the set of episodes
+  """
+  pageInfo: PageInfo!
+}
+
+type SavedEpisodeEdge {
+  "The date the episode was saved."
+  addedAt: DateTime!
+
+  "The saved episode."
+  node: Episode!
 }
 
 type SavedTracksConnection {

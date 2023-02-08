@@ -433,6 +433,11 @@ export namespace Spotify {
       album: Album;
     }
 
+    export interface SavedEpisode {
+      added_at: string;
+      episode: Episode;
+    }
+
     export interface SavedTrack {
       added_at: string;
       track: Track;
@@ -615,6 +620,7 @@ export namespace Spotify {
       '/me': Object.CurrentUser;
       '/me/albums': Object.Paginated<Object.SavedAlbum>;
       '/me/albums/contains': boolean[];
+      '/me/episodes': Object.Paginated<Object.SavedEpisode>;
       '/me/episodes/contains': boolean[];
       '/me/following': WithinKey<
         'artists',
@@ -851,6 +857,11 @@ export namespace Spotify {
         };
         '/me/albums/contains': {
           ids: string;
+        };
+        '/me/episodes': {
+          limit?: number;
+          offset?: number;
+          market?: string;
         };
         '/me/episodes/contains': {
           ids: string;
