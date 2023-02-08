@@ -277,6 +277,7 @@ export type CurrentUser = {
    * 'Your Music' library.
    */
   albumsContains: Maybe<Array<Scalars['Boolean']>>;
+  episodes: Maybe<SavedEpisodesConnection>;
   /**
    * Check if one or more episodes is already saved in the current Spotify user's
    * 'Your Episodes' library.
@@ -318,6 +319,12 @@ export type CurrentUseralbumsArgs = {
 
 export type CurrentUseralbumsContainsArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUserepisodesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1590,6 +1597,22 @@ export type SavedAlbumsConnection = {
   pageInfo: PageInfo;
 };
 
+export type SavedEpisodeEdge = {
+  __typename: 'SavedEpisodeEdge';
+  /** The date the episode was saved. */
+  addedAt: Scalars['DateTime'];
+  /** The saved episode. */
+  node: Episode;
+};
+
+export type SavedEpisodesConnection = {
+  __typename: 'SavedEpisodesConnection';
+  /** The list of saved episodes. */
+  edges: Array<SavedEpisodeEdge>;
+  /** Pagination information for the set of episodes */
+  pageInfo: PageInfo;
+};
+
 export type SavedTrackEdge = {
   __typename: 'SavedTrackEdge';
   /** The date the track was saved. */
@@ -2548,7 +2571,7 @@ export type CollectionPlaylistsRouteQueryVariables = Exact<{
 }>;
 
 
-export type CollectionPlaylistsRouteQuery = { me: { __typename: 'CurrentUser', tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionPlaylistsRouteQuery = { me: { __typename: 'CurrentUser', episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number } } | null, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
 export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;

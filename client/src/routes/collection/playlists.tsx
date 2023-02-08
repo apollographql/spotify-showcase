@@ -10,10 +10,18 @@ import PlaylistTile from '../../components/PlaylistTile';
 import TileGrid from '../../components/TileGrid';
 import PaginationObserver from '../../components/PaginationObserver';
 import LikedSongsTile from '../../components/LikedSongsTile';
+import MediaTile from '../../components/MediaTile';
+import GradientIcon from '../../components/GradientIcon';
+import { Bookmark } from 'lucide-react';
 
 const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
   query CollectionPlaylistsRouteQuery($offset: Int, $limit: Int) {
     me {
+      episodes {
+        pageInfo {
+          total
+        }
+      }
       tracks(limit: 10) @connection(key: "collectionPlaylistsTracks") {
         # We need to select this data here even though its present in the
         # fragment due to a bug in the cache. Without re-selecting the fields
@@ -86,11 +94,12 @@ const CollectionPlaylistsRoute = () => {
     variables: { limit: 50 },
   });
 
-  if (!data.me || !data.me.playlists || !data.me.tracks) {
+  if (!data.me || !data.me.playlists || !data.me.tracks || !data.me.episodes) {
     throw new Error('Something went wrong');
   }
 
   const {
+    episodes: { pageInfo: episodePageInfo },
     playlists: { pageInfo: playlistPageInfo, edges: playlistEdges },
     tracks,
   } = data.me;
@@ -102,6 +111,18 @@ const CollectionPlaylistsRoute = () => {
       <h1 className="mb-0 text-2xl">Playlists</h1>
       <TileGrid gap="1.5rem" minTileWidth="200px">
         <LikedSongsTile connection={tracks} className="col-span-2" />
+        <MediaTile
+          to="/collection/episodes"
+          title="Your Episodes"
+          description={`${episodePageInfo.total} episodes`}
+          coverPhoto={
+            <GradientIcon
+              backgroundColor="var(--color--theme)"
+              lucideIcon={Bookmark}
+              iconSize="100px"
+            />
+          }
+        />
         {playlists.map((playlist) => (
           <PlaylistTile key={playlist.id} playlist={playlist} />
         ))}
