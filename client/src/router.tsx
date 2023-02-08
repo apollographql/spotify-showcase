@@ -28,7 +28,11 @@ import Settings, {
   LoadingState as SettingsLoadingState,
 } from './routes/settings';
 import CollectionRoute from './routes/collection';
+import CollectionPlaylistsRoute, {
+  LoadingState as CollectionPlaylistsRouteLoadingState,
+} from './routes/collection/playlists';
 import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
+import * as CollectionIndexRoute from './routes/collection/index';
 import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
 
@@ -162,6 +166,17 @@ const router = createBrowserRouter([
           {
             path: 'collection',
             element: <CollectionRoute />,
+            children: [
+              { index: true, loader: CollectionIndexRoute.loader },
+              {
+                path: 'playlists',
+                element: (
+                  <Suspense fallback={<CollectionPlaylistsRouteLoadingState />}>
+                    <CollectionPlaylistsRoute />
+                  </Suspense>
+                ),
+              },
+            ],
           },
         ],
       },
