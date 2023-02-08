@@ -25,7 +25,11 @@ const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
     >
       <MediaTile
         coverPhoto={playlist.images[0]}
-        description={playlist.description}
+        description={
+          <span
+            dangerouslySetInnerHTML={{ __html: playlist.description ?? '' }}
+          />
+        }
         title={playlist.name}
         to={`/playlists/${playlist.id}`}
       />
