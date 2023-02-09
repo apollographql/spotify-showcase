@@ -3,6 +3,7 @@ import { AlbumTile_album as Album } from '../types/api';
 import { capitalize } from '../utils/string';
 import { yearOfRelease } from '../utils/releaseDate';
 import MediaTile from './MediaTile';
+import CoverPhoto from './CoverPhoto';
 
 interface AlbumTileProps {
   album: Album;
@@ -11,7 +12,7 @@ interface AlbumTileProps {
 const AlbumTile = ({ album }: AlbumTileProps) => {
   return (
     <MediaTile
-      coverPhoto={album.images[0]}
+      coverPhoto={<CoverPhoto image={album.images[0]} />}
       description={[
         <span key="releaseDate">{yearOfRelease(album.releaseDate)}</span>,
         <span key="albumType">

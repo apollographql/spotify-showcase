@@ -277,6 +277,7 @@ export type CurrentUser = {
    * 'Your Music' library.
    */
   albumsContains: Maybe<Array<Scalars['Boolean']>>;
+  episodes: Maybe<SavedEpisodesConnection>;
   /**
    * Check if one or more episodes is already saved in the current Spotify user's
    * 'Your Episodes' library.
@@ -318,6 +319,12 @@ export type CurrentUseralbumsArgs = {
 
 export type CurrentUseralbumsContainsArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+export type CurrentUserepisodesArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1590,6 +1597,22 @@ export type SavedAlbumsConnection = {
   pageInfo: PageInfo;
 };
 
+export type SavedEpisodeEdge = {
+  __typename: 'SavedEpisodeEdge';
+  /** The date the episode was saved. */
+  addedAt: Scalars['DateTime'];
+  /** The saved episode. */
+  node: Episode;
+};
+
+export type SavedEpisodesConnection = {
+  __typename: 'SavedEpisodesConnection';
+  /** The list of saved episodes. */
+  edges: Array<SavedEpisodeEdge>;
+  /** Pagination information for the set of episodes */
+  pageInfo: PageInfo;
+};
+
 export type SavedTrackEdge = {
   __typename: 'SavedTrackEdge';
   /** The date the track was saved. */
@@ -2330,6 +2353,10 @@ type LikeControl_playbackItem_Track_ = { __typename: 'Track', id: string };
 
 export type LikeControl_playbackItem = LikeControl_playbackItem_Episode_ | LikeControl_playbackItem_Track_;
 
+export type LikedSongsTile_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+
+export type LikedSongsTile_connection = { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> };
+
 export type NotificationManager_playbackState = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null } };
 
 export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
@@ -2539,6 +2566,22 @@ export type ArtistRouteQueryVariables = Exact<{
 export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, albums: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null, singles: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null, appearsOn: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }>, relatedArtists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }>, topTracks: Array<{ __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
 
 export type ArtistRouteQuery_albums = { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> };
+
+export type CollectionPlaylistsRouteQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type CollectionPlaylistsRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string }, episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number } } | null, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type CollectionPlaylistsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
 export type CollectionTracksRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;

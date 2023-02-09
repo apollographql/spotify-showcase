@@ -1,9 +1,9 @@
 .gradientIcon {
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 0.125rem;
   background: var(--gradient-icon--background-color);
   width: var(--gradient-icon--size);
-  height: var(--gradient-icon--size);
 }

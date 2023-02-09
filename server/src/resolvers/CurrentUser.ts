@@ -12,6 +12,12 @@ const resolvers: CurrentUserResolvers = {
   albumsContains: (_, { ids }, { dataSources }) => {
     return dataSources.spotify.checkContainsAlbums(ids.join(','));
   },
+  episodes: (_, { limit, offset }, { dataSources }) => {
+    return dataSources.spotify.getCurrentUserEpisodes({
+      limit: maybe(limit),
+      offset: maybe(offset),
+    });
+  },
   episodesContains: (_, { ids }, { dataSources }) => {
     return dataSources.spotify.checkContainsEpisodes(ids.join(','));
   },

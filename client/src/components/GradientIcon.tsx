@@ -1,11 +1,13 @@
 import { CSSProperties, ElementType } from 'react';
 import { LucideProps } from 'lucide-react';
+import cx from 'classnames';
 import styles from './GradientIcon.module.scss';
 
 type BackgroundColor = CSSProperties['backgroundColor'];
 type Size = CSSProperties['width'];
 
 interface GradientIconProps {
+  className?: string;
   backgroundColor: BackgroundColor;
   fill?: LucideProps['fill'];
   size?: Size;
@@ -19,6 +21,7 @@ interface GradientIconStyle extends CSSProperties {
 }
 
 const GradientIcon = ({
+  className,
   backgroundColor,
   fill = 'currentColor',
   lucideIcon: Icon,
@@ -27,7 +30,7 @@ const GradientIcon = ({
 }: GradientIconProps) => {
   return (
     <div
-      className={styles.gradientIcon}
+      className={cx(styles.gradientIcon, className)}
       style={
         {
           '--gradient-icon--background-color': backgroundColor,

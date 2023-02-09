@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 import { ArtistTile_artist as Artist } from '../types/api';
+import CoverPhoto from './CoverPhoto';
 import MediaTile from './MediaTile';
 
 interface ArtistTileProps {
@@ -9,8 +10,7 @@ interface ArtistTileProps {
 const ArtistTile = ({ artist }: ArtistTileProps) => {
   return (
     <MediaTile
-      coverPhoto={artist.images[0]}
-      coverPhotoShape="circle"
+      coverPhoto={<CoverPhoto shape="circle" image={artist.images[0]} />}
       description="Artist"
       title={artist.name}
       to={`/artists/${artist.id}`}
