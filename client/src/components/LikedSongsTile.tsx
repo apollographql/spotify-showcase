@@ -42,15 +42,15 @@ const LikedSongsTile = ({
   });
 
   const spotifyURI = `spotify:user:${currentUser.id}:collection`;
-  const isPlaying = playbackState?.isPlaying ?? false;
   const isPlayingLikedSongs = playbackState?.context?.uri === spotifyURI;
+  const isPlaying = isPlayingLikedSongs && playbackState?.isPlaying;
 
   return (
     <Link
       to="/collection/tracks"
       className={cx(
         className,
-        'p-4 bg-[linear-gradient(149.46deg,#450af5,#8e8ee5_99.16%)] hover:no-underline rounded flex relative'
+        'p-4 bg-[linear-gradient(149.46deg,#450af5,#8e8ee5_99.16%)] hover:no-underline rounded flex relative group overflow-hidden'
       )}
     >
       <div className="flex flex-col gap-6 flex-1">
@@ -75,10 +75,13 @@ const LikedSongsTile = ({
         </div>
       </div>
       <PlayButton
-        playing={isPlaying && isPlayingLikedSongs}
+        playing={isPlaying}
         size="3rem"
         variant="primary"
-        className="absolute right-4 bottom-4 shadow-md"
+        className={cx('absolute right-4 bottom-4 shadow-md', {
+          'group-hover:translate-y-0 group-hover:opacity-100 translate-y-2 opacity-0':
+            !isPlaying,
+        })}
         onPlay={() => {
           const input = isPlayingLikedSongs
             ? undefined
