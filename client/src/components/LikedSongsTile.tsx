@@ -78,7 +78,7 @@ const LikedSongsTile = ({
         playing={isPlaying && isPlayingLikedSongs}
         size="3rem"
         variant="primary"
-        className="absolute right-4 bottom-4 shadow-sm"
+        className="absolute right-4 bottom-4 shadow-md"
         onPlay={() => {
           const input = isPlayingLikedSongs
             ? undefined
