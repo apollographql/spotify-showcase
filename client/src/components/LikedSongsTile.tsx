@@ -1,18 +1,49 @@
 import { gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { LikedSongsTile_connection as SavedTracksConnection } from '../types/api';
+import {
+  LikedSongsTile_connection as SavedTracksConnection,
+  LikedSongsTile_playbackState as PlaybackState,
+} from '../types/api';
 import cx from 'classnames';
 import DelimitedList from './DelimitedList';
 import PlayButton from './PlayButton';
+import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
+import usePlaybackState from '../hooks/usePlaybackState';
+
+interface CurrentUser {
+  id: string;
+}
 
 interface LikedSongsTileProps {
   className?: string;
   connection: SavedTracksConnection;
+  currentUser: CurrentUser;
 }
 
-const LikedSongsTile = ({ className, connection }: LikedSongsTileProps) => {
+const PLAYBACK_STATE_FRAGMENT = gql`
+  fragment LikedSongsTile_playbackState on PlaybackState {
+    isPlaying
+    context {
+      uri
+    }
+  }
+`;
+
+const LikedSongsTile = ({
+  className,
+  connection,
+  currentUser,
+}: LikedSongsTileProps) => {
   const { pageInfo, edges } = connection;
   const tracks = edges.map((edge) => edge.node);
+  const [resumePlayback] = useResumePlaybackMutation();
+  const playbackState = usePlaybackState<PlaybackState>({
+    fragment: PLAYBACK_STATE_FRAGMENT,
+  });
+
+  const spotifyURI = `spotify:user:${currentUser.id}:collection`;
+  const isPlaying = playbackState?.isPlaying ?? false;
+  const isPlayingLikedSongs = playbackState?.context?.uri === spotifyURI;
 
   return (
     <Link
@@ -44,10 +75,17 @@ const LikedSongsTile = ({ className, connection }: LikedSongsTileProps) => {
         </div>
       </div>
       <PlayButton
-        playing={false}
+        playing={isPlaying && isPlayingLikedSongs}
         size="3rem"
         variant="primary"
         className="absolute right-4 bottom-4 shadow-sm"
+        onPlay={() => {
+          const input = isPlayingLikedSongs
+            ? undefined
+            : { offset: { position: 0 }, contextUri: spotifyURI };
+
+          resumePlayback(input);
+        }}
       />
     </Link>
   );

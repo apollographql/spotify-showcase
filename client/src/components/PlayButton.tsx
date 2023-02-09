@@ -44,7 +44,9 @@ const PlayButton = ({
           }
         )}
         style={{ '--play-button--size': size } as StyleProps}
-        onClick={() => {
+        onClick={(e) => {
+          e.preventDefault();
+
           return playing ? pause() : onClickPlay?.();
         }}
       >

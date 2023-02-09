@@ -17,6 +17,9 @@ import { Bookmark } from 'lucide-react';
 const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
   query CollectionPlaylistsRouteQuery($offset: Int, $limit: Int) {
     me {
+      user {
+        id
+      }
       episodes {
         pageInfo {
           total
@@ -99,6 +102,7 @@ const CollectionPlaylistsRoute = () => {
   }
 
   const {
+    user: currentUser,
     episodes: { pageInfo: episodePageInfo },
     playlists: { pageInfo: playlistPageInfo, edges: playlistEdges },
     tracks,
@@ -110,7 +114,11 @@ const CollectionPlaylistsRoute = () => {
     <div className="flex flex-col gap-4">
       <h1 className="mb-0 text-2xl">Playlists</h1>
       <TileGrid gap="1.5rem" minTileWidth="200px">
-        <LikedSongsTile connection={tracks} className="col-span-2" />
+        <LikedSongsTile
+          connection={tracks}
+          className="col-span-2"
+          currentUser={currentUser}
+        />
         <MediaTile
           to="/collection/episodes"
           title="Your Episodes"

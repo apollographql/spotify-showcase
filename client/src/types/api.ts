@@ -2353,6 +2353,8 @@ type LikeControl_playbackItem_Track_ = { __typename: 'Track', id: string };
 
 export type LikeControl_playbackItem = LikeControl_playbackItem_Episode_ | LikeControl_playbackItem_Track_;
 
+export type LikedSongsTile_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+
 export type LikedSongsTile_connection = { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> };
 
 export type NotificationManager_playbackState = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null } };
@@ -2571,7 +2573,7 @@ export type CollectionPlaylistsRouteQueryVariables = Exact<{
 }>;
 
 
-export type CollectionPlaylistsRouteQuery = { me: { __typename: 'CurrentUser', episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number } } | null, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionPlaylistsRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string }, episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number } } | null, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
 export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
