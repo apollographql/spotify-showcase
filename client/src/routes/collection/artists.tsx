@@ -9,6 +9,7 @@ import {
 import ArtistTile from '../../components/ArtistTile';
 import CursorBasedPaginationObserver from '../../components/CursorBasedPaginationObserver';
 import TileGrid from '../../components/TileGrid';
+import Skeleton from '../../components/Skeleton';
 
 const COLLECTION_ARTISTS_ROUTE_QUERY = gql`
   query CollectionArtistsRouteQuery($after: String) {
@@ -63,7 +64,16 @@ export const Component = () => {
 
 Component.displayName = 'CollectionArtistsRoute';
 
-// TODO: Update loading state
 export const LoadingState = () => {
-  return <div />;
+  return (
+    <div className="flex flex-col gap-4">
+      <h1 className="mb-0 text-2xl">Artists</h1>
+      <Skeleton.TileGrid
+        gap="1rem"
+        template={<Skeleton.MediaTile description coverPhotoShape="circle" />}
+        tileCount={15}
+        minTileWidth="200px"
+      />
+    </div>
+  );
 };
