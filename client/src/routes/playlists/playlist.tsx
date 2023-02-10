@@ -15,7 +15,7 @@ import Page from '../../components/Page';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import PlaylistTable from '../../components/PlaylistTable';
 import PlayButton from '../../components/PlayButton';
-import PaginationObserver from '../../components/PaginationObserver';
+import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';
 import Skeleton from '../../components/Skeleton';
 import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
@@ -129,7 +129,7 @@ const Playlist = () => {
           />
         </Page.ActionsBar>
         <PlaylistTable playlist={playlist} tracksContains={tracksContains} />
-        <PaginationObserver
+        <OffsetBasedPaginationObserver
           fetchMore={fetchMore}
           pageInfo={tracks.pageInfo}
           threshold="1000px"

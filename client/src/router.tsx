@@ -33,6 +33,7 @@ import CollectionPlaylistsRoute, {
 } from './routes/collection/playlists';
 import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
 import * as CollectionIndexRoute from './routes/collection/index';
+import * as CollectionArtistsRoute from './routes/collection/artists';
 import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
 
@@ -173,6 +174,14 @@ const router = createBrowserRouter([
                 element: (
                   <Suspense fallback={<CollectionPlaylistsRouteLoadingState />}>
                     <CollectionPlaylistsRoute />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'artists',
+                element: (
+                  <Suspense fallback={<CollectionArtistsRoute.LoadingState />}>
+                    <CollectionArtistsRoute.Component />
                   </Suspense>
                 ),
               },

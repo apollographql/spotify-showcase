@@ -2,27 +2,29 @@ import { RefObject, useRef } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 import useScrollContainer from './useScrollContainer';
 
-interface PageInfo {
-  offset: number;
-  limit: number;
-  hasNextPage: boolean;
+interface Cursors {
+  after: string | null;
 }
 
-export interface UsePaginationObserverOptions {
-  fetchMore: (options: { variables: { offset: number } }) => Promise<unknown>;
+interface PageInfo {
+  cursors: Cursors | null;
+}
+
+export interface UseCursorBasedPaginationObserverOptions {
+  fetchMore: (options: { variables: { after: string } }) => Promise<unknown>;
   pageInfo: PageInfo | undefined;
   scrollContainer?: Element | null;
   threshold?: `${string}px`;
 }
 
-const usePaginationObserver = (
+const useCursorBasedPaginationObserver = (
   ref: RefObject<Element | undefined>,
   {
     fetchMore,
     scrollContainer,
     pageInfo,
     threshold = '500px',
-  }: UsePaginationObserverOptions
+  }: UseCursorBasedPaginationObserverOptions
 ) => {
   const isLoadingRef = useRef(false);
   const defaultScrollContainer = useScrollContainer();
@@ -34,12 +36,12 @@ const usePaginationObserver = (
       rootMargin: `0px 0px ${threshold} 0px`,
     },
     async ([{ isIntersecting }]) => {
-      if (isIntersecting && pageInfo?.hasNextPage && !isLoadingRef.current) {
-        const { offset, limit } = pageInfo;
+      if (isIntersecting && pageInfo?.cursors?.after && !isLoadingRef.current) {
+        const { after } = pageInfo.cursors;
 
         isLoadingRef.current = true;
 
-        await fetchMore({ variables: { offset: offset + limit } });
+        await fetchMore({ variables: { after } });
 
         isLoadingRef.current = false;
       }
@@ -47,4 +49,4 @@ const usePaginationObserver = (
   );
 };
 
-export default usePaginationObserver;
+export default useCursorBasedPaginationObserver;

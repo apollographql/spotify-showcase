@@ -2567,6 +2567,13 @@ export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, nam
 
 export type ArtistRouteQuery_albums = { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> };
 
+export type CollectionArtistsRouteQueryVariables = Exact<{
+  after?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type CollectionArtistsRouteQuery = { me: { __typename: 'CurrentUser', followedArtists: { __typename: 'FollowedArtistsConnection', pageInfo: { __typename: 'PageInfoCursorBased', cursors: { __typename: 'Cursors', after: string | null } | null }, edges: Array<{ __typename: 'FollowedArtistEdge', node: { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+
 export type CollectionPlaylistsRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;

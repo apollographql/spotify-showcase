@@ -20,7 +20,7 @@ import NotificationManager from '../components/NotificationManager';
 import ContextMenu from '../components/ContextMenu';
 import ContextMenuAction from '../components/ContextMenuAction';
 import ScrollContainerContext from '../components/ScrollContainerContext';
-import PaginationObserver from '../components/PaginationObserver';
+import OffsetBasedPaginationObserver from '../components/OffsetBasedPaginationObserver';
 
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -120,7 +120,7 @@ const Playlists = () => {
           </Layout.Sidebar.NavLink>
         </ContextMenu>
       ))}
-      <PaginationObserver
+      <OffsetBasedPaginationObserver
         pageInfo={data.me?.playlists?.pageInfo}
         fetchMore={fetchMore}
         scrollContainer={scrollContainer}
