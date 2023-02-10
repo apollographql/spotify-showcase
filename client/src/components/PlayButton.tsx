@@ -38,7 +38,7 @@ const PlayButton = ({
           'focus:outline-0',
           'disabled:cursor-not-allowed disabled:opacity-25',
           {
-            'bg-green border-green hover:bg-green-light hover:border-green-light text-black-pure':
+            'bg-green-light border-green-light text-black-pure':
               variant === 'primary',
             'text-black-pure border-white bg-white': variant === 'secondary',
           }
