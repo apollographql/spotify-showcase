@@ -8,7 +8,7 @@ import {
 } from '../../types/api';
 import PlaylistTile from '../../components/PlaylistTile';
 import TileGrid from '../../components/TileGrid';
-import PaginationObserver from '../../components/PaginationObserver';
+import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';
 import LikedSongsTile from '../../components/LikedSongsTile';
 import MediaTile from '../../components/MediaTile';
 import GradientIcon from '../../components/GradientIcon';
@@ -137,7 +137,7 @@ const CollectionPlaylistsRoute = () => {
           <PlaylistTile key={playlist.id} playlist={playlist} />
         ))}
       </TileGrid>
-      <PaginationObserver
+      <OffsetBasedPaginationObserver
         fetchMore={({ variables }) =>
           fetchMore({ query: PAGINATED_QUERY, variables })
         }

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -28,10 +29,8 @@ import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
-import PaginationObserver from '../../components/PaginationObserver';
-import { useEffect, useRef } from 'react';
+import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';
 import TrackLikeButtonCell from '../../components/TrackLikeButtonCell';
-import usePaginationObserver from '../../hooks/usePaginationObserver';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
@@ -229,7 +228,7 @@ const CollectionTracksRoute = () => {
           }}
         />
       </Page.Content>
-      <PaginationObserver
+      <OffsetBasedPaginationObserver
         fetchMore={fetchMore}
         pageInfo={currentUser.tracks?.pageInfo}
         threshold="1000px"

@@ -6,7 +6,7 @@ import {
 } from '../../types/api';
 import { MergeExclusive } from 'type-fest';
 import useAddToPlaylistMutation from '../../mutations/useAddToPlaylistMutation';
-import PaginationObserver from '../PaginationObserver';
+import OffsetBasedPaginationObserver from '../OffsetBasedPaginationObserver';
 
 type AddToPlaylistProps = MergeExclusive<{ uri: string }, { uris: string[] }>;
 
@@ -54,7 +54,7 @@ const AddToPlaylist = ({ uri, uris }: AddToPlaylistProps) => {
               {playlist.name}
             </ContextMenu.Action>
           ))}
-          <PaginationObserver
+          <OffsetBasedPaginationObserver
             fetchMore={(options) => {
               console.log('fetch', options);
               return fetchMore(options);
