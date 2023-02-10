@@ -12,6 +12,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
 import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
+import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
 
 const httpLink = createHttpLink({
   uri: `${import.meta.env.VITE_SERVER_HOST}/graphql`,
@@ -66,6 +67,7 @@ export default new ApolloClient({
         fields: {
           albumsContains: libraryContains(),
           episodesContains: libraryContains(),
+          followedArtists: cursorConnectionPagination(),
           showsContains: libraryContains(),
           playlists: offsetConnectionPagination(['@connection', ['key']]),
           tracksContains: libraryContains(),
