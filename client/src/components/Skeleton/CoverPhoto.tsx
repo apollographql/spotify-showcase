@@ -4,16 +4,19 @@ import styles from './Skeleton.module.scss';
 
 interface CoverPhotoProps {
   size: CSSProperties['width'];
+  shape?: 'circle' | 'square';
 }
 
 interface StyleProps extends CSSProperties {
   '--skeleton--cover-photo--size': CSSProperties['width'];
 }
 
-const CoverPhoto = ({ size }: CoverPhotoProps) => {
+const CoverPhoto = ({ size, shape = 'square' }: CoverPhotoProps) => {
   return (
     <div
-      className={cx(styles.skeleton, styles.skeleton__coverPhoto)}
+      className={cx(styles.skeleton, styles.skeleton__coverPhoto, {
+        'rounded-full': shape === 'circle',
+      })}
       style={{ '--skeleton--cover-photo--size': size } as StyleProps}
     />
   );
