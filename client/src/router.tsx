@@ -31,6 +31,9 @@ import CollectionRoute from './routes/collection';
 import CollectionPlaylistsRoute, {
   LoadingState as CollectionPlaylistsRouteLoadingState,
 } from './routes/collection/playlists';
+import CollectionAlbumsRoute, {
+  LoadingState as CollectionAlbumsRouteLoadingState,
+} from './routes/collection/albums';
 import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
 import * as CollectionIndexRoute from './routes/collection/index';
 import * as CollectionArtistsRoute from './routes/collection/artists';
@@ -182,6 +185,14 @@ const router = createBrowserRouter([
                 element: (
                   <Suspense fallback={<CollectionArtistsRoute.LoadingState />}>
                     <CollectionArtistsRoute.Component />
+                  </Suspense>
+                ),
+              },
+              {
+                path: 'albums',
+                element: (
+                  <Suspense fallback={<CollectionAlbumsRouteLoadingState />}>
+                    <CollectionAlbumsRoute />
                   </Suspense>
                 ),
               },

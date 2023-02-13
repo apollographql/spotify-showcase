@@ -760,8 +760,8 @@ export type NewReleasesConnection = {
   __typename: 'NewReleasesConnection';
   /** The list of new releases */
   edges: Array<NewReleaseEdge>;
-  /** Pagination infomration for the new releases */
-  pageInfo: Maybe<PageInfo>;
+  /** Pagination information for the new releases */
+  pageInfo: PageInfo;
 };
 
 export type PageInfo = {
@@ -2566,6 +2566,14 @@ export type ArtistRouteQueryVariables = Exact<{
 export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, albums: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null, singles: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null, appearsOn: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }>, relatedArtists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }>, topTracks: Array<{ __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
 
 export type ArtistRouteQuery_albums = { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> };
+
+export type CollectionAlbumsRouteQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type CollectionAlbumsRouteQuery = { me: { __typename: 'CurrentUser', albums: { __typename: 'SavedAlbumsConnection', pageInfo: { __typename: 'PageInfo', limit: number, offset: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
 export type CollectionArtistsRouteQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;

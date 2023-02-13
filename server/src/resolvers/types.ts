@@ -764,8 +764,8 @@ export type NewReleasesConnection = {
   __typename?: 'NewReleasesConnection';
   /** The list of new releases */
   edges: Array<NewReleaseEdge>;
-  /** Pagination infomration for the new releases */
-  pageInfo?: Maybe<PageInfo>;
+  /** Pagination information for the new releases */
+  pageInfo: PageInfo;
 };
 
 export type PageInfo = {
@@ -2932,7 +2932,7 @@ export type NewReleaseEdgeResolvers<ContextType = ContextValue, ParentType exten
 
 export type NewReleasesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['NewReleasesConnection'] = ResolversParentTypes['NewReleasesConnection']> = ResolversObject<{
   edges?: Resolver<Array<ResolversTypes['NewReleaseEdge']>, ParentType, ContextType>;
-  pageInfo?: Resolver<Maybe<ResolversTypes['PageInfo']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
