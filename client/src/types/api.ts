@@ -2622,6 +2622,11 @@ export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
 
 export type CollectionPlaylistsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
+export type CollectionPodcastsRouteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionPodcastsRouteQuery = { me: { __typename: 'CurrentUser', shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+
 export type CollectionTracksRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
   limit?: InputMaybe<Scalars['Int']>;
