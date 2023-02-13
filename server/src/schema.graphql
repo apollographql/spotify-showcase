@@ -1194,7 +1194,7 @@ type NewReleasesConnection {
   "The list of new releases"
   edges: [NewReleaseEdge!]!
 
-  "Pagination infomration for the new releases"
+  "Pagination information for the new releases"
   pageInfo: PageInfo
 }
 

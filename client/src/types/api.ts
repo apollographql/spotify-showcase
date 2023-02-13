@@ -760,7 +760,7 @@ export type NewReleasesConnection = {
   __typename: 'NewReleasesConnection';
   /** The list of new releases */
   edges: Array<NewReleaseEdge>;
-  /** Pagination infomration for the new releases */
+  /** Pagination information for the new releases */
   pageInfo: Maybe<PageInfo>;
 };
 
