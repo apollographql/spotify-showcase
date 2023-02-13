@@ -83,7 +83,8 @@ const CollectionPodcastsRoute = () => {
   } = data.me;
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
+      <h1 className="mb-0 text-2xl">Podcasts</h1>
       <TileGrid gap="1.5rem" minTileWidth="200px">
         <YourEpisodesTile connection={episodes} className="col-span-2" />
         {edges.map(({ node }) => (
@@ -108,7 +109,7 @@ const CollectionPodcastsRoute = () => {
 export const LoadingState = () => {
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="mb-0 text-2xl">Artists</h1>
+      <h1 className="mb-0 text-2xl">Podcasts</h1>
       <Skeleton.TileGrid
         gap="1rem"
         template={<Skeleton.MediaTile description />}
