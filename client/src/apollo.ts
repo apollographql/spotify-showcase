@@ -67,6 +67,8 @@ export default new ApolloClient({
         fields: {
           albums: offsetConnectionPagination(),
           albumsContains: libraryContains(),
+          // TODO: Figure out why this doesn't work when using with fragment
+          // episodes: offsetConnectionPagination(),
           episodesContains: libraryContains(),
           followedArtists: cursorConnectionPagination(),
           showsContains: libraryContains(),

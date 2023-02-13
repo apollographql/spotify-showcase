@@ -2433,6 +2433,8 @@ export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', contex
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, explicit: boolean, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
+export type YourEpisodesTile_connection = { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } } }> };
+
 export type SavedTracksContainsQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
 }>;
@@ -2623,10 +2625,21 @@ export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
 
 export type CollectionPlaylistsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
-export type CollectionPodcastsRouteQueryVariables = Exact<{ [key: string]: never; }>;
+export type CollectionPodcastsRouteQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+}>;
 
 
-export type CollectionPodcastsRouteQuery = { me: { __typename: 'CurrentUser', shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionPodcastsRouteQuery = { me: { __typename: 'CurrentUser', episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } } }> } | null, shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionPodcastsRoutePaginatedQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type CollectionPodcastsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
 export type CollectionTracksRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;

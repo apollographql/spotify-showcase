@@ -8,6 +8,7 @@ import MediaTile from '../../components/MediaTile';
 import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';
 import Skeleton from '../../components/Skeleton';
 import TileGrid from '../../components/TileGrid';
+import YourEpisodesTile from '../../components/YourEpisodesTile';
 import {
   CollectionPodcastsRouteQuery,
   CollectionPodcastsRouteQueryVariables,
@@ -17,9 +18,38 @@ const COLLECTION_PODCASTS_ROUTE_QUERY: TypedDocumentNode<
   CollectionPodcastsRouteQuery,
   CollectionPodcastsRouteQueryVariables
 > = gql`
-  query CollectionPodcastsRouteQuery {
+  query CollectionPodcastsRouteQuery($limit: Int, $offset: Int) {
     me {
-      shows {
+      episodes(limit: 10) {
+        ...YourEpisodesTile_connection
+      }
+      shows(offset: $offset, limit: $limit) {
+        pageInfo {
+          offset
+          limit
+          hasNextPage
+        }
+        edges {
+          node {
+            id
+            name
+            publisher
+            images {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+
+  ${YourEpisodesTile.fragments.connection}
+`;
+
+const PAGINATED_QUERY = gql`
+  query CollectionPodcastsRoutePaginatedQuery($limit: Int, $offset: Int) {
+    me {
+      shows(limit: $limit, offset: $offset) {
         pageInfo {
           offset
           limit
@@ -43,29 +73,32 @@ const COLLECTION_PODCASTS_ROUTE_QUERY: TypedDocumentNode<
 const CollectionPodcastsRoute = () => {
   const { data, fetchMore } = useSuspenseQuery(COLLECTION_PODCASTS_ROUTE_QUERY);
 
-  if (!data.me || !data.me.shows) {
+  if (!data.me || !data.me.shows || !data.me.episodes) {
     throw new Error('Something went wrong');
   }
 
-  const shows = data.me.shows.edges.map((edge) => edge.node);
-  const pageInfo = data.me.shows.pageInfo;
+  const {
+    episodes,
+    shows: { pageInfo, edges },
+  } = data.me;
 
   return (
     <div>
       <TileGrid gap="1.5rem" minTileWidth="200px">
-        {shows.map((show) => (
+        <YourEpisodesTile connection={episodes} className="col-span-2" />
+        {edges.map(({ node }) => (
           <MediaTile
-            key={show.id}
-            coverPhoto={<CoverPhoto image={show.images[0]} />}
-            title={show.name}
-            description={show.publisher}
-            to={`/shows/${show.id}`}
+            key={node.id}
+            coverPhoto={<CoverPhoto image={node.images[0]} />}
+            title={node.name}
+            description={node.publisher}
+            to={`/shows/${node.id}`}
           />
         ))}
       </TileGrid>
       <OffsetBasedPaginationObserver
         pageInfo={pageInfo}
-        fetchMore={fetchMore}
+        fetchMore={(config) => fetchMore({ ...config, query: PAGINATED_QUERY })}
         threshold="500px"
       />
     </div>
