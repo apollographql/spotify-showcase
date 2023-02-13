@@ -761,7 +761,7 @@ export type NewReleasesConnection = {
   /** The list of new releases */
   edges: Array<NewReleaseEdge>;
   /** Pagination information for the new releases */
-  pageInfo: Maybe<PageInfo>;
+  pageInfo: PageInfo;
 };
 
 export type PageInfo = {
