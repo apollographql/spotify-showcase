@@ -44,6 +44,12 @@ const resolvers: CurrentUserResolvers = {
       offset: args.offset ?? undefined,
     });
   },
+  shows: (_, { limit, offset }, { dataSources }) => {
+    return dataSources.spotify.getSavedShows({
+      limit: maybe(limit),
+      offset: maybe(offset),
+    });
+  },
   showsContains: (_, { ids }, { dataSources }) => {
     return dataSources.spotify.checkContainsShows(ids.join(','));
   },

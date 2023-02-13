@@ -291,6 +291,8 @@ export type CurrentUser = {
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists: Maybe<PlaylistConnection>;
+  /** Get a list of the albums saved in the current Spotify user's 'Your Music' library. */
+  shows: Maybe<SavedShowsConnection>;
   /**
    * Check if one or more shows is already saved in the current Spotify user's
    * library.
@@ -340,6 +342,12 @@ export type CurrentUserfollowedArtistsArgs = {
 
 
 export type CurrentUserplaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUsershowsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -1610,6 +1618,22 @@ export type SavedEpisodesConnection = {
   /** The list of saved episodes. */
   edges: Array<SavedEpisodeEdge>;
   /** Pagination information for the set of episodes */
+  pageInfo: PageInfo;
+};
+
+export type SavedShowEdge = {
+  __typename: 'SavedShowEdge';
+  /** The date the show was saved. */
+  addedAt: Scalars['DateTime'];
+  /** The show */
+  node: Show;
+};
+
+export type SavedShowsConnection = {
+  __typename: 'SavedShowsConnection';
+  /** A list of saved shows. */
+  edges: Array<SavedShowEdge>;
+  /** "Pagination information for the set of saved shows" */
   pageInfo: PageInfo;
 };
 

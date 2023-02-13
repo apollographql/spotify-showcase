@@ -295,6 +295,8 @@ export type CurrentUser = {
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
+  /** Get a list of the albums saved in the current Spotify user's 'Your Music' library. */
+  shows?: Maybe<SavedShowsConnection>;
   /**
    * Check if one or more shows is already saved in the current Spotify user's
    * library.
@@ -344,6 +346,12 @@ export type CurrentUserFollowedArtistsArgs = {
 
 
 export type CurrentUserPlaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUserShowsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -1613,6 +1621,22 @@ export type SavedEpisodesConnection = {
   pageInfo: PageInfo;
 };
 
+export type SavedShowEdge = {
+  __typename?: 'SavedShowEdge';
+  /** The date the show was saved. */
+  addedAt: Scalars['DateTime'];
+  /** The show */
+  node: Show;
+};
+
+export type SavedShowsConnection = {
+  __typename?: 'SavedShowsConnection';
+  /** A list of saved shows. */
+  edges: Array<SavedShowEdge>;
+  /** "Pagination information for the set of saved shows" */
+  pageInfo: PageInfo;
+};
+
 export type SavedTrackEdge = {
   __typename?: 'SavedTrackEdge';
   /** The date the track was saved. */
@@ -2472,6 +2496,8 @@ export type ResolversTypes = ResolversObject<{
   SavedAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedAlbum>>;
   SavedEpisodeEdge: ResolverTypeWrapper<Spotify.Object.SavedEpisode>;
   SavedEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedEpisode>>;
+  SavedShowEdge: ResolverTypeWrapper<Spotify.Object.SavedShow>;
+  SavedShowsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedShow>>;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
   SavedTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
   SchemaField: ResolverTypeWrapper<SchemaField>;
@@ -2631,6 +2657,8 @@ export type ResolversParentTypes = ResolversObject<{
   SavedAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.SavedAlbum>;
   SavedEpisodeEdge: Spotify.Object.SavedEpisode;
   SavedEpisodesConnection: Spotify.Object.Paginated<Spotify.Object.SavedEpisode>;
+  SavedShowEdge: Spotify.Object.SavedShow;
+  SavedShowsConnection: Spotify.Object.Paginated<Spotify.Object.SavedShow>;
   SavedTrackEdge: Spotify.Object.SavedTrack;
   SavedTracksConnection: Spotify.Object.Paginated<Spotify.Object.SavedTrack>;
   SchemaField: SchemaField;
@@ -2784,6 +2812,7 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
+  shows?: Resolver<Maybe<ResolversTypes['SavedShowsConnection']>, ParentType, ContextType, Partial<CurrentUserShowsArgs>>;
   showsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserShowsContainsArgs, 'ids'>>;
   topArtists?: Resolver<Maybe<ResolversTypes['TopArtistsConnection']>, ParentType, ContextType, Partial<CurrentUserTopArtistsArgs>>;
   topTracks?: Resolver<Maybe<ResolversTypes['TopTracksConnection']>, ParentType, ContextType, Partial<CurrentUserTopTracksArgs>>;
@@ -3200,6 +3229,18 @@ export type SavedEpisodesConnectionResolvers<ContextType = ContextValue, ParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type SavedShowEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedShowEdge'] = ResolversParentTypes['SavedShowEdge']> = ResolversObject<{
+  addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type SavedShowsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedShowsConnection'] = ResolversParentTypes['SavedShowsConnection']> = ResolversObject<{
+  edges?: Resolver<Array<ResolversTypes['SavedShowEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type SavedTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedTrackEdge'] = ResolversParentTypes['SavedTrackEdge']> = ResolversObject<{
   addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
@@ -3532,6 +3573,8 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   SavedAlbumsConnection?: SavedAlbumsConnectionResolvers<ContextType>;
   SavedEpisodeEdge?: SavedEpisodeEdgeResolvers<ContextType>;
   SavedEpisodesConnection?: SavedEpisodesConnectionResolvers<ContextType>;
+  SavedShowEdge?: SavedShowEdgeResolvers<ContextType>;
+  SavedShowsConnection?: SavedShowsConnectionResolvers<ContextType>;
   SavedTrackEdge?: SavedTrackEdgeResolvers<ContextType>;
   SavedTracksConnection?: SavedTracksConnectionResolvers<ContextType>;
   SchemaField?: SchemaFieldResolvers<ContextType>;

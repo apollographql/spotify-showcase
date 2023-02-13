@@ -363,6 +363,12 @@ export default class SpotifyAPI extends RESTDataSource {
     );
   }
 
+  getSavedShows(params?: Spotify.Request.QueryParams.GET['/me/shows']) {
+    return this._get<Spotify.Response.GET['/me/shows']>('/me/shows', {
+      params,
+    });
+  }
+
   getShow(id: string) {
     return this._get<Spotify.Response.GET['/shows/:id']>(`/shows/${id}`);
   }

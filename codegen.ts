@@ -118,6 +118,10 @@ const config: CodegenConfig = {
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.SavedEpisode>',
           SavedEpisodeEdge:
             '../dataSources/spotify.types#Spotify#Object.SavedEpisode',
+          SavedShowsConnection:
+            '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.SavedShow>',
+          SavedShowEdge:
+            '../dataSources/spotify.types#Spotify#Object.SavedShow',
           SavedTracksConnection:
             '../dataSources/spotify.types#Spotify#Object.Paginated<Spotify.Object.SavedTrack>',
           SavedTrackEdge:
