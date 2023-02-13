@@ -65,6 +65,7 @@ export default new ApolloClient({
       CurrentUser: {
         keyFields: [],
         fields: {
+          albums: offsetConnectionPagination(),
           albumsContains: libraryContains(),
           episodesContains: libraryContains(),
           followedArtists: cursorConnectionPagination(),
