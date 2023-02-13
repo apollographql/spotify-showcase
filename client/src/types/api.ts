@@ -834,6 +834,7 @@ export enum PlaybackContextType {
   Artist = 'ARTIST',
   AudioFeatures = 'AUDIO_FEATURES',
   Collection = 'COLLECTION',
+  CollectionYourEpisodes = 'COLLECTION_YOUR_EPISODES',
   Episode = 'EPISODE',
   Genre = 'GENRE',
   Playlist = 'PLAYLIST',

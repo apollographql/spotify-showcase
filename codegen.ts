@@ -197,6 +197,7 @@ const config: CodegenConfig = {
             ARTIST: 'artist',
             AUDIO_FEATURES: 'audio_features',
             COLLECTION: 'collection',
+            COLLECTION_YOUR_EPISODES: 'collectionyourepisodes',
             EPISODE: 'episode',
             GENRE: 'genre',
             PLAYLIST: 'playlist',

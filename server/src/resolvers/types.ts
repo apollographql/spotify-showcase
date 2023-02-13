@@ -838,6 +838,7 @@ export type PlaybackContextType =
   | 'artist'
   | 'audio_features'
   | 'collection'
+  | 'collectionyourepisodes'
   | 'episode'
   | 'genre'
   | 'playlist'
@@ -2996,7 +2997,7 @@ export type PlaybackContextResolvers<ContextType = ContextValue, ParentType exte
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', AUDIO_FEATURES: 'audio_features', COLLECTION: 'collection', EPISODE: 'episode', GENRE: 'genre', PLAYLIST: 'playlist', SHOW: 'show', TRACK: 'track', USER: 'user' };
+export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', AUDIO_FEATURES: 'audio_features', COLLECTION: 'collection', COLLECTION_YOUR_EPISODES: 'collectionyourepisodes', EPISODE: 'episode', GENRE: 'genre', PLAYLIST: 'playlist', SHOW: 'show', TRACK: 'track', USER: 'user' };
 
 export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
