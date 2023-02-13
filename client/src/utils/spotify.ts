@@ -13,6 +13,10 @@ export const parseSpotifyTypeFromURI = (spotifyURI: string) => {
     return 'collection';
   }
 
+  if (/^spotify:user:\w+:collection:your-episodes$/.test(spotifyURI)) {
+    return 'collectionyourepisodes';
+  }
+
   const matches = spotifyURI.match(/^spotify:(.*?):.*$/);
 
   return matches?.[1];

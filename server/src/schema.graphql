@@ -862,6 +862,21 @@ type CurrentUser {
   playbackQueue: PlaybackQueue
 
   """
+  Get a list of the albums saved in the current Spotify user's 'Your Music' library.
+  """
+  shows(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first item to return. Default: 0 (the first item). Use with `limit` to get the next set of items.
+    """
+    offset: Int
+  ): SavedShowsConnection
+
+  """
   Check if one or more shows is already saved in the current Spotify user's
   library.
   """
@@ -1298,6 +1313,7 @@ enum PlaybackContextType {
   ARTIST
   AUDIO_FEATURES
   COLLECTION
+  COLLECTION_YOUR_EPISODES
   EPISODE
   GENRE
   PLAYLIST
@@ -2149,6 +2165,26 @@ type SavedEpisodeEdge {
 
   "The saved episode."
   node: Episode!
+}
+
+type SavedShowsConnection {
+  """
+  A list of saved shows.
+  """
+  edges: [SavedShowEdge!]!
+
+  """
+  "Pagination information for the set of saved shows"
+  """
+  pageInfo: PageInfo!
+}
+
+type SavedShowEdge {
+  "The date the show was saved."
+  addedAt: DateTime!
+
+  "The show"
+  node: Show!
 }
 
 type SavedTracksConnection {

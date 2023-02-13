@@ -291,6 +291,8 @@ export type CurrentUser = {
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists: Maybe<PlaylistConnection>;
+  /** Get a list of the albums saved in the current Spotify user's 'Your Music' library. */
+  shows: Maybe<SavedShowsConnection>;
   /**
    * Check if one or more shows is already saved in the current Spotify user's
    * library.
@@ -340,6 +342,12 @@ export type CurrentUserfollowedArtistsArgs = {
 
 
 export type CurrentUserplaylistsArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type CurrentUsershowsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
 };
@@ -826,6 +834,7 @@ export enum PlaybackContextType {
   Artist = 'ARTIST',
   AudioFeatures = 'AUDIO_FEATURES',
   Collection = 'COLLECTION',
+  CollectionYourEpisodes = 'COLLECTION_YOUR_EPISODES',
   Episode = 'EPISODE',
   Genre = 'GENRE',
   Playlist = 'PLAYLIST',
@@ -1610,6 +1619,22 @@ export type SavedEpisodesConnection = {
   /** The list of saved episodes. */
   edges: Array<SavedEpisodeEdge>;
   /** Pagination information for the set of episodes */
+  pageInfo: PageInfo;
+};
+
+export type SavedShowEdge = {
+  __typename: 'SavedShowEdge';
+  /** The date the show was saved. */
+  addedAt: Scalars['DateTime'];
+  /** The show */
+  node: Show;
+};
+
+export type SavedShowsConnection = {
+  __typename: 'SavedShowsConnection';
+  /** A list of saved shows. */
+  edges: Array<SavedShowEdge>;
+  /** "Pagination information for the set of saved shows" */
   pageInfo: PageInfo;
 };
 
@@ -2408,6 +2433,8 @@ export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', contex
 
 export type TrackTitleCell_track = { __typename: 'Track', id: string, explicit: boolean, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
+export type YourEpisodesTile_connection = { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } } }> };
+
 export type SavedTracksContainsQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
 }>;
@@ -2597,6 +2624,22 @@ export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
 
 
 export type CollectionPlaylistsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionPodcastsRouteQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type CollectionPodcastsRouteQuery = { me: { __typename: 'CurrentUser', episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } } }> } | null, shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionPodcastsRoutePaginatedQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type CollectionPodcastsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
 
 export type CollectionTracksRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;

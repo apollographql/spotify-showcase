@@ -438,6 +438,11 @@ export namespace Spotify {
       episode: Episode;
     }
 
+    export interface SavedShow {
+      added_at: string;
+      show: Show;
+    }
+
     export interface SavedTrack {
       added_at: string;
       track: Track;
@@ -633,6 +638,7 @@ export namespace Spotify {
       '/me/player/queue': Object.PlaybackQueue;
       '/me/player/recently-played': Object.PaginatedCursorBased<Object.PlayHistory>;
       '/me/playlists': Object.Paginated<Object.Playlist>;
+      '/me/shows': Object.Paginated<Object.SavedShow>;
       '/me/shows/contains': boolean[];
       '/me/top/artists': Object.Paginated<Object.Artist>;
       '/me/top/tracks': Object.Paginated<Object.Track>;
@@ -874,6 +880,10 @@ export namespace Spotify {
         '/me/following/contains': {
           ids: string;
           type: 'artist' | 'user';
+        };
+        '/me/shows': {
+          limit?: number;
+          offset?: number;
         };
         '/me/shows/contains': {
           ids: string;
