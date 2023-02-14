@@ -26,6 +26,17 @@ npm start
 4. Visit `http://localhost:3000` and follow the instructions on the home page to
    ensure the app can talk to Spotify.
 
+## Maintainers
+
+| Name               | Username                                       |
+| ------------------ | ---------------------------------------------- |
+| Ben Newman         | [@benjamn](https://github.com/benjamn)         |
+| Alessia Bellisario | [@alessbell](https://github.com/alessbell)     |
+| Jeff Auriemma      | [@bignimbus](https://github.com/bignimbus)     |
+| Hugh Willson       | [@hwillson](https://github.com/hwillson)       |
+| Jerel Miller       | [@jerelmiller](https://github.com/jerelmiller) |
+| Lenz Weber-Tronic  | [@phryneas](https://github.com/phryneas)       |
+
 ## Philosophy
 
 This app implements a GraphQL API on top of [Spotify's REST API](https://developer.spotify.com/documentation/web-api/).
