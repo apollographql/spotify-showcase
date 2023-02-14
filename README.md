@@ -1,4 +1,6 @@
-# React + Apollo w/ Spotify API demo
+# <a href="https://www.apollographql.com/"><img src="https://user-images.githubusercontent.com/841294/53402609-b97a2180-39ba-11e9-8100-812bab86357c.png" height="100" alt="Apollo Client"></a>
+
+# React + Apollo Spotify Showcase
 
 ## Getting started
 
@@ -24,74 +26,48 @@ npm start
 4. Visit `http://localhost:3000` and follow the instructions on the home page to
    ensure the app can talk to Spotify.
 
-## Adding synthetic errors or timeouts for a field
+## Maintainers
 
-This demo app has the ability to add synthetic timeouts and errors for a field.
-To add or remove them, use the `updateFieldConfig` or `resetFieldConfig`
-mutations.
+| Name               | Username                                       |
+| ------------------ | ---------------------------------------------- |
+| Ben Newman         | [@benjamn](https://github.com/benjamn)         |
+| Alessia Bellisario | [@alessbell](https://github.com/alessbell)     |
+| Jeff Auriemma      | [@bignimbus](https://github.com/bignimbus)     |
+| Hugh Willson       | [@hwillson](https://github.com/hwillson)       |
+| Jerel Miller       | [@jerelmiller](https://github.com/jerelmiller) |
+| Lenz Weber-Tronic  | [@phryneas](https://github.com/phryneas)       |
 
-You can use the Apollo Studio explorer at http://localhost:4000/graphql to run
-these mutations.
+## Philosophy
 
-```graphql
-mutation ($config: FieldConfigInput!, $field: FieldInput!) {
-  updateFieldConfig(config: $config, field: $field) {
-    fieldConfig {
-      schemaField {
-        typename
-        fieldName
-      }
-      errorRate
-      timeout
-    }
-  }
-}
-```
+This app implements a GraphQL API on top of [Spotify's REST API](https://developer.spotify.com/documentation/web-api/).
+The GraphQL server aims to mirror the REST API as much as possible, including
+the field names and returned values. While its tempting to patch the REST API in
+areas that make it difficult to consume (such as a separate endpoint to check if
+a track is in the user's library), this presented a good opportunity to showcase
+how a developer can use Apollo Client's capabilities to effectively build an app
+with these kinds of shortcomings.
 
-Sample `variables`:
+There are, however, a few cases where the GraphQL API differs from the REST API.
 
-```json
-{
-  "config": {
-    "timeout": 2000,
-    "errorRate": 0.1
-  },
-  "field": {
-    "schemaField": {
-      "typename": "Query",
-      "fieldName": "playlist"
-    }
-  }
-}
-```
+- This Spotify GraphQL API returns full object types in some areas where spotify
+  returns "simplified" object types. For example, fetching a track via the
+  `/tracks/:trackId` endpoint gives you the full track data, but fetching tracks
+  through the `/albums/:albumId` endpoint gives you a simplified track type. In
+  these cases, the GraphQL API consolidates these distinct types into a the full
+  object type (i.e. `Track`.)
 
-To reset a field back to its defaults (no synthetic errors or timeouts), use the
-`resetFieldConfig` mutation:
+- Paginated fields use a Relay-style [connection type](https://relay.dev/graphql/connections.htm#sec-Connection-Types).
+  This allows the GraphQL API to express edge-specific data and pagination
+  information in a natural way.
 
-```graphql
-mutation ($field: FieldInput!) {
-  resetFieldConfig(field: $field) {
-    fieldConfig {
-      schemaField {
-        typename
-        fieldName
-      }
-      errorRate
-      timeout
-    }
-  }
-}
-```
+- Endpoints that accept a `market` parameter are omitted in the equivalent
+  GraphQL field. This is because, according to the documentation:
 
-Sample `variables`:
+  > If a valid user access token is specified in the request header, the country associated with the user account will take priority over this parameter.
 
-```json
-{
-  "field": {
-    "schemaField": {
-      "typename": "Query",
-      "fieldName": "playlist"
-    }
-  }
-}
-```
+  The GraphQL server only works with authenticated users via an access
+  token, so maintaining this parameter was unnecessary overhead.
+
+- The GraphQL serves fields using camelCase. The Spotify REST API returns fields
+  using snake_case. While not strictly enforced in the spec, GraphQL fields are
+  commonly written in camelCase form.
