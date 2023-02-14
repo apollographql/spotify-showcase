@@ -18,12 +18,11 @@ const Avatar = ({ user, size }: AvatarProps) => {
   const image = thumbnail(user.images ?? []);
 
   return (
-    <div
+    <LazyImage
       className={styles.avatar}
+      src={image?.url}
       style={{ '--avatar--size': size } as StyleProps}
-    >
-      <LazyImage src={image?.url} />
-    </div>
+    />
   );
 };
 
