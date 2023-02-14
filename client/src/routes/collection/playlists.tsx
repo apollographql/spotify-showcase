@@ -13,6 +13,7 @@ import LikedSongsTile from '../../components/LikedSongsTile';
 import MediaTile from '../../components/MediaTile';
 import GradientIcon from '../../components/GradientIcon';
 import { Bookmark } from 'lucide-react';
+import Skeleton from '../../components/Skeleton';
 
 const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
   query CollectionPlaylistsRouteQuery($offset: Int, $limit: Int) {
@@ -149,7 +150,17 @@ const CollectionPlaylistsRoute = () => {
 };
 
 export const LoadingState = () => {
-  return <div />;
+  return (
+    <div className="flex flex-col gap-4">
+      <h1 className="mb-0 text-2xl">Playlists</h1>
+      <Skeleton.TileGrid
+        gap="1rem"
+        template={<Skeleton.MediaTile description />}
+        tileCount={15}
+        minTileWidth="200px"
+      />
+    </div>
+  );
 };
 
 export default CollectionPlaylistsRoute;
