@@ -44,6 +44,7 @@ import CollectionPodcastsRoute, {
   LoadingState as CollectionPodcastsRouteLoadingState,
 } from './routes/collection/podcasts';
 import { loader as setTokenLoader } from './routes/set-token';
+import { loader as loginLoader } from './routes/login';
 import * as CollectionIndexRoute from './routes/collection/index';
 import * as CollectionArtistsRoute from './routes/collection/artists';
 import { logout } from './auth';
@@ -52,12 +53,10 @@ import { isLoggedInVar } from './vars';
 import RootErrorBoundary from './components/RootErrorBoundary';
 import RootLoadingState from './components/RootLoadingState';
 
-import { LOGIN_URL } from './constants';
-
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route path="/set-token" loader={setTokenLoader} />,
-    <Route path="/login" loader={() => redirect(LOGIN_URL)} />,
+    <Route path="/login" loader={loginLoader} />,
     <Route
       path="/logout"
       loader={() => {
