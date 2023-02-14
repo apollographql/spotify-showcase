@@ -41,24 +41,24 @@ npm start
 
 This app implements a GraphQL API on top of [Spotify's REST API](https://developer.spotify.com/documentation/web-api/).
 The GraphQL server aims to mirror the REST API as much as possible, including
-the field names and returned values. While tempting to patch the REST API in
+the field names and returned values. While its tempting to patch the REST API in
 areas that make it difficult to consume (such as a separate endpoint to check if
-a track is in the user's library), this presented a perfect opportunity to
-showcase how a developer can use Apollo Client's capabilities to make the app.
+a track is in the user's library), this presented a good opportunity to showcase
+how a developer can use Apollo Client's capabilities to effectively build an app
+with these kinds of shortcomings.
 
 There are, however, a few cases where the GraphQL API differs from the REST API.
 
 - This Spotify GraphQL API returns full object types in some areas where spotify
-  returns "simplified" object types in some of the endpoints. For example,
-  fetching a track via the `/tracks/:trackId` endpoint gives you the full track
-  data, but fetching tracks through the `/albums/:albumId` endpoint gives you a
-  simplified track type. In these cases, the GraphQL API consolidates the type
-  into a single `Track` type since GraphQL provides a nice way to express
-  relationships between object types.
+  returns "simplified" object types. For example, fetching a track via the
+  `/tracks/:trackId` endpoint gives you the full track data, but fetching tracks
+  through the `/albums/:albumId` endpoint gives you a simplified track type. In
+  these cases, the GraphQL API consolidates these distinct types into a the full
+  object type (i.e. `Track`.)
 
 - Paginated fields use a Relay-style [connection type](https://relay.dev/graphql/connections.htm#sec-Connection-Types).
-  This allows the GraphQL API to avoid the need to repeat field names and
-  express edge-specific data in a natural way.
+  This allows the GraphQL API to express edge-specific data and pagination
+  information in a natural way.
 
 - Endpoints that accept a `market` parameter are omitted in the equivalent
   GraphQL field. This is because, according to the documentation:
@@ -70,4 +70,4 @@ There are, however, a few cases where the GraphQL API differs from the REST API.
 
 - The GraphQL serves fields using camelCase. The Spotify REST API returns fields
   using snake_case. While not strictly enforced in the spec, GraphQL fields are
-  commonly written in camelCase form. This API follows suit.
+  commonly written in camelCase form.
