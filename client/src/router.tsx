@@ -28,7 +28,6 @@ import * as ShowRoute from './routes/shows/show';
 import * as TrackRoute from './routes/tracks/track';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
-import RootLoadingState from './components/RootLoadingState';
 import { isLoggedInVar } from './vars';
 
 const routes = createRoutesFromElements(
@@ -43,7 +42,7 @@ const routes = createRoutesFromElements(
     />
     <Route
       element={
-        <Suspense fallback={<RootLoadingState />}>
+        <Suspense fallback={<RootRoute.LoadingState />}>
           <RootRoute.RouteComponent />
         </Suspense>
       }
