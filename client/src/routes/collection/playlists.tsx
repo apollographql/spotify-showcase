@@ -89,7 +89,7 @@ const PAGINATED_QUERY = gql`
   ${PlaylistTile.fragments.playlist}
 `;
 
-const CollectionPlaylistsRoute = () => {
+export const RouteComponent = () => {
   const { data, fetchMore } = useSuspenseQuery<
     CollectionPlaylistsRouteQuery,
     CollectionTracksRouteQueryVariables
@@ -162,5 +162,3 @@ export const LoadingState = () => {
     </div>
   );
 };
-
-export default CollectionPlaylistsRoute;

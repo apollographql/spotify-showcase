@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { NavLink, Outlet, To } from 'react-router-dom';
 import Page from '../components/Page';
 
-const CollectionRoute = () => {
+export const RouteComponent = () => {
   return (
     <Page>
       <div className="flex flex-col gap-4 p-[var(--main-content--padding)]">
@@ -38,5 +38,3 @@ const PageLink = ({ children, to }: PageLinkProps) => {
     </NavLink>
   );
 };
-
-export default CollectionRoute;

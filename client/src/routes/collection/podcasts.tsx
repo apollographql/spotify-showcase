@@ -70,7 +70,7 @@ const PAGINATED_QUERY = gql`
   }
 `;
 
-const CollectionPodcastsRoute = () => {
+export const RouteComponent = () => {
   const { data, fetchMore } = useSuspenseQuery(COLLECTION_PODCASTS_ROUTE_QUERY);
 
   if (!data.me || !data.me.shows || !data.me.episodes) {
@@ -119,4 +119,3 @@ export const LoadingState = () => {
     </div>
   );
 };
-export default CollectionPodcastsRoute;
