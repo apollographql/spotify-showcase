@@ -105,89 +105,89 @@ const routes = createRoutesFromElements(
             </Suspense>
           }
         />
-      </Route>
-      <Route
-        path="artists/:artistId"
-        element={
-          <Suspense fallback={<ArtistRouteLoadingState />}>
-            <ArtistRoute />
-          </Suspense>
-        }
-      />
-      <Route
-        path="episodes/:episodeId"
-        element={
-          <Suspense fallback={<EpisodeRouteLoadingState />}>
-            <EpisodeRoute />
-          </Suspense>
-        }
-      />
-      <Route
-        path="playlists/:playlistId"
-        element={
-          <Suspense fallback={<PlaylistLoading />}>
-            <Playlist />
-          </Suspense>
-        }
-      />
-      <Route
-        path="shows/:showId"
-        element={
-          <Suspense fallback={<ShowRouteLoadingState />}>
-            <ShowRoute />
-          </Suspense>
-        }
-      />
-      <Route
-        path="tracks/:trackId"
-        element={
-          <Suspense fallback={<TrackRouteLoadingState />}>
-            <TrackRoute />
-          </Suspense>
-        }
-      />
-      <Route
-        path="collection/tracks"
-        element={
-          <Suspense fallback={<CollectionTracksRouteLoadingState />}>
-            <CollectionTracksRoute />
-          </Suspense>
-        }
-      />
-      <Route path="collection" element={<CollectionRoute />}>
-        <Route index loader={CollectionIndexRoute.loader} />
         <Route
-          path="playlists"
+          path="artists/:artistId"
           element={
-            <Suspense fallback={<CollectionPlaylistsRouteLoadingState />}>
-              <CollectionPlaylistsRoute />
+            <Suspense fallback={<ArtistRouteLoadingState />}>
+              <ArtistRoute />
             </Suspense>
           }
         />
         <Route
-          path="podcasts"
+          path="episodes/:episodeId"
           element={
-            <Suspense fallback={<CollectionPodcastsRouteLoadingState />}>
-              <CollectionPodcastsRoute />
+            <Suspense fallback={<EpisodeRouteLoadingState />}>
+              <EpisodeRoute />
             </Suspense>
           }
         />
         <Route
-          path="artists"
+          path="playlists/:playlistId"
           element={
-            <Suspense fallback={<CollectionArtistsRoute.LoadingState />}>
-              <CollectionArtistsRoute.Component />
+            <Suspense fallback={<PlaylistLoading />}>
+              <Playlist />
             </Suspense>
           }
         />
         <Route
-          path="albums"
+          path="shows/:showId"
           element={
-            <Suspense fallback={<CollectionAlbumsRouteLoadingState />}>
-              <CollectionAlbumsRoute />
+            <Suspense fallback={<ShowRouteLoadingState />}>
+              <ShowRoute />
             </Suspense>
           }
         />
+        <Route
+          path="tracks/:trackId"
+          element={
+            <Suspense fallback={<TrackRouteLoadingState />}>
+              <TrackRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path="collection/tracks"
+          element={
+            <Suspense fallback={<CollectionTracksRouteLoadingState />}>
+              <CollectionTracksRoute />
+            </Suspense>
+          }
+        />
+        <Route path="collection" element={<CollectionRoute />}>
+          <Route index loader={CollectionIndexRoute.loader} />
+          <Route
+            path="playlists"
+            element={
+              <Suspense fallback={<CollectionPlaylistsRouteLoadingState />}>
+                <CollectionPlaylistsRoute />
+              </Suspense>
+            }
+          />
+          <Route
+            path="podcasts"
+            element={
+              <Suspense fallback={<CollectionPodcastsRouteLoadingState />}>
+                <CollectionPodcastsRoute />
+              </Suspense>
+            }
+          />
+          <Route
+            path="artists"
+            element={
+              <Suspense fallback={<CollectionArtistsRoute.LoadingState />}>
+                <CollectionArtistsRoute.Component />
+              </Suspense>
+            }
+          />
+          <Route
+            path="albums"
+            element={
+              <Suspense fallback={<CollectionAlbumsRouteLoadingState />}>
+                <CollectionAlbumsRoute />
+              </Suspense>
+            }
+          />
+        </Route>
       </Route>
     </Route>
   </Route>
