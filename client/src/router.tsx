@@ -175,7 +175,7 @@ const routes = createRoutesFromElements(
             path="artists"
             element={
               <Suspense fallback={<CollectionArtistsRoute.LoadingState />}>
-                <CollectionArtistsRoute.Component />
+                <CollectionArtistsRoute.RouteComponent />
               </Suspense>
             }
           />
