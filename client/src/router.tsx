@@ -1,5 +1,10 @@
 import { Suspense } from 'react';
-import { createBrowserRouter, redirect } from 'react-router-dom';
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  redirect,
+} from 'react-router-dom';
 
 import Index, { LoadingState as IndexLoadingState } from './routes/index';
 import Root from './routes/root';
@@ -38,65 +43,43 @@ import LoggedOutRoute, { loader as loggedOutLoader } from './routes/logged-out';
 import CollectionPodcastsRoute, {
   LoadingState as CollectionPodcastsRouteLoadingState,
 } from './routes/collection/podcasts';
+import { loader as setTokenLoader } from './routes/set-token';
+import { loader as loginLoader } from './routes/login';
+import { loader as logoutLoader } from './routes/logout';
 import * as CollectionIndexRoute from './routes/collection/index';
 import * as CollectionArtistsRoute from './routes/collection/artists';
-import { logout, login } from './auth';
 import { isLoggedInVar } from './vars';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
 import RootLoadingState from './components/RootLoadingState';
 
-import { LOGIN_URL } from './constants';
-
-const router = createBrowserRouter([
-  {
-    path: '/set-token',
-    loader: ({ request }) => {
-      const url = new URL(request.url);
-      const token = url.searchParams.get('token');
-
-      if (token) {
-        login(token);
+const routes = createRoutesFromElements(
+  <Route path="/" errorElement={<RootErrorBoundary />}>
+    <Route path="set-token" loader={setTokenLoader} />,
+    <Route path="login" loader={loginLoader} />,
+    <Route path="logout" loader={logoutLoader} />,
+    <Route
+      path="logged-out"
+      loader={loggedOutLoader}
+      element={<LoggedOutRoute />}
+    />
+    <Route
+      element={
+        <Suspense fallback={<RootLoadingState />}>
+          <Root />
+        </Suspense>
       }
-
-      return redirect('/');
-    },
-  },
-  {
-    path: '/login',
-    loader: () => redirect(LOGIN_URL),
-  },
-  {
-    path: '/logout',
-    loader: () => {
-      logout();
-      return redirect('/');
-    },
-  },
-  {
-    path: '/logged-out',
-    loader: loggedOutLoader,
-    element: <LoggedOutRoute />,
-  },
-  {
-    path: '/',
-    element: (
-      <Suspense fallback={<RootLoadingState />}>
-        <Root />
-      </Suspense>
-    ),
-    errorElement: <RootErrorBoundary />,
-    children: [
-      {
-        index: true,
-        element: (
+    >
+      <Route
+        index
+        element={
           <Suspense fallback={<IndexLoadingState />}>
             <Index />
           </Suspense>
-        ),
-      },
-      {
-        loader: () => {
+        }
+      />
+      <Route
+        loader={() => {
           const isLoggedIn = isLoggedInVar();
 
           if (!isLoggedIn) {
@@ -104,115 +87,110 @@ const router = createBrowserRouter([
           }
 
           return null;
-        },
-        children: [
-          {
-            path: '/settings',
-            element: (
-              <Suspense fallback={<SettingsLoadingState />}>
-                <Settings />
+        }}
+      >
+        <Route
+          path="settings"
+          element={
+            <Suspense fallback={<SettingsLoadingState />}>
+              <Settings />
+            </Suspense>
+          }
+        />
+        <Route
+          path="albums/:albumId"
+          element={
+            <Suspense fallback={<AlbumRouteLoadingState />}>
+              <AlbumRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path="artists/:artistId"
+          element={
+            <Suspense fallback={<ArtistRouteLoadingState />}>
+              <ArtistRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path="episodes/:episodeId"
+          element={
+            <Suspense fallback={<EpisodeRouteLoadingState />}>
+              <EpisodeRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path="playlists/:playlistId"
+          element={
+            <Suspense fallback={<PlaylistLoading />}>
+              <Playlist />
+            </Suspense>
+          }
+        />
+        <Route
+          path="shows/:showId"
+          element={
+            <Suspense fallback={<ShowRouteLoadingState />}>
+              <ShowRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path="tracks/:trackId"
+          element={
+            <Suspense fallback={<TrackRouteLoadingState />}>
+              <TrackRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path="collection/tracks"
+          element={
+            <Suspense fallback={<CollectionTracksRouteLoadingState />}>
+              <CollectionTracksRoute />
+            </Suspense>
+          }
+        />
+        <Route path="collection" element={<CollectionRoute />}>
+          <Route index loader={CollectionIndexRoute.loader} />
+          <Route
+            path="playlists"
+            element={
+              <Suspense fallback={<CollectionPlaylistsRouteLoadingState />}>
+                <CollectionPlaylistsRoute />
               </Suspense>
-            ),
-          },
-          {
-            path: '/albums/:albumId',
-            element: (
-              <Suspense fallback={<AlbumRouteLoadingState />}>
-                <AlbumRoute />
+            }
+          />
+          <Route
+            path="podcasts"
+            element={
+              <Suspense fallback={<CollectionPodcastsRouteLoadingState />}>
+                <CollectionPodcastsRoute />
               </Suspense>
-            ),
-          },
-          {
-            path: '/artists/:artistId',
-            element: (
-              <Suspense fallback={<ArtistRouteLoadingState />}>
-                <ArtistRoute />
+            }
+          />
+          <Route
+            path="artists"
+            element={
+              <Suspense fallback={<CollectionArtistsRoute.LoadingState />}>
+                <CollectionArtistsRoute.Component />
               </Suspense>
-            ),
-          },
-          {
-            path: '/episodes/:episodeId',
-            element: (
-              <Suspense fallback={<EpisodeRouteLoadingState />}>
-                <EpisodeRoute />
+            }
+          />
+          <Route
+            path="albums"
+            element={
+              <Suspense fallback={<CollectionAlbumsRouteLoadingState />}>
+                <CollectionAlbumsRoute />
               </Suspense>
-            ),
-          },
-          {
-            path: '/playlists/:playlistId',
-            element: (
-              <Suspense fallback={<PlaylistLoading />}>
-                <Playlist />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/shows/:showId',
-            element: (
-              <Suspense fallback={<ShowRouteLoadingState />}>
-                <ShowRoute />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/tracks/:trackId',
-            element: (
-              <Suspense fallback={<TrackRouteLoadingState />}>
-                <TrackRoute />
-              </Suspense>
-            ),
-          },
-          {
-            path: '/collection/tracks',
-            element: (
-              <Suspense fallback={<CollectionTracksRouteLoadingState />}>
-                <CollectionTracksRoute />
-              </Suspense>
-            ),
-          },
-          {
-            path: 'collection',
-            element: <CollectionRoute />,
-            children: [
-              { index: true, loader: CollectionIndexRoute.loader },
-              {
-                path: 'playlists',
-                element: (
-                  <Suspense fallback={<CollectionPlaylistsRouteLoadingState />}>
-                    <CollectionPlaylistsRoute />
-                  </Suspense>
-                ),
-              },
-              {
-                path: 'podcasts',
-                element: (
-                  <Suspense fallback={<CollectionPodcastsRouteLoadingState />}>
-                    <CollectionPodcastsRoute />
-                  </Suspense>
-                ),
-              },
-              {
-                path: 'artists',
-                element: (
-                  <Suspense fallback={<CollectionArtistsRoute.LoadingState />}>
-                    <CollectionArtistsRoute.Component />
-                  </Suspense>
-                ),
-              },
-              {
-                path: 'albums',
-                element: (
-                  <Suspense fallback={<CollectionAlbumsRouteLoadingState />}>
-                    <CollectionAlbumsRoute />
-                  </Suspense>
-                ),
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-]);
+            }
+          />
+        </Route>
+      </Route>
+    </Route>
+  </Route>
+);
 
-export default router;
+export default createBrowserRouter(routes);
