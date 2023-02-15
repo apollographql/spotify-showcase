@@ -50,7 +50,7 @@ const TRACK_ROUTE_QUERY = gql`
   ${ArtistTopTracks.fragments.tracks}
 `;
 
-const TrackRoute = () => {
+export const RouteComponent = () => {
   const { trackId } = useParams() as { trackId: string };
   const { data } = useSuspenseQuery<TrackRouteQuery, TrackRouteQueryVariables>(
     TRACK_ROUTE_QUERY,
@@ -122,5 +122,3 @@ export const LoadingState = () => {
     </Page>
   );
 };
-
-export default TrackRoute;

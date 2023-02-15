@@ -38,7 +38,7 @@ const EPISODE_ROUTE_QUERY = gql`
   ${EpisodeRemainingDuration.fragments.episode}
 `;
 
-const EpisodeRoute = () => {
+export const RouteComponent = () => {
   const { episodeId } = useParams() as { episodeId: string };
   const { data } = useSuspenseQuery<
     EpisodeRouteQuery,
@@ -92,5 +92,3 @@ export const LoadingState = () => {
     </Page>
   );
 };
-
-export default EpisodeRoute;

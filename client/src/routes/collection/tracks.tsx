@@ -78,7 +78,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const CollectionTracksRoute = () => {
+export const RouteComponent = () => {
   useSetBackgroundColor('#1F3363');
 
   const { client, data, fetchMore } = useSuspenseQuery<
@@ -326,5 +326,3 @@ const columns = [
     },
   }),
 ];
-
-export default CollectionTracksRoute;

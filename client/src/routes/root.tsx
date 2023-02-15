@@ -52,7 +52,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const Root = () => {
+export const RouteComponent = () => {
   const params = useParams();
   const ref = useRef<HTMLElement>(null);
   const isLoggedIn = useIsLoggedIn();
@@ -141,5 +141,3 @@ const AuthenticatedWrapper = ({ children }: AuthenticatedWrapperProps) => {
     </>
   );
 };
-
-export default Root;

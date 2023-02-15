@@ -74,7 +74,7 @@ const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
   return albumConnection.edges.map((edge) => edge.node);
 };
 
-const ArtistRoute = () => {
+export const RouteComponent = () => {
   const { artistId } = useParams() as { artistId: string };
 
   const { data } = useSuspenseQuery<
@@ -162,5 +162,3 @@ export const LoadingState = () => (
     </header>
   </Page>
 );
-
-export default ArtistRoute;

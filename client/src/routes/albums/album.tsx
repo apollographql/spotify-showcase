@@ -71,7 +71,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const AlbumRoute = () => {
+export const RouteComponent = () => {
   const { albumId } = useParams() as { albumId: 'string' };
   const { data } = useSuspenseQuery<AlbumRouteQuery, AlbumRouteQueryVariables>(
     ALBUM_ROUTE_QUERY,
@@ -212,5 +212,3 @@ export const LoadingState = () => {
     </Page>
   );
 };
-
-export default AlbumRoute;

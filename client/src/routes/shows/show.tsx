@@ -65,7 +65,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const ShowRoute = () => {
+export const RouteComponent = () => {
   const { showId } = useParams() as { showId: string };
   const { data } = useSuspenseQuery<ShowRouteQuery, ShowRouteQueryVariables>(
     SHOW_ROUTE_QUERY,
@@ -183,5 +183,3 @@ export const LoadingState = () => {
     </Page>
   );
 };
-
-export default ShowRoute;
