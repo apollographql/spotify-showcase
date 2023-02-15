@@ -33,7 +33,7 @@ const COLLECTION_ARTISTS_ROUTE_QUERY = gql`
   ${ArtistTile.fragments.artist}
 `;
 
-export const Component = () => {
+export const RouteComponent = () => {
   const { data, fetchMore } = useSuspenseQuery<
     CollectionArtistsRouteQuery,
     CollectionArtistsRouteQueryVariables
@@ -61,8 +61,6 @@ export const Component = () => {
     </div>
   );
 };
-
-Component.displayName = 'CollectionArtistsRoute';
 
 export const LoadingState = () => {
   return (

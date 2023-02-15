@@ -1,17 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, LoaderFunction } from 'react-router-dom';
 import { logout } from '../auth';
 import ErrorActionLink from '../components/ErrorActionLink';
 import ErrorDescription from '../components/ErrorDescription';
 import ErrorTitle from '../components/ErrorTitle';
 import Layout from '../components/Layout';
 
-export const loader = () => {
+export const loader: LoaderFunction = () => {
   logout();
 
   return null;
 };
 
-const LoggedOutRoute = () => {
+export const RouteComponent = () => {
   return (
     <Layout>
       <Layout.Main>
@@ -31,5 +31,3 @@ const LoggedOutRoute = () => {
     </Layout>
   );
 };
-
-export default LoggedOutRoute;

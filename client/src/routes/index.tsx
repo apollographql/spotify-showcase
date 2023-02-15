@@ -15,7 +15,7 @@ import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
 
-const Index = () => {
+export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
 
   return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
@@ -164,5 +164,3 @@ export const LoadingState = () => {
     </Flex>
   );
 };
-
-export default Index;

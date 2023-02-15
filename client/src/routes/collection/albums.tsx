@@ -33,7 +33,7 @@ const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
   ${AlbumTile.fragments.album}
 `;
 
-export const CollectionAlbumsRoute = () => {
+export const RouteComponent = () => {
   const { data, fetchMore } = useSuspenseQuery<
     CollectionAlbumsRouteQuery,
     CollectionAlbumsRouteQueryVariables
@@ -79,5 +79,3 @@ export const LoadingState = () => {
     </div>
   );
 };
-
-export default CollectionAlbumsRoute;

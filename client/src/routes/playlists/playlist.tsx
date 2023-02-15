@@ -60,7 +60,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const Playlist = () => {
+export const RouteComponent = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
   const { data, fetchMore } = useSuspenseQuery<
     PlaylistQuery,
@@ -139,7 +139,7 @@ const Playlist = () => {
   );
 };
 
-export const Loading = () => {
+export const LoadingState = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
   const playbackState = usePlaybackState<PlaylistRoutePlaybackStateFragment>({
     fragment: PLAYBACK_STATE_FRAGMENT,
@@ -182,5 +182,3 @@ export const Loading = () => {
     </Page>
   );
 };
-
-export default Playlist;

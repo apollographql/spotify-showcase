@@ -1,4 +1,5 @@
 import { Fragment, ReactNode, useRef, useState } from 'react';
+import cx from 'classnames';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -21,6 +22,11 @@ import ContextMenu from '../components/ContextMenu';
 import ContextMenuAction from '../components/ContextMenuAction';
 import ScrollContainerContext from '../components/ScrollContainerContext';
 import OffsetBasedPaginationObserver from '../components/OffsetBasedPaginationObserver';
+import Flex from '../components/Flex';
+import Skeleton from '../components/Skeleton';
+import headerStyles from '../components/Layout/Header.module.scss';
+import { randomBetween } from '../utils/common';
+import { range } from '../utils/lists';
 
 const ROOT_QUERY = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -52,7 +58,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const Root = () => {
+export const RouteComponent = () => {
   const params = useParams();
   const ref = useRef<HTMLElement>(null);
   const isLoggedIn = useIsLoggedIn();
@@ -142,4 +148,28 @@ const AuthenticatedWrapper = ({ children }: AuthenticatedWrapperProps) => {
   );
 };
 
-export default Root;
+export const LoadingState = () => {
+  const skeletons = range(0, randomBetween(10, 15));
+
+  return (
+    <Layout>
+      <Layout.Sidebar>
+        <Layout.Sidebar.Section>
+          {skeletons.map((num) => (
+            <li key={num} className="px-0 py-2">
+              <Skeleton.Text key={num} width={`${randomBetween(40, 60)}%`} />
+            </li>
+          ))}
+        </Layout.Sidebar.Section>
+      </Layout.Sidebar>
+      <Layout.Main>
+        <header className={cx(headerStyles.header, 'z-10 justify-end')}>
+          <Flex gap="0.5rem" alignItems="center">
+            <Skeleton.Avatar size="2rem" />
+            <Skeleton.Text width="10ch" />
+          </Flex>
+        </header>
+      </Layout.Main>
+    </Layout>
+  );
+};

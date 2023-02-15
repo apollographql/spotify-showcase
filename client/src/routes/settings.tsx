@@ -67,7 +67,7 @@ const filterConfiguredFields = (
   });
 };
 
-const Settings = () => {
+export const RouteComponent = () => {
   useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
   const { data } = useSuspenseQuery<SettingsQuery, SettingsQueryVariables>(
@@ -192,5 +192,3 @@ export const LoadingState = () => {
     </Page>
   );
 };
-
-export default Settings;
