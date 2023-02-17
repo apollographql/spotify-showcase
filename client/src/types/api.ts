@@ -2678,7 +2678,13 @@ export type PlaylistRoutePlaybackStateFragment = { __typename: 'PlaybackState', 
 export type QueueRouteQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type QueueRouteQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackQueue: { __typename: 'PlaybackQueue', currentlyPlaying: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null, queue: Array<{ __typename: 'Episode', id: string } | { __typename: 'Track', id: string, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> }> } | null } } | null };
+export type QueueRouteQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackQueue: { __typename: 'PlaybackQueue', currentlyPlaying: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null, queue: Array<{ __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> }> } | null } } | null };
+
+type QueueRoute_playbackItem_Episode_ = { __typename: 'Episode', id: string, durationMs: number };
+
+type QueueRoute_playbackItem_Track_ = { __typename: 'Track', id: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+
+export type QueueRoute_playbackItem = QueueRoute_playbackItem_Episode_ | QueueRoute_playbackItem_Track_;
 
 export type QueueRoute_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string } | null };
 

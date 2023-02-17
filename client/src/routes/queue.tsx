@@ -16,6 +16,7 @@ import usePlaybackState from '../hooks/usePlaybackState';
 import TrackTitleCell from '../components/TrackTitleCell';
 import { useEffect } from 'react';
 import usePrevious from '../hooks/usePrevious';
+import Duration from '../components/Duration';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -27,21 +28,22 @@ const QUEUE_ROUTE_QUERY = gql`
       player {
         playbackQueue {
           currentlyPlaying {
-            id
-            ... on Track {
-              ...TrackNumberCell_track
-              ...TrackTitleCell_track
-            }
+            ...QueueRoute_playbackItem
           }
           queue {
-            id
-            ... on Track {
-              ...TrackNumberCell_track
-              ...TrackTitleCell_track
-            }
+            ...QueueRoute_playbackItem
           }
         }
       }
+    }
+  }
+
+  fragment QueueRoute_playbackItem on PlaybackItem {
+    id
+    durationMs
+    ... on Track {
+      ...TrackNumberCell_track
+      ...TrackTitleCell_track
     }
   }
 
@@ -157,6 +159,18 @@ const columns = [
       }
 
       return null;
+    },
+  }),
+  columnHelper.accessor('durationMs', {
+    header: '',
+    cell: (info) => (
+      <div className="flex justify-end tabular-nums text-muted">
+        <Duration durationMs={info.getValue()} />
+      </div>
+    ),
+    meta: {
+      shrink: true,
+      headerAlign: 'right',
     },
   }),
 ];
