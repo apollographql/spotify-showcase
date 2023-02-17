@@ -198,7 +198,6 @@ function Table<TData>({
                   <th
                     key={header.id}
                     colSpan={header.colSpan}
-                    data-shrink={column.columnDef.meta?.shrink}
                     data-align={column.columnDef.meta?.headerAlign}
                   >
                     {header.isPlaceholder
@@ -242,6 +241,7 @@ function Table<TData>({
                 <td
                   key={cell.id}
                   data-wrap={cell.column.columnDef.meta?.wrap}
+                  data-shrink={cell.column.columnDef.meta?.shrink}
                   className={cx({
                     'first:rounded-tl': !isPreviousSelected,
                     'first:rounded-bl': !isNextSelected,
