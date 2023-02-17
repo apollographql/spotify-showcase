@@ -285,8 +285,6 @@ export type CurrentUser = {
   episodesContains: Maybe<Array<Scalars['Boolean']>>;
   /** Get the current user's followed artists. */
   followedArtists: Maybe<FollowedArtistsConnection>;
-  /** Get the list of objects that make up the user's queue. */
-  playbackQueue: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
@@ -901,6 +899,8 @@ export type Player = {
   currentlyPlaying: Maybe<CurrentlyPlaying>;
   /** Information about a user's available devices. */
   devices: Maybe<Array<Device>>;
+  /** Get the list of objects that make up the user's queue. */
+  playbackQueue: Maybe<PlaybackQueue>;
   /**
    * Information about the user's current playback state, including track or
    * episode, progress, and active device.
@@ -2674,6 +2674,13 @@ export type PlaylistQueryVariables = Exact<{
 export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, uri: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', pageInfo: { __typename: 'PageInfo', hasNextPage: boolean, offset: number, limit: number, total: number }, edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, explicit: boolean, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } } | null };
 
 export type PlaylistRoutePlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+
+export type QueueRouteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type QueueRouteQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackQueue: { __typename: 'PlaybackQueue', currentlyPlaying: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null, queue: Array<{ __typename: 'Episode', id: string } | { __typename: 'Track', id: string, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> }> } | null } } | null };
+
+export type QueueRoute_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
 
 export type RootQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;

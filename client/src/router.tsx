@@ -21,6 +21,7 @@ import * as LoggedOutRoute from './routes/logged-out';
 import * as LoginRoute from './routes/login';
 import * as LogoutRoute from './routes/logout';
 import * as PlaylistRoute from './routes/playlists/playlist';
+import * as QueueRoute from './routes/queue';
 import * as RootRoute from './routes/root';
 import * as SettingsRoute from './routes/settings';
 import * as SetTokenRoute from './routes/set-token';
@@ -71,6 +72,14 @@ const routes = createRoutesFromElements(
           element={
             <Suspense fallback={<SettingsRoute.LoadingState />}>
               <SettingsRoute.RouteComponent />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/queue"
+          element={
+            <Suspense fallback={<QueueRoute.LoadingState />}>
+              <QueueRoute.RouteComponent />
             </Suspense>
           }
         />
