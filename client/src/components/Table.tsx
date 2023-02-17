@@ -179,33 +179,41 @@ function Table<TData>({
     }
   };
 
+  const hasVisibleHeaders = table
+    .getHeaderGroups()
+    .some((headerGroup) =>
+      headerGroup.headers.some((header) => header.column.columnDef.header)
+    );
+
   return (
     <table ref={tableRef} className={cx(styles.table, className)} {...props}>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              const { column } = header;
+      {hasVisibleHeaders && (
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                const { column } = header;
 
-              return (
-                <th
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  data-shrink={column.columnDef.meta?.shrink}
-                  data-align={column.columnDef.meta?.headerAlign}
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </th>
-              );
-            })}
-          </tr>
-        ))}
-      </thead>
+                return (
+                  <th
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    data-shrink={column.columnDef.meta?.shrink}
+                    data-align={column.columnDef.meta?.headerAlign}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </th>
+                );
+              })}
+            </tr>
+          ))}
+        </thead>
+      )}
       <tbody className="before:block before:leading-4 before:content-['\200C']">
         {table.getRowModel().rows.map((row, index, rows) => {
           const isPreviousSelected =
