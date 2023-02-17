@@ -857,11 +857,6 @@ type CurrentUser {
   ): PlaylistConnection
 
   """
-  Get the list of objects that make up the user's queue.
-  """
-  playbackQueue: PlaybackQueue
-
-  """
   Get a list of the albums saved in the current Spotify user's 'Your Music' library.
   """
   shows(
@@ -1393,6 +1388,11 @@ type Player {
 
   "Information about a user's available devices."
   devices: [Device!]
+
+  """
+  Get the list of objects that make up the user's queue.
+  """
+  queue: PlaybackQueue
 
   """
   Information about the user's current playback state, including track or

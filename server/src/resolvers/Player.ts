@@ -10,6 +10,9 @@ const resolvers: PlayerResolvers = {
 
     return devices;
   },
+  queue: (_, __, { dataSources }) => {
+    return dataSources.spotify.getPlaybackQueue();
+  },
   playbackState: (_, __, { dataSources }) => {
     return dataSources.spotify.getPlaybackState({
       additional_types: 'episode,track',
