@@ -14,6 +14,8 @@ import Table from '../components/Table';
 import TrackNumberCell from '../components/TrackNumberCell';
 import usePlaybackState from '../hooks/usePlaybackState';
 import TrackTitleCell from '../components/TrackTitleCell';
+import { useEffect } from 'react';
+import usePrevious from '../hooks/usePrevious';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -53,23 +55,35 @@ const PLAYBACK_STATE_FRAGMENT = gql`
       __typename
       uri
     }
+    item {
+      id
+    }
   }
 `;
 
 export const RouteComponent = () => {
-  const { data } = useSuspenseQuery<QueueRouteQuery, QueueRouteQueryVariables>(
-    QUEUE_ROUTE_QUERY
-  );
+  const { data, refetch } = useSuspenseQuery<
+    QueueRouteQuery,
+    QueueRouteQueryVariables
+  >(QUEUE_ROUTE_QUERY);
 
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
+
+  const previousItem = usePrevious(playbackState?.item);
 
   if (!data.me?.player.playbackQueue) {
     throw new Error('Something went wrong');
   }
 
   const { playbackQueue } = data.me.player;
+
+  useEffect(() => {
+    if (playbackState?.item !== previousItem) {
+      refetch();
+    }
+  }, [playbackState?.item, previousItem, refetch]);
 
   return (
     <Page className="p-[var(--main-content--padding)]">
