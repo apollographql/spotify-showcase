@@ -10,7 +10,7 @@ const resolvers: PlayerResolvers = {
 
     return devices;
   },
-  queue: (_, __, { dataSources }) => {
+  playbackQueue: (_, __, { dataSources }) => {
     return dataSources.spotify.getPlaybackQueue();
   },
   playbackState: (_, __, { dataSources }) => {

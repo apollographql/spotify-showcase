@@ -1392,7 +1392,7 @@ type Player {
   """
   Get the list of objects that make up the user's queue.
   """
-  queue: PlaybackQueue
+  playbackQueue: PlaybackQueue
 
   """
   Information about the user's current playback state, including track or

@@ -902,13 +902,13 @@ export type Player = {
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
   /** Information about a user's available devices. */
   devices?: Maybe<Array<Device>>;
+  /** Get the list of objects that make up the user's queue. */
+  playbackQueue?: Maybe<PlaybackQueue>;
   /**
    * Information about the user's current playback state, including track or
    * episode, progress, and active device.
    */
   playbackState?: Maybe<PlaybackState>;
-  /** Get the list of objects that make up the user's queue. */
-  queue?: Maybe<PlaybackQueue>;
   /**
    * Get tracks from the current user's recently played tracks. **Note**: Currently
    * doesn't support podcast episodes.
@@ -3030,8 +3030,8 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
 export type PlayerResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Player'] = ResolversParentTypes['Player']> = ResolversObject<{
   currentlyPlaying?: Resolver<Maybe<ResolversTypes['CurrentlyPlaying']>, ParentType, ContextType>;
   devices?: Resolver<Maybe<Array<ResolversTypes['Device']>>, ParentType, ContextType>;
+  playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
-  queue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   recentlyPlayed?: Resolver<Maybe<ResolversTypes['RecentlyPlayedConnection']>, ParentType, ContextType, Partial<PlayerRecentlyPlayedArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
