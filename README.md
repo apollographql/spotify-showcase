@@ -26,6 +26,12 @@ npm start
 4. Visit `http://localhost:3000` and follow the instructions on the home page to
    ensure the app can talk to Spotify.
 
+## Feedback survey
+
+If you used the React + Apollo Spotify Showcase and have two minutes then we'd
+really appreciate it if you filled out [this survey](https://o0urpu09l9p.typeform.com/to/SrKsN0nv) -
+it really helps us improve!
+
 ## About
 
 Apollo Client's newest features unlock powerful UI development capabilities when
