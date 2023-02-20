@@ -17,6 +17,7 @@ import TrackTitleCell from '../components/TrackTitleCell';
 import { useEffect } from 'react';
 import usePrevious from '../hooks/usePrevious';
 import Duration from '../components/Duration';
+import { ListMusic } from 'lucide-react';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -89,29 +90,43 @@ export const RouteComponent = () => {
 
   return (
     <Page className="p-[var(--main-content--padding)]">
-      <h1 className="text-2xl">Queue</h1>
-      <section className="mb-4">
-        <h2 className="text-muted text-lg">Now playing</h2>
-        <Table
-          enableRowSelection
-          enableMultiSelect
-          enableRangeSelect
-          data={[playbackQueue.currentlyPlaying as PlaybackItem]}
-          columns={columns}
-          meta={{ context: playbackState?.context }}
+      {playbackQueue.queue.length === 0 || !playbackQueue.currentlyPlaying ? (
+        <Page.EmptyState
+          icon={<ListMusic />}
+          title="Add to your queue"
+          description={'Tap "Add to queue" from a track\'s menu to see it here'}
         />
-      </section>
-      <section>
-        <h2 className="text-muted text-lg">Next</h2>
-        <Table
-          enableRowSelection
-          enableMultiSelect
-          enableRangeSelect
-          data={playbackQueue.queue}
-          columns={columns}
-          meta={{ context: playbackState?.context }}
-        />
-      </section>
+      ) : (
+        <>
+          <h1 className="text-2xl">Queue</h1>
+          {playbackQueue.currentlyPlaying && (
+            <section className="mb-4">
+              <h2 className="text-muted text-lg">Now playing</h2>
+              <Table
+                enableRowSelection
+                enableMultiSelect
+                enableRangeSelect
+                data={[playbackQueue.currentlyPlaying as PlaybackItem]}
+                columns={columns}
+                meta={{ context: playbackState?.context }}
+              />
+            </section>
+          )}
+          {playbackQueue.queue.length > 0 && (
+            <section>
+              <h2 className="text-muted text-lg">Next</h2>
+              <Table
+                enableRowSelection
+                enableMultiSelect
+                enableRangeSelect
+                data={playbackQueue.queue}
+                columns={columns}
+                meta={{ context: playbackState?.context }}
+              />
+            </section>
+          )}
+        </>
+      )}
     </Page>
   );
 };
