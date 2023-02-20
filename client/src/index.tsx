@@ -10,6 +10,11 @@ import './reset.scss';
 import './index.scss';
 import './index.css';
 
+console.log(
+  '%c📝 The Apollo Client maintainers want your feedback! Please take our survey 💜\n🔗 https://o0urpu09l9p.typeform.com/to/SrKsN0nv',
+  'background-color:#3f20ba;color:#fff;font-size:1.25em;font-weight:bold;'
+);
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
