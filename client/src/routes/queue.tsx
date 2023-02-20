@@ -12,8 +12,9 @@ import { Get } from 'type-fest';
 import Page from '../components/Page';
 import Table from '../components/Table';
 import TrackNumberCell from '../components/TrackNumberCell';
-import usePlaybackState from '../hooks/usePlaybackState';
+import TrackPositionCell from '../components/TrackPositionCell';
 import TrackTitleCell from '../components/TrackTitleCell';
+import usePlaybackState from '../hooks/usePlaybackState';
 import { useEffect } from 'react';
 import usePrevious from '../hooks/usePrevious';
 import Duration from '../components/Duration';
@@ -22,6 +23,12 @@ import { ListMusic } from 'lucide-react';
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
 >;
+
+interface TableMeta {
+  currentlyPlaying: boolean;
+  context: PlaybackState['context'];
+  positionOffset: number;
+}
 
 const QUEUE_ROUTE_QUERY = gql`
   query QueueRouteQuery {
@@ -54,6 +61,7 @@ const QUEUE_ROUTE_QUERY = gql`
 
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment QueueRoute_playbackState on PlaybackState {
+    isPlaying
     context {
       __typename
       uri
@@ -108,7 +116,13 @@ export const RouteComponent = () => {
                 enableRangeSelect
                 data={[playbackQueue.currentlyPlaying as PlaybackItem]}
                 columns={columns}
-                meta={{ context: playbackState?.context }}
+                meta={
+                  {
+                    context: playbackState && playbackState.context,
+                    currentlyPlaying: playbackState?.isPlaying ?? false,
+                    positionOffset: 0,
+                  } satisfies TableMeta
+                }
               />
             </section>
           )}
@@ -121,7 +135,13 @@ export const RouteComponent = () => {
                 enableRangeSelect
                 data={playbackQueue.queue}
                 columns={columns}
-                meta={{ context: playbackState?.context }}
+                meta={
+                  {
+                    context: playbackState && playbackState.context,
+                    currentlyPlaying: false,
+                    positionOffset: 1,
+                  } satisfies TableMeta
+                }
               />
             </section>
           )}
@@ -142,15 +162,15 @@ const columns = [
     id: 'number',
     header: '',
     cell: (info) => {
-      const { context } = info.table.options.meta!;
+      const { context, positionOffset, currentlyPlaying } = info.table.options
+        .meta as TableMeta;
       const { index, original: playbackItem } = info.row;
 
       if (playbackItem.__typename === 'Track') {
         return (
-          <TrackNumberCell
-            position={index}
-            context={context}
-            track={playbackItem}
+          <TrackPositionCell
+            playing={currentlyPlaying}
+            position={index + positionOffset + 1}
           />
         );
       }

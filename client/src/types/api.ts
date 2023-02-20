@@ -2686,7 +2686,7 @@ type QueueRoute_playbackItem_Track_ = { __typename: 'Track', id: string, duratio
 
 export type QueueRoute_playbackItem = QueueRoute_playbackItem_Episode_ | QueueRoute_playbackItem_Track_;
 
-export type QueueRoute_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string } | null };
+export type QueueRoute_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string } | null };
 
 export type RootQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']>;
