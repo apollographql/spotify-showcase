@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, MutationHookOptions } from '@apollo/client';
 import {
   PlaybackContextType,
   ResumePlaybackInput,
@@ -61,11 +61,16 @@ const getContextTypeFromURI = (contextURI: string) => {
   }
 };
 
-const useResumePlaybackMutation = () => {
+type Options = Pick<
+  MutationHookOptions,
+  'refetchQueries' | 'awaitRefetchQueries'
+>;
+
+const useResumePlaybackMutation = (options?: Options) => {
   const [execute, result] = useMutation<
     ResumePlaybackMutation,
     ResumePlaybackMutationVariables
-  >(RESUME_PLAYBACK_MUTATION);
+  >(RESUME_PLAYBACK_MUTATION, options);
 
   const playbackState = usePlaybackState<UseResumePlaybackStateFragment>({
     fragment: USE_RESUME_PLAYBACK_STATE_FRAGMENT,
