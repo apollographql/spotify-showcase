@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { PauseIcon, PlayIcon } from 'lucide-react';
 import usePausePlaybackMutation from '../mutations/usePausePlaybackMutation';
 import AnimatedSoundWave from './AnimatedSoundWave';
@@ -6,9 +7,14 @@ import Text from './Text';
 interface TrackPositionCellProps {
   playing: boolean;
   position: number;
+  onPlay: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const TrackPositionCell = ({ playing, position }: TrackPositionCellProps) => {
+const TrackPositionCell = ({
+  playing,
+  position,
+  onPlay,
+}: TrackPositionCellProps) => {
   const [pause] = usePausePlaybackMutation();
 
   return (
@@ -16,7 +22,13 @@ const TrackPositionCell = ({ playing, position }: TrackPositionCellProps) => {
       {playing ? (
         <>
           <AnimatedSoundWave className="group-hover:hidden" />
-          <button className="hidden group-hover:block" onClick={pause}>
+          <button
+            className="hidden group-hover:block"
+            onClick={(e) => {
+              e.preventDefault();
+              pause();
+            }}
+          >
             <PauseIcon size="1rem" fill="currentColor" />
           </button>
         </>
@@ -30,7 +42,13 @@ const TrackPositionCell = ({ playing, position }: TrackPositionCellProps) => {
           >
             {position}
           </Text>
-          <button className="hidden group-hover:block">
+          <button
+            className="hidden group-hover:block"
+            onClick={(e) => {
+              e.preventDefault();
+              onPlay(e);
+            }}
+          >
             <PlayIcon size="1rem" fill="currentColor" />
           </button>
         </>
