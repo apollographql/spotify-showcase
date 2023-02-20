@@ -19,6 +19,8 @@ import { useEffect } from 'react';
 import usePrevious from '../hooks/usePrevious';
 import Duration from '../components/Duration';
 import { ListMusic } from 'lucide-react';
+import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
+import { notify } from '../notifications';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -28,6 +30,7 @@ interface TableMeta {
   currentlyPlaying: boolean;
   context: PlaybackState['context'];
   positionOffset: number;
+  onPlay: (playbackItem: PlaybackItem) => void;
 }
 
 const QUEUE_ROUTE_QUERY = gql`
@@ -49,6 +52,7 @@ const QUEUE_ROUTE_QUERY = gql`
   fragment QueueRoute_playbackItem on PlaybackItem {
     id
     durationMs
+    uri
     ... on Track {
       ...TrackNumberCell_track
       ...TrackTitleCell_track
@@ -78,6 +82,7 @@ export const RouteComponent = () => {
     QueueRouteQueryVariables
   >(QUEUE_ROUTE_QUERY, { suspensePolicy: 'initial' });
 
+  const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
@@ -121,6 +126,7 @@ export const RouteComponent = () => {
                     context: playbackState && playbackState.context,
                     currentlyPlaying: playbackState?.isPlaying ?? false,
                     positionOffset: 0,
+                    onPlay: () => resumePlayback(),
                   } satisfies TableMeta
                 }
               />
@@ -140,6 +146,16 @@ export const RouteComponent = () => {
                     context: playbackState && playbackState.context,
                     currentlyPlaying: false,
                     positionOffset: 1,
+                    onPlay: async (playbackItem) => {
+                      try {
+                        await resumePlayback({
+                          contextUri: playbackState?.context?.uri,
+                          offset: { uri: playbackItem.uri },
+                        });
+                      } catch (e) {
+                        notify('Unable to play the requested track');
+                      }
+                    },
                   } satisfies TableMeta
                 }
               />
@@ -162,15 +178,16 @@ const columns = [
     id: 'number',
     header: '',
     cell: (info) => {
-      const { context, positionOffset, currentlyPlaying } = info.table.options
-        .meta as TableMeta;
       const { index, original: playbackItem } = info.row;
+      const { positionOffset, currentlyPlaying, onPlay } = info.table.options
+        .meta as TableMeta;
 
       if (playbackItem.__typename === 'Track') {
         return (
           <TrackPositionCell
             playing={currentlyPlaying}
             position={index + positionOffset + 1}
+            onPlay={() => onPlay(playbackItem)}
           />
         );
       }
