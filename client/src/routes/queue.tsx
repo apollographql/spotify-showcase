@@ -68,7 +68,7 @@ export const RouteComponent = () => {
   const { data, refetch } = useSuspenseQuery<
     QueueRouteQuery,
     QueueRouteQueryVariables
-  >(QUEUE_ROUTE_QUERY);
+  >(QUEUE_ROUTE_QUERY, { suspensePolicy: 'initial' });
 
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
