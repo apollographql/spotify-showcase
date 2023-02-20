@@ -114,7 +114,7 @@ export const RouteComponent = () => {
           )}
           {playbackQueue.queue.length > 0 && (
             <section>
-              <h2 className="text-muted text-lg">Next</h2>
+              <h2 className="text-muted text-lg">Next in queue</h2>
               <Table
                 enableRowSelection
                 enableMultiSelect
