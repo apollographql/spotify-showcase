@@ -83,7 +83,12 @@ export const RouteComponent = () => {
   const { data, refetch } = useSuspenseQuery<
     QueueRouteQuery,
     QueueRouteQueryVariables
-  >(QUEUE_ROUTE_QUERY, { suspensePolicy: 'initial' });
+  >(QUEUE_ROUTE_QUERY, {
+    // The queue is volitile and can change often so its easiest to reload the
+    // data each time this route is loaded.
+    fetchPolicy: 'network-only',
+    suspensePolicy: 'initial',
+  });
 
   const [resumePlayback] = useResumePlaybackMutation({
     awaitRefetchQueries: true,
