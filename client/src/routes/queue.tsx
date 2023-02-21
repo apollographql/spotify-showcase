@@ -15,7 +15,7 @@ import TrackNumberCell from '../components/TrackNumberCell';
 import TrackPositionCell from '../components/TrackPositionCell';
 import TrackTitleCell from '../components/TrackTitleCell';
 import usePlaybackState from '../hooks/usePlaybackState';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import usePrevious from '../hooks/usePrevious';
 import Duration from '../components/Duration';
 import { ListMusic } from 'lucide-react';
@@ -77,12 +77,17 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 `;
 
 export const RouteComponent = () => {
+  const isChangingTrack = useRef(false);
   const { data, refetch } = useSuspenseQuery<
     QueueRouteQuery,
     QueueRouteQueryVariables
   >(QUEUE_ROUTE_QUERY, { suspensePolicy: 'initial' });
 
-  const [resumePlayback] = useResumePlaybackMutation();
+  const [resumePlayback] = useResumePlaybackMutation({
+    awaitRefetchQueries: true,
+    refetchQueries: [QUEUE_ROUTE_QUERY],
+  });
+
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
@@ -96,7 +101,7 @@ export const RouteComponent = () => {
   const { playbackQueue } = data.me.player;
 
   useEffect(() => {
-    if (playbackState?.item !== previousItem) {
+    if (playbackState?.item !== previousItem && !isChangingTrack.current) {
       refetch();
     }
   }, [playbackState?.item, previousItem, refetch]);
@@ -148,12 +153,15 @@ export const RouteComponent = () => {
                     positionOffset: 1,
                     onPlay: async (playbackItem) => {
                       try {
+                        isChangingTrack.current = true;
                         await resumePlayback({
                           contextUri: playbackState?.context?.uri,
                           offset: { uri: playbackItem.uri },
                         });
                       } catch (e) {
                         notify('Unable to play the requested track');
+                      } finally {
+                        isChangingTrack.current = false;
                       }
                     },
                   } satisfies TableMeta
