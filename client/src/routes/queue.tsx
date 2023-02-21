@@ -108,7 +108,11 @@ export const RouteComponent = () => {
   const { playbackQueue } = data.me.player;
 
   useEffect(() => {
-    if (playbackState?.item !== previousItem && !isChangingTrack.current) {
+    if (
+      playbackState?.item !== previousItem &&
+      previousItem &&
+      !isChangingTrack.current
+    ) {
       refetch();
     }
   }, [playbackState?.item, previousItem, refetch]);
