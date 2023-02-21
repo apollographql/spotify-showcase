@@ -22,6 +22,7 @@ import { ListMusic } from 'lucide-react';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import { notify } from '../notifications';
 import Skeleton from '../components/Skeleton';
+import EntityLink from '../components/EntityLink';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -56,8 +57,18 @@ const QUEUE_ROUTE_QUERY = gql`
     durationMs
     uri
     ... on Track {
+      album {
+        id
+        name
+      }
       ...TrackNumberCell_track
       ...TrackTitleCell_track
+    }
+    ... on Episode {
+      show {
+        id
+        name
+      }
     }
   }
 
@@ -253,6 +264,27 @@ const columns = [
       }
 
       return null;
+    },
+  }),
+  columnHelper.display({
+    id: 'albumOrShow',
+    header: '',
+    cell: (info) => {
+      const { original: playbackItem } = info.row;
+
+      if (playbackItem.__typename === 'Episode') {
+        return (
+          <EntityLink className="text-muted" entity={playbackItem.show}>
+            {playbackItem.show.name}
+          </EntityLink>
+        );
+      }
+
+      return (
+        <EntityLink className="text-muted" entity={playbackItem.album}>
+          {playbackItem.album.name}
+        </EntityLink>
+      );
     },
   }),
   columnHelper.accessor('durationMs', {
