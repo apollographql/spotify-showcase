@@ -237,21 +237,26 @@ function Table<TData>({
                 }
               }}
             >
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  data-wrap={cell.column.columnDef.meta?.wrap}
-                  data-shrink={cell.column.columnDef.meta?.shrink}
-                  className={cx({
-                    'first:rounded-tl': !isPreviousSelected,
-                    'first:rounded-bl': !isNextSelected,
-                    'last:rounded-tr': !isPreviousSelected,
-                    'last:rounded-br': !isNextSelected,
-                  })}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+              {row.getVisibleCells().map((cell) => {
+                const { meta } = cell.column.columnDef;
+
+                return (
+                  <td
+                    key={cell.id}
+                    data-wrap={meta?.wrap}
+                    data-shrink={meta?.shrink}
+                    className={cx({
+                      'first:rounded-tl': !isPreviousSelected,
+                      'first:rounded-bl': !isNextSelected,
+                      'last:rounded-tr': !isPreviousSelected,
+                      'last:rounded-br': !isNextSelected,
+                    })}
+                    style={{ width: meta?.columnWidth }}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
             </tr>
           );
 
