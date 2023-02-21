@@ -8,6 +8,6 @@ declare module '@tanstack/table-core' {
   }
 
   interface TableMeta<TData extends RowData> {
-    [key: string]: any;
+    [key: string]: unknown;
   }
 }
