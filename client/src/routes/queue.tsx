@@ -23,6 +23,8 @@ import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import { notify } from '../notifications';
 import Skeleton from '../components/Skeleton';
 import EntityLink from '../components/EntityLink';
+import useSavedTracksContains from '../hooks/useSavedTracksContains';
+import TrackLikeButtonCell from '../components/TrackLikeButtonCell';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -34,6 +36,7 @@ interface TableMeta {
   context: PlaybackState['context'];
   positionOffset: number;
   onPlay: (playbackItem: PlaybackItem) => void;
+  tracksContains: Map<string, boolean>;
 }
 
 const QUEUE_ROUTE_QUERY = gql`
@@ -118,6 +121,13 @@ export const RouteComponent = () => {
 
   const { playbackQueue } = data.me.player;
 
+  const tracksContains = useSavedTracksContains(
+    [...playbackQueue.queue, playbackQueue.currentlyPlaying]
+      .filter(Boolean)
+      .filter((playbackItem) => playbackItem.__typename === 'Track')
+      .map((playbackItem) => playbackItem.id)
+  );
+
   useEffect(() => {
     if (
       playbackState?.item !== previousItem &&
@@ -152,6 +162,7 @@ export const RouteComponent = () => {
                     isCurrent: true,
                     isPlaying: playbackState?.isPlaying ?? false,
                     positionOffset: 0,
+                    tracksContains,
                     onPlay: () => resumePlayback(),
                   } satisfies TableMeta
                 }
@@ -173,6 +184,7 @@ export const RouteComponent = () => {
                     isCurrent: false,
                     isPlaying: false,
                     positionOffset: 1,
+                    tracksContains,
                     onPlay: async (playbackItem) => {
                       try {
                         isChangingTrack.current = true;
@@ -236,7 +248,7 @@ const columns = [
     cell: (info) => {
       const { index, original: playbackItem } = info.row;
       const { positionOffset, isCurrent, isPlaying, onPlay } = info.table
-        .options.meta as TableMeta;
+        .options.meta as unknown as TableMeta;
 
       return (
         <TrackPositionCell
@@ -256,7 +268,7 @@ const columns = [
     id: 'info',
     header: '',
     cell: (info) => {
-      const { context } = info.table.options.meta!;
+      const { context } = info.table.options.meta as unknown as TableMeta;
       const { original: playbackItem } = info.row;
 
       if (playbackItem.__typename === 'Track') {
@@ -274,20 +286,44 @@ const columns = [
     header: '',
     cell: (info) => {
       const { original: playbackItem } = info.row;
+      const className = 'text-muted line-clamp-1';
 
       if (playbackItem.__typename === 'Episode') {
         return (
-          <EntityLink className="text-muted" entity={playbackItem.show}>
+          <EntityLink className={className} entity={playbackItem.show}>
             {playbackItem.show.name}
           </EntityLink>
         );
       }
 
       return (
-        <EntityLink className="text-muted" entity={playbackItem.album}>
+        <EntityLink className={className} entity={playbackItem.album}>
           {playbackItem.album.name}
         </EntityLink>
       );
+    },
+  }),
+  columnHelper.display({
+    id: 'liked',
+    header: '',
+    cell: (info) => {
+      const { tracksContains } = info.table.options
+        .meta as unknown as TableMeta;
+      const { original: playbackItem } = info.row;
+
+      if (playbackItem.__typename === 'Track') {
+        return (
+          <TrackLikeButtonCell
+            liked={tracksContains.get(playbackItem.id) ?? false}
+            track={playbackItem}
+          />
+        );
+      }
+
+      return null;
+    },
+    meta: {
+      shrink: true,
     },
   }),
   columnHelper.accessor('durationMs', {
