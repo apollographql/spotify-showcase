@@ -21,6 +21,7 @@ import Duration from '../components/Duration';
 import { ListMusic } from 'lucide-react';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import { notify } from '../notifications';
+import Skeleton from '../components/Skeleton';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -179,7 +180,33 @@ export const RouteComponent = () => {
 };
 
 export const LoadingState = () => {
-  return <div />;
+  const columns = [
+    <Skeleton.Text key="text" />,
+    <div key="titleCell" className="flex gap-2 items-end">
+      <Skeleton.CoverPhoto size="2.5rem" />
+      <div className="flex flex-col flex-1 gap-2">
+        <Skeleton.Text width="25%" fontSize="1rem" />
+        <Skeleton.Text width="20%" fontSize="0.75rem" />
+      </div>
+    </div>,
+    <Skeleton.Text key="album" />,
+    <Skeleton.Text key="duration" />,
+  ];
+
+  return (
+    <Page className="p-[var(--main-content--padding)]">
+      <div className="flex flex-col gap-4">
+        <section>
+          <Skeleton.Heading level={2} width="25%" />
+          <Skeleton.Table headers={false} rows={1} columns={columns} />
+        </section>
+        <section>
+          <Skeleton.Heading level={2} width="25%" />
+          <Skeleton.Table headers={false} rows={10} columns={columns} />
+        </section>
+      </div>
+    </Page>
+  );
 };
 
 const columnHelper = createColumnHelper<PlaybackItem>();
