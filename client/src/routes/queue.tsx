@@ -265,6 +265,9 @@ const columns = [
 
       return null;
     },
+    meta: {
+      columnWidth: '50%',
+    },
   }),
   columnHelper.display({
     id: 'albumOrShow',
