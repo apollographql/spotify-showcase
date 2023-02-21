@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import '@tanstack/react-table';
 
 declare module '@tanstack/table-core' {
@@ -5,6 +6,7 @@ declare module '@tanstack/table-core' {
     headerAlign?: 'left' | 'center' | 'right';
     shrink?: boolean;
     wrap?: boolean;
+    columnWidth?: CSSProperties['width'];
   }
 
   interface TableMeta<TData extends RowData> {
