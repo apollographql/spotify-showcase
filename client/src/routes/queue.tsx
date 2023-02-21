@@ -27,7 +27,8 @@ type PlaybackItem = NonNullable<
 >;
 
 interface TableMeta {
-  currentlyPlaying: boolean;
+  isCurrent: boolean;
+  isPlaying: boolean;
   context: PlaybackState['context'];
   positionOffset: number;
   onPlay: (playbackItem: PlaybackItem) => void;
@@ -129,7 +130,8 @@ export const RouteComponent = () => {
                 meta={
                   {
                     context: playbackState && playbackState.context,
-                    currentlyPlaying: playbackState?.isPlaying ?? false,
+                    isCurrent: true,
+                    isPlaying: playbackState?.isPlaying ?? false,
                     positionOffset: 0,
                     onPlay: () => resumePlayback(),
                   } satisfies TableMeta
@@ -149,7 +151,8 @@ export const RouteComponent = () => {
                 meta={
                   {
                     context: playbackState && playbackState.context,
-                    currentlyPlaying: false,
+                    isCurrent: false,
+                    isPlaying: false,
                     positionOffset: 1,
                     onPlay: async (playbackItem) => {
                       try {
@@ -187,13 +190,14 @@ const columns = [
     header: '',
     cell: (info) => {
       const { index, original: playbackItem } = info.row;
-      const { positionOffset, currentlyPlaying, onPlay } = info.table.options
-        .meta as TableMeta;
+      const { positionOffset, isCurrent, isPlaying, onPlay } = info.table
+        .options.meta as TableMeta;
 
       if (playbackItem.__typename === 'Track') {
         return (
           <TrackPositionCell
-            playing={currentlyPlaying}
+            isCurrent={isCurrent}
+            isPlaying={isPlaying}
             position={index + positionOffset + 1}
             onPlay={() => onPlay(playbackItem)}
           />

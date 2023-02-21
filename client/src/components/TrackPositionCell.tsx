@@ -5,13 +5,15 @@ import AnimatedSoundWave from './AnimatedSoundWave';
 import Text from './Text';
 
 interface TrackPositionCellProps {
-  playing: boolean;
+  isCurrent: boolean;
+  isPlaying: boolean;
   position: number;
   onPlay: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const TrackPositionCell = ({
-  playing,
+  isCurrent,
+  isPlaying,
   position,
   onPlay,
 }: TrackPositionCellProps) => {
@@ -19,7 +21,7 @@ const TrackPositionCell = ({
 
   return (
     <div className="flex min-w-[3ch] justify-end">
-      {playing ? (
+      {isPlaying ? (
         <>
           <AnimatedSoundWave className="group-hover:hidden" />
           <button
@@ -36,7 +38,7 @@ const TrackPositionCell = ({
         <>
           <Text
             className="group-hover:hidden"
-            color={playing ? 'themeLight' : 'muted'}
+            color={isPlaying || isCurrent ? 'themeLight' : 'muted'}
             numericVariant="tabular-nums"
             size="base"
           >
