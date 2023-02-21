@@ -4,7 +4,8 @@ import PlaybarControlButton from './PlaybarControlButton';
 
 const QueueControlButton = () => {
   const location = useLocation();
-  const href = location.pathname === '/queue' ? location.state.from : '/queue';
+  const href =
+    location.pathname === '/queue' ? location.state?.from ?? '/' : '/queue';
 
   return (
     <Link
