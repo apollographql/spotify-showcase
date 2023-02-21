@@ -4,7 +4,6 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
-import { Link } from 'react-router-dom';
 import {
   Action,
   RepeatMode,
@@ -12,7 +11,7 @@ import {
   PlaybarQueryVariables,
   Playbar_playbackState as PlaybackState,
 } from '../types/api';
-import { List, Volume1 } from 'lucide-react';
+import { Volume1 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
@@ -33,6 +32,7 @@ import SkipForwardControl from './SkipForwardControl';
 import VolumeBar from './VolumeBar';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePlaybackState from '../hooks/usePlaybackState';
+import QueueControlButton from './QueueControlButton';
 
 interface PlaybarProps {
   className?: string;
@@ -134,13 +134,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           <PlaybackItemProgressBar playbackState={playbackState} />
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
-          <Link to="/queue" className={styles.controlLink}>
-            <PlaybarControlButton
-              disallowed={false}
-              icon={<List strokeWidth={1.5} />}
-              tooltip="Queue"
-            />
-          </Link>
+          <QueueControlButton />
           <DevicePopover devices={devices}>
             <PlaybarControlButton
               disallowed={devices.length === 0}
