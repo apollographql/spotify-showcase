@@ -6,25 +6,32 @@ import Text from './Text';
 
 interface TableProps {
   rows: number;
+  headers?: boolean;
   columns: number | ReactElement[];
 }
 
-const Table = ({ rows: rowCount, columns: columnConfig }: TableProps) => {
+const Table = ({
+  headers = true,
+  rows: rowCount,
+  columns: columnConfig,
+}: TableProps) => {
   const rows = range(0, rowCount);
   const columns =
     typeof columnConfig === 'number' ? range(0, columnConfig) : columnConfig;
 
   return (
     <table className={styles.skeleton__table}>
-      <thead>
-        <tr>
-          {columns.map((_, index) => (
-            <th key={index} className={styles.skeleton__tableHeading}>
-              <Text width={`${randomBetween(20, 60)}%`} />
-            </th>
-          ))}
-        </tr>
-      </thead>
+      {headers && (
+        <thead>
+          <tr>
+            {columns.map((_, index) => (
+              <th key={index} className={styles.skeleton__tableHeading}>
+                <Text width={`${randomBetween(20, 60)}%`} />
+              </th>
+            ))}
+          </tr>
+        </thead>
+      )}
       <tbody>
         {rows.map((row) => (
           <tr key={row}>
