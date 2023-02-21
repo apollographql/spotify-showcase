@@ -133,8 +133,6 @@ export const RouteComponent = () => {
               <h2 className="text-muted text-lg">Now playing</h2>
               <Table
                 enableRowSelection
-                enableMultiSelect
-                enableRangeSelect
                 data={[playbackQueue.currentlyPlaying as PlaybackItem]}
                 columns={columns}
                 meta={
