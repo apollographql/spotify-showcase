@@ -225,18 +225,14 @@ const columns = [
       const { positionOffset, isCurrent, isPlaying, onPlay } = info.table
         .options.meta as TableMeta;
 
-      if (playbackItem.__typename === 'Track') {
-        return (
-          <TrackPositionCell
-            isCurrent={isCurrent}
-            isPlaying={isPlaying}
-            position={index + positionOffset + 1}
-            onPlay={() => onPlay(playbackItem)}
-          />
-        );
-      }
-
-      return null;
+      return (
+        <TrackPositionCell
+          isCurrent={isCurrent}
+          isPlaying={isPlaying}
+          position={index + positionOffset + 1}
+          onPlay={() => onPlay(playbackItem)}
+        />
+      );
     },
     meta: {
       shrink: true,
