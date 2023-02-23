@@ -16,7 +16,7 @@ interface Context {
 }
 
 interface TrackTitleCellProps {
-  context: Context;
+  context: Context | null;
   track: Track;
 }
 
@@ -37,7 +37,8 @@ const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
-  const isPlayingInContext = playbackState?.context?.uri === context.uri;
+  const isPlayingInContext =
+    context != null && playbackState?.context?.uri === context.uri;
   const isCurrentTrack = track.uri === playbackState?.item?.uri;
 
   return (
@@ -81,7 +82,6 @@ TrackTitleCell.fragments = {
       name
       uri
       album {
-        id
         images {
           url
         }
