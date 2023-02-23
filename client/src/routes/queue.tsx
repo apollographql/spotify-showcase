@@ -25,6 +25,7 @@ import Skeleton from '../components/Skeleton';
 import EntityLink from '../components/EntityLink';
 import useSavedTracksContains from '../hooks/useSavedTracksContains';
 import TrackLikeButtonCell from '../components/TrackLikeButtonCell';
+import EpisodeDetailsCell from '../components/EpisodeDetailsCell';
 
 type PlaybackItem = NonNullable<
   Get<QueueRouteQuery, 'me.player.playbackQueue.queue[0]'>
@@ -72,9 +73,11 @@ const QUEUE_ROUTE_QUERY = gql`
         id
         name
       }
+      ...EpisodeDetailsCell_episode
     }
   }
 
+  ${EpisodeDetailsCell.fragments.episode}
   ${TrackNumberCell.fragments.track}
   ${TrackTitleCell.fragments.track}
 `;
@@ -275,7 +278,7 @@ const columns = [
         return <TrackTitleCell track={playbackItem} context={context} />;
       }
 
-      return null;
+      return <EpisodeDetailsCell episode={playbackItem} />;
     },
     meta: {
       columnWidth: '50%',
