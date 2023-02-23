@@ -10,6 +10,7 @@ import CommaSeparatedList from './CommaSeparatedList';
 import Text from './Text';
 import usePlaybackState from '../hooks/usePlaybackState';
 import ExplicitBadge from './ExplicitBadge';
+import { thumbnail } from '../utils/image';
 
 interface Context {
   uri: string;
@@ -43,7 +44,7 @@ const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
 
   return (
     <Flex gap="0.5rem">
-      <CoverPhoto image={track.album.images[0]} size="2.5rem" />
+      <CoverPhoto image={thumbnail(track.album.images)} size="2.5rem" />
       <Flex direction="column">
         <Text
           size="base"
