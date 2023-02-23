@@ -179,33 +179,40 @@ function Table<TData>({
     }
   };
 
+  const hasVisibleHeaders = table
+    .getHeaderGroups()
+    .some((headerGroup) =>
+      headerGroup.headers.some((header) => header.column.columnDef.header)
+    );
+
   return (
     <table ref={tableRef} className={cx(styles.table, className)} {...props}>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              const { column } = header;
+      {hasVisibleHeaders && (
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                const { column } = header;
 
-              return (
-                <th
-                  key={header.id}
-                  colSpan={header.colSpan}
-                  data-shrink={column.columnDef.meta?.shrink}
-                  data-align={column.columnDef.meta?.headerAlign}
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </th>
-              );
-            })}
-          </tr>
-        ))}
-      </thead>
+                return (
+                  <th
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    data-align={column.columnDef.meta?.headerAlign}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </th>
+                );
+              })}
+            </tr>
+          ))}
+        </thead>
+      )}
       <tbody className="before:block before:leading-4 before:content-['\200C']">
         {table.getRowModel().rows.map((row, index, rows) => {
           const isPreviousSelected =
@@ -230,20 +237,26 @@ function Table<TData>({
                 }
               }}
             >
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  data-wrap={cell.column.columnDef.meta?.wrap}
-                  className={cx({
-                    'first:rounded-tl': !isPreviousSelected,
-                    'first:rounded-bl': !isNextSelected,
-                    'last:rounded-tr': !isPreviousSelected,
-                    'last:rounded-br': !isNextSelected,
-                  })}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+              {row.getVisibleCells().map((cell) => {
+                const { meta } = cell.column.columnDef;
+
+                return (
+                  <td
+                    key={cell.id}
+                    data-wrap={meta?.wrap}
+                    data-shrink={meta?.shrink}
+                    className={cx({
+                      'first:rounded-tl': !isPreviousSelected,
+                      'first:rounded-bl': !isNextSelected,
+                      'last:rounded-tr': !isPreviousSelected,
+                      'last:rounded-br': !isNextSelected,
+                    })}
+                    style={{ width: meta?.columnWidth }}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
             </tr>
           );
 

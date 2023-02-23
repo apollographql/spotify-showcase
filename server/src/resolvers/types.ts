@@ -289,8 +289,6 @@ export type CurrentUser = {
   episodesContains?: Maybe<Array<Scalars['Boolean']>>;
   /** Get the current user's followed artists. */
   followedArtists?: Maybe<FollowedArtistsConnection>;
-  /** Get the list of objects that make up the user's queue. */
-  playbackQueue?: Maybe<PlaybackQueue>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
@@ -904,6 +902,8 @@ export type Player = {
   currentlyPlaying?: Maybe<CurrentlyPlaying>;
   /** Information about a user's available devices. */
   devices?: Maybe<Array<Device>>;
+  /** Get the list of objects that make up the user's queue. */
+  playbackQueue?: Maybe<PlaybackQueue>;
   /**
    * Information about the user's current playback state, including track or
    * episode, progress, and active device.
@@ -2810,7 +2810,6 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   episodes?: Resolver<Maybe<ResolversTypes['SavedEpisodesConnection']>, ParentType, ContextType, Partial<CurrentUserEpisodesArgs>>;
   episodesContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserEpisodesContainsArgs, 'ids'>>;
   followedArtists?: Resolver<Maybe<ResolversTypes['FollowedArtistsConnection']>, ParentType, ContextType, Partial<CurrentUserFollowedArtistsArgs>>;
-  playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
   shows?: Resolver<Maybe<ResolversTypes['SavedShowsConnection']>, ParentType, ContextType, Partial<CurrentUserShowsArgs>>;
@@ -3031,6 +3030,7 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
 export type PlayerResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Player'] = ResolversParentTypes['Player']> = ResolversObject<{
   currentlyPlaying?: Resolver<Maybe<ResolversTypes['CurrentlyPlaying']>, ParentType, ContextType>;
   devices?: Resolver<Maybe<Array<ResolversTypes['Device']>>, ParentType, ContextType>;
+  playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
   playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
   recentlyPlayed?: Resolver<Maybe<ResolversTypes['RecentlyPlayedConnection']>, ParentType, ContextType, Partial<PlayerRecentlyPlayedArgs>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

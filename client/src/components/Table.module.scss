@@ -47,6 +47,10 @@
     &:last-child {
       padding-right: 1rem;
     }
+
+    &[data-shrink] {
+      width: 1px;
+    }
   }
 
   td {

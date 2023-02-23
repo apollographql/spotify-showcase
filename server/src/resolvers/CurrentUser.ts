@@ -31,9 +31,6 @@ const resolvers: CurrentUserResolvers = {
     return artists;
   },
   user: itself(),
-  playbackQueue: (_, __, { dataSources }) => {
-    return dataSources.spotify.getPlaybackQueue();
-  },
   player: () => {
     // Return empty object since this field makes no requests to the API
     return {};

@@ -4,6 +4,7 @@ import cx from 'classnames';
 import ActionsBar from './ActionsBar';
 import Content from './Content';
 import Details from './Details';
+import EmptyState from './EmptyState';
 import Header from './Header';
 import HeaderDetails from './HeaderDetails';
 import SkeletonHeader from './SkeletonHeader';
@@ -24,6 +25,7 @@ const Page = ({ children, className }: PageProps) => {
 Page.ActionsBar = ActionsBar;
 Page.Content = Content;
 Page.Details = Details;
+Page.EmptyState = EmptyState;
 Page.Header = Header;
 Page.HeaderDetails = HeaderDetails;
 Page.MediaType = MediaType;

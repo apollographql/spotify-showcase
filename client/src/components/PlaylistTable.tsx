@@ -30,6 +30,13 @@ interface PlaylistTableProps {
 
 type PlaylistTrackEdge = NonNullable<Get<Playlist, 'tracks.edges[0]'>>;
 
+interface PlaylistTableMeta {
+  tracksContains: Map<string, boolean>;
+  containsAllTracks: boolean;
+  containsAllEpisodes: boolean;
+  playlist: Playlist;
+}
+
 const columnHelper = createColumnHelper<PlaylistTrackEdge>();
 
 const CURRENT_USER_FRAGMENT = gql`
@@ -81,12 +88,14 @@ const PlaylistTable = ({
       className={className}
       data={playlist.tracks.edges}
       columns={columns}
-      meta={{
-        containsAllTracks,
-        containsAllEpisodes,
-        tracksContains,
-        playlist,
-      }}
+      meta={
+        {
+          containsAllTracks,
+          containsAllEpisodes,
+          tracksContains,
+          playlist,
+        } satisfies PlaylistTableMeta
+      }
       contextMenu={(rows) => {
         const playlistItems = rows.map((row) => row.original.node);
         const uris = playlistItems.map((item) => item.uri);
@@ -230,8 +239,8 @@ const columns = [
     id: 'type',
     header: '#',
     cell: (info) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const { containsAllTracks, playlist } = info.table.options.meta!;
+      const { containsAllTracks, playlist } = info.table.options
+        .meta as unknown as PlaylistTableMeta;
       const playlistTrack = info.getValue();
       const { index } = info.row;
 
@@ -256,20 +265,23 @@ const columns = [
   columnHelper.accessor('node', {
     id: 'title',
     header: 'Title',
-    cell: (info) => (
-      <PlaylistTitleCell
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        playlist={info.table.options.meta!.playlist}
-        playlistTrack={info.getValue()}
-      />
-    ),
+    cell: (info) => {
+      const { playlist } = info.table.options
+        .meta as unknown as PlaylistTableMeta;
+
+      return (
+        <PlaylistTitleCell
+          playlist={playlist}
+          playlistTrack={info.getValue()}
+        />
+      );
+    },
   }),
   columnHelper.accessor(({ node }) => parentOf(node), {
     id: 'albumOrPodcast',
     header: (info) => {
-      const { containsAllTracks, containsAllEpisodes } =
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        info.table.options.meta!;
+      const { containsAllTracks, containsAllEpisodes } = info.table.options
+        .meta as unknown as PlaylistTableMeta;
 
       switch (true) {
         case containsAllTracks:
@@ -316,13 +328,14 @@ const columns = [
     header: '',
     cell: (info) => {
       const playlistItem = info.getValue();
+      const { tracksContains } = info.table.options
+        .meta as unknown as PlaylistTableMeta;
 
       if (playlistItem.__typename === 'Episode') {
         return null;
       }
 
-      const liked =
-        info.table.options.meta?.tracksContains?.get(playlistItem.id) ?? false;
+      const liked = tracksContains?.get(playlistItem.id) ?? false;
 
       return <TrackLikeButtonCell liked={liked} track={playlistItem} />;
     },

@@ -108,6 +108,10 @@ export default new ApolloClient({
           },
         },
       },
+      PlaybackQueue: {
+        keyFields: [],
+        merge: true,
+      },
       PlaybackState: {
         keyFields: [],
         merge: true,

@@ -10,13 +10,14 @@ import CommaSeparatedList from './CommaSeparatedList';
 import Text from './Text';
 import usePlaybackState from '../hooks/usePlaybackState';
 import ExplicitBadge from './ExplicitBadge';
+import { thumbnail } from '../utils/image';
 
 interface Context {
   uri: string;
 }
 
 interface TrackTitleCellProps {
-  context: Context;
+  context: Context | null;
   track: Track;
 }
 
@@ -37,12 +38,13 @@ const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
-  const isPlayingInContext = playbackState?.context?.uri === context.uri;
+  const isPlayingInContext =
+    context != null && playbackState?.context?.uri === context.uri;
   const isCurrentTrack = track.uri === playbackState?.item?.uri;
 
   return (
     <Flex gap="0.5rem">
-      <CoverPhoto image={track.album.images[0]} size="2.5rem" />
+      <CoverPhoto image={thumbnail(track.album.images)} size="2.5rem" />
       <Flex direction="column">
         <Text
           size="base"
@@ -81,7 +83,6 @@ TrackTitleCell.fragments = {
       name
       uri
       album {
-        id
         images {
           url
         }
