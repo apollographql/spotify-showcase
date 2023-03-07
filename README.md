@@ -64,13 +64,14 @@ These hooks, along with the already-available `useFragment` hook and the GraphQL
 `@defer` directive, comprise a toolkit for the UI developer to implement the
 _render-as-you-fetch_ pattern throughout the component tree.
 
-@jerelmiller started building this application while building `useSuspenseQuery`
-in an effort to dogfood the changes with a non-trivial app.  Apollo Client and
-GraphQL are built to be both approachable and scalable; to-do apps are the former
-but not the latter. A Spotify clone - and it really is a clone (👀 that CSS) -
-offered a much more robust proving ground for the functionality we were building.
-As the team used it more and more, we decided that if we open-sourced it then
-the community could use it to try things out for themselves.
+[@jerelmiller](https://github.com/jerelmiller) started building this application
+while building `useSuspenseQuery` in an effort to dogfood the changes with a
+non-trivial app. Apollo Client and GraphQL are built to be both approachable and
+scalable; to-do apps are the former but not the latter. A Spotify clone - and it
+really is a clone (👀 that CSS) - offered a much more robust proving ground for
+the functionality we were building. As the team used it more and more, we
+decided that if we open-sourced it then the community could use it to try things
+out for themselves.
 
 So, here you go!  It's our hope that you are able to use this app to do any or all
 of these things:
