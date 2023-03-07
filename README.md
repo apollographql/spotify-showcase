@@ -32,6 +32,29 @@ If you used the React + Apollo Spotify Showcase and have two minutes then we'd
 really appreciate it if you filled out [this survey](https://o0urpu09l9p.typeform.com/to/SrKsN0nv) -
 it really helps us improve!
 
+## Exploring the codebase?
+
+If you're exploring the codebase and not sure where to get started, try the
+following:
+
+**Client**
+
+- [`client/src/router.tsx`](./client/src/router.tsx) - This defines all routes
+  used in the app. To view the source code for a given route, follow the import
+  for the route component.
+- [`client/src/index.tsx`](./client/src/index.tsx) - This is the entry point to
+  the client app. This defines the providers used in the app.
+
+**Server**
+
+- [`server/src/index.ts`](./server/src/index.ts) - This defines the Apollo GraphQL
+  server used to serve the Spotify GraphQL schema.
+- [`server/src/resolvers/`](./server/src/resolvers/) - This defines the
+  resolvers used to resolve types and fields in the schema. The file names
+  correspond to their respective types in the schema.
+- [`server/src/dataSources/spotify.ts`](./server/src/dataSources/spotify.ts) -
+  Defines the Spotify client used to make REST calls to Spotify's REST API.
+
 ## About
 
 Apollo Client's newest features unlock powerful UI development capabilities when
