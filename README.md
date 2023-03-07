@@ -32,6 +32,29 @@ If you used the React + Apollo Spotify Showcase and have two minutes then we'd
 really appreciate it if you filled out [this survey](https://o0urpu09l9p.typeform.com/to/SrKsN0nv) -
 it really helps us improve!
 
+## Exploring the codebase?
+
+If you're exploring the codebase and not sure where to get started, try the
+following:
+
+**Client**
+
+- [`client/src/router.tsx`](./client/src/router.tsx) - This defines all routes
+  used in the app. To view the source code for a given route, follow the import
+  for the route component.
+- [`client/src/index.tsx`](./client/src/index.tsx) - This is the entry point to
+  the client app. This defines the providers used in the app.
+
+**Server**
+
+- [`server/src/index.ts`](./server/src/index.ts) - This defines the Apollo GraphQL
+  server used to serve the Spotify GraphQL schema.
+- [`server/src/resolvers/`](./server/src/resolvers/) - This defines the
+  resolvers used to resolve types and fields in the schema. The file names
+  correspond to their respective types in the schema.
+- [`server/src/dataSources/spotify.ts`](./server/src/dataSources/spotify.ts) -
+  Defines the Spotify client used to make REST calls to Spotify's REST API.
+
 ## About
 
 Apollo Client's newest features unlock powerful UI development capabilities when
@@ -41,13 +64,14 @@ These hooks, along with the already-available `useFragment` hook and the GraphQL
 `@defer` directive, comprise a toolkit for the UI developer to implement the
 _render-as-you-fetch_ pattern throughout the component tree.
 
-@jerelmiller started building this application while building `useSuspenseQuery`
-in an effort to dogfood the changes with a non-trivial app.  Apollo Client and
-GraphQL are built to be both approachable and scalable; to-do apps are the former
-but not the latter. A Spotify clone - and it really is a clone (👀 that CSS) -
-offered a much more robust proving ground for the functionality we were building.
-As the team used it more and more, we decided that if we open-sourced it then
-the community could use it to try things out for themselves.
+[@jerelmiller](https://github.com/jerelmiller) started building this application
+while building `useSuspenseQuery` in an effort to dogfood the changes with a
+non-trivial app. Apollo Client and GraphQL are built to be both approachable and
+scalable; to-do apps are the former but not the latter. A Spotify clone - and it
+really is a clone (👀 that CSS) - offered a much more robust proving ground for
+the functionality we were building. As the team used it more and more, we
+decided that if we open-sourced it then the community could use it to try things
+out for themselves.
 
 So, here you go!  It's our hope that you are able to use this app to do any or all
 of these things:
