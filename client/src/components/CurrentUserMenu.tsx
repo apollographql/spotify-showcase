@@ -47,6 +47,9 @@ const CurrentUserMenu = () => {
         <DropdownMenu.Item to={`${import.meta.env.VITE_SERVER_HOST}/graphql`}>
           Explore the schema
         </DropdownMenu.Item>
+        <DropdownMenu.Item to="https://github.com/apollographql/spotify-showcase">
+          View the source code
+        </DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Item to="/logout">Logout</DropdownMenu.Item>
       </DropdownMenu.Menu>
