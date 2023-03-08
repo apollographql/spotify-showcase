@@ -9,8 +9,19 @@ import { PartialDeep } from 'type-fest';
 import { selectsField } from '../utils/graphql';
 import { createPlaybackStateObservable } from '../observables';
 
+type PlaybackStateChangedPayload =
+  | { data: { playbackStateChanged: Spotify.Object.PlaybackState | null } }
+  | { error: Error };
+
 const resolvers: SubscriptionResolvers = {
   playbackStateChanged: {
+    resolve: (payload: PlaybackStateChangedPayload) => {
+      if ('error' in payload) {
+        throw payload.error;
+      }
+
+      return payload.data.playbackStateChanged;
+    },
     subscribe: async (_, __, { dataSources, pubsub, publisher }, info) => {
       const subscription = createPlaybackStateObservable(dataSources.spotify)
         .pipe(
@@ -28,8 +39,8 @@ const resolvers: SubscriptionResolvers = {
           map((result) => result && { ...result, timestamp: Date.now() })
         )
         .subscribe({
-          error: () => {
-            // do nothing
+          error: (error) => {
+            publisher.playbackStateError(error);
           },
           next: (playbackState) => {
             publisher.playbackStateChanged({ playbackState });

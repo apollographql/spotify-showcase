@@ -19,7 +19,13 @@ export default class Publisher {
     playbackState: Spotify.Object.PlaybackState | null;
   }) {
     this.pubsub.publish(TOPICS.PLAYBACK_STATE_CHANGED, {
-      playbackStateChanged: playbackState,
+      data: {
+        playbackStateChanged: playbackState,
+      },
     });
+  }
+
+  playbackStateError(error: Error) {
+    this.pubsub.publish(TOPICS.PLAYBACK_STATE_CHANGED, { error });
   }
 }
