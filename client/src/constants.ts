@@ -12,3 +12,9 @@ export const NOTIFICATION = {
   SAVED_TRACK: 'Added to your Liked Songs',
   SAVED_TRACK_ERROR: 'Could not save to your Liked Songs',
 } as const;
+
+export const NOT_IMPLEMENTED_ROUTES = [
+  '/search',
+  '/users/:id',
+  '/collection/episodes',
+];
