@@ -50,6 +50,9 @@ const CurrentUserMenu = () => {
         <DropdownMenu.Item to="https://github.com/apollographql/spotify-showcase">
           View the source code
         </DropdownMenu.Item>
+        <DropdownMenu.Item to="https://o0urpu09l9p.typeform.com/to/SrKsN0nv">
+          Give us feedback
+        </DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Item to="/logout">Logout</DropdownMenu.Item>
       </DropdownMenu.Menu>
