@@ -590,9 +590,10 @@ export default class SpotifyAPI extends RESTDataSource {
     response: FetcherResponse;
     parsedBody: Spotify.Error.RegularError;
   }) {
-    const { error } = parsedBody;
+    const error =
+      typeof parsedBody === 'string' ? parsedBody : parsedBody.error;
 
-    return new GraphQLError(error.message, {
+    return new GraphQLError(typeof error === 'string' ? error : error.message, {
       extensions: {
         code: this.getCodeFromStatus(response),
         reason: error.reason,
