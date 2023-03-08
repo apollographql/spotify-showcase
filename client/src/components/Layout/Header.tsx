@@ -30,14 +30,14 @@ const Header = () => {
         </NavButton>
       </Flex>
       <Flex alignItems="center" gap="1rem" className={styles.clickable}>
-        <ContextualGuidanceDialog documents={[Welcome, SuspenseContent]}>
+        {/* TODO: Renable when this feature is more built out <ContextualGuidanceDialog documents={[Welcome, SuspenseContent]}>
           <Button
             variant="secondary"
             className="h-9 w-9 justify-center rounded-full !p-px opacity-80 hover:opacity-100"
           >
             <Code2 size="1.25rem" />
           </Button>
-        </ContextualGuidanceDialog>
+        </ContextualGuidanceDialog>*/}
         {isLoggedIn ? (
           <CurrentUserMenu />
         ) : (
