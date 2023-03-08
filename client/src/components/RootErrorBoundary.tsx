@@ -111,12 +111,25 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
         <a className="underline" href={location.pathname}>
           reloading the page
         </a>
-        , otherwise you may go{' '}
+        , otherwise go back{' '}
         <Link to="/" className="underline">
-          back home
+          home
         </Link>
         .
       </ErrorDescription>
+      <p className="text-sm mt-4 text-center max-w-lg">
+        Does this seem like a bug 🐛? Open an{' '}
+        <a
+          href="http://github.com/apollographql/spotify-showcase/issues"
+          target="_blank"
+          rel="noreferrer"
+          className="underline"
+        >
+          issue
+        </a>{' '}
+        to let us know you've encountered something unexpected, or send us a
+        pull request!
+      </p>
     </>
   );
 };
