@@ -2,9 +2,12 @@
 
 # React + Apollo Spotify Showcase
 
+<img width="1512" alt="Screenshot 2023-03-07 at 5 13 26 PM" src="https://user-images.githubusercontent.com/565661/223585591-93b5b6d2-d3d8-44fb-9b30-8bb5fc508f90.png">
+
 ## Getting started
 
 1. Clone this repo
+
 2. Install dependencies
 
 ```sh
