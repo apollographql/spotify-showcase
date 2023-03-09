@@ -7,7 +7,6 @@
     "start:client": "cd client && npm start",
     "start:server": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
     "setup:client": "cd client && npm install",
-    "setup:server": "cd server && npm install",
     "postinstall": "concurrently \"npm:setup:*\""
   },
   "devDependencies": {
