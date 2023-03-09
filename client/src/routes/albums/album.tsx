@@ -16,7 +16,6 @@ import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
 import CoverPhoto from '../../components/CoverPhoto';
-import Text from '../../components/Text';
 import ReleaseDate from '../../components/ReleaseDate';
 import Flex from '../../components/Flex';
 import PlayButton from '../../components/PlayButton';
@@ -153,17 +152,16 @@ export const RouteComponent = () => {
         </Page.ActionsBar>
         <AlbumTracksTable album={album} tracksContains={tracksContains} />
         <Flex direction="column">
-          <Text as="div" color="muted" size="sm">
+          <div className="text-muted text-sm">
             <ReleaseDate releaseDate={album.releaseDate} />
-          </Text>
+          </div>
           {album.copyrights.map((copyright) => (
-            <Text
+            <span
               key={copyright.text.concat(copyright.type ?? '')}
-              color="muted"
-              size="xxs"
+              className="text-muted text-xxs"
             >
               {copyright.text}
-            </Text>
+            </span>
           ))}
         </Flex>
       </Page.Content>
