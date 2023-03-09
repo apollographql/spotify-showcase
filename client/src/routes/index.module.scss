@@ -1,14 +1,4 @@
-.container {
-  padding: var(--main-content--padding);
-}
-
 .instructions {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  max-width: 880px;
-  margin: 0 auto;
-
   h1,
   h2 {
     margin-bottom: 0.5rem;

@@ -37,6 +37,8 @@ const INDEX_ROUTE_QUERY = gql`
   ${PlaylistTile.fragments.playlist}
 `;
 
+const containerStyles = 'p-[var(--main-content--padding)]';
+
 const LoggedIn = () => {
   useSetBackgroundColor('#1A101C');
 
@@ -50,7 +52,7 @@ const LoggedIn = () => {
   );
 
   return (
-    <div className={styles.container}>
+    <div className={containerStyles}>
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
       <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
         {data.featuredPlaylists?.edges.map(({ node }) => (
@@ -65,7 +67,13 @@ const LoggedOut = () => {
   useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
   return (
-    <div className={cx(styles.container, styles.instructions)}>
+    <div
+      className={cx(
+        containerStyles,
+        'flex flex-1 flex-col max-w-3xl my-0 mx-auto',
+        styles.instructions
+      )}
+    >
       <h1>Welcome to the Apollo Spotify demo</h1>
       <p>
         This demo app provides a playground to test and learn about various
@@ -158,7 +166,7 @@ const LoggedOut = () => {
 
 export const LoadingState = () => {
   return (
-    <Flex className={styles.container} direction="column" gap="2rem">
+    <Flex className={containerStyles} direction="column" gap="2rem">
       <Skeleton.Heading level={1} width="20%" />
       <Skeleton.CoverPhoto size="120px" />
     </Flex>
