@@ -6,6 +6,7 @@ import {
   split,
 } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { setContext } from '@apollo/client/link/context';
 import { readAuthToken } from './utils';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
@@ -14,14 +15,11 @@ import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
 
-const httpLink = createHttpLink({
-  uri: '/graphql',
-  headers: {
-    get 'x-api-token'() {
-      return readAuthToken();
-    },
-  },
-});
+const httpLink = createHttpLink({ uri: '/graphql' });
+
+const contextLink = setContext(() => ({
+  headers: { 'x-api-token': readAuthToken() },
+}));
 
 const wsLink = new GraphQLWsLink(
   createClient({
@@ -44,7 +42,7 @@ const splitLink = split(
     );
   },
   wsLink,
-  ApolloLink.from([httpLink])
+  ApolloLink.from([contextLink, httpLink])
 );
 
 export default new ApolloClient({
