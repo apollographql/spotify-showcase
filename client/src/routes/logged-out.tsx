@@ -1,6 +1,6 @@
 import { Link, LoaderFunction } from 'react-router-dom';
 import { logout } from '../auth';
-import ErrorActionLink from '../components/ErrorActionLink';
+import Button from '../components/Button';
 import ErrorDescription from '../components/ErrorDescription';
 import ErrorTitle from '../components/ErrorTitle';
 import Layout from '../components/Layout';
@@ -25,7 +25,9 @@ export const RouteComponent = () => {
             </Link>
             .
           </ErrorDescription>
-          <ErrorActionLink to="/login">Log in</ErrorActionLink>
+          <Button as="a" href="/login" variant="secondary" size="sm">
+            Log in
+          </Button>
         </div>
       </Layout.Main>
     </Layout>
