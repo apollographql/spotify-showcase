@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import styles from './ExplicitBadge.module.scss';
 
 interface ExplicitBadgeProps {
   className?: string;
@@ -8,7 +7,10 @@ interface ExplicitBadgeProps {
 const ExplicitBadge = ({ className }: ExplicitBadgeProps) => {
   return (
     <span
-      className={cx(styles.explicitBadge, className)}
+      className={cx(
+        'inline-flex justify-center items-center h-4 p-1 text-[0.5625rem] text-black-base bg-[hsla(0,0%,100%,0.6)] rounded-sm',
+        className
+      )}
       aria-label="Explicit"
       title="Explicit"
     >
