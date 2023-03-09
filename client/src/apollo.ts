@@ -17,7 +17,7 @@ import cursorConnectionPagination from './fieldPolicies/cursorConnectionPaginati
 
 const httpLink = createHttpLink({ uri: '/graphql' });
 
-const contextLink = setContext(() => ({
+const authHeadersLink = setContext(() => ({
   headers: { 'x-api-token': readAuthToken() },
 }));
 
@@ -42,7 +42,7 @@ const splitLink = split(
     );
   },
   wsLink,
-  ApolloLink.from([contextLink, httpLink])
+  ApolloLink.from([authHeadersLink, httpLink])
 );
 
 export default new ApolloClient({
