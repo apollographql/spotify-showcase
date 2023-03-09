@@ -3,7 +3,6 @@ import cx from 'classnames';
 import { ChevronDown } from 'lucide-react';
 import Button, { ButtonProps } from '../Button';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
-import styles from './Trigger.module.scss';
 
 type TriggerProps = ButtonProps & {
   className?: string;
@@ -14,9 +13,14 @@ type TriggerProps = ButtonProps & {
 const Trigger = ({ className, children, disabled, ...props }: TriggerProps) => {
   return (
     <Dropdown.Trigger asChild disabled={disabled}>
-      <Button {...props} className={cx(className, styles.trigger)}>
+      <Button {...props} className={cx(className, 'flex gap-2 group')}>
         {children}
-        <ChevronDown className={styles.chevron} size="1rem" />
+        <ChevronDown
+          className={
+            'group-data-open:rotate-180 transition-transform duration-150 ease-out'
+          }
+          size="1rem"
+        />
       </Button>
     </Dropdown.Trigger>
   );
