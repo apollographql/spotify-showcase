@@ -1,6 +1,5 @@
 import { Heart, LucideProps } from 'lucide-react';
 import cx from 'classnames';
-import styles from './LikeButton.module.scss';
 import Tooltip from './Tooltip';
 
 export interface LikeButtonProps {
@@ -16,9 +15,11 @@ const LikeButton = ({ className, liked, onClick, size }: LikeButtonProps) => {
       content={liked ? 'Remove from Your Library' : 'Save to Your Library'}
     >
       <button
-        className={cx(styles.likeButton, className, {
-          [styles.liked]: liked,
-        })}
+        className={cx(
+          'text-muted bg-none outline-0 border-none cursor-pointer transition-colors ease-out hover:text-primary',
+          className,
+          { 'text-theme hover:text-theme-light': liked }
+        )}
         onClick={onClick}
       >
         <Heart fill={liked ? 'currentColor' : 'transparent'} size={size} />
