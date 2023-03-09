@@ -68,6 +68,9 @@ module.exports = {
       fontSize: {
         xxs: ['0.625rem', '0.875rem'],
       },
+      borderColor: {
+        primary: 'hsla(0, 0%, 100%, 0.1)',
+      },
       backgroundColor: () => ({
         code: 'rgba(99, 110, 123, 0.4)',
         'surface-active': 'hsla(0, 0%, 100%, 0.1)',
