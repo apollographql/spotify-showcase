@@ -14,34 +14,14 @@
       "command": "npm run generate",
       "runAtStart": false
     },
-    "start:client": {
-      "name": "start:client",
-      "command": "npm run start:client --  --open true",
+    "start": {
+      "name": "start",
+      "command": "npm run start",
       "runAtStart": true,
       "preview": {
         "port": 3000,
         "pr-link": "direct"
       }
-    },
-    "start:server": {
-      "name": "start:server",
-      "command": "npm run start:server",
-      "runAtStart": true
-    },
-    "setup:client": {
-      "name": "setup:client",
-      "command": "npm run setup:client",
-      "runAtStart": false
-    },
-    "setup:server": {
-      "name": "setup:server",
-      "command": "npm run setup:server",
-      "runAtStart": false
-    },
-    "postinstall": {
-      "name": "postinstall",
-      "command": "npm run postinstall",
-      "runAtStart": false
     }
   }
 }

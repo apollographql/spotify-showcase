@@ -16,6 +16,7 @@ import fs from 'fs';
 import path from 'path';
 import { json } from 'body-parser';
 import defaultResolver from './server/src/resolvers/default';
+import cookieParser from 'cookie-parser';
 
 import typeDefs from './server/src/schema.graphql';
 import resolvers from './server/src/resolvers';
@@ -29,6 +30,7 @@ import { TOPICS } from './server/src/constants';
 // https://github.com/apollographql/graphos-subscriptions/issues/123
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createServer as createViteServer } from 'vite';
+import { globalRequestMiddleware } from './server/src/utils/globalRequestMiddleware';
 
 async function createServer() {
   const schema = makeExecutableSchema({ typeDefs, resolvers });
@@ -101,6 +103,7 @@ async function createServer() {
   });
 
   app.use(express.static('public'));
+  app.use(cookieParser(), globalRequestMiddleware);
   app.use(vite.middlewares);
   app.use(routes);
   app.use(
