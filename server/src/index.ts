@@ -12,6 +12,8 @@ import { useServer } from 'graphql-ws/lib/use/ws';
 import express from 'express';
 import http from 'http';
 import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
 import { json } from 'body-parser';
 import defaultResolver from './resolvers/default';
 
@@ -26,73 +28,80 @@ import { TOPICS } from './constants';
 // TODO: Remove me when @apollo/subgraph adds subscription support
 // https://github.com/apollographql/graphos-subscriptions/issues/123
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import { createServer as createViteServer } from 'vite';
 
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+async function createServer() {
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
+  const app = express();
+  const httpServer = http.createServer(app);
+  const wsServer = new WebSocketServer({
+    server: httpServer,
+    path: '/graphql',
+  });
 
-const app = express();
-const httpServer = http.createServer(app);
-const wsServer = new WebSocketServer({
-  server: httpServer,
-  path: '/graphql',
-});
+  const pubsub = new PubSub();
+  const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
+    defaultValue: 'US',
+  });
 
-const pubsub = new PubSub();
-const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
-  defaultValue: 'US',
-});
-
-const serverCleanup = useServer(
-  {
-    schema,
-    onConnect: (ctx) => {
-      const token = ctx.connectionParams?.apiToken;
-
-      if (!token) {
-        return false;
-      }
-    },
-    onDisconnect: () => {
-      pubsub.publish(TOPICS.DISCONNECT, true);
-    },
-    context: (ctx) => {
-      const token = ctx.connectionParams!.apiToken! as string;
-      const spotify = new SpotifyAPI({
-        cache: server.cache,
-        token,
-      });
-
-      return {
-        token,
-        defaultCountryCode,
-        publisher: new Publisher(pubsub),
-        pubsub,
-        dataSources: { spotify },
-      } satisfies ContextValue;
-    },
-  },
-  wsServer
-);
-
-const server = new ApolloServer<ContextValue>({
-  schema,
-  plugins: [
-    ApolloServerPluginDrainHttpServer({ httpServer }),
+  const serverCleanup = useServer(
     {
-      async serverWillStart() {
+      schema,
+      onConnect: (ctx) => {
+        const token = ctx.connectionParams?.apiToken;
+
+        if (!token) {
+          return false;
+        }
+      },
+      onDisconnect: () => {
+        pubsub.publish(TOPICS.DISCONNECT, true);
+      },
+      context: (ctx) => {
+        const token = ctx.connectionParams!.apiToken! as string;
+        const spotify = new SpotifyAPI({
+          cache: server.cache,
+          token,
+        });
+
         return {
-          async drainServer() {
-            await serverCleanup.dispose();
-          },
-        };
+          token,
+          defaultCountryCode,
+          publisher: new Publisher(pubsub),
+          pubsub,
+          dataSources: { spotify },
+        } satisfies ContextValue;
       },
     },
-  ],
-  fieldResolver: defaultResolver,
-});
+    wsServer
+  );
 
-app.use(routes);
+  const server = new ApolloServer<ContextValue>({
+    schema,
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      {
+        async serverWillStart() {
+          return {
+            async drainServer() {
+              await serverCleanup.dispose();
+            },
+          };
+        },
+      },
+    ],
+    fieldResolver: defaultResolver,
+  });
 
-server.start().then(async () => {
+  await server.start();
+
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    appType: 'custom',
+  });
+
+  app.use(vite.middlewares);
+  app.use(routes);
   app.use(
     '/graphql',
     cors(),
@@ -117,10 +126,30 @@ server.start().then(async () => {
     })
   );
 
+  app.use('*', async (req, res, next) => {
+    const url = req.originalUrl;
+
+    try {
+      let template = fs.readFileSync(
+        path.resolve(__dirname, '../../index.html'),
+        'utf-8'
+      );
+
+      template = await vite.transformIndexHtml(url, template);
+
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
+    } catch (e) {
+      vite.ssrFixStacktrace(e as Error);
+      next(e);
+    }
+  });
+
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: process.env.PORT ?? 4000 }, resolve)
   );
 
   console.log(`🚀 Server ready at: http://localhost:4000`);
   console.log(`🚀 Subscription endpoint ready at ws://localhost:4000/graphql`);
-});
+}
+
+createServer();
