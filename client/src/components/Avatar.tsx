@@ -3,15 +3,10 @@ import { gql } from '@apollo/client';
 import { Avatar_user as User } from '../types/api';
 import { thumbnail } from '../utils/image';
 import LazyImage from './LazyImage';
-import styles from './Avatar.module.scss';
 
 interface AvatarProps {
   size?: CSSProperties['width'];
   user: User;
-}
-
-interface StyleProps extends CSSProperties {
-  '--avatar--size': CSSProperties['width'];
 }
 
 const Avatar = ({ user, size }: AvatarProps) => {
@@ -19,9 +14,9 @@ const Avatar = ({ user, size }: AvatarProps) => {
 
   return (
     <LazyImage
-      className={styles.avatar}
+      className="aspect-square rounded-full overflow-hidden"
       src={image?.url}
-      style={{ '--avatar--size': size } as StyleProps}
+      style={{ width: size }}
     />
   );
 };
