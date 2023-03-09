@@ -1,5 +1,5 @@
 import 'graphql-import-node';
-import './env';
+import './server/src/env';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
@@ -15,16 +15,16 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { json } from 'body-parser';
-import defaultResolver from './resolvers/default';
+import defaultResolver from './server/src/resolvers/default';
 
-import typeDefs from './schema.graphql';
-import resolvers from './resolvers';
-import routes from './routes';
-import SpotifyAPI from './dataSources/spotify';
-import Publisher from './publisher';
-import { readEnv } from './utils/env';
-import { ContextValue } from './types';
-import { TOPICS } from './constants';
+import typeDefs from './server/src/schema.graphql';
+import resolvers from './server/src/resolvers';
+import routes from './server/src/routes';
+import SpotifyAPI from './server/src/dataSources/spotify';
+import Publisher from './server/src/publisher';
+import { readEnv } from './server/src/utils/env';
+import { ContextValue } from './server/src/types';
+import { TOPICS } from './server/src/constants';
 // TODO: Remove me when @apollo/subgraph adds subscription support
 // https://github.com/apollographql/graphos-subscriptions/issues/123
 import { makeExecutableSchema } from '@graphql-tools/schema';
@@ -100,6 +100,7 @@ async function createServer() {
     appType: 'custom',
   });
 
+  app.use(express.static('public'));
   app.use(vite.middlewares);
   app.use(routes);
   app.use(
@@ -131,7 +132,7 @@ async function createServer() {
 
     try {
       let template = fs.readFileSync(
-        path.resolve(__dirname, '../../index.html'),
+        path.resolve(__dirname, './index.html'),
         'utf-8'
       );
 
