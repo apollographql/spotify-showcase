@@ -12,7 +12,6 @@ import EditFieldConfigForm from '../components/EditFieldConfigForm';
 import GraphQLFieldConfigurationForm from '../components/GraphQLFieldConfigurationForm';
 import Page from '../components/Page';
 import Skeleton from '../components/Skeleton';
-import Text from '../components/Text';
 import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutation';
 import { BARE_INTROSPECTION_FRAGMENT } from '../utils/graphql';
 import { Get } from 'type-fest';
@@ -101,10 +100,10 @@ export const RouteComponent = () => {
       <h1>Settings</h1>
       <section>
         <h2 className="text-xl">GraphQL Field Configuration</h2>
-        <Text as="p" color="muted" size="base" className="mb-4 text-sm">
+        <p className="mb-4 text-sm text-muted">
           Configure sythetic errors and timeouts for a GraphQL field. These are
           cleared each time the server is restarted.
-        </Text>
+        </p>
         {fieldConfigs.length > 0 ? (
           <div className="border-b-surface-lowContrast mb-8 flex flex-col gap-4 border-b-2">
             {fieldConfigs.map((config) => {
