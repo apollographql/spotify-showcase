@@ -67,7 +67,7 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
       <>
         <ErrorTitle>Page not implemented</ErrorTitle>
         <ErrorDescription>
-          We'd really ❤️ for this page to exist, but it's not yet been
+          We&apos;d really ❤️ for this page to exist, but it&apos;s not yet been
           implemented 💔.
         </ErrorDescription>
         <ErrorActionLink to="/">Go home</ErrorActionLink>
@@ -127,8 +127,8 @@ const ErrorBody = ({ error }: ErrorBodyProps) => {
         >
           issue
         </a>{' '}
-        to let us know you've encountered something unexpected, or send us a
-        pull request!
+        to let us know you&apos;ve encountered something unexpected, or send us
+        a pull request!
       </p>
     </>
   );
