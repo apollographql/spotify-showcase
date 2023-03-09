@@ -17,6 +17,7 @@
     "@graphql-codegen/typescript-operations": "^2.5.12",
     "@graphql-codegen/typescript-resolvers": "^2.7.12",
     "@mdx-js/rollup": "^2.3.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "@types/cors": "^2.8.13",
     "@types/node": "^18.14.6",
     "@types/node-fetch": "^2.6.2",
@@ -30,6 +31,7 @@
     "prettier": "^2.8.1",
     "remark-frontmatter": "^4.0.1",
     "remark-mdx-frontmatter": "^2.1.1",
+    "tailwindcss": "^3.2.7",
     "ts-node": "^10.9.1",
     "type-fest": "^3.6.1",
     "typescript": "^4.9.5"
