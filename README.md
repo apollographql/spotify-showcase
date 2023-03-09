@@ -44,7 +44,7 @@ following:
 
 **Server**
 
-- [`server/src/index.ts`](./server/src/index.ts) - This defines the Apollo GraphQL
+- [`server.ts`](./server.ts) - This defines the Apollo GraphQL
   server used to serve the Spotify GraphQL schema.
 - [`server/src/resolvers/`](./server/src/resolvers/) - This defines the
   resolvers used to resolve types and fields in the schema. The file names
