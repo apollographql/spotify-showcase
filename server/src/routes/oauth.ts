@@ -49,7 +49,7 @@ router.get(
     const params = new URLSearchParams();
     params.set('token', access_token);
 
-    res.redirect(`${config.clientURI}/set-token?${params}`);
+    res.redirect(`/set-token?${params}`);
   }
 );
 

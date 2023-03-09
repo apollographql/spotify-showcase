@@ -15,7 +15,7 @@ import offsetConnectionPagination from './fieldPolicies/offsetConnectionPaginati
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
 
 const httpLink = createHttpLink({
-  uri: `${import.meta.env.VITE_SERVER_HOST}/graphql`,
+  uri: '/graphql',
   headers: {
     get 'x-api-token'() {
       return readAuthToken();
