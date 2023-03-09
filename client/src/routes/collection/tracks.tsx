@@ -18,7 +18,6 @@ import GradientIcon from '../../components/GradientIcon';
 import Skeleton from '../../components/Skeleton';
 import PlayButton from '../../components/PlayButton';
 import Table from '../../components/Table';
-import Text from '../../components/Text';
 import TrackTitleCell from '../../components/TrackTitleCell';
 import useSetBackgroundColor from '../../hooks/useSetBackgroundColor';
 import { Clock } from 'lucide-react';
@@ -143,12 +142,12 @@ export const RouteComponent = () => {
           <EntityLink key={currentUser.user.id} entity={currentUser.user}>
             {currentUser.user.displayName}
           </EntityLink>,
-          <Text key="numTracks" color="muted">
+          <span key="numTracks" className="text-muted">
             {new Intl.NumberFormat().format(
               currentUser.tracks?.pageInfo.total ?? 0
             )}{' '}
             songs
-          </Text>,
+          </span>,
         ]}
       />
       <Page.Content>
