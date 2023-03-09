@@ -51,6 +51,7 @@
     "@apollo/datasource-rest": "^5.0.2",
     "@apollo/server": "^4.4.1",
     "@apollo/subgraph": "^2.3.3",
+    "@wry/equality": "^0.5.3",
     "camelize": "^1.0.1",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
