@@ -1,5 +1,4 @@
 import { forwardRef, ReactNode } from 'react';
-import styles from './Main.module.scss';
 
 interface MainProps {
   children: ReactNode;
@@ -7,8 +6,11 @@ interface MainProps {
 
 const Main = forwardRef<HTMLElement, MainProps>(({ children }, ref) => {
   return (
-    <main className={styles.main} ref={ref}>
-      <article className={styles.mainContent}>{children}</article>
+    <main
+      className="[--main-header--height:80px] [--main-content--padding:2rem] [grid-area:main-view] flex flex-col text-primary h-full overflow-y-auto relative"
+      ref={ref}
+    >
+      <article className="flex flex-col flex-1">{children}</article>
     </main>
   );
 });
