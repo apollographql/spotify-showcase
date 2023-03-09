@@ -7,10 +7,6 @@ export default defineConfig(async () => {
   const remarkMdxFrontmatter = await import('remark-mdx-frontmatter');
 
   return {
-    server: {
-      open: true,
-      port: 3000,
-    },
     plugins: [
       mdx.default({
         remarkPlugins: [
