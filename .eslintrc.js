@@ -3,15 +3,19 @@ module.exports = {
     commonjs: true,
     browser: true,
     es2021: true,
+    node: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-    'plugin:@typescript-eslint/recommended',
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  overrides: [
+    {
+      files: ['client/src/**/*.{ts,tsx}'],
+      extends: [
+        'plugin:react/recommended',
+        'plugin:react/jsx-runtime',
+        'plugin:react-hooks/recommended',
+      ],
+    },
   ],
-  overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',

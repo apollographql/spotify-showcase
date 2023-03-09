@@ -35,7 +35,7 @@ const CurrentUserMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenu.Trigger
-        className="hover:bg-surface aria-expanded:bg-surface bg-black-pure py-[0.125rem] pl-[0.125rem] pr-2 text-sm normal-case tracking-normal"
+        className="hover:bg-surface aria-expanded:bg-surface !bg-black-pure py-[0.125rem] pl-[0.125rem] pr-2 !text-sm normal-case tracking-normal"
         variant="ghost"
         size="sm"
       >
@@ -46,6 +46,12 @@ const CurrentUserMenu = () => {
         <DropdownMenu.Item to="/settings">Settings</DropdownMenu.Item>
         <DropdownMenu.Item to={`${import.meta.env.VITE_SERVER_HOST}/graphql`}>
           Explore the schema
+        </DropdownMenu.Item>
+        <DropdownMenu.Item to="https://github.com/apollographql/spotify-showcase">
+          View the source code
+        </DropdownMenu.Item>
+        <DropdownMenu.Item to="https://o0urpu09l9p.typeform.com/to/SrKsN0nv">
+          Give us feedback
         </DropdownMenu.Item>
         <DropdownMenu.Separator />
         <DropdownMenu.Item to="/logout">Logout</DropdownMenu.Item>

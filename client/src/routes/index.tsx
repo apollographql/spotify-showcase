@@ -9,7 +9,7 @@ import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import styles from './index.module.scss';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
-import { DEFAULT_BACKGROUND_COLOR, LOGIN_URL } from '../constants';
+import { DEFAULT_BACKGROUND_COLOR } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
@@ -112,7 +112,7 @@ const LoggedOut = () => {
             Spotify account.
           </p>
           <p>
-            <code>http://localhost:4000/oauth/finalize</code>
+            <code>http://localhost:3000/oauth/finalize</code>
           </p>
         </li>
       </ol>
@@ -120,8 +120,8 @@ const LoggedOut = () => {
       <ol>
         <li>
           <p>
-            Copy your credentials to <code>server/.env</code>. This file should
-            look as follows:
+            Copy your credentials to the root <code>.env</code> file. This file
+            should look as follows:
           </p>
           <pre>
             <code>
@@ -150,7 +150,7 @@ const LoggedOut = () => {
         </li>
       </ol>
       <p>
-        You are ready to go! <a href={LOGIN_URL}>Log in</a> to use the app.
+        You are ready to go! <a href="/login">Log in</a> to use the app.
       </p>
     </div>
   );
