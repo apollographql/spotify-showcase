@@ -15,7 +15,6 @@ import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import usePlaybackState from '../hooks/usePlaybackState';
-import styles from './root.module.scss';
 import { Volume2 } from 'lucide-react';
 import NotificationManager from '../components/NotificationManager';
 import ContextMenu from '../components/ContextMenu';
@@ -74,7 +73,7 @@ export const RouteComponent = () => {
             <Outlet key={JSON.stringify(params)} />
           </Wrapper>
         </Layout.Main>
-        {isLoggedIn && <Playbar className={styles.playbar} />}
+        {isLoggedIn && <Playbar className="[grid-area:playbar]" />}
       </Layout>
       <NotificationManager />
     </ScrollContainerContext.Provider>
