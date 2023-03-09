@@ -14,6 +14,9 @@ module.exports = {
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended',
       ],
+      rules: {
+        'react/display-name': 'off',
+      },
     },
   ],
   parser: '@typescript-eslint/parser',
@@ -23,7 +26,6 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
-    'react/display-name': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
   settings: {
