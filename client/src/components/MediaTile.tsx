@@ -1,7 +1,6 @@
 import { ReactElement, ReactNode, forwardRef, cloneElement } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 import cx from 'classnames';
-import Text from './Text';
 import styles from './MediaTile.module.scss';
 import DelimitedList from './DelimitedList';
 
@@ -23,15 +22,15 @@ const MediaTile = forwardRef<HTMLAnchorElement, MediaTileProps>(
           className: cx(styles.coverPhoto, coverPhoto.props.className),
         })}
         <div className="flex flex-col">
-          <Text wrap={false} overflow="ellipsis" weight="bold" title={title}>
+          <span
+            className="whitespace-nowrap text-ellipsis overflow-hidden font-bold"
+            title={title}
+          >
             {title}
-          </Text>
+          </span>
           <DelimitedList
-            as={Text}
-            color="muted"
+            className="text-muted text-sm line-clamp-2"
             delimiter=" · "
-            size="sm"
-            maxLines={2}
           >
             {description}
           </DelimitedList>
