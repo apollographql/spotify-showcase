@@ -71,9 +71,10 @@ module.exports = {
       borderColor: {
         primary: 'hsla(0, 0%, 100%, 0.1)',
       },
-      backgroundColor: () => ({
+      backgroundColor: ({ theme }) => ({
         code: 'rgba(99, 110, 123, 0.4)',
         'surface-active': 'hsla(0, 0%, 100%, 0.1)',
+        'surface-low-contrast-hover': theme('colors.surface'),
       }),
       textColor: ({ theme }) => ({
         primary: theme('colors.white'),
