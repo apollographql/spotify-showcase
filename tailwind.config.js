@@ -69,10 +69,13 @@ module.exports = {
         xxs: ['0.625rem', '0.875rem'],
       },
       backgroundColor: () => ({
+        code: 'rgba(99, 110, 123, 0.4)',
         'surface-active': 'hsla(0, 0%, 100%, 0.1)',
       }),
       textColor: ({ theme }) => ({
         base: theme('colors.white'),
+        theme: theme('colors.green'),
+        'theme-light': theme('colors.green.light'),
         muted: theme('colors.offwhite'),
       }),
       keyframes: {
