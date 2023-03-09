@@ -13,7 +13,7 @@ const LazyImage = ({ className, src, alt = '', ...props }: LazyImageProps) => {
 
     const img = new Image();
 
-    img.onload = () => setTimeout(() => setLoaded(true), 1000);
+    img.onload = () => setLoaded(true);
     img.src = src;
 
     return () => {
