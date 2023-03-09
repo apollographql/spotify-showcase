@@ -146,11 +146,11 @@ async function createServer() {
   });
 
   await new Promise<void>((resolve) =>
-    httpServer.listen({ port: process.env.PORT ?? 4000 }, resolve)
+    httpServer.listen({ port: process.env.PORT ?? 3000 }, resolve)
   );
 
-  console.log(`🚀 Server ready at: http://localhost:4000`);
-  console.log(`🚀 Subscription endpoint ready at ws://localhost:4000/graphql`);
+  console.log(`🚀 Server ready at: http://localhost:3000`);
+  console.log(`🚀 Subscription endpoint ready at ws://localhost:3000/graphql`);
 }
 
 createServer();

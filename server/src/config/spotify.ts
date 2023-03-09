@@ -7,8 +7,7 @@ const config = {
   get clientSecret() {
     return readEnv('SPOTIFY_CLIENT_SECRET');
   },
-  redirectURI: 'http://localhost:4000/oauth/finalize',
-  clientURI: 'http://localhost:4000',
+  redirectURI: 'http://localhost:3000/oauth/finalize',
 };
 
 export default config;

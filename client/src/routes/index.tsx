@@ -112,7 +112,7 @@ const LoggedOut = () => {
             Spotify account.
           </p>
           <p>
-            <code>http://localhost:4000/oauth/finalize</code>
+            <code>http://localhost:3000/oauth/finalize</code>
           </p>
         </li>
       </ol>
