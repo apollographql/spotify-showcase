@@ -120,7 +120,7 @@ const LoggedOut = () => {
       <ol>
         <li>
           <p>
-            Copy your credentials to the root <code>.env</code>. This file
+            Copy your credentials to the root <code>.env</code> file. This file
             should look as follows:
           </p>
           <pre>
