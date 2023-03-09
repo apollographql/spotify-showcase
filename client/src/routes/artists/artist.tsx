@@ -10,7 +10,6 @@ import ArtistTile from '../../components/ArtistTile';
 import ArtistTopTracks from '../../components/ArtistTopTracks';
 import Page from '../../components/Page';
 import Skeleton from '../../components/Skeleton';
-import Text from '../../components/Text';
 import TileGrid from '../../components/TileGrid';
 import styles from './artist.module.scss';
 
@@ -99,9 +98,9 @@ export const RouteComponent = () => {
         style={{ backgroundImage: image && `url(${image.url})` }}
       >
         <Page.Title>{artist.name}</Page.Title>
-        <Text>
+        <span>
           {new Intl.NumberFormat().format(artist.followers.total)} followers
-        </Text>
+        </span>
       </header>
       <Page.Content gap="2rem">
         <section className={styles.section}>
