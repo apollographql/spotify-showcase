@@ -74,6 +74,7 @@ module.exports = {
       }),
       textColor: ({ theme }) => ({
         base: theme('colors.white'),
+        primary: theme('colors.white'),
         theme: theme('colors.green'),
         'theme-light': theme('colors.green.light'),
         muted: theme('colors.offwhite'),
