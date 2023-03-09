@@ -73,7 +73,6 @@ module.exports = {
         'surface-active': 'hsla(0, 0%, 100%, 0.1)',
       }),
       textColor: ({ theme }) => ({
-        base: theme('colors.white'),
         primary: theme('colors.white'),
         theme: theme('colors.green'),
         'theme-light': theme('colors.green.light'),
