@@ -105,7 +105,7 @@ export const RouteComponent = () => {
           cleared each time the server is restarted.
         </p>
         {fieldConfigs.length > 0 ? (
-          <div className="border-b-surface-lowContrast mb-8 flex flex-col gap-4 border-b-2">
+          <div className="border-b border-primary mb-8 flex flex-col gap-4">
             {fieldConfigs.map((config) => {
               return (
                 <EditFieldConfigForm

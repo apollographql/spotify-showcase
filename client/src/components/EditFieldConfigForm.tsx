@@ -54,7 +54,7 @@ const EditFieldConfigForm = ({
     <Form
       form={form}
       key={fieldConfig.schemaField.fieldName}
-      className="border-b-surface-lowContrast flex flex-col gap-px border-b-[1px] pb-4 last:border-b-0"
+      className="border-b border-primary flex flex-col gap-px pb-4 last:border-b-0"
     >
       <code className="bg-surface mb-2 self-start rounded py-px px-1">
         {fieldConfig.schemaField.typename}.{fieldConfig.schemaField.fieldName}
