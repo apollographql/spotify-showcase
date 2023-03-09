@@ -60,7 +60,7 @@
     "graphql-subscriptions": "^2.0.0",
     "graphql-ws": "^5.12.0",
     "lodash": "^4.17.21",
-    "node-fetch": "^3.3.0",
+    "node-fetch": "^2.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rxjs": "^7.8.0",
