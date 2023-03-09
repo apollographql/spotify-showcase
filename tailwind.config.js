@@ -39,7 +39,6 @@ module.exports = {
       offwhite: '#b3b3b3',
       surface: {
         DEFAULT: '#282828',
-        lowContrast: '#181818',
       },
       transparent: 'transparent',
       white: '#fff',

@@ -123,7 +123,7 @@ export const RouteComponent = () => {
                 return (
                   <li
                     key={node.id}
-                    className="flex gap-4 p-4 bg-surface-lowContrast bg-opacity-75 transition-colors ease-out duration-150 hover:bg-surface-low-contrast-hover border-b border-solid border-primary last:border-b-0"
+                    className="flex gap-4 p-4 bg-surface-low-contrast bg-opacity-75 transition-colors ease-out duration-150 hover:bg-surface-low-contrast-hover border-b border-solid border-primary last:border-b-0"
                   >
                     <CoverPhoto image={coverPhoto} size="100px" />
                     <Flex direction="column" justifyContent="space-between">
