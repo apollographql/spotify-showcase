@@ -17,7 +17,6 @@ import EpisodeReleaseDate from '../../components/EpisodeReleaseDate';
 import EpisodeRemainingDuration from '../../components/EpisodeRemainingDuration';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
-import styles from './show.module.scss';
 import PlayButton from '../../components/PlayButton';
 import usePlaybackState from '../../hooks/usePlaybackState';
 
@@ -97,15 +96,15 @@ export const RouteComponent = () => {
         details={[<span key="publisher">{show.publisher}</span>]}
       />
       <Page.Content>
-        <section className={styles.mainSection}>
+        <section className="grid grid-cols-[2fr_1fr] gap-8 max-w-[1600px] whitespace-pre-wrap">
           <Flex direction="column" gap="1rem">
             {upNext && (
-              <div className={styles.upNext}>
+              <div className="p-4 rounded bg-surface bg-opacity-50">
                 <div>
                   <span className="text-muted text-sm">Up next</span>
                 </div>
                 <Flex direction="column" gap="1rem">
-                  <EntityLink className={styles.episodeName} entity={upNext}>
+                  <EntityLink className="font-bold" entity={upNext}>
                     {upNext.name}
                   </EntityLink>
                   <DelimitedList delimiter=" · " className="text-muted text-sm">
@@ -117,17 +116,20 @@ export const RouteComponent = () => {
             )}
 
             <h2>All episodes</h2>
-            <ul className={styles.episodeList}>
+            <ul className="list-none m-0 p-0 rounded overflow-hidden">
               {show.episodes?.edges.map(({ node }) => {
                 const isCurrentEpisode = node.uri === playbackState?.item?.uri;
 
                 return (
-                  <li key={node.id} className={styles.episode}>
+                  <li
+                    key={node.id}
+                    className="flex gap-4 p-4 bg-surface-lowContrast bg-opacity-75 transition-colors ease-out duration-150 hover:bg-surface-low-contrast-hover border-b border-solid border-primary last:border-b-0"
+                  >
                     <CoverPhoto image={coverPhoto} size="100px" />
                     <Flex direction="column" justifyContent="space-between">
                       <EntityLink
-                        className={cx(styles.episodeName, {
-                          [styles.isCurrent]: isCurrentEpisode,
+                        className={cx('font-bold', {
+                          'text-theme': isCurrentEpisode,
                         })}
                         entity={node}
                       >
