@@ -17,7 +17,6 @@ import EpisodeReleaseDate from '../../components/EpisodeReleaseDate';
 import EpisodeRemainingDuration from '../../components/EpisodeRemainingDuration';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
-import Text from '../../components/Text';
 import styles from './show.module.scss';
 import PlayButton from '../../components/PlayButton';
 import usePlaybackState from '../../hooks/usePlaybackState';
@@ -103,20 +102,13 @@ export const RouteComponent = () => {
             {upNext && (
               <div className={styles.upNext}>
                 <div>
-                  <Text color="muted" size="sm">
-                    Up next
-                  </Text>
+                  <span className="text-muted text-sm">Up next</span>
                 </div>
                 <Flex direction="column" gap="1rem">
                   <EntityLink className={styles.episodeName} entity={upNext}>
                     {upNext.name}
                   </EntityLink>
-                  <DelimitedList
-                    as={Text}
-                    delimiter=" · "
-                    color="muted"
-                    size="sm"
-                  >
+                  <DelimitedList delimiter=" · " className="text-muted text-sm">
                     <EpisodeReleaseDate releaseDate={upNext.releaseDate} />
                     <EpisodeRemainingDuration episode={upNext} />
                   </DelimitedList>
@@ -147,10 +139,8 @@ export const RouteComponent = () => {
                           playing={isPlaying && isCurrentEpisode}
                         />
                         <DelimitedList
-                          as={Text}
                           delimiter=" · "
-                          color="muted"
-                          size="sm"
+                          className="text-muted text-sm"
                         >
                           <EpisodeReleaseDate releaseDate={node.releaseDate} />
                           <EpisodeRemainingDuration episode={node} />
@@ -164,9 +154,8 @@ export const RouteComponent = () => {
           </Flex>
           <Flex direction="column" gap="1rem">
             <h2>About</h2>
-            <Text
-              as="p"
-              color="muted"
+            <p
+              className="text-muted"
               dangerouslySetInnerHTML={{ __html: show.description }}
             />
           </Flex>
