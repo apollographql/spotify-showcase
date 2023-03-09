@@ -23,7 +23,6 @@ import ScrollContainerContext from '../components/ScrollContainerContext';
 import OffsetBasedPaginationObserver from '../components/OffsetBasedPaginationObserver';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
-import headerStyles from '../components/Layout/Header.module.scss';
 import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 
@@ -162,7 +161,7 @@ export const LoadingState = () => {
         </Layout.Sidebar.Section>
       </Layout.Sidebar>
       <Layout.Main>
-        <header className={cx(headerStyles.header, 'z-10 justify-end')}>
+        <header className="flex items-center justify-end text-primary bg-transparent py-4 px-[var(--main-content--padding)] sticky top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
           <Flex gap="0.5rem" alignItems="center">
             <Skeleton.Avatar size="2rem" />
             <Skeleton.Text width="10ch" />
