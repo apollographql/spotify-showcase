@@ -18,7 +18,6 @@ import * as CollectionTracksRoute from './routes/collection/tracks';
 import * as EpisodeRoute from './routes/episodes/episode';
 import * as IndexRoute from './routes/index';
 import * as LoggedOutRoute from './routes/logged-out';
-import * as LoginRoute from './routes/login';
 import * as LogoutRoute from './routes/logout';
 import * as PlaylistRoute from './routes/playlists/playlist';
 import * as QueueRoute from './routes/queue';
@@ -34,7 +33,6 @@ import { isLoggedInVar } from './vars';
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<RootErrorBoundary />}>
     <Route path="set-token" loader={SetTokenRoute.loader} />,
-    <Route path="login" loader={LoginRoute.loader} />,
     <Route path="logout" loader={LogoutRoute.loader} />,
     <Route
       path="logged-out"

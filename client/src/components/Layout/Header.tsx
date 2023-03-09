@@ -7,7 +7,6 @@ import useNavigationStack from '../../hooks/useNavigationStack';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';
 import styles from './Header.module.scss';
-import { LOGIN_URL } from '../../constants';
 import * as Welcome from '../../routes/index.welcome.mdx';
 import * as SuspenseContent from '../../routes/root.suspense.mdx';
 
@@ -41,7 +40,7 @@ const Header = () => {
         {isLoggedIn ? (
           <CurrentUserMenu />
         ) : (
-          <Button as="a" size="sm" variant="primary" href={LOGIN_URL}>
+          <Button as="a" size="sm" variant="primary" href="/login">
             Log in
           </Button>
         )}
