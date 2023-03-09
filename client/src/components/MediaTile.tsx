@@ -1,7 +1,6 @@
 import { ReactElement, ReactNode, forwardRef, cloneElement } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 import cx from 'classnames';
-import styles from './MediaTile.module.scss';
 import DelimitedList from './DelimitedList';
 
 interface MediaTileProps extends LinkProps {
@@ -15,11 +14,11 @@ const MediaTile = forwardRef<HTMLAnchorElement, MediaTileProps>(
     return (
       <Link
         {...props}
-        className={cx(styles.mediaTile, 'flex flex-col gap-4')}
+        className="flex flex-col gap-4 bg-surface-low-contrast transition-colors duration-200 ease-out p-4 rounded hover:bg-surface-low-contrast-hover hover:no-underline"
         ref={ref}
       >
         {cloneElement(coverPhoto, {
-          className: cx(styles.coverPhoto, coverPhoto.props.className),
+          className: cx('shadow-md', coverPhoto.props.className),
         })}
         <div className="flex flex-col">
           <span
