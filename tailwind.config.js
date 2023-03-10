@@ -63,6 +63,7 @@ module.exports = {
           'slide-left-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         'slide-right-fade':
           'slide-right-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'sound-wave': 'sound-wave 0ms -800ms linear infinite alternate',
       },
       fontSize: {
         xxs: ['0.625rem', '0.875rem'],
@@ -70,11 +71,13 @@ module.exports = {
       borderColor: {
         primary: 'hsla(0, 0%, 100%, 0.1)',
       },
-      backgroundColor: () => ({
+      backgroundColor: ({ theme }) => ({
         code: 'rgba(99, 110, 123, 0.4)',
         'surface-active': 'hsla(0, 0%, 100%, 0.1)',
         'surface-low-contrast': '#181818',
         'surface-low-contrast-hover': '#282828',
+        theme: theme('colors.green'),
+        'theme-light': theme('colors.green.light'),
       }),
       textColor: ({ theme }) => ({
         primary: theme('colors.white'),
@@ -131,6 +134,14 @@ module.exports = {
           to: {
             opacity: 1,
             transform: 'translateX(0)',
+          },
+        },
+        'sound-wave': {
+          from: {
+            transform: 'translateY(90%)',
+          },
+          to: {
+            transform: 'translateY(0)',
           },
         },
       },
