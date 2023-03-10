@@ -26,7 +26,9 @@ module.exports = {
         'sans-serif',
       ],
     },
-    colors: {
+    colors: ({ colors }) => ({
+      inherit: colors.inherit,
+      current: colors.current,
       black: {
         base: '#121212',
         pure: '#000',
@@ -42,7 +44,7 @@ module.exports = {
       },
       transparent: 'transparent',
       white: '#fff',
-    },
+    }),
     data: {
       active: 'state="active"',
       open: 'state="open"',
