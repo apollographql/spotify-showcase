@@ -3,18 +3,45 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply font-sans;
+    @apply p-0;
+    @apply tracking-[0.015rem];
+    @apply overscroll-y-none;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-title;
+    @apply font-bold;
+  }
+
   h1 {
     @apply text-3xl;
+    @apply mb-2;
   }
 
   h2 {
     @apply text-2xl;
   }
+
+  a {
+    @apply no-underline;
+    @apply text-inherit;
+    @apply hover:underline;
+  }
 }
 
 @layer components {
-  h1 {
-    @apply mb-2;
+  #root {
+    @apply min-h-screen;
+    @apply h-full;
   }
 
   .markdown {
@@ -49,5 +76,9 @@
 
   .markdown blockquote:not(:last-child) {
     margin-bottom: var(--block-element-spacing);
+  }
+
+  .lucide[width] {
+    max-width: unset;
   }
 }
