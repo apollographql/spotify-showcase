@@ -22,7 +22,7 @@ const PlaybarControlButton = forwardRef<
         className={cx(
           'flex items-center justify-center border-none bg-transparent text-muted p-0 cursor-pointer transition-colors ease-out w-6 h-6 hover:text-primary active:text-muted disabled:cursor-not-allowed disabled:text-disabled',
           {
-            'text-theme relative hover:text-theme-light after:absolute after:block after:bg-[currentColor] after:rounded after:w-1 after:h-1 after:left-1/2 after:-bottom-2 after:-translate-x-1/2':
+            'text-theme relative hover:text-theme-light after:absolute after:block after:bg-current after:rounded after:w-1 after:h-1 after:left-1/2 after:-bottom-2 after:-translate-x-1/2':
               active,
           }
         )}
