@@ -6,7 +6,48 @@ import { Spotify } from '../dataSources/spotify.types';
 
 const router = express.Router();
 
-router.get('/init', (_req, res) => {
+interface OauthSessionData {
+  clientId?: string;
+  clientSecret?: string;
+  redirectUrl?: string;
+}
+
+declare module 'express-session' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface SessionData {
+    oauth?: OauthSessionData;
+    defaultCountryCode?: string;
+  }
+}
+
+/**
+ * A helper for allowing the user to enter clientId, clientSecret and redirectUrl on the client.
+ * This is only used in CodeSandbox, where the user cannot set ENV variables.
+ * In a real application, those would be set in ENV, and not be user-provided.
+ */
+router.post(
+  '/init',
+  express.urlencoded(),
+  async (
+    req: Request<
+      unknown,
+      unknown,
+      OauthSessionData & { defaultCountryCode?: string }
+    >,
+    res
+  ) => {
+    await new Promise((resolve) => req.session.regenerate(resolve));
+    req.session.oauth = {};
+    req.session.oauth.clientId = req.body.clientId;
+    req.session.oauth.clientSecret = req.body.clientSecret;
+    req.session.oauth.redirectUrl = req.body.redirectUrl;
+    req.session.defaultCountryCode = req.body.defaultCountryCode;
+    res.redirect('/oauth/init');
+  }
+);
+
+router.get('/init', (req, res) => {
+  req.session.oauth ??= {};
   const query = new URLSearchParams();
 
   query.set('response_type', 'code');
@@ -17,9 +58,16 @@ router.get('/init', (_req, res) => {
   res.redirect(`https://accounts.spotify.com/authorize?${query}`);
 });
 
+router.get('/in_progress', (req, res) => {
+  res.json({ in_progress: req.session.oauth !== undefined });
+});
+
 router.get(
   '/finalize',
-  async (req: Request<{}, {}, {}, Spotify.Response.GET['/authorize']>, res) => {
+  async (
+    req: Request<unknown, unknown, unknown, Spotify.Response.GET['/authorize']>,
+    res
+  ) => {
     const body = new URLSearchParams();
 
     if ('error' in req.query) {
@@ -49,6 +97,7 @@ router.get(
     const params = new URLSearchParams();
     params.set('token', access_token);
 
+    req.session.oauth = undefined;
     res.redirect(`/set-token?${params}`);
   }
 );

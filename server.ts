@@ -31,6 +31,7 @@ import { TOPICS } from './server/src/constants';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createServer as createViteServer } from 'vite';
 import { globalRequestMiddleware } from './server/src/utils/globalRequestMiddleware';
+import { sessionHandler } from './server/src/session';
 
 async function createServer() {
   const schema = makeExecutableSchema({ typeDefs, resolvers });
@@ -66,9 +67,11 @@ async function createServer() {
           token,
         });
 
+        console.error(ctx);
+
         return {
           token,
-          defaultCountryCode,
+          defaultCountryCode: 'TODO',
           publisher: new Publisher(pubsub),
           pubsub,
           dataSources: { spotify },
@@ -105,6 +108,7 @@ async function createServer() {
   app.use(express.static('public'));
   app.use(cookieParser(), globalRequestMiddleware);
   app.use(vite.middlewares);
+  app.use(sessionHandler);
   app.use(routes);
   app.use(
     '/graphql',
@@ -120,7 +124,8 @@ async function createServer() {
         });
 
         return {
-          defaultCountryCode,
+          defaultCountryCode:
+            req.session.defaultCountryCode || defaultCountryCode,
           dataSources: { spotify },
           publisher: new Publisher(pubsub),
           pubsub,

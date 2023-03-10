@@ -9,5 +9,7 @@ export const loader: LoaderFunction = ({ request }) => {
     login(token);
   }
 
+  // if we are a popup window, this will close it, otherwise it will do nothing.
+  window.close();
   return redirect('/');
 };

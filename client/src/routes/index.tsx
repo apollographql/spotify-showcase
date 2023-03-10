@@ -1,5 +1,6 @@
 import {
   gql,
+  useReactiveVar,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import cx from 'classnames';
@@ -14,8 +15,12 @@ import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
-import { useEffect, useState } from 'react';
-import Cookie from 'js-cookie';
+import {
+  clientId,
+  clientSecret,
+  defaultCountryCode,
+  persistOauth,
+} from '../vars';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -119,7 +124,7 @@ const LoggedOut = () => {
         </li>
       </ol>
       <h2>Configure this application</h2>
-      {window.location.host.endsWith('.csb.app') ? (
+      {1 < 2 || window.location.host.endsWith('.csb.app') ? (
         <CSBSetupGuide />
       ) : (
         <LocalSetupGuide />
@@ -131,28 +136,7 @@ const LoggedOut = () => {
   );
 };
 
-function useCookieBackedState(cookieName: string, defaultValue = '') {
-  const [value, setValue] = useState(Cookie.get(cookieName) ?? defaultValue);
-  console.log({ cookieName, value, defaultValue });
-  useEffect(() => {
-    if (value !== (Cookie.get(cookieName) ?? defaultValue)) {
-      console.log('saving', cookieName, value);
-      Cookie.set(cookieName, value);
-    }
-  }, [cookieName, value, defaultValue]);
-  return [value, setValue] as const;
-}
-
 function CSBSetupGuide() {
-  const [clientId, setClientId] = useCookieBackedState('SPOTIFY_CLIENT_ID');
-  const [clientSecret, setClientSecret] = useCookieBackedState(
-    'SPOTIFY_CLIENT_SECRET'
-  );
-  const [defaultCountryCode, setDefaultCountryCode] = useCookieBackedState(
-    'DEFAULT_COUNTRY_CODE',
-    'US'
-  );
-
   return (
     <ol>
       <li>
@@ -162,28 +146,42 @@ function CSBSetupGuide() {
           browser.
         </p>
         <p>
-          ClientId:
-          <input
-            type="text"
-            value={clientId}
-            onChange={(e) => setClientId(e.currentTarget.value)}
-          />
+          <label>
+            ClientId:
+            <input
+              type="text"
+              value={useReactiveVar(clientId)}
+              onChange={(e) => clientId(e.currentTarget.value)}
+            />
+          </label>
         </p>
         <p>
-          ClientSecret:
-          <input
-            type="text"
-            value={clientSecret}
-            onChange={(e) => setClientSecret(e.currentTarget.value)}
-          />
+          <label>
+            ClientSecret:
+            <input
+              type="text"
+              value={useReactiveVar(clientSecret)}
+              onChange={(e) => clientSecret(e.currentTarget.value)}
+            />
+          </label>
+        </p>
+        <p>
+          <label>
+            <input
+              type="checkbox"
+              checked={useReactiveVar(persistOauth)}
+              onChange={(e) => persistOauth(e.currentTarget.checked)}
+            />{' '}
+            Persist this data in LocalStorage
+          </label>
         </p>
       </li>
       <li>
         <p>Optionally configure a default country code.</p>
         <input
           type="text"
-          value={defaultCountryCode}
-          onChange={(e) => setDefaultCountryCode(e.currentTarget.value)}
+          value={useReactiveVar(defaultCountryCode)}
+          onChange={(e) => defaultCountryCode(e.currentTarget.value)}
         />
         <blockquote>
           This is needed to fetch an artist&apos;s top tracks on the artist page

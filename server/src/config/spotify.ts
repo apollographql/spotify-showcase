@@ -5,39 +5,35 @@ const config = {
   get clientId() {
     const request = getRequest();
     return (
-      (request.cookies.SPOTIFY_CLIENT_ID as string) ??
+      request.session.oauth?.clientId ||
       readEnv('SPOTIFY_CLIENT_ID')
     );
   },
   get clientSecret() {
     const request = getRequest();
     return (
-      (request.cookies.SPOTIFY_CLIENT_SECRET as string) ??
-      readEnv('SPOTIFY_CLIENT_SECRET')
+      request.session.oauth?.clientSecret || readEnv('SPOTIFY_CLIENT_SECRET')
     );
   },
-  get redirectURI() {
+  get isCodeSandbox() {
     const request = getRequest();
-    // handle CodeSandbox
-    const forwardedProtocol = request.headers['x-forwarded-proto'] as
-      | string
-      | undefined;
     const forwardedHost = request.headers['x-forwarded-host'] as
       | string
       | undefined;
-    const forwardedPort = request.headers['x-forwarded-port'] as
+    const hostname = forwardedHost ?? request.hostname;
+    return hostname.endsWith('.csb.app');
+  },
+  get isSecure() {
+    const request = getRequest();
+    const forwardedProtocol = request.headers['x-forwarded-proto'] as
       | string
       | undefined;
-
     const protocol = forwardedProtocol ?? request.protocol;
-    const hostname = forwardedHost ?? request.hostname;
-    const port = forwardedPort
-      ? `:${forwardedPort}`
-      : hostname.endsWith('.csb.app')
-      ? ''
-      : ':3000';
-
-    return `${protocol}://${hostname}${port}/oauth/finalize`;
+    return protocol === 'https;';
+  },
+  get redirectURI() {
+    const request = getRequest();
+    return request.session.oauth?.redirectUrl || `http://localhost:3000/oauth/finalize`;
   },
 };
 
