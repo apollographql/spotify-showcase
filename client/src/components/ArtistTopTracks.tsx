@@ -5,7 +5,6 @@ import CoverPhoto from './CoverPhoto';
 import ExplicitBadge from './ExplicitBadge';
 import Duration from './Duration';
 import Flex from './Flex';
-import styles from './ArtistTopTracks.module.scss';
 
 interface ArtistTopTracksProps {
   className?: string;
@@ -19,7 +18,10 @@ const ArtistTopTracks = ({ className, tracks }: ArtistTopTracksProps) => {
         const albumCoverPhoto = thumbnail(track.album.images);
 
         return (
-          <div key={track.id} className={styles.track}>
+          <div
+            key={track.id}
+            className="grid [grid-template-columns:1ch_1fr_auto] gap-4 py-2 px-4 items-center rounded hover:bg-surface"
+          >
             <span className="text-muted justify-self-end" color="muted">
               {index + 1}
             </span>
