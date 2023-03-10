@@ -80,6 +80,7 @@ module.exports = {
         'theme-light': theme('colors.green.light'),
       }),
       textColor: ({ theme }) => ({
+        disabled: '#5e5e5e',
         primary: theme('colors.white'),
         theme: theme('colors.green'),
         'theme-light': theme('colors.green.light'),
