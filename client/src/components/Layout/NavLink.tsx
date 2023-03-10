@@ -4,7 +4,6 @@ import {
   NavLinkProps as ReactRouterNavLinkProps,
 } from 'react-router-dom';
 import cx from 'classnames';
-import styles from './NavLink.module.scss';
 
 interface IconProps {
   size: string;
@@ -18,11 +17,18 @@ interface NavLinkProps extends ReactRouterNavLinkProps {
 const NavLink = forwardRef<HTMLLIElement, NavLinkProps>(
   ({ children, className, icon, ...props }, ref) => {
     return (
-      <li className={styles.navLink} ref={ref}>
+      <li
+        className="leading-none py-3 px-0 text-muted transition-colors duration-200 ease-out hover:text-primary"
+        ref={ref}
+      >
         <ReactRouterNavLink
           {...props}
           className={({ isActive }) =>
-            cx(styles.navLinkAnchor, className, { [styles.active]: isActive })
+            cx(
+              'flex items-center gap-4 text-sm transition-color duration-200 ease-out hover:no-underline',
+              className,
+              { 'text-primary': isActive }
+            )
           }
         >
           <>

@@ -1,6 +1,6 @@
-import { createElement, CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import cx from 'classnames';
-import styles from './Skeleton.module.scss';
+import Base from './Base';
 
 interface TitleProps {
   className?: string;
@@ -15,18 +15,25 @@ interface StyleProps extends CSSProperties {
 }
 
 const Heading = ({ className, fontSize, level, width }: TitleProps) => {
-  return createElement(`h${level}`, {
-    className: cx(
-      styles.skeleton,
-      styles.skeleton__heading,
-      styles[`heading${level}`],
-      className
-    ),
-    style: {
-      '--skeleton--heading--width': width,
-      '--skeleton--heading--font-size': fontSize,
-    } as StyleProps,
-  });
+  return (
+    <Base
+      as={`h${level}`}
+      className={cx(
+        '[font-size:var(--skeleton--heading--font-size)] h-[1em] w-[var(--skeleton--heading--width,100%)]',
+        className,
+        {
+          '[--skeleton--heading--font-size:3rem]': level === 1,
+          '[--skeleton--heading--font-size:2rem]': level === 2,
+        }
+      )}
+      style={
+        {
+          '--skeleton--heading--width': width,
+          '--skeleton--heading--font-size': fontSize,
+        } as StyleProps
+      }
+    />
+  );
 };
 
 export default Heading;

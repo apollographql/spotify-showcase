@@ -1,5 +1,4 @@
 import { CSSProperties, ReactNode, forwardRef } from 'react';
-import styles from './Page.module.scss';
 
 interface TitleProps {
   children?: ReactNode;
@@ -11,7 +10,11 @@ const Title = forwardRef<HTMLHeadingElement, TitleProps>(function Title(
   ref
 ) {
   return (
-    <h1 ref={ref} className={styles.page__title} style={style}>
+    <h1
+      ref={ref}
+      className="line-clamp-2 overflow-hidden text-8xl font-black"
+      style={style}
+    >
       {children}
     </h1>
   );

@@ -5,7 +5,6 @@ import {
   ElementType,
 } from 'react';
 import cx from 'classnames';
-import styles from './Flex.module.scss';
 
 type FlexProps<TElement extends ElementType> =
   ComponentPropsWithoutRef<TElement> & {
@@ -38,11 +37,16 @@ const Flex = <TElement extends ElementType = 'div'>({
     <Element
       {...props}
       style={{ gap, flex }}
-      className={cx(styles.Flex, className, {
-        [styles[`direction-${direction}`]]: direction,
-        [styles[`alignItems-${alignItems}`]]: alignItems,
-        [styles[`justifyContent-${justifyContent}`]]: justifyContent,
-        [styles.inline]: inline,
+      className={cx(inline ? 'inline-flex' : 'flex', className, {
+        'flex-row': direction === 'row',
+        'flex-col': direction === 'column',
+        'items-start': alignItems === 'start',
+        'items-center': alignItems === 'center',
+        'items-end': alignItems === 'end',
+        'justify-start': justifyContent === 'start',
+        'justify-center': justifyContent === 'center',
+        'justify-end': justifyContent === 'end',
+        'justify-between': justifyContent === 'space-between',
       })}
     >
       {children}

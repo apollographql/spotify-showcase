@@ -3,7 +3,6 @@ import { LucideProps, Music } from 'lucide-react';
 import cx from 'classnames';
 import LazyImage from './LazyImage';
 import PlaceholderCoverPhoto from './PlaceholderCoverPhoto';
-import styles from './CoverPhoto.module.scss';
 
 interface Image {
   url: string;
@@ -30,17 +29,21 @@ const CoverPhoto = ({
 }: CoverPhotoProps) => {
   return (
     <div
-      className={cx(styles.container, className, {
-        [styles.square]: shape === 'square',
-        [styles.circle]: shape === 'circle',
-      })}
+      className={cx(
+        'aspect-square overflow-hidden w-[var(--cover-photo--size)]',
+        className,
+        {
+          rounded: shape === 'square',
+          'rounded-full': shape === 'circle',
+        }
+      )}
       style={{ '--cover-photo--size': size } as StyleProps}
     >
       {image ? (
-        <LazyImage className={styles.coverPhoto} src={image.url} />
+        <LazyImage className="aspect-square object-cover" src={image.url} />
       ) : (
         <PlaceholderCoverPhoto
-          className={styles.coverPhoto}
+          className="aspect-square object-cover"
           icon={placeholderIcon}
         />
       )}

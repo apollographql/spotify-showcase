@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import * as RadixTooltip from '@radix-ui/react-tooltip';
-import styles from './Tooltip.module.scss';
 
 type ForwardedTooltipRootProps = Pick<
   RadixTooltip.TooltipProps,
@@ -40,7 +39,7 @@ const Tooltip = ({
       <RadixTooltip.Portal>
         <RadixTooltip.Content
           side={side}
-          className={styles.tooltipContent}
+          className="line-clamp-4 text-primary rounded bg-surface py-1 px-2 text-sm shadow-lg max-w-[50ch] text-ellipsis overflow-hidden data-open:animate-fade-in"
           sideOffset={10}
         >
           {content}

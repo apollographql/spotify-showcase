@@ -26,7 +26,9 @@ module.exports = {
         'sans-serif',
       ],
     },
-    colors: {
+    colors: ({ colors }) => ({
+      inherit: colors.inherit,
+      current: colors.current,
       black: {
         base: '#121212',
         pure: '#000',
@@ -39,11 +41,10 @@ module.exports = {
       offwhite: '#b3b3b3',
       surface: {
         DEFAULT: '#282828',
-        lowContrast: '#181818',
       },
       transparent: 'transparent',
       white: '#fff',
-    },
+    }),
     data: {
       active: 'state="active"',
       open: 'state="open"',
@@ -57,6 +58,7 @@ module.exports = {
       animation: {
         'fade-in': 'fade-in var(--animate-duration, 400ms) ease-out',
         'fade-out': 'fade-out var(--animate-duration, 400ms) ease-out',
+        shimmer: 'shimmer 1.5s ease infinite',
         'slide-up-fade': 'slide-up-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         'slide-down-fade':
           'slide-down-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -64,15 +66,27 @@ module.exports = {
           'slide-left-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         'slide-right-fade':
           'slide-right-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        'sound-wave': 'sound-wave 0ms -800ms linear infinite alternate',
       },
       fontSize: {
         xxs: ['0.625rem', '0.875rem'],
       },
-      backgroundColor: () => ({
+      borderColor: {
+        primary: 'hsla(0, 0%, 100%, 0.1)',
+      },
+      backgroundColor: ({ theme }) => ({
+        code: 'rgba(99, 110, 123, 0.4)',
         'surface-active': 'hsla(0, 0%, 100%, 0.1)',
+        'surface-low-contrast': '#181818',
+        'surface-low-contrast-hover': '#282828',
+        theme: theme('colors.green'),
+        'theme-light': theme('colors.green.light'),
       }),
       textColor: ({ theme }) => ({
-        base: theme('colors.white'),
+        disabled: '#5e5e5e',
+        primary: theme('colors.white'),
+        theme: theme('colors.green'),
+        'theme-light': theme('colors.green.light'),
         muted: theme('colors.offwhite'),
       }),
       keyframes: {
@@ -83,6 +97,11 @@ module.exports = {
         'fade-out': {
           from: { opacity: 1 },
           to: { opacity: 0 },
+        },
+        shimmer: {
+          '100%': {
+            transform: 'translateX(100%)',
+          },
         },
         'slide-up-fade': {
           from: {
@@ -124,6 +143,14 @@ module.exports = {
           to: {
             opacity: 1,
             transform: 'translateX(0)',
+          },
+        },
+        'sound-wave': {
+          from: {
+            transform: 'translateY(90%)',
+          },
+          to: {
+            transform: 'translateY(0)',
           },
         },
       },

@@ -3,8 +3,8 @@ import {
   TrackNumberCell_track as Track,
   TrackNumberCell_playbackState as PlaybackState,
 } from '../types/api';
+import cx from 'classnames';
 import AnimatedSoundWave from './AnimatedSoundWave';
-import Text from './Text';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Music } from 'lucide-react';
 
@@ -57,12 +57,16 @@ const TrackNumberCell = ({
       ) : preferIcon ? (
         <Music size="1rem" />
       ) : (
-        <Text
-          color={isPlayingInContext && isCurrentTrack ? 'themeLight' : 'muted'}
-          numericVariant="tabular-nums"
+        <span
+          className={cx(
+            'tabular-nums',
+            isPlayingInContext && isCurrentTrack
+              ? 'text-theme-light'
+              : 'text-muted'
+          )}
         >
           {trackNumber}
-        </Text>
+        </span>
       )}
     </div>
   );

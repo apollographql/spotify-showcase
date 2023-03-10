@@ -1,6 +1,5 @@
 import { ComponentPropsWithoutRef, useEffect, useState } from 'react';
 import cx from 'classnames';
-import styles from './LazyImage.module.scss';
 
 type LazyImageProps = ComponentPropsWithoutRef<'img'>;
 
@@ -26,7 +25,11 @@ const LazyImage = ({ className, src, alt = '', ...props }: LazyImageProps) => {
   return (
     <img
       {...props}
-      className={cx(styles.lazyImage, className, { [styles.loaded]: loaded })}
+      className={cx(
+        'w-full h-auto transition-opacity duration-300 ease-out object-cover object-center opacity-0',
+        className,
+        { 'opacity-100': loaded }
+      )}
       src={src}
       alt={alt}
     />

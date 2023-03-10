@@ -11,7 +11,6 @@ import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
 import Duration from '../../components/Duration';
 import Page from '../../components/Page';
-import Text from '../../components/Text';
 import TileGrid from '../../components/TileGrid';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import Flex from '../../components/Flex';
@@ -100,12 +99,12 @@ export const RouteComponent = () => {
               <CoverPhoto image={coverPhoto} size="5rem" />
             </EntityLink>
             <Flex direction="column">
-              <Text size="xs" uppercase>
+              <span className="text-xs uppercase">
                 From the {album.albumType.toLowerCase()}
-              </Text>
-              <Text as={EntityLink} size="lg" entity={album}>
+              </span>
+              <EntityLink className="text-lg" entity={album}>
                 {album.name}
-              </Text>
+              </EntityLink>
             </Flex>
           </Flex>
           <AlbumTracksTable album={album} />

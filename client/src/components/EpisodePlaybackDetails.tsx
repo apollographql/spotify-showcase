@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import { EpisodePlaybackDetails_episode as Episode } from '../types/api';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
-import Text from './Text';
 
 interface EpisodePlaybackDetailsProps {
   episode: Episode;
@@ -11,12 +10,12 @@ interface EpisodePlaybackDetailsProps {
 const EpisodePlaybackDetails = ({ episode }: EpisodePlaybackDetailsProps) => {
   return (
     <Flex direction="column" gap="0.25rem">
-      <Text size="sm">
-        <EntityLink entity={episode}>{episode.name}</EntityLink>
-      </Text>
-      <Text size="xs" color="muted">
-        <EntityLink entity={episode.show}>{episode.show.name}</EntityLink>
-      </Text>
+      <EntityLink className="text-sm" entity={episode}>
+        {episode.name}
+      </EntityLink>
+      <EntityLink className="text-xs text-muted" entity={episode.show}>
+        {episode.show.name}
+      </EntityLink>
     </Flex>
   );
 };

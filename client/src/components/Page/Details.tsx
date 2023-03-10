@@ -2,7 +2,6 @@ import { cloneElement, ReactElement } from 'react';
 import cx from 'classnames';
 import EntityLink from '../EntityLink';
 import Flex from '../Flex';
-import styles from './Page.module.scss';
 
 interface DetailsProps {
   items: ReactElement[];
@@ -10,12 +9,15 @@ interface DetailsProps {
 
 const Details = ({ items }: DetailsProps) => {
   return (
-    <Flex className={styles.page__details} alignItems="center">
+    <Flex
+      className='text-sm [&>:not(:first-child)]:before:my-0 [&>:not(:first-child)]:before:mx-1 [&>:not(:first-child)]:before:content-["·"]'
+      alignItems="center"
+    >
       {items.map((child) => {
         switch (child.type) {
           case EntityLink:
             return cloneElement(child, {
-              className: cx(child.props?.className, styles.page__entityLink),
+              className: cx(child.props?.className, 'text-bold'),
             });
           default:
             return child;

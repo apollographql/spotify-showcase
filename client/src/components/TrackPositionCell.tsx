@@ -1,8 +1,8 @@
 import { MouseEvent } from 'react';
 import { PauseIcon, PlayIcon } from 'lucide-react';
+import cx from 'classnames';
 import usePausePlaybackMutation from '../mutations/usePausePlaybackMutation';
 import AnimatedSoundWave from './AnimatedSoundWave';
-import Text from './Text';
 
 interface TrackPositionCellProps {
   isCurrent: boolean;
@@ -36,14 +36,14 @@ const TrackPositionCell = ({
         </>
       ) : (
         <>
-          <Text
-            className="group-hover:hidden"
-            color={isPlaying || isCurrent ? 'themeLight' : 'muted'}
-            numericVariant="tabular-nums"
-            size="base"
+          <span
+            className={cx(
+              'group-hover:hidden text-base tabular-nums',
+              isPlaying || isCurrent ? 'text-theme-light' : 'text-muted'
+            )}
           >
             {position}
-          </Text>
+          </span>
           <button
             className="hidden group-hover:block"
             onClick={(e) => {

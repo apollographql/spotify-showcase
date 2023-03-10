@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { CSSProperties } from 'react';
-import styles from './Skeleton.module.scss';
+import Base from './Base';
 
 interface TextProps {
   className?: string;
@@ -15,8 +15,11 @@ interface StyleProps extends CSSProperties {
 
 const Text = ({ className, fontSize, width }: TextProps) => {
   return (
-    <div
-      className={cx(styles.skeleton, styles.skeleton__text, className)}
+    <Base
+      className={cx(
+        '[font-size:var(--skeleton--text--font-size)] w-[var(--skeleton--text--width,100%)] h-[1em]',
+        className
+      )}
       style={
         {
           '--skeleton--text--width': width,

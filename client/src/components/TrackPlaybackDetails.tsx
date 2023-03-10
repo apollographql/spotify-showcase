@@ -9,7 +9,6 @@ import ContextMenu from './ContextMenu';
 import DelimitedList from './DelimitedList';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
-import Text from './Text';
 import { parseSpotifyIDFromURI } from '../utils/spotify';
 
 interface TrackPlaybackDetailsProps {
@@ -23,65 +22,63 @@ const TrackPlaybackDetails = ({
 }: TrackPlaybackDetailsProps) => {
   return (
     <Flex direction="column" gap="0.25rem">
-      <Text size="sm">
-        <ContextMenu
-          content={
-            <>
-              <ContextMenuAction.AddToQueue uri={track.uri} />
-              <ContextMenu.Separator />
-              <ContextMenuAction.LinkToArtist artists={track.artists} />
-              <ContextMenu.Link to={`/albums/${track.album.id}`}>
-                Go to album
-              </ContextMenu.Link>
-              <ContextMenu.Separator />
-              {context?.type === PlaybackContextType.Playlist && (
-                <>
-                  <ContextMenuAction.RemoveFromPlaylist
-                    playlistId={parseSpotifyIDFromURI(context.uri)}
-                    uri={track.uri}
-                  />
-                  <ContextMenu.Separator />
-                </>
-              )}
-              <ContextMenu.SubMenu
-                content={<ContextMenuAction.CopyLinkToEntity entity={track} />}
-              >
-                Share
-              </ContextMenu.SubMenu>
-              <ContextMenu.Separator />
-              <ContextMenuAction.OpenDesktopApp uri={track.uri} />
-            </>
-          }
-        >
-          <EntityLink entity={track.album}>{track.name}</EntityLink>
-        </ContextMenu>
-      </Text>
-      <Text size="xs" color="muted">
-        <DelimitedList delimiter=", ">
-          {track.artists.map((artist) => (
-            <ContextMenu
-              key={artist.id}
-              content={
-                <>
-                  <ContextMenu.SubMenu
-                    content={
-                      <ContextMenuAction.CopyLinkToEntity entity={artist} />
-                    }
-                  >
-                    Share
-                  </ContextMenu.SubMenu>
-                  <ContextMenu.Separator />
-                  <ContextMenuAction.OpenDesktopApp uri={artist.uri} />
-                </>
-              }
+      <ContextMenu
+        content={
+          <>
+            <ContextMenuAction.AddToQueue uri={track.uri} />
+            <ContextMenu.Separator />
+            <ContextMenuAction.LinkToArtist artists={track.artists} />
+            <ContextMenu.Link to={`/albums/${track.album.id}`}>
+              Go to album
+            </ContextMenu.Link>
+            <ContextMenu.Separator />
+            {context?.type === PlaybackContextType.Playlist && (
+              <>
+                <ContextMenuAction.RemoveFromPlaylist
+                  playlistId={parseSpotifyIDFromURI(context.uri)}
+                  uri={track.uri}
+                />
+                <ContextMenu.Separator />
+              </>
+            )}
+            <ContextMenu.SubMenu
+              content={<ContextMenuAction.CopyLinkToEntity entity={track} />}
             >
-              <EntityLink key={artist.id} entity={artist}>
-                {artist.name}
-              </EntityLink>
-            </ContextMenu>
-          ))}
-        </DelimitedList>
-      </Text>
+              Share
+            </ContextMenu.SubMenu>
+            <ContextMenu.Separator />
+            <ContextMenuAction.OpenDesktopApp uri={track.uri} />
+          </>
+        }
+      >
+        <EntityLink className="text-sm" entity={track.album}>
+          {track.name}
+        </EntityLink>
+      </ContextMenu>
+      <DelimitedList className="text-muted text-xs" delimiter=", ">
+        {track.artists.map((artist) => (
+          <ContextMenu
+            key={artist.id}
+            content={
+              <>
+                <ContextMenu.SubMenu
+                  content={
+                    <ContextMenuAction.CopyLinkToEntity entity={artist} />
+                  }
+                >
+                  Share
+                </ContextMenu.SubMenu>
+                <ContextMenu.Separator />
+                <ContextMenuAction.OpenDesktopApp uri={artist.uri} />
+              </>
+            }
+          >
+            <EntityLink key={artist.id} entity={artist}>
+              {artist.name}
+            </EntityLink>
+          </ContextMenu>
+        ))}
+      </DelimitedList>
     </Flex>
   );
 };

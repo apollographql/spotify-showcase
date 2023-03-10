@@ -1,6 +1,5 @@
 import { ComponentPropsWithoutRef, CSSProperties, ReactNode } from 'react';
 import cx from 'classnames';
-import styles from './Layout.module.scss';
 
 import Header from './Header';
 import Main from './Main';
@@ -24,10 +23,15 @@ const Layout = ({ children, ...props }: LayoutProps) => {
   return (
     <div
       {...props}
-      className={cx(styles.layout, { [styles.isLoggedIn]: isLoggedIn })}
+      className={cx(
+        'grid grid-cols-[auto_1fr] h-full',
+        isLoggedIn
+          ? '[grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
+          : '[grid-template-areas:"sidebar_main-view"]'
+      )}
     >
       <div
-        className={cx(styles.layoutBackdrop, styles.withGradient)}
+        className="[background:var(--backdrop-color)] fixed transition duration-200 ease-out inset-0 z-[-1] after:absolute after:inset-0 after:bg-[linear-gradient(rgba(255,255,255,0),#04060b)] after:transition-opacity after:duration-300 after:opacity-100"
         style={{ '--backdrop-color': backgroundColor } as BackdropStyle}
       />
       {children}

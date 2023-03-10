@@ -11,7 +11,6 @@ import EntityLink from '../../components/EntityLink';
 import EpisodeReleaseDate from '../../components/EpisodeReleaseDate';
 import EpisodeRemainingDuration from '../../components/EpisodeRemainingDuration';
 import Page from '../../components/Page';
-import Text from '../../components/Text';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 
 const EPISODE_ROUTE_QUERY = gql`
@@ -71,7 +70,7 @@ export const RouteComponent = () => {
         title={episode.name}
       />
       <Page.Content>
-        <DelimitedList as={Text} color="muted" delimiter=" · ">
+        <DelimitedList className="text-muted" delimiter=" · ">
           <EpisodeReleaseDate releaseDate={episode.releaseDate} />
           <EpisodeRemainingDuration episode={episode} />
         </DelimitedList>

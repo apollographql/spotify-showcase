@@ -1,5 +1,4 @@
 import cx from 'classnames';
-import styles from './Playbar.module.scss';
 import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
@@ -77,7 +76,7 @@ const Playbar = ({ className }: PlaybarProps) => {
 
   return (
     <Flex as="footer" direction="column" className={cx(className)}>
-      <div className={styles.player}>
+      <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary bg-surface-low-contrast py-4 px-6 border-t border solid border-surface">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
           {playbackItem?.__typename === 'Track' ? (
@@ -158,7 +157,8 @@ const Playbar = ({ className }: PlaybarProps) => {
         <Flex
           alignItems="center"
           className={cx(
-            styles.device,
+            'before:[--arrow-size:0.625rem]',
+            'before:[border-left-width:var(--arrow-size)] before:[border-right-width:var(--arrow-size)] before:[border-bottom-width:var(--arrow-size)] before:border-b-green before:border-l-transparent before:border-r-transparent border-solid',
             'bg-green relative py-1 px-6 text-sm leading-none',
             'pointer-events-none before:absolute before:top-0 before:right-[10.5rem] before:-translate-y-full'
           )}

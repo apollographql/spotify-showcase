@@ -9,7 +9,6 @@ import CommaSeparatedList from './CommaSeparatedList';
 import EntityLink from './EntityLink';
 import ExplicitBadge from './ExplicitBadge';
 import Flex from './Flex';
-import Text from './Text';
 
 interface AlbumTrackTitleCellProps {
   album: Album;
@@ -38,25 +37,23 @@ const AlbumTrackTitleCell = ({ album, track }: AlbumTrackTitleCellProps) => {
 
   return (
     <Flex direction="column" gap="0.5">
-      <Text
-        size="base"
+      <span
+        className="text-base"
         color={isCurrentTrack && isPlayingInAlbum ? 'themeLight' : 'primary'}
       >
         {track.name}
-      </Text>
+      </span>
       <Flex gap="0.5rem" alignItems="center">
         {track.explicit && <ExplicitBadge />}
         <CommaSeparatedList>
           {track.artists.map((artist) => (
-            <Text
-              interactive
+            <EntityLink
+              className="text-muted transition-colors duration-[0.15s] hover:text-primary"
               key={artist.id}
-              as={EntityLink}
-              color="muted"
               entity={artist}
             >
               {artist.name}
-            </Text>
+            </EntityLink>
           ))}
         </CommaSeparatedList>
       </Flex>

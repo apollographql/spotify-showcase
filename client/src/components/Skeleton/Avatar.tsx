@@ -1,6 +1,5 @@
 import { CSSProperties } from 'react';
-import cx from 'classnames';
-import styles from './Skeleton.module.scss';
+import Base from './Base';
 
 interface AvatarProps {
   size: CSSProperties['width'];
@@ -12,8 +11,8 @@ interface StyleProps extends CSSProperties {
 
 const Avatar = ({ size }: AvatarProps) => {
   return (
-    <div
-      className={cx(styles.skeleton, styles.skeleton__avatar)}
+    <Base
+      className="rounded-full w-[var(--skeleton--avatar--size)] h-[var(--skeleton--avatar--size)]"
       style={{ '--skeleton--avatar--size': size } as StyleProps}
     />
   );

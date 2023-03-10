@@ -15,7 +15,6 @@ import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import usePlaybackState from '../hooks/usePlaybackState';
-import styles from './root.module.scss';
 import { Volume2 } from 'lucide-react';
 import NotificationManager from '../components/NotificationManager';
 import ContextMenu from '../components/ContextMenu';
@@ -24,7 +23,6 @@ import ScrollContainerContext from '../components/ScrollContainerContext';
 import OffsetBasedPaginationObserver from '../components/OffsetBasedPaginationObserver';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
-import headerStyles from '../components/Layout/Header.module.scss';
 import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 
@@ -74,7 +72,7 @@ export const RouteComponent = () => {
             <Outlet key={JSON.stringify(params)} />
           </Wrapper>
         </Layout.Main>
-        {isLoggedIn && <Playbar className={styles.playbar} />}
+        {isLoggedIn && <Playbar className="[grid-area:playbar]" />}
       </Layout>
       <NotificationManager />
     </ScrollContainerContext.Provider>
@@ -163,7 +161,7 @@ export const LoadingState = () => {
         </Layout.Sidebar.Section>
       </Layout.Sidebar>
       <Layout.Main>
-        <header className={cx(headerStyles.header, 'z-10 justify-end')}>
+        <header className="flex items-center justify-end text-primary bg-transparent py-4 px-[var(--main-content--padding)] sticky top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
           <Flex gap="0.5rem" alignItems="center">
             <Skeleton.Avatar size="2rem" />
             <Skeleton.Text width="10ch" />

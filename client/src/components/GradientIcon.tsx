@@ -1,7 +1,6 @@
 import { CSSProperties, ElementType } from 'react';
 import { LucideProps } from 'lucide-react';
 import cx from 'classnames';
-import styles from './GradientIcon.module.scss';
 
 type BackgroundColor = CSSProperties['backgroundColor'];
 type Size = CSSProperties['width'];
@@ -30,7 +29,10 @@ const GradientIcon = ({
 }: GradientIconProps) => {
   return (
     <div
-      className={cx(styles.gradientIcon, className)}
+      className={cx(
+        'aspect-square flex items-center justify-center rounded-sm [background:var(--gradient-icon--background-color)] w-[var(--gradient-icon--size)]',
+        className
+      )}
       style={
         {
           '--gradient-icon--background-color': backgroundColor,

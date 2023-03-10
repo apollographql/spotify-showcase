@@ -3,11 +3,11 @@ import {
   TrackTitleCell_track as Track,
   TrackTitleCell_playbackState as PlaybackState,
 } from '../types/api';
+import cx from 'classnames';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
 import CommaSeparatedList from './CommaSeparatedList';
-import Text from './Text';
 import usePlaybackState from '../hooks/usePlaybackState';
 import ExplicitBadge from './ExplicitBadge';
 import { thumbnail } from '../utils/image';
@@ -46,27 +46,27 @@ const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
     <Flex gap="0.5rem">
       <CoverPhoto image={thumbnail(track.album.images)} size="2.5rem" />
       <Flex direction="column">
-        <Text
-          size="base"
-          color={
-            isCurrentTrack && isPlayingInContext ? 'themeLight' : 'primary'
-          }
+        <span
+          className={cx(
+            'text-base',
+            isCurrentTrack && isPlayingInContext
+              ? 'text-theme-light'
+              : 'text-primary'
+          )}
         >
           {track.name}
-        </Text>
+        </span>
         <Flex gap="0.5rem" alignItems="center">
           {track.explicit && <ExplicitBadge />}
           <CommaSeparatedList>
             {track.artists.map((artist) => (
-              <Text
-                interactive
-                as={EntityLink}
+              <EntityLink
+                className="text-muted transition-colors duration-150 hover:text-primary"
                 key={artist.id}
-                color="muted"
                 entity={artist}
               >
                 {artist.name}
-              </Text>
+              </EntityLink>
             ))}
           </CommaSeparatedList>
         </Flex>

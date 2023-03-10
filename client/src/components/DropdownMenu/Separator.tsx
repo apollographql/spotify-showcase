@@ -1,8 +1,9 @@
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
-import styles from './Separator.module.scss';
 
 const Separator = () => {
-  return <Dropdown.Separator className={styles.separator} />;
+  return (
+    <Dropdown.Separator className="border-t border-solid border-primary my-1 mx-0" />
+  );
 };
 
 export default Separator;

@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
+import cx from 'classnames';
 import CommaSeparatedList from './CommaSeparatedList';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
-import Text from './Text';
 import { thumbnail } from '../utils/image';
 import {
   PlaylistTitleCell_playlist as Playlist,
@@ -52,34 +52,33 @@ const PlaylistTitleCell = ({
     <Flex gap="0.5rem" alignItems="end">
       <CoverPhoto image={image} size="2.5rem" />
       <Flex direction="column">
-        <Text
-          as={EntityLink}
-          size="base"
+        <EntityLink
+          className={cx(
+            'text-base',
+            isCurrentTrack && isPlayingInPlaylist
+              ? 'text-theme-light'
+              : 'text-primary'
+          )}
           entity={playlistTrack}
-          color={
-            isCurrentTrack && isPlayingInPlaylist ? 'themeLight' : 'primary'
-          }
         >
           {playlistTrack.name}
-        </Text>
+        </EntityLink>
         <Flex gap="0.5rem" alignItems="center">
           {playlistTrack.explicit && <ExplicitBadge />}
           {playlistTrack.__typename === 'Track' ? (
             <CommaSeparatedList>
               {playlistTrack.artists.map((artist) => (
-                <Text
-                  interactive
+                <EntityLink
+                  className="text-muted transition-colors duration-150 hover:text-primary"
                   key={artist.id}
-                  as={EntityLink}
-                  color="muted"
                   entity={artist}
                 >
                   {artist.name}
-                </Text>
+                </EntityLink>
               ))}
             </CommaSeparatedList>
           ) : (
-            <Text color="muted">{playlistTrack.show.publisher}</Text>
+            <span className="text-muted">{playlistTrack.show.publisher}</span>
           )}
         </Flex>
       </Flex>

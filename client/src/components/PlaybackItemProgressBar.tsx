@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import Flex from './Flex';
 import ProgressBar from './ProgressBar';
 import Duration from './Duration';
-import Text from './Text';
 import { PlaybackItemProgressBar_playbackState as PlaybackState } from '../types/api';
 import usePlaybackProgress from '../hooks/usePlaybackProgress';
 import useSeekToPositionMutation from '../mutations/useSeekToPositionMutation';
@@ -21,9 +20,9 @@ const PlaybackItemProgressBar = ({
 
   return (
     <Flex gap="0.5rem" alignItems="center">
-      <Text color="muted" size="xs" numericVariant="tabular-nums">
+      <span className="text-muted text-xs tabular-nums">
         <Duration durationMs={progressMs} />
-      </Text>
+      </span>
       <ProgressBar
         animate={false}
         max={durationMs}
@@ -33,9 +32,9 @@ const PlaybackItemProgressBar = ({
           seekToPosition({ positionMs });
         }}
       />
-      <Text color="muted" size="xs" numericVariant="tabular-nums">
+      <span className="text-muted text-xs tabular-nums">
         <Duration durationMs={durationMs} />
-      </Text>
+      </span>
     </Flex>
   );
 };

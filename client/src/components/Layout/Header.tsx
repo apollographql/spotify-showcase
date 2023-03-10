@@ -6,7 +6,6 @@ import ContextualGuidanceDialog from '../ContextualGuidanceDialog';
 import useNavigationStack from '../../hooks/useNavigationStack';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';
-import styles from './Header.module.scss';
 import * as Welcome from '../../routes/index.welcome.mdx';
 import * as SuspenseContent from '../../routes/root.suspense.mdx';
 
@@ -15,7 +14,7 @@ const Header = () => {
   const { back, forward, canGoBack, canGoForward } = useNavigationStack();
 
   return (
-    <header className={styles.header}>
+    <header className="flex items-center justify-between text-primary bg-transparent py-4 px-[var(--main-content--padding)] sticky top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
       <Flex gap="1rem">
         <NavButton aria-label="Go back" disabled={!canGoBack} onClick={back}>
           <ChevronLeft size={20} />
@@ -28,7 +27,7 @@ const Header = () => {
           <ChevronRight size={20} />
         </NavButton>
       </Flex>
-      <Flex alignItems="center" gap="1rem" className={styles.clickable}>
+      <Flex alignItems="center" gap="1rem" className="pointer-events-auto">
         {/* TODO: Renable when this feature is more built out <ContextualGuidanceDialog documents={[Welcome, SuspenseContent]}>
           <Button
             variant="secondary"
@@ -60,7 +59,10 @@ type NavButtonProps = NativeButtonProps & {
 
 const NavButton = ({ children, ...props }: NavButtonProps) => {
   return (
-    <button {...props} className={styles.headerNavButton}>
+    <button
+      {...props}
+      className="[--size:2rem] pointer-events-auto hidden items-center justify-center cursor-pointer w-8 h-8 rounded-full outline-0 border-none bg-white bg-opacity-20 text-primary disabled:opacity-20 disabled:cursor-not-allowed"
+    >
       {children}
     </button>
   );
