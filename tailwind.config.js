@@ -56,6 +56,7 @@ module.exports = {
       animation: {
         'fade-in': 'fade-in var(--animate-duration, 400ms) ease-out',
         'fade-out': 'fade-out var(--animate-duration, 400ms) ease-out',
+        shimmer: 'shimmer 1.5s ease infinite',
         'slide-up-fade': 'slide-up-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         'slide-down-fade':
           'slide-down-fade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
@@ -94,6 +95,11 @@ module.exports = {
         'fade-out': {
           from: { opacity: 1 },
           to: { opacity: 0 },
+        },
+        shimmer: {
+          '100%': {
+            transform: 'translateX(100%)',
+          },
         },
         'slide-up-fade': {
           from: {
