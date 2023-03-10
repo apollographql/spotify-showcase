@@ -4,10 +4,7 @@ import { getRequest } from '../utils/globalRequestMiddleware';
 const config = {
   get clientId() {
     const request = getRequest();
-    return (
-      request.session.oauth?.clientId ||
-      readEnv('SPOTIFY_CLIENT_ID')
-    );
+    return request.session.oauth?.clientId || readEnv('SPOTIFY_CLIENT_ID');
   },
   get clientSecret() {
     const request = getRequest();
@@ -23,17 +20,12 @@ const config = {
     const hostname = forwardedHost ?? request.hostname;
     return hostname.endsWith('.csb.app');
   },
-  get isSecure() {
-    const request = getRequest();
-    const forwardedProtocol = request.headers['x-forwarded-proto'] as
-      | string
-      | undefined;
-    const protocol = forwardedProtocol ?? request.protocol;
-    return protocol === 'https;';
-  },
   get redirectURI() {
     const request = getRequest();
-    return request.session.oauth?.redirectUrl || `http://localhost:3000/oauth/finalize`;
+    return (
+      request.session.oauth?.redirectUrl ||
+      `http://localhost:3000/oauth/finalize`
+    );
   },
 };
 

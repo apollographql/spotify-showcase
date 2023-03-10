@@ -6,18 +6,10 @@ import { Spotify } from '../dataSources/spotify.types';
 
 const router = express.Router();
 
-interface OauthSessionData {
+export interface OauthSessionData {
   clientId?: string;
   clientSecret?: string;
   redirectUrl?: string;
-}
-
-declare module 'express-session' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface SessionData {
-    oauth?: OauthSessionData;
-    defaultCountryCode?: string;
-  }
 }
 
 /**

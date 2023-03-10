@@ -1,20 +1,39 @@
-// use a new session secret for every time the service is restarted
-// this will invalidate all sessions on server restart,
-// so in a real production environment this is probably an
-
-import { randomBytes } from 'crypto';
 import { RequestHandler } from 'express';
-import session, { MemoryStore } from 'express-session';
-import config from './config/spotify';
+import session, { MemoryStore, SessionData } from 'express-session';
+import { IncomingMessage } from 'http';
+import { OauthSessionData } from './routes/oauth';
+import { readEnv } from './utils/env';
+
+declare module 'express-session' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface SessionData {
+    oauth?: OauthSessionData;
+    /**
+     * Since our sessionStore is recreated every time the server restarts,
+     * this value will get lost on server restart as well.
+     * That's not a problem for the `oauth` data, because that is very short-lived - but it is for the default country code.
+     * TODO: maybe look into `session-file-store`, or move `defaultCountryCode` into a normal Cookie?
+     */
+    defaultCountryCode?: string;
+  }
+}
 
 // environment variable
-const secret = randomBytes(48).toString('hex');
+const secret = readEnv('SESSION_SECRET', {
+  defaultValue: 'dontUseInProduction',
+});
 const sessionStore = new MemoryStore();
 
 /**
  * wrap the session handler in another handler, because we need access to the request to figure out if we want a secure cookie
  */
 export const sessionHandler: RequestHandler = (req, res, next) => {
+  const forwardedProtocol = req.headers?.['x-forwarded-proto'] as
+    | string
+    | undefined;
+  const protocol = forwardedProtocol ?? req.protocol;
+  const secure = protocol === 'https;';
+
   session({
     secret,
     store: sessionStore,
@@ -22,8 +41,19 @@ export const sessionHandler: RequestHandler = (req, res, next) => {
     resave: false,
     cookie: {
       httpOnly: true,
-      secure: config.isSecure,
+      secure,
       sameSite: 'lax', // used in CSB iframes
     },
   })(req, res, next);
 };
+
+export async function readSessionForWebSocket(req: IncomingMessage) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const wrappedReq = { headers: req.headers, originalUrl: '/' } as any;
+
+  await new Promise((resolve) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    sessionHandler(wrappedReq, {} as any, resolve)
+  );
+  return wrappedReq.session as SessionData;
+}

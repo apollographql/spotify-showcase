@@ -31,7 +31,8 @@ import { TOPICS } from './server/src/constants';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createServer as createViteServer } from 'vite';
 import { globalRequestMiddleware } from './server/src/utils/globalRequestMiddleware';
-import { sessionHandler } from './server/src/session';
+import { readSessionForWebSocket, sessionHandler } from './server/src/session';
+import { SessionData } from 'express-session';
 
 async function createServer() {
   const schema = makeExecutableSchema({ typeDefs, resolvers });
@@ -47,11 +48,16 @@ async function createServer() {
     defaultValue: 'US',
   });
 
-  const serverCleanup = useServer(
+  const serverCleanup = useServer<
+    { apiToken?: string },
+    { session?: SessionData }
+  >(
     {
       schema,
-      onConnect: (ctx) => {
+      onConnect: async (ctx) => {
         const token = ctx.connectionParams?.apiToken;
+        const request = ctx.extra.request;
+        ctx.extra.session = await readSessionForWebSocket(request);
 
         if (!token) {
           return false;
@@ -67,11 +73,10 @@ async function createServer() {
           token,
         });
 
-        console.error(ctx);
-
         return {
           token,
-          defaultCountryCode: 'TODO',
+          defaultCountryCode:
+            ctx.extra.session?.defaultCountryCode ?? defaultCountryCode,
           publisher: new Publisher(pubsub),
           pubsub,
           dataSources: { spotify },
