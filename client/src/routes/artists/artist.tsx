@@ -2,6 +2,7 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
+import cx from 'classnames';
 import { useParams } from 'react-router-dom';
 import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
@@ -73,8 +74,10 @@ const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
 };
 
 const classNames = {
-  header:
-    'flex flex-col items-start gap-4 justify-end h-[40vh] p-[var(--main-content--padding)] pt-[var(--main-header--height)] mt-[calc(-1*var(--main-header--height))] bg-cover [background-position:50%_15%] [&>*]:z-10 before:absolute before:inset-0 before:[background:linear-gradient(rgba(#000,0)_-30%,#181818)]',
+  header: cx(
+    'flex flex-col items-start gap-4 justify-end h-[40vh] p-[var(--main-content--padding)] pt-[var(--main-header--height)] mt-[calc(-1*var(--main-header--height))] bg-cover [background-position:50%_15%] bg-no-repeat relative [&>*]:z-[1]',
+    'before:absolute before:inset-0 before:[background:linear-gradient(rgba(0,0,0,0)_-30%,#181818)]'
+  ),
   section: 'flex flex-col gap-2',
 };
 
