@@ -4,10 +4,7 @@
 
 @layer base {
   body {
-    @apply font-sans;
-    @apply p-0;
-    @apply tracking-[0.015rem];
-    @apply overscroll-y-none;
+    @apply font-sans p-0 tracking-[0.015rem] overscroll-y-none;
     -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
   }
@@ -18,13 +15,11 @@
   h4,
   h5,
   h6 {
-    @apply font-title;
-    @apply font-bold;
+    @apply font-title font-bold;
   }
 
   h1 {
-    @apply text-3xl;
-    @apply mb-2;
+    @apply text-3xl mb-2;
   }
 
   h2 {
@@ -32,16 +27,13 @@
   }
 
   a {
-    @apply no-underline;
-    @apply text-inherit;
-    @apply hover:underline;
+    @apply no-underline text-inherit hover:underline;
   }
 }
 
 @layer components {
   #root {
-    @apply min-h-screen;
-    @apply h-full;
+    @apply min-h-screen h-full;
   }
 
   .markdown {
@@ -58,9 +50,7 @@
       --markdown-bg-inline-code,
       var(--background--surface)
     );
-    @apply rounded-sm;
-    @apply py-px;
-    @apply px-1;
+    @apply rounded-sm py-px px-1;
   }
 
   .markdown a {
@@ -68,10 +58,7 @@
   }
 
   .markdown blockquote {
-    @apply border-l-4;
-    @apply border-l-surface;
-    @apply pl-2;
-    @apply text-offwhite/80;
+    @apply border-l-4 border-l-surface pl-2 text-offwhite/80;
   }
 
   .markdown blockquote:not(:last-child) {
