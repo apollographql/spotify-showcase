@@ -15,7 +15,6 @@ import Flex from '../Flex';
 import ApolloLogo from '../ApolloLogo';
 import GradientIcon from '../GradientIcon';
 import NavLink from './NavLink';
-import styles from './Sidebar.module.scss';
 import usePlaybackState from '../../hooks/usePlaybackState';
 
 interface SidebarProps {
@@ -61,14 +60,14 @@ const Sidebar = ({ children }: SidebarProps) => {
     `spotify:user:${currentUser.user.id}:collection:your-episodes`;
 
   return (
-    <aside className={styles.sidebar}>
-      <nav className={styles.sidebarNav}>
-        <div className={styles.sidebarLogo}>
+    <aside className="[grid-area:sidebar] bg-black-base bg-opacity-90 text-primary overflow-auto pt-4 px-6 pb-0">
+      <nav className="h-full flex flex-col">
+        <div className="pb-6">
           <Flex as={Link} to="/" inline alignItems="end" direction="column">
             <ApolloLogo size="225px" />
           </Flex>
         </div>
-        <ul className={styles.sidebarNavSection}>
+        <Section>
           <NavLink icon={<Home />} to="/">
             Home
           </NavLink>
@@ -78,8 +77,8 @@ const Sidebar = ({ children }: SidebarProps) => {
           <NavLink icon={<Library />} to="/collection">
             Your Library
           </NavLink>
-        </ul>
-        <ul className={styles.sidebarNavSection}>
+        </Section>
+        <Section className="mt-8">
           <NavLink
             icon={
               <GradientIcon
@@ -115,8 +114,10 @@ const Sidebar = ({ children }: SidebarProps) => {
                 </Flex>
               )}
           </NavLink>
-        </ul>
-        {children && <hr className={styles.sidebarDivider} />}
+        </Section>
+        {children && (
+          <hr className="h-px w-full bg-surface border-none my-4 mx-0" />
+        )}
         {children}
       </nav>
     </aside>
@@ -130,7 +131,7 @@ interface SectionProps {
 
 const Section = forwardRef<HTMLUListElement, SectionProps>(
   ({ className, children }, ref) => (
-    <ul ref={ref} className={cx(styles.sidebarNavSection, className)}>
+    <ul ref={ref} className={cx('list-none p-0', className)}>
       {children}
     </ul>
   )
