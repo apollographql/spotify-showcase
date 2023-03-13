@@ -109,7 +109,7 @@ router.get('/refresh_token', async function (req, res) {
   const refresh_token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
 
   if (!refresh_token) {
-    throw new Error('No token - could not reauthenticate!');
+    res.status(400).send('No token - could not reauthenticate!');
   }
 
   const credentials = Buffer.from(
@@ -136,7 +136,7 @@ router.get('/refresh_token', async function (req, res) {
     res.end();
   } else {
     res.clearCookie(TOKEN_COOKIE_NAME, getCookieOptions(req));
-    res.status(400);
+    res.status(400).end();
   }
 });
 
