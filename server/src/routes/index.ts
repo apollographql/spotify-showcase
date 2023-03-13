@@ -1,5 +1,5 @@
 import express from 'express';
-import { TOKEN_COOKIE_NAME } from '../constants';
+import { REFRESH_TOKEN_COOKIE_NAME, TOKEN_COOKIE_NAME } from '../constants';
 import { getCookieOptions } from '../utils/getCookieOptions';
 
 import oauth from './oauth';
@@ -11,7 +11,11 @@ router.use('/login', (_, res) => {
   return res.redirect(307, '/oauth/init');
 });
 router.use('/logout', (req, res) => {
-  res.clearCookie(TOKEN_COOKIE_NAME), getCookieOptions(req);
+  res.clearCookie(TOKEN_COOKIE_NAME, getCookieOptions(req));
+  res.clearCookie(REFRESH_TOKEN_COOKIE_NAME, {
+    ...getCookieOptions(req),
+    path: '/oauth',
+  });
   res.end();
 });
 
