@@ -1,10 +1,12 @@
 import { RequestHandler } from 'express';
-import session, { MemoryStore, SessionData } from 'express-session';
+import session, { SessionData } from 'express-session';
 import { IncomingMessage } from 'http';
 import { getCookieOptions } from './utils/getCookieOptions';
 import { OauthSessionData } from './routes/oauth';
 import { readEnv } from './utils/env';
 import { isCodeSandbox } from './config/spotify';
+import buildFileStore from 'session-file-store';
+import { resolve } from 'path';
 
 declare module 'express-session' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -24,7 +26,12 @@ declare module 'express-session' {
 const secret = readEnv('SESSION_SECRET', {
   defaultValue: 'dontUseInProduction',
 });
-const sessionStore = new MemoryStore();
+const FileStore = buildFileStore(session);
+const sessionStore = new FileStore({
+  secret,
+  path: resolve(__dirname, '../../.sessions'),
+  retries: 0,
+});
 
 /**
  * wrap the session handler in another handler, because we need access to the request to figure out if we want a secure cookie

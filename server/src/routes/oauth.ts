@@ -39,6 +39,7 @@ router.post(
     req.session.oauth.clientSecret = req.body.clientSecret;
     req.session.oauth.redirectUrl = req.body.redirectUrl;
     req.session.defaultCountryCode = req.body.defaultCountryCode;
+    await new Promise((resolve) => req.session.save(resolve));
     res.redirect('/oauth/init');
   }
 );
