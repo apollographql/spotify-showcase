@@ -106,36 +106,40 @@ router.get(
 );
 
 router.get('/refresh_token', async function (req, res) {
-  const refresh_token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
+  try {
+    const refresh_token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
 
-  if (!refresh_token) {
-    res.status(400).send('No token - could not reauthenticate!');
-  }
+    if (!refresh_token) {
+      res.status(400).send('No token - could not reauthenticate!');
+    }
 
-  const credentials = Buffer.from(
-    `${config.clientId}:${config.clientSecret}`
-  ).toString('base64');
+    const credentials = Buffer.from(
+      `${config.clientId}:${config.clientSecret}`
+    ).toString('base64');
 
-  const body = new URLSearchParams();
-  body.append('grant_type', 'refresh_token');
-  body.append('refresh_token', refresh_token);
+    const body = new URLSearchParams();
+    body.append('grant_type', 'refresh_token');
+    body.append('refresh_token', refresh_token);
 
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${credentials}`,
-      'content-type': 'application/x-www-form-urlencoded',
-    },
-    body,
-  });
-  const { access_token } =
-    (await response.json()) as Spotify.Response.GET['/api/token'];
+    const response = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${credentials}`,
+        'content-type': 'application/x-www-form-urlencoded',
+      },
+      body,
+    });
+    const { access_token } =
+      (await response.json()) as Spotify.Response.GET['/api/token'];
 
-  if (access_token) {
-    res.cookie(TOKEN_COOKIE_NAME, access_token, getCookieOptions(req));
-    res.end();
-  } else {
-    res.clearCookie(TOKEN_COOKIE_NAME, getCookieOptions(req));
+    if (access_token) {
+      res.cookie(TOKEN_COOKIE_NAME, access_token, getCookieOptions(req));
+      res.end();
+    } else {
+      res.clearCookie(TOKEN_COOKIE_NAME, getCookieOptions(req));
+      res.status(400).end();
+    }
+  } catch {
     res.status(400).end();
   }
 });
