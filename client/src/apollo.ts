@@ -1,35 +1,118 @@
 import {
   ApolloClient,
-  ApolloLink,
   InMemoryCache,
   createHttpLink,
   split,
+  ApolloLink,
+  from,
+  FetchResult,
 } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { setContext } from '@apollo/client/link/context';
-import { readAuthToken } from './utils';
 import { createClient } from 'graphql-ws';
-import { getMainDefinition } from '@apollo/client/utilities';
+import { getMainDefinition, Observable } from '@apollo/client/utilities';
 import introspection from './introspection.json';
 import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
+import { Subscription } from 'zen-observable-ts';
+import { GraphQLError } from 'graphql';
 
 const httpLink = createHttpLink({ uri: '/graphql' });
-
-const authHeadersLink = setContext(() => ({
-  headers: { 'x-api-token': readAuthToken() },
-}));
 
 const wsLink = new GraphQLWsLink(
   createClient({
     url: `${import.meta.env.VITE_WEBSOCKET_HOST}/graphql`,
-    connectionParams: {
-      get apiToken() {
-        return readAuthToken();
-      },
-    },
   })
+);
+
+let isReauthenticating: Promise<void> | undefined;
+const reauthenticateLink = new ApolloLink(
+  (operation, forward) =>
+    new Observable((observer) => {
+      let running = true;
+      let subscription: Subscription | undefined;
+
+      async function request() {
+        if (isReauthenticating) {
+          // another query is already in the progress of reauthenticating
+          try {
+            // wait for it
+            await isReauthenticating;
+          } catch (unauthenticatedError) {
+            // it failed to get a new token => directly fail without even making this request
+            // to discuss: is this always a valid shortcut, or do we have requests that are fine unauthenticated?
+            observer.next({ errors: [unauthenticatedError as GraphQLError] });
+            observer.complete();
+            return;
+          }
+        }
+        // if the whole shebang hasn't been cancelled until now
+        if (!running) return;
+        // start the normal request
+        subscription = forward(operation).subscribe({
+          next(value) {
+            const unauthenticatedError = value.errors?.find(
+              (e) => e.message == 'Invalid access token'
+            );
+            if (unauthenticatedError) {
+              onUnauthenticated(value, unauthenticatedError);
+            } else {
+              observer.next(value);
+            }
+          },
+          error: (err) => observer.error(err),
+          complete: () => observer.complete(),
+        });
+      }
+
+      async function onUnauthenticated(
+        result: FetchResult,
+        unauthenticatedError: GraphQLError
+      ) {
+        subscription?.unsubscribe();
+        subscription = undefined;
+
+        // if no other query is already in the process of reauthenticating
+        if (!isReauthenticating) {
+          // we try
+          isReauthenticating = reauthenticate(unauthenticatedError);
+        }
+
+        try {
+          // either way, we wait until that is finished
+          await isReauthenticating;
+        } catch {
+          // if it failed, `.next` our original, failed response
+          observer.next(result);
+          // and `.complete` since we already unsubscribed the original observable
+          observer.complete();
+          return;
+        }
+
+        // if the reauthentication finished successfully, we try it once more
+        if (running) finalRetry();
+      }
+
+      async function reauthenticate(originalError: GraphQLError) {
+        const response = await fetch('/oauth/refresh_token');
+        if (!response.ok) throw originalError;
+      }
+
+      function finalRetry() {
+        subscription = forward(operation).subscribe({
+          next: (value) => observer.next(value),
+          error: (err) => observer.error(err),
+          complete: () => observer.complete(),
+        });
+      }
+
+      request();
+
+      return () => {
+        running = false;
+        subscription?.unsubscribe();
+      };
+    })
 );
 
 const splitLink = split(
@@ -42,7 +125,7 @@ const splitLink = split(
     );
   },
   wsLink,
-  ApolloLink.from([authHeadersLink, httpLink])
+  from([reauthenticateLink, httpLink])
 );
 
 export default new ApolloClient({

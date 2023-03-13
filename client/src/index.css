@@ -50,4 +50,9 @@
   .markdown blockquote:not(:last-child) {
     margin-bottom: var(--block-element-spacing);
   }
+
+  input {
+    /* this needs styling. I have never used tailwind before */
+    color: black;
+  }
 }

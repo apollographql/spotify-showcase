@@ -761,6 +761,8 @@ type CurrentlyPlaying {
 }
 
 type CurrentUser {
+  id: String
+
   """
   Get a list of the albums saved in the current Spotify user's 'Your Music'
   library.

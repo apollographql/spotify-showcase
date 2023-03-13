@@ -1,5 +1,6 @@
 import {
   gql,
+  useReactiveVar,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
 import cx from 'classnames';
@@ -14,6 +15,12 @@ import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
+import {
+  clientId,
+  clientSecret,
+  defaultCountryCode,
+  persistOauth,
+} from '../vars';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -112,49 +119,118 @@ const LoggedOut = () => {
             Spotify account.
           </p>
           <p>
-            <code>http://localhost:3000/oauth/finalize</code>
+            <code>{window.location.origin}/oauth/finalize</code>
           </p>
         </li>
       </ol>
       <h2>Configure this application</h2>
-      <ol>
-        <li>
-          <p>
-            Copy your credentials to the root <code>.env</code> file. This file
-            should look as follows:
-          </p>
-          <pre>
-            <code>
-              SPOTIFY_CLIENT_ID=your_spotify_client_id
-              SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-            </code>
-          </pre>
-        </li>
-        <li>
-          <p>
-            Optionally configure a default country code. To change the default
-            country code (<code>US</code>), add an environment variable named{' '}
-            <code>DEFAULT_COUNTRY_CODE</code> to your <code>server/.env</code>{' '}
-            file.
-          </p>
-          <pre>
-            <code>DEFAULT_COUNTRY_CODE=CA</code>
-          </pre>
-          <blockquote>
-            This is needed to fetch an artist&apos;s top tracks on the artist
-            page without needing geolocation.
-          </blockquote>
-        </li>
-        <li>
-          <p>Restart the app.</p>
-        </li>
-      </ol>
+      {1 < 2 || window.location.host.endsWith('.csb.app') ? (
+        <CSBSetupGuide />
+      ) : (
+        <LocalSetupGuide />
+      )}
       <p>
         You are ready to go! <a href="/login">Log in</a> to use the app.
       </p>
     </div>
   );
 };
+
+function CSBSetupGuide() {
+  return (
+    <ol>
+      <li>
+        <p>
+          Enter your credentials here. That will save them into cookies for this
+          domain. This should be generally safe, but do not do this on a shared
+          browser.
+        </p>
+        <p>
+          <label>
+            ClientId:
+            <input
+              type="text"
+              value={useReactiveVar(clientId)}
+              onChange={(e) => clientId(e.currentTarget.value)}
+            />
+          </label>
+        </p>
+        <p>
+          <label>
+            ClientSecret:
+            <input
+              type="text"
+              value={useReactiveVar(clientSecret)}
+              onChange={(e) => clientSecret(e.currentTarget.value)}
+            />
+          </label>
+        </p>
+        <p>
+          <label>
+            <input
+              type="checkbox"
+              checked={useReactiveVar(persistOauth)}
+              onChange={(e) => persistOauth(e.currentTarget.checked)}
+            />{' '}
+            Persist this data in LocalStorage
+          </label>
+        </p>
+      </li>
+      <li>
+        <p>Optionally configure a default country code.</p>
+        <input
+          type="text"
+          value={useReactiveVar(defaultCountryCode)}
+          onChange={(e) => defaultCountryCode(e.currentTarget.value)}
+        />
+        <blockquote>
+          This is needed to fetch an artist&apos;s top tracks on the artist page
+          without needing geolocation.
+        </blockquote>
+      </li>
+      <li>
+        <p>Restart the app.</p>
+      </li>
+    </ol>
+  );
+}
+
+function LocalSetupGuide() {
+  return (
+    <ol>
+      <li>
+        <p>
+          Copy your credentials to the root <code>.env</code> file. This file
+          should look as follows:
+        </p>
+        <pre>
+          <code>
+            SPOTIFY_CLIENT_ID=your_spotify_client_id
+            SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+          </code>
+        </pre>
+      </li>
+      <li>
+        <p>
+          Optionally configure a default country code. To change the default
+          country code (<code>US</code>), add an environment variable named{' '}
+          <code>DEFAULT_COUNTRY_CODE</code> to your <code>server/.env</code>{' '}
+          file.
+        </p>
+        <pre>
+          <code>DEFAULT_COUNTRY_CODE=CA</code>
+        </pre>
+        <blockquote>
+          This is needed to fetch an artist&apos;s top tracks on the artist page
+          without needing geolocation.
+        </blockquote>
+      </li>
+      <li>
+        <p>Restart the app.</p>
+      </li>
+    </ol>
+  );
+}
 
 export const LoadingState = () => {
   return (

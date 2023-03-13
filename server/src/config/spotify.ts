@@ -1,13 +1,36 @@
+import { Request } from 'express';
 import { readEnv } from '../utils/env';
+import { getRequest } from '../utils/globalRequestMiddleware';
+
+export function isCodeSandbox(request: Request) {
+  const forwardedHost = request.headers['x-forwarded-host'] as
+    | string
+    | undefined;
+  const hostname = forwardedHost ?? request.hostname ?? request.headers.origin;
+  return hostname?.endsWith('.csb.app');
+}
 
 const config = {
   get clientId() {
-    return readEnv('SPOTIFY_CLIENT_ID');
+    const request = getRequest();
+    return request.session.oauth?.clientId || readEnv('SPOTIFY_CLIENT_ID');
   },
   get clientSecret() {
-    return readEnv('SPOTIFY_CLIENT_SECRET');
+    const request = getRequest();
+    return (
+      request.session.oauth?.clientSecret || readEnv('SPOTIFY_CLIENT_SECRET')
+    );
   },
-  redirectURI: 'http://localhost:3000/oauth/finalize',
+  get isCodeSandbox() {
+    return isCodeSandbox(getRequest());
+  },
+  get redirectURI() {
+    const request = getRequest();
+    return (
+      request.session.oauth?.redirectUrl ||
+      `http://localhost:3000/oauth/finalize`
+    );
+  },
 };
 
 export default config;

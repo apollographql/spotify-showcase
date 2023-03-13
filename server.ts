@@ -16,6 +16,8 @@ import fs from 'fs';
 import path from 'path';
 import { json } from 'body-parser';
 import defaultResolver from './server/src/resolvers/default';
+import cookieParser from 'cookie-parser';
+import cookie from 'cookie';
 
 import typeDefs from './server/src/schema.graphql';
 import resolvers from './server/src/resolvers';
@@ -24,11 +26,14 @@ import SpotifyAPI from './server/src/dataSources/spotify';
 import Publisher from './server/src/publisher';
 import { readEnv } from './server/src/utils/env';
 import { ContextValue } from './server/src/types';
-import { TOPICS } from './server/src/constants';
+import { TOKEN_COOKIE_NAME, TOPICS } from './server/src/constants';
 // TODO: Remove me when @apollo/subgraph adds subscription support
 // https://github.com/apollographql/graphos-subscriptions/issues/123
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createServer as createViteServer } from 'vite';
+import { globalRequestMiddleware } from './server/src/utils/globalRequestMiddleware';
+import { readSessionForWebSocket, sessionHandler } from './server/src/session';
+import { SessionData } from 'express-session';
 
 async function createServer() {
   const schema = makeExecutableSchema({ typeDefs, resolvers });
@@ -44,13 +49,21 @@ async function createServer() {
     defaultValue: 'US',
   });
 
-  const serverCleanup = useServer(
+  const serverCleanup = useServer<
+    Record<string, never>,
+    { session?: SessionData; token?: string }
+  >(
     {
       schema,
-      onConnect: (ctx) => {
-        const token = ctx.connectionParams?.apiToken;
+      onConnect: async (ctx) => {
+        const request = ctx.extra.request;
 
-        if (!token) {
+        ctx.extra.session = await readSessionForWebSocket(request);
+        ctx.extra.token = cookie.parse(request.headers.cookie ?? '')[
+          TOKEN_COOKIE_NAME
+        ];
+
+        if (!ctx.extra.token) {
           return false;
         }
       },
@@ -58,7 +71,8 @@ async function createServer() {
         pubsub.publish(TOPICS.DISCONNECT, true);
       },
       context: (ctx) => {
-        const token = ctx.connectionParams!.apiToken! as string;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const token = ctx.extra.token!;
         const spotify = new SpotifyAPI({
           cache: server.cache,
           token,
@@ -66,10 +80,12 @@ async function createServer() {
 
         return {
           token,
-          defaultCountryCode,
+          defaultCountryCode:
+            ctx.extra.session?.defaultCountryCode ?? defaultCountryCode,
           publisher: new Publisher(pubsub),
           pubsub,
           dataSources: { spotify },
+          session: ctx.extra.session,
         } satisfies ContextValue;
       },
     },
@@ -101,7 +117,9 @@ async function createServer() {
   });
 
   app.use(express.static('public'));
+  app.use(cookieParser(), globalRequestMiddleware);
   app.use(vite.middlewares);
+  app.use(sessionHandler);
   app.use(routes);
   app.use(
     '/graphql',
@@ -109,19 +127,21 @@ async function createServer() {
     json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
-        const token = req.get('x-api-token') ?? '';
+        const token = req.cookies[TOKEN_COOKIE_NAME];
         const { cache } = server;
         const spotify = new SpotifyAPI({
           cache,
-          token: req.get('x-api-token') ?? '',
+          token,
         });
 
         return {
-          defaultCountryCode,
+          defaultCountryCode:
+            req.session.defaultCountryCode || defaultCountryCode,
           dataSources: { spotify },
           publisher: new Publisher(pubsub),
           pubsub,
           token,
+          session: req.session,
         };
       },
     })
