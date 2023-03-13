@@ -2,6 +2,7 @@ import {
   gql,
   useSuspenseQuery_experimental as useSuspenseQuery,
 } from '@apollo/client';
+import cx from 'classnames';
 import { useParams } from 'react-router-dom';
 import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
@@ -10,9 +11,7 @@ import ArtistTile from '../../components/ArtistTile';
 import ArtistTopTracks from '../../components/ArtistTopTracks';
 import Page from '../../components/Page';
 import Skeleton from '../../components/Skeleton';
-import Text from '../../components/Text';
 import TileGrid from '../../components/TileGrid';
-import styles from './artist.module.scss';
 
 type Album = NonNullable<Get<ArtistRouteQuery, 'artist.albums.edges[0].node'>>;
 
@@ -74,6 +73,14 @@ const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
   return albumConnection.edges.map((edge) => edge.node);
 };
 
+const classNames = {
+  header: cx(
+    'flex flex-col items-start gap-4 justify-end h-[40vh] p-[var(--main-content--padding)] pt-[var(--main-header--height)] mt-[calc(-1*var(--main-header--height))] bg-cover [background-position:50%_15%] bg-no-repeat relative [&>*]:z-[1]',
+    'before:absolute before:inset-0 before:[background:linear-gradient(rgba(0,0,0,0)_-30%,#181818)]'
+  ),
+  section: 'flex flex-col gap-2',
+};
+
 export const RouteComponent = () => {
   const { artistId } = useParams() as { artistId: string };
 
@@ -95,21 +102,18 @@ export const RouteComponent = () => {
   return (
     <Page>
       <header
-        className={styles.header}
+        className={classNames.header}
         style={{ backgroundImage: image && `url(${image.url})` }}
       >
         <Page.Title>{artist.name}</Page.Title>
-        <Text>
+        <span>
           {new Intl.NumberFormat().format(artist.followers.total)} followers
-        </Text>
+        </span>
       </header>
       <Page.Content gap="2rem">
-        <section className={styles.section}>
+        <section className={classNames.section}>
           <h2>Popular</h2>
-          <ArtistTopTracks
-            className={styles.topTracks}
-            tracks={artist.topTracks}
-          />
+          <ArtistTopTracks className="max-w-[60%]" tracks={artist.topTracks} />
         </section>
 
         <AlbumSection title="Albums" albums={getAlbums(artist.albums)} />
@@ -119,7 +123,7 @@ export const RouteComponent = () => {
         />
         <AlbumSection title="Appears On" albums={getAlbums(artist.appearsOn)} />
 
-        <section className={styles.section}>
+        <section className={classNames.section}>
           <h2>Fans also like</h2>
           <TileGrid gap="1rem" minTileWidth="200px">
             {artist.relatedArtists.map((relatedArtist) => (
@@ -143,7 +147,7 @@ const AlbumSection = ({ albums, title }: AlbumSectionProps) => {
   }
 
   return (
-    <section className={styles.section}>
+    <section className={classNames.section}>
       <h2>{title}</h2>
       <TileGrid gap="1rem" minTileWidth="200px">
         {albums.map((album) => (
@@ -156,7 +160,7 @@ const AlbumSection = ({ albums, title }: AlbumSectionProps) => {
 
 export const LoadingState = () => (
   <Page>
-    <header className={styles.header}>
+    <header className={classNames.header}>
       <Skeleton.Heading level={1} width="65%" />
       <Skeleton.Text width="45%" />
     </header>

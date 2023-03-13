@@ -3,18 +3,79 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color--green--hsl: 140, 63%, 44%;
+    --color--green: hsl(var(--color--green--hsl));
+    --color--green--light--hsl: 140, 63%, 54%;
+    --color--green--light: hsl(var(--color--green--light--hsl));
+    --color--offwhite: #b3b3b3;
+    --color--white: #fff;
+
+    --color--theme: var(--color--green);
+    --color--theme--hsl: var(--color--green--hsl);
+    --color--theme--light: var(--color--green--light);
+    --color--theme--light--hsl: var(--color--green--light--hsl);
+
+    --font-size--base: 1rem;
+    --font-size--xs: 0.625rem;
+    --font-size--sm: 0.75rem;
+    --font-size--md: 1rem;
+    --font-size--lg: 1.25rem;
+
+    --font-weight--bold: 700;
+    --font-weight--black: 900;
+    --font-weight--normal: 400;
+
+    --background--base: #121212;
+    --background--base--rgba: 18, 18, 18;
+    --background--surface: #282828;
+    --background--surface--low-contrast: #181818;
+    --background--surface--low-contrast--rgb: 24, 24, 24;
+    --background--surface--low-contrast--hover: var(--background--surface);
+    --background--surface--hover: hsla(0, 0%, 100%, 0.1);
+    --background--surface--rgb: 40, 40, 40;
+
+    --text-color--base: var(--color--white);
+    --text-color--muted: var(--color--offwhite);
+    --text-color--disabled: #5e5e5e;
+
+    --sidebar--width: 375px;
+
+    --border--color--base: var(--background--surface);
+    --border--color--surface: var(--background--surface--hover);
+  }
+
+  body {
+    @apply font-sans p-0 tracking-[0.015rem] overscroll-y-none;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 16px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-title font-bold;
+  }
+
   h1 {
-    @apply text-3xl;
+    @apply text-3xl mb-2;
   }
 
   h2 {
     @apply text-2xl;
   }
+
+  a {
+    @apply no-underline text-inherit hover:underline;
+  }
 }
 
 @layer components {
-  h1 {
-    @apply mb-2;
+  #root {
+    @apply min-h-screen h-full;
   }
 
   .markdown {
@@ -31,9 +92,7 @@
       --markdown-bg-inline-code,
       var(--background--surface)
     );
-    @apply rounded-sm;
-    @apply py-px;
-    @apply px-1;
+    @apply rounded-sm py-px px-1;
   }
 
   .markdown a {
@@ -41,13 +100,14 @@
   }
 
   .markdown blockquote {
-    @apply border-l-4;
-    @apply border-l-surface;
-    @apply pl-2;
-    @apply text-offwhite/80;
+    @apply border-l-4 border-l-surface pl-2 text-offwhite/80;
   }
 
   .markdown blockquote:not(:last-child) {
     margin-bottom: var(--block-element-spacing);
+  }
+
+  .lucide[width] {
+    max-width: unset;
   }
 }

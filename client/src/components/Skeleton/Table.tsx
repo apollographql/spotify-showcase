@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import { randomBetween } from '../../utils/common';
 import { range } from '../../utils/lists';
-import styles from './Skeleton.module.scss';
 import Text from './Text';
 
 interface TableProps {
@@ -20,12 +19,15 @@ const Table = ({
     typeof columnConfig === 'number' ? range(0, columnConfig) : columnConfig;
 
   return (
-    <table className={styles.skeleton__table}>
+    <table className="border-collapse w-full">
       {headers && (
         <thead>
           <tr>
             {columns.map((_, index) => (
-              <th key={index} className={styles.skeleton__tableHeading}>
+              <th
+                key={index}
+                className="text-xs py-3 px-2 border-b border-solid border-primary"
+              >
                 <Text width={`${randomBetween(20, 60)}%`} />
               </th>
             ))}
@@ -36,7 +38,7 @@ const Table = ({
         {rows.map((row) => (
           <tr key={row}>
             {columns.map((column, index) => (
-              <td key={index} className={styles.skeleton__tableCell}>
+              <td key={index} className="text-sm py-4 px-2">
                 {typeof column === 'number' ? <Text /> : column}
               </td>
             ))}

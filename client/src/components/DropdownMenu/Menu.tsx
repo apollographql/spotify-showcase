@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
 import type { DropdownMenuContentProps } from '@radix-ui/react-dropdown-menu';
-import styles from './Menu.module.scss';
 
 interface MenuProps {
   align?: DropdownMenuContentProps['align'];
@@ -17,7 +16,13 @@ const Menu = ({ align, children }: MenuProps) => {
         sideOffset={5}
         avoidCollisions={false}
       >
-        <ul className={styles.menu}>{children}</ul>
+        <ul
+          className={
+            'text-primary list-none bg-surface p-[0.375rem] min-w-[220px] rounded shadow-lg will-change-transform data-side-bottom:animate-slide-up-fade'
+          }
+        >
+          {children}
+        </ul>
       </Dropdown.Content>
     </Dropdown.Portal>
   );

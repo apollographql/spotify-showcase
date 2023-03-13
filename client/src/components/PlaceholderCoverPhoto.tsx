@@ -1,7 +1,6 @@
 import { ElementType } from 'react';
 import { LucideProps } from 'lucide-react';
 import cx from 'classnames';
-import styles from './PlaceholderCoverPhoto.module.scss';
 
 export interface PlaceholderCoverPhotoProps {
   className?: string;
@@ -13,8 +12,13 @@ const PlaceholderCoverPhoto = ({
   icon: Icon,
 }: PlaceholderCoverPhotoProps) => {
   return (
-    <div className={cx(styles.placeholderCoverPhoto, className)}>
-      <Icon className={styles.icon} strokeWidth={1} size="30%" />
+    <div
+      className={cx(
+        'aspect-square flex justify-center items-center w-full [background:var(--placeholder--cover-photo--background,var(--background--surface))] relative',
+        className
+      )}
+    >
+      <Icon className="absolute" strokeWidth={1} size="30%" />
     </div>
   );
 };

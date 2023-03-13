@@ -1,7 +1,6 @@
 import { cloneElement, ReactElement } from 'react';
 import cx from 'classnames';
 import FitText from '../FitText';
-import styles from './Page.module.scss';
 
 import Details from './Details';
 import HeaderContainer from './HeaderContainer';
@@ -21,7 +20,7 @@ const Header = ({ coverPhoto, details, mediaType, title }: HeaderProps) => {
     <HeaderContainer>
       {cloneElement(coverPhoto, {
         size: '250px',
-        className: cx(coverPhoto.props.className, styles.page__coverPhoto),
+        className: cx(coverPhoto.props.className, 'shadow-2xl'),
       })}
       <HeaderDetails>
         {mediaType && <MediaType mediaType={mediaType} />}

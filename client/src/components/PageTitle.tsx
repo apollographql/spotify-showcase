@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import cx from 'classnames';
-import styles from './PageTitle.module.scss';
 
 interface PageTitleProps {
   className?: string;
@@ -8,7 +7,7 @@ interface PageTitleProps {
 }
 
 const PageTitle = ({ className, children }: PageTitleProps) => {
-  return <h1 className={cx(styles.pageTitle, className)}>{children}</h1>;
+  return <h1 className={cx('text-5xl mb-8', className)}>{children}</h1>;
 };
 
 export default PageTitle;

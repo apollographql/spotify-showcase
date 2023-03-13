@@ -15,7 +15,6 @@ import {
   VisibilityState,
   Row,
 } from '@tanstack/react-table';
-import styles from './Table.module.scss';
 import ContextMenu from './ContextMenu';
 import useKeyPress from '../hooks/useKeyPress';
 import { range } from '../utils/common';
@@ -186,19 +185,35 @@ function Table<TData>({
     );
 
   return (
-    <table ref={tableRef} className={cx(styles.table, className)} {...props}>
+    <table
+      ref={tableRef}
+      className={cx('border-collapse text-sm relative w-full', className)}
+      {...props}
+    >
       {hasVisibleHeaders && (
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr className="my-0 -mx-4 py-0 px-4" key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 const { column } = header;
+                const { headerAlign } = column.columnDef.meta ?? {};
 
                 return (
                   <th
                     key={header.id}
+                    className={cx(
+                      'text-muted text-xs font-normal tracking-widest uppercase whitespace-nowrap',
+                      'border-b border-solid border-primary',
+                      'p-2',
+                      'first:pl-4 last:pr-4 [&>svg]:inline-block',
+                      {
+                        'text-left':
+                          headerAlign === 'left' || headerAlign == null,
+                        'text-center': headerAlign === 'center',
+                        'text-right': headerAlign === 'right',
+                      }
+                    )}
                     colSpan={header.colSpan}
-                    data-align={column.columnDef.meta?.headerAlign}
                   >
                     {header.isPlaceholder
                       ? null
@@ -224,10 +239,10 @@ function Table<TData>({
           const tableRow = (
             <tr
               key={row.id}
-              data-selected={row.getIsSelected()}
               onClick={() => handleSelectRow(row)}
               onDoubleClick={() => onDoubleClickRow?.(row)}
-              className={cx('group peer', {
+              className={cx('group peer my-0 -mx-4 py-0 px-4', {
+                '[&>td]:hover:bg-surface-active': !row.getIsSelected(),
                 'bg-white/30': row.getIsSelected(),
                 'select-none': rowSelectionType !== 'single',
               })}
@@ -243,9 +258,9 @@ function Table<TData>({
                 return (
                   <td
                     key={cell.id}
-                    data-wrap={meta?.wrap}
-                    data-shrink={meta?.shrink}
-                    className={cx({
+                    className={cx('py-3 px-2 text-left first:pl-4 last:pr-4', {
+                      'w-px': meta?.shrink,
+                      'whitespace-nowrap': !meta?.wrap,
                       'first:rounded-tl': !isPreviousSelected,
                       'first:rounded-bl': !isNextSelected,
                       'last:rounded-tr': !isPreviousSelected,

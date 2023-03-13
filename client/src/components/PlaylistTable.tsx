@@ -255,7 +255,11 @@ const columns = [
         );
       }
 
-      return <Podcast size="1rem" />;
+      return (
+        <div className="flex min-w-[3ch] justify-end">
+          <Podcast size="1rem" />
+        </div>
+      );
     },
     meta: {
       headerAlign: 'right',

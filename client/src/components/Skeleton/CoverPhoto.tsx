@@ -1,6 +1,6 @@
 import cx from 'classnames';
 import { CSSProperties } from 'react';
-import styles from './Skeleton.module.scss';
+import Base from './Base';
 
 interface CoverPhotoProps {
   size: CSSProperties['width'];
@@ -13,9 +13,10 @@ interface StyleProps extends CSSProperties {
 
 const CoverPhoto = ({ size, shape = 'square' }: CoverPhotoProps) => {
   return (
-    <div
-      className={cx(styles.skeleton, styles.skeleton__coverPhoto, {
-        'rounded-full': shape === 'circle',
+    <Base
+      className={cx('aspect-square w-[var(--skeleton--cover-photo--size)]', {
+        '!rounded': shape === 'square',
+        '!rounded-full': shape === 'circle',
       })}
       style={{ '--skeleton--cover-photo--size': size } as StyleProps}
     />
