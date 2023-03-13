@@ -3,6 +3,48 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color--green--hsl: 140, 63%, 44%;
+    --color--green: hsl(var(--color--green--hsl));
+    --color--green--light--hsl: 140, 63%, 54%;
+    --color--green--light: hsl(var(--color--green--light--hsl));
+    --color--offwhite: #b3b3b3;
+    --color--white: #fff;
+
+    --color--theme: var(--color--green);
+    --color--theme--hsl: var(--color--green--hsl);
+    --color--theme--light: var(--color--green--light);
+    --color--theme--light--hsl: var(--color--green--light--hsl);
+
+    --font-size--base: 1rem;
+    --font-size--xs: 0.625rem;
+    --font-size--sm: 0.75rem;
+    --font-size--md: 1rem;
+    --font-size--lg: 1.25rem;
+
+    --font-weight--bold: 700;
+    --font-weight--black: 900;
+    --font-weight--normal: 400;
+
+    --background--base: #121212;
+    --background--base--rgba: 18, 18, 18;
+    --background--surface: #282828;
+    --background--surface--low-contrast: #181818;
+    --background--surface--low-contrast--rgb: 24, 24, 24;
+    --background--surface--low-contrast--hover: var(--background--surface);
+    --background--surface--hover: hsla(0, 0%, 100%, 0.1);
+    --background--surface--rgb: 40, 40, 40;
+
+    --text-color--base: var(--color--white);
+    --text-color--muted: var(--color--offwhite);
+    --text-color--disabled: #5e5e5e;
+
+    --sidebar--width: 375px;
+
+    --border--color--base: var(--background--surface);
+    --border--color--surface: var(--background--surface--hover);
+  }
+
   body {
     @apply font-sans p-0 tracking-[0.015rem] overscroll-y-none;
     -moz-osx-font-smoothing: grayscale;
