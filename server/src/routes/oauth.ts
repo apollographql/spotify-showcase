@@ -1,7 +1,11 @@
 import express, { Request } from 'express';
 import fetch from 'node-fetch';
 import config from '../config/spotify';
-import { OAUTH_SCOPES, TOKEN_COOKIE_NAME } from '../constants';
+import {
+  OAUTH_SCOPES,
+  REFRESH_TOKEN_COOKIE_NAME,
+  TOKEN_COOKIE_NAME,
+} from '../constants';
 import { Spotify } from '../dataSources/spotify.types';
 import { getCookieOptions } from '../utils/getCookieOptions';
 
@@ -30,7 +34,7 @@ router.post(
     res
   ) => {
     await new Promise((resolve) => req.session.regenerate(resolve));
-    req.session.oauth = {};
+    req.session.oauth ??= {};
     req.session.oauth.clientId = req.body.clientId;
     req.session.oauth.clientSecret = req.body.clientSecret;
     req.session.oauth.redirectUrl = req.body.redirectUrl;
@@ -40,7 +44,6 @@ router.post(
 );
 
 router.get('/init', (req, res) => {
-  req.session.oauth ??= {};
   const query = new URLSearchParams();
 
   query.set('response_type', 'code');
@@ -75,7 +78,7 @@ router.get(
       `${config.clientId}:${config.clientSecret}`
     ).toString('base64');
 
-    const { access_token } = await fetch(
+    const { access_token, refresh_token } = await fetch(
       'https://accounts.spotify.com/api/token',
       {
         method: 'POST',
@@ -90,12 +93,51 @@ router.get(
     const params = new URLSearchParams();
     params.set('token', access_token);
 
-    req.session.oauth = undefined;
     res.cookie(TOKEN_COOKIE_NAME, access_token, getCookieOptions(req));
+    res.cookie(REFRESH_TOKEN_COOKIE_NAME, refresh_token, {
+      ...getCookieOptions(req),
+      path: '/oauth',
+    });
     res.send(
       '<html><body><script type="text/javascript">window.close()</script></html>'
     );
   }
 );
+
+router.get('/refresh_token', async function (req, res) {
+  const refresh_token = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
+
+  if (!refresh_token) {
+    throw new Error('No token - could not reauthenticate!');
+  }
+
+  const credentials = Buffer.from(
+    `${config.clientId}:${config.clientSecret}`
+  ).toString('base64');
+
+  const body = new URLSearchParams();
+  body.append('grant_type', 'refresh_token');
+  body.append('refresh_token', refresh_token);
+
+  const response = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${credentials}`,
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    body,
+  });
+  const { access_token } =
+    (await response.json()) as Spotify.Response.GET['/api/token'];
+
+  if (access_token) {
+    res.cookie(TOKEN_COOKIE_NAME, access_token, getCookieOptions(req));
+    res.end();
+  } else {
+    res.clearCookie(TOKEN_COOKIE_NAME, getCookieOptions(req));
+    res.status(400);
+  }
+});
+
 
 export default router;
