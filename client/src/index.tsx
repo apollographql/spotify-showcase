@@ -7,7 +7,6 @@ import BackgroundColorProvider from './components/BackgroundColorProvider';
 import router from './router';
 import client from './apollo';
 import './reset.scss';
-import './index.scss';
 import './index.css';
 
 console.log(

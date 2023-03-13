@@ -5,24 +5,17 @@ module.exports = {
   theme: {
     fontFamily: {
       sans: [
-        'CircularSp',
+        'Source Sans Pro',
         'Helvetica Neue',
         'Helvetica',
         'Arial',
-        'Hiragino Kaku Gothic Pro',
-        'Meiryo',
-        'MS Gothic',
         'sans-serif',
       ],
       title: [
-        'CircularSpTitle',
-        'CircularSpTitle-Tall',
+        'Source Sans Pro',
         'Helvetica Neue',
         'Helvetica',
         'Arial',
-        'Hiragino Kaku Gothic Pro',
-        'Meiryo',
-        'MS Gothic',
         'sans-serif',
       ],
     },
