@@ -6,7 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 import BackgroundColorProvider from './components/BackgroundColorProvider';
 import router from './router';
 import client from './apollo';
-import './reset.scss';
+import './reset.css';
 import './index.css';
 
 console.log(
