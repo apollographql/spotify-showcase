@@ -6,8 +6,8 @@ export function isCodeSandbox(request: Request) {
   const forwardedHost = request.headers['x-forwarded-host'] as
     | string
     | undefined;
-  const hostname = forwardedHost ?? request.hostname;
-  return hostname.endsWith('.csb.app');
+  const hostname = forwardedHost ?? request.hostname ?? request.headers.origin;
+  return hostname?.endsWith('.csb.app');
 }
 
 const config = {

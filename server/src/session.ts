@@ -34,7 +34,7 @@ export const sessionHandler: RequestHandler = (req, res, next) => {
   session({
     secret,
     store: sessionStore,
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
     proxy: isCodeSandbox(req),
     cookie: getCookieOptions(req),
