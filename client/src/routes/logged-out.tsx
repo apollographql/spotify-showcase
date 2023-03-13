@@ -5,8 +5,8 @@ import ErrorTitle from '../components/ErrorTitle';
 import Layout from '../components/Layout';
 import { LoginButton } from '../components/Page/LoginButton';
 
-export const loader: LoaderFunction = () => {
-  logout();
+export const loader: LoaderFunction = async () => {
+  await logout();
 
   return null;
 };

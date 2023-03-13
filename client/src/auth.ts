@@ -1,6 +1,6 @@
 import client from './apollo';
 
-export const logout = () => {
-  // TODO
+export const logout = async () => {
+  await fetch('/logout');
   client.clearStore();
 };

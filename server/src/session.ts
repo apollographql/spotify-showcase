@@ -30,7 +30,6 @@ const sessionStore = new MemoryStore();
  * wrap the session handler in another handler, because we need access to the request to figure out if we want a secure cookie
  */
 export const sessionHandler: RequestHandler = (req, res, next) => {
-  console.log(getCookieOptions(req));
   session({
     secret,
     store: sessionStore,
