@@ -1,5 +1,14 @@
+import { Request } from 'express';
 import { readEnv } from '../utils/env';
 import { getRequest } from '../utils/globalRequestMiddleware';
+
+export function isCodeSandbox(request: Request) {
+  const forwardedHost = request.headers['x-forwarded-host'] as
+    | string
+    | undefined;
+  const hostname = forwardedHost ?? request.hostname;
+  return hostname.endsWith('.csb.app');
+}
 
 const config = {
   get clientId() {
@@ -13,12 +22,7 @@ const config = {
     );
   },
   get isCodeSandbox() {
-    const request = getRequest();
-    const forwardedHost = request.headers['x-forwarded-host'] as
-      | string
-      | undefined;
-    const hostname = forwardedHost ?? request.hostname;
-    return hostname.endsWith('.csb.app');
+    return isCodeSandbox(getRequest());
   },
   get redirectURI() {
     const request = getRequest();

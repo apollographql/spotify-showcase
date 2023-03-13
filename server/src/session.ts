@@ -4,6 +4,7 @@ import { IncomingMessage } from 'http';
 import { getCookieOptions } from './utils/getCookieOptions';
 import { OauthSessionData } from './routes/oauth';
 import { readEnv } from './utils/env';
+import { isCodeSandbox } from './config/spotify';
 
 declare module 'express-session' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -29,11 +30,13 @@ const sessionStore = new MemoryStore();
  * wrap the session handler in another handler, because we need access to the request to figure out if we want a secure cookie
  */
 export const sessionHandler: RequestHandler = (req, res, next) => {
+  console.log(getCookieOptions(req));
   session({
     secret,
     store: sessionStore,
-    saveUninitialized: false,
+    saveUninitialized: true,
     resave: false,
+    proxy: isCodeSandbox(req),
     cookie: getCookieOptions(req),
   })(req, res, next);
 };
