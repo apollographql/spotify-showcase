@@ -1,8 +1,9 @@
 import express, { Request } from 'express';
 import fetch from 'node-fetch';
 import config from '../config/spotify';
-import { OAUTH_SCOPES } from '../constants';
+import { OAUTH_SCOPES, TOKEN_COOKIE_NAME } from '../constants';
 import { Spotify } from '../dataSources/spotify.types';
+import { getCookieOptions } from '../utils/getCookieOptions';
 
 const router = express.Router();
 
@@ -90,7 +91,10 @@ router.get(
     params.set('token', access_token);
 
     req.session.oauth = undefined;
-    res.redirect(`/set-token?${params}`);
+    res.cookie(TOKEN_COOKIE_NAME, access_token, getCookieOptions(req));
+    res.send(
+      '<html><body><script type="text/javascript">window.close()</script></html>'
+    );
   }
 );
 

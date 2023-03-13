@@ -21,3 +21,5 @@ export const TOPICS = {
   DISCONNECT: 'DISCONNECT',
   PLAYBACK_STATE_CHANGED: 'PLAYBACK_STATE_CHANGED',
 } as const;
+
+export const TOKEN_COOKIE_NAME = 'access_token';

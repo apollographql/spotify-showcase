@@ -23,16 +23,15 @@ import * as PlaylistRoute from './routes/playlists/playlist';
 import * as QueueRoute from './routes/queue';
 import * as RootRoute from './routes/root';
 import * as SettingsRoute from './routes/settings';
-import * as SetTokenRoute from './routes/set-token';
 import * as ShowRoute from './routes/shows/show';
 import * as TrackRoute from './routes/tracks/track';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
-import { isLoggedInVar } from './vars';
+import apollo from './apollo';
+import { IS_LOGGED_IN_QUERY } from './hooks/useIsLoggedIn';
 
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<RootErrorBoundary />}>
-    <Route path="set-token" loader={SetTokenRoute.loader} />,
     <Route path="logout" loader={LogoutRoute.loader} />,
     <Route
       path="logged-out"
@@ -55,8 +54,13 @@ const routes = createRoutesFromElements(
         }
       />
       <Route
-        loader={() => {
-          const isLoggedIn = isLoggedInVar();
+        loader={async () => {
+          const result = await apollo.query({
+            query: IS_LOGGED_IN_QUERY,
+            errorPolicy: 'ignore',
+          });
+
+          const isLoggedIn = !!result?.data?.me?.id;
 
           if (!isLoggedIn) {
             return redirect('/');

@@ -1,13 +1,10 @@
 import {
   ApolloClient,
-  ApolloLink,
   InMemoryCache,
   createHttpLink,
   split,
 } from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
-import { setContext } from '@apollo/client/link/context';
-import { readAuthToken } from './utils';
 import { createClient } from 'graphql-ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
@@ -17,18 +14,9 @@ import cursorConnectionPagination from './fieldPolicies/cursorConnectionPaginati
 
 const httpLink = createHttpLink({ uri: '/graphql' });
 
-const authHeadersLink = setContext(() => ({
-  headers: { 'x-api-token': readAuthToken() },
-}));
-
 const wsLink = new GraphQLWsLink(
   createClient({
     url: `${import.meta.env.VITE_WEBSOCKET_HOST}/graphql`,
-    connectionParams: {
-      get apiToken() {
-        return readAuthToken();
-      },
-    },
   })
 );
 
@@ -42,7 +30,7 @@ const splitLink = split(
     );
   },
   wsLink,
-  ApolloLink.from([authHeadersLink, httpLink])
+  httpLink
 );
 
 export default new ApolloClient({

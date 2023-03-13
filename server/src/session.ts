@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import session, { MemoryStore, SessionData } from 'express-session';
 import { IncomingMessage } from 'http';
+import { getCookieOptions } from './utils/getCookieOptions';
 import { OauthSessionData } from './routes/oauth';
 import { readEnv } from './utils/env';
 
@@ -28,22 +29,12 @@ const sessionStore = new MemoryStore();
  * wrap the session handler in another handler, because we need access to the request to figure out if we want a secure cookie
  */
 export const sessionHandler: RequestHandler = (req, res, next) => {
-  const forwardedProtocol = req.headers?.['x-forwarded-proto'] as
-    | string
-    | undefined;
-  const protocol = forwardedProtocol ?? req.protocol;
-  const secure = protocol === 'https;';
-
   session({
     secret,
     store: sessionStore,
     saveUninitialized: false,
     resave: false,
-    cookie: {
-      httpOnly: true,
-      secure,
-      sameSite: 'lax', // used in CSB iframes
-    },
+    cookie: getCookieOptions(req),
   })(req, res, next);
 };
 

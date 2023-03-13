@@ -17,6 +17,7 @@ import path from 'path';
 import { json } from 'body-parser';
 import defaultResolver from './server/src/resolvers/default';
 import cookieParser from 'cookie-parser';
+import cookie from 'cookie';
 
 import typeDefs from './server/src/schema.graphql';
 import resolvers from './server/src/resolvers';
@@ -25,7 +26,7 @@ import SpotifyAPI from './server/src/dataSources/spotify';
 import Publisher from './server/src/publisher';
 import { readEnv } from './server/src/utils/env';
 import { ContextValue } from './server/src/types';
-import { TOPICS } from './server/src/constants';
+import { TOKEN_COOKIE_NAME, TOPICS } from './server/src/constants';
 // TODO: Remove me when @apollo/subgraph adds subscription support
 // https://github.com/apollographql/graphos-subscriptions/issues/123
 import { makeExecutableSchema } from '@graphql-tools/schema';
@@ -49,17 +50,20 @@ async function createServer() {
   });
 
   const serverCleanup = useServer<
-    { apiToken?: string },
-    { session?: SessionData }
+    Record<string, never>,
+    { session?: SessionData; token?: string }
   >(
     {
       schema,
       onConnect: async (ctx) => {
-        const token = ctx.connectionParams?.apiToken;
         const request = ctx.extra.request;
-        ctx.extra.session = await readSessionForWebSocket(request);
 
-        if (!token) {
+        ctx.extra.session = await readSessionForWebSocket(request);
+        ctx.extra.token = cookie.parse(request.headers.cookie ?? '')[
+          TOKEN_COOKIE_NAME
+        ];
+
+        if (!ctx.extra.token) {
           return false;
         }
       },
@@ -67,7 +71,8 @@ async function createServer() {
         pubsub.publish(TOPICS.DISCONNECT, true);
       },
       context: (ctx) => {
-        const token = ctx.connectionParams!.apiToken! as string;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const token = ctx.extra.token!;
         const spotify = new SpotifyAPI({
           cache: server.cache,
           token,
@@ -80,6 +85,7 @@ async function createServer() {
           publisher: new Publisher(pubsub),
           pubsub,
           dataSources: { spotify },
+          session: ctx.extra.session,
         } satisfies ContextValue;
       },
     },
@@ -121,11 +127,11 @@ async function createServer() {
     json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
-        const token = req.get('x-api-token') ?? '';
+        const token = req.cookies[TOKEN_COOKIE_NAME];
         const { cache } = server;
         const spotify = new SpotifyAPI({
           cache,
-          token: req.get('x-api-token') ?? '',
+          token,
         });
 
         return {
@@ -135,6 +141,7 @@ async function createServer() {
           publisher: new Publisher(pubsub),
           pubsub,
           token,
+          session: req.session,
         };
       },
     })

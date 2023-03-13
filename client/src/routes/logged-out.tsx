@@ -1,9 +1,9 @@
-import { Link, LoaderFunction } from 'react-router-dom';
+import { Link, LoaderFunction, useNavigate } from 'react-router-dom';
 import { logout } from '../auth';
-import Button from '../components/Button';
 import ErrorDescription from '../components/ErrorDescription';
 import ErrorTitle from '../components/ErrorTitle';
 import Layout from '../components/Layout';
+import { LoginButton } from '../components/Page/LoginButton';
 
 export const loader: LoaderFunction = () => {
   logout();
@@ -12,6 +12,8 @@ export const loader: LoaderFunction = () => {
 };
 
 export const RouteComponent = () => {
+  const navigate = useNavigate();
+
   return (
     <Layout>
       <Layout.Main>
@@ -25,9 +27,7 @@ export const RouteComponent = () => {
             </Link>
             .
           </ErrorDescription>
-          <Button as="a" href="/login" variant="secondary" size="sm">
-            Log in
-          </Button>
+          <LoginButton onLogin={() => navigate('/')} />
         </div>
       </Layout.Main>
     </Layout>

@@ -285,6 +285,7 @@ export type CurrentUser = {
   episodesContains: Maybe<Array<Scalars['Boolean']>>;
   /** Get the current user's followed artists. */
   followedArtists: Maybe<FollowedArtistsConnection>;
+  id: Maybe<Scalars['String']>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
@@ -2436,6 +2437,13 @@ export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', contex
 export type TrackTitleCell_track = { __typename: 'Track', id: string, explicit: boolean, name: string, uri: string, album: { __typename: 'Album', images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
 
 export type YourEpisodesTile_connection = { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } } }> };
+
+export type CurrentUserIdVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserId = { me: { __typename: 'CurrentUser', id: string | null } | null };
+
+export type CurrentUserIdFragment = { __typename: 'CurrentUser', id: string | null };
 
 export type SavedTracksContainsQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];

@@ -289,6 +289,7 @@ export type CurrentUser = {
   episodesContains?: Maybe<Array<Scalars['Boolean']>>;
   /** Get the current user's followed artists. */
   followedArtists?: Maybe<FollowedArtistsConnection>;
+  id?: Maybe<Scalars['String']>;
   /** Information about the user's current playback state */
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
@@ -2810,6 +2811,7 @@ export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends 
   episodes?: Resolver<Maybe<ResolversTypes['SavedEpisodesConnection']>, ParentType, ContextType, Partial<CurrentUserEpisodesArgs>>;
   episodesContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserEpisodesContainsArgs, 'ids'>>;
   followedArtists?: Resolver<Maybe<ResolversTypes['FollowedArtistsConnection']>, ParentType, ContextType, Partial<CurrentUserFollowedArtistsArgs>>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
   playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
   shows?: Resolver<Maybe<ResolversTypes['SavedShowsConnection']>, ParentType, ContextType, Partial<CurrentUserShowsArgs>>;
