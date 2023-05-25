@@ -83,10 +83,7 @@ export const RouteComponent = () => {
   const { client, data, fetchMore } = useSuspenseQuery<
     CollectionTracksRouteQuery,
     CollectionTracksRouteQueryVariables
-  >(COLLECTION_TRACKS_ROUTE_QUERY, {
-    suspensePolicy: 'initial',
-    variables: { limit: 50 },
-  });
+  >(COLLECTION_TRACKS_ROUTE_QUERY, { variables: { limit: 50 } });
 
   useEffect(() => {
     const { cache } = client;

@@ -93,10 +93,7 @@ export const RouteComponent = () => {
   const { data, fetchMore } = useSuspenseQuery<
     CollectionPlaylistsRouteQuery,
     CollectionTracksRouteQueryVariables
-  >(COLLECTION_PLAYLISTS_ROUTE_QUERY, {
-    suspensePolicy: 'initial',
-    variables: { limit: 50 },
-  });
+  >(COLLECTION_PLAYLISTS_ROUTE_QUERY, { variables: { limit: 50 } });
 
   if (!data.me || !data.me.playlists || !data.me.tracks || !data.me.episodes) {
     throw new Error('Something went wrong');
