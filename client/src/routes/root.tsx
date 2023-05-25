@@ -84,7 +84,7 @@ const Playlists = () => {
     useState<HTMLUListElement | null>(null);
   const { data, fetchMore } = useSuspenseQuery<RootQuery, RootQueryVariables>(
     ROOT_QUERY,
-    { suspensePolicy: 'initial', variables: { limit: 50 } }
+    { variables: { limit: 50 } }
   );
 
   const playbackState = usePlaybackState<PlaybackState>({
