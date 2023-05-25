@@ -38,7 +38,6 @@ export const RouteComponent = () => {
     CollectionAlbumsRouteQuery,
     CollectionAlbumsRouteQueryVariables
   >(COLLECTION_ALBUMS_ROUTE_QUERY, {
-    suspensePolicy: 'initial',
     variables: { limit: 50 },
   });
 

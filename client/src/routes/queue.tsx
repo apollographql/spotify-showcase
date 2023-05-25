@@ -15,7 +15,7 @@ import TrackNumberCell from '../components/TrackNumberCell';
 import TrackPositionCell from '../components/TrackPositionCell';
 import TrackTitleCell from '../components/TrackTitleCell';
 import usePlaybackState from '../hooks/usePlaybackState';
-import { useEffect, useRef } from 'react';
+import { startTransition, useEffect, useRef } from 'react';
 import usePrevious from '../hooks/usePrevious';
 import Duration from '../components/Duration';
 import { ListMusic } from 'lucide-react';
@@ -104,7 +104,6 @@ export const RouteComponent = () => {
     // The queue is volitile and can change often so its easiest to reload the
     // data each time this route is loaded.
     fetchPolicy: 'network-only',
-    suspensePolicy: 'initial',
   });
 
   const [resumePlayback] = useResumePlaybackMutation({
@@ -137,7 +136,9 @@ export const RouteComponent = () => {
       previousItem &&
       !isChangingTrack.current
     ) {
-      refetch();
+      startTransition(() => {
+        refetch();
+      });
     }
   }, [playbackState?.item, previousItem, refetch]);
 

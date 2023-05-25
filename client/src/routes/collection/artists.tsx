@@ -37,9 +37,7 @@ export const RouteComponent = () => {
   const { data, fetchMore } = useSuspenseQuery<
     CollectionArtistsRouteQuery,
     CollectionArtistsRouteQueryVariables
-  >(COLLECTION_ARTISTS_ROUTE_QUERY, {
-    suspensePolicy: 'initial',
-  });
+  >(COLLECTION_ARTISTS_ROUTE_QUERY);
 
   const pageInfo = data.me?.followedArtists?.pageInfo;
   const artists =

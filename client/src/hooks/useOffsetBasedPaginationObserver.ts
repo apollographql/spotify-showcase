@@ -1,4 +1,4 @@
-import { RefObject, useRef } from 'react';
+import { RefObject, useRef, startTransition } from 'react';
 import useIntersectionObserver from './useIntersectionObserver';
 import useScrollContainer from './useScrollContainer';
 
@@ -37,11 +37,13 @@ const useOffsetBasedPaginationObserver = (
       if (isIntersecting && pageInfo?.hasNextPage && !isLoadingRef.current) {
         const { offset, limit } = pageInfo;
 
-        isLoadingRef.current = true;
+        startTransition(() => {
+          isLoadingRef.current = true;
 
-        await fetchMore({ variables: { offset: offset + limit } });
-
-        isLoadingRef.current = false;
+          fetchMore({ variables: { offset: offset + limit } }).then(() => {
+            isLoadingRef.current = false;
+          });
+        });
       }
     }
   );

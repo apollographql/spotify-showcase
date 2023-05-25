@@ -65,10 +65,7 @@ export const RouteComponent = () => {
   const { data, fetchMore } = useSuspenseQuery<
     PlaylistQuery,
     PlaylistQueryVariables
-  >(PLAYLIST_QUERY, {
-    suspensePolicy: 'initial',
-    variables: { id: playlistId },
-  });
+  >(PLAYLIST_QUERY, { variables: { id: playlistId } });
   const playlist = data.playlist;
 
   if (!playlist) {
