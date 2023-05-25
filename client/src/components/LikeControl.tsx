@@ -10,6 +10,7 @@ import {
 import LikeButton, { LikeButtonProps } from './LikeButton';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
+import { useDeferredValue } from 'react';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
@@ -27,21 +28,22 @@ const LIKE_CONTROL_QUERY = gql`
 `;
 
 const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
+  const deferredId = useDeferredValue(playbackItem?.id);
+
   const { data } = useSuspenseQuery<
     LikeControlQuery,
     LikeControlQueryVariables
   >(LIKE_CONTROL_QUERY, {
     errorPolicy: 'ignore',
-    suspensePolicy: 'initial',
     variables: {
-      ids: [playbackItem?.id].filter(Boolean),
+      ids: [deferredId].filter(Boolean),
     },
   });
 
   const [saveTracks] = useSaveTracksMutation();
   const [removeTracks] = useRemoveTracksMutation();
 
-  if (!data.me) {
+  if (!data?.me) {
     throw new Response('You must be logged in', { status: 401 });
   }
 
