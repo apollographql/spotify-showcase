@@ -6,11 +6,11 @@
     "start": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.16.4",
-    "@graphql-codegen/fragment-matcher": "^3.3.3",
-    "@graphql-codegen/typescript": "^2.8.7",
-    "@graphql-codegen/typescript-operations": "^2.5.12",
-    "@graphql-codegen/typescript-resolvers": "^2.7.12",
+    "@graphql-codegen/cli": "^4.0.0",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-codegen/typescript-resolvers": "^4.0.0",
     "@mdx-js/rollup": "^2.3.0",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/cors": "^2.8.13",
