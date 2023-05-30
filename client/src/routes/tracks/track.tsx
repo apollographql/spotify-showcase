@@ -1,7 +1,4 @@
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import { TrackRouteQuery, TrackRouteQueryVariables } from '../../types/api';
 import { useParams } from 'react-router-dom';
 import AlbumTracksTable from '../../components/AlbumTracksTable';

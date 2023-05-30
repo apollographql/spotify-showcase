@@ -1,7 +1,4 @@
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import cx from 'classnames';
 import { useParams } from 'react-router-dom';
 import { Get } from 'type-fest';

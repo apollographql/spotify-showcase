@@ -1,9 +1,5 @@
 import { Fragment, ReactNode, useRef, useState } from 'react';
-import cx from 'classnames';
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import { Outlet, useParams } from 'react-router-dom';
 import {
   RootQuery,

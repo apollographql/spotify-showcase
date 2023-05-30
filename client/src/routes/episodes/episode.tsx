@@ -1,7 +1,4 @@
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { EpisodeRouteQuery, EpisodeRouteQueryVariables } from '../../types/api';
 import Button from '../../components/Button';

@@ -1,9 +1,5 @@
 import { useEffect } from 'react';
-import {
-  ApolloError,
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { ApolloError, gql, useSuspenseQuery } from '@apollo/client';
 import {
   PlaybackStateSubscriberQuery,
   PlaybackStateSubscriberSubscription,

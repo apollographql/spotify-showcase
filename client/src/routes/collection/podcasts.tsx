@@ -1,8 +1,4 @@
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-  TypedDocumentNode,
-} from '@apollo/client';
+import { gql, useSuspenseQuery, TypedDocumentNode } from '@apollo/client';
 import CoverPhoto from '../../components/CoverPhoto';
 import MediaTile from '../../components/MediaTile';
 import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';

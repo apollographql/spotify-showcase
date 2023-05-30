@@ -2,8 +2,8 @@ import {
   gql,
   TypedDocumentNode,
   useApolloClient,
-  useFragment_experimental as useFragment,
-  useSuspenseQuery_experimental as useSuspenseQuery,
+  useFragment,
+  useSuspenseQuery,
 } from '@apollo/client';
 import { useEffect } from 'react';
 import {

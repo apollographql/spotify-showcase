@@ -1,8 +1,4 @@
-import {
-  gql,
-  useFragment_experimental as useFragment,
-  OperationVariables,
-} from '@apollo/client';
+import { gql, useFragment, OperationVariables } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock, Podcast } from 'lucide-react';
 import {
