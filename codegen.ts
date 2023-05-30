@@ -233,6 +233,10 @@ const config: CodegenConfig = {
           },
         },
         scalars: {
+          ID: {
+            input: 'string',
+            output: 'string',
+          },
           CountryCode: 'string',
           DateTime: 'Date',
           ErrorRate: 'number',
