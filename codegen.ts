@@ -24,6 +24,7 @@ const config: CodegenConfig = {
           CountryCode: 'string',
           DateTime: 'string',
           ErrorRate: 'number',
+          ID: 'string',
           Timestamp: 'number',
         },
         namingConvention: {
