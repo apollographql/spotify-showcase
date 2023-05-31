@@ -1,14 +1,12 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { ComponentPropsWithoutRef, ReactNode, Suspense } from 'react';
+import { gql, useBackgroundQuery, useReadQuery } from '@apollo/client';
+import { QueryReference } from '@apollo/client/react/cache/QueryReference';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
 import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
-import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
+import { IndexRouteQuery } from '../types/api';
 import { DEFAULT_BACKGROUND_COLOR } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
@@ -41,16 +39,27 @@ const containerStyles = 'p-[var(--main-content--padding)]';
 
 const LoggedIn = () => {
   useSetBackgroundColor('#1A101C');
-
   // Use startOfHour to prevent infinite loop with a brand new date each time
   // this component unsuspends
   const timestamp = startOfHour(new Date()).toISOString();
 
-  const { data } = useSuspenseQuery<IndexRouteQuery, IndexRouteQueryVariables>(
-    INDEX_ROUTE_QUERY,
-    { variables: { timestamp } }
-  );
+  const [queryRef] = useBackgroundQuery(INDEX_ROUTE_QUERY, {
+    variables: { timestamp },
+  });
 
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <PlaylistTileGrid queryRef={queryRef} />
+    </Suspense>
+  );
+};
+
+const PlaylistTileGrid = ({
+  queryRef,
+}: {
+  queryRef: QueryReference<IndexRouteQuery>;
+}) => {
+  const { data } = useReadQuery(queryRef);
   return (
     <div className={containerStyles}>
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>

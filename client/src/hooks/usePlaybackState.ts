@@ -1,5 +1,5 @@
 import {
-  useFragment_experimental as useFragment,
+  useFragment,
   DocumentNode,
   TypedDocumentNode,
   OperationVariables,

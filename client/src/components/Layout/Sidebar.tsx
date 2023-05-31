@@ -1,9 +1,5 @@
 import { forwardRef, ReactNode } from 'react';
-import {
-  gql,
-  OperationVariables,
-  useFragment_experimental as useFragment,
-} from '@apollo/client';
+import { gql, OperationVariables, useFragment } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { Library, Home, Search, Heart, Volume2, Bookmark } from 'lucide-react';
 import {

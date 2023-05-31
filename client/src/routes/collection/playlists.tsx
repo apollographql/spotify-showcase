@@ -1,7 +1,4 @@
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import {
   CollectionPlaylistsRouteQuery,
   CollectionTracksRouteQueryVariables,

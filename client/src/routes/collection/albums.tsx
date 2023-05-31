@@ -1,7 +1,4 @@
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import AlbumTile from '../../components/AlbumTile';
 import Skeleton from '../../components/Skeleton';
 import TileGrid from '../../components/TileGrid';

@@ -1,7 +1,4 @@
-import {
-  gql,
-  useSuspenseQuery_experimental as useSuspenseQuery,
-} from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import { CurrentUserQuery, CurrentUserQueryVariables } from '../types/api';
 import DropdownMenu from './DropdownMenu';
 import Avatar from './Avatar';
