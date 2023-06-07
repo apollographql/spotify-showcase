@@ -32,6 +32,10 @@ type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
 >;
 
+interface TableMeta {
+  spotifyURI: string;
+}
+
 const COLLECTION_TRACKS_ROUTE_QUERY = gql`
   query CollectionTracksRouteQuery($offset: Int, $limit: Int) {
     me {
@@ -272,16 +276,20 @@ const columns = [
   columnHelper.accessor('node', {
     id: 'number',
     header: '#',
-    cell: (info) => (
-      <TrackNumberCell
-        position={info.row.index}
-        track={info.getValue()}
-        context={{
-          __typename: 'Playlist',
-          uri: info.table.options.meta?.spotifyURI,
-        }}
-      />
-    ),
+    cell: (info) => {
+      const { spotifyURI } = info.table.options.meta as unknown as TableMeta;
+
+      return (
+        <TrackNumberCell
+          position={info.row.index}
+          track={info.getValue()}
+          context={{
+            __typename: 'Playlist',
+            uri: spotifyURI,
+          }}
+        />
+      );
+    },
     meta: {
       headerAlign: 'right',
       shrink: true,
@@ -290,12 +298,13 @@ const columns = [
   columnHelper.accessor('node', {
     id: 'title',
     header: 'Title',
-    cell: (info) => (
-      <TrackTitleCell
-        context={{ uri: info.table.options.meta?.spotifyURI }}
-        track={info.getValue()}
-      />
-    ),
+    cell: (info) => {
+      const { spotifyURI } = info.table.options.meta as unknown as TableMeta;
+
+      return (
+        <TrackTitleCell context={{ uri: spotifyURI }} track={info.getValue()} />
+      );
+    },
   }),
   columnHelper.accessor('addedAt', {
     header: 'Date added',
