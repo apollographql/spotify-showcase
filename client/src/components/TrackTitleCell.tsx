@@ -83,6 +83,7 @@ TrackTitleCell.fragments = {
       name
       uri
       album {
+        id
         images {
           url
         }

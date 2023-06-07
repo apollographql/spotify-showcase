@@ -425,7 +425,7 @@ export type Developer = {
 export type Device = {
   __typename?: 'Device';
   /** The device ID */
-  id?: Maybe<Scalars['ID']['output']>;
+  id: Scalars['ID']['output'];
   /** If this device is the currently active device. */
   isActive: Scalars['Boolean']['output'];
   /** If this device is currently in a private session. */
@@ -2852,7 +2852,7 @@ export type DeveloperResolvers<ContextType = ContextValue, ParentType extends Re
 }>;
 
 export type DeviceResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Device'] = ResolversParentTypes['Device']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isActive?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isPrivateSession?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;

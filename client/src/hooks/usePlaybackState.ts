@@ -4,7 +4,6 @@ import {
   TypedDocumentNode,
   OperationVariables,
 } from '@apollo/client';
-import equal from '@wry/equality';
 import { DefinitionNode, FragmentDefinitionNode, Kind } from 'graphql';
 
 interface Options<TData> {
@@ -12,17 +11,13 @@ interface Options<TData> {
 }
 
 const usePlaybackState = <TData>({ fragment }: Options<TData>) => {
-  const { data } = useFragment<TData, OperationVariables>({
+  const { data, complete } = useFragment<TData, OperationVariables>({
     fragment,
     fragmentName: getFragmentName(fragment),
     from: { __typename: 'PlaybackState' },
   });
 
-  if (equal(data, {})) {
-    return null;
-  }
-
-  return data ?? null;
+  return complete ? data : null;
 };
 
 const isFragmentDefinition = (

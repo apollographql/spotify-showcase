@@ -960,7 +960,7 @@ type Developer {
 
 type Device {
   "The device ID"
-  id: ID
+  id: ID!
 
   "If this device is the currently active device."
   isActive: Boolean!

@@ -11,6 +11,7 @@ import Page from '../../components/Page';
 import TileGrid from '../../components/TileGrid';
 import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import Flex from '../../components/Flex';
+import useSavedTracksContains from '../../hooks/useSavedTracksContains';
 
 const TRACK_ROUTE_QUERY = gql`
   query TrackRouteQuery($trackId: ID!) {
@@ -63,6 +64,10 @@ export const RouteComponent = () => {
   const coverPhoto = album.images[0];
   const primaryArtist = track.artists[0];
 
+  const tracksContains = useSavedTracksContains(
+    album.tracks?.edges.map((edge) => edge.node.id) ?? []
+  );
+
   useSetBackgroundColorFromImage(coverPhoto, {
     fallback: 'rgba(var(--background--surface--rgb), 0.5)',
   });
@@ -104,7 +109,7 @@ export const RouteComponent = () => {
               </EntityLink>
             </Flex>
           </Flex>
-          <AlbumTracksTable album={album} />
+          <AlbumTracksTable album={album} tracksContains={tracksContains} />
         </Flex>
       </Page.Content>
     </Page>

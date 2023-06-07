@@ -22,7 +22,11 @@ const LikeButton = ({ className, liked, onClick, size }: LikeButtonProps) => {
         )}
         onClick={onClick}
       >
-        <Heart fill={liked ? 'currentColor' : 'transparent'} size={size} />
+        <Heart
+          className="max-w-[unset]"
+          fill={liked ? 'currentColor' : 'transparent'}
+          size={size}
+        />
       </button>
     </Tooltip>
   );

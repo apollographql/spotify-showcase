@@ -20,6 +20,10 @@ interface AlbumTracksTableProps {
   tracksContains: Map<string, boolean>;
 }
 
+interface AlbumTracksTableMeta {
+  tracksContains: Map<string, boolean>;
+}
+
 const columnHelper = createColumnHelper<Track>();
 
 const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
@@ -53,10 +57,11 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
         id: 'liked',
         header: '',
         cell: (info) => {
-          const track = info.row.original;
+          const { tracksContains } = info.table.options
+            .meta as unknown as AlbumTracksTableMeta;
 
-          const liked =
-            info.table.options.meta?.tracksContains?.get(track.id) ?? false;
+          const track = info.row.original;
+          const liked = tracksContains.get(track.id) ?? false;
 
           return <TrackLikeButtonCell liked={liked} track={track} />;
         },
