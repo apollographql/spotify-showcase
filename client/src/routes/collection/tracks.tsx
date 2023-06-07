@@ -52,6 +52,9 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
             id
             name
             durationMs
+            album {
+              id
+            }
 
             ...TrackNumberCell_track
             ...TrackTitleCell_track
