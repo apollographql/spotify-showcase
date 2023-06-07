@@ -1,4 +1,3 @@
-import 'graphql-import-node';
 import './server/src/env';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
@@ -17,7 +16,6 @@ import path from 'path';
 import { json } from 'body-parser';
 import defaultResolver from './server/src/resolvers/default';
 
-import typeDefs from './server/src/schema.graphql';
 import resolvers from './server/src/resolvers';
 import routes from './server/src/routes';
 import SpotifyAPI from './server/src/dataSources/spotify';
@@ -31,7 +29,13 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import { createServer as createViteServer } from 'vite';
 
 async function createServer() {
-  const schema = makeExecutableSchema({ typeDefs, resolvers });
+  const schema = makeExecutableSchema({
+    typeDefs: fs.readFileSync(
+      path.resolve(__dirname, './server/src/schema.graphql'),
+      'utf-8'
+    ),
+    resolvers,
+  });
   const app = express();
   const httpServer = http.createServer(app);
   const wsServer = new WebSocketServer({
