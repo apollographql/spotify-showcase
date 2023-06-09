@@ -15,38 +15,17 @@ import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
 
-const httpLink = createHttpLink({ uri: '/graphql' });
-
-const authHeadersLink = setContext(() => ({
-  headers: { 'x-api-token': readAuthToken() },
-}));
-
-const wsLink = new GraphQLWsLink(
-  createClient({
-    url: `${import.meta.env.VITE_WEBSOCKET_HOST}/graphql`,
-    connectionParams: {
-      get apiToken() {
-        return readAuthToken();
-      },
+const httpLink = createHttpLink({
+  uri: `${import.meta.env.VITE_SERVER_HOST}`,
+  headers: {
+    get 'x-api-token'() {
+      return readAuthToken() ?? "";
     },
-  })
-);
-
-const splitLink = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    );
   },
-  wsLink,
-  ApolloLink.from([authHeadersLink, httpLink])
-);
+});
 
 export default new ApolloClient({
-  link: splitLink,
+  link: httpLink,
   cache: new InMemoryCache({
     possibleTypes: introspection.possibleTypes,
     typePolicies: {

@@ -51,7 +51,7 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.0-beta.1",
+    "@apollo/client": "^3.8.0-beta.2",
     "@apollo/datasource-rest": "^5.0.2",
     "@apollo/server": "^4.4.1",
     "@apollo/subgraph": "^2.3.3",
