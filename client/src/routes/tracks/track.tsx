@@ -49,7 +49,7 @@ const TRACK_ROUTE_QUERY = gql`
 
 export const RouteComponent = () => {
   const { trackId } = useParams() as { trackId: string };
-  const { data } = useSuspenseQuery<TrackRouteQuery, TrackRouteQueryVariables>(
+  const { data, error } = useSuspenseQuery<TrackRouteQuery, TrackRouteQueryVariables>(
     TRACK_ROUTE_QUERY,
     { variables: { trackId } }
   );

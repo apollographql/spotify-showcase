@@ -12,6 +12,7 @@ import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
+import { Link } from 'react-router-dom';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -170,7 +171,7 @@ const LoggedOut = () => {
         </ListItem>
       </OrderedList>
       <Paragraph>
-        You are ready to go! <Anchor href="/login">Log in</Anchor> to use the
+        You are ready to go! <Link to="/login">Log in</Link> to use the
         app.
       </Paragraph>
     </div>

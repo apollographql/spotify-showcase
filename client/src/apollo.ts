@@ -1,31 +1,33 @@
 import {
   ApolloClient,
-  ApolloLink,
   InMemoryCache,
   createHttpLink,
-  split,
+  from,
 } from '@apollo/client';
-import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { setContext } from '@apollo/client/link/context';
-import { readAuthToken } from './utils';
-import { createClient } from 'graphql-ws';
-import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
 import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
+import { getAccessToken } from './auth';
+
+const httpAuthLink = setContext(async ({ context }) => {
+  const accessToken = await getAccessToken();
+
+  return {
+    headers: {
+      ...context?.headers,
+      'x-api-token': accessToken,
+    },
+  };
+});
 
 const httpLink = createHttpLink({
-  uri: `${import.meta.env.VITE_SERVER_HOST}`,
-  headers: {
-    get 'x-api-token'() {
-      return readAuthToken() ?? "";
-    },
-  },
+  uri: `${import.meta.env.VITE_SERVER_HOST}`
 });
 
 export default new ApolloClient({
-  link: httpLink,
+  link: from([httpAuthLink, httpLink]),connectToDevTools: true,
   cache: new InMemoryCache({
     possibleTypes: introspection.possibleTypes,
     typePolicies: {
