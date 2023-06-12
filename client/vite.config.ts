@@ -9,7 +9,7 @@ export default defineConfig(async () => {
   return {
     server: {
       open: true,
-      port: 3000,
+      port: process.env.PORT ?? 3000,
     },
     plugins: [
       mdx.default({
