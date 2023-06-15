@@ -44,8 +44,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "codegen": "graphql-codegen",
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run codegen && tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint . --ext .ts,.tsx"
   },
@@ -62,6 +63,10 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
     "@mdx-js/rollup": "^2.3.0",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/mdx": "^2.0.3",
