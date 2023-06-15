@@ -1,0 +1,74 @@
+{
+  "name": "subgraph-template-typescript-apollo-server",
+  "private": true,
+  "description": "A template for TypeScript projects with pre-configured tooling",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apollographql/subgraph-template-typescript-apollo-server"
+  },
+  "homepage": "https://github.com/apollographql/subgraph-template-typescript-apollo-server#readme",
+  "bugs": {
+    "url": "https://github.com/apollographql/subgraph-template-typescript-apollo-server/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=18.0"
+  },
+  "scripts": {
+    "build": "npm run codegen && tsc",
+    "codegen": "graphql-codegen",
+    "postinstall": "npm run build",
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch \"src/**\" --ext \"ts,json,graphql\" --exec \"npm run build && npm run start\" --ignore ./src/__generated__/ --ignore ./src/datasources/BarAPI.ts",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@apollo/datasource-rest": "^6.0.0",
+    "@apollo/server": "^4.7.1",
+    "@apollo/subgraph": "^2.4.7",
+    "@wry/equality": "^0.5.6",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^2.30.0",
+    "express": "^4.18.2",
+    "graphql": "^16.6.0",
+    "graphql-tag": "latest",
+    "lodash": "^4.17.21",
+    "querystring": "^0.2.1",
+    "request": "^2.88.2",
+    "rxjs": "^7.8.1",
+    "ts-invariant": "^0.10.3",
+    "type-fest": "^3.11.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^3.0.0",
+    "@graphql-codegen/typescript": "^3.0.0",
+    "@graphql-codegen/typescript-resolvers": "^3.0.0",
+    "@types/cors": "^2.8.13",
+    "@types/jest": "^29.0.3",
+    "@types/lodash": "^4.14.194",
+    "@types/node": "^18.7.23",
+    "jest": "^29.0.3",
+    "nodemon": "^2.0.15",
+    "ts-jest": "^29.0.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "src"
+    ],
+    "globals": {
+      "ts-jest": {
+        "testRegext": "/__tests__/.*.test.ts",
+        "verbose": true
+      }
+    }
+  }
+}

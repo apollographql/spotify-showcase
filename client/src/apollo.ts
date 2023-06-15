@@ -10,6 +10,8 @@ import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
 import { getAccessToken } from './auth';
+import { version } from "../package.json";
+
 
 const httpAuthLink = setContext(async ({ context }) => {
   const accessToken = await getAccessToken();
@@ -27,7 +29,10 @@ const httpLink = createHttpLink({
 });
 
 export default new ApolloClient({
-  link: from([httpAuthLink, httpLink]),connectToDevTools: true,
+  link: from([httpAuthLink, httpLink]),
+  connectToDevTools: true,
+  name: "Spotify Showcase Website",
+  version,
   cache: new InMemoryCache({
     possibleTypes: introspection.possibleTypes,
     typePolicies: {
