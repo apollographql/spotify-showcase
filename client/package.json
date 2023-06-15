@@ -40,6 +40,7 @@
     "react-router-dom": "^6.8.2",
     "remark": "^14.0.2",
     "remark-parse": "^10.0.1",
+    "serve": "^14.2.0",
     "strip-markdown": "^5.0.0",
     "web-vitals": "^2.1.4"
   },
@@ -47,7 +48,7 @@
     "codegen": "graphql-codegen",
     "start": "vite",
     "build": "npm run codegen && tsc && vite build",
-    "serve": "vite preview",
+    "serve": "serve dist -s -n -L -p $PORT",
     "lint": "eslint . --ext .ts,.tsx"
   },
   "browserslist": {
