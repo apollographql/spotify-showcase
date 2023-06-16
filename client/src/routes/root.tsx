@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
-import { Library } from 'lucide-react';
+import { Heart, Library } from 'lucide-react';
 import CoverPhoto from '../components/CoverPhoto';
 import NotificationManager from '../components/NotificationManager';
 import ScrollContainerContext from '../components/ScrollContainerContext';
@@ -17,10 +17,14 @@ import Skeleton from '../components/Skeleton';
 import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 import { thumbnail } from '../utils/image';
+import GradientIcon from '../components/GradientIcon';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
     me {
+      user {
+        id
+      }
       playlists(offset: $offset, limit: $limit)
         @connection(key: "rootPlaylists") {
         pageInfo {
@@ -74,19 +78,45 @@ const Playlists = () => {
     variables: { limit: 50 },
   });
 
+  const { me: currentUser } = data;
+
+  if (!currentUser) {
+    throw new Error('Must be logged in');
+  }
+
   return (
     <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col">
       <h2 className="text-muted flex gap-2 items-center mb-2">
         <Library /> Your Library
       </h2>
       <div className="overflow-y-auto flex-1" ref={setScrollContainerRef}>
+        <PlaylistSidebarLink
+          playlist={{
+            __typename: 'Playlist',
+            id: 'collection:tracks',
+            name: 'Liked Songs',
+            uri: `spotify:user:${currentUser.user.id}:collection`,
+            owner: {
+              __typename: 'User',
+              id: 'spotify',
+              displayName: 'Spotify',
+            },
+          }}
+          coverPhoto={
+            <GradientIcon
+              backgroundColor="linear-gradient(135deg,#450af5,#c4efd9)"
+              lucideIcon={Heart}
+              iconSize="1rem"
+            />
+          }
+          to="/collection/tracks"
+        />
         {data.me?.playlists?.edges.map(({ node: playlist }) => (
           <PlaylistSidebarLink
             key={playlist.id}
             playlist={playlist}
-            coverPhoto={
-              <CoverPhoto image={thumbnail(playlist.images)} size="3rem" />
-            }
+            coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
+            to={`/playlists/${playlist.id}`}
           />
         ))}
         <OffsetBasedPaginationObserver

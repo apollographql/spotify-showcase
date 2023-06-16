@@ -2702,7 +2702,7 @@ export type RootQueryVariables = Exact<{
 }>;
 
 
-export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, uri: string, name: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null } } }> } | null } | null };
+export type RootQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string }, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, uri: string, name: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null } } }> } | null } | null };
 
 export type SettingsQueryVariables = Exact<{ [key: string]: never; }>;
 

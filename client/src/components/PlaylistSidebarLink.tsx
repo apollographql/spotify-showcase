@@ -15,6 +15,7 @@ import usePlaybackState from '../hooks/usePlaybackState';
 interface PlaylistSidebarLinkProps {
   playlist: Playlist;
   coverPhoto: ReactElement<{ size: string }>;
+  to: string;
 }
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
@@ -29,6 +30,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
 const PlaylistSidebarLink = ({
   coverPhoto,
   playlist,
+  to,
 }: PlaylistSidebarLinkProps) => {
   const playbackState = usePlaybackState({
     fragment: PLAYBACK_STATE_FRAGMENT,
@@ -36,7 +38,6 @@ const PlaylistSidebarLink = ({
 
   return (
     <ContextMenu
-      key={playlist.id}
       content={
         <>
           <ContextMenu.SubMenu
@@ -51,6 +52,7 @@ const PlaylistSidebarLink = ({
     >
       <li>
         <NavLink
+          to={to}
           className={({ isActive }) =>
             cx(
               'leading-none transition-colors block py-2 pl-2 pr-4 -mx-1 transition-color duration-200 ease-out hover:no-underline justify-between hover:bg-surface rounded-md',
@@ -59,7 +61,6 @@ const PlaylistSidebarLink = ({
               }
             )
           }
-          to={`/playlists/${playlist.id}`}
         >
           <div className="flex gap-3 items-center">
             {cloneElement(coverPhoto, { size: '3rem' })}
