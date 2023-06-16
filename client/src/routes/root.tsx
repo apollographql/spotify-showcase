@@ -134,8 +134,10 @@ const Playlists = () => {
             >
               <div className="flex gap-3 items-center">
                 <CoverPhoto image={thumbnail(playlist.images)} size="3rem" />
-                <div className="flex flex-col justify-around flex-1 self-stretch">
-                  <span>{playlist.name}</span>
+                <div className="flex flex-col justify-around flex-1 self-stretch text-ellipsis whitespace-nowrap overflow-hidden">
+                  <div className="text-ellipsis whitespace-nowrap overflow-hidden">
+                    {playlist.name}
+                  </div>
                   <DelimitedList delimiter=" · " className="text-muted text-sm">
                     <span>Playlist</span>
                     <span>{playlist.owner.displayName}</span>
