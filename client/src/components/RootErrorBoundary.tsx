@@ -44,7 +44,7 @@ const RootErrorBoundary = () => {
   useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
   return (
-    <Layout>
+    <Layout cols="grid-cols-[0_1fr]">
       <Layout.Main>
         <div className="flex h-full flex-col items-center justify-center">
           <ErrorBody error={error} />

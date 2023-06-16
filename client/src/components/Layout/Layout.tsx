@@ -9,6 +9,7 @@ import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 
 interface LayoutProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'className'> {
+  cols?: string;
   children: ReactNode;
 }
 
@@ -16,7 +17,7 @@ interface BackdropStyle extends CSSProperties {
   '--backdrop-color': string;
 }
 
-const Layout = ({ children, ...props }: LayoutProps) => {
+const Layout = ({ children, cols, ...props }: LayoutProps) => {
   const isLoggedIn = useIsLoggedIn();
   const [backgroundColor] = useBackgroundColor();
 
@@ -24,7 +25,8 @@ const Layout = ({ children, ...props }: LayoutProps) => {
     <div
       {...props}
       className={cx(
-        'grid grid-cols-[375px_1fr] h-full',
+        'grid h-full',
+        cols ? cols : 'grid-cols-[375px_1fr]',
         isLoggedIn
           ? '[grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
           : '[grid-template-areas:"sidebar_main-view"]'
