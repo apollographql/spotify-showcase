@@ -89,7 +89,7 @@ const Playlists = () => {
       <h2 className="text-muted flex gap-2 items-center mb-2">
         <Library /> Your Library
       </h2>
-      <div className="overflow-y-auto flex-1" ref={setScrollContainerRef}>
+      <div className="overflow-y-auto flex-1 -mx-1" ref={setScrollContainerRef}>
         <PlaylistSidebarLink
           playlist={{
             __typename: 'Playlist',
