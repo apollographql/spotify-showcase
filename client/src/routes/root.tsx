@@ -1,30 +1,22 @@
 import { Fragment, ReactNode, useRef, useState } from 'react';
 import { gql, TypedDocumentNode, useSuspenseQuery } from '@apollo/client';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
-import {
-  RootQuery,
-  RootQueryVariables,
-  Root_playbackState as PlaybackState,
-} from '../types/api';
-import cx from 'classnames';
+import { Outlet, useParams } from 'react-router-dom';
+import { RootQuery, RootQueryVariables } from '../types/api';
 import Layout from '../components/Layout';
 import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
-import usePlaybackState from '../hooks/usePlaybackState';
-import { Library, Volume2 } from 'lucide-react';
+import { Library } from 'lucide-react';
 import CoverPhoto from '../components/CoverPhoto';
 import NotificationManager from '../components/NotificationManager';
-import ContextMenu from '../components/ContextMenu';
-import ContextMenuAction from '../components/ContextMenuAction';
 import ScrollContainerContext from '../components/ScrollContainerContext';
 import OffsetBasedPaginationObserver from '../components/OffsetBasedPaginationObserver';
+import PlaylistSidebarLink from '../components/PlaylistSidebarLink';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
 import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 import { thumbnail } from '../utils/image';
-import DelimitedList from '../components/DelimitedList';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -39,29 +31,17 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
         edges {
           node {
             id
-            name
-            uri
             images {
               url
             }
-            owner {
-              id
-              displayName
-            }
+            ...PlaylistSidebarLink_playlist
           }
         }
       }
     }
   }
-`;
 
-const PLAYBACK_STATE_FRAGMENT = gql`
-  fragment Root_playbackState on PlaybackState {
-    isPlaying
-    context {
-      uri
-    }
-  }
+  ${PlaylistSidebarLink.fragments.playlist}
 `;
 
 export const RouteComponent = () => {
@@ -94,10 +74,6 @@ const Playlists = () => {
     variables: { limit: 50 },
   });
 
-  const playbackState = usePlaybackState<PlaybackState>({
-    fragment: PLAYBACK_STATE_FRAGMENT,
-  });
-
   return (
     <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col">
       <h2 className="text-muted flex gap-2 items-center mb-2">
@@ -105,60 +81,13 @@ const Playlists = () => {
       </h2>
       <div className="overflow-y-auto flex-1" ref={setScrollContainerRef}>
         {data.me?.playlists?.edges.map(({ node: playlist }) => (
-          <ContextMenu
+          <PlaylistSidebarLink
             key={playlist.id}
-            content={
-              <>
-                <ContextMenu.SubMenu
-                  content={
-                    <ContextMenuAction.CopyLinkToEntity entity={playlist} />
-                  }
-                >
-                  Share
-                </ContextMenu.SubMenu>
-                <ContextMenu.Separator />
-                <ContextMenuAction.OpenDesktopApp uri={playlist.uri} />
-              </>
+            playlist={playlist}
+            coverPhoto={
+              <CoverPhoto image={thumbnail(playlist.images)} size="3rem" />
             }
-          >
-            <li>
-              <NavLink
-                className={({ isActive }) =>
-                  cx(
-                    'leading-none transition-colors block py-2 pl-2 pr-4 -mx-1 transition-color duration-200 ease-out hover:no-underline justify-between hover:bg-surface rounded-md',
-                    {
-                      'text-primary bg-surface hover:bg-surface-active':
-                        isActive,
-                    }
-                  )
-                }
-                to={`/playlists/${playlist.id}`}
-              >
-                <div className="flex gap-3 items-center">
-                  <CoverPhoto image={thumbnail(playlist.images)} size="3rem" />
-                  <div className="flex flex-col justify-around flex-1 self-stretch text-ellipsis whitespace-nowrap overflow-hidden">
-                    <div className="text-ellipsis whitespace-nowrap overflow-hidden">
-                      {playlist.name}
-                    </div>
-                    <DelimitedList
-                      delimiter=" · "
-                      className="text-muted text-sm"
-                    >
-                      <span>Playlist</span>
-                      <span>{playlist.owner.displayName}</span>
-                    </DelimitedList>
-                  </div>
-                  {playlist.uri === playbackState?.context?.uri &&
-                    playbackState?.isPlaying && (
-                      <Volume2
-                        color="var(--color--theme--light)"
-                        size="0.875rem"
-                      />
-                    )}
-                </div>
-              </NavLink>
-            </li>
-          </ContextMenu>
+          />
         ))}
         <OffsetBasedPaginationObserver
           pageInfo={data.me?.playlists?.pageInfo}
