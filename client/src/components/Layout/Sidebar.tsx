@@ -1,6 +1,6 @@
 import { forwardRef, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Library, Home, Search } from 'lucide-react';
+import { Home, Search } from 'lucide-react';
 import cx from 'classnames';
 import Flex from '../Flex';
 import ApolloLogo from '../ApolloLogo';
@@ -25,9 +25,6 @@ const Sidebar = ({ children }: SidebarProps) => {
           </NavLink>
           <NavLink icon={<Search />} to="/search">
             Search
-          </NavLink>
-          <NavLink icon={<Library />} to="/collection">
-            Your Library
           </NavLink>
         </Section>
         {children}
