@@ -24,7 +24,7 @@ const Layout = ({ children, ...props }: LayoutProps) => {
     <div
       {...props}
       className={cx(
-        'grid grid-cols-[auto_1fr] h-full',
+        'grid grid-cols-[375px_1fr] h-full',
         isLoggedIn
           ? '[grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
           : '[grid-template-areas:"sidebar_main-view"]'
