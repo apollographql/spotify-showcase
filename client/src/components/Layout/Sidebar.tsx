@@ -2,7 +2,6 @@ import { forwardRef, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Home, Search } from 'lucide-react';
 import cx from 'classnames';
-import Flex from '../Flex';
 import ApolloLogo from '../ApolloLogo';
 import NavLink from './NavLink';
 
@@ -14,11 +13,9 @@ const Sidebar = ({ children }: SidebarProps) => {
   return (
     <aside className="[grid-area:sidebar] bg-black-pure text-primary overflow-auto pt-4 px-2 pb-0">
       <nav className="h-full flex flex-col">
-        <div className="pb-6">
-          <Flex as={Link} to="/" inline alignItems="end" direction="column">
-            <ApolloLogo size="225px" />
-          </Flex>
-        </div>
+        <Link to="/" className="flex justify-center py-2">
+          <ApolloLogo size="225px" className="relative -left-3" />
+        </Link>
         <Section>
           <NavLink icon={<Home />} to="/">
             Home
