@@ -2365,10 +2365,6 @@ export type EpisodePlaybackDetails_episode = { __typename: 'Episode', id: string
 
 export type EpisodeRemainingDuration_episode = { __typename: 'Episode', id: string, durationMs: number, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } };
 
-export type Sidebar_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
-
-export type Sidebar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
-
 export type LikeControlQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
@@ -2408,6 +2404,10 @@ export type PlaybarQueryVariables = Exact<{ [key: string]: never; }>;
 export type PlaybarQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string, name: string, type: string }> | null } } | null };
 
 export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
+
+export type PlaylistSidebarLink_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+
+export type PlaylistSidebarLink_playlist = { __typename: 'Playlist', id: string, uri: string, name: string, owner: { __typename: 'User', id: string, displayName: string | null } };
 
 export type PlaylistTable_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
 
@@ -2698,9 +2698,7 @@ export type RootQueryVariables = Exact<{
 }>;
 
 
-export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, uri: string } }> } | null } | null };
-
-export type Root_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
+export type RootQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string }, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, uri: string, name: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null } } }> } | null } | null };
 
 export type SettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
