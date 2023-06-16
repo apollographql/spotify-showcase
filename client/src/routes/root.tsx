@@ -6,7 +6,7 @@ import Layout from '../components/Layout';
 import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
-import { Heart, Library } from 'lucide-react';
+import { Bookmark, Heart, Library } from 'lucide-react';
 import CoverPhoto from '../components/CoverPhoto';
 import NotificationManager from '../components/NotificationManager';
 import ScrollContainerContext from '../components/ScrollContainerContext';
@@ -110,6 +110,28 @@ const Playlists = () => {
             />
           }
           to="/collection/tracks"
+        />
+        <PlaylistSidebarLink
+          playlist={{
+            __typename: 'Playlist',
+            id: 'collection:episodes',
+            name: 'Your Episodes',
+            uri: `spotify:collection:your-episodes`,
+            owner: {
+              __typename: 'User',
+              id: 'spotify',
+              displayName: 'Spotify',
+            },
+          }}
+          coverPhoto={
+            <GradientIcon
+              fill="var(--color--theme)"
+              backgroundColor="#056952"
+              lucideIcon={Bookmark}
+              iconSize="1rem"
+            />
+          }
+          to="/collection/episodes"
         />
         {data.me?.playlists?.edges.map(({ node: playlist }) => (
           <PlaylistSidebarLink
