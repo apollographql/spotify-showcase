@@ -56,7 +56,7 @@ const Sidebar = ({ children }: SidebarProps) => {
     `spotify:user:${currentUser.user.id}:collection:your-episodes`;
 
   return (
-    <aside className="[grid-area:sidebar] bg-black-base bg-opacity-90 text-primary overflow-auto pt-4 px-6 pb-0">
+    <aside className="[grid-area:sidebar] bg-black-pure text-primary overflow-auto pt-4 px-2 pb-0">
       <nav className="h-full flex flex-col">
         <div className="pb-6">
           <Flex as={Link} to="/" inline alignItems="end" direction="column">
@@ -127,7 +127,13 @@ interface SectionProps {
 
 const Section = forwardRef<HTMLUListElement, SectionProps>(
   ({ className, children }, ref) => (
-    <ul ref={ref} className={cx('list-none p-0', className)}>
+    <ul
+      ref={ref}
+      className={cx(
+        'list-none px-3 py-3 rounded bg-surface-low-contrast',
+        className
+      )}
+    >
       {children}
     </ul>
   )

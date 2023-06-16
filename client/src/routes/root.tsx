@@ -12,7 +12,7 @@ import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import usePlaybackState from '../hooks/usePlaybackState';
-import { Volume2 } from 'lucide-react';
+import { Library, Volume2 } from 'lucide-react';
 import CoverPhoto from '../components/CoverPhoto';
 import NotificationManager from '../components/NotificationManager';
 import ContextMenu from '../components/ContextMenu';
@@ -103,6 +103,9 @@ const Playlists = () => {
       ref={setScrollContainerRef}
       className="flex-1 overflow-y-auto"
     >
+      <h2 className="text-muted flex gap-2 items-center mb-2">
+        <Library /> Your Library
+      </h2>
       {data.me?.playlists?.edges.map(({ node: playlist }) => (
         <ContextMenu
           key={playlist.id}
@@ -124,7 +127,7 @@ const Playlists = () => {
             <NavLink
               className={({ isActive }) =>
                 cx(
-                  'leading-none transition-colors block py-2 pl-2 pr-4 transition-color duration-200 ease-out hover:no-underline justify-between hover:bg-surface rounded-md',
+                  'leading-none transition-colors block py-2 pl-2 pr-4 -mx-1 transition-color duration-200 ease-out hover:no-underline justify-between hover:bg-surface rounded-md',
                   {
                     'text-primary bg-surface hover:bg-surface-active': isActive,
                   }
