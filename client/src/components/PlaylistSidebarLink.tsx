@@ -77,11 +77,12 @@ const PlaylistSidebarLink = ({
               >
                 {playlist.name}
               </div>
-              <div className="flex gap-1 items-center">
+              <div className="flex gap-2 items-center">
                 {pinned && (
                   <Pin
                     fill="currentColor"
                     size="1rem"
+                    strokeWidth={1}
                     className="text-theme-light rotate-45"
                   />
                 )}
