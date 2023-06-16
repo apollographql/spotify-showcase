@@ -143,20 +143,22 @@ const AuthenticatedWrapper = ({ children }: AuthenticatedWrapperProps) => {
 };
 
 export const LoadingState = () => {
-  const skeletons = range(0, randomBetween(10, 15));
+  const skeletons = range(0, randomBetween(30, 40));
 
   return (
     <Layout>
       <Layout.Sidebar>
-        <Layout.Sidebar.Section>
+        <Layout.Sidebar.Section className="flex flex-col flex-1">
           <h2 className="text-muted flex gap-2 items-center mb-2">
             <Library /> Your Library
           </h2>
-          {skeletons.map((num) => (
-            <li key={num} className="px-0 py-2">
-              <Skeleton.Text key={num} width={`${randomBetween(40, 60)}%`} />
-            </li>
-          ))}
+          <div className="flex-1">
+            {skeletons.map((num) => (
+              <li key={num} className="px-0 py-2">
+                <Skeleton.Text key={num} width={`${randomBetween(40, 60)}%`} />
+              </li>
+            ))}
+          </div>
         </Layout.Sidebar.Section>
       </Layout.Sidebar>
       <Layout.Main>
