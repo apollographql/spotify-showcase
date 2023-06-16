@@ -91,6 +91,7 @@ const Playlists = () => {
       </h2>
       <div className="overflow-y-auto flex-1 -mx-1" ref={setScrollContainerRef}>
         <PlaylistSidebarLink
+          pinned
           playlist={{
             __typename: 'Playlist',
             id: 'collection:tracks',
@@ -112,6 +113,7 @@ const Playlists = () => {
           to="/collection/tracks"
         />
         <PlaylistSidebarLink
+          pinned
           playlist={{
             __typename: 'Playlist',
             id: 'collection:episodes',
@@ -135,6 +137,7 @@ const Playlists = () => {
         />
         {data.me?.playlists?.edges.map(({ node: playlist }) => (
           <PlaylistSidebarLink
+            pinned={false}
             key={playlist.id}
             playlist={playlist}
             coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}

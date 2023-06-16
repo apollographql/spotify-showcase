@@ -1,6 +1,6 @@
 import { ReactElement, cloneElement } from 'react';
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { Volume2 } from 'lucide-react';
+import { Volume2, Pin } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import ContextMenu from './ContextMenu';
 import {
@@ -16,6 +16,7 @@ interface PlaylistSidebarLinkProps {
   playlist: Playlist;
   coverPhoto: ReactElement<{ size: string }>;
   to: string;
+  pinned: boolean;
 }
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
@@ -30,6 +31,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
 const PlaylistSidebarLink = ({
   coverPhoto,
   playlist,
+  pinned,
   to,
 }: PlaylistSidebarLinkProps) => {
   const playbackState = usePlaybackState({
@@ -68,10 +70,19 @@ const PlaylistSidebarLink = ({
               <div className="text-ellipsis whitespace-nowrap overflow-hidden">
                 {playlist.name}
               </div>
-              <DelimitedList delimiter=" · " className="text-muted text-sm">
-                <span>Playlist</span>
-                <span>{playlist.owner.displayName}</span>
-              </DelimitedList>
+              <div className="flex gap-1 items-center">
+                {pinned && (
+                  <Pin
+                    fill="currentColor"
+                    size="1rem"
+                    className="text-theme-light rotate-45"
+                  />
+                )}
+                <DelimitedList delimiter=" · " className="text-muted text-sm">
+                  <span>Playlist</span>
+                  <span>{playlist.owner.displayName}</span>
+                </DelimitedList>
+              </div>
             </div>
             {playlist.uri === playbackState?.context?.uri &&
               playbackState?.isPlaying && (
