@@ -2365,10 +2365,6 @@ export type EpisodePlaybackDetails_episode = { __typename: 'Episode', id: string
 
 export type EpisodeRemainingDuration_episode = { __typename: 'Episode', id: string, durationMs: number, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } };
 
-export type Sidebar_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
-
-export type Sidebar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
-
 export type LikeControlQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
