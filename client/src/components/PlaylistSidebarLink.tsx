@@ -38,6 +38,8 @@ const PlaylistSidebarLink = ({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
+  const isCurrentContext = playlist.uri === playbackState?.context?.uri;
+
   return (
     <ContextMenu
       content={
@@ -67,7 +69,12 @@ const PlaylistSidebarLink = ({
           <div className="flex gap-3 items-center">
             {cloneElement(coverPhoto, { size: '3rem' })}
             <div className="flex flex-col justify-around flex-1 self-stretch text-ellipsis whitespace-nowrap overflow-hidden">
-              <div className="text-ellipsis whitespace-nowrap overflow-hidden">
+              <div
+                className={cx(
+                  'text-ellipsis whitespace-nowrap overflow-hidden',
+                  { 'text-theme-light': isCurrentContext }
+                )}
+              >
                 {playlist.name}
               </div>
               <div className="flex gap-1 items-center">
@@ -84,10 +91,9 @@ const PlaylistSidebarLink = ({
                 </DelimitedList>
               </div>
             </div>
-            {playlist.uri === playbackState?.context?.uri &&
-              playbackState?.isPlaying && (
-                <Volume2 color="var(--color--theme--light)" size="0.875rem" />
-              )}
+            {isCurrentContext && playbackState?.isPlaying && (
+              <Volume2 color="var(--color--theme--light)" size="0.875rem" />
+            )}
           </div>
         </NavLink>
       </li>
