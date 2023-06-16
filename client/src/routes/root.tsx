@@ -149,6 +149,9 @@ export const LoadingState = () => {
     <Layout>
       <Layout.Sidebar>
         <Layout.Sidebar.Section>
+          <h2 className="text-muted flex gap-2 items-center mb-2">
+            <Library /> Your Library
+          </h2>
           {skeletons.map((num) => (
             <li key={num} className="px-0 py-2">
               <Skeleton.Text key={num} width={`${randomBetween(40, 60)}%`} />
