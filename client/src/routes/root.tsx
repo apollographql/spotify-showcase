@@ -1,17 +1,19 @@
 import { Fragment, ReactNode, useRef, useState } from 'react';
 import { gql, TypedDocumentNode, useSuspenseQuery } from '@apollo/client';
-import { Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 import {
   RootQuery,
   RootQueryVariables,
   Root_playbackState as PlaybackState,
 } from '../types/api';
+import cx from 'classnames';
 import Layout from '../components/Layout';
 import Playbar from '../components/Playbar';
 import PlaybackStateSubscriber from '../components/PlaybackStateSubscriber';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Volume2 } from 'lucide-react';
+import CoverPhoto from '../components/CoverPhoto';
 import NotificationManager from '../components/NotificationManager';
 import ContextMenu from '../components/ContextMenu';
 import ContextMenuAction from '../components/ContextMenuAction';
@@ -21,6 +23,8 @@ import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
 import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
+import { thumbnail } from '../utils/image';
+import DelimitedList from '../components/DelimitedList';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -37,6 +41,13 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
             id
             name
             uri
+            images {
+              url
+            }
+            owner {
+              id
+              displayName
+            }
           }
         }
       }
@@ -46,6 +57,7 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
 
 const PLAYBACK_STATE_FRAGMENT = gql`
   fragment Root_playbackState on PlaybackState {
+    isPlaying
     context {
       uri
     }
@@ -108,15 +120,37 @@ const Playlists = () => {
             </>
           }
         >
-          <Layout.Sidebar.NavLink
-            className="justify-between"
-            to={`/playlists/${playlist.id}`}
-          >
-            {playlist.name}
-            {playlist.uri === playbackState?.context?.uri && (
-              <Volume2 color="var(--color--theme--light)" size="0.875rem" />
-            )}
-          </Layout.Sidebar.NavLink>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                cx(
+                  'leading-none transition-colors block py-2 pl-2 pr-4 transition-color duration-200 ease-out hover:no-underline justify-between hover:bg-surface rounded-md',
+                  {
+                    'text-primary bg-surface hover:bg-surface-active': isActive,
+                  }
+                )
+              }
+              to={`/playlists/${playlist.id}`}
+            >
+              <div className="flex gap-3 items-center">
+                <CoverPhoto image={thumbnail(playlist.images)} size="3rem" />
+                <div className="flex flex-col justify-around flex-1 self-stretch">
+                  <span>{playlist.name}</span>
+                  <DelimitedList delimiter=" · " className="text-muted text-sm">
+                    <span>Playlist</span>
+                    <span>{playlist.owner.displayName}</span>
+                  </DelimitedList>
+                </div>
+                {playlist.uri === playbackState?.context?.uri &&
+                  playbackState?.isPlaying && (
+                    <Volume2
+                      color="var(--color--theme--light)"
+                      size="0.875rem"
+                    />
+                  )}
+              </div>
+            </NavLink>
+          </li>
         </ContextMenu>
       ))}
       <OffsetBasedPaginationObserver

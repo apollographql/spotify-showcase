@@ -2698,9 +2698,9 @@ export type RootQueryVariables = Exact<{
 }>;
 
 
-export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, uri: string } }> } | null } | null };
+export type RootQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, uri: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null } } }> } | null } | null };
 
-export type Root_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null };
+export type Root_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 
 export type SettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
