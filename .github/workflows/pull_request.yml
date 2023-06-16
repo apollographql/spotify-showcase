@@ -1,0 +1,51 @@
+name: 'Pull Request'
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    name: ESLint
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Run ESLint
+        run: npm run lint
+
+  typescript-client:
+    runs-on: ubuntu-latest
+    name: Check TypeScript (client)
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Check client
+        run: npm run tsc:client
+
+  typescript-server:
+    runs-on: ubuntu-latest
+    name: Check TypeScript (server)
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+      - name: Check server
+        run: npm run tsc:server
