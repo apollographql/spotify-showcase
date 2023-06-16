@@ -116,7 +116,7 @@ const Playlists = () => {
             __typename: 'Playlist',
             id: 'collection:episodes',
             name: 'Your Episodes',
-            uri: `spotify:collection:your-episodes`,
+            uri: `spotify:user:${currentUser.user.id}:collection:your-episodes`,
             owner: {
               __typename: 'User',
               id: 'spotify',
