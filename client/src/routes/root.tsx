@@ -86,7 +86,7 @@ const Playlists = () => {
 
   return (
     <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col">
-      <h2 className="text-muted flex gap-2 items-center mb-4 text-base">
+      <h2 className="text-muted flex gap-2 items-center mb-4 py-1 text-base">
         <Library /> Your Library
       </h2>
       <div className="overflow-y-auto flex-1 -mx-1" ref={setScrollContainerRef}>
@@ -174,7 +174,7 @@ export const LoadingState = () => {
     <Layout>
       <Layout.Sidebar>
         <Layout.Sidebar.Section className="flex flex-col flex-1">
-          <h2 className="text-muted flex gap-2 items-center mb-4 text-base">
+          <h2 className="text-muted flex gap-2 items-center mb-4 py-1 text-base">
             <Library /> Your Library
           </h2>
           <div className="flex-1">

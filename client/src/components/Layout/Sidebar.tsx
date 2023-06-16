@@ -43,7 +43,7 @@ const Section = forwardRef<HTMLUListElement, SectionProps>(
     <ul
       ref={ref}
       className={cx(
-        'list-none px-3 py-3 rounded bg-surface-low-contrast mt-2 first:mt-0',
+        'list-none px-4 py-2 rounded bg-surface-low-contrast mt-2 first:mt-0',
         className
       )}
     >
