@@ -111,9 +111,6 @@ const Sidebar = ({ children }: SidebarProps) => {
               )}
           </NavLink>
         </Section>
-        {children && (
-          <hr className="h-px w-full bg-surface border-none my-4 mx-0" />
-        )}
         {children}
       </nav>
     </aside>
@@ -130,7 +127,7 @@ const Section = forwardRef<HTMLUListElement, SectionProps>(
     <ul
       ref={ref}
       className={cx(
-        'list-none px-3 py-3 rounded bg-surface-low-contrast',
+        'list-none px-3 py-3 rounded bg-surface-low-contrast mt-2 first:mt-0',
         className
       )}
     >
