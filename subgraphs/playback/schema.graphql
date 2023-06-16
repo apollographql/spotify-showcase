@@ -9,10 +9,6 @@ directive @contact(
   description: String
 ) on SCHEMA
 
-type Query {
-  playbackItem(id: ID!): PlaybackItem
-}
-
 extend schema
   @contact(
     name: "Spotify Playback Subscription Server"
@@ -430,31 +426,11 @@ interface PlaylistTrack {
   uri: String!
 }
 type PlaybackItem @key(fields:"id") @interfaceObject {
-  # "The duration for the playback item in milliseconds."
-  # durationMs: Int!
-
-  # "Known external URLs for this playback item."
-  # externalUrls: ExternalUrl!
-
-  # "A link to the Web API endpoint providing full details of the playlist item."
-  # href: String!
-
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the playback item.
   """
   id: ID!
-
-  # """
-  # The name of the playlist item.
-  # """
-  # name: String!
-
-  # """
-  # The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-  # for the episode.
-  # """
-  # uri: String!
 }
 enum RepeatMode {
   CONTEXT
@@ -468,60 +444,3 @@ type ExternalUrl @shareable {
   """
   spotify: String
 }
-
-# type Episode implements PlaylistTrack & PlaybackItem @key(fields: "id") { 
-#   """
-#   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
-#   """
-#   id: ID!
-
-#   "The episode length in milliseconds."
-#   durationMs: Int! @shareable
-
-#   """
-#   External URLs for this episode.
-#   """
-#   externalUrls: ExternalUrl! @shareable
-
-#   "A link to the Web API endpoint providing full details of the episode."
-#   href: String! @shareable
-
-#   """
-#   The name of the episode.
-#   """
-#   name: String! @shareable
-
-#   """
-#   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-#   for the episode.
-#   """
-#   uri: String! @shareable
-# }
-# type Track implements PlaylistTrack & PlaybackItem @key(fields: "id") { 
-#   """
-#   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
-#   """
-#   id: ID!
-
-#   "The track length in milliseconds"
-#   durationMs: Int! @shareable
-
-#   "Known external URLs for this track."
-#   externalUrls: ExternalUrl! @shareable
-
-#   """
-#   A link to the Web API endpoint providing full details of the track.
-#   """
-#   href: String! @shareable
-
-#   """
-#   The name of the track
-#   """
-#   name: String! @shareable
-
-#   """
-#   The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-#   for the track.
-#   """
-#   uri: String! @shareable
-# }

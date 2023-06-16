@@ -12,9 +12,10 @@ export const PlaybackItem: PlaybackItemResolvers = {
   async __resolveReference(playbackItem, { dataSources }) {
     //This is scritcly for a demo, not a good practice
     const id = playbackItem.id;
-    const playbackState = await dataSources.spotify.getTrack(id);
-    if (playbackState.data) return playbackState.data;
-
-    return await dataSources.spotify.getEpisode(id);
+    try {
+      return await dataSources.spotify.getTrack(id);
+    } catch (err) {
+      return await dataSources.spotify.getEpisode(id);
+    }
   },
 };

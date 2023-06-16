@@ -23,6 +23,10 @@ npm start
 4. Visit `http://localhost:3000` and follow the instructions on the home page to
    ensure the app can talk to Spotify.
 
+### Start Apollo Router Locally
+
+`rover dev --supergraph-config=.apollo/spotify.yaml --router-config=.apollo/router-config.yaml`
+
 ## Feedback survey
 
 If you used the React + Apollo Spotify Showcase and have two minutes then we'd

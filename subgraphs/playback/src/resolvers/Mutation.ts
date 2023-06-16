@@ -13,7 +13,7 @@ const refreshPlaybackState = async (
 
   publisher.playbackStateChanged({ playbackState });
 
-  return null;
+  return playbackState;
 };
 
 export const Mutation: MutationResolvers = {

@@ -241,16 +241,6 @@ export type PlaylistTrack = {
   uri: Scalars['String'];
 };
 
-export type Query = {
-  __typename?: 'Query';
-  playbackItem?: Maybe<PlaybackItem>;
-};
-
-
-export type QueryPlaybackItemArgs = {
-  id: Scalars['ID'];
-};
-
 export type RepeatMode =
   | 'context'
   | 'off'
@@ -487,7 +477,6 @@ export type ResolversTypes = ResolversObject<{
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
   PlaylistTrack: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.Episode>;
-  Query: ResolverTypeWrapper<{}>;
   RepeatMode: RepeatMode;
   ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
@@ -526,7 +515,6 @@ export type ResolversParentTypes = ResolversObject<{
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
   PlaybackState: Spotify.Object.PlaybackState;
   PlaylistTrack: Spotify.Object.Track | Spotify.Object.Episode;
-  Query: {};
   ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
   ResumePlaybackPayload: Omit<ResumePlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
@@ -635,10 +623,6 @@ export type PlaylistTrackResolvers<ContextType = ContextValue, ParentType extend
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
-export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  playbackItem?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType, RequireFields<QueryPlaybackItemArgs, 'id'>>;
-}>;
-
 export type RepeatModeResolvers = { CONTEXT: 'context', OFF: 'off', TRACK: 'track' };
 
 export type ResumePlaybackPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePlaybackPayload'] = ResolversParentTypes['ResumePlaybackPayload']> = ResolversObject<{
@@ -701,7 +685,6 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   PlaybackItem?: PlaybackItemResolvers<ContextType>;
   PlaybackState?: PlaybackStateResolvers<ContextType>;
   PlaylistTrack?: PlaylistTrackResolvers<ContextType>;
-  Query?: QueryResolvers<ContextType>;
   RepeatMode?: RepeatModeResolvers;
   ResumePlaybackPayload?: ResumePlaybackPayloadResolvers<ContextType>;
   SeekToPositionResponse?: SeekToPositionResponseResolvers<ContextType>;

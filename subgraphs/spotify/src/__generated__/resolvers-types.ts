@@ -948,7 +948,7 @@ export type PlaylistTrackEdge = {
 export type Query = {
   __typename?: 'Query';
   /** Spotify catalog information for an album. */
-  album?: Maybe<Album>;
+  Album?: Maybe<Album>;
   /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
   albums?: Maybe<Array<Album>>;
   /** Spotify catalog information for an artist. */
@@ -2652,7 +2652,7 @@ export type PlaylistTrackEdgeResolvers<ContextType = ContextValue, ParentType ex
 }>;
 
 export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  album?: Resolver<Maybe<ResolversTypes['Album']>, ParentType, ContextType, RequireFields<QueryAlbumArgs, 'id'>>;
+  Album?: Resolver<Maybe<ResolversTypes['Album']>, ParentType, ContextType, RequireFields<QueryAlbumArgs, 'id'>>;
   albums?: Resolver<Maybe<Array<ResolversTypes['Album']>>, ParentType, ContextType, RequireFields<QueryAlbumsArgs, 'ids'>>;
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
   artists?: Resolver<Maybe<Array<ResolversTypes['Artist']>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, 'ids'>>;

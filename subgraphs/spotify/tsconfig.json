@@ -13,8 +13,6 @@
     "declarationMap": true,
     "removeComments": true, 
     "skipLibCheck": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext", "esnext.asynciterable", "DOM"],
