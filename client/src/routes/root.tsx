@@ -1,5 +1,5 @@
 import { Fragment, ReactNode, useRef, useState } from 'react';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { gql, TypedDocumentNode, useSuspenseQuery } from '@apollo/client';
 import { Outlet, useParams } from 'react-router-dom';
 import {
   RootQuery,
@@ -22,7 +22,7 @@ import Skeleton from '../components/Skeleton';
 import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 
-const ROOT_QUERY = gql`
+const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
     me {
       playlists(offset: $offset, limit: $limit)
@@ -78,10 +78,9 @@ export const RouteComponent = () => {
 const Playlists = () => {
   const [scrollContainer, setScrollContainerRef] =
     useState<HTMLUListElement | null>(null);
-  const { data, fetchMore } = useSuspenseQuery<RootQuery, RootQueryVariables>(
-    ROOT_QUERY,
-    { variables: { limit: 50 } }
-  );
+  const { data, fetchMore } = useSuspenseQuery(ROOT_QUERY, {
+    variables: { limit: 50 },
+  });
 
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
