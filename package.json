@@ -5,7 +5,9 @@
     "generate": "graphql-codegen",
     "start": "nodemon --watch './**/*.ts' --exec 'ts-node' server.ts",
     "lint": "concurrently \"npm:lint:*\"",
-    "lint:client": "eslint client/src"
+    "lint:client": "eslint client/src",
+    "tsc:client": "tsc --noEmit -p ./client/tsconfig.json",
+    "tsc:server": "tsc --noEmit -p ./tsconfig.json"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^4.0.0",
