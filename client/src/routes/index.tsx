@@ -1,12 +1,17 @@
 import { ComponentPropsWithoutRef, ReactNode, Suspense } from 'react';
-import { gql, useBackgroundQuery, useReadQuery } from '@apollo/client';
+import {
+  gql,
+  useBackgroundQuery,
+  useReadQuery,
+  TypedDocumentNode,
+} from '@apollo/client';
 import { QueryReference } from '@apollo/client/react/cache/QueryReference';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
 import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
-import { IndexRouteQuery } from '../types/api';
+import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { DEFAULT_BACKGROUND_COLOR } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
@@ -19,7 +24,10 @@ export const RouteComponent = () => {
   return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };
 
-const INDEX_ROUTE_QUERY = gql`
+const INDEX_ROUTE_QUERY: TypedDocumentNode<
+  IndexRouteQuery,
+  IndexRouteQueryVariables
+> = gql`
   query IndexRouteQuery($timestamp: DateTime) {
     featuredPlaylists(timestamp: $timestamp) {
       message
