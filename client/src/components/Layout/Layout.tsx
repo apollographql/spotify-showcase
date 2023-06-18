@@ -22,7 +22,7 @@ const Layout = ({ children, type, ...props }: LayoutProps) => {
   return (
     <div
       {...props}
-      className={cx('grid h-screen', {
+      className={cx('grid gap-2 p-2 h-screen', {
         'grid-cols-[375px_1fr]': type === 'player' || type === 'loggedOut',
         'grid-cols-[1fr]': type === 'fullscreen',
         '[grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]':
