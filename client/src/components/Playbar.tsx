@@ -156,7 +156,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           className={cx(
             'before:[--arrow-size:0.625rem]',
             'before:[border-left-width:var(--arrow-size)] before:[border-right-width:var(--arrow-size)] before:[border-bottom-width:var(--arrow-size)] before:border-b-green before:border-l-transparent before:border-r-transparent border-solid',
-            'bg-green relative py-1 px-6 text-sm leading-none',
+            'bg-green relative py-1 px-6 text-sm leading-none rounded',
             'pointer-events-none before:absolute before:top-0 before:right-[10.5rem] before:-translate-y-full'
           )}
           justifyContent="end"
