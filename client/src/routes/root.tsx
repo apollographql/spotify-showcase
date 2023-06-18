@@ -56,7 +56,10 @@ export const RouteComponent = () => {
 
   return (
     <ScrollContainerContext.Provider value={ref}>
-      <Layout onContextMenu={(e) => e.preventDefault()}>
+      <Layout
+        type={isLoggedIn ? 'player' : 'loggedOut'}
+        onContextMenu={(e) => e.preventDefault()}
+      >
         <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
         <Layout.Main ref={ref}>
           <Layout.Header />
@@ -171,7 +174,7 @@ export const LoadingState = () => {
   const skeletons = range(0, randomBetween(30, 40));
 
   return (
-    <Layout>
+    <Layout type="player">
       <Layout.Sidebar>
         <Layout.Sidebar.Section className="flex flex-col flex-1">
           <h2 className="text-muted flex gap-2 items-center mb-4 py-1 text-base">

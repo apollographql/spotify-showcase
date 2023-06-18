@@ -13,7 +13,7 @@ export const loader: LoaderFunction = () => {
 
 export const RouteComponent = () => {
   return (
-    <Layout>
+    <Layout type="fullscreen">
       <Layout.Main>
         <div className="flex h-full flex-col items-center justify-center">
           <ErrorTitle>You were logged out</ErrorTitle>
