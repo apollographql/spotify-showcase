@@ -92,7 +92,13 @@ const GuestLibrary = () => {
           of developing with Apollo. Log in and we&apos;ll show you how
           developing with Apollo is an amazing experience.
         </p>
-        <Button variant="secondary" size="sm" className="mt-6">
+        <Button
+          as="a"
+          href="/login"
+          variant="secondary"
+          size="sm"
+          className="mt-6"
+        >
           Log in
         </Button>
       </div>
