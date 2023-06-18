@@ -72,7 +72,7 @@ const Playbar = ({ className }: PlaybarProps) => {
   const disallowed = (action: Action) => !device || disallows.includes(action);
 
   return (
-    <Flex as="footer" direction="column" className={cx(className)}>
+    <footer className={cx('flex flex-col', className)}>
       <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary bg-surface-low-contrast py-4 px-6 border-t border solid border-surface">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
@@ -164,7 +164,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           <Volume1 size="1.125rem" /> Listening on {device.name}
         </Flex>
       )}
-    </Flex>
+    </footer>
   );
 };
 
