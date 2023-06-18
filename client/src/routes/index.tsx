@@ -43,7 +43,7 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
   ${PlaylistTile.fragments.playlist}
 `;
 
-const containerStyles = 'p-[var(--main-content--padding)]';
+const containerStyles = 'bg-black-base p-[var(--main-content--padding)] flex-1';
 
 const LoggedIn = () => {
   useSetBackgroundColor('#1A101C');
@@ -85,10 +85,7 @@ const LoggedOut = () => {
 
   return (
     <div
-      className={cx(
-        containerStyles,
-        'flex flex-1 flex-col max-w-3xl my-0 mx-auto'
-      )}
+      className={cx(containerStyles, 'flex flex-col max-w-3xl my-0 mx-auto')}
     >
       <Heading level={1}>Welcome to the Apollo Spotify demo</Heading>
       <Paragraph>
