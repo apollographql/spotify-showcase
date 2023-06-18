@@ -16,7 +16,7 @@ const Sidebar = ({ children }: SidebarProps) => {
         <Link to="/" className="flex justify-center py-2">
           <ApolloLogo size="225px" className="relative -left-3" />
         </Link>
-        <Section>
+        <Section className="px-4 py-2">
           <NavLink icon={<Home />} to="/">
             Home
           </NavLink>
@@ -40,7 +40,7 @@ const Section = forwardRef<HTMLUListElement, SectionProps>(
     <ul
       ref={ref}
       className={cx(
-        'list-none px-4 py-2 rounded-md bg-surface-low-contrast mt-2 first:mt-0',
+        'list-none rounded-md bg-surface-low-contrast mt-2 first:mt-0',
         className
       )}
     >

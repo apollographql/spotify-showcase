@@ -89,10 +89,15 @@ const Playlists = () => {
 
   return (
     <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
-      <h2 className="text-muted flex gap-2 items-center mb-4 py-1 text-base">
-        <Library /> Your Library
-      </h2>
-      <div className="overflow-y-auto flex-1 -mx-1" ref={setScrollContainerRef}>
+      <header className="px-4 py-2 mb-4">
+        <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+          <Library /> Your Library
+        </h2>
+      </header>
+      <div
+        className="overflow-y-auto flex-1 -mx-1 px-3"
+        ref={setScrollContainerRef}
+      >
         <PlaylistSidebarLink
           pinned
           playlist={{
