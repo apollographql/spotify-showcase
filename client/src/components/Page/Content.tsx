@@ -9,7 +9,7 @@ interface ContentProps {
 
 const Content = ({ children, gap = '1rem' }: ContentProps) => {
   return (
-    <div className="bg-black-base relative">
+    <div className="bg-black-base relative flex-1">
       <div
         className={cx(
           'absolute h-[230px] w-full [background:var(--backdrop-color)] transition duration-200 ease-out',
