@@ -89,7 +89,7 @@ const Playlists = () => {
 
   return (
     <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
-      <header className="px-4 py-2 mb-4">
+      <header className="px-4 py-2">
         <h2 className="text-muted flex gap-2 items-center py-2 text-base">
           <Library /> Your Library
         </h2>
@@ -182,9 +182,11 @@ export const LoadingState = () => {
     <Layout type="player">
       <Layout.Sidebar>
         <Layout.Sidebar.Section className="flex flex-col flex-1">
-          <h2 className="text-muted flex gap-2 items-center mb-4 py-1 text-base">
-            <Library /> Your Library
-          </h2>
+          <header className="px-4 py-2">
+            <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+              <Library /> Your Library
+            </h2>
+          </header>
           <div className="flex-1">
             {skeletons.map((num) => (
               <li key={num} className="px-0 py-2">
