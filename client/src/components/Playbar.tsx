@@ -72,8 +72,8 @@ const Playbar = ({ className }: PlaybarProps) => {
   const disallowed = (action: Action) => !device || disallows.includes(action);
 
   return (
-    <Flex as="footer" direction="column" className={cx(className)}>
-      <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary bg-surface-low-contrast py-4 px-6 border-t border solid border-surface">
+    <footer className={cx('flex flex-col', className)}>
+      <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-4 px-6">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
           {playbackItem?.__typename === 'Track' ? (
@@ -156,7 +156,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           className={cx(
             'before:[--arrow-size:0.625rem]',
             'before:[border-left-width:var(--arrow-size)] before:[border-right-width:var(--arrow-size)] before:[border-bottom-width:var(--arrow-size)] before:border-b-green before:border-l-transparent before:border-r-transparent border-solid',
-            'bg-green relative py-1 px-6 text-sm leading-none',
+            'bg-green relative py-1 px-6 text-sm leading-none rounded',
             'pointer-events-none before:absolute before:top-0 before:right-[10.5rem] before:-translate-y-full'
           )}
           justifyContent="end"
@@ -164,7 +164,7 @@ const Playbar = ({ className }: PlaybarProps) => {
           <Volume1 size="1.125rem" /> Listening on {device.name}
         </Flex>
       )}
-    </Flex>
+    </footer>
   );
 };
 

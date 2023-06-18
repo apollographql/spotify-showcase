@@ -11,12 +11,12 @@ interface SidebarProps {
 
 const Sidebar = ({ children }: SidebarProps) => {
   return (
-    <aside className="[grid-area:sidebar] bg-black-pure text-primary overflow-auto pt-4 px-2 pb-0">
+    <aside className="[grid-area:sidebar] text-primary overflow-auto pt-4 pb-0">
       <nav className="h-full flex flex-col">
         <Link to="/" className="flex justify-center py-2">
           <ApolloLogo size="225px" className="relative -left-3" />
         </Link>
-        <Section>
+        <Section className="px-4 py-2">
           <NavLink icon={<Home />} to="/">
             Home
           </NavLink>
@@ -40,7 +40,7 @@ const Section = forwardRef<HTMLUListElement, SectionProps>(
     <ul
       ref={ref}
       className={cx(
-        'list-none px-4 py-2 rounded bg-surface-low-contrast mt-2 first:mt-0',
+        'list-none rounded-md bg-black-base mt-2 first:mt-0',
         className
       )}
     >

@@ -18,6 +18,7 @@ import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 import { thumbnail } from '../utils/image';
 import GradientIcon from '../components/GradientIcon';
+import Button from '../components/Button';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -56,8 +57,13 @@ export const RouteComponent = () => {
 
   return (
     <ScrollContainerContext.Provider value={ref}>
-      <Layout onContextMenu={(e) => e.preventDefault()}>
-        <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
+      <Layout
+        type={isLoggedIn ? 'player' : 'loggedOut'}
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        <Layout.Sidebar>
+          {isLoggedIn ? <Playlists /> : <GuestLibrary />}
+        </Layout.Sidebar>
         <Layout.Main ref={ref}>
           <Layout.Header />
           <Wrapper>
@@ -68,6 +74,35 @@ export const RouteComponent = () => {
       </Layout>
       <NotificationManager />
     </ScrollContainerContext.Provider>
+  );
+};
+
+const GuestLibrary = () => {
+  return (
+    <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col">
+      <header className="px-4 py-2">
+        <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+          <Library /> Your Library
+        </h2>
+      </header>
+      <div className="bg-surface rounded-md px-3 py-4 mx-2">
+        <h3 className="font-semibold">Developing with Apollo</h3>
+        <p className="mt-2">
+          This showcase demonstrates some of the capabilities and best practices
+          of developing with Apollo. Log in and we&apos;ll show you how
+          developing with Apollo is an amazing experience.
+        </p>
+        <Button
+          as="a"
+          href="/login"
+          variant="secondary"
+          size="sm"
+          className="mt-6"
+        >
+          Log in
+        </Button>
+      </div>
+    </Layout.Sidebar.Section>
   );
 };
 
@@ -85,11 +120,16 @@ const Playlists = () => {
   }
 
   return (
-    <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col">
-      <h2 className="text-muted flex gap-2 items-center mb-4 py-1 text-base">
-        <Library /> Your Library
-      </h2>
-      <div className="overflow-y-auto flex-1 -mx-1" ref={setScrollContainerRef}>
+    <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
+      <header className="px-4 py-2">
+        <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+          <Library /> Your Library
+        </h2>
+      </header>
+      <div
+        className="overflow-y-auto flex-1 -mx-1 px-3"
+        ref={setScrollContainerRef}
+      >
         <PlaylistSidebarLink
           pinned
           playlist={{
@@ -171,12 +211,14 @@ export const LoadingState = () => {
   const skeletons = range(0, randomBetween(30, 40));
 
   return (
-    <Layout>
+    <Layout type="player">
       <Layout.Sidebar>
         <Layout.Sidebar.Section className="flex flex-col flex-1">
-          <h2 className="text-muted flex gap-2 items-center mb-4 py-1 text-base">
-            <Library /> Your Library
-          </h2>
+          <header className="px-4 py-2">
+            <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+              <Library /> Your Library
+            </h2>
+          </header>
           <div className="flex-1">
             {skeletons.map((num) => (
               <li key={num} className="px-0 py-2">

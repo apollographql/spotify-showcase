@@ -69,6 +69,7 @@ module.exports = {
       },
       backgroundColor: ({ theme }) => ({
         code: 'rgba(99, 110, 123, 0.4)',
+        surface: '#282828',
         'surface-active': 'hsla(0, 0%, 100%, 0.1)',
         'surface-low-contrast': '#181818',
         'surface-low-contrast-hover': '#282828',
@@ -152,5 +153,4 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/line-clamp')],
 };
