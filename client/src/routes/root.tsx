@@ -18,6 +18,7 @@ import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 import { thumbnail } from '../utils/image';
 import GradientIcon from '../components/GradientIcon';
+import Button from '../components/Button';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -60,7 +61,9 @@ export const RouteComponent = () => {
         type={isLoggedIn ? 'player' : 'loggedOut'}
         onContextMenu={(e) => e.preventDefault()}
       >
-        <Layout.Sidebar>{isLoggedIn && <Playlists />}</Layout.Sidebar>
+        <Layout.Sidebar>
+          {isLoggedIn ? <Playlists /> : <GuestLibrary />}
+        </Layout.Sidebar>
         <Layout.Main ref={ref}>
           <Layout.Header />
           <Wrapper>
@@ -71,6 +74,29 @@ export const RouteComponent = () => {
       </Layout>
       <NotificationManager />
     </ScrollContainerContext.Provider>
+  );
+};
+
+const GuestLibrary = () => {
+  return (
+    <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col">
+      <header className="px-4 py-2">
+        <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+          <Library /> Your Library
+        </h2>
+      </header>
+      <div className="bg-surface rounded-md px-3 py-4 mx-2">
+        <h3 className="font-semibold">Developing with Apollo</h3>
+        <p className="mt-2">
+          This showcase demonstrates some of the capabilities and best practices
+          of developing with Apollo. Log in and we&apos;ll show you how
+          developing with Apollo is an amazing experience.
+        </p>
+        <Button variant="secondary" size="sm" className="mt-6">
+          Log in
+        </Button>
+      </div>
+    </Layout.Sidebar.Section>
   );
 };
 
