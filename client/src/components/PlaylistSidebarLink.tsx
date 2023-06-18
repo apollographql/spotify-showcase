@@ -59,10 +59,10 @@ const PlaylistSidebarLink = ({
           to={to}
           className={({ isActive }) =>
             cx(
-              'leading-none transition-colors block py-2 pl-2 pr-4 transition-color duration-200 ease-out hover:no-underline justify-between hover:bg-surface rounded-md',
-              {
-                'text-primary bg-surface hover:bg-surface-active': isActive,
-              }
+              'leading-none transition-colors block py-2 pl-2 pr-4 transition-color duration-200 ease-out hover:no-underline justify-between rounded-md',
+              isActive
+                ? 'text-primary bg-surface hover:bg-[#393939]'
+                : 'hover:bg-[#1A1A1A]'
             )
           }
         >
