@@ -11,7 +11,7 @@ interface SidebarProps {
 
 const Sidebar = ({ children }: SidebarProps) => {
   return (
-    <aside className="[grid-area:sidebar] bg-black-pure text-primary overflow-auto pt-4 px-2 pb-0">
+    <aside className="[grid-area:sidebar] text-primary overflow-auto pt-4 px-2 pb-0">
       <nav className="h-full flex flex-col">
         <Link to="/" className="flex justify-center py-2">
           <ApolloLogo size="225px" className="relative -left-3" />
