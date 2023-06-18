@@ -73,7 +73,7 @@ const Playbar = ({ className }: PlaybarProps) => {
 
   return (
     <footer className={cx('flex flex-col', className)}>
-      <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary bg-surface-low-contrast py-4 px-6 border-t border solid border-surface">
+      <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-4 px-6">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
           {playbackItem?.__typename === 'Track' ? (
