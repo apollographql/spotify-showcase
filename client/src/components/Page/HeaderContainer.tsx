@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import Flex from '../Flex';
 
 interface HeaderContainerProps {
   children?: ReactNode;
@@ -7,13 +6,10 @@ interface HeaderContainerProps {
 
 const HeaderContainer = ({ children }: HeaderContainerProps) => {
   return (
-    <Flex
-      className="p-[var(--main-content--padding)]"
-      gap="2rem"
-      alignItems="end"
-    >
-      {children}
-    </Flex>
+    <div className="p-[var(--main-content--padding)] relative [background:var(--backdrop-color)] transition duration-200 ease-out">
+      <div className="absolute inset-0 bg-[linear-gradient(transparent_0,rgba(0,0,0,0.5)_100%)]" />
+      <div className="isolate flex gap-8 items-end">{children}</div>
+    </div>
   );
 };
 
