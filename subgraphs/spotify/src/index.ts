@@ -49,7 +49,7 @@ async function main() {
         checkRouterSecret(req.headers["router-authorization"] as string);
 
         const token = req.get("Authentication");
-        console.log(JSON.stringify(req));
+        console.log(JSON.stringify(req.headers));
         return {
           defaultCountryCode,
           dataSources: {
