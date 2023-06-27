@@ -48,7 +48,7 @@ async function main() {
       context: async ({ req }) => {
         checkRouterSecret(req.headers["router-authorization"] as string);
 
-        const token = req.get("Authentication");
+        const token = req.get("authentication");
         console.log(token);
         return {
           defaultCountryCode,
