@@ -24,7 +24,7 @@ scalar Timestamp
 
 type Query {
   "Spotify catalog information for an album."
-  Album(id: ID!): Album
+  album(id: ID!): Album
 
   """
   Get Spotify catalog information for multiple albums identified by their Spotify IDs.
