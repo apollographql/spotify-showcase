@@ -41,7 +41,7 @@ const CurrentUserMenu = () => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Menu align="end">
         <DropdownMenu.Item to="/settings">Settings</DropdownMenu.Item>
-        <DropdownMenu.Item to={`${import.meta.env.VITE_SERVER_HOST}/graphql`}>
+        <DropdownMenu.Item to={`https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home`}>
           Explore the schema
         </DropdownMenu.Item>
         <DropdownMenu.Item to="https://github.com/apollographql/spotify-showcase">
