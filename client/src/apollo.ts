@@ -19,7 +19,7 @@ const httpAuthLink = setContext(async ({ context }) => {
   return {
     headers: {
       ...context?.headers,
-      'x-api-token': accessToken,
+      'Authentication': accessToken,
     },
   };
 });

@@ -53,7 +53,7 @@ async function main() {
           dataSources: {
             spotify: new SpotifyAPI({
               cache: server.cache,
-              token: req.get("x-api-token"),
+              token: req.get("Authentication"),
             }),
           }
         };

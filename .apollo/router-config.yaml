@@ -5,11 +5,11 @@ headers:
     spotify:
       request:
         - propagate:
-            matching: "x-api-token"
+            matching: "Authentication"
     playback:
       request:
         - propagate:
-            matching: "x-api-token"
+            matching: "Authentication"
 include_subgraph_errors:
   all: true
 sandbox:

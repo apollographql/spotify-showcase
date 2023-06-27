@@ -50,8 +50,8 @@ async function main() {
     {
       schema,
       onConnect: (ctx) => {
-        if (ctx.connectionParams?.["x-api-token"]) return true;
-        if (ctx.extra.request.headers?.["x-api-token"]) return true;
+        if (ctx.connectionParams?.["Authentication"]) return true;
+        if (ctx.extra.request.headers?.["Authentication"]) return true;
 
         return false;
       },
@@ -60,8 +60,8 @@ async function main() {
       },
       context: (ctx) => {
         const routerAuthorization =
-          (ctx.connectionParams?.["x-api-token"] as string) ??
-          (ctx.extra.request.headers?.["x-api-token"] as string) ??
+          (ctx.connectionParams?.["Authentication"] as string) ??
+          (ctx.extra.request.headers?.["Authentication"] as string) ??
           "";
         checkRouterSecret(routerAuthorization);
 
@@ -73,8 +73,8 @@ async function main() {
             spotify: new SpotifyAPI({
               cache: server.cache,
               token:
-                (ctx.connectionParams?.["x-api-token"] as string) ??
-                (ctx.extra.request.headers?.["x-api-token"] as string),
+                (ctx.connectionParams?.["Authentication"] as string) ??
+                (ctx.extra.request.headers?.["Authentication"] as string),
             }),
           },
         } satisfies ContextValue;
@@ -115,7 +115,7 @@ async function main() {
           dataSources: {
             spotify: new SpotifyAPI({
               cache: server.cache,
-              token: req.get("x-api-token"),
+              token: req.get("Authentication"),
             }),
           },
           publisher: new Publisher(pubsub),
