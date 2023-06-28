@@ -3,6 +3,7 @@ on:
   push:
     paths:
       -  'subgraphs/playback/**'
+      - '.github/workflows/playback-checks.yaml'
 
 jobs:
   check_playback_schema:

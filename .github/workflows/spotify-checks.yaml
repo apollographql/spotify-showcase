@@ -3,6 +3,7 @@ on:
   push:
     paths:
       -  'subgraphs/spotify/**'
+      - '.github/workflows/spotify-checks.yaml'
 
 jobs:
   check_spotify_schema:
