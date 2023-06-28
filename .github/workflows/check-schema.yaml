@@ -1,0 +1,31 @@
+name: Tests and Checks
+on: push
+
+jobs:
+  check_spotify_schema:
+    name: Check Spotify Subgraph Schema with GraphOS
+    runs-on: ubuntu-latest
+    env:
+      APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/latest | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - if: env.APOLLO_KEY != ''
+        run: rover subgraph check spotify-ev3of9@prod --schema ./subgraphs/spotify/schema.graphql --name spotify
+  
+  check_playback_schema:
+    name: Check Playback Subgraph Schema with GraphOS
+    runs-on: ubuntu-latest
+    env:
+      APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/latest | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - if: env.APOLLO_KEY != ''
+        run: rover subgraph check spotify-ev3of9@prod --schema ./subgraphs/playback/schema.graphql --name playback

@@ -1,0 +1,41 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  get_subgraph_name:
+    if: false
+    uses: ./.github/workflows/apollo.yaml
+
+  publish_spotify_schema:
+    name: Publish Spotify schema to GraphOS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/latest | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - name: Publish Schema
+        run: rover subgraph publish spotify-ev3of9@prod --schema ./subgraphs/spotify/schema.graphql --name spotify
+        env:
+          APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+          APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
+
+  publish_playback_schema:
+    name: Publish Playback schema to GraphOS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/latest | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - name: Publish Schema
+        run: rover subgraph publish spotify-ev3of9@prod --schema ./subgraphs/playback/schema.graphql --name playback
+        env:
+          APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+          APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
