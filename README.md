@@ -74,22 +74,18 @@ APOLLO_KEY={YOUR_API_KEY} npm run clone
 npm install
 ```
 
-*Note: this will run a `postinstall` setup script in `scripts/setup.js`*
-
 4. Start the app
 
 ```sh
 npm start
 ```
 
-*Note: this will run a setup script in `scripts/start.js`*
+* Website - http://localhost:3000
+* Supergraph - http://localhost:4000
+* Spotify Subgraph - http://localhost:4001
+* Playback Subgraph - http://localhost:4002
 
-1. Visit `http://localhost:3000` and follow the instructions on the home page to
-   ensure the app can talk to Spotify.
-
-### Start Apollo Router Locally
-
-`rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml`
+***Note**: We're currently working on subscriptions support with `rover dev` so the Website is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect. 
 
 ## Feedback survey
 
