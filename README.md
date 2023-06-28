@@ -4,6 +4,36 @@
 
 <img width="1512" alt="Screenshot 2023-03-07 at 5 13 26 PM" src="https://user-images.githubusercontent.com/565661/223585591-93b5b6d2-d3d8-44fb-9b30-8bb5fc508f90.png">
 
+## Architecture - Client Execution
+
+```mermaid
+graph LR;
+B <--> C["Playback Subgraph\n(subriptions/mutations)"];
+B <--> D["Spotify Subgraph\n(queries)"];
+C <--> E[Spotify REST API];
+D <--> E;
+
+subgraph "Apollo Cloud"
+  B --> F("<u><b>GraphOS</b></u>\nSchema Pipeline\nMetrics &  Reporting")
+end
+
+subgraph "Netlify"
+  A["Website\n(client app)"] --> B{"Apollo Router"}
+  B --> A;
+end
+
+subgraph "Railway"
+  C
+end
+
+subgraph "Netlify Function"
+  D
+end
+
+```
+
+***Note**: We are using only the Spotify REST API as our datasource for demonstration purposes. The subscriptions subgraph implements a polling mechanism that we host on a dedicated infrastructure while the "query" subgraph is hosted on serverless infrastructure*
+
 ## Getting started
 
 1. Clone this repo
