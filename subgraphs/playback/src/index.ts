@@ -50,8 +50,8 @@ async function main() {
     {
       schema,
       onConnect: (ctx) => {
-        if (ctx.connectionParams?.["Authentication"]) return true;
-        if (ctx.extra.request.headers?.["Authentication"]) return true;
+        if (ctx.connectionParams?.["authorization"]) return true;
+        if (ctx.extra.request.headers?.["authorization"]) return true;
 
         return false;
       },
@@ -60,8 +60,8 @@ async function main() {
       },
       context: (ctx) => {
         const routerAuthorization =
-          (ctx.connectionParams?.["Authentication"] as string) ??
-          (ctx.extra.request.headers?.["Authentication"] as string) ??
+          (ctx.connectionParams?.["authorization"] as string) ??
+          (ctx.extra.request.headers?.["authorization"] as string) ??
           "";
         checkRouterSecret(routerAuthorization);
 
@@ -73,8 +73,8 @@ async function main() {
             spotify: new SpotifyAPI({
               cache: server.cache,
               token:
-                (ctx.connectionParams?.["Authentication"] as string) ??
-                (ctx.extra.request.headers?.["Authentication"] as string),
+                (ctx.connectionParams?.["authorization"] as string) ??
+                (ctx.extra.request.headers?.["authorization"] as string),
             }),
           },
         } satisfies ContextValue;
@@ -115,7 +115,7 @@ async function main() {
           dataSources: {
             spotify: new SpotifyAPI({
               cache: server.cache,
-              token: req.get("Authentication"),
+              token: req.get("authorization"),
             }),
           },
           publisher: new Publisher(pubsub),

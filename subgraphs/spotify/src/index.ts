@@ -48,14 +48,13 @@ async function main() {
       context: async ({ req }) => {
         checkRouterSecret(req.headers["router-authorization"] as string);
 
-        const token = req.get("Authentication");
         console.log(JSON.stringify(req.headers));
         return {
           defaultCountryCode,
           dataSources: {
             spotify: new SpotifyAPI({
               cache: server.cache,
-              token,
+              token: req.get("authorization"),
             }),
           }
         };

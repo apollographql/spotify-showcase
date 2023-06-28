@@ -5,11 +5,11 @@ headers:
     spotify:
       request:
         - propagate:
-            matching: "Authentication"
+            matching: "authorization"
     playback:
       request:
         - propagate:
-            matching: "Authentication"
+            matching: "authorization"
 include_subgraph_errors:
   all: true
 sandbox:
