@@ -4,7 +4,12 @@
 
 <img width="1512" alt="Screenshot 2023-03-07 at 5 13 26 PM" src="https://user-images.githubusercontent.com/565661/223585591-93b5b6d2-d3d8-44fb-9b30-8bb5fc508f90.png">
 
-## Architecture - Client Execution
+## Architecture 
+
+The overall API architecture is made up of two GraphQL servers, one exposing subscription/mutation functionality and the other exposing query functionality. Both GraphQL servers use the Spotify REST API as their datasource, but we are hosting the subscription server on dedicated infrastructure (Railway) and the other on serverless functions (Netlify). 
+
+The Apollo Router routes incoming traffic from the client application and integrates with GraphOS to receive schema updates and report usage metrics. 
+
 
 ```mermaid
 graph LR;
@@ -33,6 +38,8 @@ end
 ```
 
 ***Note**: We are using only the Spotify REST API as our datasource for demonstration purposes. The subscriptions subgraph implements a polling mechanism that we host on a dedicated infrastructure while the "query" subgraph is hosted on serverless infrastructure*
+
+### Subgraph responsibilities
 
 ## Getting started
 
