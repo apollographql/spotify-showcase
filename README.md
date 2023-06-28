@@ -45,24 +45,51 @@ end
 
 1. Clone this repo
 
-2. Install dependencies
+2. What do you want to do next with this demo app? 
+
+### I want to play around with the public version of the demo
+
+1. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
+  - [Query the graph](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer) *(**Spotify account required**) - OAuth workflow with be initiated from Apollo Explorer to login to our Spotify account to run any operation*
+    - Try having your Spotify app playing on your phone or desktop and then run [this mutation](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer?explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4RxighigSwiQAIAFXGAZwTIBtcBPAI1ygGsBZHfI04ADqkSIgA6Ua9Jqw4lBwkWIYs27AMp4UCOUMV6SBKlMYEkAc136AvpZE3hVkFaA)
+  - [View the graphs schema](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/schema/reference)
+  - 
+
+### I want to re-create this demo in my GraphOS account 
+
+*To be completed*
+
+3. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys)
+4. Run the clone script withh the API key
+
+```sh
+APOLLO_KEY={YOUR_API_KEY} npm run clone
+```
+
+### I want to run this demo locally
+
+3. Install dependencies
 
 ```sh
 npm install
 ```
 
-3. Start the app
+*Note: this will run a `postinstall` setup script in `scripts/setup.js`*
+
+4. Start the app
 
 ```sh
 npm start
 ```
 
-4. Visit `http://localhost:3000` and follow the instructions on the home page to
+*Note: this will run a setup script in `scripts/start.js`*
+
+1. Visit `http://localhost:3000` and follow the instructions on the home page to
    ensure the app can talk to Spotify.
 
 ### Start Apollo Router Locally
 
-`rover dev --supergraph-config=.apollo/spotify.yaml --router-config=.apollo/router-config.yaml`
+`rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml`
 
 ## Feedback survey
 

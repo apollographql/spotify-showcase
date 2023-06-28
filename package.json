@@ -1,0 +1,36 @@
+{
+  "name": "spotify-showcase",
+  "version": "1.0.0",
+  "description": "# React + Apollo Spotify Showcase",
+  "main": "setup.js",
+  "scripts": {
+    "postinstall": "npm run setup",
+    "setup": "concurrently \"npm:setup:*\"",
+    "setup:client": "npm install --prefix=client",
+    "setup:spotify": "npm install --prefix=subgraphs/spotify",
+    "setup:playback": "npm install --prefix=subgraphs/playback",
+    "start": "concurrently \"npm:start:*\"",
+    "start:client": "npm run start --prefix=client",
+    "start:spotify": "npm run start --prefix=subgraphs/spotify",
+    "start:playback": "npm run start --prefix=subgraphs/playback",
+    "start:router": "rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apollographql/spotify-showcase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apollographql/spotify-showcase/issues"
+  },
+  "homepage": "https://github.com/apollographql/spotify-showcase#readme",
+  "devDependencies": {
+    "@apollo/rover": "^0.16.0",
+    "concurrently": "^8.2.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "dependencies": {
+    "upath": "^2.0.1"
+  }
+}

@@ -48,7 +48,6 @@ async function main() {
       context: async ({ req }) => {
         checkRouterSecret(req.headers["router-authorization"] as string);
 
-        console.log(JSON.stringify(req.headers));
         return {
           defaultCountryCode,
           dataSources: {

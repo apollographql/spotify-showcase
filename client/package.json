@@ -49,7 +49,8 @@
     "start": "vite",
     "build": "npm run codegen && tsc && vite build",
     "serve": "serve dist -s -n -L -p $PORT",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "postinstall": "npm run build"
   },
   "browserslist": {
     "production": [
