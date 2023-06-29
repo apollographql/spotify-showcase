@@ -13,28 +13,46 @@ The Apollo Router routes incoming traffic from the client application and integr
 
 ```mermaid
 graph LR;
-B <--> C["Playback Subgraph\n(subriptions/mutations)"];
-B <--> D["Spotify Subgraph\n(queries)"];
-C <--> E[Spotify REST API];
-D <--> E;
-
-subgraph "Apollo Cloud"
-  B --> F("<u><b>GraphOS</b></u>\nSchema Pipeline\nMetrics &  Reporting")
-end
 
 subgraph "Netlify"
-  A["Website\n(client app)"] --> B{"Apollo Router"}
-  B --> A;
+  web["Website\n(client app)"]
 end
 
 subgraph "Railway"
-  C
+  router{"Apollo Router"}
+  playbackSubgraph["Playback Subgraph\n(subriptions/mutations)"]
 end
 
-subgraph "Netlify Function"
-  D
+subgraph "Netlify-Function"
+  spotifySubgraph["Spotify Subgraph\n(queries)"]
 end
 
+subgraph "Apollo"
+  schema["Schema Pipeline"]
+  usage["Usage Reporting"]
+end
+
+subgraph "Spotify"
+  spotifyREST[Spotify REST API]
+end
+
+web <--> router
+router <-->|Schema Updates\nUsage Reporting| Apollo
+router <--> spotifySubgraph
+router <--> playbackSubgraph
+playbackSubgraph <--> spotifyREST
+spotifySubgraph <--> spotifyREST
+
+classDef spotifyBox color:#FFFFFF,fill:#1DB954,stroke:#FFFFFF,stroke-width:2px;
+classDef netlifyBox color:#014847,fill:#FFFFFF,stroke:#32e6e2,stroke-width:2px;
+classDef railwayBox color:#000000,fill:#FFFFFF,stroke:#000000,stroke-width:2px;
+classDef apolloBox color:#3f20ba,fill:#FFFFFF,stroke:#3f20ba,stroke-width:2px;
+
+class Spotify spotifyBox
+class Netlify netlifyBox
+class Netlify-Function netlifyBox
+class Railway railwayBox
+class Apollo apolloBox
 ```
 
 ***Note**: We are using only the Spotify REST API as our datasource for demonstration purposes. The subscriptions subgraph implements a polling mechanism that we host on a dedicated infrastructure while the "query" subgraph is hosted on serverless infrastructure*
