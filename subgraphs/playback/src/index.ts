@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
+import { ApolloServerPluginSubscriptionCallback } from "@apollo/server/plugin/subscriptionCallback";
 import resolvers from "./resolvers";
 import { ContextValue } from "./types/ContextValue";
 const port = process.env.PORT ?? "4002";
@@ -86,6 +87,7 @@ async function main() {
   const server = new ApolloServer<ContextValue>({
     schema,
     plugins: [
+      ApolloServerPluginSubscriptionCallback(),
       ApolloServerPluginDrainHttpServer({ httpServer }),
       {
         async serverWillStart() {

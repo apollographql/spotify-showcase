@@ -27,3 +27,6 @@ yarn-error.log*
 dist
 # Local Netlify folder
 .netlify
+
+router/router
+router/*.graphql
