@@ -1,6 +1,6 @@
 name: Playback Subgraph Workflows
 on: 
-  push:
+  pull_request:
     paths:
       -  'subgraphs/playback/**'
       - '.github/workflows/playback-checks.yaml'
