@@ -59,6 +59,10 @@ class Apollo apolloBox
 
 ### Subgraph responsibilities
 
+**playback** - This subgraph has been designed to handle the Subscription/Mutation operations for our graph. The subgraph is hosted on a dedicated piece of infrastructure (Railway) because it needs to be long lived with subscriptions support.
+
+**spotify** - This subgraph handles all of the Query operations for our graph and is hosted on serverless infrastructure (Netlify/AWS Lambda). Hosting in serverless is more cost effective for this single service in our overall architecture.
+
 ## Getting started
 
 1. Clone this repo
