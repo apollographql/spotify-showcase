@@ -3,7 +3,7 @@ on:
   pull_request:
     paths:
       -  'subgraphs/spotify/**'
-      - '.github/workflows/spotify-checks.yaml'
+      - '.github/workflows/spotify_checks.yaml'
 
 jobs:
   check_spotify_schema:
@@ -17,6 +17,7 @@ jobs:
         run: |
           curl -sSL https://rover.apollo.dev/nix/latest | sh
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - name: Check server compiles
+        run: npm run build
       - if: env.APOLLO_KEY != ''
         run: rover subgraph check Spotify-tb7du2@prod --schema ./subgraphs/spotify/schema.graphql --name spotify
-  

@@ -1,16 +1,16 @@
-name: Publish spotify schema
+name: Publish playback schema
 on:
   push:
     branches:
       - main
     paths:
-      -  'subgraphs/spotify/**'
-      - '.github/workflows/spotify-publish.yaml'
+      -  'subgraphs/playback/**'
+      - '.github/workflows/playback_publish.yaml'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
-  publish_spotify_schema:
-    name: Publish Spotify schema to GraphOS
+  publish_playback_schema:
+    name: Publish Playback schema to GraphOS
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,7 +19,7 @@ jobs:
           curl -sSL https://rover.apollo.dev/nix/latest | sh
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
       - name: Publish Schema
-        run: rover subgraph publish Spotify-tb7du2@prod --schema ./subgraphs/spotify/schema.graphql --name spotify
+        run: rover subgraph publish Spotify-tb7du2@prod --schema ./subgraphs/playback/schema.graphql --name playback
         env:
           APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
           APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
