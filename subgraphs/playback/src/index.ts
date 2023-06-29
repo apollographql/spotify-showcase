@@ -29,10 +29,8 @@ const logger = {
     console.log(msg);
   },
   info(msg) {
-    console.log(msg);
   },
   warn(msg) {
-    console.log(msg);
   },
   error(msg) {
     console.log(msg);
