@@ -18,4 +18,4 @@ jobs:
           curl -sSL https://rover.apollo.dev/nix/latest | sh
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
       - if: env.APOLLO_KEY != ''
-        run: rover subgraph check spotify-ev3of9@prod --schema ./subgraphs/playback/schema.graphql --name playback
+        run: rover subgraph check Spotify-tb7du2@prod --schema ./subgraphs/playback/schema.graphql --name playback
