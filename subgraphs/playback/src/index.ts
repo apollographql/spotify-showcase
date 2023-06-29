@@ -10,10 +10,7 @@ const port = process.env.PORT ?? "4002";
 const subgraphName = require("../package.json").name;
 const routerSecret = process.env.ROUTER_SECRET;
 
-import querystring from "querystring";
-import request from "request";
-import cookieParser from "cookie-parser";
-import express, { application } from "express";
+import express from "express";
 import http from "http";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { PubSub } from "graphql-subscriptions";
@@ -26,6 +23,21 @@ import Publisher from "./publisher";
 import { json } from "body-parser";
 import cors from "cors";
 import { GraphQLError } from "graphql";
+
+const logger = {
+  debug(msg) {
+    console.log(msg);
+  },
+  info(msg) {
+    console.log(msg);
+  },
+  warn(msg) {
+    console.log(msg);
+  },
+  error(msg) {
+    console.log(msg);
+  },
+};
 
 async function main() {
   let typeDefs = gql(
@@ -87,7 +99,7 @@ async function main() {
   const server = new ApolloServer<ContextValue>({
     schema,
     plugins: [
-      ApolloServerPluginSubscriptionCallback(),
+      ApolloServerPluginSubscriptionCallback({ logger }),
       ApolloServerPluginDrainHttpServer({ httpServer }),
       {
         async serverWillStart() {
@@ -100,7 +112,7 @@ async function main() {
       },
     ],
   });
-  
+
   await server.start();
 
   app.use(express.static("public"));
