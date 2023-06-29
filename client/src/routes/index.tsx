@@ -1,12 +1,17 @@
 import { ComponentPropsWithoutRef, ReactNode, Suspense } from 'react';
-import { gql, useBackgroundQuery, useReadQuery } from '@apollo/client';
+import {
+  gql,
+  useBackgroundQuery,
+  useReadQuery,
+  TypedDocumentNode,
+} from '@apollo/client';
 import { QueryReference } from '@apollo/client/react/cache/QueryReference';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
 import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
-import { IndexRouteQuery } from '../types/api';
+import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { DEFAULT_BACKGROUND_COLOR } from '../constants';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
@@ -20,7 +25,10 @@ export const RouteComponent = () => {
   return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };
 
-const INDEX_ROUTE_QUERY = gql`
+const INDEX_ROUTE_QUERY: TypedDocumentNode<
+  IndexRouteQuery,
+  IndexRouteQueryVariables
+> = gql`
   query IndexRouteQuery($timestamp: DateTime) {
     featuredPlaylists(timestamp: $timestamp) {
       message
@@ -36,7 +44,7 @@ const INDEX_ROUTE_QUERY = gql`
   ${PlaylistTile.fragments.playlist}
 `;
 
-const containerStyles = 'p-[var(--main-content--padding)]';
+const containerStyles = 'bg-black-base p-[var(--main-content--padding)] flex-1';
 
 const LoggedIn = () => {
   useSetBackgroundColor('#1A101C');
@@ -77,103 +85,100 @@ const LoggedOut = () => {
   useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
   return (
-    <div
-      className={cx(
-        containerStyles,
-        'flex flex-1 flex-col max-w-3xl my-0 mx-auto'
-      )}
-    >
-      <Heading level={1}>Welcome to the Apollo Spotify demo</Heading>
-      <Paragraph>
-        This demo app provides a playground to test and learn about various
-        Apollo features to understand how Apollo can be used in a moderately
-        complex app.
-      </Paragraph>
-      <Paragraph>
-        <strong>NOTE:</strong> For security and simplicity, the backend does not
-        store the OAuth refresh token upon logging in. This means your logged in
-        session will expire when the access token expires (~1 hr).
-      </Paragraph>
-      <Heading level={2}>Getting started</Heading>
-      <Paragraph>
-        To use this demo app, you will first need a Spotify developer token.
-        This will allow the app to make calls to the Spotify API using this
-        app&apos;s GraphQL API. Once obtained, you will need to add these
-        credentials to the app.
-      </Paragraph>
-      <Heading level={2}>Register a Spotify application</Heading>
-      <OrderedList>
-        <ListItem>
-          <Paragraph>
-            Visit the{' '}
-            <Anchor
-              target="_blank"
-              href="https://developer.spotify.com/dashboard"
-              rel="noreferrer"
-            >
-              Dashboard
-            </Anchor>{' '}
-            page on the Spotify website and, if necessary, log in. This requires
-            a Spotify user account.
-          </Paragraph>
-        </ListItem>
-        <ListItem>
-          <Paragraph>
-            Create and register a new application to generate credentials.
-            Follow the{' '}
-            <Anchor
-              target="_blank"
-              href="https://developer.spotify.com/documentation/general/guides/authorization/app-settings/"
-              rel="noreferrer"
-            >
-              App settings guide
-            </Anchor>{' '}
-            to learn more. We recommend this Spotify app is unique to this demo
-            app.
-          </Paragraph>
-        </ListItem>
-        <ListItem>
-          <Paragraph>
-            In the &lsquo;Edit Settings&rsquo; dialogue, add this app&apos;s
-            redirect URI for this app to allow this app to sign in to your
-            Spotify account.
-          </Paragraph>
-          <CodeBlock>http://localhost:3000/oauth/finalize</CodeBlock>
-        </ListItem>
-      </OrderedList>
-      <Heading level={2}>Configure this application</Heading>
-      <OrderedList>
-        <ListItem>
-          <Paragraph>
-            Copy your credentials to the root <InlineCode>.env</InlineCode>{' '}
-            file. This file should look as follows:
-          </Paragraph>
-          <CodeBlock>
-            SPOTIFY_CLIENT_ID=your_spotify_client_id
-            SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-          </CodeBlock>
-        </ListItem>
-        <ListItem>
-          <Paragraph>
-            Optionally configure a default country code. To change the default
-            country code (<InlineCode>US</InlineCode>), add an environment
-            variable named <InlineCode>DEFAULT_COUNTRY_CODE</InlineCode> to your{' '}
-            <InlineCode>server/.env</InlineCode> file.
-          </Paragraph>
-          <CodeBlock>DEFAULT_COUNTRY_CODE=CA</CodeBlock>
-          <BlockQuote>
-            This is needed to fetch an artist&apos;s top tracks on the artist
-            page without needing geolocation.
-          </BlockQuote>
-        </ListItem>
-        <ListItem>
-          <p>Restart the app.</p>
-        </ListItem>
-      </OrderedList>
-      <Paragraph>
-        You are ready to go! <Link to="/login">Log in</Link> to use the
-        app.
-      </Paragraph>
+    <div className={cx(containerStyles)}>
+      <div className="flex flex-col max-w-3xl my-0 mx-auto">
+        <Heading level={1}>Welcome to the Apollo Spotify demo</Heading>
+        <Paragraph>
+          This demo app provides a playground to test and learn about various
+          Apollo features to understand how Apollo can be used in a moderately
+          complex app.
+        </Paragraph>
+        <Paragraph>
+          <strong>NOTE:</strong> For security and simplicity, the backend does
+          not store the OAuth refresh token upon logging in. This means your
+          logged in session will expire when the access token expires (~1 hr).
+        </Paragraph>
+        <Heading level={2}>Getting started</Heading>
+        <Paragraph>
+          To use this demo app, you will first need a Spotify developer token.
+          This will allow the app to make calls to the Spotify API using this
+          app&apos;s GraphQL API. Once obtained, you will need to add these
+          credentials to the app.
+        </Paragraph>
+        <Heading level={2}>Register a Spotify application</Heading>
+        <OrderedList>
+          <ListItem>
+            <Paragraph>
+              Visit the{' '}
+              <Anchor
+                target="_blank"
+                href="https://developer.spotify.com/dashboard"
+                rel="noreferrer"
+              >
+                Dashboard
+              </Anchor>{' '}
+              page on the Spotify website and, if necessary, log in. This
+              requires a Spotify user account.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              Create and register a new application to generate credentials.
+              Follow the{' '}
+              <Anchor
+                target="_blank"
+                href="https://developer.spotify.com/documentation/general/guides/authorization/app-settings/"
+                rel="noreferrer"
+              >
+                App settings guide
+              </Anchor>{' '}
+              to learn more. We recommend this Spotify app is unique to this
+              demo app.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              In the &lsquo;Edit Settings&rsquo; dialogue, add this app&apos;s
+              redirect URI for this app to allow this app to sign in to your
+              Spotify account.
+            </Paragraph>
+            <CodeBlock>http://localhost:3000/oauth/finalize</CodeBlock>
+          </ListItem>
+        </OrderedList>
+        <Heading level={2}>Configure this application</Heading>
+        <OrderedList>
+          <ListItem>
+            <Paragraph>
+              Copy your credentials to the root <InlineCode>.env</InlineCode>{' '}
+              file. This file should look as follows:
+            </Paragraph>
+            <CodeBlock>
+              SPOTIFY_CLIENT_ID=your_spotify_client_id
+              SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+            </CodeBlock>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              Optionally configure a default country code. To change the default
+              country code (<InlineCode>US</InlineCode>), add an environment
+              variable named <InlineCode>DEFAULT_COUNTRY_CODE</InlineCode> to
+              your <InlineCode>server/.env</InlineCode> file.
+            </Paragraph>
+            <CodeBlock>DEFAULT_COUNTRY_CODE=CA</CodeBlock>
+            <BlockQuote>
+              This is needed to fetch an artist&apos;s top tracks on the artist
+              page without needing geolocation.
+            </BlockQuote>
+          </ListItem>
+          <ListItem>
+            <p>Restart the app.</p>
+          </ListItem>
+        </OrderedList>
+        <Paragraph>
+          You are ready to go! <Anchor href="/login">Log in</Anchor> to use the
+          app.
+        </Paragraph>
+      </div>
     </div>
   );
 };

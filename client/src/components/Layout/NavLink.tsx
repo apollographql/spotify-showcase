@@ -18,14 +18,14 @@ const NavLink = forwardRef<HTMLLIElement, NavLinkProps>(
   ({ children, className, icon, ...props }, ref) => {
     return (
       <li
-        className="leading-none py-3 px-0 text-muted transition-colors duration-200 ease-out hover:text-primary"
+        className="leading-none py-1 px-0 text-muted transition-colors duration-200 ease-out hover:text-primary"
         ref={ref}
       >
         <ReactRouterNavLink
           {...props}
           className={({ isActive }) =>
             cx(
-              'flex items-center gap-4 text-sm transition-color duration-200 ease-out hover:no-underline',
+              'flex items-center gap-4 py-2 transition-color duration-200 ease-out hover:no-underline',
               className,
               { 'text-primary': isActive }
             )
