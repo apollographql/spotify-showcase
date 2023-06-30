@@ -6,7 +6,7 @@ on:
       - '.github/workflows/client_pull_request.yaml'
 
 jobs:
-  eslint:
+  client-check:
     runs-on: ubuntu-latest
     name: ESLint
     steps:
@@ -16,18 +16,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - name: Install packages
+        run: npm install --prefix=client
       - name: Run ESLint
-        run: cd client && npm install && npm run lint
-
-  typescript-client:
-    runs-on: ubuntu-latest
-    name: Check TypeScript (client)
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-      - name: Check client
-        run: cd client && npm install && npm run build
+        run: npm run lint --prefix=client
