@@ -17,7 +17,18 @@ jobs:
         run: |
           curl -sSL https://rover.apollo.dev/nix/latest | sh
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
-      - name: Check server compiles
-        run: npm run build --prefix=subgraphs/playback
       - if: env.APOLLO_KEY != ''
         run: rover subgraph check Spotify-tb7du2@prod --schema ./subgraphs/playback/schema.graphql --name playback
+  check_playback_builds:
+    name: Check server compiles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install packages
+        run: npm install --prefix=subgraphs/playback
+      - name: Check server compiles
+        run: npm run build --prefix=subgraphs/playback
