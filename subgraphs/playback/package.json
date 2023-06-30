@@ -29,6 +29,7 @@
     "@apollo/datasource-rest": "^6.0.0",
     "@apollo/server": "https://pkg.csb.dev/apollographql/apollo-server/commit/29ab4f10/@apollo/server",
     "@apollo/subgraph": "^2.4.7",
+    "@graphql-tools/mock": "^9.0.0",
     "@wry/equality": "^0.5.6",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",

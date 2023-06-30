@@ -9,5 +9,5 @@ export interface ContextValue {
   };
   pubsub: PubSub;
   publisher: Publisher;
-  // token: string;
+  mock: boolean;
 }

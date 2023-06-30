@@ -5,4 +5,5 @@ export interface ContextValue {
   dataSources: {
     spotify: SpotifyAPI;
   };
+  mock: boolean;
 }

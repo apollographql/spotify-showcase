@@ -1,7 +1,7 @@
 import { readFileSync } from "fs";
 import gql from "graphql-tag";
 import { buildSubgraphSchema } from "@apollo/subgraph";
-import { ApolloServer } from "@apollo/server";
+import { ApolloServer, GraphQLResponse } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginSubscriptionCallback } from "@apollo/server/plugin/subscriptionCallback";
 import resolvers from "./resolvers";
@@ -9,6 +9,7 @@ import { ContextValue } from "./types/ContextValue";
 const port = process.env.PORT ?? "4002";
 const subgraphName = require("../package.json").name;
 const routerSecret = process.env.ROUTER_SECRET;
+import { addMocksToSchema } from "@graphql-tools/mock";
 
 import express from "express";
 import http from "http";
@@ -22,7 +23,8 @@ import { TOPICS } from "./utils/constants";
 import Publisher from "./publisher";
 import { json } from "body-parser";
 import cors from "cors";
-import { GraphQLError } from "graphql";
+import { GraphQLError, execute, parse } from "graphql";
+import { mocks } from "./utils/mocks";
 
 const logger = {
   debug(msg) {
@@ -76,6 +78,9 @@ async function main() {
           "";
         checkRouterSecret(routerAuthorization);
 
+        const token = (ctx.connectionParams?.["authorization"] as string) ??
+        (ctx.extra.request.headers?.["authorization"] as string)
+
         return {
           defaultCountryCode,
           publisher: new Publisher(pubsub),
@@ -83,11 +88,10 @@ async function main() {
           dataSources: {
             spotify: new SpotifyAPI({
               cache: server.cache,
-              token:
-                (ctx.connectionParams?.["authorization"] as string) ??
-                (ctx.extra.request.headers?.["authorization"] as string),
+              token,
             }),
           },
+          mock: token ? false : true
         } satisfies ContextValue;
       },
     },
@@ -108,6 +112,34 @@ async function main() {
           };
         },
       },
+      {
+        async requestDidStart() {
+          return {
+            responseForOperation: async (operation) => {
+              const { request, contextValue } = operation;
+              if(!contextValue.mock) return;
+  
+              const { query, variables, operationName } = request;
+              const response = await execute({
+                schema: addMocksToSchema({
+                  schema: buildSubgraphSchema({ typeDefs }),
+                  mocks,
+                  preserveResolvers: true,
+                }),
+                document: parse(query),
+                contextValue,
+                variableValues: variables,
+                operationName,
+              });
+  
+              return {
+                http: request.http,
+                body: { kind:"single", singleResult: response },
+              } as GraphQLResponse;
+            },
+          };
+        },
+      },
     ],
   });
 
@@ -121,18 +153,20 @@ async function main() {
     expressMiddleware(server, {
       context: async ({ req }) => {
         checkRouterSecret(req.headers["router-authorization"] as string);
+        const token = req.get("authorization");
 
         return {
           defaultCountryCode,
           dataSources: {
             spotify: new SpotifyAPI({
               cache: server.cache,
-              token: req.get("authorization"),
+              token,
             }),
           },
           publisher: new Publisher(pubsub),
           pubsub,
-        };
+          mock: token ? false : true
+        } 
       },
     })
   );
