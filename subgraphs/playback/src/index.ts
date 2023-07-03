@@ -31,8 +31,10 @@ const logger = {
     console.log(msg);
   },
   info(msg) {
+    console.log(msg);
   },
   warn(msg) {
+    console.log(msg);
   },
   error(msg) {
     console.log(msg);
@@ -59,59 +61,58 @@ async function main() {
   const defaultCountryCode = readEnv("DEFAULT_COUNTRY_CODE", {
     defaultValue: "US",
   });
-  const serverCleanup = useServer(
-    {
-      schema,
-      onConnect: (ctx) => {
-        if (ctx.connectionParams?.["authorization"]) return true;
-        if (ctx.extra.request.headers?.["authorization"]) return true;
+  // const serverCleanup = useServer(
+  //   {
+  //     schema,
+  //     onConnect: (ctx) => {
+  //       if (ctx.connectionParams?.["authorization"]) return true;
+  //       if (ctx.extra.request.headers?.["authorization"]) return true;
 
-        return false;
-      },
-      onDisconnect: () => {
-        pubsub.publish(TOPICS.DISCONNECT, true);
-      },
-      context: (ctx) => {
-        const routerAuthorization =
-          (ctx.connectionParams?.["authorization"] as string) ??
-          (ctx.extra.request.headers?.["authorization"] as string) ??
-          "";
-        checkRouterSecret(routerAuthorization);
+  //       return false;
+  //     },
+  //     onDisconnect: () => {
+  //       pubsub.publish(TOPICS.DISCONNECT, true);
+  //     },
+  //     context: (ctx) => {
+  //       const routerAuthorization =
+  //         (ctx.connectionParams?.["authorization"] as string) ??
+  //         (ctx.extra.request.headers?.["authorization"] as string) ??
+  //         "";
+  //       checkRouterSecret(routerAuthorization);
 
-        const token = (ctx.connectionParams?.["authorization"] as string) ??
-        (ctx.extra.request.headers?.["authorization"] as string)
+  //       const token = (ctx.connectionParams?.["authorization"] as string) ??
+  //       (ctx.extra.request.headers?.["authorization"] as string)
 
-        return {
-          defaultCountryCode,
-          publisher: new Publisher(pubsub),
-          pubsub,
-          dataSources: {
-            spotify: new SpotifyAPI({
-              cache: server.cache,
-              token,
-            }),
-          },
-          mock: token ? false : true
-        } satisfies ContextValue;
-      },
-    },
-    wsServer
-  );
+  //       return {
+  //         defaultCountryCode,
+  //         publisher: new Publisher(pubsub),
+  //         pubsub,
+  //         dataSources: {
+  //           spotify: new SpotifyAPI({
+  //             cache: server.cache,
+  //             token,
+  //           }),
+  //         },
+  //         mock: token ? false : true
+  //       } satisfies ContextValue;
+  //     },
+  //   },
+  //   wsServer
+  // );
 
   const server = new ApolloServer<ContextValue>({
     schema,
     plugins: [
-      ApolloServerPluginSubscriptionCallback({ logger }),
-      ApolloServerPluginDrainHttpServer({ httpServer }),
-      {
-        async serverWillStart() {
-          return {
-            async drainServer() {
-              await serverCleanup.dispose();
-            },
-          };
-        },
-      },
+      // ApolloServerPluginDrainHttpServer({ httpServer }),
+      // {
+      //   async serverWillStart() {
+      //     return {
+      //       async drainServer() {
+      //         await serverCleanup.dispose();
+      //       },
+      //     };
+      //   },
+      // },
       {
         async requestDidStart() {
           return {
@@ -140,6 +141,7 @@ async function main() {
           };
         },
       },
+      ApolloServerPluginSubscriptionCallback({ logger }),
     ],
   });
 
