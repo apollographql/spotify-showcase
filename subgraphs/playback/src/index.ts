@@ -118,8 +118,8 @@ async function main() {
           return {
             responseForOperation: async (operation) => {
               const { request, contextValue } = operation;
-              if(!contextValue.mock) return;
-  
+              if (!contextValue.mock) return;
+
               const { query, variables, operationName } = request;
               const response = await execute({
                 schema: addMocksToSchema({
@@ -132,13 +132,25 @@ async function main() {
                 variableValues: variables,
                 operationName,
               });
-  
+
               return {
                 http: request.http,
-                body: { kind:"single", singleResult: response },
+                body: { kind: "single", singleResult: response },
               } as GraphQLResponse;
             },
           };
+        },
+      },
+      {
+        async requestDidStart({ request }) {
+          const subscriptionExtension = request?.extensions?.subscription;
+          // If it's not a callback subscription, ignore the request.
+          if (!subscriptionExtension) return;
+
+          const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+          await sleep(3000);
+
+          return {};
         },
       },
       ApolloServerPluginSubscriptionCallback({ logger }),
@@ -167,8 +179,8 @@ async function main() {
           },
           publisher: new Publisher(pubsub),
           pubsub,
-          mock: token ? false : true
-        } 
+          mock: token ? false : true,
+        };
       },
     })
   );
