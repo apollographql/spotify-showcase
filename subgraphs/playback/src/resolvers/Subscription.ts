@@ -1,13 +1,13 @@
-import { SubscriptionResolvers } from '../__generated__/resolvers-types';
-import { Spotify } from '../dataSources/spotify.types';
-import { TOPICS } from '../utils/constants';
-import { map, distinctUntilChanged } from 'rxjs';
-import { equal } from '@wry/equality';
-import { GraphQLResolveInfo } from 'graphql';
-import { omit } from 'lodash';
-import { PartialDeep } from 'type-fest';
-import { selectsField } from '../utils/graphql';
-import { createPlaybackStateObservable } from '../observables';
+import { SubscriptionResolvers } from "../__generated__/resolvers-types";
+import { Spotify } from "../dataSources/spotify.types";
+import { TOPICS } from "../utils/constants";
+import { map, distinctUntilChanged } from "rxjs";
+import { equal } from "@wry/equality";
+import { GraphQLResolveInfo } from "graphql";
+import { omit } from "lodash";
+import { PartialDeep } from "type-fest";
+import { selectsField } from "../utils/graphql";
+import { createPlaybackStateObservable } from "../observables";
 
 type PlaybackStateChangedPayload =
   | { data: { playbackStateChanged: Spotify.Object.PlaybackState | null } }
@@ -16,13 +16,35 @@ type PlaybackStateChangedPayload =
 export const Subscription: SubscriptionResolvers = {
   playbackStateChanged: {
     resolve: (payload: PlaybackStateChangedPayload) => {
-      if ('error' in payload) {
+      if ("error" in payload) {
         throw payload.error;
       }
 
       return payload.data.playbackStateChanged;
     },
     subscribe: async (_, __, { dataSources, pubsub, publisher }, info) => {
+      // const sleep = (ms: number) =>
+      //   new Promise((r) => {
+      //     setTimeout(r, ms);
+      //   });
+      await new Promise((resolve) => {
+        const interval = setInterval(async () => {
+          try {
+            const result = await fetch(
+              `http://hosted-router.railway.internal:6607`
+            );
+            if (result) {
+              resolve("foo");
+              clearInterval(interval);
+            }
+          } catch (err) {
+            console.log(JSON.stringify(err));
+          }
+        }, 1000);
+      });
+
+      // await sleep(3000);
+
       const subscription = createPlaybackStateObservable(dataSources.spotify)
         .pipe(
           map((playbackState) => {
@@ -66,13 +88,13 @@ type Operation = (
 const operations: Operation[] = [
   (playbackState) => ({
     ...playbackState,
-    item: omit(playbackState.item, 'available_markets'),
+    item: omit(playbackState.item, "available_markets"),
   }),
   (playbackState) => {
     const playbackItem = playbackState.item;
     const updatedItem =
-      playbackItem?.type === 'track'
-        ? omit(playbackItem, ['album.available_markets'])
+      playbackItem?.type === "track"
+        ? omit(playbackItem, ["album.available_markets"])
         : playbackItem;
 
     return {
@@ -85,13 +107,13 @@ const operations: Operation[] = [
     item: equal(playbackState.item, {}) ? null : playbackState.item,
   }),
   (playbackState, info) =>
-    selectsField(['playbackStateChanged', 'timestamp'], info)
+    selectsField(["playbackStateChanged", "timestamp"], info)
       ? playbackState
-      : omit(playbackState, ['timestamp']),
+      : omit(playbackState, ["timestamp"]),
   (playbackState, info) =>
-    selectsField(['playbackStateChanged', 'progressMs'], info)
+    selectsField(["playbackStateChanged", "progressMs"], info)
       ? playbackState
-      : omit(playbackState, ['progress_ms']),
+      : omit(playbackState, ["progress_ms"]),
 ];
 
 // Return a partial representation of the object with volatile fields removed.
