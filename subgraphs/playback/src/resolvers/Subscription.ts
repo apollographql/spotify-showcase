@@ -33,7 +33,9 @@ export const Subscription: SubscriptionResolvers = {
             const result = await fetch(
               `http://hosted-router.railway.internal:7718`
             );
+            console.log(`Result: ${JSON.stringify(result)}`);
             if (result) {
+              console.log(`Pass`);
               resolve("foo");
               clearInterval(interval);
             }
