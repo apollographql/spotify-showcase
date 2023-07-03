@@ -164,6 +164,8 @@ async function main() {
                 }
               } catch (err) {
                 console.log(JSON.stringify(err));
+              } finally {
+                await sleep(3000);
               }
             }, 1000);
           });
