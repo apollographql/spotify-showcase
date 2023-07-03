@@ -31,7 +31,7 @@ export const Subscription: SubscriptionResolvers = {
         const interval = setInterval(async () => {
           try {
             const result = await fetch(
-              `http://hosted-router.railway.internal:6607`
+              `http://hosted-router.railway.internal:7718`
             );
             if (result) {
               resolve("foo");
