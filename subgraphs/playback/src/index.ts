@@ -147,28 +147,26 @@ async function main() {
           // If it's not a callback subscription, ignore the request.
           if (!subscriptionExtension) return;
 
-          const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-          await sleep(3000);
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+await sleep(3000);
 
-          await new Promise((resolve) => {
-            const interval = setInterval(async () => {
-              try {
-                const result = await fetch(
-                  `http://hosted-router.railway.internal:7718`
-                );
-                console.log(`Result: ${JSON.stringify(result)}`);
-                if (result) {
-                  console.log(`Pass`);
-                  resolve("foo");
-                  clearInterval(interval);
-                }
-              } catch (err) {
-                console.log(JSON.stringify(err));
-              } finally {
-                await sleep(3000);
-              }
-            }, 1000);
-          });
+await new Promise((resolve) => {
+  const interval = setInterval(async () => {
+    try {
+      const result = await fetch(
+        `http://hosted-router.railway.internal:7718`
+      );
+      console.log(`Result: ${JSON.stringify(result)}`);
+      if (result) {
+        console.log(`Pass`);
+        resolve("foo");
+        clearInterval(interval);
+      }
+    } catch (err) {
+      console.log(JSON.stringify(err));
+    } 
+  }, 3000);
+});
 
           return {};
         },
