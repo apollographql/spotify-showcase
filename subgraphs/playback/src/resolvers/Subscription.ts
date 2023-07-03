@@ -27,23 +27,23 @@ export const Subscription: SubscriptionResolvers = {
       //   new Promise((r) => {
       //     setTimeout(r, ms);
       //   });
-      await new Promise((resolve) => {
-        const interval = setInterval(async () => {
-          try {
-            const result = await fetch(
-              `http://hosted-router.railway.internal:7718`
-            );
-            console.log(`Result: ${JSON.stringify(result)}`);
-            if (result) {
-              console.log(`Pass`);
-              resolve("foo");
-              clearInterval(interval);
-            }
-          } catch (err) {
-            console.log(JSON.stringify(err));
-          }
-        }, 1000);
-      });
+      // await new Promise((resolve) => {
+      //   const interval = setInterval(async () => {
+      //     try {
+      //       const result = await fetch(
+      //         `http://hosted-router.railway.internal:7718`
+      //       );
+      //       console.log(`Result: ${JSON.stringify(result)}`);
+      //       if (result) {
+      //         console.log(`Pass`);
+      //         resolve("foo");
+      //         clearInterval(interval);
+      //       }
+      //     } catch (err) {
+      //       console.log(JSON.stringify(err));
+      //     }
+      //   }, 1000);
+      // });
 
       // await sleep(3000);
 
