@@ -102,6 +102,7 @@ async function main() {
 
   const server = new ApolloServer<ContextValue>({
     schema,
+    introspection: true,
     plugins: [
       // ApolloServerPluginDrainHttpServer({ httpServer }),
       // {
