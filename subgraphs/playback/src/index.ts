@@ -147,6 +147,9 @@ async function main() {
           // If it's not a callback subscription, ignore the request.
           if (!subscriptionExtension) return;
 
+          const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+          await sleep(3000);
+
           await new Promise((resolve) => {
             const interval = setInterval(async () => {
               try {
