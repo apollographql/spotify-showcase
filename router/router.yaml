@@ -26,7 +26,7 @@ include_subgraph_errors:
 preview_operation_limits:
   parser_max_tokens: 15000 # This is the default value.
   parser_max_recursion: 4096 # This is the default value.
-  max_depth: 100 # Must be 15 or larger to support standard introspection query
+  max_depth: 20 # Must be 15 or larger to support standard introspection query
   max_height: 200
   max_aliases: 30
   max_root_fields: 20

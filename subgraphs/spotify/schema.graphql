@@ -15,7 +15,7 @@ extend schema
     url: "https://myteam.slack.com/archives/teams-chat-room-url"
     description: "send urgent issues to [#oncall](https://yourteam.slack.com/archives/oncall)."
   )
-	@link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key", "@shareable"])
+	@link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key", "@shareable", "@tag"])
 
 scalar CountryCode
 scalar DateTime
@@ -250,6 +250,8 @@ type Query {
     """
     ids: [ID!]!
   ): [TrackAudioFeatures!]!
+
+  user(id:ID!): User @tag(name: "internal")
 }
 
 type Mutation {
