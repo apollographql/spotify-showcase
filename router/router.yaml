@@ -1,5 +1,7 @@
 cors:
   allow_any_origin: true
+  origins:
+    - https://studio.apollographql.com
 headers:
   subgraphs:
     spotify:
