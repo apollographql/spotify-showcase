@@ -11,6 +11,11 @@ const subgraphName = require("../package.json").name;
 const routerSecret = process.env.ROUTER_SECRET;
 import { addMocksToSchema } from "@graphql-tools/mock";
 
+import { WebSocketServer } from "ws";
+import { useServer } from "graphql-ws/lib/use/ws";
+import { TOPICS } from "./utils/constants";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+
 import express from "express";
 import http from "http";
 import { PubSub } from "graphql-subscriptions";
@@ -26,10 +31,8 @@ const logger = {
   debug(msg) {
     console.log(msg);
   },
-  info(msg) {
-  },
-  warn(msg) {
-  },
+  info(msg) {},
+  warn(msg) {},
   error(msg) {
     console.log(msg);
   },
@@ -47,72 +50,147 @@ async function main() {
   });
   const app = express();
   const httpServer = http.createServer(app);
+  const wsServer = new WebSocketServer({
+    server: httpServer,
+    path: "/ws",
+  });
   const pubsub = new PubSub();
   const defaultCountryCode = readEnv("DEFAULT_COUNTRY_CODE", {
     defaultValue: "US",
   });
+  const mockPlugin = {
+    async requestDidStart() {
+      return {
+        responseForOperation: async (operation) => {
+          const { request, contextValue } = operation;
+          if (!contextValue.mock) return;
 
-  const server = new ApolloServer<ContextValue>({
+          const { query, variables, operationName } = request;
+          const response = await execute({
+            schema: addMocksToSchema({
+              schema: buildSubgraphSchema({ typeDefs }),
+              mocks,
+              preserveResolvers: true,
+            }),
+            document: parse(query),
+            contextValue,
+            variableValues: variables,
+            operationName,
+          });
+
+          return {
+            http: request.http,
+            body: { kind: "single", singleResult: response },
+          } as GraphQLResponse;
+        },
+      };
+    },
+  };
+  const serverCleanup = useServer(
+    {
+      schema,
+      onConnect: (ctx) => {
+        if (ctx.connectionParams?.["authorization"]) return true;
+        if (ctx.extra.request.headers?.["authorization"]) return true;
+        return false;
+      },
+      onDisconnect: () => {
+        pubsub.publish(TOPICS.DISCONNECT, true);
+      },
+      context: (ctx) => {
+        const routerAuthorization =
+          (ctx.connectionParams?.["authorization"] as string) ??
+          (ctx.extra.request.headers?.["authorization"] as string) ??
+          "";
+        checkRouterSecret(routerAuthorization);
+        const token =
+          (ctx.connectionParams?.["authorization"] as string) ??
+          (ctx.extra.request.headers?.["authorization"] as string);
+        return {
+          defaultCountryCode,
+          publisher: new Publisher(pubsub),
+          pubsub,
+          dataSources: {
+            spotify: new SpotifyAPI({
+              cache: wsApolloServer.cache,
+              token,
+            }),
+          },
+          mock: token ? false : true,
+        } satisfies ContextValue;
+      },
+    },
+    wsServer
+  );
+
+  // We currently are building 2 instances of Apollo Server to host subscriptions 
+  // in both callback and websocket form.
+  //
+  // The Cloud Apollo Router offering currently only support websockets while the 
+  // self-hosted Enterprise Apollo Router also support the HTTP callback protocol
+  // https://www.apollographql.com/docs/router/executing-operations/subscription-callback-protocol
+  //
+  // You would normally only want to implement one of these
+  // You cannot run callback subscriptions and websocket subscriptions in the same Apollo Server instance
+  const callbackApolloServer = new ApolloServer<ContextValue>({
+    schema,
+    introspection: true,
+    plugins: [mockPlugin, ApolloServerPluginSubscriptionCallback({ logger })],
+  });
+  const wsApolloServer = new ApolloServer<ContextValue>({
     schema,
     introspection: true,
     plugins: [
+      mockPlugin,
+      ApolloServerPluginDrainHttpServer({ httpServer }),
       {
-        async requestDidStart() {
+        async serverWillStart() {
           return {
-            responseForOperation: async (operation) => {
-              const { request, contextValue } = operation;
-              if (!contextValue.mock) return;
-
-              const { query, variables, operationName } = request;
-              const response = await execute({
-                schema: addMocksToSchema({
-                  schema: buildSubgraphSchema({ typeDefs }),
-                  mocks,
-                  preserveResolvers: true,
-                }),
-                document: parse(query),
-                contextValue,
-                variableValues: variables,
-                operationName,
-              });
-
-              return {
-                http: request.http,
-                body: { kind: "single", singleResult: response },
-              } as GraphQLResponse;
+            async drainServer() {
+              await serverCleanup.dispose();
             },
           };
         },
       },
-      ApolloServerPluginSubscriptionCallback({ logger }),
     ],
   });
 
-  await server.start();
+  await callbackApolloServer.start();
+  await wsApolloServer.start();
+
+  const context = async ({ req }) => {
+    checkRouterSecret(req.headers["router-authorization"] as string);
+    const token = req.get("authorization");
+
+    return {
+      defaultCountryCode,
+      dataSources: {
+        spotify: new SpotifyAPI({
+          cache: callbackApolloServer.cache,
+          token,
+        }),
+      },
+      publisher: new Publisher(pubsub),
+      pubsub,
+      mock: token ? false : true,
+    };
+  };
 
   app.use(express.static("public"));
   app.use(
     "/",
     cors(),
     json(),
-    expressMiddleware(server, {
-      context: async ({ req }) => {
-        checkRouterSecret(req.headers["router-authorization"] as string);
-        const token = req.get("authorization");
-
-        return {
-          defaultCountryCode,
-          dataSources: {
-            spotify: new SpotifyAPI({
-              cache: server.cache,
-              token,
-            }),
-          },
-          publisher: new Publisher(pubsub),
-          pubsub,
-          mock: token ? false : true,
-        };
-      },
+    expressMiddleware(wsApolloServer, {
+      context,
+    })
+  );
+  app.use(
+    "/graphql",
+    cors(),
+    json(),
+    expressMiddleware(callbackApolloServer, {
+      context
     })
   );
 
