@@ -81,7 +81,7 @@ class Apollo apolloBox
 *To be completed*
 
 3. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys)
-4. Run the clone script withh the API key
+4. Run the clone script with the API key
 
 ```sh
 APOLLO_KEY={YOUR_API_KEY} npm run clone
