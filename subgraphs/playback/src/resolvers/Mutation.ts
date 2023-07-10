@@ -1,14 +1,14 @@
-import { MutationResolvers } from '../__generated__/resolvers-types';
-import { maybe, maybeDeep } from '../utils/common';
-import SpotifyAPI from '../dataSources/spotify';
-import Publisher from '../publisher';
+import { MutationResolvers } from "../__generated__/resolvers-types";
+import { maybe, maybeDeep } from "../utils/common";
+import SpotifyAPI from "../dataSources/spotify";
+import Publisher from "../publisher";
 
 const refreshPlaybackState = async (
   spotify: SpotifyAPI,
   publisher: Publisher
 ) => {
   const playbackState = await spotify.getPlaybackState({
-    additional_types: 'episode,track',
+    additional_types: "episode,track",
   });
 
   publisher.playbackStateChanged({ playbackState });
@@ -18,22 +18,47 @@ const refreshPlaybackState = async (
 
 export const Mutation: MutationResolvers = {
   resumePlayback: async (_, { input }, { dataSources, publisher }) => {
-    await dataSources.spotify.resumePlayback({
-      body: {
-        context_uri: maybe(input?.contextUri),
-        offset: maybeDeep(input?.offset),
-        position_ms: maybe(input?.positionMs),
-        uris: maybe(input?.uris),
-      },
-      params: { device_id: maybe(input?.deviceId) },
-    });
+    let resumed = false;
+    try {
+      await dataSources.spotify.resumePlayback({
+        body: {
+          context_uri: maybe(input?.contextUri),
+          offset: maybeDeep(input?.offset),
+          position_ms: maybe(input?.positionMs),
+          uris: maybe(input?.uris),
+        },
+        params: { device_id: maybe(input?.deviceId) },
+      });
+      resumed = true;
+    } catch (err) {
+      console.log(err);
+      if (err?.extensions?.reason == "NO_ACTIVE_DEVICE") {
+        //If there are no active devices...
+        //  check to see if one is open and start on the first in the index
+        const response = await dataSources.spotify.getDevices();
+        if (response.devices.length > 0) {
+          await dataSources.spotify.resumePlayback({
+            body: {
+              context_uri: maybe(input?.contextUri),
+              offset: maybeDeep(input?.offset),
+              position_ms: maybe(input?.positionMs),
+              uris: maybe(input?.uris),
+            },
+            params: { device_id: response.devices[0].id },
+          });
+          resumed = true;
+        }
+      }
+    }
+
+    if (!resumed) return null;
 
     const playbackState = await refreshPlaybackState(
       dataSources.spotify,
       publisher
     );
 
-    return {playbackState};
+    return { playbackState };
   },
   pausePlayback: async (_, { context }, { dataSources, publisher }) => {
     await dataSources.spotify.pausePlayback({
@@ -152,4 +177,4 @@ export const Mutation: MutationResolvers = {
 
     return { playbackState };
   },
-}
+};

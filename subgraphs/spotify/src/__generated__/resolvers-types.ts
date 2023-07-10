@@ -1014,6 +1014,7 @@ export type Query = {
   tracks?: Maybe<Array<Track>>;
   /** Get audio features for multiple tracks based on their Spotify IDs. */
   tracksAudioFeatures: Array<TrackAudioFeatures>;
+  user?: Maybe<User>;
 };
 
 
@@ -1117,6 +1118,11 @@ export type QueryTracksArgs = {
 
 export type QueryTracksAudioFeaturesArgs = {
   ids: Array<Scalars['ID']>;
+};
+
+
+export type QueryUserArgs = {
+  id: Scalars['ID'];
 };
 
 export type RecentlyPlayedConnection = {
@@ -2671,6 +2677,7 @@ export type QueryResolvers<ContextType = ContextValue, ParentType extends Resolv
   track?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType, RequireFields<QueryTrackArgs, 'id'>>;
   tracks?: Resolver<Maybe<Array<ResolversTypes['Track']>>, ParentType, ContextType, RequireFields<QueryTracksArgs, 'ids'>>;
   tracksAudioFeatures?: Resolver<Array<ResolversTypes['TrackAudioFeatures']>, ParentType, ContextType, RequireFields<QueryTracksAudioFeaturesArgs, 'ids'>>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
 }>;
 
 export type RecentlyPlayedConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RecentlyPlayedConnection'] = ResolversParentTypes['RecentlyPlayedConnection']> = ResolversObject<{
