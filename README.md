@@ -74,7 +74,7 @@ class Apollo apolloBox
 1. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
   - [Query the graph](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer) *(**Spotify account required**) - OAuth workflow with be initiated from Apollo Explorer to login to our Spotify account to run any operation*
     - Try having your Spotify app playing on your phone or desktop and then run [this mutation](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer?explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4RxighigSwiQAIAFXGAZwTIBtcBPAI1ygGsBZHfI04ADqkSIgA6Ua9Jqw4lBwkWIYs27AMp4UCOUMV6SBKlMYEkAc136AvpZE3hVkFaA)
-  - [View the graphs schema](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/schema/reference)
+  - [View the graph's schema](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/schema/reference)
 
 ### I want to re-create this demo in my GraphOS account 
 
