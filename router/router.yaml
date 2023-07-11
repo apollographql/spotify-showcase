@@ -43,6 +43,6 @@ subscription:
     preview_callback:
       public_url: https://spotify-showcase-production-d157.up.railway.app/graphql/callback # The router's public URL
       listen: 0.0.0.0:${env.PORT:-4000} # The IP address and port the router will listen on for subscription callbacks
-      path: /callback # The path of the router's callback endpoint
+      path: /graphql/callback # The path of the router's callback endpoint
       subgraphs: # The list of subgraphs that use the HTTP callback protocol
         - playback
