@@ -17,7 +17,6 @@ import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
-import { Link } from 'react-router-dom';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
