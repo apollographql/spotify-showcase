@@ -97,7 +97,7 @@ async function main() {
 
   await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
 
-  console.log(`🚀 Subscription endpoint ready at ws://localhost:${port}`);
+  console.log(`🚀 GraphQL endpoint ready at http://localhost:${port}`);
 }
 
 function checkRouterSecret(secret: string) {
