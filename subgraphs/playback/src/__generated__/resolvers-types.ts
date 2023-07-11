@@ -8,17 +8,19 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Timestamp: unknown;
-  _FieldSet: unknown;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  Timestamp: { input: unknown; output: unknown; }
+  _FieldSet: { input: unknown; output: unknown; }
 };
 
 export type Action =
@@ -41,30 +43,30 @@ export type Actions = {
 export type Device = {
   __typename?: 'Device';
   /** The device ID */
-  id?: Maybe<Scalars['ID']>;
+  id?: Maybe<Scalars['ID']['output']>;
   /** If this device is the currently active device. */
-  isActive: Scalars['Boolean'];
+  isActive: Scalars['Boolean']['output'];
   /** If this device is currently in a private session. */
-  isPrivateSession: Scalars['Boolean'];
+  isPrivateSession: Scalars['Boolean']['output'];
   /**
    * Whether controlling this device is restricted. At present if this is "true",
    * then no Web API commands will be accepted by this device.
    */
-  isRestricted: Scalars['Boolean'];
+  isRestricted: Scalars['Boolean']['output'];
   /**
    * A human-readable name for the device. Some devices have a name that the user
    * can configure (e.g. "Loudest speaker") and some devices have a generic name
    * associated with the manufacturer or device model.
    */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Device type, such as "computer", "smartphone" or "speaker". */
-  type: Scalars['String'];
+  type: Scalars['String']['output'];
   /**
    * The current volume in percent.
    *
    * >= 0    <= 100
    */
-  volumePercent: Scalars['Int'];
+  volumePercent: Scalars['Int']['output'];
 };
 
 export type ExternalUrl = {
@@ -73,7 +75,7 @@ export type ExternalUrl = {
    * The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the object.
    */
-  spotify?: Maybe<Scalars['String']>;
+  spotify?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
@@ -111,7 +113,7 @@ export type MutationResumePlaybackArgs = {
 
 export type MutationSeekToPositionArgs = {
   context?: InputMaybe<SeekToPositionContextInput>;
-  positionMs: Scalars['Int'];
+  positionMs: Scalars['Int']['input'];
 };
 
 
@@ -123,13 +125,13 @@ export type MutationSetRepeatModeArgs = {
 
 export type MutationSetVolumeArgs = {
   context?: InputMaybe<SetVolumeContextInput>;
-  volumePercent: Scalars['Int'];
+  volumePercent: Scalars['Int']['input'];
 };
 
 
 export type MutationShufflePlaybackArgs = {
   context?: InputMaybe<ShufflePlaybackContextInput>;
-  state: Scalars['Boolean'];
+  state: Scalars['Boolean']['input'];
 };
 
 
@@ -152,7 +154,7 @@ export type PausePlaybackContextInput = {
    * The id of the device this command is targeting. If not supplied, the user's
    * currently active device is the target.
    */
-  deviceId?: InputMaybe<Scalars['String']>;
+  deviceId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PausePlaybackResponse = {
@@ -166,14 +168,14 @@ export type PlaybackContext = {
   /** External URLs for this context. */
   externalUrls: ExternalUrl;
   /** A link to the Web API endpoint providing full details of the track. */
-  href: Scalars['String'];
+  href: Scalars['String']['output'];
   /** The object type, e.g. "artist", "playlist", "album", "show". */
   type: PlaybackContextType;
   /**
    * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the context.
    */
-  uri: Scalars['String'];
+  uri: Scalars['String']['output'];
 };
 
 export type PlaybackContextType =
@@ -195,7 +197,7 @@ export type PlaybackItem = {
    * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the playback item.
    */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
 };
 
 export type PlaybackState = {
@@ -210,35 +212,17 @@ export type PlaybackState = {
   /** The device that is currently active. */
   device: Device;
   /** If something is currently playing, return `true`. */
-  isPlaying: Scalars['Boolean'];
+  isPlaying: Scalars['Boolean']['output'];
   /** The currently playing track or episode */
   item?: Maybe<PlaybackItem>;
   /** Progress into the currently playing track or episode. Can be `null` */
-  progressMs?: Maybe<Scalars['Int']>;
+  progressMs?: Maybe<Scalars['Int']['output']>;
   /** off, track, context */
   repeatState: RepeatMode;
   /** If shuffle is on or off. */
-  shuffleState: Scalars['Boolean'];
+  shuffleState: Scalars['Boolean']['output'];
   /** Unix Millisecond Timestamp when data was fetched. */
-  timestamp: Scalars['Timestamp'];
-};
-
-export type PlaylistTrack = {
-  /** The playlist track length in milliseconds. */
-  durationMs: Scalars['Int'];
-  /** External URLs for this episode. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the episode. */
-  href: Scalars['String'];
-  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist track. */
-  id: Scalars['ID'];
-  /** The name of the episode. */
-  name: Scalars['String'];
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the playlist track.
-   */
-  uri: Scalars['String'];
+  timestamp: Scalars['Timestamp']['output'];
 };
 
 export type RepeatMode =
@@ -251,21 +235,21 @@ export type ResumePlaybackInput = {
    * Spotify URI of the context to play. Valid contexts are albums, artists &
    * playlists.
    */
-  contextUri?: InputMaybe<Scalars['String']>;
+  contextUri?: InputMaybe<Scalars['String']['input']>;
   /**
    * The id of the device this command is targeting. If not supplied, the user's
    * currently active device is the target.
    */
-  deviceId?: InputMaybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']['input']>;
   /**
    * Indicates from where in the context playback should start. Only available when
    * contextUri corresponds to an album or playlist object.
    */
   offset?: InputMaybe<ResumePlaybackOffsetInput>;
   /** Indicates the position where playback should occur in milliseconds. */
-  positionMs?: InputMaybe<Scalars['Int']>;
+  positionMs?: InputMaybe<Scalars['Int']['input']>;
   /** An array of the Spotify track URIs to play. */
-  uris?: InputMaybe<Array<Scalars['String']>>;
+  uris?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type ResumePlaybackOffsetInput = {
@@ -273,9 +257,9 @@ export type ResumePlaybackOffsetInput = {
    * Non-negative, zero-based value that corresponds to the numeric position in the
    * album or playlist
    */
-  position?: InputMaybe<Scalars['Int']>;
+  position?: InputMaybe<Scalars['Int']['input']>;
   /** Spotify URI of the item in the album or playlist */
-  uri?: InputMaybe<Scalars['String']>;
+  uri?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ResumePlaybackPayload = {
@@ -285,7 +269,7 @@ export type ResumePlaybackPayload = {
 
 export type SeekToPositionContextInput = {
   /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
-  deviceId?: InputMaybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type SeekToPositionResponse = {
@@ -296,7 +280,7 @@ export type SeekToPositionResponse = {
 
 export type SetRepeatModeContextInput = {
   /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
-  deviceId?: InputMaybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type SetRepeatModeResponse = {
@@ -307,7 +291,7 @@ export type SetRepeatModeResponse = {
 
 export type SetVolumeContextInput = {
   /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
-  deviceId?: InputMaybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type SetVolumeResponse = {
@@ -321,7 +305,7 @@ export type ShufflePlaybackContextInput = {
    * The id of the device this command is targeting. If not supplied, the user's
    * currently active device is the target.
    */
-  deviceId?: InputMaybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type ShufflePlaybackResponse = {
@@ -335,7 +319,7 @@ export type SkipToNextContextInput = {
    * The id of the device this command is targeting. If not supplied, the user's
    * currently active device is the target.
    */
-  deviceId?: InputMaybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type SkipToNextResponse = {
@@ -349,7 +333,7 @@ export type SkipToPreviousContextInput = {
    * The id of the device this command is targeting. If not supplied, the user's
    * currently active device is the target.
    */
-  deviceId?: InputMaybe<Scalars['ID']>;
+  deviceId?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type SkipToPreviousResponse = {
@@ -368,12 +352,12 @@ export type TransferPlaybackInput = {
    * A list containing the ID of the device on which playback should be
    * started/transferred.
    */
-  deviceIds: Array<Scalars['ID']>;
+  deviceIds: Array<Scalars['ID']['input']>;
   /**
    * `true`: ensure playback happens on new device.
    * `false` or not provided: keep the current playback state.
    */
-  play?: InputMaybe<Scalars['Boolean']>;
+  play?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type TransferPlaybackPayload = {
@@ -464,10 +448,10 @@ export type ResolversTypes = ResolversObject<{
   Action: Action;
   Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
   Device: ResolverTypeWrapper<Spotify.Object.Device>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   Mutation: ResolverTypeWrapper<{}>;
   PausePlaybackContextInput: PausePlaybackContextInput;
@@ -476,7 +460,6 @@ export type ResolversTypes = ResolversObject<{
   PlaybackContextType: PlaybackContextType;
   PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
-  PlaylistTrack: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.Episode>;
   RepeatMode: RepeatMode;
   ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
@@ -494,7 +477,7 @@ export type ResolversTypes = ResolversObject<{
   SkipToPreviousContextInput: SkipToPreviousContextInput;
   SkipToPreviousResponse: ResolverTypeWrapper<Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
   Subscription: ResolverTypeWrapper<{}>;
-  Timestamp: ResolverTypeWrapper<Scalars['Timestamp']>;
+  Timestamp: ResolverTypeWrapper<Scalars['Timestamp']['output']>;
   TransferPlaybackInput: TransferPlaybackInput;
   TransferPlaybackPayload: ResolverTypeWrapper<Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
 }>;
@@ -503,10 +486,10 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Actions: Spotify.Object.Actions;
   Device: Spotify.Object.Device;
-  ID: Scalars['ID'];
-  Boolean: Scalars['Boolean'];
-  String: Scalars['String'];
-  Int: Scalars['Int'];
+  ID: Scalars['ID']['output'];
+  Boolean: Scalars['Boolean']['output'];
+  String: Scalars['String']['output'];
+  Int: Scalars['Int']['output'];
   ExternalUrl: ExternalUrl;
   Mutation: {};
   PausePlaybackContextInput: PausePlaybackContextInput;
@@ -514,7 +497,6 @@ export type ResolversParentTypes = ResolversObject<{
   PlaybackContext: Spotify.Object.Context;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
   PlaybackState: Spotify.Object.PlaybackState;
-  PlaylistTrack: Spotify.Object.Track | Spotify.Object.Episode;
   ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
   ResumePlaybackPayload: Omit<ResumePlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
@@ -531,15 +513,15 @@ export type ResolversParentTypes = ResolversObject<{
   SkipToPreviousContextInput: SkipToPreviousContextInput;
   SkipToPreviousResponse: Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
   Subscription: {};
-  Timestamp: Scalars['Timestamp'];
+  Timestamp: Scalars['Timestamp']['output'];
   TransferPlaybackInput: TransferPlaybackInput;
   TransferPlaybackPayload: Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
 }>;
 
 export type ContactDirectiveArgs = {
-  description?: Maybe<Scalars['String']>;
-  name: Scalars['String'];
-  url?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  url?: Maybe<Scalars['String']['input']>;
 };
 
 export type ContactDirectiveResolver<Result, Parent, ContextType = ContextValue, Args = ContactDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
@@ -613,16 +595,6 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaylistTrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistTrack'] = ResolversParentTypes['PlaylistTrack']> = ResolversObject<{
-  __resolveType: TypeResolveFn<null, ParentType, ContextType>;
-  durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
-  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-}>;
-
 export type RepeatModeResolvers = { CONTEXT: 'context', OFF: 'off', TRACK: 'track' };
 
 export type ResumePlaybackPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePlaybackPayload'] = ResolversParentTypes['ResumePlaybackPayload']> = ResolversObject<{
@@ -684,7 +656,6 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   PlaybackContextType?: PlaybackContextTypeResolvers;
   PlaybackItem?: PlaybackItemResolvers<ContextType>;
   PlaybackState?: PlaybackStateResolvers<ContextType>;
-  PlaylistTrack?: PlaylistTrackResolvers<ContextType>;
   RepeatMode?: RepeatModeResolvers;
   ResumePlaybackPayload?: ResumePlaybackPayloadResolvers<ContextType>;
   SeekToPositionResponse?: SeekToPositionResponseResolvers<ContextType>;

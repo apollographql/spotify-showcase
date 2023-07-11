@@ -1,13 +1,13 @@
-import { SubscriptionResolvers } from "../__generated__/resolvers-types";
-import { Spotify } from "../dataSources/spotify.types";
-import { TOPICS } from "../utils/constants";
-import { map, distinctUntilChanged } from "rxjs";
-import { equal } from "@wry/equality";
-import { GraphQLResolveInfo } from "graphql";
-import { omit } from "lodash";
-import { PartialDeep } from "type-fest";
-import { selectsField } from "../utils/graphql";
-import { createPlaybackStateObservable } from "../observables";
+import { SubscriptionResolvers } from '../__generated__/resolvers-types';
+import { Spotify } from '../dataSources/spotify.types';
+import { TOPICS } from '../utils/constants';
+import { map, distinctUntilChanged } from 'rxjs';
+import { equal } from '@wry/equality';
+import { GraphQLResolveInfo } from 'graphql';
+import { omit } from 'lodash';
+import { PartialDeep } from 'type-fest';
+import { selectsField } from '../utils/graphql';
+import { createPlaybackStateObservable } from '../observables';
 
 type PlaybackStateChangedPayload =
   | { data: { playbackStateChanged: Spotify.Object.PlaybackState | null } }
@@ -16,7 +16,7 @@ type PlaybackStateChangedPayload =
 export const Subscription: SubscriptionResolvers = {
   playbackStateChanged: {
     resolve: (payload: PlaybackStateChangedPayload) => {
-      if ("error" in payload) {
+      if ('error' in payload) {
         throw payload.error;
       }
 
@@ -66,13 +66,13 @@ type Operation = (
 const operations: Operation[] = [
   (playbackState) => ({
     ...playbackState,
-    item: omit(playbackState.item, "available_markets"),
+    item: omit(playbackState.item, 'available_markets'),
   }),
   (playbackState) => {
     const playbackItem = playbackState.item;
     const updatedItem =
-      playbackItem?.type === "track"
-        ? omit(playbackItem, ["album.available_markets"])
+      playbackItem?.type === 'track'
+        ? omit(playbackItem, ['album.available_markets'])
         : playbackItem;
 
     return {
@@ -85,13 +85,13 @@ const operations: Operation[] = [
     item: equal(playbackState.item, {}) ? null : playbackState.item,
   }),
   (playbackState, info) =>
-    selectsField(["playbackStateChanged", "timestamp"], info)
+    selectsField(['playbackStateChanged', 'timestamp'], info)
       ? playbackState
-      : omit(playbackState, ["timestamp"]),
+      : omit(playbackState, ['timestamp']),
   (playbackState, info) =>
-    selectsField(["playbackStateChanged", "progressMs"], info)
+    selectsField(['playbackStateChanged', 'progressMs'], info)
       ? playbackState
-      : omit(playbackState, ["progress_ms"]),
+      : omit(playbackState, ['progress_ms']),
 ];
 
 // Return a partial representation of the object with volatile fields removed.

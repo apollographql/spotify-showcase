@@ -6,7 +6,6 @@ import { expressMiddleware } from "@apollo/server/express4";
 import resolvers from "./resolvers";
 import { ContextValue } from "./types/ContextValue";
 const port = process.env.PORT ?? "4001";
-const subgraphName = require("../package.json").name;
 const routerSecret = process.env.ROUTER_SECRET;
 import { addMocksToSchema } from "@graphql-tools/mock";
 
@@ -44,7 +43,7 @@ async function main() {
           return {
             responseForOperation: async (operation) => {
               const { request, contextValue } = operation;
-              if(!contextValue.mock) return;
+              if (!contextValue.mock) return;
 
               const { query, variables, operationName } = request;
               const response = await execute({
@@ -61,7 +60,7 @@ async function main() {
 
               return {
                 http: request.http,
-                body: { kind:"single", singleResult: response },
+                body: { kind: "single", singleResult: response },
               } as GraphQLResponse;
             },
           };
@@ -72,7 +71,6 @@ async function main() {
 
   await server.start();
 
-  app.use(express.static("public"));
   app.use(
     "/",
     cors(),
@@ -89,7 +87,7 @@ async function main() {
               token,
             }),
           },
-          mock: token ? false : true
+          mock: token ? false : true,
         };
       },
     })

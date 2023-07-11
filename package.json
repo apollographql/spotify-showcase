@@ -4,10 +4,13 @@
   "description": "# React + Apollo Spotify Showcase",
   "main": "setup.js",
   "scripts": {
+    "codegen": "rover graph fetch Spotify-tb7du2@prod-external > ./client/schema.graphql && graphql-codegen",
     "lint": "concurrently \"npm:lint:*\"",
     "lint:client": "eslint client/src",
-    "tsc:client": "tsc --noEmit -p ./client/tsconfig.json",
-    "tsc:server": "tsc --noEmit -p ./tsconfig.json",
+    "build": "concurrently \"npm:build:*\"",
+    "build:client": "npm run build --prefix=client",
+    "build:spotify": "npm run build --prefix=subgraphs/spotify",
+    "build:playback": "npm run build --prefix=subgraphs/playback",
     "postinstall": "npm run setup",
     "setup": "concurrently \"npm:setup:*\"",
     "setup:client": "npm install --prefix=client",
@@ -35,6 +38,19 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-resolvers": "^4.0.1",
     "upath": "^2.0.1"
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5"
   }
 }

@@ -6,6 +6,15 @@ import {
   SelectionNode,
 } from 'graphql';
 
+export const shouldLoadFullArtist = (
+  pathToArtist: string[],
+  info: GraphQLResolveInfo
+) => {
+  return ['followers', 'genres', 'images', 'popularity'].some((fieldName) =>
+    selectsField([...pathToArtist, fieldName], info)
+  );
+};
+
 export const selectsField = (path: string[], info: GraphQLResolveInfo) => {
   return info.fieldNodes.some((fieldNode) =>
     selectsFieldInNode(path, fieldNode, info)

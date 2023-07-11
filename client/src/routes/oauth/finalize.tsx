@@ -9,7 +9,6 @@ export const loader: LoaderFunction = async ({ request }) => {
   const params = new URL(request.url).searchParams;
   const code = params.get('code');
 
-
   if (
     params.has('error') ||
     params.get('state') !== state ||

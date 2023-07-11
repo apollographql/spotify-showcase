@@ -57,7 +57,7 @@ const LoggedIn = () => {
 
   return (
     <Suspense fallback={<LoadingState />}>
-      <PlaylistTileGrid queryRef={queryRef as QueryReference<IndexRouteQuery>} />
+      <PlaylistTileGrid queryRef={queryRef} />
     </Suspense>
   );
 };

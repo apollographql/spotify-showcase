@@ -11,9 +11,9 @@ directive @contact(
 
 extend schema
   @contact(
-    name: "Spotify Playback Subscription Server"
-    url: "https://myteam.slack.com/archives/teams-chat-room-url"
-    description: "send urgent issues to [#oncall](https://yourteam.slack.com/archives/oncall)."
+    name: "Spotify Subgraph"
+    url: "https://discord.gg/graphos"
+    description: "Ask questions in our Discord or [open an issue](https://github.com/apollographql/spotify-showcase/issues)."
   )
 	@link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key", "@shareable", "@tag"])
 

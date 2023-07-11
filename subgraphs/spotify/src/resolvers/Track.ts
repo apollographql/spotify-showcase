@@ -1,7 +1,7 @@
 import { TrackResolvers } from '../__generated__/resolvers-types';
 import { prop } from './helpers';
 import { Spotify } from '../dataSources/spotify.types';
-import { shouldLoadFullArtist } from '../utils/schema';
+import { shouldLoadFullArtist } from '../utils/graphql';
 
 export const Track: TrackResolvers = {
   album: async (track, _, { dataSources }) => {

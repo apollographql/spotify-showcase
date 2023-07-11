@@ -1,9 +1,9 @@
-import { redirect } from 'react-router-dom';
+import { LoaderFunction, redirect } from 'react-router-dom';
 import { OAUTH_SCOPES, STORAGE_KEYS } from '../constants';
 import { generateCodeVerifier, generateCodeChallenge } from '../utils/oauth';
 import generateRandomString from '../utils/generateRandomString';
 
-export const loader = async () => {
+export const loader: LoaderFunction = async () => {
   const url = new URL('https://accounts.spotify.com/authorize');
   const state = generateRandomString(16);
   const codeVerifier = generateCodeVerifier();

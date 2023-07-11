@@ -547,24 +547,6 @@ type Episode implements PlaylistTrack & PlaybackItem {
   """
   id: ID!
 
-  """The episode length in milliseconds."""
-  durationMs: Int!
-
-  """External URLs for this episode."""
-  externalUrls: ExternalUrl!
-
-  """A link to the Web API endpoint providing full details of the episode."""
-  href: String!
-
-  """The name of the episode."""
-  name: String!
-
-  """
-  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-  for the episode.
-  """
-  uri: String!
-
   """
   A URL to a 30 second preview (MP3 format) of the episode. `null` if not available.
   """
@@ -573,11 +555,20 @@ type Episode implements PlaylistTrack & PlaybackItem {
   """A description of the episode"""
   description(format: TextFormat = PLAIN): String!
 
+  """The episode length in milliseconds."""
+  durationMs: Int!
+
   """
   Whether or not the episode has explicit content (`true` = yes it does;
   `false` = no it does not OR unknown).
   """
   explicit: Boolean!
+
+  """External URLs for this episode."""
+  externalUrls: ExternalUrl!
+
+  """A link to the Web API endpoint providing full details of the episode."""
+  href: String!
 
   """The cover art for the episode in various sizes, widest first."""
   images: [Image!]!
@@ -596,6 +587,9 @@ type Episode implements PlaylistTrack & PlaybackItem {
   """
   languages: [String!]!
 
+  """The name of the episode."""
+  name: String!
+
   """The date the episode was first released"""
   releaseDate: ReleaseDate!
 
@@ -604,6 +598,12 @@ type Episode implements PlaylistTrack & PlaybackItem {
 
   """The show containing the episode."""
   show: Show!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the episode.
+  """
+  uri: String!
 }
 
 scalar ErrorRate
@@ -934,6 +934,12 @@ enum PlaybackContextType {
 }
 
 interface PlaybackItem {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the playback item.
+  """
+  id: ID!
+
   """The duration for the playback item in milliseconds."""
   durationMs: Int!
 
@@ -944,12 +950,6 @@ interface PlaybackItem {
   A link to the Web API endpoint providing full details of the playlist item.
   """
   href: String!
-
-  """
-  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-  for the playback item.
-  """
-  id: ID!
 
   """The name of the playlist item."""
   name: String!
@@ -1166,8 +1166,6 @@ type PlaylistTrackEdge {
 }
 
 type Query {
-  test: String
-
   """Spotify catalog information for an album."""
   album(id: ID!): Album
 
@@ -2203,24 +2201,6 @@ type Track implements PlaylistTrack & PlaybackItem {
   """
   id: ID!
 
-  """The track length in milliseconds"""
-  durationMs: Int!
-
-  """Known external URLs for this track."""
-  externalUrls: ExternalUrl!
-
-  """A link to the Web API endpoint providing full details of the track."""
-  href: String!
-
-  """The name of the track"""
-  name: String!
-
-  """
-  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-  for the track.
-  """
-  uri: String!
-
   """The album on which the track appears."""
   album: Album!
 
@@ -2235,6 +2215,9 @@ type Track implements PlaylistTrack & PlaybackItem {
   """
   discNumber: Int!
 
+  """The track length in milliseconds"""
+  durationMs: Int!
+
   """
   Whether or not the track has explicit lyrics (`true` = yes it does;
   `false` = no it does not OR unknown)
@@ -2243,6 +2226,12 @@ type Track implements PlaylistTrack & PlaybackItem {
 
   """Known external IDs for the track."""
   externalIds: TrackExternalIds
+
+  """Known external URLs for this track."""
+  externalUrls: ExternalUrl!
+
+  """A link to the Web API endpoint providing full details of the track."""
+  href: String!
 
   """Whether or not the track is from a local file."""
   isLocal: Boolean!
@@ -2253,6 +2242,9 @@ type Track implements PlaylistTrack & PlaybackItem {
   Otherwise `false`.
   """
   isPlayable: Boolean!
+
+  """The name of the track"""
+  name: String!
 
   """
   The popularity of the track. The value will be between 0 and 100, with 100
@@ -2280,6 +2272,12 @@ type Track implements PlaylistTrack & PlaybackItem {
   the number on the specified disc.
   """
   trackNumber: Int
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the track.
+  """
+  uri: String!
 }
 
 type TrackAudioFeatures {

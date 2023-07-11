@@ -18,8 +18,7 @@
     "node": ">=18.0"
   },
   "scripts": {
-    "build": "npm run codegen && tsc",
-    "codegen": "graphql-codegen",
+    "build": "tsc",
     "postinstall": "npm run build",
     "start": "node dist/index.js",
     "dev": "nodemon --watch \"src/**\" --ext \"ts,json,graphql\" --exec \"npm run build && npm run start\" --ignore ./src/__generated__/ --ignore ./src/datasources/BarAPI.ts",
@@ -48,9 +47,6 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^3.0.0",
-    "@graphql-codegen/typescript": "^3.0.0",
-    "@graphql-codegen/typescript-resolvers": "^3.0.0",
     "@types/cors": "^2.8.13",
     "@types/jest": "^29.0.3",
     "@types/lodash": "^4.14.194",

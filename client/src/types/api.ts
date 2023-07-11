@@ -1085,7 +1085,6 @@ export type Query = {
   show: Maybe<Show>;
   /** Get Spotify catalog information for several shows based on their Spotify IDs. */
   shows: Maybe<Array<Show>>;
-  test: Maybe<Scalars['String']['output']>;
   /**
    * Get Spotify catalog information for a single track identified by its unique
    * Spotify ID.

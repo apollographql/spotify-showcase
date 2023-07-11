@@ -11,9 +11,9 @@ directive @contact(
 
 extend schema
   @contact(
-    name: "Spotify Playback Subscription Server"
-    url: "https://myteam.slack.com/archives/teams-chat-room-url"
-    description: "send urgent issues to [#oncall](https://yourteam.slack.com/archives/oncall)."
+    name: "Playback Subscription Subgraph"
+    url: "https://discord.gg/graphos"
+    description: "Ask questions in our Discord or [open an issue](https://github.com/apollographql/spotify-showcase/issues)."
   )
 	@link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key", "@shareable", "@interfaceObject"])
 
@@ -396,34 +396,6 @@ enum PlaybackContextType {
   SHOW
   TRACK
   USER
-}
-interface PlaylistTrack {
-  "The playlist track length in milliseconds."
-  durationMs: Int!
-
-  """
-  External URLs for this episode.
-  """
-  externalUrls: ExternalUrl!
-
-  "A link to the Web API endpoint providing full details of the episode."
-  href: String!
-
-  """
-  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist track.
-  """
-  id: ID!
-
-  """
-  The name of the episode.
-  """
-  name: String!
-
-  """
-  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-  for the playlist track.
-  """
-  uri: String!
 }
 type PlaybackItem @key(fields:"id") @interfaceObject {
   """

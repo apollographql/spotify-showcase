@@ -57,12 +57,6 @@ class Apollo apolloBox
 
 ***Note**: We are using only the Spotify REST API as our datasource for demonstration purposes. The subscriptions subgraph implements a polling mechanism that we host on a dedicated infrastructure while the "query" subgraph is hosted on serverless infrastructure*
 
-### Subgraph responsibilities
-
-**playback** - This subgraph has been designed to handle the Subscription/Mutation operations for our graph. The subgraph is hosted on a dedicated piece of infrastructure (Railway) because it needs to be long lived with subscriptions support.
-
-**spotify** - This subgraph handles all of the Query operations for our graph and is hosted on serverless infrastructure (Netlify/AWS Lambda). Hosting in serverless is more cost effective for this single service in our overall architecture.
-
 ## Getting started
 
 1. Clone this repo
@@ -107,6 +101,12 @@ npm start
 * Playback Subgraph - http://localhost:4002
 
 ***Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect. 
+
+#### Subgraph responsibilities
+
+**playback** - This subgraph has been designed to handle the Subscription/Mutation operations for our graph. The subgraph is hosted on a dedicated piece of infrastructure (Railway) because it needs to be long lived with subscriptions support.
+
+**spotify** - This subgraph handles all of the Query operations for our graph and is hosted on serverless infrastructure (Netlify/AWS Lambda). Hosting in serverless is more cost effective for this single service in our overall architecture.
 
 ## Feedback survey
 
