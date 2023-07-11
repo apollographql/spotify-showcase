@@ -67,7 +67,7 @@ class Apollo apolloBox
 
 1. Clone this repo
 
-2. What do you want to do next with this demo app? 
+What do you want to do next with this demo app? 
 
 ### I want to play around with the public version of the demo
 
