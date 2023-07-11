@@ -10,7 +10,7 @@ export const PlaybackItem: PlaybackItemResolvers = {
     }
   },
   async __resolveReference(playbackItem, { dataSources }) {
-    //This is scritcly for a demo, not a good practice
+    // This is strictly for a demo, not a good practice
     const id = playbackItem.id;
     try {
       return await dataSources.spotify.getTrack(id);
