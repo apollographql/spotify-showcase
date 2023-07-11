@@ -106,7 +106,7 @@ npm start
 * Spotify Subgraph - http://localhost:4001
 * Playback Subgraph - http://localhost:4002
 
-***Note**: We're currently working on subscriptions support with `rover dev` so the Website is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect. 
+***Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect. 
 
 ## Feedback survey
 
