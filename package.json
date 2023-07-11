@@ -6,7 +6,7 @@
   "scripts": {
     "codegen": "rover graph fetch Spotify-tb7du2@prod-external > ./client/schema.graphql && graphql-codegen",
     "lint": "concurrently \"npm:lint:*\"",
-    "lint:client": "eslint client/src",
+    "lint:client": "npm run lint --prefix=client",
     "build": "concurrently \"npm:build:*\"",
     "build:client": "npm run build --prefix=client",
     "build:spotify": "npm run build --prefix=subgraphs/spotify",
