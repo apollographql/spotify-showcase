@@ -16,6 +16,7 @@ type PlaybackStateChangedPayload =
 export const Subscription: SubscriptionResolvers = {
   playbackStateChanged: {
     resolve: (payload: PlaybackStateChangedPayload) => {
+      if(!payload) return;
       if ('error' in payload) {
         throw payload.error;
       }
