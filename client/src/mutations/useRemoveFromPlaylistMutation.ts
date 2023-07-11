@@ -28,13 +28,13 @@ const useRemoveFromPlaylistMutation = () => {
       return execute({
         variables: { input },
         update: (cache) => {
-          cache.modify({
+          cache.modify<Playlist>({
             id: cache.identify({
               __typename: 'Playlist',
               id: input.playlistId,
             }),
             fields: {
-              tracks: (tracks: Playlist['tracks'], { readField }) => {
+              tracks: (tracks, { readField }) => {
                 const uris = input.tracks.map((track) => track.uri);
                 const edges =
                   readField<Playlist['tracks']['edges']>('edges', tracks) ?? [];
