@@ -4,7 +4,7 @@ subgraphs:
     schema:
       file: subgraphs/spotify/schema.graphql
   playback:
-    routing_url: http://localhost:4002
+    routing_url: http://localhost:4002/graphql
     schema:
       file: subgraphs/playback/schema.graphql
 operations: {}

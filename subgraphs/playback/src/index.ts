@@ -1,31 +1,31 @@
-import { readFileSync } from "fs";
-import gql from "graphql-tag";
-import { buildSubgraphSchema } from "@apollo/subgraph";
-import { ApolloServer, GraphQLResponse } from "@apollo/server";
-import { expressMiddleware } from "@apollo/server/express4";
-import { ApolloServerPluginSubscriptionCallback } from "@apollo/server/plugin/subscriptionCallback";
-import resolvers from "./resolvers";
-import { ContextValue } from "./types/ContextValue";
-const port = process.env.PORT ?? "4002";
-const subgraphName = require("../package.json").name;
+import { readFileSync } from 'fs';
+import gql from 'graphql-tag';
+import { buildSubgraphSchema } from '@apollo/subgraph';
+import { ApolloServer, GraphQLResponse } from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginSubscriptionCallback } from '@apollo/server/plugin/subscriptionCallback';
+import resolvers from './resolvers';
+import { ContextValue } from './types/ContextValue';
+const port = process.env.PORT ?? '4002';
+const subgraphName = require('../package.json').name;
 const routerSecret = process.env.ROUTER_SECRET;
-import { addMocksToSchema } from "@graphql-tools/mock";
+import { addMocksToSchema } from '@graphql-tools/mock';
 
-import { WebSocketServer } from "ws";
-import { useServer } from "graphql-ws/lib/use/ws";
-import { TOPICS } from "./utils/constants";
-import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+import { TOPICS } from './utils/constants';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 
-import express from "express";
-import http from "http";
-import { PubSub } from "graphql-subscriptions";
-import { readEnv } from "./utils/env";
-import SpotifyAPI from "./dataSources/spotify";
-import Publisher from "./publisher";
-import { json } from "body-parser";
-import cors from "cors";
-import { GraphQLError, execute, parse } from "graphql";
-import { mocks } from "./utils/mocks";
+import express from 'express';
+import http from 'http';
+import { PubSub } from 'graphql-subscriptions';
+import { readEnv } from './utils/env';
+import SpotifyAPI from './dataSources/spotify';
+import Publisher from './publisher';
+import { json } from 'body-parser';
+import cors from 'cors';
+import { GraphQLError, execute, parse } from 'graphql';
+import { mocks } from './utils/mocks';
 
 const logger = {
   debug(msg) {
@@ -40,8 +40,8 @@ const logger = {
 
 async function main() {
   let typeDefs = gql(
-    readFileSync("schema.graphql", {
-      encoding: "utf-8",
+    readFileSync('schema.graphql', {
+      encoding: 'utf-8',
     })
   );
   const schema = buildSubgraphSchema({
@@ -52,11 +52,11 @@ async function main() {
   const httpServer = http.createServer(app);
   const wsServer = new WebSocketServer({
     server: httpServer,
-    path: "/ws",
+    path: '/ws',
   });
   const pubsub = new PubSub();
-  const defaultCountryCode = readEnv("DEFAULT_COUNTRY_CODE", {
-    defaultValue: "US",
+  const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
+    defaultValue: 'US',
   });
   const mockPlugin = {
     async requestDidStart() {
@@ -80,7 +80,7 @@ async function main() {
 
           return {
             http: request.http,
-            body: { kind: "single", singleResult: response },
+            body: { kind: 'single', singleResult: response },
           } as GraphQLResponse;
         },
       };
@@ -90,8 +90,8 @@ async function main() {
     {
       schema,
       onConnect: (ctx) => {
-        if (ctx.connectionParams?.["authorization"]) return true;
-        if (ctx.extra.request.headers?.["authorization"]) return true;
+        if (ctx.connectionParams?.['authorization']) return true;
+        if (ctx.extra.request.headers?.['authorization']) return true;
         return false;
       },
       onDisconnect: () => {
@@ -99,13 +99,13 @@ async function main() {
       },
       context: (ctx) => {
         const routerAuthorization =
-          (ctx.connectionParams?.["authorization"] as string) ??
-          (ctx.extra.request.headers?.["authorization"] as string) ??
-          "";
+          (ctx.connectionParams?.['authorization'] as string) ??
+          (ctx.extra.request.headers?.['authorization'] as string) ??
+          '';
         checkRouterSecret(routerAuthorization);
         const token =
-          (ctx.connectionParams?.["authorization"] as string) ??
-          (ctx.extra.request.headers?.["authorization"] as string);
+          (ctx.connectionParams?.['authorization'] as string) ??
+          (ctx.extra.request.headers?.['authorization'] as string);
         return {
           defaultCountryCode,
           publisher: new Publisher(pubsub),
@@ -123,10 +123,10 @@ async function main() {
     wsServer
   );
 
-  // We currently are building 2 instances of Apollo Server to host subscriptions 
+  // We currently are building 2 instances of Apollo Server to host subscriptions
   // in both callback and websocket form.
   //
-  // The Cloud Apollo Router offering currently only support websockets while the 
+  // The Cloud Apollo Router offering currently only support websockets while the
   // self-hosted Enterprise Apollo Router also support the HTTP callback protocol
   // https://www.apollographql.com/docs/router/executing-operations/subscription-callback-protocol
   //
@@ -159,8 +159,8 @@ async function main() {
   await wsApolloServer.start();
 
   const context = async ({ req }) => {
-    checkRouterSecret(req.headers["router-authorization"] as string);
-    const token = req.get("authorization");
+    checkRouterSecret(req.headers['router-authorization'] as string);
+    const token = req.get('authorization');
 
     return {
       defaultCountryCode,
@@ -177,19 +177,19 @@ async function main() {
   };
 
   app.use(
-    "/",
+    '/graphql',
     cors(),
     json(),
-    expressMiddleware(wsApolloServer, {
+    expressMiddleware(callbackApolloServer, {
       context,
     })
   );
   app.use(
-    "/graphql",
+    '/',
     cors(),
     json(),
-    expressMiddleware(callbackApolloServer, {
-      context
+    expressMiddleware(wsApolloServer, {
+      context,
     })
   );
 
@@ -200,9 +200,9 @@ async function main() {
 
 function checkRouterSecret(secret: string) {
   if (routerSecret && secret !== routerSecret) {
-    throw new GraphQLError("Missing router authentication", {
+    throw new GraphQLError('Missing router authentication', {
       extensions: {
-        code: "UNAUTHENTICATED",
+        code: 'UNAUTHENTICATED',
         http: { status: 401 },
       },
     });
