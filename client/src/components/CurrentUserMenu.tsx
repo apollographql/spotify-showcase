@@ -1,7 +1,7 @@
-import { gql, useSuspenseQuery } from "@apollo/client";
-import { CurrentUserQuery, CurrentUserQueryVariables } from "../types/api";
-import DropdownMenu from "./DropdownMenu";
-import Avatar from "./Avatar";
+import { gql, useSuspenseQuery } from '@apollo/client';
+import { CurrentUserQuery, CurrentUserQueryVariables } from '../types/api';
+import DropdownMenu from './DropdownMenu';
+import Avatar from './Avatar';
 
 const CURRENT_USER_QUERY = gql`
   query CurrentUserQuery {
@@ -24,15 +24,15 @@ const CurrentUserMenu = () => {
   >(CURRENT_USER_QUERY);
 
   if (!data.me) {
-    throw new Error("You must be logged in");
+    throw new Error('You must be logged in');
   }
 
   const { user } = data.me;
 
   const exploreSchemaUrl =
-    process.env.NODE_ENV == "production"
-      ? "https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home"
-      : `${import.meta.env.VITE_SERVER_HOST}/graphql`;
+    process.env.NODE_ENV == 'production'
+      ? 'https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home'
+      : import.meta.env.VITE_SERVER_HOST;
 
   return (
     <DropdownMenu>
@@ -46,9 +46,7 @@ const CurrentUserMenu = () => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Menu align="end">
         <DropdownMenu.Item to="/settings">Settings</DropdownMenu.Item>
-        <DropdownMenu.Item
-          to={exploreSchemaUrl}
-        >
+        <DropdownMenu.Item to={exploreSchemaUrl}>
           Explore the schema
         </DropdownMenu.Item>
         <DropdownMenu.Item to="https://github.com/apollographql/spotify-showcase">
