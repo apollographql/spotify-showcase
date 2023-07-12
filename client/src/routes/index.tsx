@@ -94,13 +94,86 @@ const LoggedOut = () => {
         </Paragraph>
         <Heading level={2}>Getting started</Heading>
         <Paragraph>
-          To use this demo app, you will need a Spotify account.
-          This will allow the app to make calls to the Spotify API using this
-          app&apos;s GraphQL API.  
+          To use this app, you will need a Spotify account. This will allow the
+          app to make calls to the Spotify API using this app&apos;s GraphQL
+          API.
         </Paragraph>
+        <Heading level={2}>Running this app locally</Heading>
         <Paragraph>
-          If you would like to hook this up to your own application, create a new  application in the [Spotify developer portal](https://developer.spotify.com/dashboard). 
-          You will need to replace the `VITE_SPOTIFY_CLIENT_ID` in the `.env` file at the root of the project with the one you create.
+          If you would like to hook this up to your own application, you will
+          first need a Spotify developer token. Once obtained, you will need to
+          add these credentials to the app.
+        </Paragraph>
+        <Heading level={3}>Create a Spotify application</Heading>
+        <OrderedList>
+          <ListItem>
+            <Paragraph>
+              First, visit the{' '}
+              <Anchor
+                target="_blank"
+                href="https://developer.spotify.com/dashboard"
+                rel="noreferrer"
+              >
+                Spotify developer portal
+              </Anchor>{' '}
+              and, if necessary, log in. This requires a Spotify user account.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              Create and register a new application to generate credentials.
+              Follow the{' '}
+              <Anchor
+                target="_blank"
+                href="https://developer.spotify.com/documentation/general/guides/authorization/app-settings/"
+                rel="noreferrer"
+              >
+                App settings guide
+              </Anchor>{' '}
+              to learn more. We recommend this Spotify app is unique to this
+              demo app.
+            </Paragraph>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              In the &lsquo;Edit Settings&rsquo; dialogue, add this app&apos;s
+              redirect URI for this app to allow this app to sign in to your
+              Spotify account.
+            </Paragraph>
+            <CodeBlock>http://localhost:3000/oauth/finalize</CodeBlock>
+          </ListItem>
+        </OrderedList>
+        <Heading level={3}>Configure this application</Heading>
+        <OrderedList>
+          <ListItem>
+            <Paragraph>
+              Copy your app&apos;s &lsquo;Client ID&rsquo; and set it as the{' '}
+              <InlineCode>VITE_SPOTIFY_CLIENT_ID</InlineCode> environment
+              variable in <InlineCode>client/.env.development.local</InlineCode>{' '}
+              file. This file should look as follows:
+            </Paragraph>
+            <CodeBlock>VITE_SPOTIFY_CLIENT_ID=your_spotify_client_id</CodeBlock>
+          </ListItem>
+          <ListItem>
+            <Paragraph>
+              Optionally configure a default country code. To change the default
+              country code (<InlineCode>US</InlineCode>), add an environment
+              variable named <InlineCode>DEFAULT_COUNTRY_CODE</InlineCode> to
+              your <InlineCode>server/.env</InlineCode> file.
+            </Paragraph>
+            <CodeBlock>DEFAULT_COUNTRY_CODE=CA</CodeBlock>
+            <BlockQuote>
+              This is needed to fetch an artist&apos;s top tracks on the artist
+              page without needing geolocation.
+            </BlockQuote>
+          </ListItem>
+          <ListItem>
+            <Paragraph>Restart the app.</Paragraph>
+          </ListItem>
+        </OrderedList>
+        <Paragraph>
+          You are ready to go! <Anchor href="/login">Log in</Anchor> to use the
+          app.
         </Paragraph>
       </div>
     </div>
@@ -169,7 +242,7 @@ const ListItem = ({ children }: ListItemProps) => {
 
 interface HeadingProps {
   children: ReactNode;
-  level: 1 | 2;
+  level: 1 | 2 | 3;
 }
 
 const Heading = ({ children, level }: HeadingProps) => {
@@ -180,6 +253,8 @@ const Heading = ({ children, level }: HeadingProps) => {
       return <h1 className={className}>{children}</h1>;
     case 2:
       return <h2 className={className}>{children}</h2>;
+    case 3:
+      return <h3 className={className}>{children}</h3>;
   }
 };
 

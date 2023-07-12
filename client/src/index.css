@@ -69,6 +69,10 @@
     @apply text-2xl;
   }
 
+  h3 {
+    @apply text-xl;
+  }
+
   a {
     @apply no-underline text-inherit hover:underline;
   }
