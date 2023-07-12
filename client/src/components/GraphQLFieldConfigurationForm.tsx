@@ -3,7 +3,7 @@ import Form from './Form';
 import Markdown from './Markdown';
 import { stripSingleLineBreak } from '../utils/common';
 import { toPlainText } from '../utils/markdown';
-import { SetNonNullable } from 'type-fest';
+import { Get, SetNonNullable } from 'type-fest';
 import {
   combine,
   min,
@@ -12,7 +12,14 @@ import {
   ValidationSchema,
 } from '../utils/formValidation';
 import useForm from '../hooks/useForm';
-import { __TypeKind } from '../types/api';
+import { LimitedIntrospectionQuery, __TypeKind } from '../types/api';
+import { QueryReference, useReadQuery } from '@apollo/client';
+
+type IntrospectionType = NonNullable<
+  Get<LimitedIntrospectionQuery, '__schema.types[0]'>
+>;
+
+type IntrospectionField = NonNullable<Get<IntrospectionType, 'fields[0]'>>;
 
 interface FormState {
   typename: string | null;
@@ -23,11 +30,6 @@ interface FormState {
 
 type SubmittedFormState = SetNonNullable<FormState, keyof FormState>;
 
-interface SchemaType {
-  name: string | null;
-  fields: SchemaField[] | null;
-}
-
 interface SchemaSubType {
   name: string | null;
   kind: __TypeKind;
@@ -35,15 +37,15 @@ interface SchemaSubType {
 }
 
 interface SchemaField {
-  name: string;
-  description: string | null;
-  type: SchemaSubType;
+  fieldName: string;
+  typename: string;
 }
 
 interface GraphQLFieldConfigurationFormProps {
   onCancel: () => void;
   onSubmit: (state: SubmittedFormState) => void;
-  types: SchemaType[];
+  introspectionQueryRef: QueryReference<LimitedIntrospectionQuery>;
+  configuredFields: SchemaField[];
 }
 
 const getTitleFromMarkdown = (markdown: string) => {
@@ -77,11 +79,49 @@ export const typename = (type: SchemaSubType): string => {
   }
 };
 
+const isObjectType = (type: IntrospectionType) =>
+  type.kind === __TypeKind.Object;
+
+const isIntrospectionSchemaType = (type: IntrospectionType) =>
+  Boolean(type.name?.startsWith('__'));
+
+const filterConfiguredFields = (
+  typename: string,
+  fields: IntrospectionField[],
+  configuredFields: SchemaField[]
+) => {
+  return fields.filter((field) => {
+    return !configuredFields.some((schemaField) => {
+      return (
+        schemaField.fieldName === field.name &&
+        schemaField.typename === typename
+      );
+    });
+  });
+};
+
 const GraphQLFieldConfigurationForm = ({
   onCancel,
   onSubmit,
-  types,
+  introspectionQueryRef,
+  configuredFields,
 }: GraphQLFieldConfigurationFormProps) => {
+  const {
+    data: { __schema },
+  } = useReadQuery(introspectionQueryRef);
+
+  const objectTypes = __schema.types
+    .filter((type) => isObjectType(type) && !isIntrospectionSchemaType(type))
+    .map((objectType) => ({
+      ...objectType,
+      fields: filterConfiguredFields(
+        objectType.name ?? '',
+        objectType.fields ?? [],
+        configuredFields
+      ),
+    }))
+    .filter((objectType) => objectType.fields?.length ?? 0 > 0);
+
   const form = useForm<FormState, SubmittedFormState>({
     initialValues: {
       typename: null,
@@ -93,7 +133,9 @@ const GraphQLFieldConfigurationForm = ({
     validationSchema,
   });
 
-  const selectedType = types.find((type) => type.name === form.values.typename);
+  const selectedType = objectTypes.find(
+    (type) => type.name === form.values.typename
+  );
   const selectedField = selectedType?.fields?.find(
     (field) => field.name === form.values.fieldName
   );
@@ -106,7 +148,7 @@ const GraphQLFieldConfigurationForm = ({
             label="Type name"
             name="typename"
             onChange={(value) => {
-              const type = types.find((type) => type.name === value);
+              const type = objectTypes.find((type) => type.name === value);
 
               if (type) {
                 form.setFieldValue('fieldName', type.fields?.[0]?.name ?? null);
@@ -114,7 +156,7 @@ const GraphQLFieldConfigurationForm = ({
             }}
           >
             {!selectedType && <option>-- Select a typename --</option>}
-            {types.map((type) => (
+            {objectTypes.map((type) => (
               <option key={type.name} value={type.name ?? ''}>
                 {type.name}
               </option>

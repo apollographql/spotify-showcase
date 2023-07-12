@@ -1,8 +1,13 @@
-import { gql, useSuspenseQuery } from '@apollo/client';
 import {
+  gql,
+  TypedDocumentNode,
+  useBackgroundQuery,
+  useSuspenseQuery,
+} from '@apollo/client';
+import {
+  LimitedIntrospectionQuery,
   SettingsQuery,
   SettingsQueryVariables,
-  __TypeKind,
 } from '../types/api';
 import Button from '../components/Button';
 import EditFieldConfigForm from '../components/EditFieldConfigForm';
@@ -10,18 +15,9 @@ import GraphQLFieldConfigurationForm from '../components/GraphQLFieldConfigurati
 import Page from '../components/Page';
 import Skeleton from '../components/Skeleton';
 import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutation';
-import { BARE_INTROSPECTION_FRAGMENT } from '../utils/graphql';
-import { Get } from 'type-fest';
 import { useState } from 'react';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { DEFAULT_BACKGROUND_COLOR } from '../constants';
-
-type SchemaField = NonNullable<
-  Get<SettingsQuery, 'developer.fieldConfigs[0].schemaField'>
->;
-
-type IntrospectionType = NonNullable<Get<SettingsQuery, '__schema.types[0]'>>;
-type IntrospectionField = NonNullable<Get<IntrospectionType, 'fields[0]'>>;
 
 const SETTINGS_QUERY = gql`
   query SettingsQuery {
@@ -35,37 +31,69 @@ const SETTINGS_QUERY = gql`
         errorRate
       }
     }
-
-    ...BareIntrospectionFragment
   }
-
-  ${BARE_INTROSPECTION_FRAGMENT}
 `;
 
-const isObjectType = (type: IntrospectionType) =>
-  type.kind === __TypeKind.Object;
+const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
+  LimitedIntrospectionQuery,
+  never
+> = gql`
+  query LimitedIntrospectionQuery {
+    __schema {
+      types {
+        name
+        kind
+        fields {
+          name
+          description
+          type {
+            ...TypeRef
+          }
+        }
+      }
+    }
+  }
 
-const isIntrospectionSchemaType = (type: IntrospectionType) =>
-  Boolean(type.name?.startsWith('__'));
-
-const filterConfiguredFields = (
-  typename: string,
-  fields: IntrospectionField[],
-  configuredFields: SchemaField[]
-) => {
-  return fields.filter((field) => {
-    return !configuredFields.some((schemaField) => {
-      return (
-        schemaField.fieldName === field.name &&
-        schemaField.typename === typename
-      );
-    });
-  });
-};
+  fragment TypeRef on __Type {
+    kind
+    name
+    ofType {
+      kind
+      name
+      ofType {
+        kind
+        name
+        ofType {
+          kind
+          name
+          ofType {
+            kind
+            name
+            ofType {
+              kind
+              name
+              ofType {
+                kind
+                name
+                ofType {
+                  kind
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 export const RouteComponent = () => {
   useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
+  const [queryRef] = useBackgroundQuery(LIMITED_INTROSPECTION_QUERY, {
+    fetchPolicy: 'no-cache',
+  });
   const { data } = useSuspenseQuery<SettingsQuery, SettingsQueryVariables>(
     SETTINGS_QUERY
   );
@@ -74,23 +102,10 @@ export const RouteComponent = () => {
   const [isAddingNewFieldConfig, setIsAddingNewFieldConfig] = useState(false);
 
   const {
-    __schema,
     developer: { fieldConfigs },
   } = data;
 
   const schemaFields = fieldConfigs.map((field) => field.schemaField);
-
-  const objectTypes = __schema.types
-    .filter((type) => isObjectType(type) && !isIntrospectionSchemaType(type))
-    .map((objectType) => ({
-      ...objectType,
-      fields: filterConfiguredFields(
-        objectType.name ?? '',
-        objectType.fields ?? [],
-        schemaFields
-      ),
-    }))
-    .filter((objectType) => objectType.fields?.length ?? 0 > 0);
 
   return (
     <Page className="mx-auto w-full max-w-4xl gap-6 py-8">
@@ -146,7 +161,8 @@ export const RouteComponent = () => {
         ) : null}
         {isAddingNewFieldConfig ? (
           <GraphQLFieldConfigurationForm
-            types={objectTypes}
+            introspectionQueryRef={queryRef}
+            configuredFields={schemaFields}
             onCancel={() => setIsAddingNewFieldConfig(false)}
             onSubmit={async (config) => {
               await updateFieldConfig({
