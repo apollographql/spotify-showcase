@@ -2,7 +2,7 @@ name: Spotify Subgraph Workflows
 on:
   pull_request:
     paths:
-      -  'subgraphs/spotify/**'
+      - 'subgraphs/spotify/**'
       - '.github/workflows/spotify_checks.yaml'
 
 jobs:
@@ -32,3 +32,17 @@ jobs:
         run: npm install --prefix=subgraphs/spotify
       - name: Check server compiles
         run: npm run build --prefix=subgraphs/spotify
+  check_spotify_typescript:
+    name: Check TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install packages
+        run: npm install --prefix=subgraphs/spotify
+      - name: Check TypeScript
+        run: npm run lint:types --prefix=subgraphs/spotify

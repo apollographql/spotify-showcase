@@ -2,7 +2,7 @@ name: 'Pull Request'
 on:
   pull_request:
     paths:
-      -  'client/**'
+      - 'client/**'
       - '.github/workflows/client_pull_request.yaml'
 
 jobs:
@@ -20,3 +20,17 @@ jobs:
         run: npm install --prefix=client
       - name: Run ESLint
         run: npm run lint --prefix=client
+  check_client_typescript:
+    name: Check TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install packages
+        run: npm install --prefix=client
+      - name: Check TypeScript
+        run: npm run lint:types --prefix=client
