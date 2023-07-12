@@ -1,0 +1,34 @@
+name: Spotify Subgraph Workflows
+on:
+  pull_request:
+    paths:
+      -  'subgraphs/spotify/**'
+      - '.github/workflows/spotify_checks.yaml'
+
+jobs:
+  check_spotify_schema:
+    name: Check Spotify Subgraph Schema with GraphOS
+    runs-on: ubuntu-latest
+    env:
+      APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/latest | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - if: env.APOLLO_KEY != ''
+        run: rover subgraph check Spotify-tb7du2@prod --schema ./subgraphs/spotify/schema.graphql --name spotify
+  check_spotify_builds:
+    name: Check server compiles
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install packages
+        run: npm install --prefix=subgraphs/spotify
+      - name: Check server compiles
+        run: npm run build --prefix=subgraphs/spotify

@@ -23,3 +23,10 @@ server/.env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+dist
+# Local Netlify folder
+.netlify
+
+router/router
+router/*.graphql

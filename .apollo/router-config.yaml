@@ -1,0 +1,21 @@
+cors:
+  allow_any_origin: true
+headers:
+  subgraphs:
+    spotify:
+      request:
+        - propagate:
+            matching: "authorization"
+    playback:
+      request:
+        - propagate:
+            matching: "authorization"
+include_subgraph_errors:
+  all: true
+sandbox:
+  enabled: true
+supergraph:
+  introspection: true
+  listen: 127.0.0.1:4000
+homepage:
+  enabled: false

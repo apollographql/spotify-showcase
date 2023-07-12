@@ -83,7 +83,7 @@ const useAddToPlaylistMutation = () => {
                 return {
                   ...tracks,
                   edges: edges.concat(refs),
-                };
+                } as any;
               },
             },
           });

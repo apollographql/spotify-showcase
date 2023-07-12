@@ -1,52 +1,38 @@
 import {
   ApolloClient,
-  ApolloLink,
   InMemoryCache,
   createHttpLink,
-  split,
+  from,
 } from '@apollo/client';
-import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { setContext } from '@apollo/client/link/context';
-import { readAuthToken } from './utils';
-import { createClient } from 'graphql-ws';
-import { getMainDefinition } from '@apollo/client/utilities';
 import introspection from './introspection.json';
 import libraryContains from './fieldPolicies/libraryContains';
 import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
+import { getAccessToken } from './auth';
+import { version } from "../package.json";
 
-const httpLink = createHttpLink({ uri: '/graphql' });
 
-const authHeadersLink = setContext(() => ({
-  headers: { 'x-api-token': readAuthToken() },
-}));
+const httpAuthLink = setContext(async ({ context }) => {
+  const accessToken = await getAccessToken();
 
-const wsLink = new GraphQLWsLink(
-  createClient({
-    url: `${import.meta.env.VITE_WEBSOCKET_HOST}/graphql`,
-    connectionParams: {
-      get apiToken() {
-        return readAuthToken();
-      },
+  return {
+    headers: {
+      ...context?.headers,
+      'authorization': accessToken,
     },
-  })
-);
+  };
+});
 
-const splitLink = split(
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    );
-  },
-  wsLink,
-  ApolloLink.from([authHeadersLink, httpLink])
-);
+const httpLink = createHttpLink({
+  uri: import.meta.env.VITE_SERVER_HOST
+});
 
 export default new ApolloClient({
-  link: splitLink,
+  link: from([httpAuthLink, httpLink]),
+  connectToDevTools: true,
+  name: "Spotify Showcase Website",
+  version,
   cache: new InMemoryCache({
     possibleTypes: introspection.possibleTypes,
     typePolicies: {

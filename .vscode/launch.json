@@ -1,0 +1,39 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Playback",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/subgraphs/playback",
+      "program": "${workspaceFolder}/subgraphs/playback/src/index.ts",
+      "outFiles": ["${workspaceFolder}/subgraphs/playback/dist/**/*.js"],
+      "preLaunchTask": "tsc: build - subgraphs/playback/tsconfig.json",
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Spotify",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}/subgraphs/spotify",
+      "program": "${workspaceFolder}/subgraphs/spotify/src/index.ts",
+      "outFiles": ["${workspaceFolder}/subgraphs/spotify/dist/**/*.js"],
+      "preLaunchTask": "tsc: build - subgraphs/spotify/tsconfig.json",
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Website",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/client",
+      "outFiles": [
+        "${workspaceFolder}/dist/*.js",
+        "!**/node_modules/**"
+      ]
+    }
+  ]
+}

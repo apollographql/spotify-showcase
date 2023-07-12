@@ -1,6 +1,7 @@
 import { gql, useMutation, Reference } from '@apollo/client';
 import { useCallback } from 'react';
 import {
+  Developer,
   UpdateFieldConfigInput,
   UpdateFieldConfigMutation,
   UpdateFieldConfigMutationVariables,
@@ -38,13 +39,10 @@ const useUpdateFieldConfigMutation = () => {
 
           const { fieldConfig } = data.updateFieldConfig;
 
-          cache.modify({
+          cache.modify<Developer>({
             id: cache.identify({ __typename: 'Developer' }),
             fields: {
-              fieldConfigs: (
-                existing: Reference[] = [],
-                { readField, toReference }
-              ) => {
+              fieldConfigs: (existing = [], { readField, toReference }) => {
                 const exists = existing.some((ref) => {
                   const { schemaField } = fieldConfig;
                   const schemaFieldRef = readField<Reference>(
@@ -62,7 +60,8 @@ const useUpdateFieldConfigMutation = () => {
 
                 return exists
                   ? existing
-                  : [...existing, toReference(fieldConfig)];
+                  : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    ([...existing, toReference(fieldConfig)!] as Reference[]);
               },
             },
           });

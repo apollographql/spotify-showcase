@@ -23,17 +23,19 @@ import * as PlaylistRoute from './routes/playlists/playlist';
 import * as QueueRoute from './routes/queue';
 import * as RootRoute from './routes/root';
 import * as SettingsRoute from './routes/settings';
-import * as SetTokenRoute from './routes/set-token';
 import * as ShowRoute from './routes/shows/show';
 import * as TrackRoute from './routes/tracks/track';
+import * as LoginRoute from './routes/login';
+import * as OAuthRoute from './routes/oauth/finalize';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
 import { isLoggedInVar } from './vars';
 
 const routes = createRoutesFromElements(
   <Route path="/" errorElement={<RootErrorBoundary />}>
-    <Route path="set-token" loader={SetTokenRoute.loader} />,
     <Route path="logout" loader={LogoutRoute.loader} />,
+    <Route path="login" loader={LoginRoute.loader} />,
+    <Route path="/oauth/finalize" errorElement={<RootErrorBoundary />} loader={OAuthRoute.loader} />,
     <Route
       path="logged-out"
       loader={LoggedOutRoute.loader}

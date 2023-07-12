@@ -4,24 +4,109 @@
 
 <img width="1512" alt="Screenshot 2023-03-07 at 5 13 26 PM" src="https://user-images.githubusercontent.com/565661/223585591-93b5b6d2-d3d8-44fb-9b30-8bb5fc508f90.png">
 
+## Architecture 
+
+The overall API architecture is made up of two GraphQL servers, one exposing subscription/mutation functionality and the other exposing query functionality. Both GraphQL servers use the Spotify REST API as their datasource, but we are hosting the subscription server on dedicated infrastructure (Railway) and the other on serverless functions (Netlify). 
+
+The Apollo Router routes incoming traffic from the client application and integrates with GraphOS to receive schema updates and report usage metrics. 
+
+
+```mermaid
+graph LR;
+
+subgraph "Netlify"
+  web["Website\n(client app)"]
+end
+
+subgraph "Railway"
+  router{"Apollo Router"}
+  playbackSubgraph["Playback Subgraph\n(subriptions/mutations)"]
+end
+
+subgraph "Netlify-Function"
+  spotifySubgraph["Spotify Subgraph\n(queries)"]
+end
+
+subgraph "Apollo"
+  schema["Schema Pipeline"]
+  usage["Usage Reporting"]
+end
+
+subgraph "Spotify"
+  spotifyREST[Spotify REST API]
+end
+
+web <--> router
+router <-->|Schema Updates\nUsage Reporting| Apollo
+router <--> spotifySubgraph
+router <--> playbackSubgraph
+playbackSubgraph <--> spotifyREST
+spotifySubgraph <--> spotifyREST
+
+classDef spotifyBox color:#FFFFFF,fill:#1DB954,stroke:#FFFFFF,stroke-width:2px;
+classDef netlifyBox color:#014847,fill:#FFFFFF,stroke:#32e6e2,stroke-width:2px;
+classDef railwayBox color:#000000,fill:#FFFFFF,stroke:#000000,stroke-width:2px;
+classDef apolloBox color:#3f20ba,fill:#FFFFFF,stroke:#3f20ba,stroke-width:2px;
+
+class Spotify spotifyBox
+class Netlify netlifyBox
+class Netlify-Function netlifyBox
+class Railway railwayBox
+class Apollo apolloBox
+```
+
+***Note**: We are using only the Spotify REST API as our datasource for demonstration purposes. The subscriptions subgraph implements a polling mechanism that we host on a dedicated infrastructure while the "query" subgraph is hosted on serverless infrastructure*
+
 ## Getting started
 
 1. Clone this repo
 
-2. Install dependencies
+What do you want to do next with this demo app? 
+
+### I want to play around with the public version of the demo
+
+1. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
+  - [Query the graph](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer) *(**Spotify account required**) - OAuth workflow with be initiated from Apollo Explorer to login to our Spotify account to run any operation*
+    - Try having your Spotify app playing on your phone or desktop and then run [this mutation](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer?explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4RxighigSwiQAIAFXGAZwTIBtcBPAI1ygGsBZHfI04ADqkSIgA6Ua9Jqw4lBwkWIYs27AMp4UCOUMV6SBKlMYEkAc136AvpZE3hVkFaA)
+  - [View the graph's schema](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/schema/reference)
+
+### I want to re-create this demo in my GraphOS account 
+
+*To be completed*
+
+3. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys)
+4. Run the clone script with the API key
+
+```sh
+APOLLO_KEY={YOUR_API_KEY} npm run clone
+```
+
+### I want to run this demo locally
+
+3. Install dependencies
 
 ```sh
 npm install
 ```
 
-3. Start the app
+4. Start the app
 
 ```sh
 npm start
 ```
 
-4. Visit `http://localhost:3000` and follow the instructions on the home page to
-   ensure the app can talk to Spotify.
+* Website - http://localhost:3000
+* Supergraph - http://localhost:4000
+* Spotify Subgraph - http://localhost:4001
+* Playback Subgraph - http://localhost:4002
+
+***Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect. 
+
+#### Subgraph responsibilities
+
+**playback** - This subgraph has been designed to handle the Subscription/Mutation operations for our graph. The subgraph is hosted on a dedicated piece of infrastructure (Railway) because it needs to be long lived with subscriptions support.
+
+**spotify** - This subgraph handles all of the Query operations for our graph and is hosted on serverless infrastructure (Netlify/AWS Lambda). Hosting in serverless is more cost effective for this single service in our overall architecture.
 
 ## Feedback survey
 

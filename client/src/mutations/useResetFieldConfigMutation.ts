@@ -40,7 +40,7 @@ const useResetFieldConfigMutation = () => {
           cache.modify({
             id: cache.identify({ __typename: 'Developer' }),
             fields: {
-              fieldConfigs: (existing: Reference[] = [], { readField }) => {
+              fieldConfigs: (existing: readonly Reference[], { readField }) => {
                 return existing.filter((ref) => {
                   const schemaFieldRef = readField<Reference>(
                     'schemaField',

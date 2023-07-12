@@ -97,15 +97,18 @@ export const RouteComponent = () => {
       return;
     }
 
-    cache.modify({
+    cache.writeFragment({
+      fragment: gql`
+        fragment CurrentUserFragment on CurrentUser {
+          tracksContains(ids: $ids)
+        }
+      `,
       id: cache.identify({ __typename: 'CurrentUser' }),
-      fields: {
-        tracksContains: (existing: Record<string, boolean>) => {
-          return trackIds.reduce(
-            (memo, id) => ({ ...memo, [id]: true }),
-            existing
-          );
-        },
+      variables: {
+        ids: trackIds,
+      },
+      data: {
+        tracksContains: Array(trackIds.length).fill(true),
       },
     });
   }, [client, data]);
