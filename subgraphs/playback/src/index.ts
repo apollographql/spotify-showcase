@@ -4,6 +4,7 @@ import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer, GraphQLResponse } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginSubscriptionCallback } from '@apollo/server/plugin/subscriptionCallback';
+import { ApolloServerPluginLandingPageProductionDefault, ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
 import resolvers from './resolvers';
 import { ContextValue } from './types/ContextValue';
 const port = process.env.PORT ?? '4002';
@@ -31,8 +32,10 @@ const logger = {
   debug(msg) {
     console.log(msg);
   },
-  info(msg) {},
-  warn(msg) {},
+  info(msg) {
+    console.log(msg);},
+  warn(msg) {
+    console.log(msg);},
   error(msg) {
     console.log(msg);
   },
@@ -152,6 +155,11 @@ async function main() {
           };
         },
       },
+      process.env.NODE_ENV === "production"
+          ? ApolloServerPluginLandingPageProductionDefault()
+          : ApolloServerPluginLandingPageLocalDefault({
+              embed: { endpointIsEditable: true },
+            }),
     ],
   });
 
