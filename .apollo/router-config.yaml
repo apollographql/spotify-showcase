@@ -5,11 +5,11 @@ headers:
     spotify:
       request:
         - propagate:
-            matching: "authorization"
+            matching: 'authorization'
     playback:
       request:
         - propagate:
-            matching: "authorization"
+            matching: 'authorization'
 include_subgraph_errors:
   all: true
 sandbox:
@@ -19,3 +19,19 @@ supergraph:
   listen: 127.0.0.1:4000
 homepage:
   enabled: false
+apq:
+  enabled: false
+preview_persisted_queries:
+  enabled: true
+#####################
+# Uncomment the following to enable local subscriptions. You must have an
+# enterprise account or enterprise trial to use this.
+#####################
+# subscription:
+#   mode:
+#     preview_callback:
+#       public_url: http://0.0.0.0:4000/callback # The router's public URL
+#       listen: 0.0.0.0:${env.PORT:-4000} # The IP address and port the router will listen on for subscription callbacks
+#       path: /callback # The path of the router's callback endpoint
+#       subgraphs: # The list of subgraphs that use the HTTP callback protocol
+#         - playback

@@ -7,6 +7,7 @@ export const STORAGE_KEYS = {
   EXPIRES_AT: 'expiresAt',
   REFRESH_TOKEN: 'refreshToken',
   STATE: 'state',
+  PERSISTED_QUERY_MODE: 'persistedQueryMode',
 } as const;
 
 export const NOTIFICATION = {

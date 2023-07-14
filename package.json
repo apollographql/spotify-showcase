@@ -23,7 +23,7 @@
     "start:client": "npm run start --prefix=client",
     "start:spotify": "npm run start --prefix=subgraphs/spotify",
     "start:playback": "npm run start --prefix=subgraphs/playback",
-    "start:router": "rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml"
+    "start:router": "APOLLO_ROVER_DEV_ROUTER_VERSION=1.25.0-alpha.0 rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@apollo/generate-persisted-query-manifest": "^1.0.0",
+    "@apollo/persisted-query-lists": "^1.0.0",
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",

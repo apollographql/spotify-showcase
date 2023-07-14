@@ -7,11 +7,11 @@ headers:
     spotify:
       request:
         - propagate:
-            matching: "authorization"
+            matching: 'authorization'
     playback:
       request:
         - propagate:
-            matching: "authorization"
+            matching: 'authorization'
 sandbox:
   enabled: true
 supergraph:

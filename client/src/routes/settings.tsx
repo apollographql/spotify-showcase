@@ -18,6 +18,7 @@ import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutat
 import { useState } from 'react';
 import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { DEFAULT_BACKGROUND_COLOR } from '../constants';
+import AppSettingsForm from '../components/AppSettingsForm';
 
 const SETTINGS_QUERY = gql`
   query SettingsQuery {
@@ -111,7 +112,12 @@ export const RouteComponent = () => {
     <Page className="mx-auto w-full max-w-4xl gap-6 py-8">
       <h1>Settings</h1>
       <section>
-        <h2 className="text-xl">GraphQL Field Configuration</h2>
+        <h2>App configuration</h2>
+        <p className="mb-4 text-sm text-muted">Configure app settings.</p>
+        <AppSettingsForm />
+      </section>
+      <section>
+        <h2>GraphQL Field Configuration</h2>
         <p className="mb-4 text-sm text-muted">
           Configure sythetic errors and timeouts for a GraphQL field. These are
           cleared each time the server is restarted.
@@ -143,7 +149,7 @@ export const RouteComponent = () => {
           </div>
         ) : !isAddingNewFieldConfig ? (
           <div className="mt-12 flex flex-col pl-12">
-            <h3 className="text-md text-2xl">All set!</h3>
+            <h3>All set!</h3>
             <p className="text-offwhite mb-6 text-sm">
               There are no fields configured with synthetic errors or timeouts.
               Click the button below to configure a field.
