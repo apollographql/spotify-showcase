@@ -7,3 +7,4 @@ export interface Notification {
 
 export const isLoggedInVar = makeVar(Boolean(readToken()));
 export const notificationVar = makeVar<Notification | null>(null);
+export const persistedQueryMode = makeVar(false);
