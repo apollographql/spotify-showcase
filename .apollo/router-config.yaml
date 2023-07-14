@@ -19,6 +19,10 @@ supergraph:
   listen: 127.0.0.1:4000
 homepage:
   enabled: false
+apq:
+  enabled: false
+preview_persisted_queries:
+  enabled: true
 #####################
 # Uncomment the following to enable local subscriptions. You must have an
 # enterprise account or enterprise trial to use this.
