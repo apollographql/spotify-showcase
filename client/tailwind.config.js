@@ -40,6 +40,7 @@ module.exports = {
     }),
     data: {
       active: 'state="active"',
+      checked: 'state="checked"',
       open: 'state="open"',
       closed: 'state="closed"',
       'side-right': 'side="right"',
