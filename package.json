@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/apollographql/spotify-showcase#readme",
   "devDependencies": {
-    "@apollo/rover": "^0.16.0",
+    "@apollo/rover": "^0.17.1",
     "concurrently": "^8.2.0",
     "typescript": "^5.1.6"
   },
