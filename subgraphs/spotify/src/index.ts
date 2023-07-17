@@ -13,6 +13,7 @@ const port = process.env.PORT ?? '4001';
 const routerSecret = process.env.ROUTER_SECRET;
 import { addMocksToSchema } from '@graphql-tools/mock';
 import morgan from 'morgan';
+import chalk from 'chalk';
 
 import express from 'express';
 import http from 'http';
@@ -24,28 +25,26 @@ import { GraphQLError, execute, parse } from 'graphql';
 import { mocks } from './utils/mocks';
 import logger from './logger';
 
-const loggerMiddleware = morgan(':method :url :status :response-time ms', {
-  stream: {
-    write: (message: string) => logger.http(message.trim()),
-  },
+morgan.token('operationName', (req) => {
+  return chalk.blue(req.body.operationName);
 });
 
-const graphqlLogger: ApolloServerPlugin = {
-  async requestDidStart(requestContext) {
-    const { request } = requestContext;
+morgan.token('variables', (req) => {
+  if (!req.body.variables) {
+    return '';
+  }
 
-    logger.debug(
-      [
-        request.operationName,
-        request.variables
-          ? JSON.stringify({ variables: request.variables ?? {} })
-          : undefined,
-      ]
-        .filter(Boolean)
-        .join(' ')
-    );
-  },
-};
+  return JSON.stringify({ variables: req.body.variables });
+});
+
+const loggerMiddleware = morgan(
+  ':method :url :status :response-time ms :operationName :variables',
+  {
+    stream: {
+      write: (message: string) => logger.http(message.trim()),
+    },
+  }
+);
 
 async function main() {
   let typeDefs = gql(
@@ -68,7 +67,6 @@ async function main() {
     introspection: true,
     logger,
     plugins: [
-      graphqlLogger,
       {
         async requestDidStart() {
           return {

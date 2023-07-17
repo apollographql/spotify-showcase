@@ -19,6 +19,7 @@ import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { TOPICS } from './utils/constants';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import chalk from 'chalk';
 
 import express from 'express';
 import http from 'http';
@@ -32,8 +33,20 @@ import { GraphQLError, execute, parse } from 'graphql';
 import { mocks } from './utils/mocks';
 import logger from './logger';
 
+morgan.token('operationName', (req) => {
+  return chalk.blue(req.body.operationName);
+});
+
+morgan.token('variables', (req) => {
+  if (!req.body.variables) {
+    return '';
+  }
+
+  return JSON.stringify({ variables: req.body.variables });
+});
+
 const loggerMiddleware = morgan(
-  ':method :url :status :res[content-length] - :response-time ms',
+  ':method :url :status :response-time ms :operationName :variables',
   {
     stream: {
       write: (message: string) => logger.http(message.trim()),
