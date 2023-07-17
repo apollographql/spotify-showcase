@@ -32,7 +32,6 @@ import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
 import { mocks } from './utils/mocks';
 import logger from './logger';
-import winston from 'winston';
 
 const loggerMiddleware = morgan(
   ':method :url :status :res[content-length] - :response-time ms',
