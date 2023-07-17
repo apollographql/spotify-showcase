@@ -1,7 +1,11 @@
 import { readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { ApolloServer, GraphQLResponse } from '@apollo/server';
+import {
+  ApolloServer,
+  GraphQLResponse,
+  ApolloServerPlugin,
+} from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import resolvers from './resolvers';
 import { ContextValue } from './types/ContextValue';
@@ -20,14 +24,28 @@ import { GraphQLError, execute, parse } from 'graphql';
 import { mocks } from './utils/mocks';
 import logger from './logger';
 
-const loggerMiddleware = morgan(
-  ':method :url :status :res[content-length] - :response-time ms',
-  {
-    stream: {
-      write: (message: string) => logger.http(message.trim()),
-    },
-  }
-);
+const loggerMiddleware = morgan(':method :url :status :response-time ms', {
+  stream: {
+    write: (message: string) => logger.http(message.trim()),
+  },
+});
+
+const graphqlLogger: ApolloServerPlugin = {
+  async requestDidStart(requestContext) {
+    const { request } = requestContext;
+
+    logger.debug(
+      [
+        request.operationName,
+        request.variables
+          ? JSON.stringify({ variables: request.variables ?? {} })
+          : undefined,
+      ]
+        .filter(Boolean)
+        .join(' ')
+    );
+  },
+};
 
 async function main() {
   let typeDefs = gql(
@@ -48,7 +66,9 @@ async function main() {
   const server = new ApolloServer<ContextValue>({
     schema,
     introspection: true,
+    logger,
     plugins: [
+      graphqlLogger,
       {
         async requestDidStart() {
           return {
