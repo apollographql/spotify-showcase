@@ -14,6 +14,7 @@ const port = process.env.PORT ?? '4002';
 const subgraphName = require('../package.json').name;
 const routerSecret = process.env.ROUTER_SECRET;
 import { addMocksToSchema } from '@graphql-tools/mock';
+import morgan from 'morgan';
 
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';

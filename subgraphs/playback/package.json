@@ -39,6 +39,7 @@
     "graphql-tag": "latest",
     "graphql-ws": "^5.13.1",
     "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
     "querystring": "^0.2.1",
     "request": "^2.88.2",
     "rxjs": "^7.8.1",
