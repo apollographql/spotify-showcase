@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import { ApolloProvider, SuspenseCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
@@ -21,7 +21,7 @@ const root = ReactDOM.createRoot(
 root.render(
   // TODO: Re-enable strict mode once https://github.com/apollographql/apollo-client/issues/10428 is fixed
   // <React.StrictMode>
-  <ApolloProvider client={client} suspenseCache={new SuspenseCache()}>
+  <ApolloProvider client={client}>
     <Tooltip.Provider delayDuration={300}>
       <BackgroundColorProvider>
         <RouterProvider router={router} />
