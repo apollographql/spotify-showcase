@@ -16,7 +16,7 @@ sandbox:
   enabled: true
 supergraph:
   introspection: true
-  listen: 127.0.0.1:4000
+  listen: 0.0.0.0:4000
 homepage:
   enabled: false
 apq:
