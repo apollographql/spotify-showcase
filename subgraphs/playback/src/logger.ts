@@ -1,10 +1,18 @@
 import winston from 'winston';
 
-const { combine, errors, json, timestamp } = winston.format;
+const { colorize, combine, errors, printf, timestamp } = winston.format;
 
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'debug',
-  format: combine(errors({ stack: true }), timestamp(), json()),
+  format: combine(
+    colorize({ level: true }),
+    errors({ stack: true }),
+    timestamp(),
+    printf(
+      (info) =>
+        `[${info.timestamp}] ${info.level} (${info.service}): ${info.message}`
+    )
+  ),
   defaultMeta: {
     service: 'playback-subgraph',
   },

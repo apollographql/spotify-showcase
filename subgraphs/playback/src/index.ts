@@ -32,6 +32,16 @@ import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
 import { mocks } from './utils/mocks';
 import logger from './logger';
+import winston from 'winston';
+
+const loggerMiddleware = morgan(
+  ':method :url :status :res[content-length] - :response-time ms',
+  {
+    stream: {
+      write: (message: string) => logger.http(message.trim()),
+    },
+  }
+);
 
 async function main() {
   let typeDefs = gql(
@@ -175,6 +185,8 @@ async function main() {
       mock: token ? false : true,
     };
   };
+
+  app.use(loggerMiddleware);
 
   app.use(
     '/graphql',
