@@ -1,6 +1,5 @@
 import { SubscriptionResolvers } from '../__generated__/resolvers-types';
 import { Spotify } from '../dataSources/spotify.types';
-import { TOPICS } from '../utils/constants';
 import { map, distinctUntilChanged } from 'rxjs';
 import { equal } from '@wry/equality';
 import { GraphQLResolveInfo } from 'graphql';
@@ -8,6 +7,7 @@ import { omit } from 'lodash';
 import { PartialDeep } from 'type-fest';
 import { selectsField } from '../utils/graphql';
 import { createPlaybackStateObservable } from '../observables';
+import { eachValueFrom } from 'rxjs-for-await';
 
 type PlaybackStateChangedPayload =
   | { data: { playbackStateChanged: Spotify.Object.PlaybackState | null } }
@@ -22,38 +22,30 @@ export const Subscription: SubscriptionResolvers = {
 
       return payload.data.playbackStateChanged;
     },
-    subscribe: async (_, __, { dataSources, pubsub, publisher }, info) => {
-      const subscription = createPlaybackStateObservable(dataSources.spotify)
-        .pipe(
-          map((playbackState) => {
-            if (!playbackState) {
-              return null;
+    subscribe: async (_, __, { dataSources }, info) => {
+      const source$ = createPlaybackStateObservable(dataSources.spotify).pipe(
+        map((playbackState) => {
+          if (!playbackState) {
+            return null;
+          }
+
+          return maybeOmitVolatileFields(
+            playbackState,
+            info
+          ) as Spotify.Object.PlaybackState;
+        }),
+        distinctUntilChanged((prev, curr) => equal(prev, curr)),
+        map(
+          (result) =>
+            result && {
+              data: {
+                playbackStateChanged: { ...result, timestamp: Date.now() },
+              },
             }
-
-            return maybeOmitVolatileFields(
-              playbackState,
-              info
-            ) as Spotify.Object.PlaybackState;
-          }),
-          distinctUntilChanged((prev, curr) => equal(prev, curr)),
-          map((result) => result && { ...result, timestamp: Date.now() })
         )
-        .subscribe({
-          error: (error) => {
-            publisher.playbackStateError(error);
-          },
-          next: (playbackState) => {
-            publisher.playbackStateChanged({ playbackState });
-          },
-        });
+      );
 
-      // TODO: Handle multiple clients. Currently this will run when any clients
-      // disconnects
-      pubsub.subscribe(TOPICS.DISCONNECT, () => {
-        subscription.unsubscribe();
-      });
-
-      return pubsub.asyncIterator(TOPICS.PLAYBACK_STATE_CHANGED) as any;
+      return eachValueFrom(source$);
     },
   },
 };
