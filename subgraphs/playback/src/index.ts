@@ -11,7 +11,6 @@ import {
 import resolvers from './resolvers';
 import { ContextValue } from './types/ContextValue';
 const port = process.env.PORT ?? '4002';
-const subgraphName = require('../package.json').name;
 const routerSecret = process.env.ROUTER_SECRET;
 import { addMocksToSchema } from '@graphql-tools/mock';
 import morgan from 'morgan';
