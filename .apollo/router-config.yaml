@@ -21,8 +21,13 @@ homepage:
   enabled: false
 apq:
   enabled: false
-preview_persisted_queries:
-  enabled: true
+#####################
+# Enable to use persisted queries. You must set the env var
+# `APOLLO_ROVER_DEV_ROUTER_VERSION=1.25.0-alpha.0` for this to work.
+#####################
+# preview_persisted_queries:
+#   enabled: true
+
 #####################
 # Uncomment the following to enable local subscriptions. You must have an
 # enterprise account or enterprise trial to use this.
