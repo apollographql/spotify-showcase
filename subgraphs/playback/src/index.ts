@@ -23,10 +23,8 @@ import chalk from 'chalk';
 
 import express from 'express';
 import http from 'http';
-import { PubSub } from 'graphql-subscriptions';
 import { readEnv } from './utils/env';
 import SpotifyAPI from './dataSources/spotify';
-import Publisher from './publisher';
 import { json } from 'body-parser';
 import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
@@ -70,7 +68,6 @@ async function main() {
     server: httpServer,
     path: '/ws',
   });
-  const pubsub = new PubSub();
   const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
     defaultValue: 'US',
   });
@@ -110,9 +107,6 @@ async function main() {
         if (ctx.extra.request.headers?.['authorization']) return true;
         return false;
       },
-      onDisconnect: () => {
-        pubsub.publish(TOPICS.DISCONNECT, true);
-      },
       context: (ctx) => {
         const routerAuthorization =
           (ctx.connectionParams?.['authorization'] as string) ??
@@ -124,8 +118,6 @@ async function main() {
           (ctx.extra.request.headers?.['authorization'] as string);
         return {
           defaultCountryCode,
-          publisher: new Publisher(pubsub),
-          pubsub,
           dataSources: {
             spotify: new SpotifyAPI({
               cache: wsApolloServer.cache,
@@ -191,8 +183,6 @@ async function main() {
           token,
         }),
       },
-      publisher: new Publisher(pubsub),
-      pubsub,
       mock: token ? false : true,
     };
   };
