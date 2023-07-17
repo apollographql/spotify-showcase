@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "morgan": "^1.10.0",
+    "winston": "^3.10.0"
+  }
+}

@@ -32,6 +32,7 @@
     "@graphql-tools/schema": "^10.0.0",
     "@wry/equality": "^0.5.6",
     "body-parser": "^1.20.2",
+    "chalk": "^4.1.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
@@ -39,11 +40,13 @@
     "graphql": "^16.6.0",
     "graphql-tag": "latest",
     "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
     "querystring": "^0.2.1",
     "request": "^2.88.2",
     "rxjs": "^7.8.1",
     "ts-invariant": "^0.10.3",
-    "type-fest": "^3.11.0"
+    "type-fest": "^3.11.0",
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

@@ -4,18 +4,22 @@ import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer, GraphQLResponse } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginSubscriptionCallback } from '@apollo/server/plugin/subscriptionCallback';
-import { ApolloServerPluginLandingPageProductionDefault, ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default";
+import {
+  ApolloServerPluginLandingPageProductionDefault,
+  ApolloServerPluginLandingPageLocalDefault,
+} from '@apollo/server/plugin/landingPage/default';
 import resolvers from './resolvers';
 import { ContextValue } from './types/ContextValue';
 const port = process.env.PORT ?? '4002';
-const subgraphName = require('../package.json').name;
 const routerSecret = process.env.ROUTER_SECRET;
 import { addMocksToSchema } from '@graphql-tools/mock';
+import morgan from 'morgan';
 
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
 import { TOPICS } from './utils/constants';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import chalk from 'chalk';
 
 import express from 'express';
 import http from 'http';
@@ -27,19 +31,28 @@ import { json } from 'body-parser';
 import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
 import { mocks } from './utils/mocks';
+import logger from './logger';
 
-const logger = {
-  debug(msg) {
-    console.log(msg);
-  },
-  info(msg) {
-    console.log(msg);},
-  warn(msg) {
-    console.log(msg);},
-  error(msg) {
-    console.log(msg);
-  },
-};
+morgan.token('operationName', (req) => {
+  return chalk.blue(req.body.operationName);
+});
+
+morgan.token('variables', (req) => {
+  if (!req.body.variables) {
+    return '';
+  }
+
+  return JSON.stringify({ variables: req.body.variables });
+});
+
+const loggerMiddleware = morgan(
+  ':method :url :status :response-time ms :operationName :variables',
+  {
+    stream: {
+      write: (message: string) => logger.http(message.trim()),
+    },
+  }
+);
 
 async function main() {
   let typeDefs = gql(
@@ -155,11 +168,11 @@ async function main() {
           };
         },
       },
-      process.env.NODE_ENV === "production"
-          ? ApolloServerPluginLandingPageProductionDefault()
-          : ApolloServerPluginLandingPageLocalDefault({
-              embed: { endpointIsEditable: true },
-            }),
+      process.env.NODE_ENV === 'production'
+        ? ApolloServerPluginLandingPageProductionDefault()
+        : ApolloServerPluginLandingPageLocalDefault({
+            embed: { endpointIsEditable: true },
+          }),
     ],
   });
 
@@ -183,6 +196,8 @@ async function main() {
       mock: token ? false : true,
     };
   };
+
+  app.use(loggerMiddleware);
 
   app.use(
     '/graphql',
