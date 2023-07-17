@@ -43,7 +43,6 @@
   },
   "dependencies": {
     "@apollo/generate-persisted-query-manifest": "^1.0.0",
-    "@apollo/persisted-query-lists": "^1.0.0",
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
