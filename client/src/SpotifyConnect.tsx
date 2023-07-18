@@ -2,33 +2,7 @@ import { useEffect } from 'react';
 import { STORAGE_KEYS } from './constants';
 import { readFromStorage } from './utils/storage';
 import { useApolloClient } from '@apollo/client';
-
-type SpotifyWebPlayerEvent = 'ready';
-
-interface SpotifyWebPlayerOptions {
-  name: string;
-  getOAuthToken: (callback: (access_token: string) => void) => void;
-  volume?: number;
-  enabledMediaSession?: boolean;
-}
-
-declare class SpotifyWebPlayer {
-  constructor(options: SpotifyWebPlayerOptions);
-  connect(): Promise<boolean>;
-  disconnect(): void;
-  addListener(event: SpotifyWebPlayerEvent, callback: () => void): void;
-}
-
-interface SpotifyWebSDK {
-  Player: typeof SpotifyWebPlayer;
-}
-
-declare global {
-  interface Window {
-    onSpotifyWebPlaybackSDKReady: () => void;
-    Spotify: SpotifyWebSDK;
-  }
-}
+import type { Spotify } from './types/SpotifyWebPlaybackSDK';
 
 const SPOTIFY_CONNECT_SRC = 'https://sdk.scdn.co/spotify-player.js';
 
@@ -36,7 +10,7 @@ const SpotifyConnect = () => {
   const client = useApolloClient();
 
   useEffect(() => {
-    let player: SpotifyWebPlayer;
+    let player: Spotify.Player;
     const script = document.createElement('script');
     script.src = SPOTIFY_CONNECT_SRC;
     script.async = true;
