@@ -390,12 +390,12 @@ const config: CodegenConfig = {
       plugins: ["typescript", "typescript-resolvers"],
     },
     './client/src/introspection.json': {
-      schema: 'http://localhost:4000',
+      schema: ['http://localhost:4000', './client/src/localSchema.graphql'],
       documents: ['client/src/**/*.{ts,tsx}'],
       plugins: ['fragment-matcher'],
     },
     './client/src/types/api.ts': {
-      schema: 'http://localhost:4000',
+      schema: ['http://localhost:4000', './client/src/localSchema.graphql'],
       documents: ['client/src/**/*.{ts,tsx}'],
       config: {
         avoidOptionals: {

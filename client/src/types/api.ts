@@ -225,6 +225,11 @@ export type ArtistAlbumsConnection = {
   pageInfo: PageInfo;
 };
 
+export type Auth = {
+  __typename: 'Auth';
+  accessToken: Maybe<Scalars['String']['output']>;
+};
+
 export type Contains = {
   __typename: 'Contains';
   /**
@@ -279,6 +284,7 @@ export type CurrentUser = {
    * 'Your Music' library.
    */
   albumsContains: Maybe<Array<Scalars['Boolean']['output']>>;
+  auth: Auth;
   episodes: Maybe<SavedEpisodesConnection>;
   /**
    * Check if one or more episodes is already saved in the current Spotify user's
@@ -1094,6 +1100,7 @@ export type Query = {
   tracks: Maybe<Array<Track>>;
   /** Get audio features for multiple tracks based on their Spotify IDs. */
   tracksAudioFeatures: Array<TrackAudioFeatures>;
+  user: Maybe<User>;
 };
 
 
@@ -1197,6 +1204,11 @@ export type QuerytracksArgs = {
 
 export type QuerytracksAudioFeaturesArgs = {
   ids: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryuserArgs = {
+  id: Scalars['ID']['input'];
 };
 
 export type RecentlyPlayedConnection = {
@@ -2325,6 +2337,11 @@ export enum __TypeKind {
   /** Indicates this type is a non-null. `ofType` is a valid field. */
   NonNull = 'NON_NULL'
 }
+
+export type AuthTokenQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuthTokenQuery = { me: { __typename: 'CurrentUser', auth: { __typename: 'Auth', accessToken: string | null } } | null };
 
 export type AlbumTile_album = { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> };
 
