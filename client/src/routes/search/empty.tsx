@@ -1,5 +1,5 @@
 import React, { Suspense, useDeferredValue, useRef, useEffect } from 'react';
-import { useNavigate, Outlet, useParams } from 'react-router-dom';
+import { useNavigate, Outlet, useParams, useOutletContext } from 'react-router-dom';
 import { SetNonNullable } from 'type-fest';
 import useForm from '../../hooks/useForm';
 
@@ -104,29 +104,41 @@ export const LoadingState = () => {
   );
 };
 
+type ContextType = { query: string };
+
+export function useQuery() {
+  return useOutletContext<ContextType>();
+}
+
 export const RouteComponent = () => {
-  // const navigate = useNavigate();
-  const [query, setQuery] = React.useState('');
+  const navigate = useNavigate();
   const params = useParams();
+  const [query, setQuery] = React.useState(params.query);
+  // const query = params.query || '';
   const deferredQuery = useDeferredValue(query);
   const isStale = query !== deferredQuery;
-  console.log({ isStale, query, deferredQuery  });
+  
+  React.useEffect(() => {
+    console.log({ query, deferredQuery, isStale });
+    if (!isStale && typeof deferredQuery !== 'undefined') {
+      navigate('/search/' + encodeURI(deferredQuery));
+    }
+  }, [query, isStale, deferredQuery, navigate]);
 
   return (
     <Page className="p-[var(--main-content--padding)]">
       <SearchQueryForm
-        value={query || ''}
+        value={params.query || ''}
         onSubmit={(data) => {
           setQuery(data.query as string);
-          // navigate('/search/' + encodeURI(data.query as string), {
-          //   replace: true,
-          // });
+          // navigate('/search/' + encodeURI(data.query as string));
         }}
       />
-      <Suspense fallback={<LoadingState />}>
+      {/* <Suspense fallback={<LoadingState />}> */}
         {/* <Outlet /> */}
-        <QueryRouteComponent query={deferredQuery} />
-      </Suspense>
+        <Outlet context={{ query: deferredQuery || '' } satisfies ContextType} />
+        {/* <QueryRouteComponent query={deferredQuery} /> */}
+      {/* </Suspense> */}
     </Page>
   );
 };
