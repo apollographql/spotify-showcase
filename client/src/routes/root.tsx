@@ -19,6 +19,7 @@ import { range } from '../utils/lists';
 import { thumbnail } from '../utils/image';
 import GradientIcon from '../components/GradientIcon';
 import Button from '../components/Button';
+import SpotifyConnect from '../SpotifyConnect';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -201,6 +202,7 @@ interface AuthenticatedWrapperProps {
 const AuthenticatedWrapper = ({ children }: AuthenticatedWrapperProps) => {
   return (
     <>
+      <SpotifyConnect />
       <PlaybackStateSubscriber />
       {children}
     </>
