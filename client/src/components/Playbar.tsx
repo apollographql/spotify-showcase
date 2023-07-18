@@ -68,7 +68,7 @@ const Playbar = ({ className }: PlaybarProps) => {
     });
   };
 
-  const currentDeviceId = useSpotifyPlayer(data.me?.auth.accessToken ?? null, {
+  useSpotifyPlayer(data.me?.auth.accessToken ?? null, {
     onReady: refreshDevices,
   });
   const [resumePlayback] = useResumePlaybackMutation();
