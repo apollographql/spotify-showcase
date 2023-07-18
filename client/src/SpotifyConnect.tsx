@@ -3,19 +3,15 @@ import { STORAGE_KEYS } from './constants';
 import { readFromStorage } from './utils/storage';
 import { useApolloClient } from '@apollo/client';
 import type { Spotify } from './types/SpotifyWebPlaybackSDK';
-
-const SPOTIFY_CONNECT_SRC = 'https://sdk.scdn.co/spotify-player.js';
+import useScript from './hooks/useScript';
 
 const SpotifyConnect = () => {
   const client = useApolloClient();
 
+  useScript('https://sdk.scdn.co/spotify-player.js', { async: true });
+
   useEffect(() => {
     let player: Spotify.Player;
-    const script = document.createElement('script');
-    script.src = SPOTIFY_CONNECT_SRC;
-    script.async = true;
-
-    document.body.appendChild(script);
 
     window.onSpotifyWebPlaybackSDKReady = async () => {
       const token = readFromStorage<string>(STORAGE_KEYS.ACCESS_TOKEN, String);
@@ -45,7 +41,6 @@ const SpotifyConnect = () => {
 
     return () => {
       player?.disconnect();
-      document.body.removeChild(script);
     };
   }, [client]);
 
