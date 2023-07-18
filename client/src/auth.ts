@@ -1,4 +1,3 @@
-import { isLoggedInVar } from './vars';
 import client from './apollo';
 import { STORAGE_KEYS } from './constants';
 import {
