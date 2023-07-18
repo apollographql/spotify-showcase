@@ -2338,11 +2338,6 @@ export enum __TypeKind {
   NonNull = 'NON_NULL'
 }
 
-export type AuthTokenQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type AuthTokenQuery = { me: { __typename: 'CurrentUser', auth: { __typename: 'Auth', accessToken: string | null } } | null };
-
 export type AlbumTile_album = { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> };
 
 export type AlbumTrackTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
@@ -2418,7 +2413,7 @@ export type PlaybackStateSubscriberSubscription = { playbackStateChanged: { __ty
 export type PlaybarQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlaybarQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string | null, name: string, type: string }> | null } } | null };
+export type PlaybarQuery = { me: { __typename: 'CurrentUser', auth: { __typename: 'Auth', accessToken: string | null }, player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string | null, name: string, type: string }> | null } } | null };
 
 export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
 

@@ -19,7 +19,7 @@ import { range } from '../utils/lists';
 import { thumbnail } from '../utils/image';
 import GradientIcon from '../components/GradientIcon';
 import Button from '../components/Button';
-import SpotifyConnect from '../SpotifyConnect';
+import useScript from '../hooks/useScript';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -200,9 +200,10 @@ interface AuthenticatedWrapperProps {
 }
 
 const AuthenticatedWrapper = ({ children }: AuthenticatedWrapperProps) => {
+  useScript('https://sdk.scdn.co/spotify-player.js', { async: true });
+
   return (
     <>
-      <SpotifyConnect />
       <PlaybackStateSubscriber />
       {children}
     </>

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Spotify } from '../types/SpotifyWebPlaybackSDK';
-import useScript from './useScript';
 
-const useSpotifyPlayer = (token: string | null) => {
-  useScript('https://sdk.scdn.co/spotify-player.js', { async: true });
+interface Options {
+  onReady?: () => void;
+}
 
+const useSpotifyPlayer = (token: string | null, { onReady }: Options = {}) => {
   const [deviceId, setDeviceId] = useState<string>();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const useSpotifyPlayer = (token: string | null) => {
 
       player.addListener('ready', ({ device_id }) => {
         setDeviceId(device_id);
+        onReady?.();
       });
 
       player.connect();

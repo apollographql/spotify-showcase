@@ -1,5 +1,6 @@
+import { startTransition } from 'react';
 import cx from 'classnames';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import {
   Action,
   RepeatMode,
@@ -29,6 +30,7 @@ import VolumeBar from './VolumeBar';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePlaybackState from '../hooks/usePlaybackState';
 import QueueControlButton from './QueueControlButton';
+import useSpotifyPlayer from '../hooks/useSpotifyPlayer';
 
 interface PlaybarProps {
   className?: string;
@@ -36,9 +38,15 @@ interface PlaybarProps {
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
-const PLAYBAR_QUERY = gql`
+const PLAYBAR_QUERY: TypedDocumentNode<
+  PlaybarQuery,
+  PlaybarQueryVariables
+> = gql`
   query PlaybarQuery {
     me {
+      auth @client {
+        accessToken
+      }
       player {
         devices {
           id
@@ -52,9 +60,17 @@ const PLAYBAR_QUERY = gql`
 `;
 
 const Playbar = ({ className }: PlaybarProps) => {
-  const { data } = useSuspenseQuery<PlaybarQuery, PlaybarQueryVariables>(
-    PLAYBAR_QUERY
-  );
+  const { data, refetch } = useSuspenseQuery(PLAYBAR_QUERY);
+
+  const refreshDevices = () => {
+    startTransition(() => {
+      refetch();
+    });
+  };
+
+  const currentDeviceId = useSpotifyPlayer(data.me?.auth.accessToken ?? null, {
+    onReady: refreshDevices,
+  });
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: Playbar.fragments.playbackState,
