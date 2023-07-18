@@ -30,3 +30,5 @@ dist
 
 router/router
 router/*.graphql
+
+**/pnpm-lock.yaml

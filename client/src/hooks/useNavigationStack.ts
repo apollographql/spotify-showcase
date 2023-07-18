@@ -8,13 +8,6 @@ import {
 import useIsMounted from './useIsMounted';
 import usePrevious from './usePrevious';
 
-const isSameLocation = (location1: Location, location2: Location) => {
-  return (
-    location1.pathname === location2.pathname &&
-    location1.search === location2.search
-  );
-};
-
 const useNavigationStack = () => {
   const isMounted = useIsMounted();
   const location = useLocation();

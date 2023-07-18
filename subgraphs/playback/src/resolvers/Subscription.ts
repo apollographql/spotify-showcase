@@ -22,8 +22,8 @@ export const Subscription: SubscriptionResolvers = {
 
       return payload.data.playbackStateChanged;
     },
-    subscribe: async (_, __, { dataSources }, info) => {
-      const source$ = createPlaybackStateObservable(dataSources.spotify).pipe(
+    subscribe: async (_, __, context, info) => {
+      const source$ = createPlaybackStateObservable(context).pipe(
         map((playbackState) => {
           if (!playbackState) {
             return null;

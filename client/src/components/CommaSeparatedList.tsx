@@ -11,7 +11,13 @@ const CommaSeparatedList = <TElement extends ElementType = 'span'>({
   ...props
 }: CommaSeparatedListProps<TElement>) => {
   return (
-    <DelimitedList {...props} delimiter=", ">
+    <DelimitedList
+      {...(props as Omit<
+        DelimitedListProps<TElement>,
+        'as' | 'children' | 'delimiter'
+      >)}
+      delimiter=", "
+    >
       {children}
     </DelimitedList>
   );

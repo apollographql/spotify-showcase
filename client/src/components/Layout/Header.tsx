@@ -2,12 +2,9 @@ import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { ChevronLeft, ChevronRight, Code2 } from 'lucide-react';
 import Button from '../Button';
 import CurrentUserMenu from '../CurrentUserMenu';
-import ContextualGuidanceDialog from '../ContextualGuidanceDialog';
 import useNavigationStack from '../../hooks/useNavigationStack';
 import useIsLoggedIn from '../../hooks/useIsLoggedIn';
 import Flex from '../Flex';
-import * as Welcome from '../../routes/index.welcome.mdx';
-import * as SuspenseContent from '../../routes/root.suspense.mdx';
 
 const Header = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -33,7 +30,7 @@ const Header = () => {
             variant="secondary"
             className="h-9 w-9 justify-center rounded-full !p-px opacity-80 hover:opacity-100"
           >
-            <Code2 size="1.25rem" />
+          <Code2 size="1.25rem" />
           </Button>
         </ContextualGuidanceDialog>*/}
         {isLoggedIn ? (

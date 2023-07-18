@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { ApolloServer, GraphQLResponse } from '@apollo/server';
+import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginSubscriptionCallback } from '@apollo/server/plugin/subscriptionCallback';
 import {
@@ -17,7 +17,6 @@ import morgan from 'morgan';
 
 import { WebSocketServer } from 'ws';
 import { useServer } from 'graphql-ws/lib/use/ws';
-import { TOPICS } from './utils/constants';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import chalk from 'chalk';
 
@@ -28,7 +27,7 @@ import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
-import { mocks } from './utils/mocks';
+import { MockedSpotifyDataSource, mocks } from './utils/mocks';
 import logger from './logger';
 
 morgan.token('operationName', (req) => {
@@ -71,40 +70,20 @@ async function main() {
   const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
     defaultValue: 'US',
   });
-  const mockPlugin = {
-    async requestDidStart() {
-      return {
-        responseForOperation: async (operation) => {
-          const { request, contextValue } = operation;
-          if (!contextValue.mock) return;
-
-          const { query, variables, operationName } = request;
-          const response = await execute({
-            schema: addMocksToSchema({
-              schema: buildSubgraphSchema({ typeDefs }),
-              mocks,
-              preserveResolvers: true,
-            }),
-            document: parse(query),
-            contextValue,
-            variableValues: variables,
-            operationName,
-          });
-
-          return {
-            http: request.http,
-            body: { kind: 'single', singleResult: response },
-          } as GraphQLResponse;
-        },
-      };
-    },
-  };
   const serverCleanup = useServer(
     {
       schema,
       onConnect: (ctx) => {
         if (ctx.connectionParams?.['authorization']) return true;
         if (ctx.extra.request.headers?.['authorization']) return true;
+
+        //If there is no authorization, we will mock everything and use the remote/local address for the users identifier in local mocked data
+        if (
+          ctx.extra.request.socket.remoteAddress ||
+          ctx.extra.request.socket.localAddress
+        )
+          return true;
+
         return false;
       },
       context: (ctx) => {
@@ -116,16 +95,33 @@ async function main() {
         const token =
           (ctx.connectionParams?.['authorization'] as string) ??
           (ctx.extra.request.headers?.['authorization'] as string);
+
+        if (!token) {
+          const userIdForMocks =
+            ctx.extra.request.socket.remoteAddress ??
+            ctx.extra.request.socket.localAddress ??
+            'default';
+
+          MockedSpotifyDataSource.instance().addUser(userIdForMocks);
+
+          return {
+            defaultCountryCode,
+            dataSources: {
+              spotify: MockedSpotifyDataSource.instance(),
+            },
+            userIdForMocks,
+          };
+        }
+
         return {
           defaultCountryCode,
           dataSources: {
             spotify: new SpotifyAPI({
-              cache: wsApolloServer.cache,
+              cache: callbackApolloServer.cache,
               token,
             }),
           },
-          mock: token ? false : true,
-        } satisfies ContextValue;
+        };
       },
     },
     wsServer
@@ -143,13 +139,12 @@ async function main() {
   const callbackApolloServer = new ApolloServer<ContextValue>({
     schema,
     introspection: true,
-    plugins: [mockPlugin, ApolloServerPluginSubscriptionCallback({ logger })],
+    plugins: [ApolloServerPluginSubscriptionCallback({ logger })],
   });
   const wsApolloServer = new ApolloServer<ContextValue>({
     schema,
     introspection: true,
     plugins: [
-      mockPlugin,
       ApolloServerPluginDrainHttpServer({ httpServer }),
       {
         async serverWillStart() {
@@ -175,6 +170,20 @@ async function main() {
     checkRouterSecret(req.headers['router-authorization'] as string);
     const token = req.get('authorization');
 
+    if (!token) {
+      const userIdForMocks = req.ip ?? 'default';
+      MockedSpotifyDataSource.instance().addUser(userIdForMocks);
+
+      return {
+        defaultCountryCode,
+        dataSources: {
+          spotify: MockedSpotifyDataSource.instance(),
+        },
+        //This is for mocking responses if user doesn't have Spotify token
+        userIdForMocks,
+      };
+    }
+
     return {
       defaultCountryCode,
       dataSources: {
@@ -183,7 +192,6 @@ async function main() {
           token,
         }),
       },
-      mock: token ? false : true,
     };
   };
 
