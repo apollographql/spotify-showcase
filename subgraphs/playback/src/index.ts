@@ -31,11 +31,15 @@ import { MockedSpotifyDataSource } from './utils/mocks';
 import logger from './logger';
 
 morgan.token('operationName', (req) => {
+  if (!req?.body?.operationName) {
+    return '';
+  }
+
   return chalk.blue(req.body.operationName);
 });
 
 morgan.token('variables', (req) => {
-  if (!req.body.variables) {
+  if (!req?.body?.variables) {
     return '';
   }
 

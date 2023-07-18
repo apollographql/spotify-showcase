@@ -15,7 +15,10 @@ extend schema
     url: "https://discord.gg/graphos"
     description: "Ask questions in our Discord or [open an issue](https://github.com/apollographql/spotify-showcase/issues)."
   )
-	@link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key", "@shareable", "@tag"])
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.3"
+    import: ["@key", "@shareable", "@tag"]
+  )
 
 scalar CountryCode
 scalar DateTime
@@ -251,7 +254,7 @@ type Query {
     ids: [ID!]!
   ): [TrackAudioFeatures!]!
 
-  user(id:ID!): User @tag(name: "internal")
+  user(id: ID!): User @tag(name: "internal")
 }
 
 type Mutation {
@@ -501,7 +504,7 @@ enum AlbumType {
 """
 Spotify catalog information for an artist.
 """
-type Artist @key(fields: "id") { 
+type Artist @key(fields: "id") {
   """
   Spotify catalog information about an artist's albums.
   """
@@ -880,39 +883,39 @@ type Device @shareable {
   id: ID
 
   "If this device is the currently active device."
-  isActive: Boolean! 
+  isActive: Boolean!
 
   "If this device is currently in a private session."
-  isPrivateSession: Boolean! 
+  isPrivateSession: Boolean!
 
   """
   Whether controlling this device is restricted. At present if this is "true",
   then no Web API commands will be accepted by this device.
   """
-  isRestricted: Boolean! 
+  isRestricted: Boolean!
 
   """
   A human-readable name for the device. Some devices have a name that the user
   can configure (e.g. "Loudest speaker") and some devices have a generic name
   associated with the manufacturer or device model.
   """
-  name: String! 
+  name: String!
 
   """
   Device type, such as "computer", "smartphone" or "speaker".
   """
-  type: String! 
+  type: String!
 
   """
   The current volume in percent.
 
   >= 0    <= 100
   """
-  volumePercent: Int! 
+  volumePercent: Int!
 }
 
 "Spotify catalog information for an episode."
-type Episode implements PlaylistTrack & PlaybackItem @key(fields: "id") { 
+type Episode implements PlaylistTrack & PlaybackItem @key(fields: "id") {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
   """
@@ -1182,7 +1185,7 @@ type Cursors {
   before: String
 }
 
-type PlaybackContext @shareable{
+type PlaybackContext @shareable {
   """
   A link to the Web API endpoint providing full details of the track.
   """
@@ -1219,7 +1222,7 @@ enum PlaybackContextType {
   USER
 }
 
-interface PlaybackItem @key(fields:"id") {
+interface PlaybackItem @key(fields: "id") {
   "The duration for the playback item in milliseconds."
   durationMs: Int!
 
@@ -1329,7 +1332,7 @@ type Player {
 }
 
 "Information about a playlist owned by a Spotify user"
-type Playlist @key(fields:"id") {
+type Playlist @key(fields: "id") {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the playlist.
@@ -1648,7 +1651,7 @@ enum RepeatMode {
 }
 
 "Spotify catalog information for a show."
-type Show @key(fields: "id") { 
+type Show @key(fields: "id") {
   "A description of the show."
   description(format: TextFormat = PLAIN): String!
 
@@ -1749,7 +1752,7 @@ enum TextFormat {
 }
 
 "Spotify catalog information for a track."
-type Track implements PlaylistTrack & PlaybackItem @key(fields: "id") { 
+type Track implements PlaylistTrack & PlaybackItem @key(fields: "id") {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """
@@ -1953,7 +1956,7 @@ type TrackExternalIds {
 }
 
 "Public profile information about a Spotify user."
-type User @key(fields: "id") { 
+type User @key(fields: "id") {
   """
   The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
   """
