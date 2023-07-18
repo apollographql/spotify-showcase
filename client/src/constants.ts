@@ -27,8 +27,14 @@ export const NOT_IMPLEMENTED_ROUTES = [
   '/collection/episodes',
 ];
 
+// To make this web app a playable device, we use the Spotify Web SDK to
+// initiate a session. In order to make this work, the following scopes are
+// required by the SDK to properly connect. See the GitHub issue for more
+// information: https://github.com/spotify/web-playback-sdk/issues/11
+const REQUIRED_STREAMING_SCOPES = ['streaming', 'user-read-private'] as const;
+
 export const OAUTH_SCOPES = [
-  'streaming',
+  ...REQUIRED_STREAMING_SCOPES,
   'user-follow-modify',
   'user-follow-read',
   'playlist-read-private',
