@@ -6,6 +6,7 @@ import {
   RefreshAccessTokenResponse,
   refreshAccessToken,
 } from './utils/oauth';
+import { accessTokenVar } from './vars';
 
 type TokenType = 'access' | 'refresh';
 
@@ -30,23 +31,21 @@ export const login = (response: AccessTokenResponse) => {
   const now = new Date();
   const expiresAt = now.setSeconds(now.getSeconds() + response.expires_in);
 
-  writeToken('access', response.access_token);
+  accessTokenVar(response.access_token);
   writeToken('refresh', response.refresh_token);
   localStorage.setItem(STORAGE_KEYS.EXPIRES_AT, String(expiresAt));
-
-  isLoggedInVar(true);
 };
 
 export const refreshSession = (response: RefreshAccessTokenResponse) => {
   const now = new Date();
   const expiresAt = now.setSeconds(now.getSeconds() + response.expires_in);
 
-  writeToken('access', response.access_token);
+  accessTokenVar(response.access_token);
   localStorage.setItem(STORAGE_KEYS.EXPIRES_AT, String(expiresAt));
 };
 
 export const getAccessToken = async () => {
-  const accessToken = readToken('access');
+  const accessToken = accessTokenVar();
   const expiresAt = Number(localStorage.getItem(STORAGE_KEYS.EXPIRES_AT));
 
   if (accessToken && Date.now() < expiresAt) {
@@ -62,6 +61,6 @@ export const getAccessToken = async () => {
 
 export const logout = () => {
   localStorage.clear();
-  isLoggedInVar(false);
+  accessTokenVar(null);
   client.clearStore();
 };

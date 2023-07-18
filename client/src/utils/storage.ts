@@ -22,3 +22,7 @@ export function writeToStorage<TValue = unknown>(
 ) {
   localStorage.setItem(key, serialize(value));
 }
+
+export function removeFromStorage(key: StorageKey) {
+  localStorage.removeItem(key);
+}
