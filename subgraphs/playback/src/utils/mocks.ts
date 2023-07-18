@@ -1,12 +1,6 @@
 import { Spotify } from '../dataSources/spotify.types';
 import { SpotifyDataSource } from '../dataSources/spotify';
 
-export const mocks = {
-  User: () => ({
-    displayName: 'Mocked Watson',
-  }),
-};
-
 const userState: {
   [userId: string]: {
     actions: { disallows: [string] };
@@ -48,6 +42,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   public addUser(userId: string) {
     if (userState[userId]) return;
 
+    //TODO - pick a song to use for playback state
     userState[userId] = {
       actions: { disallows: ['INTERRUPTING_PLAYBACK'] },
       context: {
