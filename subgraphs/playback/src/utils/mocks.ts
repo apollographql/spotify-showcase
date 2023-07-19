@@ -76,7 +76,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     if (userState[this.userId] && userState[this.userId].is_playing) {
       if (userState[this.userId].progress_ms >= 140000)
         userState[this.userId].progress_ms = 0;
-      else userState[this.userId].progress_ms += 1000;
+      else userState[this.userId].progress_ms += 500;
     }
     return new Promise((resolve) => resolve(userState[this.userId] as any));
   }
