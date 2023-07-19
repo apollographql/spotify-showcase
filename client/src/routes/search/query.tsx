@@ -1,8 +1,16 @@
-import { Suspense, useDeferredValue } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import { gql, useSuspenseQuery } from '@apollo/client';
-import { useQuery } from './empty';
+// import { useQuery } from './empty';
+import { useNavigate } from 'react-router-dom';
+import {
+  SearchType,
+  SearchRouteQuery,
+  SearchRouteQueryVariables,
+} from '../../types/api';
+import ArtistTile from '../../components/ArtistTile';
 import Page from '../../components/Page';
+import TileGrid from '../../components/TileGrid';
+import { SearchPageContextType } from './empty';
 
 const SEARCH_ROUTE_QUERY = gql`
   query SearchRouteQuery($q: String!, $type: [SearchType!]!) {
@@ -11,12 +19,14 @@ const SEARCH_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            name
+            ...ArtistTile_artist
           }
         }
       }
     }
   }
+
+  ${ArtistTile.fragments.artist}
 `;
 
 export const LoadingState = () => {
@@ -29,30 +39,38 @@ export const LoadingState = () => {
   );
 };
 
-const DataFetching = ({ query }) => {
-  const { data } = useSuspenseQuery(SEARCH_ROUTE_QUERY, {
-    variables: { q: query, type: ['ARTIST'] },
-    skip: !query,
+const DataFetching = ({ query }: SearchPageContextType) => {
+  const { data } = useSuspenseQuery<
+    SearchRouteQuery,
+    SearchRouteQueryVariables
+  >(SEARCH_ROUTE_QUERY, {
+    variables: { q: query, type: SearchType.Artist },
+    // fetchPolicy: 'network-only',
   });
+  const artists = data.search?.artists?.edges?.map((edge) => edge.node) ?? [];
+
   return (
     <Page className="p-[var(--main-content--padding)]">
-      {/* <h1>Results</h1> */}
-      {/* @ts-ignore */}
-      {data?.search?.artists?.edges?.map(({ node }) => (
-        <p key={node.id}>{node.name}</p>
-      ))}
+      <TileGrid gap="1rem" minTileWidth="200px">
+        {artists.map((artist) => (
+          <ArtistTile key={artist.id} artist={artist} />
+        ))}
+      </TileGrid>
     </Page>
   );
 };
 
-export const RouteComponent = () => {
-  const { query } = useQuery();
-  return (
-    <Page className="p-[var(--main-content--padding)]">
-      <h1>Results</h1>
-      <Suspense fallback={<LoadingState />}>
-        <DataFetching query={query} />
-      </Suspense>
-    </Page>
-  );
+export const RouteComponent = ({ query }) => {
+  const navigate = useNavigate();
+
+  // Synchronises something external (app state reflected in URL) with the
+  // latest search term.
+  React.useEffect(() => {
+    navigate('/search/' + encodeURIComponent(query), { replace: true });
+  }, [query, navigate]);
+
+  if (!query) {
+    return null;
+  }
+  return <DataFetching query={query} />;
 };

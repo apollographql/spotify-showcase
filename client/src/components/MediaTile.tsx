@@ -14,7 +14,7 @@ const MediaTile = forwardRef<HTMLAnchorElement, MediaTileProps>(
     return (
       <Link
         {...props}
-        className="flex flex-col gap-4 bg-surface-low-contrast transition-colors duration-200 ease-out p-4 rounded hover:bg-surface-low-contrast-hover hover:no-underline"
+        className="flex flex-col gap-4 bg-surface-low-contrast p-4 rounded hover:bg-surface-low-contrast-hover hover:no-underline"
         ref={ref}
       >
         {cloneElement(coverPhoto, {

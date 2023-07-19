@@ -26,9 +26,11 @@ const LazyImage = ({ className, src, alt = '', ...props }: LazyImageProps) => {
     <img
       {...props}
       className={cx(
-        'w-full h-auto transition-opacity duration-300 ease-out object-cover object-center opacity-0',
+        'w-full h-auto object-cover object-center opacity-100',
         className,
-        { 'opacity-100': loaded }
+        {
+          'opacity-100': loaded,
+        }
       )}
       src={src}
       alt={alt}

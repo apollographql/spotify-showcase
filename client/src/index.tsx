@@ -24,7 +24,8 @@ root.render(
   <ApolloProvider client={client}>
     <Tooltip.Provider delayDuration={300}>
       <BackgroundColorProvider>
-        <RouterProvider router={router} future={{ v7_startTransition: true }} />
+        <RouterProvider router={router} />
+        {/* <RouterProvider router={router} future={{ v7_startTransition: true }} /> */}
       </BackgroundColorProvider>
     </Tooltip.Provider>
   </ApolloProvider>
