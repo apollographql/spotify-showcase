@@ -1,9 +1,11 @@
 import React, { Suspense, useDeferredValue } from 'react';
-import { useParams, useOutletContext } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { SearchIcon } from 'lucide-react';
 import Skeleton from '../../components/Skeleton';
 import SearchQueryForm from '../../components/SearchQueryForm';
 import Page from '../../components/Page';
 import { RouteComponent as QueryRouteComponent } from './query';
+
 export const LoadingState = () => {
   return (
     <Page className="p-[var(--main-content--padding)]">
@@ -19,29 +21,28 @@ export const LoadingState = () => {
   );
 };
 
-export type SearchPageContextType = { query: string };
-
-export function useQuery() {
-  return useOutletContext<SearchPageContextType>();
-}
-
 export const RouteComponent = () => {
   const params = useParams();
   const [query, setQuery] = React.useState(params.query ?? '');
   const deferredQuery = useDeferredValue(query);
 
-  console.log({ query, deferredQuery });
   return (
     <Page className="p-[var(--main-content--padding)]">
       <SearchQueryForm
         initialValue={query}
-        onSubmit={(data) => {
-          setQuery(data.query as string);
-        }}
+        onSubmit={(data) => setQuery(data.query)}
       />
-      <Suspense fallback={<LoadingState />}>
-        <QueryRouteComponent query={deferredQuery} />
-      </Suspense>
+      {deferredQuery ? (
+        <Suspense fallback={<LoadingState />}>
+          <QueryRouteComponent query={deferredQuery} />
+        </Suspense>
+      ) : (
+        <Page.EmptyState
+          icon={<SearchIcon />}
+          title="Search for an artist"
+          description={"Enter an artist's name to get started"}
+        />
+      )}
     </Page>
   );
 };

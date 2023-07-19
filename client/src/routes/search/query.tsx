@@ -10,7 +10,6 @@ import {
 import ArtistTile from '../../components/ArtistTile';
 import Page from '../../components/Page';
 import TileGrid from '../../components/TileGrid';
-import { SearchPageContextType } from './empty';
 
 const SEARCH_ROUTE_QUERY = gql`
   query SearchRouteQuery($q: String!, $type: [SearchType!]!) {
@@ -29,48 +28,33 @@ const SEARCH_ROUTE_QUERY = gql`
   ${ArtistTile.fragments.artist}
 `;
 
-export const LoadingState = () => {
-  return (
-    <Page className="p-[var(--main-content--padding)]">
-      <div className="flex flex-col gap-4">
-        <h1>Loading</h1>
-      </div>
-    </Page>
-  );
-};
+interface QueryRouteComponentProps {
+  query: string;
+}
 
-const DataFetching = ({ query }: SearchPageContextType) => {
+export const RouteComponent = ({ query }: QueryRouteComponentProps) => {
+  const navigate = useNavigate();
   const { data } = useSuspenseQuery<
     SearchRouteQuery,
     SearchRouteQueryVariables
   >(SEARCH_ROUTE_QUERY, {
     variables: { q: query, type: SearchType.Artist },
-    // fetchPolicy: 'network-only',
   });
   const artists = data.search?.artists?.edges?.map((edge) => edge.node) ?? [];
+
+  // Synchronises something external (app state reflected in URL) with the
+  // latest search query.
+  React.useEffect(() => {
+    navigate('/search/' + encodeURIComponent(query), { replace: true });
+  }, [query, navigate]);
 
   return (
     <Page className="p-[var(--main-content--padding)]">
       <TileGrid gap="1rem" minTileWidth="200px">
         {artists.map((artist) => (
-          <ArtistTile key={artist.id} artist={artist} />
+          <ArtistTile ease={false} key={artist.id} artist={artist} />
         ))}
       </TileGrid>
     </Page>
   );
-};
-
-export const RouteComponent = ({ query }) => {
-  const navigate = useNavigate();
-
-  // Synchronises something external (app state reflected in URL) with the
-  // latest search term.
-  React.useEffect(() => {
-    navigate('/search/' + encodeURIComponent(query), { replace: true });
-  }, [query, navigate]);
-
-  if (!query) {
-    return null;
-  }
-  return <DataFetching query={query} />;
 };

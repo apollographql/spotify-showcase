@@ -5,7 +5,7 @@ import useForm from '../hooks/useForm';
 import Form from '../components/Form/Form';
 
 interface FormState {
-  query: string | null;
+  query: string;
 }
 
 type SubmittedFormState = SetNonNullable<FormState, keyof FormState>;
@@ -39,20 +39,19 @@ const SearchQueryForm = ({
   }, []);
 
   return (
-    <Form<FormState>
+    <Form
       form={form}
-      key="search"
       className="border-b border-primary flex flex-col gap-px pb-4 last:border-b-0"
     >
       <Form.TextField
         ref={inputRef}
-        key="searchQuery"
         orientation="horizontal"
         name="query"
         type="text"
+        className="w-1/3"
         onChange={handleSubmit}
         onSubmit={handleSubmit}
-        placeholder="What do you want to listen to?"
+        placeholder="Who do you want to listen to?"
       />
     </Form>
   );

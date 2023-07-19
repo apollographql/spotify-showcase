@@ -12,6 +12,7 @@ export interface CoverPhotoProps {
   className?: string;
   image: Image | null | undefined;
   size?: string;
+  ease?: boolean;
   placeholderIcon?: ElementType<LucideProps>;
   shape?: 'square' | 'circle';
 }
@@ -25,6 +26,7 @@ const CoverPhoto = ({
   image,
   placeholderIcon = Music,
   size,
+  ease = true,
   shape = 'square',
 }: CoverPhotoProps) => {
   return (
@@ -40,7 +42,12 @@ const CoverPhoto = ({
       style={{ '--cover-photo--size': size } as StyleProps}
     >
       {image ? (
-        <LazyImage className="aspect-square object-cover" src={image.url} />
+        <LazyImage
+          className={cx('aspect-square object-cover', {
+            'opacity-100': !ease,
+          })}
+          src={image.url}
+        />
       ) : (
         <PlaceholderCoverPhoto
           className="aspect-square object-cover"
