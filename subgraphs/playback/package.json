@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@apollo/datasource-rest": "^6.0.0",
-    "@apollo/server": "https://pkg.csb.dev/apollographql/apollo-server/commit/29ab4f10/@apollo/server",
+    "@apollo/server": "https://pkg.csb.dev/apollographql/apollo-server/commit/5c93e303/@apollo/server",
     "@apollo/subgraph": "^2.4.7",
     "@apollo/utils.fetcher": "^3.0.0",
     "@apollo/utils.keyvaluecache": "^3.0.0",

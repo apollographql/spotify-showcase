@@ -27,7 +27,7 @@ import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
-import { MockedSpotifyDataSource } from './utils/mocks';
+import { MockedSpotifyDataSource, addUser } from './utils/mocks';
 import logger from './logger';
 
 morgan.token('operationName', (req) => {
@@ -101,17 +101,15 @@ async function main() {
           (ctx.extra.request.headers?.['authorization'] as string);
 
         if (!token) {
-          const userIdForMocks =
-            ctx.extra.request.socket.remoteAddress ??
-            ctx.extra.request.socket.localAddress ??
-            'default';
+          const userIdForMocks = ctx.extra.request.headers.referer;
+          ('default');
 
-          MockedSpotifyDataSource.instance().addUser(userIdForMocks);
+          addUser(userIdForMocks);
 
           return {
             defaultCountryCode,
             dataSources: {
-              spotify: MockedSpotifyDataSource.instance(),
+              spotify: new MockedSpotifyDataSource(userIdForMocks),
             },
             userIdForMocks,
           };
@@ -175,13 +173,13 @@ async function main() {
     const token = req.get('authorization');
 
     if (!token) {
-      const userIdForMocks = req.ip ?? 'default';
-      MockedSpotifyDataSource.instance().addUser(userIdForMocks);
+      const userIdForMocks = req.get('Referrer') ?? 'default';
+      addUser(userIdForMocks);
 
       return {
         defaultCountryCode,
         dataSources: {
-          spotify: MockedSpotifyDataSource.instance(),
+          spotify: new MockedSpotifyDataSource(userIdForMocks),
         },
         //This is for mocking responses if user doesn't have Spotify token
         userIdForMocks,

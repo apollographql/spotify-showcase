@@ -44,45 +44,36 @@ export interface SpotifyDataSource {
     ip?: string
   ): Promise<Spotify.Object.List<'devices', Spotify.Object.Device>>;
   getPlaybackState(
-    params?: Spotify.Request.QueryParams.GET['/me/player'],
-    ip?: string
+    params?: Spotify.Request.QueryParams.GET['/me/player']
   ): Promise<Spotify.Object.PlaybackState>;
-  resumePlayback(
-    { body, params }: RequestParams<'PUT', '/me/player/play'>,
-    ip?: string
-  ): Promise<boolean>;
-  pausePlayback(
-    { params }: RequestParams<'PUT', '/me/player/pause'>,
-    ip?: string
-  ): Promise<boolean>;
-  seekToPosition(
-    { params }: RequestParams<'PUT', '/me/player/seek'>,
-    ip?: string
-  ): Promise<boolean>;
-  setRepeatMode(
-    { params }: RequestParams<'PUT', '/me/player/repeat'>,
-    ip?: string
-  ): Promise<boolean>;
-  setVolume(
-    { params }: RequestParams<'PUT', '/me/player/volume'>,
-    ip?: string
-  ): Promise<boolean>;
-  shufflePlayback(
-    { params }: RequestParams<'PUT', '/me/player/shuffle'>,
-    ip?: string
-  ): Promise<boolean>;
-  skipToNext(
-    { params }: RequestParams<'POST', '/me/player/next'>,
-    ip?: string
-  ): Promise<boolean>;
-  skipToPrevious(
-    { params }: RequestParams<'POST', '/me/player/previous'>,
-    ip?: string
-  ): Promise<boolean>;
-  transferPlayback(
-    { body }: RequestParams<'PUT', '/me/player'>,
-    ip?: string
-  ): Promise<boolean>;
+  resumePlayback({
+    body,
+    params,
+  }: RequestParams<'PUT', '/me/player/play'>): Promise<boolean>;
+  pausePlayback({
+    params,
+  }: RequestParams<'PUT', '/me/player/pause'>): Promise<boolean>;
+  seekToPosition({
+    params,
+  }: RequestParams<'PUT', '/me/player/seek'>): Promise<boolean>;
+  setRepeatMode({
+    params,
+  }: RequestParams<'PUT', '/me/player/repeat'>): Promise<boolean>;
+  setVolume({
+    params,
+  }: RequestParams<'PUT', '/me/player/volume'>): Promise<boolean>;
+  shufflePlayback({
+    params,
+  }: RequestParams<'PUT', '/me/player/shuffle'>): Promise<boolean>;
+  skipToNext({
+    params,
+  }: RequestParams<'POST', '/me/player/next'>): Promise<boolean>;
+  skipToPrevious({
+    params,
+  }: RequestParams<'POST', '/me/player/previous'>): Promise<boolean>;
+  transferPlayback({
+    body,
+  }: RequestParams<'PUT', '/me/player'>): Promise<boolean>;
 }
 
 export default class SpotifyAPI
