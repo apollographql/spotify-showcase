@@ -2407,6 +2407,8 @@ export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: bo
 
 export type PlaylistSidebarLink_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
 
+export type PlaylistSidebarLink_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
+
 export type PlaylistSidebarLink_playlist = { __typename: 'Playlist', id: string, uri: string, name: string, owner: { __typename: 'User', id: string, displayName: string | null } };
 
 export type PlaylistTable_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
