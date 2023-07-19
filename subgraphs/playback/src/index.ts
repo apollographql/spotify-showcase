@@ -101,8 +101,7 @@ async function main() {
           (ctx.extra.request.headers?.['authorization'] as string);
 
         if (!token) {
-          const userIdForMocks = ctx.extra.request.headers.referer;
-          ('default');
+          const userIdForMocks = ctx.extra.request.headers.origin ?? 'default';
 
           addUser(userIdForMocks);
 
@@ -173,7 +172,7 @@ async function main() {
     const token = req.get('authorization');
 
     if (!token) {
-      const userIdForMocks = req.get('Referrer') ?? 'default';
+      const userIdForMocks = req.get('origin') ?? 'default';
       addUser(userIdForMocks);
 
       return {
