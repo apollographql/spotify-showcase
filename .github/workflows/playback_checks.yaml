@@ -19,6 +19,8 @@ jobs:
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
       - if: env.APOLLO_KEY != ''
         run: rover subgraph check Spotify-tb7du2@prod --schema ./subgraphs/playback/schema.graphql --name playback
+        env:
+          APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
   check_playback_builds:
     name: Check server compiles
     runs-on: ubuntu-latest
