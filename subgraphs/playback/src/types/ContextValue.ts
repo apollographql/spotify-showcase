@@ -5,5 +5,4 @@ export interface ContextValue {
   dataSources: {
     spotify: SpotifyDataSource;
   };
-  userIdForMocks?: string; //This will only be used if the `authorization` header isn't present
 }

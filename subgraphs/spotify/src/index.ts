@@ -22,8 +22,9 @@ import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
-import { mocks } from './utils/mocks';
+import { MockedSpotifyDataSource, mocks } from './utils/mocks';
 import logger from './logger';
+import { server } from './utils/server';
 
 morgan.token('operationName', (req) => {
   if (!req?.body?.operationName) {
@@ -51,55 +52,10 @@ const loggerMiddleware = morgan(
 );
 
 async function main() {
-  let typeDefs = gql(
-    readFileSync('schema.graphql', {
-      encoding: 'utf-8',
-    })
-  );
-  const schema = buildSubgraphSchema({
-    typeDefs,
-    resolvers,
-  });
   const app = express();
   const httpServer = http.createServer(app);
   const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
     defaultValue: 'US',
-  });
-
-  const server = new ApolloServer<ContextValue>({
-    schema,
-    introspection: true,
-    logger,
-    plugins: [
-      {
-        async requestDidStart() {
-          return {
-            responseForOperation: async (operation) => {
-              const { request, contextValue } = operation;
-              if (!contextValue.mock) return;
-
-              const { query, variables, operationName } = request;
-              const response = await execute({
-                schema: addMocksToSchema({
-                  schema: buildSubgraphSchema({ typeDefs }),
-                  mocks,
-                  preserveResolvers: true,
-                }),
-                document: parse(query),
-                contextValue,
-                variableValues: variables,
-                operationName,
-              });
-
-              return {
-                http: request.http,
-                body: { kind: 'single', singleResult: response },
-              } as GraphQLResponse;
-            },
-          };
-        },
-      },
-    ],
   });
 
   await server.start();
@@ -114,6 +70,18 @@ async function main() {
       context: async ({ req }) => {
         checkRouterSecret(req.headers['router-authorization'] as string);
         const token = req.get('authorization');
+
+        if (!token) {
+          const userIdForMocks = req.get('referer') ?? 'default';
+
+          return {
+            defaultCountryCode,
+            dataSources: {
+              spotify: new MockedSpotifyDataSource(userIdForMocks),
+            },
+          };
+        }
+
         return {
           defaultCountryCode,
           dataSources: {
@@ -122,7 +90,6 @@ async function main() {
               token,
             }),
           },
-          mock: token ? false : true,
         };
       },
     })

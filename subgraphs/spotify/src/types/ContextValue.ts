@@ -1,9 +1,8 @@
-import SpotifyAPI from '../dataSources/spotify';
+import { SpotifyDataSource } from '../dataSources/spotify';
 
 export interface ContextValue {
   defaultCountryCode: string;
   dataSources: {
-    spotify: SpotifyAPI;
+    spotify: SpotifyDataSource;
   };
-  mock: boolean;
 }
