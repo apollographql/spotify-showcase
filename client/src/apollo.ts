@@ -6,6 +6,7 @@ import {
   from,
   split,
 } from '@apollo/client';
+import { createFragmentRegistry } from '@apollo/client/cache';
 import { setContext } from '@apollo/client/link/context';
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import {
@@ -70,6 +71,8 @@ const httpLink = createHttpLink({
   uri: import.meta.env.VITE_SERVER_HOST,
 });
 
+export const fragmentRegistry = createFragmentRegistry();
+
 export default new ApolloClient({
   link: from([httpAuthLink, persistedQueries, httpLink]),
   connectToDevTools: true,
@@ -77,6 +80,7 @@ export default new ApolloClient({
   version,
   cache: new InMemoryCache({
     possibleTypes: introspection.possibleTypes,
+    fragments: fragmentRegistry,
     typePolicies: {
       Album: {
         fields: {
