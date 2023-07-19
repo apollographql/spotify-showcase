@@ -1,6 +1,5 @@
 import React from 'react';
 import { gql, useSuspenseQuery } from '@apollo/client';
-// import { useQuery } from './empty';
 import { useNavigate } from 'react-router-dom';
 import {
   SearchType,
@@ -42,8 +41,6 @@ export const RouteComponent = ({ query }: QueryRouteComponentProps) => {
   });
   const artists = data.search?.artists?.edges?.map((edge) => edge.node) ?? [];
 
-  // Synchronises something external (app state reflected in URL) with the
-  // latest search query.
   React.useEffect(() => {
     navigate('/search/' + encodeURIComponent(query), { replace: true });
   }, [query, navigate]);
