@@ -2702,6 +2702,14 @@ export type RootQueryVariables = Exact<{
 
 export type RootQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string }, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, uri: string, name: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null } } }> } | null } | null };
 
+export type SearchRouteQueryVariables = Exact<{
+  q: Scalars['String']['input'];
+  type: Array<SearchType> | SearchType;
+}>;
+
+
+export type SearchRouteQuery = { search: { __typename: 'SearchResults', artists: { __typename: 'SearchArtistsConnection', edges: Array<{ __typename: 'SearchArtistEdge', node: { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+
 export type SettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 

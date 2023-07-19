@@ -1,9 +1,15 @@
 import { ComponentPropsWithoutRef, useEffect, useState } from 'react';
 import cx from 'classnames';
 
-type LazyImageProps = ComponentPropsWithoutRef<'img'>;
+type LazyImageProps = ComponentPropsWithoutRef<'img'> & { animateIn?: boolean };
 
-const LazyImage = ({ className, src, alt = '', ...props }: LazyImageProps) => {
+const LazyImage = ({
+  className,
+  src,
+  animateIn,
+  alt = '',
+  ...props
+}: LazyImageProps) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -28,7 +34,7 @@ const LazyImage = ({ className, src, alt = '', ...props }: LazyImageProps) => {
       className={cx(
         'w-full h-auto transition-opacity duration-300 ease-out object-cover object-center opacity-0',
         className,
-        { 'opacity-100': loaded }
+        { 'opacity-100': loaded || !animateIn }
       )}
       src={src}
       alt={alt}

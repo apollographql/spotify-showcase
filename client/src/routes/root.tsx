@@ -1,6 +1,6 @@
 import { Fragment, ReactNode, useRef, useState } from 'react';
 import { gql, TypedDocumentNode, useSuspenseQuery } from '@apollo/client';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { RootQuery, RootQueryVariables } from '../types/api';
 import Layout from '../components/Layout';
 import Playbar from '../components/Playbar';
@@ -50,7 +50,6 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
 `;
 
 export const RouteComponent = () => {
-  const params = useParams();
   const ref = useRef<HTMLElement>(null);
   const isLoggedIn = useIsLoggedIn();
   const Wrapper = isLoggedIn ? AuthenticatedWrapper : Fragment;
@@ -67,7 +66,7 @@ export const RouteComponent = () => {
         <Layout.Main ref={ref}>
           <Layout.Header />
           <Wrapper>
-            <Outlet key={JSON.stringify(params)} />
+            <Outlet />
           </Wrapper>
         </Layout.Main>
         {isLoggedIn && <Playbar className="[grid-area:playbar]" />}
