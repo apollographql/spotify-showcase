@@ -182,7 +182,14 @@ const routes = createRoutesFromElements(
           />
         </Route>
         <Route path="search" element={<SearchEmptyRoute.RouteComponent />}>
-          <Route path=":query" element={<SearchEmptyRoute.RouteComponent />} />
+          <Route
+            path=":query"
+            element={
+              <Suspense fallback={<SearchQueryRoute.LoadingState />}>
+                <SearchQueryRoute.RouteComponent />
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
     </Route>

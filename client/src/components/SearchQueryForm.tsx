@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { SetNonNullable } from 'type-fest';
 import useForm from '../hooks/useForm';
 
@@ -31,12 +31,6 @@ const SearchQueryForm = ({
   const handleSubmit = () => {
     form.submitForm();
   };
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   return (
     <Form

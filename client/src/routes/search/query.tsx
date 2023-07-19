@@ -1,14 +1,14 @@
-import React from 'react';
 import { gql, useSuspenseQuery } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
 import {
   SearchType,
   SearchRouteQuery,
   SearchRouteQueryVariables,
 } from '../../types/api';
+import Skeleton from '../../components/Skeleton';
 import ArtistTile from '../../components/ArtistTile';
 import Page from '../../components/Page';
 import TileGrid from '../../components/TileGrid';
+import { useSearchQuery } from './empty';
 
 const SEARCH_ROUTE_QUERY = gql`
   query SearchRouteQuery($q: String!, $type: [SearchType!]!) {
@@ -27,12 +27,23 @@ const SEARCH_ROUTE_QUERY = gql`
   ${ArtistTile.fragments.artist}
 `;
 
-interface QueryRouteComponentProps {
-  query: string;
-}
+export const LoadingState = () => {
+  return (
+    <Page className="p-[var(--main-content--padding)]">
+      <div className="flex flex-col gap-4">
+        <Skeleton.TileGrid
+          gap="1rem"
+          template={<Skeleton.MediaTile description coverPhotoShape="circle" />}
+          tileCount={15}
+          minTileWidth="200px"
+        />
+      </div>
+    </Page>
+  );
+};
 
-export const RouteComponent = ({ query }: QueryRouteComponentProps) => {
-  const navigate = useNavigate();
+export const RouteComponent = () => {
+  const { query } = useSearchQuery();
   const { data } = useSuspenseQuery<
     SearchRouteQuery,
     SearchRouteQueryVariables
@@ -40,10 +51,6 @@ export const RouteComponent = ({ query }: QueryRouteComponentProps) => {
     variables: { q: query, type: SearchType.Artist },
   });
   const artists = data.search?.artists?.edges?.map((edge) => edge.node) ?? [];
-
-  React.useEffect(() => {
-    navigate('/search/' + encodeURIComponent(query), { replace: true });
-  }, [query, navigate]);
 
   return (
     <Page className="p-[var(--main-content--padding)]">
