@@ -56,7 +56,7 @@ export const RouteComponent = () => {
     <Page className="p-[var(--main-content--padding)]">
       <TileGrid gap="1rem" minTileWidth="200px">
         {artists.map((artist) => (
-          <ArtistTile ease={false} key={artist.id} artist={artist} />
+          <ArtistTile animateIn={false} key={artist.id} artist={artist} />
         ))}
       </TileGrid>
     </Page>

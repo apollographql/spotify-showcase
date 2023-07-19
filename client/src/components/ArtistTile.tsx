@@ -5,14 +5,18 @@ import MediaTile from './MediaTile';
 
 interface ArtistTileProps {
   artist: Artist;
-  ease?: boolean;
+  animateIn?: boolean;
 }
 
-const ArtistTile = ({ artist, ease }: ArtistTileProps) => {
+const ArtistTile = ({ artist, animateIn }: ArtistTileProps) => {
   return (
     <MediaTile
       coverPhoto={
-        <CoverPhoto ease={ease} shape="circle" image={artist.images[0]} />
+        <CoverPhoto
+          animateIn={animateIn}
+          shape="circle"
+          image={artist.images[0]}
+        />
       }
       description="Artist"
       title={artist.name}
