@@ -1751,17 +1751,12 @@ enum TextFormat {
   HTML
 }
 
-type Info {
-  astronautsFavorited: Int
-}
-
 "Spotify catalog information for a track."
 type Track implements PlaylistTrack & PlaybackItem @key(fields: "id") {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """
   id: ID!
-  info: Info
   """
   The album on which the track appears.
   """

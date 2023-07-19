@@ -15,15 +15,18 @@ extend schema
     url: "https://discord.gg/graphos"
     description: "Ask questions in our Discord or [open an issue](https://github.com/apollographql/spotify-showcase/issues)."
   )
-	@link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key", "@shareable", "@interfaceObject"])
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.3"
+    import: ["@key", "@shareable", "@interfaceObject"]
+  )
 
 scalar Timestamp
 
 type Mutation {
-  """
-  Start a new context or resume current playback on the user's active device.
-  """
-  resumePlayback(input: ResumePlaybackInput): ResumePlaybackPayload
+  # """
+  # Start a new context or resume current playback on the user's active device.
+  # """
+  # resumePlayback(input: ResumePlaybackInput): ResumePlaybackPayload
   """
   Pause playback on the user's account.
   """
@@ -82,7 +85,6 @@ type Mutation {
     """
     context: SetVolumeContextInput
   ): SetVolumeResponse
-
 
   """
   Toggle shuffle on or off for user’s playback.
@@ -145,7 +147,6 @@ type ShufflePlaybackResponse {
   "The state of playback after shuffling playback."
   playbackState: PlaybackState
 }
-
 
 input SkipToNextContextInput {
   """
@@ -292,35 +293,35 @@ enum Action {
 }
 
 type Actions @shareable {
-  disallows: [Action!]! 
+  disallows: [Action!]!
 }
 type Device @shareable {
   "The device ID"
   id: ID
 
   "If this device is the currently active device."
-  isActive: Boolean! 
+  isActive: Boolean!
 
   "If this device is currently in a private session."
-  isPrivateSession: Boolean! 
+  isPrivateSession: Boolean!
 
   """
   Whether controlling this device is restricted. At present if this is "true",
   then no Web API commands will be accepted by this device.
   """
-  isRestricted: Boolean! 
+  isRestricted: Boolean!
 
   """
   A human-readable name for the device. Some devices have a name that the user
   can configure (e.g. "Loudest speaker") and some devices have a generic name
   associated with the manufacturer or device model.
   """
-  name: String! 
+  name: String!
 
   """
   Device type, such as "computer", "smartphone" or "speaker".
   """
-  type: String! 
+  type: String!
 
   """
   The current volume in percent.
@@ -397,7 +398,7 @@ enum PlaybackContextType {
   TRACK
   USER
 }
-type PlaybackItem @key(fields:"id") @interfaceObject {
+type PlaybackItem @key(fields: "id") @interfaceObject {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the playback item.
