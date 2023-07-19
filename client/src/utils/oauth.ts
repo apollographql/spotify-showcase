@@ -102,5 +102,9 @@ export const refreshAccessToken =
       return res.json();
     });
 
+    refreshAccessTokenPromise.finally(() => {
+      refreshAccessTokenPromise = null;
+    });
+
     return refreshAccessTokenPromise;
   };
