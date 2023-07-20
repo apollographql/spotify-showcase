@@ -30,6 +30,7 @@ const userState: {
 } = {};
 
 export function addUser(userId: string) {
+  console.log(`trying to add user ${userId}`);
   if (userState[userId]) return;
 
   //TODO - pick a song to use for playback state
