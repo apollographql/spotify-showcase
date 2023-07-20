@@ -1,19 +1,21 @@
 import { Spotify } from '../dataSources/spotify.types';
 import { SpotifyDataSource } from '../dataSources/spotify';
 
+interface UserPlaybackState {
+  actions: Spotify.Object.Actions;
+  context: Spotify.Object.Context;
+  device: Spotify.Object.Device;
+  is_playing: boolean;
+  item: { id: string };
+  progress_ms: number;
+  repeat_state: Spotify.Object.RepeatMode;
+  shuffle_state: boolean;
+  timestamp: number;
+  currently_playing_type: Spotify.Object.CurrentlyPlayingType;
+}
+
 const userState: {
-  [userId: string]: {
-    actions: Spotify.Object.Actions;
-    context: Spotify.Object.Context;
-    device: Spotify.Object.Device;
-    is_playing: boolean;
-    item: { id: string };
-    progress_ms: number;
-    repeat_state: Spotify.Object.RepeatMode;
-    shuffle_state: boolean;
-    timestamp: number;
-    currently_playing_type: Spotify.Object.CurrentlyPlayingType;
-  };
+  [userId: string]: UserPlaybackState;
 } = {
   default: {
     actions: { disallows: { interrupting_playback: true } },
