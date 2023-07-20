@@ -55,27 +55,32 @@ export function addUser(userId: string) {
   userState[userId] = createUserPlaybackState();
 }
 
+function findOrCreateUserPlaybackState(userId: string) {
+  return (userState[userId] ||= createUserPlaybackState());
+}
+
 export class MockedSpotifyDataSource implements SpotifyDataSource {
-  private userId: string;
+  private state: UserPlaybackState;
+
   constructor(userId: string) {
-    this.userId = userId;
+    this.state = findOrCreateUserPlaybackState(userId);
   }
   getDevices(): Promise<Spotify.Object.List<'devices', Spotify.Object.Device>> {
     return new Promise((resolve) =>
       resolve({
-        devices: [userState[this.userId]?.device],
+        devices: [this.state.device],
       })
     );
   }
   getPlaybackState(params?: {
     additional_types?: string;
   }): Promise<Spotify.Object.PlaybackState> {
-    if (userState[this.userId] && userState[this.userId].is_playing) {
-      if (userState[this.userId].progress_ms >= 140000)
-        userState[this.userId].progress_ms = 0;
-      else userState[this.userId].progress_ms += 1000;
+    if (this.state.is_playing) {
+      if (this.state.progress_ms >= 140000) this.state.progress_ms = 0;
+      else this.state.progress_ms += 1000;
     }
-    return new Promise((resolve) => resolve(userState[this.userId] as any));
+
+    return new Promise((resolve) => resolve(this.state as any));
   }
   resumePlayback({
     body,
@@ -89,9 +94,9 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
       position_ms?: number;
     };
   }): Promise<boolean> {
-    if (userState[this.userId] && !userState[this.userId].is_playing) {
-      userState[this.userId].is_playing = true;
-      userState[this.userId].device.is_active = true;
+    if (!this.state.is_playing) {
+      this.state.is_playing = true;
+      this.state.device.is_active = true;
     } else return new Promise((resolve) => resolve(false));
 
     return new Promise((resolve) => resolve(true));
@@ -101,9 +106,9 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId] && userState[this.userId].is_playing) {
-      userState[this.userId].is_playing = false;
-      userState[this.userId].device.is_active = false;
+    if (this.state.is_playing) {
+      this.state.is_playing = false;
+      this.state.device.is_active = false;
     } else return new Promise((resolve) => resolve(false));
 
     return new Promise((resolve) => resolve(true));
@@ -113,9 +118,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     params: { position_ms: number; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].progress_ms = params.position_ms;
-    else return new Promise((resolve) => resolve(false));
+    this.state.progress_ms = params.position_ms;
 
     return new Promise((resolve) => resolve(true));
   }
@@ -124,9 +127,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     params: { state: Spotify.Object.RepeatMode; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].repeat_state = params.state;
-    else return new Promise((resolve) => resolve(false));
+    this.state.repeat_state = params.state;
 
     return new Promise((resolve) => resolve(true));
   }
@@ -135,9 +136,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     params: { volume_percent: number; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].device.volume_percent = params.volume_percent;
-    else return new Promise((resolve) => resolve(false));
+    this.state.device.volume_percent = params.volume_percent;
 
     return new Promise((resolve) => resolve(true));
   }
@@ -146,15 +145,12 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     params: { state: boolean; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].shuffle_state = params.state;
-    else return new Promise((resolve) => resolve(false));
+    this.state.shuffle_state = params.state;
 
     return new Promise((resolve) => resolve(true));
   }
   skipToNext({ params }: { params: { device_id?: string } }): Promise<boolean> {
-    if (userState[this.userId]) userState[this.userId].progress_ms = 0;
-    else return new Promise((resolve) => resolve(false));
+    this.state.progress_ms = 0;
 
     return new Promise((resolve) => resolve(true));
   }
@@ -163,8 +159,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId]) userState[this.userId].progress_ms = 0;
-    else return new Promise((resolve) => resolve(false));
+    this.state.progress_ms = 0;
 
     return new Promise((resolve) => resolve(true));
   }
@@ -173,10 +168,10 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     body: { device_ids: string[]; play?: boolean };
   }): Promise<boolean> {
-    if (userState[this.userId] && body.device_ids.length > 0) {
-      userState[this.userId].device.id = body.device_ids[0];
-      userState[this.userId].device.is_active = body.play;
-      userState[this.userId].is_playing = body.play;
+    if (body.device_ids.length > 0) {
+      this.state.device.id = body.device_ids[0];
+      this.state.device.is_active = body.play;
+      this.state.is_playing = body.play;
     } else return new Promise((resolve) => resolve(false));
 
     return new Promise((resolve) => resolve(true));
