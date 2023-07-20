@@ -95,12 +95,12 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
       position_ms?: number;
     };
   }): Promise<boolean> {
-    if (!this.state.is_playing) {
-      this.state.is_playing = true;
-      this.state.device.is_active = true;
-    } else {
+    if (this.state.is_playing) {
       return Promise.resolve(false);
     }
+
+    this.state.is_playing = true;
+    this.state.device.is_active = true;
 
     return Promise.resolve(true);
   }
@@ -109,12 +109,12 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    if (this.state.is_playing) {
-      this.state.is_playing = false;
-      this.state.device.is_active = false;
-    } else {
+    if (!this.state.is_playing) {
       return Promise.resolve(false);
     }
+
+    this.state.is_playing = false;
+    this.state.device.is_active = false;
 
     return Promise.resolve(true);
   }
@@ -168,18 +168,19 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
 
     return Promise.resolve(true);
   }
+
   transferPlayback({
     body,
   }: {
     body: { device_ids: string[]; play?: boolean };
   }): Promise<boolean> {
-    if (body.device_ids.length > 0) {
-      this.state.device.id = body.device_ids[0];
-      this.state.device.is_active = body.play;
-      this.state.is_playing = body.play;
-    } else {
+    if (body.device_ids.length === 0) {
       return Promise.resolve(false);
     }
+
+    this.state.device.id = body.device_ids[0];
+    this.state.device.is_active = body.play;
+    this.state.is_playing = body.play;
 
     return Promise.resolve(true);
   }
