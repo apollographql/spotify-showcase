@@ -22,7 +22,7 @@ jobs:
         env:
           APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
   check_playback_builds:
-    name: Check server compiles
+    name: Build and Unit Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

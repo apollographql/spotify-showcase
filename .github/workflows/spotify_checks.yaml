@@ -22,7 +22,7 @@ jobs:
         env:
           APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
   check_spotify_builds:
-    name: Check server compiles
+    name: Build and Unit Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -35,7 +35,7 @@ jobs:
       - name: Check server compiles
         run: npm run build --prefix=subgraphs/spotify
       - name: Run unit tests
-        run: npm run test --prefix=subgraphs/playback
+        run: npm run test --prefix=subgraphs/spotify
   check_spotify_typescript:
     name: Check TypeScript
     runs-on: ubuntu-latest
