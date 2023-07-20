@@ -43,7 +43,7 @@ const serverCleanup = useServer(
   {
     schema,
     onConnect: (ctx) => {
-      console.log(JSON.stringify(ctx.extra.request.headers));
+      console.log(JSON.stringify(ctx));
       if (ctx.connectionParams?.['authorization']) return true;
       if (ctx.extra.request.headers?.['authorization']) return true;
 
@@ -51,6 +51,7 @@ const serverCleanup = useServer(
       if (ctx.extra.request.headers?.referer) return true;
 
       //For local developmentt
+      if (ctx.extra.request.headers?.host) return true;
 
       return false;
     },
