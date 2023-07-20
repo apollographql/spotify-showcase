@@ -44,9 +44,7 @@ function createUserPlaybackState(): UserPlaybackState {
 
 const userState: {
   [userId: string]: UserPlaybackState;
-} = {
-  default: createUserPlaybackState(),
-};
+} = {};
 
 function findOrCreateUserPlaybackState(userId: string) {
   return (userState[userId] ||= createUserPlaybackState());
