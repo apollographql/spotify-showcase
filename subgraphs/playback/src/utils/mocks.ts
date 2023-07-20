@@ -3,33 +3,20 @@ import { SpotifyDataSource } from '../dataSources/spotify';
 
 const userState: {
   [userId: string]: {
-    actions: { disallows: [string] };
-    context: {
-      external_urls: { spotify: string };
-      href: string;
-      type: 'artist' | 'playlist' | 'album' | 'show';
-      uri: string;
-    };
-    device: {
-      id: string;
-      is_active: boolean;
-      is_private_session: boolean;
-      is_restricted: boolean;
-      name: string;
-      type: string;
-      volume_percent: number;
-    };
+    actions: Spotify.Object.Actions;
+    context: Spotify.Object.Context;
+    device: Spotify.Object.Device;
     is_playing: boolean;
     item: { id: string };
     progress_ms: number;
-    repeat_state: 'context' | 'off' | 'track';
+    repeat_state: Spotify.Object.RepeatMode;
     shuffle_state: boolean;
     timestamp: number;
-    currently_playing_type: string;
+    currently_playing_type: Spotify.Object.CurrentlyPlayingType;
   };
 } = {
   default: {
-    actions: { disallows: ['INTERRUPTING_PLAYBACK'] },
+    actions: { disallows: { interrupting_playback: true } },
     context: {
       external_urls: { spotify: '' },
       href: '',
