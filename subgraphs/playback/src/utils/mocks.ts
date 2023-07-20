@@ -48,13 +48,6 @@ const userState: {
   default: createUserPlaybackState(),
 };
 
-export function addUser(userId: string) {
-  if (userState[userId]) return;
-
-  //TODO - pick a song to use for playback state
-  userState[userId] = createUserPlaybackState();
-}
-
 function findOrCreateUserPlaybackState(userId: string) {
   return (userState[userId] ||= createUserPlaybackState());
 }

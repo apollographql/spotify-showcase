@@ -7,7 +7,7 @@ import chalk from 'chalk';
 import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
-import { MockedSpotifyDataSource, addUser } from './utils/mocks';
+import { MockedSpotifyDataSource } from './utils/mocks';
 import logger from './logger';
 import {
   app,
@@ -77,7 +77,6 @@ async function main() {
 
     if (!token) {
       const userIdForMocks = req.get('x-graphos-id') ?? 'default';
-      addUser(userIdForMocks);
 
       return {
         defaultCountryCode,

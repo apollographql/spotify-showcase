@@ -20,7 +20,7 @@ import express from 'express';
 import http from 'http';
 import SpotifyAPI from '../dataSources/spotify';
 import { GraphQLError } from 'graphql';
-import { MockedSpotifyDataSource, addUser } from '../utils/mocks';
+import { MockedSpotifyDataSource } from '../utils/mocks';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
 
@@ -68,7 +68,6 @@ const serverCleanup = useServer(
       if (!token) {
         const userIdForMocks =
           ctx.extra.request.rawHeaders['x-graphos-id'] ?? 'default';
-        addUser(userIdForMocks);
 
         return {
           defaultCountryCode,
