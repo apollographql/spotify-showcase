@@ -66,11 +66,13 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     this.state = findOrCreateUserPlaybackState(userId);
   }
 
-  getDevices(): Promise<Spotify.Object.List<'devices', Spotify.Object.Device>> {
-    return Promise.resolve({ devices: [this.state.device] });
+  async getDevices(): Promise<
+    Spotify.Object.List<'devices', Spotify.Object.Device>
+  > {
+    return { devices: [this.state.device] };
   }
 
-  getPlaybackState(params?: {
+  async getPlaybackState(params?: {
     additional_types?: string;
   }): Promise<Spotify.Object.PlaybackState> {
     if (this.state.is_playing) {
@@ -81,9 +83,10 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
       }
     }
 
-    return Promise.resolve(this.state as Spotify.Object.PlaybackState);
+    return this.state as Spotify.Object.PlaybackState;
   }
-  resumePlayback({
+
+  async resumePlayback({
     body,
     params,
   }: {
@@ -96,92 +99,103 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     };
   }): Promise<boolean> {
     if (this.state.is_playing) {
-      return Promise.resolve(false);
+      return false;
     }
 
     this.state.is_playing = true;
     this.state.device.is_active = true;
 
-    return Promise.resolve(true);
+    return true;
   }
-  pausePlayback({
+
+  async pausePlayback({
     params,
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
     if (!this.state.is_playing) {
-      return Promise.resolve(false);
+      return false;
     }
 
     this.state.is_playing = false;
     this.state.device.is_active = false;
 
-    return Promise.resolve(true);
+    return true;
   }
-  seekToPosition({
+
+  async seekToPosition({
     params,
   }: {
     params: { position_ms: number; device_id?: string };
   }): Promise<boolean> {
     this.state.progress_ms = params.position_ms;
 
-    return Promise.resolve(true);
+    return true;
   }
-  setRepeatMode({
+
+  async setRepeatMode({
     params,
   }: {
     params: { state: Spotify.Object.RepeatMode; device_id?: string };
   }): Promise<boolean> {
     this.state.repeat_state = params.state;
 
-    return Promise.resolve(true);
+    return true;
   }
-  setVolume({
+
+  async setVolume({
     params,
   }: {
     params: { volume_percent: number; device_id?: string };
   }): Promise<boolean> {
     this.state.device.volume_percent = params.volume_percent;
 
-    return Promise.resolve(true);
+    return true;
   }
-  shufflePlayback({
+
+  async shufflePlayback({
     params,
   }: {
     params: { state: boolean; device_id?: string };
   }): Promise<boolean> {
     this.state.shuffle_state = params.state;
 
-    return Promise.resolve(true);
+    return true;
   }
-  skipToNext({ params }: { params: { device_id?: string } }): Promise<boolean> {
-    this.state.progress_ms = 0;
 
-    return Promise.resolve(true);
-  }
-  skipToPrevious({
+  async skipToNext({
     params,
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
     this.state.progress_ms = 0;
 
-    return Promise.resolve(true);
+    return true;
   }
 
-  transferPlayback({
+  async skipToPrevious({
+    params,
+  }: {
+    params: { device_id?: string };
+  }): Promise<boolean> {
+    this.state.progress_ms = 0;
+
+    return true;
+  }
+
+  async transferPlayback({
     body,
   }: {
     body: { device_ids: string[]; play?: boolean };
   }): Promise<boolean> {
     if (body.device_ids.length === 0) {
-      return Promise.resolve(false);
+      return false;
     }
 
     this.state.device.id = body.device_ids[0];
     this.state.device.is_active = body.play;
     this.state.is_playing = body.play;
 
-    return Promise.resolve(true);
+    return true;
   }
 }
