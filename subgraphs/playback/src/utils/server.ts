@@ -48,12 +48,7 @@ const serverCleanup = useServer(
       if (ctx.extra.request.headers?.['authorization']) return true;
 
       //If there is no authorization, we will mock everything and use the referer for the users identifier in local mocked data
-      if (ctx.extra.request.headers?.referer) return true;
-
-      //For local developmentt
-      if (ctx.extra.request.headers?.host) return true;
-
-      return false;
+      return true;
     },
     context: (ctx) => {
       const routerAuthorization =
@@ -72,9 +67,7 @@ const serverCleanup = useServer(
 
       if (!token) {
         const userIdForMocks =
-          ctx.extra.request.headers?.referer ??
-          ctx.extra.request.headers?.host ??
-          'default';
+          ctx.extra.request.rawHeaders['x-graphos-id'] ?? 'default';
         addUser(userIdForMocks);
 
         return {

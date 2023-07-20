@@ -61,7 +61,7 @@ async function main() {
     const defaultCountryCode = req.get('country-code') ?? 'US';
 
     if (!token) {
-      const userIdForMocks = req.get('referer') ?? 'default';
+      const userIdForMocks = req.get('x-graphos-id') ?? 'default';
       addUser(userIdForMocks);
 
       return {

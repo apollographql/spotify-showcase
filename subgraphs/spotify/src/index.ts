@@ -72,7 +72,7 @@ async function main() {
         const token = req.get('authorization');
 
         if (!token) {
-          const userIdForMocks = req.get('referer') ?? 'default';
+          const userIdForMocks = req.get('x-graphos-id') ?? 'default';
 
           return {
             defaultCountryCode,
