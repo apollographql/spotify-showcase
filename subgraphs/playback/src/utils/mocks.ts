@@ -14,10 +14,8 @@ interface UserPlaybackState {
   currently_playing_type: Spotify.Object.CurrentlyPlayingType;
 }
 
-const userState: {
-  [userId: string]: UserPlaybackState;
-} = {
-  default: {
+function createUserPlaybackState(): UserPlaybackState {
+  return {
     actions: { disallows: { interrupting_playback: true } },
     context: {
       external_urls: { spotify: '' },
@@ -41,7 +39,13 @@ const userState: {
     shuffle_state: false,
     timestamp: Date.now(),
     currently_playing_type: 'track',
-  },
+  };
+}
+
+const userState: {
+  [userId: string]: UserPlaybackState;
+} = {
+  default: createUserPlaybackState(),
 };
 
 export function addUser(userId: string) {
@@ -49,7 +53,7 @@ export function addUser(userId: string) {
   if (userState[userId]) return;
 
   //TODO - pick a song to use for playback state
-  userState[userId] = userState['default'];
+  userState[userId] = createUserPlaybackState();
 }
 
 export class MockedSpotifyDataSource implements SpotifyDataSource {
