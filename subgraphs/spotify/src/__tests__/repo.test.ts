@@ -1,7 +1,7 @@
 import { server } from '../utils/server';
 
 describe('Repository Template Functionality', () => {
-  it('Executes Location Entity Resolver', async () => {
+  it('Executes Intropspection Query', async () => {
     //Arrange
     const query = `query { _service { sdl } }`;
 

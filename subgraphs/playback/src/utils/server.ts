@@ -43,11 +43,14 @@ const serverCleanup = useServer(
   {
     schema,
     onConnect: (ctx) => {
+      console.log(JSON.stringify(ctx.extra.request.headers));
       if (ctx.connectionParams?.['authorization']) return true;
       if (ctx.extra.request.headers?.['authorization']) return true;
 
       //If there is no authorization, we will mock everything and use the referer for the users identifier in local mocked data
       if (ctx.extra.request.headers?.referer) return true;
+
+      //For local developmentt
 
       return false;
     },
@@ -67,7 +70,10 @@ const serverCleanup = useServer(
         'US';
 
       if (!token) {
-        const userIdForMocks = ctx.extra.request.headers?.referer ?? 'default';
+        const userIdForMocks =
+          ctx.extra.request.headers?.referer ??
+          ctx.extra.request.headers?.host ??
+          'default';
         addUser(userIdForMocks);
 
         return {
