@@ -12,6 +12,7 @@ import { GraphQLError, execute, parse } from 'graphql';
 import { MockedSpotifyDataSource, mocks } from './utils/mocks';
 import logger from './logger';
 import { server } from './utils/server';
+import * as Sentry from '@sentry/node';
 
 const port = process.env.PORT ?? '4001';
 const routerSecret = process.env.ROUTER_SECRET;
@@ -40,6 +41,21 @@ const loggerMiddleware = morgan(
     },
   }
 );
+
+const app = express();
+Sentry.init({
+  dsn: process.env.SENTRY_URL,
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({
+      tracing: true,
+    }),
+    // enable Express.js middleware tracing
+    new Sentry.Integrations.Express({
+      app,
+    }),
+  ],
+});
 
 export const contextFunction = async ({ req }) => {
   const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
@@ -83,10 +99,12 @@ function checkRouterSecret(secret: string) {
 }
 
 async function main() {
-  const app = express();
   const httpServer = http.createServer(app);
   await server.start();
 
+  // Trace incoming requests
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
   app.use(loggerMiddleware);
 
   app.use(
@@ -97,6 +115,8 @@ async function main() {
       context: contextFunction,
     })
   );
+
+  app.use(Sentry.Handlers.errorHandler());
 
   await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
 

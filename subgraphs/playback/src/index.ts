@@ -16,6 +16,7 @@ import {
   httpServer,
   wsApolloServer,
 } from './utils/server';
+import * as Sentry from '@sentry/node';
 
 morgan.token('operationName', (req) => {
   if (!req?.body?.operationName) {
@@ -41,6 +42,20 @@ const loggerMiddleware = morgan(
     },
   }
 );
+
+Sentry.init({
+  dsn: process.env.SENTRY_URL,
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({
+      tracing: true,
+    }),
+    // enable Express.js middleware tracing
+    new Sentry.Integrations.Express({
+      app,
+    }),
+  ],
+});
 
 async function main() {
   // We currently are building 2 instances of Apollo Server to host subscriptions
@@ -83,7 +98,9 @@ async function main() {
     };
   };
 
-  app.use(loggerMiddleware);
+  // Trace incoming requests
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
 
   app.use(
     '/graphql',
@@ -101,6 +118,9 @@ async function main() {
       context,
     })
   );
+
+  app.use(loggerMiddleware);
+  app.use(Sentry.Handlers.errorHandler());
 
   await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
 

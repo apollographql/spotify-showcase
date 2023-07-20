@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { ApolloServer } from '@apollo/server';
+import { ApolloServer, ApolloServerPlugin } from '@apollo/server';
 import { ApolloServerPluginSubscriptionCallback } from '@apollo/server/plugin/subscriptionCallback';
 import {
   ApolloServerPluginLandingPageProductionDefault,
@@ -22,6 +22,7 @@ import SpotifyAPI from '../dataSources/spotify';
 import { GraphQLError } from 'graphql';
 import { MockedSpotifyDataSource, addUser } from '../utils/mocks';
 import logger from '../logger';
+import * as Sentry from '@sentry/node';
 
 export const app = express();
 export const httpServer = http.createServer(app);
@@ -92,10 +93,58 @@ const serverCleanup = useServer(
   wsServer
 );
 
+const sentryPlugin: ApolloServerPlugin<ContextValue> = {
+  async requestDidStart() {
+    return {
+      async didEncounterErrors(ctx) {
+        for (const err of ctx.errors) {
+          if (err.extensions?.code == 'GRAPHQL_VALIDATION_FAILED')
+            Sentry.withScope((scope) => {
+              // Annotate whether failing operation was query/mutation/subscription
+              scope.setTag('message', err.message);
+              // Log query and variables as extras
+              // (make sure to strip out sensitive data!)
+              scope.setExtra('query', ctx.request.query);
+              scope.setExtra('variables', ctx.request.variables);
+              if (err.path) {
+                // We can also add the path as breadcrumb
+                scope.addBreadcrumb({
+                  category: 'query-path',
+                  message: err.path.join(' > '),
+                  level: 'debug',
+                });
+              }
+              Sentry.captureException(err);
+            });
+          else if (!ctx.operation) return;
+          else
+            Sentry.withScope((scope) => {
+              // Annotate whether failing operation was query/mutation/subscription
+              scope.setTag('kind', ctx.operation.operation);
+              // Log query and variables as extras
+              // (make sure to strip out sensitive data!)
+              scope.setExtra('query', ctx.request.query);
+              scope.setExtra('variables', ctx.request.variables);
+              if (err.path) {
+                // We can also add the path as breadcrumb
+                scope.addBreadcrumb({
+                  category: 'query-path',
+                  message: err.path.join(' > '),
+                  level: 'debug',
+                });
+              }
+              Sentry.captureException(err);
+            });
+        }
+      },
+    };
+  },
+};
+
 export const callbackApolloServer = new ApolloServer<ContextValue>({
   schema,
   introspection: true,
-  plugins: [ApolloServerPluginSubscriptionCallback({ logger })],
+  plugins: [ApolloServerPluginSubscriptionCallback({ logger }), sentryPlugin],
 });
 export const wsApolloServer = new ApolloServer<ContextValue>({
   schema,
@@ -116,6 +165,7 @@ export const wsApolloServer = new ApolloServer<ContextValue>({
       : ApolloServerPluginLandingPageLocalDefault({
           embed: { endpointIsEditable: true },
         }),
+    sentryPlugin,
   ],
 });
 
