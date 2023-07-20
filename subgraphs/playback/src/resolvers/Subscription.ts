@@ -1,6 +1,6 @@
 import { SubscriptionResolvers } from '../__generated__/resolvers-types';
 import { Spotify } from '../dataSources/spotify.types';
-import { map, distinctUntilChanged } from 'rxjs';
+import { catchError, map, distinctUntilChanged, of } from 'rxjs';
 import { equal } from '@wry/equality';
 import { GraphQLResolveInfo } from 'graphql';
 import { omit } from 'lodash';
@@ -36,14 +36,15 @@ export const Subscription: SubscriptionResolvers = {
           ) as Spotify.Object.PlaybackState;
         }),
         distinctUntilChanged((prev, curr) => equal(prev, curr)),
-        map(
-          (result) =>
-            result && {
-              data: {
-                playbackStateChanged: { ...result, timestamp: Date.now() },
-              },
-            }
-        )
+        map((result) => ({
+          data: {
+            playbackStateChanged: result && {
+              ...result,
+              timestamp: Date.now(),
+            },
+          },
+        })),
+        catchError((error) => of({ error }))
       );
 
       return eachValueFrom(source$);

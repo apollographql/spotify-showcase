@@ -24,6 +24,8 @@ import * as QueueRoute from './routes/queue';
 import * as RootRoute from './routes/root';
 import * as SettingsRoute from './routes/settings';
 import * as ShowRoute from './routes/shows/show';
+import * as SearchQueryRoute from './routes/search/query';
+import * as SearchEmptyRoute from './routes/search/empty';
 import * as TrackRoute from './routes/tracks/track';
 import * as LoginRoute from './routes/login';
 import * as OAuthRoute from './routes/oauth/finalize';
@@ -35,7 +37,12 @@ const routes = createRoutesFromElements(
   <Route path="/" errorElement={<RootErrorBoundary />}>
     <Route path="logout" loader={LogoutRoute.loader} />,
     <Route path="login" loader={LoginRoute.loader} />,
-    <Route path="/oauth/finalize" errorElement={<RootErrorBoundary />} loader={OAuthRoute.loader} />,
+    <Route
+      path="/oauth/finalize"
+      errorElement={<RootErrorBoundary />}
+      loader={OAuthRoute.loader}
+    />
+    ,
     <Route
       path="logged-out"
       loader={LoggedOutRoute.loader}
@@ -170,6 +177,16 @@ const routes = createRoutesFromElements(
             element={
               <Suspense fallback={<CollectionAlbumsRoute.LoadingState />}>
                 <CollectionAlbumsRoute.RouteComponent />
+              </Suspense>
+            }
+          />
+        </Route>
+        <Route path="search" element={<SearchEmptyRoute.RouteComponent />}>
+          <Route
+            path=":query"
+            element={
+              <Suspense fallback={<SearchQueryRoute.LoadingState />}>
+                <SearchQueryRoute.RouteComponent />
               </Suspense>
             }
           />

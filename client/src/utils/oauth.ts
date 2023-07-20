@@ -69,15 +69,22 @@ export const exchangeToken = async (
   return res.json();
 };
 
+let refreshAccessTokenPromise: Promise<RefreshAccessTokenResponse> | null =
+  null;
+
 export const refreshAccessToken =
   async (): Promise<RefreshAccessTokenResponse> => {
+    if (refreshAccessTokenPromise) {
+      return refreshAccessTokenPromise;
+    }
+
     const refreshToken = readToken('refresh');
 
     if (!refreshToken) {
       throw new Error('No refresh token present');
     }
 
-    const res = await fetch(SPOTIFY_TOKEN_URL, {
+    refreshAccessTokenPromise = fetch(SPOTIFY_TOKEN_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -87,11 +94,17 @@ export const refreshAccessToken =
         grant_type: 'refresh_token',
         refresh_token: refreshToken,
       }),
+    }).then((res) => {
+      if (!res.ok) {
+        throw new Error('Not authorized');
+      }
+
+      return res.json();
     });
 
-    if (!res.ok) {
-      throw new Error('Not authorized');
-    }
+    refreshAccessTokenPromise.finally(() => {
+      refreshAccessTokenPromise = null;
+    });
 
-    return res.json();
+    return refreshAccessTokenPromise;
   };

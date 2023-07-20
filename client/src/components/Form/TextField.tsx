@@ -7,7 +7,7 @@ import Field from './Field';
 
 type ForwardedInputProps = Omit<
   ComponentPropsWithoutRef<'input'>,
-  'onChange' | 'value' | 'size'
+  'value' | 'size'
 >;
 
 // Props allowed with specific input types
@@ -121,9 +121,13 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
           }
         )}
         onChange={(event) => {
+          if (rest.onChange) {
+            rest.onChange(event);
+          }
           if (parser) {
             return setValue(parser(event, omit(props, ['type'])));
           }
+          setValue(event.target.value);
         }}
       />
     </Field>
