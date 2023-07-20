@@ -74,8 +74,11 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     additional_types?: string;
   }): Promise<Spotify.Object.PlaybackState> {
     if (this.state.is_playing) {
-      if (this.state.progress_ms >= 140000) this.state.progress_ms = 0;
-      else this.state.progress_ms += 1000;
+      if (this.state.progress_ms >= 140000) {
+        this.state.progress_ms = 0;
+      } else {
+        this.state.progress_ms += 1000;
+      }
     }
 
     return Promise.resolve(this.state as Spotify.Object.PlaybackState);
@@ -95,7 +98,9 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     if (!this.state.is_playing) {
       this.state.is_playing = true;
       this.state.device.is_active = true;
-    } else return Promise.resolve(false);
+    } else {
+      return Promise.resolve(false);
+    }
 
     return Promise.resolve(true);
   }
@@ -107,7 +112,9 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     if (this.state.is_playing) {
       this.state.is_playing = false;
       this.state.device.is_active = false;
-    } else return Promise.resolve(false);
+    } else {
+      return Promise.resolve(false);
+    }
 
     return Promise.resolve(true);
   }
@@ -170,7 +177,9 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
       this.state.device.id = body.device_ids[0];
       this.state.device.is_active = body.play;
       this.state.is_playing = body.play;
-    } else return Promise.resolve(false);
+    } else {
+      return Promise.resolve(false);
+    }
 
     return Promise.resolve(true);
   }
