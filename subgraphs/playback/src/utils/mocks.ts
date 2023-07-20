@@ -61,9 +61,11 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     this.userId = userId;
   }
   getDevices(): Promise<Spotify.Object.List<'devices', Spotify.Object.Device>> {
-    return new Promise(() => ({
-      devices: [userState[this.userId]?.device],
-    }));
+    return new Promise((resolve) =>
+      resolve({
+        devices: [userState[this.userId]?.device],
+      })
+    );
   }
   getPlaybackState(params?: {
     additional_types?: string;
