@@ -1,6 +1,5 @@
 import { Spotify } from '../dataSources/spotify.types';
 import { SpotifyDataSource } from '../dataSources/spotify';
-import { resolve } from 'path';
 
 export const mocks = {
   User: () => ({
