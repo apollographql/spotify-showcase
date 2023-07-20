@@ -1,5 +1,6 @@
 import { Spotify } from '../dataSources/spotify.types';
 import { SpotifyDataSource } from '../dataSources/spotify';
+import { resolve } from 'path';
 
 export const mocks = {
   User: () => ({
@@ -199,7 +200,17 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     throw new Error('Method not implemented.');
   }
   getCurrentUser(): Promise<Spotify.Object.CurrentUser> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve) =>
+      resolve({
+        id: this.userId,
+        display_name: 'GraphOS User',
+        email: 'contact@apollographql.com',
+        external_urls: { spotify: '' },
+        followers: { href: '', total: 1000000 },
+        images: [],
+        uri: 'https://discord.gg/graphos',
+      } as any)
+    );
   }
   getCurrentUserAlbums(params: {
     limit?: number;
@@ -218,7 +229,17 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     limit?: number;
     offset?: number;
   }): Promise<Spotify.Object.Paginated<Spotify.Object.Playlist>> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve) =>
+      resolve({
+        total: 10,
+        previous: '',
+        next: '',
+        href: '',
+        items: [],
+        limit: params.limit ?? 10,
+        offset: params.limit ?? 0,
+      })
+    );
   }
   getCurrentUserTopArtists(params: {
     limit?: number;
@@ -300,7 +321,35 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     id: string,
     params?: { market?: string }
   ): Promise<Spotify.Object.Track> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve) =>
+      resolve({
+        type: 'track',
+        id: '2jJIENqpTOjBECelzBJAVL',
+        name: 'Apollo I : The Writing Writer - Explicit Album Version',
+        duration_ms: 315480,
+        album: {
+          id: '4nYsnQpTAQaPzrPc6rOsBN',
+          name: "Good Apollo I'm Burning Star IV Volume One: From Fear Through The Eyes Of Madness",
+          artists: [
+            {
+              id: '3utxjLheHaVEd9bPjQRsy8',
+              name: 'Coheed and Cambria',
+            },
+          ],
+          images: [
+            {
+              url: 'https://i.scdn.co/image/ab67616d0000b273a9250e237a834437fa7d8739',
+            },
+            {
+              url: 'https://i.scdn.co/image/ab67616d00001e02a9250e237a834437fa7d8739',
+            },
+            {
+              url: 'https://i.scdn.co/image/ab67616d00004851a9250e237a834437fa7d8739',
+            },
+          ],
+        },
+      } as any)
+    );
   }
   getTrackAudioFeatures(
     trackId: string

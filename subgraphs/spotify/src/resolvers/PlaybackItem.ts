@@ -1,12 +1,12 @@
-import { PlaybackItemResolvers } from "../__generated__/resolvers-types";
+import { PlaybackItemResolvers } from '../__generated__/resolvers-types';
 
 export const PlaybackItem: PlaybackItemResolvers = {
   __resolveType: (playbackItem) => {
     switch (playbackItem.type) {
-      case "episode":
-        return "Episode";
-      case "track":
-        return "Track";
+      case 'episode':
+        return 'Episode';
+      case 'track':
+        return 'Track';
     }
   },
   async __resolveReference(playbackItem, { dataSources }) {

@@ -27,14 +27,8 @@ const userState: {
     timestamp: number;
     currently_playing_type: string;
   };
-} = {};
-
-export function addUser(userId: string) {
-  console.log(`trying to add user ${userId}`);
-  if (userState[userId]) return;
-
-  //TODO - pick a song to use for playback state
-  userState[userId] = {
+} = {
+  default: {
     actions: { disallows: ['INTERRUPTING_PLAYBACK'] },
     context: {
       external_urls: { spotify: '' },
@@ -52,13 +46,21 @@ export function addUser(userId: string) {
       volume_percent: 100,
     },
     is_playing: true,
-    item: { id: '2398rj23498fj' },
+    item: { id: '2jJIENqpTOjBECelzBJAVL' },
     progress_ms: 0,
     repeat_state: 'off',
     shuffle_state: false,
     timestamp: Date.now(),
     currently_playing_type: 'track',
-  };
+  },
+};
+
+export function addUser(userId: string) {
+  console.log(`trying to add user ${userId}`);
+  if (userState[userId]) return;
+
+  //TODO - pick a song to use for playback state
+  userState[userId] = userState['default'];
 }
 
 export class MockedSpotifyDataSource implements SpotifyDataSource {

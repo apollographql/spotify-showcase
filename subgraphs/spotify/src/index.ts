@@ -1,17 +1,4 @@
-import { readFileSync } from 'fs';
-import gql from 'graphql-tag';
-import { buildSubgraphSchema } from '@apollo/subgraph';
-import {
-  ApolloServer,
-  GraphQLResponse,
-  ApolloServerPlugin,
-} from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import resolvers from './resolvers';
-import { ContextValue } from './types/ContextValue';
-const port = process.env.PORT ?? '4001';
-const routerSecret = process.env.ROUTER_SECRET;
-import { addMocksToSchema } from '@graphql-tools/mock';
 import morgan from 'morgan';
 import chalk from 'chalk';
 
@@ -25,6 +12,9 @@ import { GraphQLError, execute, parse } from 'graphql';
 import { MockedSpotifyDataSource, mocks } from './utils/mocks';
 import logger from './logger';
 import { server } from './utils/server';
+
+const port = process.env.PORT ?? '4001';
+const routerSecret = process.env.ROUTER_SECRET;
 
 morgan.token('operationName', (req) => {
   if (!req?.body?.operationName) {
@@ -51,54 +41,35 @@ const loggerMiddleware = morgan(
   }
 );
 
-async function main() {
-  const app = express();
-  const httpServer = http.createServer(app);
+export const contextFunction = async ({ req }) => {
   const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
     defaultValue: 'US',
   });
 
-  await server.start();
+  checkRouterSecret(req.headers['router-authorization'] as string);
+  const token = req.get('authorization');
 
-  app.use(loggerMiddleware);
+  if (!token) {
+    const userIdForMocks = req.get('x-graphos-id') ?? 'default';
 
-  app.use(
-    '/',
-    cors(),
-    json(),
-    expressMiddleware(server, {
-      context: async ({ req }) => {
-        checkRouterSecret(req.headers['router-authorization'] as string);
-        const token = req.get('authorization');
-
-        if (!token) {
-          const userIdForMocks = req.get('x-graphos-id') ?? 'default';
-
-          return {
-            defaultCountryCode,
-            dataSources: {
-              spotify: new MockedSpotifyDataSource(userIdForMocks),
-            },
-          };
-        }
-
-        return {
-          defaultCountryCode,
-          dataSources: {
-            spotify: new SpotifyAPI({
-              cache: server.cache,
-              token,
-            }),
-          },
-        };
+    return {
+      defaultCountryCode,
+      dataSources: {
+        spotify: new MockedSpotifyDataSource(userIdForMocks),
       },
-    })
-  );
+    };
+  }
 
-  await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
-
-  console.log(`🚀 GraphQL endpoint ready at http://localhost:${port}`);
-}
+  return {
+    defaultCountryCode,
+    dataSources: {
+      spotify: new SpotifyAPI({
+        cache: server.cache,
+        token,
+      }),
+    },
+  };
+};
 
 function checkRouterSecret(secret: string) {
   if (routerSecret && secret !== routerSecret) {
@@ -109,6 +80,27 @@ function checkRouterSecret(secret: string) {
       },
     });
   }
+}
+
+async function main() {
+  const app = express();
+  const httpServer = http.createServer(app);
+  await server.start();
+
+  app.use(loggerMiddleware);
+
+  app.use(
+    '/',
+    cors(),
+    json(),
+    expressMiddleware(server, {
+      context: contextFunction,
+    })
+  );
+
+  await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
+
+  console.log(`🚀 GraphQL endpoint ready at http://localhost:${port}`);
 }
 
 main();

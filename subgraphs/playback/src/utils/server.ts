@@ -43,7 +43,6 @@ const serverCleanup = useServer(
   {
     schema,
     onConnect: (ctx) => {
-      console.log(JSON.stringify(ctx));
       if (ctx.connectionParams?.['authorization']) return true;
       if (ctx.extra.request.headers?.['authorization']) return true;
 
