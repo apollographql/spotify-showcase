@@ -14,6 +14,8 @@ interface UserPlaybackState {
   currently_playing_type: Spotify.Object.CurrentlyPlayingType;
 }
 
+const MAX_PROGRESS_MS = 140_000;
+
 function createUserPlaybackState(): UserPlaybackState {
   return {
     actions: { disallows: { interrupting_playback: true } },
@@ -67,7 +69,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     additional_types?: string;
   }): Promise<Spotify.Object.PlaybackState> {
     if (this.state.is_playing) {
-      if (this.state.progress_ms >= 140000) {
+      if (this.state.progress_ms >= MAX_PROGRESS_MS) {
         this.state.progress_ms = 0;
       } else {
         this.state.progress_ms += 1000;
