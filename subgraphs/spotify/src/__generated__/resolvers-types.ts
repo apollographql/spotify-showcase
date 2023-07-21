@@ -225,7 +225,7 @@ export type ArtistAlbumEdge = {
 export type ArtistAlbumsConnection = {
   __typename?: 'ArtistAlbumsConnection';
   /** A list of albums that belong to the artist. */
-  edges: Array<ArtistAlbumEdge>;
+  edges?: Maybe<Array<ArtistAlbumEdge>>;
   /** "Pagination information for the set of albums" */
   pageInfo: PageInfo;
 };
@@ -2368,7 +2368,7 @@ export type ArtistAlbumEdgeResolvers<ContextType = ContextValue, ParentType exte
 }>;
 
 export type ArtistAlbumsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ArtistAlbumsConnection'] = ResolversParentTypes['ArtistAlbumsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['ArtistAlbumEdge']>, ParentType, ContextType>;
+  edges?: Resolver<Maybe<Array<ResolversTypes['ArtistAlbumEdge']>>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
