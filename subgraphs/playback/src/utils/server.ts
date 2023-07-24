@@ -20,7 +20,7 @@ import express from 'express';
 import http from 'http';
 import SpotifyAPI from '../dataSources/spotify';
 import { GraphQLError } from 'graphql';
-import { MockedSpotifyDataSource, addUser } from '../utils/mocks';
+import { MockedSpotifyDataSource } from '../utils/mocks';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
 
@@ -71,7 +71,6 @@ const serverCleanup = useServer(
           ctx.connectionParams?.['x-graphos-id'] ??
           ctx.extra.request.headers?.['x-graphos-id'] ??
           'default';
-        addUser(userIdForMocks);
 
         return {
           defaultCountryCode,
@@ -101,7 +100,7 @@ const sentryPlugin: ApolloServerPlugin<ContextValue> = {
     return {
       async didEncounterErrors(ctx) {
         for (const err of ctx.errors) {
-          if (err.extensions?.code == 'GRAPHQL_VALIDATION_FAILED')
+          if (err.extensions?.code == 'GRAPHQL_VALIDATION_FAILED') {
             Sentry.withScope((scope) => {
               // Annotate whether failing operation was query/mutation/subscription
               scope.setTag('message', err.message);
@@ -119,8 +118,9 @@ const sentryPlugin: ApolloServerPlugin<ContextValue> = {
               }
               Sentry.captureException(err);
             });
-          else if (!ctx.operation) return;
-          else
+          } else if (!ctx.operation) {
+            return;
+          } else {
             Sentry.withScope((scope) => {
               // Annotate whether failing operation was query/mutation/subscription
               scope.setTag('kind', ctx.operation.operation);
@@ -138,6 +138,7 @@ const sentryPlugin: ApolloServerPlugin<ContextValue> = {
               }
               Sentry.captureException(err);
             });
+          }
         }
       },
     };

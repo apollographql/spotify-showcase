@@ -1,35 +1,24 @@
 import { Spotify } from '../dataSources/spotify.types';
 import { SpotifyDataSource } from '../dataSources/spotify';
 
-const userState: {
-  [userId: string]: {
-    actions: { disallows: [string] };
-    context: {
-      external_urls: { spotify: string };
-      href: string;
-      type: 'artist' | 'playlist' | 'album' | 'show';
-      uri: string;
-    };
-    device: {
-      id: string;
-      is_active: boolean;
-      is_private_session: boolean;
-      is_restricted: boolean;
-      name: string;
-      type: string;
-      volume_percent: number;
-    };
-    is_playing: boolean;
-    item: { id: string };
-    progress_ms: number;
-    repeat_state: 'context' | 'off' | 'track';
-    shuffle_state: boolean;
-    timestamp: number;
-    currently_playing_type: string;
-  };
-} = {
-  default: {
-    actions: { disallows: ['INTERRUPTING_PLAYBACK'] },
+interface UserPlaybackState {
+  actions: Spotify.Object.Actions;
+  context: Spotify.Object.Context;
+  device: Spotify.Object.Device;
+  is_playing: boolean;
+  item: { id: string };
+  progress_ms: number;
+  repeat_state: Spotify.Object.RepeatMode;
+  shuffle_state: boolean;
+  timestamp: number;
+  currently_playing_type: Spotify.Object.CurrentlyPlayingType;
+}
+
+const MAX_PROGRESS_MS = 140_000;
+
+function createUserPlaybackState(): UserPlaybackState {
+  return {
+    actions: { disallows: { interrupting_playback: true } },
     context: {
       external_urls: { spotify: '' },
       href: '',
@@ -52,38 +41,45 @@ const userState: {
     shuffle_state: false,
     timestamp: Date.now(),
     currently_playing_type: 'track',
-  },
-};
+  };
+}
 
-export function addUser(userId: string) {
-  console.log(`trying to add user ${userId}`);
-  if (userState[userId]) return;
+const userState: {
+  [userId: string]: UserPlaybackState;
+} = {};
 
-  //TODO - pick a song to use for playback state
-  userState[userId] = userState['default'];
+function findOrCreateUserPlaybackState(userId: string) {
+  return (userState[userId] ||= createUserPlaybackState());
 }
 
 export class MockedSpotifyDataSource implements SpotifyDataSource {
-  private userId: string;
+  private state: UserPlaybackState;
+
   constructor(userId: string) {
-    this.userId = userId;
+    this.state = findOrCreateUserPlaybackState(userId);
   }
-  getDevices(): Promise<Spotify.Object.List<'devices', Spotify.Object.Device>> {
-    return new Promise(() => ({
-      devices: [userState[this.userId]?.device],
-    }));
+
+  async getDevices(): Promise<
+    Spotify.Object.List<'devices', Spotify.Object.Device>
+  > {
+    return { devices: [this.state.device] };
   }
-  getPlaybackState(params?: {
+
+  async getPlaybackState(params?: {
     additional_types?: string;
   }): Promise<Spotify.Object.PlaybackState> {
-    if (userState[this.userId] && userState[this.userId].is_playing) {
-      if (userState[this.userId].progress_ms >= 140000)
-        userState[this.userId].progress_ms = 0;
-      else userState[this.userId].progress_ms += 1000;
+    if (this.state.is_playing) {
+      if (this.state.progress_ms >= MAX_PROGRESS_MS) {
+        this.state.progress_ms = 0;
+      } else {
+        this.state.progress_ms += 1000;
+      }
     }
-    return new Promise((resolve) => resolve(userState[this.userId] as any));
+
+    return this.state as Spotify.Object.PlaybackState;
   }
-  resumePlayback({
+
+  async resumePlayback({
     body,
     params,
   }: {
@@ -95,96 +91,104 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
       position_ms?: number;
     };
   }): Promise<boolean> {
-    if (userState[this.userId] && !userState[this.userId].is_playing) {
-      userState[this.userId].is_playing = true;
-      userState[this.userId].device.is_active = true;
-    } else return new Promise((resolve) => resolve(false));
+    if (this.state.is_playing) {
+      return false;
+    }
 
-    return new Promise((resolve) => resolve(true));
+    this.state.is_playing = true;
+    this.state.device.is_active = true;
+
+    return true;
   }
-  pausePlayback({
+
+  async pausePlayback({
     params,
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId] && userState[this.userId].is_playing) {
-      userState[this.userId].is_playing = false;
-      userState[this.userId].device.is_active = false;
-    } else return new Promise((resolve) => resolve(false));
+    if (!this.state.is_playing) {
+      return false;
+    }
 
-    return new Promise((resolve) => resolve(true));
+    this.state.is_playing = false;
+    this.state.device.is_active = false;
+
+    return true;
   }
-  seekToPosition({
+
+  async seekToPosition({
     params,
   }: {
     params: { position_ms: number; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].progress_ms = params.position_ms;
-    else return new Promise((resolve) => resolve(false));
+    this.state.progress_ms = params.position_ms;
 
-    return new Promise((resolve) => resolve(true));
+    return true;
   }
-  setRepeatMode({
+
+  async setRepeatMode({
     params,
   }: {
     params: { state: Spotify.Object.RepeatMode; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].repeat_state = params.state;
-    else return new Promise((resolve) => resolve(false));
+    this.state.repeat_state = params.state;
 
-    return new Promise((resolve) => resolve(true));
+    return true;
   }
-  setVolume({
+
+  async setVolume({
     params,
   }: {
     params: { volume_percent: number; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].device.volume_percent = params.volume_percent;
-    else return new Promise((resolve) => resolve(false));
+    this.state.device.volume_percent = params.volume_percent;
 
-    return new Promise((resolve) => resolve(true));
+    return true;
   }
-  shufflePlayback({
+
+  async shufflePlayback({
     params,
   }: {
     params: { state: boolean; device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId])
-      userState[this.userId].shuffle_state = params.state;
-    else return new Promise((resolve) => resolve(false));
+    this.state.shuffle_state = params.state;
 
-    return new Promise((resolve) => resolve(true));
+    return true;
   }
-  skipToNext({ params }: { params: { device_id?: string } }): Promise<boolean> {
-    if (userState[this.userId]) userState[this.userId].progress_ms = 0;
-    else return new Promise((resolve) => resolve(false));
 
-    return new Promise((resolve) => resolve(true));
-  }
-  skipToPrevious({
+  async skipToNext({
     params,
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    if (userState[this.userId]) userState[this.userId].progress_ms = 0;
-    else return new Promise((resolve) => resolve(false));
+    this.state.progress_ms = 0;
 
-    return new Promise((resolve) => resolve(true));
+    return true;
   }
-  transferPlayback({
+
+  async skipToPrevious({
+    params,
+  }: {
+    params: { device_id?: string };
+  }): Promise<boolean> {
+    this.state.progress_ms = 0;
+
+    return true;
+  }
+
+  async transferPlayback({
     body,
   }: {
     body: { device_ids: string[]; play?: boolean };
   }): Promise<boolean> {
-    if (userState[this.userId] && body.device_ids.length > 0) {
-      userState[this.userId].device.id = body.device_ids[0];
-      userState[this.userId].device.is_active = body.play;
-      userState[this.userId].is_playing = body.play;
-    } else return new Promise((resolve) => resolve(false));
+    if (body.device_ids.length === 0) {
+      return false;
+    }
 
-    return new Promise((resolve) => resolve(true));
+    this.state.device.id = body.device_ids[0];
+    this.state.device.is_active = body.play;
+    this.state.is_playing = body.play;
+
+    return true;
   }
 }
