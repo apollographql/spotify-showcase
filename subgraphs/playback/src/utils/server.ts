@@ -67,7 +67,10 @@ const serverCleanup = useServer(
 
       if (!token) {
         const userIdForMocks =
-          ctx.extra.request.rawHeaders['x-graphos-id'] ?? 'default';
+          ctx.extra.request.rawHeaders['x-graphos-id'] ??
+          ctx.connectionParams?.['x-graphos-id'] ??
+          ctx.extra.request.headers?.['x-graphos-id'] ??
+          'default';
         addUser(userIdForMocks);
 
         return {
