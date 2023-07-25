@@ -22,7 +22,7 @@ This includes provisioning a serverless instance of the [Apollo Router](https://
 You need a way to query your graph and [GraphOS Explorer](https://www.apollographql.com/docs/graphos/explorer) is built to make this easy. You can try querying this graph using [Explorer]({{ graph.url.explorer }}). Try running your first operation:
 
 ```gql
-query RoolWebsiteQuery($offset: Int, $limit: Int) {
+query RootWebsiteQuery($offset: Int, $limit: Int) {
   me {
     playlists(offset: $offset, limit: $limit) {
       pageInfo {
