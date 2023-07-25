@@ -173,8 +173,8 @@ You can also see schema checks in a PR, but you'll have to [fork the demo repo](
 1. [Ensure the Apollo app is installed in the repo](https://www.apollographql.com/docs/rover/ci-cd/#displaying-schema-check-results-on-github-pull-requests)
 2. Add these secrets to your GitHub Actions secrets:
 
-- **APOLLO_KEY**: You can use the key we used to configure rover in this example or feel free to create a new key.
-- **APOLLO_GRAPH_REF**: You'll want to set this to {{ graph.ref }}
+- `APOLLO_KEY`: You can use the key we used to configure rover in this example or feel free to create a new key.
+- `APOLLO_GRAPH_REF`: You'll want to set this to {{ graph.ref }}
 
 Now that the new repo is configured, navigate to the `subgraphs/spotify/schema.graphql` file. Find the `type Query` and delete the `me` field from the schema (make sure you also delete the comment above it supprounded by three quotes """). Commit that change to a new branch and you'll see the schema checks pop up in the PR with the apollo app providing a link to [Apollo Studio checks page]({{ graph.url.checks }}).
 
