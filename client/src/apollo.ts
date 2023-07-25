@@ -19,7 +19,7 @@ import offsetConnectionPagination from './fieldPolicies/offsetConnectionPaginati
 import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
 import { getAccessToken } from './auth';
 import { version } from '../package.json';
-import { persistedQueryModeVar } from './vars';
+import { accessTokenVar, persistedQueryModeVar } from './vars';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 
@@ -91,6 +91,14 @@ export default new ApolloClient({
       CurrentUser: {
         keyFields: [],
         fields: {
+          auth: {
+            read() {
+              return {
+                __typename: 'Auth',
+                accessToken: accessTokenVar(),
+              };
+            },
+          },
           albums: offsetConnectionPagination(),
           albumsContains: libraryContains(),
           // TODO: Figure out why this doesn't work when using with fragment

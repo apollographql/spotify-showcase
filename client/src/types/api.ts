@@ -225,6 +225,11 @@ export type ArtistAlbumsConnection = {
   pageInfo: PageInfo;
 };
 
+export type Auth = {
+  __typename: 'Auth';
+  accessToken: Maybe<Scalars['String']['output']>;
+};
+
 export type Contains = {
   __typename: 'Contains';
   /**
@@ -279,6 +284,7 @@ export type CurrentUser = {
    * 'Your Music' library.
    */
   albumsContains: Maybe<Array<Scalars['Boolean']['output']>>;
+  auth: Auth;
   episodes: Maybe<SavedEpisodesConnection>;
   /**
    * Check if one or more episodes is already saved in the current Spotify user's
@@ -1094,6 +1100,7 @@ export type Query = {
   tracks: Maybe<Array<Track>>;
   /** Get audio features for multiple tracks based on their Spotify IDs. */
   tracksAudioFeatures: Array<TrackAudioFeatures>;
+  user: Maybe<User>;
 };
 
 
@@ -1197,6 +1204,11 @@ export type QuerytracksArgs = {
 
 export type QuerytracksAudioFeaturesArgs = {
   ids: Array<Scalars['ID']['input']>;
+};
+
+
+export type QueryuserArgs = {
+  id: Scalars['ID']['input'];
 };
 
 export type RecentlyPlayedConnection = {
@@ -2401,7 +2413,7 @@ export type PlaybackStateSubscriberSubscription = { playbackStateChanged: { __ty
 export type PlaybarQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlaybarQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string | null, name: string, type: string }> | null } } | null };
+export type PlaybarQuery = { me: { __typename: 'CurrentUser', auth: { __typename: 'Auth', accessToken: string | null }, player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string | null, name: string, type: string }> | null } } | null };
 
 export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
 

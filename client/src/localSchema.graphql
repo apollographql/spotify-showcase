@@ -1,0 +1,7 @@
+extend type CurrentUser {
+  auth: Auth!
+}
+
+type Auth {
+  accessToken: String
+}
