@@ -4,7 +4,7 @@ Welcome to the **{{ graph.name }}** API! 🎉 You can follow along in this READM
 
 > If you're new to Apollo, learn more about GraphOS in [our docs](https://www.apollographql.com/docs/studio/).
 
-# So what did clicking that button do to get me here?
+## So what did clicking that button do to get me here?
 
 In creating this demo, we've set up GraphOS to work with two GraphQL APIs we have hosted for you:
 
