@@ -29,7 +29,6 @@ apq:
 #   enabled: true
 
 #####################
-# Uncomment the following to enable local subscriptions.
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.
 #####################
 subscription:
