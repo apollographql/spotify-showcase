@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+      APOLLO_GRAPH_REF: ${{ secrets.APOLLO_GRAPH_REF }}
     steps:
       - uses: actions/checkout@v3
       - name: Install Rover
@@ -18,9 +19,11 @@ jobs:
           curl -sSL https://rover.apollo.dev/nix/latest | sh
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
       - if: env.APOLLO_KEY != ''
-        run: rover subgraph check Spotify-tb7du2@prod --schema ./subgraphs/spotify/schema.graphql --name spotify
+        run: rover subgraph check $APOLLO_GRAPH_REF --schema ./subgraphs/spotify/schema.graphql --name spotify
+        env:
+          APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
   check_spotify_builds:
-    name: Check server compiles
+    name: Build and Unit Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,6 +35,8 @@ jobs:
         run: npm install --prefix=subgraphs/spotify
       - name: Check server compiles
         run: npm run build --prefix=subgraphs/spotify
+      - name: Run unit tests
+        run: npm run test --prefix=subgraphs/spotify
   check_spotify_typescript:
     name: Check TypeScript
     runs-on: ubuntu-latest

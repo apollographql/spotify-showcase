@@ -1,8 +1,8 @@
 import { MutationResolvers } from '../__generated__/resolvers-types';
 import { maybe, maybeDeep } from '../utils/common';
-import SpotifyAPI from '../dataSources/spotify';
+import { SpotifyDataSource } from '../dataSources/spotify';
 
-const refreshPlaybackState = async (spotify: SpotifyAPI) => {
+const refreshPlaybackState = async (spotify: SpotifyDataSource) => {
   return spotify.getPlaybackState({
     additional_types: 'episode,track',
   });
@@ -62,7 +62,10 @@ export const Mutation: MutationResolvers = {
   },
   seekToPosition: async (_, { positionMs, context }, { dataSources }) => {
     await dataSources.spotify.seekToPosition({
-      params: { position_ms: positionMs, device_id: maybe(context?.deviceId) },
+      params: {
+        position_ms: positionMs,
+        device_id: maybe(context?.deviceId),
+      },
     });
 
     const playbackState = await refreshPlaybackState(dataSources.spotify);

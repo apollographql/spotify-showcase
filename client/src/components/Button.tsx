@@ -18,7 +18,7 @@ export type ButtonProps<TButtonElement extends ElementType = 'button'> =
 
 type ButtonComponent = <TButtonElement extends ElementType = 'button'>(
   props: ButtonProps<TButtonElement>
-) => ReactElement | null;
+) => ReactElement | ReactNode | null;
 
 const Button: ButtonComponent = forwardRef(function Button<
   TButtonElement extends ElementType = 'button'

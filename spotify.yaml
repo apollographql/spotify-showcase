@@ -4,8 +4,9 @@ subgraphs:
     schema:
       file: subgraphs/spotify/schema.graphql
   playback:
-    routing_url: http://localhost:4002/graphql
+    # routing_url: http://localhost:4002/ # For subscriptions, uncomment to use WebSockets at /ws route with graphql-ws
+    routing_url: http://localhost:4002/graphql # For subscriptions, uncomment to use HTTP Callback Protocol at /graphql route
     schema:
       file: subgraphs/playback/schema.graphql
 operations: {}
-federation_version: '=2.4.5' 
+federation_version: '=2.4.5'

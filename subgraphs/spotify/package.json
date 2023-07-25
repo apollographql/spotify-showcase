@@ -28,8 +28,10 @@
     "@apollo/datasource-rest": "^6.0.0",
     "@apollo/server": "^4.7.1",
     "@apollo/subgraph": "^2.4.7",
+    "@apollo/utils.keyvaluecache": "^3.0.0",
     "@graphql-tools/mock": "^9.0.0",
     "@graphql-tools/schema": "^10.0.0",
+    "@sentry/node": "^7.59.3",
     "@wry/equality": "^0.5.6",
     "body-parser": "^1.20.2",
     "chalk": "^4.1.2",
@@ -49,6 +51,7 @@
     "winston": "^3.10.0"
   },
   "devDependencies": {
+    "@sentry/types": "^7.59.3",
     "@types/cors": "^2.8.13",
     "@types/jest": "^29.0.3",
     "@types/lodash": "^4.14.194",

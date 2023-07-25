@@ -1,17 +1,4 @@
-import { readFileSync } from 'fs';
-import gql from 'graphql-tag';
-import { buildSubgraphSchema } from '@apollo/subgraph';
-import {
-  ApolloServer,
-  GraphQLResponse,
-  ApolloServerPlugin,
-} from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import resolvers from './resolvers';
-import { ContextValue } from './types/ContextValue';
-const port = process.env.PORT ?? '4001';
-const routerSecret = process.env.ROUTER_SECRET;
-import { addMocksToSchema } from '@graphql-tools/mock';
 import morgan from 'morgan';
 import chalk from 'chalk';
 
@@ -22,15 +9,24 @@ import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
-import { mocks } from './utils/mocks';
+import { MockedSpotifyDataSource, mocks } from './utils/mocks';
 import logger from './logger';
+import { server } from './utils/server';
+import * as Sentry from '@sentry/node';
+
+const port = process.env.PORT ?? '4001';
+const routerSecret = process.env.ROUTER_SECRET;
 
 morgan.token('operationName', (req) => {
+  if (!req?.body?.operationName) {
+    return '';
+  }
+
   return chalk.blue(req.body.operationName);
 });
 
 morgan.token('variables', (req) => {
-  if (!req.body.variables) {
+  if (!req?.body?.variables) {
     return '';
   }
 
@@ -46,88 +42,50 @@ const loggerMiddleware = morgan(
   }
 );
 
-async function main() {
-  let typeDefs = gql(
-    readFileSync('schema.graphql', {
-      encoding: 'utf-8',
-    })
-  );
-  const schema = buildSubgraphSchema({
-    typeDefs,
-    resolvers,
-  });
-  const app = express();
-  const httpServer = http.createServer(app);
+const app = express();
+Sentry.init({
+  dsn: process.env.SENTRY_URL,
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({
+      tracing: true,
+    }),
+    // enable Express.js middleware tracing
+    new Sentry.Integrations.Express({
+      app,
+    }),
+  ],
+});
+
+export const contextFunction = async ({ req }) => {
   const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
     defaultValue: 'US',
   });
 
-  const server = new ApolloServer<ContextValue>({
-    schema,
-    introspection: true,
-    logger,
-    plugins: [
-      {
-        async requestDidStart() {
-          return {
-            responseForOperation: async (operation) => {
-              const { request, contextValue } = operation;
-              if (!contextValue.mock) return;
+  checkRouterSecret(req.headers['router-authorization'] as string);
+  const token = req.get('authorization');
 
-              const { query, variables, operationName } = request;
-              const response = await execute({
-                schema: addMocksToSchema({
-                  schema: buildSubgraphSchema({ typeDefs }),
-                  mocks,
-                  preserveResolvers: true,
-                }),
-                document: parse(query),
-                contextValue,
-                variableValues: variables,
-                operationName,
-              });
+  if (!token) {
+    const userIdForMocks = req.get('x-graphos-id') ?? 'shared';
 
-              return {
-                http: request.http,
-                body: { kind: 'single', singleResult: response },
-              } as GraphQLResponse;
-            },
-          };
-        },
+    return {
+      defaultCountryCode,
+      dataSources: {
+        spotify: new MockedSpotifyDataSource(userIdForMocks),
       },
-    ],
-  });
+    };
+  }
 
-  await server.start();
-
-  app.use(loggerMiddleware);
-
-  app.use(
-    '/',
-    cors(),
-    json(),
-    expressMiddleware(server, {
-      context: async ({ req }) => {
-        checkRouterSecret(req.headers['router-authorization'] as string);
-        const token = req.get('authorization');
-        return {
-          defaultCountryCode,
-          dataSources: {
-            spotify: new SpotifyAPI({
-              cache: server.cache,
-              token,
-            }),
-          },
-          mock: token ? false : true,
-        };
-      },
-    })
-  );
-
-  await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
-
-  console.log(`🚀 GraphQL endpoint ready at http://localhost:${port}`);
-}
+  return {
+    defaultCountryCode,
+    dataSources: {
+      spotify: new SpotifyAPI({
+        cache: server.cache,
+        token,
+      }),
+    },
+  };
+};
 
 function checkRouterSecret(secret: string) {
   if (routerSecret && secret !== routerSecret) {
@@ -138,6 +96,31 @@ function checkRouterSecret(secret: string) {
       },
     });
   }
+}
+
+async function main() {
+  const httpServer = http.createServer(app);
+  await server.start();
+
+  // Trace incoming requests
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
+  app.use(loggerMiddleware);
+
+  app.use(
+    '/',
+    cors(),
+    json(),
+    expressMiddleware(server, {
+      context: contextFunction,
+    })
+  );
+
+  app.use(Sentry.Handlers.errorHandler());
+
+  await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
+
+  console.log(`🚀 GraphQL endpoint ready at http://localhost:${port}`);
 }
 
 main();
