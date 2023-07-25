@@ -42,7 +42,7 @@ query RootWebsiteQuery($offset: Int, $limit: Int) {
 }
 ```
 
-The [Apollo Router also supports GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)!
+The Apollo Router also supports [GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)!
 
 ```gql
 subscription PlaybackStateSubscriberSubscription {
