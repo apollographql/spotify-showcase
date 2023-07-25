@@ -1,28 +1,28 @@
-# Welcome to the Apollo Showcase Demo
+# Welcome to the **{{ graph.name }}** API! 🎉
 
-Welcome to the **{{ graph.name }}** API! 🎉 You can follow along in this README to walk through a guided demo or just explore yourself.
+You can follow along in this README to walk through a guided demo or just explore around yourself.
 
-> If you're new to Apollo, learn more about GraphOS in [our docs](https://www.apollographql.com/docs/studio/).
+> If you're new to Apollo, learn more about GraphOS in [our docs](https://www.apollographql.com/docs/graphos/).
 
-## So what did clicking that button do to get me here?
+# So what did clicking "Try a Demo Graph" do?
 
-In creating this demo, we've set up GraphOS to work with two GraphQL APIs we have hosted for you:
+Behind the schenes, we've set up GraphOS to work with two GraphQL APIs we have hosted for you:
 
-- _spotify_: Exposes the Spotify REST API
+- _spotify_: Exposes the [Spotify REST API](https://developer.spotify.com/documentation/web-api)
 - _playback_: Exposes subscriptions for playback functionality coming from the Spotify REST API including the associated `mutation` operations
 
-This includes provisioning a serverless instance of the [Apollo Router](https://www.apollographql.com/docs/graphos/routing/cloud) that can route traffic between our two GraphQL APIs 🚀
+GraphOS also provisioned a serverless instance of the [Apollo Router](https://www.apollographql.com/docs/graphos/routing/cloud) that can route traffic between our two GraphQL APIs 🚀
 
 # Demo Guide: Where should I start?
 
-> There are links in this demo that might navigate you around, it might be helpful to open two windows to keep this README up on one side of the screen (or right-click->Open in a new window)\_
+> There are links in this demo that might navigate you around to different pages of Studio. It might be helpful to open two windows to keep this README up on one side of the screen (or right-click -> Open in a new window).
 
 ## Running operations
 
-You need a way to query your graph. [GraphOS Explorer](https://www.apollographql.com/docs/graphos/explorer) is built to make this easy. You can try querying this graph using [Explorer]({{ graph.url.explorer }}). Try running your first operation:
+You need a way to query your graph and [GraphOS Explorer](https://www.apollographql.com/docs/graphos/explorer) is the perfect tool to help you! Try running your first few operations by clicking on the play icon beside each operation below:
 
 ```gql
-query RootWebsiteQuery($offset: Int, $limit: Int) {
+query RoolWebsiteQuery($offset: Int, $limit: Int) {
   me {
     playlists(offset: $offset, limit: $limit) {
       pageInfo {
@@ -42,7 +42,7 @@ query RootWebsiteQuery($offset: Int, $limit: Int) {
 }
 ```
 
-The Apollo Router also supports [GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)!
+The [Apollo Router also supports GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)!
 
 ```gql
 subscription PlaybackStateSubscriberSubscription {
@@ -53,7 +53,7 @@ subscription PlaybackStateSubscriberSubscription {
 }
 ```
 
-GraphOS Explorer also supports tabs. Open a new tab and try pausing the running subscription:
+GraphOS Explorer also supports tabs. Open a new tab and run the operation below to pause the running subscription:
 
 ```gql
 mutation PausePlaybackMutation {
@@ -71,14 +71,14 @@ You can begin [identifying your client traffic](https://www.apollographql.com/do
 
 | Header name                    | Header value                                                                             |
 | ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `apollographql-client-name`    | The name of your integration.                                                            |
-| `apollographql-client-version` | Increment this value with version numbers for your integration as its API usage changes. |
+| `apollographql-client-name`    | The name of your client.                                                            |
+| `apollographql-client-version` | Increment this value with version numbers for your client as its API usage changes. |
 
 > If you test out API operations in the [Explorer]({{ graph.url.explorer }}), add the `apollographql-client-name` and `apollographql-client-version` headers with `Apollo Explorer` and `main` (or whatever values you like).
 
 If you have a client project, simply setting the `name` and `version` properties in the `ApolloClient` constructor will automatically add these header values to your requests for you. You can see how we set that in the Spotify Showcase Website [here](https://github.com/apollographql/spotify-showcase/blob/main/client/src/apollo.ts#L76):
 
-```graphql
+```js
 const client = new ApolloClient({
   link: new HttpLink({
     uri: 'http://localhost:4000/graphql'
@@ -92,17 +92,19 @@ Once you've sent some traffic, head over to the [Clients tab]({{ graph.url.clien
 
 ## Adding a new GraphQL API to GraphOS
 
-You can view all of the GraphQL APIs in the [subgraphs tab]({{  graph.url.subgraphs }}). Try adding SpaceX to the demo by using the "Add a subgraph" button. You'll use https://spacex-production.up.railway.app/ for the routing URL and it should be able to fetch the subgraph schema/
+You can view all of the GraphQL APIs in the [Subgraphs tab]({{  graph.url.subgraphs }}). Try adding SpaceX to the demo by using the "Add a subgraph" button. You'll use `https://spacex-production.up.railway.app/` for the routing URL. The SpaceX API has introspection turned on so GraphOS should be able to fetch the schema.
 
-> If you try adding a subgraph that doesn't support introspection or Apollo Federation, you will have to paste your schema into the UI using the "Advanced options" drop down.
+> If you try adding a subgraph that _doesn't_ support introspection or Apollo Federation, you will have to manually paste your schema into the UI using the "Advanced options" dropdown.
 
-Since we added a new subgraph into our demo, we'll have a launch with these updates for our Apollo Router. Head over to the [Launches tab]({{ graph.url.launches }}) to see the update run through the appropriate checks and be deployed. Once it has deployed, head over to [Explorer]({{ graph.url.explorer }}) and you should be able to add some of the SpaceX operations to your graph:
+Adding a new subgraph triggers a [launch](https://www.apollographql.com/docs/graphos/delivery/launches/). Head over to the Launches tab to see the update run through the appropriate checks and get deployed. After a successful launch, jump over to [Explorer]({{ graph.url.explorer }}) to test out a query that includes both Spotify and SpaceX fields!
 
-```gql
+```graphql
 query RoolWebsiteQuery($offset: Int, $limit: Int) {
+  # SpaceX fields
   company {
     name
   }
+  # Spotify fields
   me {
     playlists(offset: $offset, limit: $limit) {
       pageInfo {
@@ -122,23 +124,23 @@ query RoolWebsiteQuery($offset: Int, $limit: Int) {
 }
 ```
 
-## Viewing your graphs changelog
+## Viewing your graph's changelog
 
-Every update that is successfully made to your graph will appear as a changelog entry. Since we just added the SpaceX API, we can head over to the [Changelog]({{ graph.url.changelog }}) tab and wee a list of everything we added.
+Every update that is successfully made to your graph will appear as a Changelog entry. Since we just added the SpaceX API, we can head over to the [Changelog]({{ graph.url.changelog }}) tab and wee a list of everything we added.
 
-You can also see a more detailed breakdown of the schema with the ability to search to find whatever you need. You can filter by multiple criteria, like specific subgraphs or even Entities you have defined.
+You can also see a more detailed breakdown of the schema with the ability to search to find whatever you need. You can filter by multiple criteria, like specific subgraphs or even entities you have defined.
 
-> If you don't know what an Entity is in [Apollo Federation](https://www.apollographql.com/docs/federation), head over to our [docs](https://www.apollographql.com/docs/federation/entities) to learn more.
+> If you don't know what an entity is in [Apollo Federation](https://www.apollographql.com/docs/federation), head over to our [docs](https://www.apollographql.com/docs/federation/entities) to learn more.
 
 ## Understanding the usage of your graph
 
 The Apollo Router automatically collects usage information on your graph based on what fields are being requested from client applications. You can start diving into specific fields and their usage in the graph by heading to the [Fields tab]({{ graph.url.fields }}).
 
-In the top search bad of the Fields tab, try searching for `CurrentUser` to find the `me` field we queries. You can also click the flied insights button to the right to view a more detailed breakdown of the usage in this specific field.
+At the top of the Fields page, use the search bar to search for `CurrentUser` to find the `me` field we can query. You can also click the field insights button to the right to view a more detailed breakdown of the usage of this specific field.
 
 ## Knowing when to start pruning your graph
 
-Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being useed or not. In the same [Fields tab]({{ graph.url.fields }}), select the "Deprecations" at the top and you should see some deprecated fields that were added from the SpaceX API.
+Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being used or not. In the same [Fields tab]({{ graph.url.fields }}), select "Deprecations" at the top and you should see some deprecated fields that were added from the SpaceX API.
 
 ## Looking at individual operations
 
@@ -156,7 +158,7 @@ rover config auth --profile=demo
 
 > We're adding the authorization under a 'demo' profile since we're configuring a graph API key. You can learn more about the configuration profiles for rover's auth [here](https://www.apollographql.com/docs/rover/commands/config)
 
-The terminal should prompt you to past in your API key. Once you've pasted in your API key, we're all setup to run checks against our graph. Now we need to get an example schema. Download [this schema](https://gist.githubusercontent.com/michael-watson/197152123c125fc6653b3bdb84265946/raw/bc5044d2dabd0aca18d022865538085efa90ad16/gistfile1.txt) file locally; you can open the link and save through the browser as `schema.graphql`.
+The terminal should prompt you to paste in your API key. Once you've pasted in your API key, we're all set up to run checks against our graph. Now we need to get an example schema. Download [this schema](https://gist.githubusercontent.com/michael-watson/197152123c125fc6653b3bdb84265946/raw/bc5044d2dabd0aca18d022865538085efa90ad16/gistfile1.txt) file locally; you can open the link and save through the browser as `schema.graphql`.
 
 Now let's switch back to the terminal window and run that command:
 
@@ -164,29 +166,29 @@ Now let's switch back to the terminal window and run that command:
 rover subgraph check {{ graph.ref }} --profile=demo --name=spotify --schema={PATH_TO_DOWNLOADED_SCHEMA}
 ```
 
-You should see a failed output with a url. Go ahead and click that URL to see why the check failed. Shema Checks use our graphs usage information to validate whether a change is safe to make or not 🚀
+You should see a failed output with a url. Go ahead and click that URL to see why the check failed. Schema checks use our graph's usage information to validate whether a change is safe to make or not 🚀
 
-## Seeing shcema checks in a PR
+## Seeing schema checks in a PR
 
-You can also see schema checks in a PR, but you'll have to [fork the demo repo](https://github.com/apollographql/spotify-showcase/fork). Once you've forked the repo, you'll need to do some minimumm configuration:
+You can also see schema checks in a PR, but you'll have to [fork the demo repo](https://github.com/apollographql/spotify-showcase/fork). Once you've forked the repo, you'll need to do some minimum configuration:
 
 1. [Ensure the Apollo app is installed in the repo](https://www.apollographql.com/docs/rover/ci-cd/#displaying-schema-check-results-on-github-pull-requests)
 2. Add these secrets to your GitHub Actions secrets:
 
-- `APOLLO_KEY`: You can use the key we used to configure rover in this example or feel free to create a new key.
+- `APOLLO_KEY`: You can use the key we used to configure Rover in this example or feel free to create a new key.
 - `APOLLO_GRAPH_REF`: You'll want to set this to {{ graph.ref }}
 
-Now that the new repo is configured, navigate to the `subgraphs/spotify/schema.graphql` file. Find the `type Query` and delete the `me` field from the schema (make sure you also delete the comment above it supprounded by three quotes """). Commit that change to a new branch and you'll see the schema checks pop up in the PR with the apollo app providing a link to [Apollo Studio checks page]({{ graph.url.checks }}).
+Now that the new repo is configured, navigate to the `subgraphs/spotify/schema.graphql` file. Find the `type Query` and delete the `me` field from the schema (make sure you also delete the comment above it surrounded by three quotes """). Commit that change to a new branch and you'll see the schema checks pop up in the PR with the Apollo app providing a link to [Apollo Studio Checks page]({{ graph.url.checks }}).
 
-> If you don't see the Apollo App in your checks, you probably don't have the [Apollo App installed](<(https://www.apollographql.com/docs/rover/ci-cd/#displaying-schema-check-results-on-github-pull-requests)>). You can also click into the individual actions and see the url printed out in the console window
+> If you don't see the Apollo App in your checks, you probably don't have the [Apollo App installed](<(https://www.apollographql.com/docs/rover/ci-cd/#displaying-schema-check-results-on-github-pull-requests)>). You can also click into the individual actions and see the url printed out in the console window.
 
 ## Configuring your schema checks
 
-We got to see a breaking change above, but there are a lot of things that [Schema Checks](https://www.apollographql.com/docs/graphos/delivery/schema-checks) covers:
+We got to see a breaking change above, but there are a lot of things that [Schema checks](https://www.apollographql.com/docs/graphos/delivery/schema-checks) covers:
 
-- [Composition checks](https://www.apollographql.com/docs/graphos/delivery/schema-checks#composition-checks). For supergraphs, verify whether your proposed changes to a subgraph schema will successfully compose with your other subgraph schemas.
-- [Operation checks](https://www.apollographql.com/docs/graphos/delivery/schema-checks#operation-checks). Compare your proposed schema changes against historical operations to verify whether the changes will break any of your graph's active clients.
-- [Linter checks](https://www.apollographql.com/docs/graphos/delivery/schema-linter). Analyze your proposed schema changes for violations of formatting rules and other GraphQL best practices.
+- [**Composition checks**](https://www.apollographql.com/docs/graphos/delivery/schema-checks#composition-checks). Verifies whether your proposed changes to a subgraph schema will successfully compose with your other subgraph schemas.
+- [**Operation checks**](https://www.apollographql.com/docs/graphos/delivery/schema-checks#operation-checks). Compares your proposed schema changes against historical operations to verify whether the changes will break any of your graph's active clients.
+- [**Linter checks**](https://www.apollographql.com/docs/graphos/delivery/schema-linter). Analyzes your proposed schema changes for violations of formatting rules and other GraphQL best practices.
 
 You can also [configure all of these checks](https://www.apollographql.com/docs/graphos/delivery/check-configurations) to fit the needs of your project. Maybe you need to ensure checks run against multiple environments of your graph (i.e. `pre-prod` and `prod`) or exclude past operations from an old client now that usage is low.
 
