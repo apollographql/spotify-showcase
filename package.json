@@ -14,6 +14,7 @@
     "build:client": "npm run build --prefix=client",
     "build:spotify": "npm run build --prefix=subgraphs/spotify",
     "build:playback": "npm run build --prefix=subgraphs/playback",
+    "generate:mocks": "node mocks.js",
     "postinstall": "npm run setup",
     "setup": "concurrently \"npm:setup:*\"",
     "setup:client": "npm install --prefix=client",
