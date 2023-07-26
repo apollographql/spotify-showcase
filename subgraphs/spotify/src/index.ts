@@ -9,7 +9,7 @@ import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
 import { GraphQLError, execute, parse } from 'graphql';
-import { MockedSpotifyDataSource, mocks } from './utils/mocks';
+import { MockedSpotifyDataSource } from './utils/mocks';
 import logger from './logger';
 import { server } from './utils/server';
 import * as Sentry from '@sentry/node';
