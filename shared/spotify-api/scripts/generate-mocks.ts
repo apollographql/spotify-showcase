@@ -93,17 +93,7 @@ export const mocks: {
 }
 
 async function getPlaylist(id: string) {
-  return tap(
-    (store.playlists[id] ||= await get('/playlists/:id', { id })),
-    async (playlist) => {
-      await Promise.all(
-        playlist.tracks.items.map((item) => ({
-          ...item,
-          track: store.tracks[item.track.id],
-        }))
-      );
-    }
-  );
+  return (store.playlists[id] ||= await get('/playlists/:id', { id }));
 }
 
 async function getAlbum(id: string) {
