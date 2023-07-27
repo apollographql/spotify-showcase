@@ -1,12 +1,22 @@
+import 'dotenv/config';
 import { v4 } from 'uuid';
 import { resolve } from 'path';
+import inquirer from 'inquirer';
 import { readFileSync } from 'fs';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export const graphVariant = 'main';
-export const client = new ApolloClient({
+const graphVariant = 'main';
+const ROUTER_CONFIG = (graphId: string) =>
+  `cors:\n  allow_any_origin: true\nheaders:\n  subgraphs:\n    spotify:\n      request:\n        - propagate:\n            matching: \"authorization\"\n        - insert:\n            name: \"x-graphos-id\"\n            value: \"${graphId}\"\n    playback:\n      request:\n        - propagate:\n            matching: \"authorization\"\n        - insert:\n            name: \"x-graphos-id\"\n            value: \"${graphId}\"`;
+const client = new ApolloClient({
   cache: new InMemoryCache(),
+  uri: 'https://graphql.api.apollographql.com/api/graphql',
+  headers: {
+    'x-api-key': process.env.AUTH ?? '',
+    'apollographql-client-name': 'spotify-demo-script',
+    'apollographql-client-version': '1',
+  },
 });
 
 const ME_CHECK = gql(`
@@ -17,24 +27,23 @@ const ME_CHECK = gql(`
         memberships {
           account {
             id
+            name
+            currentPlan {
+              tier
+            }
           }
+          permission
         }
-      }
-      ...on Service {
-        id
-        title
       }
     }
   }
 `);
 const CREATE_GRAPH = gql(`
-  mutation CreateDemoGraph ($accountId: ID!, $newServiceId: ID!, $name: String) {
-    newService(accountId: $accountId, id: $newServiceId, name: $name) {
-      id
-      apiKeys { token }
-      account {
-        currentPlan {
-          kind
+  mutation CreateDemoGraph ($accountId: ID!, $graphType: GraphType!, $hiddenFromUninvitedNonAdmin: Boolean!, $createGraphId: ID!, $title: String!) {
+    account(id: $accountId) {
+      createGraph(graphType: $graphType, hiddenFromUninvitedNonAdmin: $hiddenFromUninvitedNonAdmin, id: $createGraphId, title: $title) {
+        ...on Service {
+          id
         }
       }
     }
@@ -124,21 +133,42 @@ const UPDATE_LINTER_CONFIG = gql(`
       }
     }
   }`);
+const UPDATE_CLOUD_ROUTER_CONFIG = gql(`
+  mutation UpdateRouterConfigMutation(
+    $graphId: ID!
+    $variant: String!
+    $newRouterConfig: String!
+  ) {
+    service(id: $graphId) {
+      variant(name: $variant) {
+        upsertRouterConfig(configuration: $newRouterConfig) {
+          ... on RouterUpsertFailure {
+            message
+          }
+        }
+      }
+    }
+  }`);
 
-function createGraph(id: string) {
+function createGraph(id: string, isEnterprise: boolean) {
   const uniqueId = v4().replace('-', '').substring(0, 6);
   return client
     .mutate({
       mutation: CREATE_GRAPH,
       variables: {
+        graphType: isEnterprise ? 'SELF_HOSTED_SUPERGRAPH' : 'CLOUD_SUPERGRAPH',
         accountId: id,
-        newServiceId: `spotify-demo-graph-${uniqueId}`,
-        name: 'Spotify Demo Graph',
+        createGraphId: `spotify-demo-graph-${uniqueId}`,
+        title: 'Spotify Demo Graph',
+        hiddenFromUninvitedNonAdmin: false,
       },
     })
-    .then((r) => ({
-      newService: r.data?.newService,
-    }));
+    .then(async (r) => {
+      if (!isEnterprise) await sleep(30000);
+      return {
+        graphId: r.data?.account?.createGraph?.id,
+      };
+    });
 }
 
 async function createOperationCollection(graphId: string) {
@@ -290,27 +320,106 @@ async function checkApiKey() {
     })
     .then((r) => r.data);
 
-  if (data.me?.memberships) return data.me.memberships[0].account.id;
+  if (data.me?.memberships) {
+    let selectedAccount: { id: string; isEnterprise: boolean } | undefined;
+    const accounts: { [name: string]: string } = {};
+
+    if (data.me.memberships.length == 1) {
+      const { account } = data.me.memberships[0];
+      selectedAccount = {
+        id: account.id,
+        isEnterprise: account.currentPlan.tier
+          .toLowerCase()
+          .includes('enterprise')
+          ? true
+          : false,
+      };
+    } else if (data.me.memberships.length > 1) {
+      data.me.memberships.forEach((m: any) => {
+        const name = (m?.account?.name as string) ?? undefined;
+        if (name && m.permission == 'ORG_ADMIN') accounts[name] = m.account.id;
+      });
+    }
+
+    if (selectedAccount) return selectedAccount;
+
+    const { theme } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'theme',
+        message:
+          'We found multiple accounts, which one do you want to create in?',
+        choices: Object.keys(accounts),
+      },
+    ]);
+    const { account } = data.me.memberships.find(
+      (a: any) => a.account.id == accounts[theme]
+    );
+    if (theme) {
+      selectedAccount = {
+        id: account.id,
+        isEnterprise: account.currentPlan.tier
+          .toLowerCase()
+          .includes('enterprise')
+          ? true
+          : false,
+      };
+      return selectedAccount;
+    }
+  }
   throw new Error(
     'You must use a user api key and be an org administrator for your account.'
   );
 }
 
-export async function createBaseDemo() {
-  const identity = await checkApiKey();
-  if (!identity) {
+//Enterprise specific functions
+const CREATE_CONTRACT = gql(`
+  mutation UpsertContractVariant($contractVariantName: String!, $graphId: ID!, $filterConfig: FilterConfigInput!, $sourceVariant: String) {
+    graph(id: $graphId) {
+      upsertContractVariant(contractVariantName: $contractVariantName, filterConfig: $filterConfig, sourceVariant: $sourceVariant) {
+        ... on ContractVariantUpsertSuccess {
+          launchUrl
+        }
+        ... on ContractVariantUpsertErrors {
+          errorMessages
+        }
+      }
+    }
+  }`);
+function createContract(graphId: string) {
+  return client.mutate({
+    mutation: CREATE_CONTRACT,
+    variables: {
+      contractVariantName: 'public',
+      graphId,
+      filterConfig: {
+        exclude: ['internal'],
+        include: [],
+        hideUnreachableTypes: true,
+      },
+      sourceVariant: graphVariant,
+    },
+  });
+}
+function updateClourRouterConfig(graphId: string) {
+  return client.mutate({
+    mutation: UPDATE_CLOUD_ROUTER_CONFIG,
+    variables: {
+      graphId,
+      variant: graphVariant,
+      newRouterConfig: ROUTER_CONFIG(graphId),
+    },
+  });
+}
+
+async function createDemo() {
+  const { id, isEnterprise } = await checkApiKey();
+  if (!id) {
     console.log('Invalid API key');
     return;
   }
 
-  const { newService } = await createGraph(identity);
-  const isEnterprise = newService?.account?.currentPlan?.kind
-    ?.toLowerCase()
-    ?.includes('enterprise')
-    ? true
-    : false;
-  let graphId = newService?.id;
-
+  const { graphId } = await createGraph(id, isEnterprise);
   const subgraphs = [
     {
       graphId,
@@ -333,15 +442,15 @@ export async function createBaseDemo() {
         }),
       },
       name: 'playback',
-      url: 'https://showcase-spotify.apollographql.com',
+      url: 'https://showcase-playback.apollographql.com',
       revision: '1',
     },
   ];
 
   await createSubgraph(subgraphs[0]);
-  await sleep(1000);
+  await sleep(isEnterprise ? 1000 : 10000);
   await createSubgraph(subgraphs[1]);
-  await updateExplorerUrl(graphId);
+  await sleep(isEnterprise ? 10 : 10000);
   const operationCollection = await createOperationCollection(graphId);
   const ops =
     operationCollection?.operationCollection?.addOperations
@@ -359,5 +468,12 @@ export async function createBaseDemo() {
   );
   await updateLinterConfig(graphId);
 
-  return graphId;
+  if (isEnterprise) {
+    await updateExplorerUrl(graphId);
+    await createContract(graphId);
+  } else {
+    await updateClourRouterConfig(graphId);
+  }
 }
+
+createDemo();
