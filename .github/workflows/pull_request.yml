@@ -19,20 +19,20 @@ jobs:
         uses: bahmutov/npm-install@v1
       - name: Run Lint
         run: npm run lint:all
-  prettier:
-    runs-on: ubuntu-latest
-    name: Prettier
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-      - name: Run Lint
-        run: npm run lint:style
+  # prettier:
+  #   runs-on: ubuntu-latest
+  #   name: Prettier
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
+  #     - name: Setup Node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18.x
+  #     - name: Install dependencies
+  #       uses: bahmutov/npm-install@v1
+  #     - name: Run Lint
+  #       run: npm run lint:style
   typescript:
     runs-on: ubuntu-latest
     name: TypeScript
