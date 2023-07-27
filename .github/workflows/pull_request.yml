@@ -21,7 +21,7 @@ jobs:
         run: npm run lint:all
   # prettier:
   #   runs-on: ubuntu-latest
-  #   name: Prettier
+  #   name: Formatting
   #   steps:
   #     - name: Checkout repo
   #       uses: actions/checkout@v3
