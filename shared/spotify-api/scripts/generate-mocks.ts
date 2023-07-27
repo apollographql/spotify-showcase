@@ -1,8 +1,10 @@
 import { writeFileSync } from 'node:fs';
+import { Spotify } from '../src/types';
 import path from 'path';
 
 const accessToken = process.env.AUTH;
 
+const BASE_URI = 'https://api.spotify.com';
 const FILE_PATH = path.join(__dirname, '../src/mocks.ts');
 const ALBUM_IDS = ['4ZaAM16hw3xpp680FJahJJ'];
 const PLAYLIST_IDS = ['3W6LV9vlZ7fURhLmHqjBlM'];
@@ -126,17 +128,43 @@ async function getArtist(id) {
   }).then((res) => res.json());
 }
 
-async function getTrack(id) {
-  const track = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-    method: 'GET',
-  }).then((res) => res.json());
+async function getTrack(id: string) {
+  const track = await get('/tracks/:id', { id });
 
   track.artists = await Promise.all(
     track.artists.map((artist) => getArtist(artist.id))
   );
 
   return track;
+}
+
+async function get<Pathname extends keyof Spotify.Response.GET>(
+  pathname: Pathname,
+  params?: Record<string, string>
+): Promise<Spotify.Response.GET[Pathname]> {
+  const uri = path.join(
+    BASE_URI,
+    'v1',
+    replaceUrlParams(pathname, params ?? {})
+  );
+
+  return fetch(uri, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  }).then((res) => {
+    console.log(`GET ${uri} ${res.status}`);
+
+    if (!res.ok) {
+      throw new Error(`Error getting ${uri}`);
+    }
+
+    return res.json();
+  });
+}
+
+function replaceUrlParams(pathname: string, params: Record<string, string>) {
+  return pathname.replace(/(?<=\/):(\w+)/g, (_, name) => {
+    return params[name];
+  });
 }
 
 main();
