@@ -2,10 +2,64 @@ import { Spotify } from './types';
 import { SpotifyDataSource } from './dataSource';
 import { mocks } from './mocks';
 
+interface UserPlaybackState {
+  actions: Spotify.Object.Actions;
+  context: Spotify.Object.Context;
+  device: Spotify.Object.Device;
+  is_playing: boolean;
+  item: { id: string };
+  progress_ms: number;
+  repeat_state: Spotify.Object.RepeatMode;
+  shuffle_state: boolean;
+  timestamp: number;
+  currently_playing_type: Spotify.Object.CurrentlyPlayingType;
+}
+
+const MAX_PROGRESS_MS = 140_000;
+
+function createUserPlaybackState(): UserPlaybackState {
+  return {
+    actions: { disallows: { interrupting_playback: true } },
+    context: {
+      external_urls: { spotify: '' },
+      href: '',
+      type: 'album',
+      uri: '',
+    },
+    device: {
+      id: 'f15b1cd24a5ae5fe4224edc5d4958a06f07c5b99',
+      is_private_session: false,
+      is_restricted: false,
+      name: `My Computer`,
+      type: 'Computer',
+      is_active: true,
+      volume_percent: 100,
+    },
+    is_playing: true,
+    item: { id: '4lhhYqzREcts4uOOqWHjRJ' },
+    progress_ms: 0,
+    repeat_state: 'off',
+    shuffle_state: false,
+    timestamp: Date.now(),
+    currently_playing_type: 'track',
+  };
+}
+
+function findOrCreateUserPlaybackState(userId: string) {
+  return (userState[userId] ||= createUserPlaybackState());
+}
+
+const userState: {
+  [userId: string]: UserPlaybackState;
+} = {};
+
 export class MockSpotifyClient implements SpotifyDataSource {
   private userId: string;
+  private state: UserPlaybackState;
+
   constructor(userId: string) {
     this.userId = userId;
+    this.state = findOrCreateUserPlaybackState(userId);
   }
 
   addItemsToPlaylist(
@@ -140,7 +194,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   async getDevices(): Promise<
     Spotify.Object.List<'devices', Spotify.Object.Device>
   > {
-    throw new Error('Method not implemented.');
+    return { devices: [this.state.device] };
   }
 
   async getGenres(): Promise<Spotify.Object.List<'genres', string>> {
@@ -312,7 +366,15 @@ export class MockSpotifyClient implements SpotifyDataSource {
   async getPlaybackState(params?: {
     additional_types?: string;
   }): Promise<Spotify.Object.PlaybackState> {
-    throw new Error('Method not implemented.');
+    if (this.state.is_playing) {
+      if (this.state.progress_ms >= MAX_PROGRESS_MS) {
+        this.state.progress_ms = 0;
+      } else {
+        this.state.progress_ms += 1000;
+      }
+    }
+
+    return this.state as Spotify.Object.PlaybackState;
   }
 
   async getPlaybackQueue(): Promise<Spotify.Object.PlaybackQueue> {
@@ -444,15 +506,22 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body,
     params,
   }: {
+    params: { device_id?: string };
     body: {
       context_uri?: string;
       uris?: string[];
       offset?: { position?: number; uri?: string };
       position_ms?: number;
     };
-    params: { device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    if (this.state.is_playing) {
+      return false;
+    }
+
+    this.state.is_playing = true;
+    this.state.device.is_active = true;
+
+    return true;
   }
 
   async pausePlayback({
@@ -460,7 +529,14 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    if (!this.state.is_playing) {
+      return false;
+    }
+
+    this.state.is_playing = false;
+    this.state.device.is_active = false;
+
+    return true;
   }
 
   async saveAlbumsToLibrary({
@@ -515,7 +591,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { position_ms: number; device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    this.state.progress_ms = params.position_ms;
+
+    return true;
   }
 
   async setRepeatMode({
@@ -523,7 +601,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { state: Spotify.Object.RepeatMode; device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    this.state.repeat_state = params.state;
+
+    return true;
   }
 
   async setVolume({
@@ -531,7 +611,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { volume_percent: number; device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    this.state.device.volume_percent = params.volume_percent;
+
+    return true;
   }
 
   async shufflePlayback({
@@ -539,7 +621,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { state: boolean; device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    this.state.shuffle_state = params.state;
+
+    return true;
   }
 
   async skipToNext({
@@ -547,7 +631,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    this.state.progress_ms = 0;
+
+    return true;
   }
 
   async skipToPrevious({
@@ -555,7 +641,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    this.state.progress_ms = 0;
+
+    return true;
   }
 
   async transferPlayback({
@@ -563,7 +651,15 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     body: { device_ids: string[]; play?: boolean };
   }): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    if (body.device_ids.length === 0) {
+      return false;
+    }
+
+    this.state.device.id = body.device_ids[0];
+    this.state.device.is_active = body.play;
+    this.state.is_playing = body.play;
+
+    return true;
   }
 
   async unfollow({
