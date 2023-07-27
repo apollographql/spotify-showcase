@@ -1,6 +1,7 @@
+import { writeFileSync } from 'node:fs';
+import path from 'path';
+
 const accessToken = process.env.AUTH;
-const { writeFileSync } = require('fs');
-const path = require('path');
 
 const FILE_PATH = path.join(__dirname, '../src/mocks.ts');
 
