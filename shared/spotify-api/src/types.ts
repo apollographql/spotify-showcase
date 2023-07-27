@@ -45,6 +45,7 @@ export namespace Spotify {
       images: Image[];
       label: string;
       name: string;
+      popularity: number;
       release_date: string;
       release_date_precision: ReleaseDatePrecision;
       total_tracks: number;
