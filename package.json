@@ -16,7 +16,7 @@
     "lint:types:spotify": "npm run lint:types -w spotify-subgraph",
     "lint:types:playback": "npm run lint:types -w playback-subgraph",
     "build": "npm run build -ws",
-    "generate:mocks": "node mocks.js",
+    "generate:mocks": "npm run generate:mocks -w spotify-api",
     "start": "npm run start:client",
     "start:all": "concurrently \"npm:dev -w playback-subgraph\" \"npm:dev -w spotify-subgraph\" \"npm:start:client\" \"npm:start:router\"",
     "start:client": "npm run start -w client",

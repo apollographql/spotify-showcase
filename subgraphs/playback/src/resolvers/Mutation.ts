@@ -1,6 +1,6 @@
 import { MutationResolvers } from '../__generated__/resolvers-types';
 import { maybe, maybeDeep } from '../utils/common';
-import { SpotifyDataSource } from '../dataSources/spotify';
+import { SpotifyDataSource } from 'spotify-api';
 
 const refreshPlaybackState = async (spotify: SpotifyDataSource) => {
   return spotify.getPlaybackState({

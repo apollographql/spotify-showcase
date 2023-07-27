@@ -25,11 +25,8 @@
     "lint:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/datasource-rest": "^6.0.0",
     "@apollo/server": "https://pkg.csb.dev/apollographql/apollo-server/commit/5c93e303/@apollo/server",
     "@apollo/subgraph": "^2.4.7",
-    "@apollo/utils.fetcher": "^3.0.0",
-    "@apollo/utils.keyvaluecache": "^3.0.0",
     "@graphql-tools/mock": "^9.0.0",
     "@sentry/node": "^7.59.3",
     "@wry/equality": "^0.5.6",

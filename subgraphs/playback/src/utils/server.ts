@@ -9,7 +9,6 @@ import {
 } from '@apollo/server/plugin/landingPage/default';
 import resolvers from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
-const port = process.env.PORT ?? '4002';
 const routerSecret = process.env.ROUTER_SECRET;
 
 import { WebSocketServer } from 'ws';
@@ -18,9 +17,8 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 
 import express from 'express';
 import http from 'http';
-import SpotifyAPI from '../dataSources/spotify';
 import { GraphQLError } from 'graphql';
-import { MockedSpotifyDataSource } from '../utils/mocks';
+import { MockSpotifyClient, SpotifyClient } from 'spotify-api';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
 
@@ -75,7 +73,7 @@ const serverCleanup = useServer(
         return {
           defaultCountryCode,
           dataSources: {
-            spotify: new MockedSpotifyDataSource(userIdForMocks),
+            spotify: new MockSpotifyClient(userIdForMocks),
           },
           userIdForMocks,
         };
@@ -84,7 +82,7 @@ const serverCleanup = useServer(
       return {
         defaultCountryCode,
         dataSources: {
-          spotify: new SpotifyAPI({
+          spotify: new SpotifyClient({
             cache: callbackApolloServer.cache,
             token,
           }),
