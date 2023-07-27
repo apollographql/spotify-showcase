@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "# React + Apollo Spotify Showcase",
   "main": "setup.js",
+  "workspaces": [
+    "./shared/*"
+  ],
   "scripts": {
     "codegen": "rover graph fetch Spotify-tb7du2@prod-external > ./client/schema.graphql && graphql-codegen",
     "lint": "concurrently \"npm:lint:*\"",
