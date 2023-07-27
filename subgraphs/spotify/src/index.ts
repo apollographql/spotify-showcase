@@ -8,8 +8,8 @@ import { readEnv } from './utils/env';
 import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
-import { GraphQLError, execute, parse } from 'graphql';
-import { MockedSpotifyDataSource } from './utils/mocks';
+import { GraphQLError } from 'graphql';
+import { MockSpotifyClient } from 'spotify-api';
 import logger from './logger';
 import { server } from './utils/server';
 import * as Sentry from '@sentry/node';
@@ -71,7 +71,7 @@ export const contextFunction = async ({ req }) => {
     return {
       defaultCountryCode,
       dataSources: {
-        spotify: new MockedSpotifyDataSource(userIdForMocks),
+        spotify: new MockSpotifyClient(userIdForMocks),
       },
     };
   }
