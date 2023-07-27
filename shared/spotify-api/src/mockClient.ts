@@ -1,5 +1,6 @@
 import { Spotify } from './types';
 import { SpotifyDataSource } from './dataSource';
+import { mocks } from './mocks';
 
 export class MockSpotifyClient implements SpotifyDataSource {
   private userId: string;
