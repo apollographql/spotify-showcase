@@ -1,4 +1,4 @@
-import { SpotifyDataSource } from './dataSources/spotify';
+import { SpotifyDataSource } from 'spotify-api';
 import { from, interval, switchMap } from 'rxjs';
 
 export const createPlaybackStateObservable = (spotify: SpotifyDataSource) => {

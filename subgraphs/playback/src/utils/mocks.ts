@@ -1,5 +1,4 @@
-import { Spotify } from 'spotify-api';
-import { SpotifyDataSource } from '../dataSources/spotify';
+import { Spotify, SpotifyDataSource } from 'spotify-api';
 
 interface UserPlaybackState {
   actions: Spotify.Object.Actions;

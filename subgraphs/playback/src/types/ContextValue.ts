@@ -1,4 +1,4 @@
-import SpotifyAPI, { SpotifyDataSource } from '../dataSources/spotify';
+import { SpotifyDataSource } from 'spotify-api';
 
 export interface ContextValue {
   defaultCountryCode: string;

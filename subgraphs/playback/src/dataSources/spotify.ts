@@ -10,7 +10,7 @@ import {
   RequestOptions,
 } from '@apollo/datasource-rest';
 import { OmitNever } from '../types/OmitNever';
-import { Spotify } from 'spotify-api';
+import { Spotify, SpotifyDataSource } from 'spotify-api';
 import path from 'path';
 import { GraphQLError } from 'graphql';
 
@@ -38,43 +38,6 @@ type RequestParams<
   body: Spotify.Request.BodyParams.Lookup<HTTPMethod, Path>;
   params: Spotify.Request.QueryParams.Lookup<HTTPMethod, Path>;
 }>;
-
-export interface SpotifyDataSource {
-  getDevices(
-    ip?: string
-  ): Promise<Spotify.Object.List<'devices', Spotify.Object.Device>>;
-  getPlaybackState(
-    params?: Spotify.Request.QueryParams.GET['/me/player']
-  ): Promise<Spotify.Object.PlaybackState>;
-  resumePlayback({
-    body,
-    params,
-  }: RequestParams<'PUT', '/me/player/play'>): Promise<boolean>;
-  pausePlayback({
-    params,
-  }: RequestParams<'PUT', '/me/player/pause'>): Promise<boolean>;
-  seekToPosition({
-    params,
-  }: RequestParams<'PUT', '/me/player/seek'>): Promise<boolean>;
-  setRepeatMode({
-    params,
-  }: RequestParams<'PUT', '/me/player/repeat'>): Promise<boolean>;
-  setVolume({
-    params,
-  }: RequestParams<'PUT', '/me/player/volume'>): Promise<boolean>;
-  shufflePlayback({
-    params,
-  }: RequestParams<'PUT', '/me/player/shuffle'>): Promise<boolean>;
-  skipToNext({
-    params,
-  }: RequestParams<'POST', '/me/player/next'>): Promise<boolean>;
-  skipToPrevious({
-    params,
-  }: RequestParams<'POST', '/me/player/previous'>): Promise<boolean>;
-  transferPlayback({
-    body,
-  }: RequestParams<'PUT', '/me/player'>): Promise<boolean>;
-}
 
 export default class SpotifyAPI
   extends RESTDataSource
