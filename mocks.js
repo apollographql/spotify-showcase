@@ -2,6 +2,10 @@ const accessToken = process.env.AUTH;
 const { writeFileSync } = require('fs');
 const { resolve } = require('path');
 
+if (!accessToken) {
+  throw new Error('Please set a valid access as the `AUTH` env var');
+}
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const mockedData = {
