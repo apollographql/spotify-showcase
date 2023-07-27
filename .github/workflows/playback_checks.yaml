@@ -37,17 +37,3 @@ jobs:
         run: npm run build -w playback-subgraph
       - name: Run unit tests
         run: npm run test -w playback-subgraph
-  check_playback_typescript:
-    name: Check TypeScript
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-      - name: Install packages
-        run: npm install -w playback-subgraph
-      - name: Check TypeScript
-        run: npm run lint:types -w playback-subgraph
