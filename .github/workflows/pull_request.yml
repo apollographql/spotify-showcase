@@ -7,7 +7,7 @@ on:
 jobs:
   eslint:
     runs-on: ubuntu-latest
-    name: ESLint
+    name: Lint
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -17,5 +17,5 @@ jobs:
           node-version: 18.x
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
-      - name: Run ESLint
+      - name: Run Lint
         run: npm run lint
