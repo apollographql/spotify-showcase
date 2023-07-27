@@ -4,12 +4,11 @@
 
 <img width="1512" alt="Screenshot 2023-03-07 at 5 13 26 PM" src="https://user-images.githubusercontent.com/565661/223585591-93b5b6d2-d3d8-44fb-9b30-8bb5fc508f90.png">
 
-## Architecture 
+## Architecture
 
-The overall API architecture is made up of two GraphQL servers, one exposing subscription/mutation functionality and the other exposing query functionality. Both GraphQL servers use the Spotify REST API as their datasource, but we are hosting the subscription server on dedicated infrastructure (Railway) and the other on serverless functions (Netlify). 
+The overall API architecture is made up of two GraphQL servers, one exposing subscription/mutation functionality and the other exposing query functionality. Both GraphQL servers use the Spotify REST API as their datasource, but we are hosting the subscription server on dedicated infrastructure (Railway) and the other on serverless functions (Netlify).
 
-The Apollo Router routes incoming traffic from the client application and integrates with GraphOS to receive schema updates and report usage metrics. 
-
+The Apollo Router routes incoming traffic from the client application and integrates with GraphOS to receive schema updates and report usage metrics.
 
 ```mermaid
 graph LR;
@@ -55,24 +54,25 @@ class Railway railwayBox
 class Apollo apolloBox
 ```
 
-***Note**: We are using only the Spotify REST API as our datasource for demonstration purposes. The subscriptions subgraph implements a polling mechanism that we host on a dedicated infrastructure while the "query" subgraph is hosted on serverless infrastructure*
+**\*Note**: We are using only the Spotify REST API as our datasource for demonstration purposes. The subscriptions subgraph implements a polling mechanism that we host on a dedicated infrastructure while the "query" subgraph is hosted on serverless infrastructure\*
 
 ## Getting started
 
 1. Clone this repo
 
-What do you want to do next with this demo app? 
+What do you want to do next with this demo app?
 
 ### I want to play around with the public version of the demo
 
 1. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
-  - [Query the graph](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer) *(**Spotify account required**) - OAuth workflow with be initiated from Apollo Explorer to login to our Spotify account to run any operation*
-    - Try having your Spotify app playing on your phone or desktop and then run [this mutation](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer?explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4RxighigSwiQAIAFXGAZwTIBtcBPAI1ygGsBZHfI04ADqkSIgA6Ua9Jqw4lBwkWIYs27AMp4UCOUMV6SBKlMYEkAc136AvpZE3hVkFaA)
-  - [View the graph's schema](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/schema/reference)
 
-### I want to re-create this demo in my GraphOS account 
+- [Query the graph](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer) _(**Spotify account required**) - OAuth workflow with be initiated from Apollo Explorer to login to our Spotify account to run any operation_
+  - Try having your Spotify app playing on your phone or desktop and then run [this mutation](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer?explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4RxighigSwiQAIAFXGAZwTIBtcBPAI1ygGsBZHfI04ADqkSIgA6Ua9Jqw4lBwkWIYs27AMp4UCOUMV6SBKlMYEkAc136AvpZE3hVkFaA)
+- [View the graph's schema](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/schema/reference)
 
-*To be completed*
+### I want to re-create this demo in my GraphOS account
+
+_To be completed_
 
 3. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys)
 4. Run the clone script with the API key
@@ -95,12 +95,12 @@ npm install
 npm start
 ```
 
-* Website - http://localhost:3000
-* Supergraph - http://localhost:4000
-* Spotify Subgraph - http://localhost:4001
-* Playback Subgraph - http://localhost:4002
+- Website - http://localhost:3000
+- Supergraph - http://localhost:4000
+- Spotify Subgraph - http://localhost:4001
+- Playback Subgraph - http://localhost:4002
 
-***Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect. 
+**\*Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect.
 
 #### Subgraph responsibilities
 
@@ -140,8 +140,8 @@ following:
 ## About
 
 Apollo Client's newest features unlock powerful UI development capabilities when
-used with React 18.  Using Suspense via `useSuspenseQuery` is one such
-capability, as is `useBackgroundQuery`.  Both of these will be shipped in 3.8.0.
+used with React 18. Using Suspense via `useSuspenseQuery` is one such
+capability, as is `useBackgroundQuery`. Both of these will be shipped in 3.8.0.
 These hooks, along with the already-available `useFragment` hook and the GraphQL
 `@defer` directive, comprise a toolkit for the UI developer to implement the
 _render-as-you-fetch_ pattern throughout the component tree.
@@ -155,16 +155,16 @@ the functionality we were building. As the team used it more and more, we
 decided that if we open-sourced it then the community could use it to try things
 out for themselves.
 
-So, here you go!  It's our hope that you are able to use this app to do any or all
+So, here you go! It's our hope that you are able to use this app to do any or all
 of these things:
 
-* Listen to music 🎧
-* Learn how to use React Suspense
-* See how the features in Apollo Client 3.7 and 3.8 work
-* Try the GraphQL `@defer` directive
-* Experiment with GraphOS by turning a monograph into a supergraph
-* Get some concrete code samples to inspire your own applications
-* Use as a template for reporting bugs
+- Listen to music 🎧
+- Learn how to use React Suspense
+- See how the features in Apollo Client 3.7 and 3.8 work
+- Try the GraphQL `@defer` directive
+- Experiment with GraphOS by turning a monograph into a supergraph
+- Get some concrete code samples to inspire your own applications
+- Use as a template for reporting bugs
 
 ## Maintainers
 

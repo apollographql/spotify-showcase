@@ -21,7 +21,7 @@ type ButtonComponent = <TButtonElement extends ElementType = 'button'>(
 ) => ReactElement | ReactNode | null;
 
 const Button: ButtonComponent = forwardRef(function Button<
-  TButtonElement extends ElementType = 'button'
+  TButtonElement extends ElementType = 'button',
 >(
   {
     as,

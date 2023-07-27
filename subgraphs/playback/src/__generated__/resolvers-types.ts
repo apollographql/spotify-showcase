@@ -1,26 +1,45 @@
-import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
 import { Spotify } from 'spotify-api';
 import { FieldConfig as FieldConfigType } from '../fieldConfigs/fieldConfig';
 import { Releasable } from './mappers';
 import { ContextValue } from '../types/ContextValue';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  Timestamp: { input: unknown; output: unknown; }
-  _FieldSet: { input: unknown; output: unknown; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  Timestamp: { input: unknown; output: unknown };
+  _FieldSet: { input: unknown; output: unknown };
 };
 
 export type Action =
@@ -100,50 +119,41 @@ export type Mutation = {
   transferPlayback?: Maybe<TransferPlaybackPayload>;
 };
 
-
 export type MutationPausePlaybackArgs = {
   context?: InputMaybe<PausePlaybackContextInput>;
 };
 
-
 export type MutationResumePlaybackArgs = {
   input?: InputMaybe<ResumePlaybackInput>;
 };
-
 
 export type MutationSeekToPositionArgs = {
   context?: InputMaybe<SeekToPositionContextInput>;
   positionMs: Scalars['Int']['input'];
 };
 
-
 export type MutationSetRepeatModeArgs = {
   context?: InputMaybe<SetRepeatModeContextInput>;
   state: RepeatMode;
 };
-
 
 export type MutationSetVolumeArgs = {
   context?: InputMaybe<SetVolumeContextInput>;
   volumePercent: Scalars['Int']['input'];
 };
 
-
 export type MutationShufflePlaybackArgs = {
   context?: InputMaybe<ShufflePlaybackContextInput>;
   state: Scalars['Boolean']['input'];
 };
 
-
 export type MutationSkipToNextArgs = {
   context?: InputMaybe<SkipToNextContextInput>;
 };
 
-
 export type MutationSkipToPreviousArgs = {
   context?: InputMaybe<SkipToPreviousContextInput>;
 };
-
 
 export type MutationTransferPlaybackArgs = {
   input: TransferPlaybackInput;
@@ -225,10 +235,7 @@ export type PlaybackState = {
   timestamp: Scalars['Timestamp']['output'];
 };
 
-export type RepeatMode =
-  | 'context'
-  | 'off'
-  | 'track';
+export type RepeatMode = 'context' | 'off' | 'track';
 
 export type ResumePlaybackInput = {
   /**
@@ -372,17 +379,28 @@ export type ResolversObject<TObject> = WithIndex<TObject>;
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 export type ReferenceResolver<TResult, TReference, TContext> = (
-      reference: TReference,
-      context: TContext,
-      info: GraphQLResolveInfo
-    ) => Promise<TResult> | TResult;
+  reference: TReference,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
 
-      type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
-      type NullableCheck<T, S> = Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
-      type ListCheck<T, S> = T extends (infer U)[] ? NullableCheck<U, S>[] : GraphQLRecursivePick<T, S>;
-      export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
-    
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs>;
+type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
+type NullableCheck<T, S> = Maybe<T> extends T
+  ? Maybe<ListCheck<NonNullable<T>, S>>
+  : ListCheck<T, S>;
+type ListCheck<T, S> = T extends (infer U)[]
+  ? NullableCheck<U, S>[]
+  : GraphQLRecursivePick<T, S>;
+export type GraphQLRecursivePick<T, S> = {
+  [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]>;
+};
+
+export type Resolver<
+  TResult,
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> = ResolverFn<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -405,9 +423,25 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
-  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
-  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+export interface SubscriptionSubscriberObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> {
+  subscribe: SubscriptionSubscribeFn<
+    { [key in TKey]: TResult },
+    TParent,
+    TContext,
+    TArgs
+  >;
+  resolve?: SubscriptionResolveFn<
+    TResult,
+    { [key in TKey]: TResult },
+    TContext,
+    TArgs
+  >;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -415,12 +449,26 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+export type SubscriptionObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
-  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+export type SubscriptionResolver<
+  TResult,
+  TKey extends string,
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> =
+  | ((
+      ...args: any[]
+    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
@@ -429,19 +477,26 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
+  obj: T,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
-
-
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
@@ -455,31 +510,69 @@ export type ResolversTypes = ResolversObject<{
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   Mutation: ResolverTypeWrapper<{}>;
   PausePlaybackContextInput: PausePlaybackContextInput;
-  PausePlaybackResponse: ResolverTypeWrapper<Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  PausePlaybackResponse: ResolverTypeWrapper<
+    Omit<PausePlaybackResponse, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
   PlaybackContextType: PlaybackContextType;
-  PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
+  PlaybackItem: ResolverTypeWrapper<
+    Spotify.Object.Episode | Spotify.Object.Track
+  >;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
   RepeatMode: RepeatMode;
   ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
-  ResumePlaybackPayload: ResolverTypeWrapper<Omit<ResumePlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  ResumePlaybackPayload: ResolverTypeWrapper<
+    Omit<ResumePlaybackPayload, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   SeekToPositionContextInput: SeekToPositionContextInput;
-  SeekToPositionResponse: ResolverTypeWrapper<Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SeekToPositionResponse: ResolverTypeWrapper<
+    Omit<SeekToPositionResponse, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   SetRepeatModeContextInput: SetRepeatModeContextInput;
-  SetRepeatModeResponse: ResolverTypeWrapper<Omit<SetRepeatModeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SetRepeatModeResponse: ResolverTypeWrapper<
+    Omit<SetRepeatModeResponse, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   SetVolumeContextInput: SetVolumeContextInput;
-  SetVolumeResponse: ResolverTypeWrapper<Omit<SetVolumeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SetVolumeResponse: ResolverTypeWrapper<
+    Omit<SetVolumeResponse, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   ShufflePlaybackContextInput: ShufflePlaybackContextInput;
-  ShufflePlaybackResponse: ResolverTypeWrapper<Omit<ShufflePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  ShufflePlaybackResponse: ResolverTypeWrapper<
+    Omit<ShufflePlaybackResponse, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   SkipToNextContextInput: SkipToNextContextInput;
-  SkipToNextResponse: ResolverTypeWrapper<Omit<SkipToNextResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SkipToNextResponse: ResolverTypeWrapper<
+    Omit<SkipToNextResponse, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   SkipToPreviousContextInput: SkipToPreviousContextInput;
-  SkipToPreviousResponse: ResolverTypeWrapper<Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  SkipToPreviousResponse: ResolverTypeWrapper<
+    Omit<SkipToPreviousResponse, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
   Subscription: ResolverTypeWrapper<{}>;
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']['output']>;
   TransferPlaybackInput: TransferPlaybackInput;
-  TransferPlaybackPayload: ResolverTypeWrapper<Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversTypes['PlaybackState']> }>;
+  TransferPlaybackPayload: ResolverTypeWrapper<
+    Omit<TransferPlaybackPayload, 'playbackState'> & {
+      playbackState?: Maybe<ResolversTypes['PlaybackState']>;
+    }
+  >;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -493,29 +586,47 @@ export type ResolversParentTypes = ResolversObject<{
   ExternalUrl: ExternalUrl;
   Mutation: {};
   PausePlaybackContextInput: PausePlaybackContextInput;
-  PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  PausePlaybackResponse: Omit<PausePlaybackResponse, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   PlaybackContext: Spotify.Object.Context;
   PlaybackItem: Spotify.Object.Episode | Spotify.Object.Track;
   PlaybackState: Spotify.Object.PlaybackState;
   ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
-  ResumePlaybackPayload: Omit<ResumePlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  ResumePlaybackPayload: Omit<ResumePlaybackPayload, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   SeekToPositionContextInput: SeekToPositionContextInput;
-  SeekToPositionResponse: Omit<SeekToPositionResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SeekToPositionResponse: Omit<SeekToPositionResponse, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   SetRepeatModeContextInput: SetRepeatModeContextInput;
-  SetRepeatModeResponse: Omit<SetRepeatModeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SetRepeatModeResponse: Omit<SetRepeatModeResponse, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   SetVolumeContextInput: SetVolumeContextInput;
-  SetVolumeResponse: Omit<SetVolumeResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SetVolumeResponse: Omit<SetVolumeResponse, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   ShufflePlaybackContextInput: ShufflePlaybackContextInput;
-  ShufflePlaybackResponse: Omit<ShufflePlaybackResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  ShufflePlaybackResponse: Omit<ShufflePlaybackResponse, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   SkipToNextContextInput: SkipToNextContextInput;
-  SkipToNextResponse: Omit<SkipToNextResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SkipToNextResponse: Omit<SkipToNextResponse, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   SkipToPreviousContextInput: SkipToPreviousContextInput;
-  SkipToPreviousResponse: Omit<SkipToPreviousResponse, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  SkipToPreviousResponse: Omit<SkipToPreviousResponse, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
   Subscription: {};
   Timestamp: Scalars['Timestamp']['output'];
   TransferPlaybackInput: TransferPlaybackInput;
-  TransferPlaybackPayload: Omit<TransferPlaybackPayload, 'playbackState'> & { playbackState?: Maybe<ResolversParentTypes['PlaybackState']> };
+  TransferPlaybackPayload: Omit<TransferPlaybackPayload, 'playbackState'> & {
+    playbackState?: Maybe<ResolversParentTypes['PlaybackState']>;
+  };
 }>;
 
 export type ContactDirectiveArgs = {
@@ -524,19 +635,51 @@ export type ContactDirectiveArgs = {
   url?: Maybe<Scalars['String']['input']>;
 };
 
-export type ContactDirectiveResolver<Result, Parent, ContextType = ContextValue, Args = ContactDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+export type ContactDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = ContextValue,
+  Args = ContactDirectiveArgs,
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type ActionResolvers = { INTERRUPTING_PLAYBACK: 'interrupting_playback', PAUSING: 'pausing', RESUMING: 'resuming', SEEKING: 'seeking', SKIPPING_NEXT: 'skipping_next', SKIPPING_PREV: 'skipping_prev', TOGGLING_REPEAT_CONTEXT: 'toggling_repeat_context', TOGGLING_REPEAT_TRACK: 'toggling_repeat_track', TOGGLING_SHUFFLE: 'toggling_shuffle', TRANSFERRING_PLAYBACK: 'transferring_playback' };
+export type ActionResolvers = {
+  INTERRUPTING_PLAYBACK: 'interrupting_playback';
+  PAUSING: 'pausing';
+  RESUMING: 'resuming';
+  SEEKING: 'seeking';
+  SKIPPING_NEXT: 'skipping_next';
+  SKIPPING_PREV: 'skipping_prev';
+  TOGGLING_REPEAT_CONTEXT: 'toggling_repeat_context';
+  TOGGLING_REPEAT_TRACK: 'toggling_repeat_track';
+  TOGGLING_SHUFFLE: 'toggling_shuffle';
+  TRANSFERRING_PLAYBACK: 'transferring_playback';
+};
 
-export type ActionsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Actions'] = ResolversParentTypes['Actions']> = ResolversObject<{
-  disallows?: Resolver<Array<ResolversTypes['Action']>, ParentType, ContextType>;
+export type ActionsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Actions'] = ResolversParentTypes['Actions'],
+> = ResolversObject<{
+  disallows?: Resolver<
+    Array<ResolversTypes['Action']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type DeviceResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Device'] = ResolversParentTypes['Device']> = ResolversObject<{
+export type DeviceResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Device'] = ResolversParentTypes['Device'],
+> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   isActive?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  isPrivateSession?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPrivateSession?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType
+  >;
   isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -544,50 +687,158 @@ export type DeviceResolvers<ContextType = ContextValue, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl']> = ResolversObject<{
+export type ExternalUrlResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl'],
+> = ResolversObject<{
   spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type MutationResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  pausePlayback?: Resolver<Maybe<ResolversTypes['PausePlaybackResponse']>, ParentType, ContextType, Partial<MutationPausePlaybackArgs>>;
-  resumePlayback?: Resolver<Maybe<ResolversTypes['ResumePlaybackPayload']>, ParentType, ContextType, Partial<MutationResumePlaybackArgs>>;
-  seekToPosition?: Resolver<Maybe<ResolversTypes['SeekToPositionResponse']>, ParentType, ContextType, RequireFields<MutationSeekToPositionArgs, 'positionMs'>>;
-  setRepeatMode?: Resolver<Maybe<ResolversTypes['SetRepeatModeResponse']>, ParentType, ContextType, RequireFields<MutationSetRepeatModeArgs, 'state'>>;
-  setVolume?: Resolver<Maybe<ResolversTypes['SetVolumeResponse']>, ParentType, ContextType, RequireFields<MutationSetVolumeArgs, 'volumePercent'>>;
-  shufflePlayback?: Resolver<Maybe<ResolversTypes['ShufflePlaybackResponse']>, ParentType, ContextType, RequireFields<MutationShufflePlaybackArgs, 'state'>>;
-  skipToNext?: Resolver<Maybe<ResolversTypes['SkipToNextResponse']>, ParentType, ContextType, Partial<MutationSkipToNextArgs>>;
-  skipToPrevious?: Resolver<Maybe<ResolversTypes['SkipToPreviousResponse']>, ParentType, ContextType, Partial<MutationSkipToPreviousArgs>>;
-  transferPlayback?: Resolver<Maybe<ResolversTypes['TransferPlaybackPayload']>, ParentType, ContextType, RequireFields<MutationTransferPlaybackArgs, 'input'>>;
+export type MutationResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
+> = ResolversObject<{
+  pausePlayback?: Resolver<
+    Maybe<ResolversTypes['PausePlaybackResponse']>,
+    ParentType,
+    ContextType,
+    Partial<MutationPausePlaybackArgs>
+  >;
+  resumePlayback?: Resolver<
+    Maybe<ResolversTypes['ResumePlaybackPayload']>,
+    ParentType,
+    ContextType,
+    Partial<MutationResumePlaybackArgs>
+  >;
+  seekToPosition?: Resolver<
+    Maybe<ResolversTypes['SeekToPositionResponse']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSeekToPositionArgs, 'positionMs'>
+  >;
+  setRepeatMode?: Resolver<
+    Maybe<ResolversTypes['SetRepeatModeResponse']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSetRepeatModeArgs, 'state'>
+  >;
+  setVolume?: Resolver<
+    Maybe<ResolversTypes['SetVolumeResponse']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSetVolumeArgs, 'volumePercent'>
+  >;
+  shufflePlayback?: Resolver<
+    Maybe<ResolversTypes['ShufflePlaybackResponse']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationShufflePlaybackArgs, 'state'>
+  >;
+  skipToNext?: Resolver<
+    Maybe<ResolversTypes['SkipToNextResponse']>,
+    ParentType,
+    ContextType,
+    Partial<MutationSkipToNextArgs>
+  >;
+  skipToPrevious?: Resolver<
+    Maybe<ResolversTypes['SkipToPreviousResponse']>,
+    ParentType,
+    ContextType,
+    Partial<MutationSkipToPreviousArgs>
+  >;
+  transferPlayback?: Resolver<
+    Maybe<ResolversTypes['TransferPlaybackPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationTransferPlaybackArgs, 'input'>
+  >;
 }>;
 
-export type PausePlaybackResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PausePlaybackResponse'] = ResolversParentTypes['PausePlaybackResponse']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type PausePlaybackResponseResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PausePlaybackResponse'] = ResolversParentTypes['PausePlaybackResponse'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackContextResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackContext'] = ResolversParentTypes['PlaybackContext']> = ResolversObject<{
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+export type PlaybackContextResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaybackContext'] = ResolversParentTypes['PlaybackContext'],
+> = ResolversObject<{
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['PlaybackContextType'], ParentType, ContextType>;
+  type?: Resolver<
+    ResolversTypes['PlaybackContextType'],
+    ParentType,
+    ContextType
+  >;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', AUDIO_FEATURES: 'audio_features', COLLECTION: 'collection', COLLECTION_YOUR_EPISODES: 'collectionyourepisodes', EPISODE: 'episode', GENRE: 'genre', PLAYLIST: 'playlist', SHOW: 'show', TRACK: 'track', USER: 'user' };
+export type PlaybackContextTypeResolvers = {
+  ALBUM: 'album';
+  ARTIST: 'artist';
+  AUDIO_FEATURES: 'audio_features';
+  COLLECTION: 'collection';
+  COLLECTION_YOUR_EPISODES: 'collectionyourepisodes';
+  EPISODE: 'episode';
+  GENRE: 'genre';
+  PLAYLIST: 'playlist';
+  SHOW: 'show';
+  TRACK: 'track';
+  USER: 'user';
+};
 
-export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['PlaybackItem']>, { __typename: 'PlaybackItem' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+export type PlaybackItemResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['PlaybackItem']>,
+    { __typename: 'PlaybackItem' } & GraphQLRecursivePick<
+      ParentType,
+      { id: true }
+    >,
+    ContextType
+  >;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState']> = ResolversObject<{
+export type PlaybackStateResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState'],
+> = ResolversObject<{
   actions?: Resolver<ResolversTypes['Actions'], ParentType, ContextType>;
-  context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
+  context?: Resolver<
+    Maybe<ResolversTypes['PlaybackContext']>,
+    ParentType,
+    ContextType
+  >;
   device?: Resolver<ResolversTypes['Device'], ParentType, ContextType>;
   isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+  item?: Resolver<
+    Maybe<ResolversTypes['PlaybackItem']>,
+    ParentType,
+    ContextType
+  >;
   progressMs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   repeatState?: Resolver<ResolversTypes['RepeatMode'], ParentType, ContextType>;
   shuffleState?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -595,53 +846,131 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RepeatModeResolvers = { CONTEXT: 'context', OFF: 'off', TRACK: 'track' };
+export type RepeatModeResolvers = {
+  CONTEXT: 'context';
+  OFF: 'off';
+  TRACK: 'track';
+};
 
-export type ResumePlaybackPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePlaybackPayload'] = ResolversParentTypes['ResumePlaybackPayload']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type ResumePlaybackPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ResumePlaybackPayload'] = ResolversParentTypes['ResumePlaybackPayload'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SeekToPositionResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SeekToPositionResponse'] = ResolversParentTypes['SeekToPositionResponse']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type SeekToPositionResponseResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SeekToPositionResponse'] = ResolversParentTypes['SeekToPositionResponse'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SetRepeatModeResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SetRepeatModeResponse'] = ResolversParentTypes['SetRepeatModeResponse']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type SetRepeatModeResponseResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SetRepeatModeResponse'] = ResolversParentTypes['SetRepeatModeResponse'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SetVolumeResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SetVolumeResponse'] = ResolversParentTypes['SetVolumeResponse']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type SetVolumeResponseResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SetVolumeResponse'] = ResolversParentTypes['SetVolumeResponse'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ShufflePlaybackResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ShufflePlaybackResponse'] = ResolversParentTypes['ShufflePlaybackResponse']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type ShufflePlaybackResponseResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ShufflePlaybackResponse'] = ResolversParentTypes['ShufflePlaybackResponse'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SkipToNextResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SkipToNextResponse'] = ResolversParentTypes['SkipToNextResponse']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type SkipToNextResponseResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SkipToNextResponse'] = ResolversParentTypes['SkipToNextResponse'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SkipToPreviousResponseResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SkipToPreviousResponse'] = ResolversParentTypes['SkipToPreviousResponse']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type SkipToPreviousResponseResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SkipToPreviousResponse'] = ResolversParentTypes['SkipToPreviousResponse'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SubscriptionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
-  playbackStateChanged?: SubscriptionResolver<Maybe<ResolversTypes['PlaybackState']>, "playbackStateChanged", ParentType, ContextType>;
+export type SubscriptionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription'],
+> = ResolversObject<{
+  playbackStateChanged?: SubscriptionResolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    'playbackStateChanged',
+    ParentType,
+    ContextType
+  >;
 }>;
 
-export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
+export interface TimestampScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
   name: 'Timestamp';
 }
 
-export type TransferPlaybackPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TransferPlaybackPayload'] = ResolversParentTypes['TransferPlaybackPayload']> = ResolversObject<{
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
+export type TransferPlaybackPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['TransferPlaybackPayload'] = ResolversParentTypes['TransferPlaybackPayload'],
+> = ResolversObject<{
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

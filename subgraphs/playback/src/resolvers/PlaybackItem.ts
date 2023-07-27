@@ -8,5 +8,5 @@ export const PlaybackItem: PlaybackItemResolvers = {
       case 'track':
         return 'Track';
     }
-  }
+  },
 };
