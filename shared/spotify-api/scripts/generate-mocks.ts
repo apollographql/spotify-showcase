@@ -145,17 +145,19 @@ async function get<Pathname extends keyof Spotify.Response.GET>(
     replaceUrlParams(pathname, params ?? {})
   );
 
-  return fetch(uri, {
+  const res = await fetch(uri, {
     headers: { Authorization: `Bearer ${accessToken}` },
-  }).then((res) => {
-    console.log(`GET ${uri} ${res.status}`);
-
-    if (!res.ok) {
-      throw new Error(`Error getting ${uri}`);
-    }
-
-    return res.json();
   });
+
+  console.log(`GET ${uri} ${res.status}`);
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(`${res.status} ${data.error.message}`);
+  }
+
+  return data;
 }
 
 function replaceUrlParams(pathname: string, params: Record<string, string>) {
