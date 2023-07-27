@@ -93,41 +93,42 @@ export const mocks: {
 }
 
 async function getPlaylist(id: string) {
-  return tap(await get('/playlists/:id', { id }), async (playlist) => {
-    store.playlists[id] = playlist;
-
-    await Promise.all(
-      playlist.tracks.items.map((item) => ({
-        ...item,
-        track: store.tracks[item.track.id],
-      }))
-    );
-  });
+  return tap(
+    (store.playlists[id] ||= await get('/playlists/:id', { id })),
+    async (playlist) => {
+      await Promise.all(
+        playlist.tracks.items.map((item) => ({
+          ...item,
+          track: store.tracks[item.track.id],
+        }))
+      );
+    }
+  );
 }
 
 async function getAlbum(id: string) {
-  return tap(await get('/albums/:id', { id }), async (album) => {
-    store.albums[id] = album;
-
-    await Promise.all([
-      ...album.artists.map((artist) => getArtist(artist.id)),
-      ...album.tracks.items.map((track) => getTrack(track.id)),
-    ]);
-  });
+  return tap(
+    (store.albums[id] ||= await get('/albums/:id', { id })),
+    async (album) => {
+      await Promise.all([
+        ...album.artists.map((artist) => getArtist(artist.id)),
+        ...album.tracks.items.map((track) => getTrack(track.id)),
+      ]);
+    }
+  );
 }
 
 async function getArtist(id: string) {
-  return tap(await get('/artists/:id', { id }), (artist) => {
-    store.artists[id] = artist;
-  });
+  return (store.artists[id] ||= await get('/artists/:id', { id }));
 }
 
 async function getTrack(id: string) {
-  return tap(await get('/tracks/:id', { id }), async (track) => {
-    store.tracks[id] = track;
-
-    await Promise.all(track.artists.map((artist) => getArtist(artist.id)));
-  });
+  return tap(
+    (store.tracks[id] ||= await get('/tracks/:id', { id })),
+    async (track) => {
+      await Promise.all(track.artists.map((artist) => getArtist(artist.id)));
+    }
+  );
 }
 
 async function get<Pathname extends keyof Spotify.Response.GET>(
