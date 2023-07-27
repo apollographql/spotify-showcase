@@ -4,4 +4,3 @@ import { itself } from './helpers';
 export const SearchShowEdge: SearchShowEdgeResolvers = {
   node: itself(),
 };
-

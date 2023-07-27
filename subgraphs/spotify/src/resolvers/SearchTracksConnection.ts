@@ -5,4 +5,3 @@ export const SearchTracksConnection: SearchTracksConnectionResolvers = {
   edges: prop('items'),
   pageInfo: itself(),
 };
-

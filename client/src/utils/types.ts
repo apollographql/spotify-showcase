@@ -6,7 +6,7 @@ import { Reference } from '@apollo/client';
 export type PropsOf<
   TComponent extends
     | keyof JSX.IntrinsicElements
-    | React.JSXElementConstructor<unknown>
+    | React.JSXElementConstructor<unknown>,
 > = JSX.LibraryManagedAttributes<
   TComponent,
   React.ComponentPropsWithoutRef<TComponent>
@@ -27,7 +27,7 @@ type AsProp<TComponent extends React.ElementType> = {
  */
 export type ExtendableProps<
   ExtendedProps = object,
-  OverrideProps = object
+  OverrideProps = object,
 > = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>;
 
 /**
@@ -37,7 +37,7 @@ export type ExtendableProps<
  */
 export type InheritableElementProps<
   TComponent extends React.ElementType,
-  Props = object
+  Props = object,
 > = ExtendableProps<PropsOf<TComponent>, Props>;
 
 /**
@@ -46,7 +46,7 @@ export type InheritableElementProps<
  */
 export type PolymorphicComponentProps<
   TComponent extends React.ElementType,
-  Props = object
+  Props = object,
 > = InheritableElementProps<TComponent, Props & AsProp<TComponent>>;
 
 /**
@@ -62,7 +62,7 @@ export type PolymorphicRef<TComponent extends React.ElementType> =
  */
 export type PolymorphicComponentPropsWithRef<
   C extends React.ElementType,
-  Props = object
+  Props = object,
 > = PolymorphicComponentProps<C, Props> & { ref?: PolymorphicRef<C> };
 
 export type WithRef<T, Key extends keyof T> = Omit<T, Key> & {

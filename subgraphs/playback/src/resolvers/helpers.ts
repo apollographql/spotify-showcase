@@ -1,7 +1,11 @@
 import { OmitIndexSignature, ValueOf } from 'type-fest';
 import { GraphQLError } from 'graphql';
 import { ContextValue } from '../types/ContextValue';
-import { ResolversParentTypes, Resolver, ResolverFn } from '../__generated__/resolvers-types';
+import {
+  ResolversParentTypes,
+  Resolver,
+  ResolverFn,
+} from '../__generated__/resolvers-types';
 import { getFieldConfig, identify } from '../fieldConfigs';
 import { wait } from '../utils/common';
 
@@ -20,6 +24,7 @@ export function itself<TParent extends ParentTypes>(): Resolver<
   return (parent: TParent) => parent;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function wrapWithSynthetics<TResult, TParent = {}, TArgs = {}>(
   resolver: ResolverFn<TResult, TParent, ContextValue, TArgs>
 ): Resolver<TResult, TParent, ContextValue, TArgs> {

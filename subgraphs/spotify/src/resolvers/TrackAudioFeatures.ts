@@ -7,4 +7,3 @@ export const TrackAudioFeatures: TrackAudioFeaturesResolvers = {
   timeSignature: prop('time_signature'),
   trackHref: prop('track_href'),
 };
-

@@ -1,29 +1,48 @@
-import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
 import { Spotify } from 'spotify-api';
 import { FieldConfig as FieldConfigType } from '../fieldConfigs/fieldConfig';
 import { Releasable } from './mappers';
 import { ContextValue } from '../types/ContextValue';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  CountryCode: { input: string; output: string; }
-  DateTime: { input: Date; output: Date; }
-  ErrorRate: { input: number; output: number; }
-  Timestamp: { input: unknown; output: unknown; }
-  _FieldSet: { input: unknown; output: unknown; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  CountryCode: { input: string; output: string };
+  DateTime: { input: Date; output: Date };
+  ErrorRate: { input: number; output: number };
+  Timestamp: { input: unknown; output: unknown };
+  _FieldSet: { input: unknown; output: unknown };
 };
 
 export type Action =
@@ -128,18 +147,13 @@ export type Album = {
   uri: Scalars['String']['output'];
 };
 
-
 /** Spotify catalog information for an album. */
 export type AlbumTracksArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type AlbumGroup =
-  | 'album'
-  | 'appears_on'
-  | 'compilation'
-  | 'single';
+export type AlbumGroup = 'album' | 'appears_on' | 'compilation' | 'single';
 
 export type AlbumTrackConnection = {
   __typename?: 'AlbumTrackConnection';
@@ -155,10 +169,7 @@ export type AlbumTrackEdge = {
   node: Track;
 };
 
-export type AlbumType =
-  | 'album'
-  | 'compilation'
-  | 'single';
+export type AlbumType = 'album' | 'compilation' | 'single';
 
 /** Spotify catalog information for an artist. */
 export type Artist = {
@@ -206,7 +217,6 @@ export type Artist = {
   uri: Scalars['String']['output'];
 };
 
-
 /** Spotify catalog information for an artist. */
 export type ArtistAlbumsArgs = {
   includeGroups?: InputMaybe<Array<AlbumGroup>>;
@@ -216,8 +226,6 @@ export type ArtistAlbumsArgs = {
 
 export type ArtistAlbumEdge = {
   __typename?: 'ArtistAlbumEdge';
-  /** The album group this album belongs to. */
-  albumGroup: AlbumGroup;
   /** Spotify catalog information for the album. */
   node: Album;
 };
@@ -316,51 +324,42 @@ export type CurrentUser = {
   user: User;
 };
 
-
 export type CurrentUserAlbumsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUserAlbumsContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type CurrentUserEpisodesArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUserEpisodesContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type CurrentUserFollowedArtistsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUserPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
-
 
 export type CurrentUserShowsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUserShowsContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type CurrentUserTopArtistsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -368,19 +367,16 @@ export type CurrentUserTopArtistsArgs = {
   timeRange?: InputMaybe<TimeRange>;
 };
 
-
 export type CurrentUserTopTracksArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   timeRange?: InputMaybe<TimeRange>;
 };
 
-
 export type CurrentUserTracksArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
-
 
 export type CurrentUserTracksContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
@@ -452,51 +448,51 @@ export type Device = {
 };
 
 /** Spotify catalog information for an episode. */
-export type Episode = PlaybackItem & PlaylistTrack & {
-  __typename?: 'Episode';
-  /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
-  audioPreviewUrl?: Maybe<Scalars['String']['output']>;
-  /** A description of the episode */
-  description: Scalars['String']['output'];
-  /** The episode length in milliseconds. */
-  durationMs: Scalars['Int']['output'];
-  /**
-   * Whether or not the episode has explicit content (`true` = yes it does;
-   * `false` = no it does not OR unknown).
-   */
-  explicit: Scalars['Boolean']['output'];
-  /** External URLs for this episode. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the episode. */
-  href: Scalars['String']['output'];
-  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode. */
-  id: Scalars['ID']['output'];
-  /** The cover art for the episode in various sizes, widest first. */
-  images: Array<Image>;
-  /** `true` if the episode is hosted outside of Spotify's CDN. */
-  isExternallyHosted: Scalars['Boolean']['output'];
-  /** `true` if the episode is playable in the given market. Otherwise `false`. */
-  isPlayable: Scalars['Boolean']['output'];
-  /**
-   * A list of the languages used in the episode, identified by their
-   * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
-   */
-  languages: Array<Scalars['String']['output']>;
-  /** The name of the episode. */
-  name: Scalars['String']['output'];
-  /** The date the episode was first released */
-  releaseDate: ReleaseDate;
-  /** The user's most recent position in the episode. */
-  resumePoint: ResumePoint;
-  /** The show containing the episode. */
-  show: Show;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the episode.
-   */
-  uri: Scalars['String']['output'];
-};
-
+export type Episode = PlaybackItem &
+  PlaylistTrack & {
+    __typename?: 'Episode';
+    /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
+    audioPreviewUrl?: Maybe<Scalars['String']['output']>;
+    /** A description of the episode */
+    description: Scalars['String']['output'];
+    /** The episode length in milliseconds. */
+    durationMs: Scalars['Int']['output'];
+    /**
+     * Whether or not the episode has explicit content (`true` = yes it does;
+     * `false` = no it does not OR unknown).
+     */
+    explicit: Scalars['Boolean']['output'];
+    /** External URLs for this episode. */
+    externalUrls: ExternalUrl;
+    /** A link to the Web API endpoint providing full details of the episode. */
+    href: Scalars['String']['output'];
+    /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode. */
+    id: Scalars['ID']['output'];
+    /** The cover art for the episode in various sizes, widest first. */
+    images: Array<Image>;
+    /** `true` if the episode is hosted outside of Spotify's CDN. */
+    isExternallyHosted: Scalars['Boolean']['output'];
+    /** `true` if the episode is playable in the given market. Otherwise `false`. */
+    isPlayable: Scalars['Boolean']['output'];
+    /**
+     * A list of the languages used in the episode, identified by their
+     * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
+     */
+    languages: Array<Scalars['String']['output']>;
+    /** The name of the episode. */
+    name: Scalars['String']['output'];
+    /** The date the episode was first released */
+    releaseDate: ReleaseDate;
+    /** The user's most recent position in the episode. */
+    resumePoint: ResumePoint;
+    /** The show containing the episode. */
+    show: Show;
+    /**
+     * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+     * for the episode.
+     */
+    uri: Scalars['String']['output'];
+  };
 
 /** Spotify catalog information for an episode. */
 export type EpisodeDescriptionArgs = {
@@ -630,66 +626,53 @@ export type Mutation = {
   updateFieldConfig?: Maybe<UpdateFieldConfigPayload>;
 };
 
-
 export type MutationAddItemToPlaybackQueueArgs = {
   input: AddItemToPlaybackQueueInput;
 };
-
 
 export type MutationAddItemsToPlaylistArgs = {
   input: AddItemsToPlaylistInput;
 };
 
-
 export type MutationRemoveItemFromPlaylistArgs = {
   input: RemoveItemFromPlaylistInput;
 };
-
 
 export type MutationRemoveSavedAlbumsArgs = {
   input: RemoveSavedAlbumsInput;
 };
 
-
 export type MutationRemoveSavedEpisodesArgs = {
   input: RemoveSavedEpisodesInput;
 };
-
 
 export type MutationRemoveSavedShowsArgs = {
   input: RemoveSavedShowsInput;
 };
 
-
 export type MutationRemoveSavedTracksArgs = {
   input: RemoveSavedTracksInput;
 };
-
 
 export type MutationResetFieldConfigArgs = {
   input: ResetFieldConfigInput;
 };
 
-
 export type MutationSaveAlbumsArgs = {
   input: SaveAlbumsInput;
 };
-
 
 export type MutationSaveEpisodesArgs = {
   input: SaveEpisodesInput;
 };
 
-
 export type MutationSaveShowsArgs = {
   input: SaveShowsInput;
 };
 
-
 export type MutationSaveTracksArgs = {
   input: SaveTracksInput;
 };
-
 
 export type MutationUpdateFieldConfigArgs = {
   input: UpdateFieldConfigInput;
@@ -837,7 +820,6 @@ export type Player = {
   recentlyPlayed?: Maybe<RecentlyPlayedConnection>;
 };
 
-
 export type PlayerRecentlyPlayedArgs = {
   after?: InputMaybe<Scalars['Int']['input']>;
   before?: InputMaybe<Scalars['Int']['input']>;
@@ -887,7 +869,6 @@ export type Playlist = {
    */
   uri: Scalars['String']['output'];
 };
-
 
 /** Information about a playlist owned by a Spotify user */
 export type PlaylistTracksArgs = {
@@ -1019,36 +1000,29 @@ export type Query = {
   user?: Maybe<User>;
 };
 
-
 export type QueryAlbumArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryAlbumsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-
 export type QueryArtistArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryArtistsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-
 export type QueryEpisodeArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryEpisodesArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type QueryFeaturedPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1056,18 +1030,15 @@ export type QueryFeaturedPlaylistsArgs = {
   timestamp?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-
 export type QueryNewReleasesArgs = {
   country?: InputMaybe<Scalars['CountryCode']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type QueryPlaylistArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryRecommendationsArgs = {
   acousticness?: InputMaybe<RecommendationAcousticnessInput>;
@@ -1088,7 +1059,6 @@ export type QueryRecommendationsArgs = {
   valence?: InputMaybe<RecommendationValenceInput>;
 };
 
-
 export type QuerySearchArgs = {
   includeExternal?: InputMaybe<SearchExternalValue>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1097,31 +1067,25 @@ export type QuerySearchArgs = {
   type: Array<SearchType>;
 };
 
-
 export type QueryShowArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryShowsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-
 export type QueryTrackArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryTracksArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-
 export type QueryTracksAudioFeaturesArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type QueryUserArgs = {
   id: Scalars['ID']['input'];
@@ -1255,10 +1219,7 @@ export type RecommendationSeedInput = {
 };
 
 /** Available entity types for recommendation seeds. */
-export type RecommendationSeedType =
-  | 'ARTIST'
-  | 'GENRE'
-  | 'TRACK';
+export type RecommendationSeedType = 'ARTIST' | 'GENRE' | 'TRACK';
 
 export type RecommendationSpeechinessInput = {
   max?: InputMaybe<Scalars['Float']['input']>;
@@ -1307,10 +1268,7 @@ export type ReleaseDate = {
   precision: ReleaseDatePrecision;
 };
 
-export type ReleaseDatePrecision =
-  | 'day'
-  | 'month'
-  | 'year';
+export type ReleaseDatePrecision = 'day' | 'month' | 'year';
 
 export type RemoveItemFromPlaylistInput = {
   /**
@@ -1400,10 +1358,7 @@ export type RemoveSavedTracksPayload = {
   removedTracks?: Maybe<Array<Track>>;
 };
 
-export type RepeatMode =
-  | 'context'
-  | 'off'
-  | 'track';
+export type RepeatMode = 'context' | 'off' | 'track';
 
 export type ResetFieldConfigInput = {
   /** The field that will be reset to its default values */
@@ -1601,8 +1556,7 @@ export type SearchEpisodesConnection = {
   pageInfo: PageInfo;
 };
 
-export type SearchExternalValue =
-  | 'audio';
+export type SearchExternalValue = 'audio';
 
 export type SearchPlaylistEdge = {
   __typename?: 'SearchPlaylistEdge';
@@ -1710,12 +1664,10 @@ export type Show = {
   uri: Scalars['String']['output'];
 };
 
-
 /** Spotify catalog information for a show. */
 export type ShowDescriptionArgs = {
   format?: InputMaybe<TextFormat>;
 };
-
 
 /** Spotify catalog information for a show. */
 export type ShowEpisodesArgs = {
@@ -1737,14 +1689,9 @@ export type ShowEpisodesConnection = {
   pageInfo: PageInfo;
 };
 
-export type TextFormat =
-  | 'HTML'
-  | 'PLAIN';
+export type TextFormat = 'HTML' | 'PLAIN';
 
-export type TimeRange =
-  | 'long_term'
-  | 'medium_term'
-  | 'short_term';
+export type TimeRange = 'long_term' | 'medium_term' | 'short_term';
 
 export type TopArtistEdge = {
   __typename?: 'TopArtistEdge';
@@ -1775,71 +1722,72 @@ export type TopTracksConnection = {
 };
 
 /** Spotify catalog information for a track. */
-export type Track = PlaybackItem & PlaylistTrack & {
-  __typename?: 'Track';
-  /** The album on which the track appears. */
-  album: Album;
-  /** The artists who performed the track. */
-  artists: Array<Artist>;
-  /** The track's audio feature information */
-  audioFeatures?: Maybe<TrackAudioFeatures>;
-  /** The disc number (usually `1` unless the album consists of more than one disc). */
-  discNumber: Scalars['Int']['output'];
-  /** The track length in milliseconds */
-  durationMs: Scalars['Int']['output'];
-  /**
-   * Whether or not the track has explicit lyrics (`true` = yes it does;
-   * `false` = no it does not OR unknown)
-   */
-  explicit: Scalars['Boolean']['output'];
-  /** Known external IDs for the track. */
-  externalIds?: Maybe<TrackExternalIds>;
-  /** Known external URLs for this track. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the track. */
-  href: Scalars['String']['output'];
-  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
-  id: Scalars['ID']['output'];
-  /** Whether or not the track is from a local file. */
-  isLocal: Scalars['Boolean']['output'];
-  /**
-   * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
-   * is applied. If `true`, the track is playable in the given market.
-   * Otherwise `false`.
-   */
-  isPlayable: Scalars['Boolean']['output'];
-  /** The name of the track */
-  name: Scalars['String']['output'];
-  /**
-   * The popularity of the track. The value will be between 0 and 100, with 100
-   * being the most popular.
-   *
-   * The popularity of a track is a value between 0 and 100, with 100 being the
-   * most popular. The popularity is calculated by algorithm and is based, in the
-   * most part, on the total number of plays the track has had and how recent those
-   * plays are.
-   *
-   * Generally speaking, songs that are being played a lot now will have a higher
-   * popularity than songs that were played a lot in the past. Duplicate tracks
-   * (e.g. the same track from a single and an album) are rated independently.
-   * Artist and album popularity is derived mathematically from track popularity.
-   * Note: the popularity value may lag actual popularity by a few days: the value
-   * is not updated in real time.
-   */
-  popularity: Scalars['Int']['output'];
-  /** A link to a 30 second preview (MP3 format) of the track. Can be `null` */
-  previewUrl?: Maybe<Scalars['String']['output']>;
-  /**
-   * The number of the track. If an album has several discs, the track number is
-   * the number on the specified disc.
-   */
-  trackNumber?: Maybe<Scalars['Int']['output']>;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the track.
-   */
-  uri: Scalars['String']['output'];
-};
+export type Track = PlaybackItem &
+  PlaylistTrack & {
+    __typename?: 'Track';
+    /** The album on which the track appears. */
+    album: Album;
+    /** The artists who performed the track. */
+    artists: Array<Artist>;
+    /** The track's audio feature information */
+    audioFeatures?: Maybe<TrackAudioFeatures>;
+    /** The disc number (usually `1` unless the album consists of more than one disc). */
+    discNumber: Scalars['Int']['output'];
+    /** The track length in milliseconds */
+    durationMs: Scalars['Int']['output'];
+    /**
+     * Whether or not the track has explicit lyrics (`true` = yes it does;
+     * `false` = no it does not OR unknown)
+     */
+    explicit: Scalars['Boolean']['output'];
+    /** Known external IDs for the track. */
+    externalIds?: Maybe<TrackExternalIds>;
+    /** Known external URLs for this track. */
+    externalUrls: ExternalUrl;
+    /** A link to the Web API endpoint providing full details of the track. */
+    href: Scalars['String']['output'];
+    /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
+    id: Scalars['ID']['output'];
+    /** Whether or not the track is from a local file. */
+    isLocal: Scalars['Boolean']['output'];
+    /**
+     * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
+     * is applied. If `true`, the track is playable in the given market.
+     * Otherwise `false`.
+     */
+    isPlayable: Scalars['Boolean']['output'];
+    /** The name of the track */
+    name: Scalars['String']['output'];
+    /**
+     * The popularity of the track. The value will be between 0 and 100, with 100
+     * being the most popular.
+     *
+     * The popularity of a track is a value between 0 and 100, with 100 being the
+     * most popular. The popularity is calculated by algorithm and is based, in the
+     * most part, on the total number of plays the track has had and how recent those
+     * plays are.
+     *
+     * Generally speaking, songs that are being played a lot now will have a higher
+     * popularity than songs that were played a lot in the past. Duplicate tracks
+     * (e.g. the same track from a single and an album) are rated independently.
+     * Artist and album popularity is derived mathematically from track popularity.
+     * Note: the popularity value may lag actual popularity by a few days: the value
+     * is not updated in real time.
+     */
+    popularity: Scalars['Int']['output'];
+    /** A link to a 30 second preview (MP3 format) of the track. Can be `null` */
+    previewUrl?: Maybe<Scalars['String']['output']>;
+    /**
+     * The number of the track. If an album has several discs, the track number is
+     * the number on the specified disc.
+     */
+    trackNumber?: Maybe<Scalars['Int']['output']>;
+    /**
+     * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+     * for the track.
+     */
+    uri: Scalars['String']['output'];
+  };
 
 export type TrackAudioFeatures = {
   __typename?: 'TrackAudioFeatures';
@@ -1928,17 +1876,28 @@ export type ResolversObject<TObject> = WithIndex<TObject>;
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 export type ReferenceResolver<TResult, TReference, TContext> = (
-      reference: TReference,
-      context: TContext,
-      info: GraphQLResolveInfo
-    ) => Promise<TResult> | TResult;
+  reference: TReference,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => Promise<TResult> | TResult;
 
-      type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
-      type NullableCheck<T, S> = Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
-      type ListCheck<T, S> = T extends (infer U)[] ? NullableCheck<U, S>[] : GraphQLRecursivePick<T, S>;
-      export type GraphQLRecursivePick<T, S> = { [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]> };
-    
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs>;
+type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
+type NullableCheck<T, S> = Maybe<T> extends T
+  ? Maybe<ListCheck<NonNullable<T>, S>>
+  : ListCheck<T, S>;
+type ListCheck<T, S> = T extends (infer U)[]
+  ? NullableCheck<U, S>[]
+  : GraphQLRecursivePick<T, S>;
+export type GraphQLRecursivePick<T, S> = {
+  [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]>;
+};
+
+export type Resolver<
+  TResult,
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> = ResolverFn<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -1961,9 +1920,25 @@ export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
-  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
-  resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
+export interface SubscriptionSubscriberObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> {
+  subscribe: SubscriptionSubscribeFn<
+    { [key in TKey]: TResult },
+    TParent,
+    TContext,
+    TArgs
+  >;
+  resolve?: SubscriptionResolveFn<
+    TResult,
+    { [key in TKey]: TResult },
+    TContext,
+    TArgs
+  >;
 }
 
 export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
@@ -1971,12 +1946,26 @@ export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
   resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
 }
 
-export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, TArgs> =
+export type SubscriptionObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> =
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
-  | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+export type SubscriptionResolver<
+  TResult,
+  TKey extends string,
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> =
+  | ((
+      ...args: any[]
+    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
@@ -1985,19 +1974,26 @@ export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   info: GraphQLResolveInfo
 ) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
 
-export type IsTypeOfResolverFn<T = {}, TContext = {}> = (obj: T, context: TContext, info: GraphQLResolveInfo) => boolean | Promise<boolean>;
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
+  obj: T,
+  context: TContext,
+  info: GraphQLResolveInfo
+) => boolean | Promise<boolean>;
 
 export type NextResolverFn<T> = () => Promise<T>;
 
-export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs = {}> = (
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> = (
   next: NextResolverFn<TResult>,
   parent: TParent,
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
-
-
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
@@ -2006,18 +2002,32 @@ export type ResolversTypes = ResolversObject<{
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  AddItemToPlaybackQueuePayload: ResolverTypeWrapper<Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversTypes['PlaybackQueue']> }>;
+  AddItemToPlaybackQueuePayload: ResolverTypeWrapper<
+    Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & {
+      playbackQueue?: Maybe<ResolversTypes['PlaybackQueue']>;
+    }
+  >;
   AddItemsToPlaylistInput: AddItemsToPlaylistInput;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  AddItemsToPlaylistPayload: ResolverTypeWrapper<Omit<AddItemsToPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversTypes['Playlist']> }>;
-  Album: ResolverTypeWrapper<Spotify.Object.Album | Spotify.Object.AlbumSimplified>;
+  AddItemsToPlaylistPayload: ResolverTypeWrapper<
+    Omit<AddItemsToPlaylistPayload, 'playlist'> & {
+      playlist?: Maybe<ResolversTypes['Playlist']>;
+    }
+  >;
+  Album: ResolverTypeWrapper<
+    Spotify.Object.Album | Spotify.Object.AlbumSimplified
+  >;
   AlbumGroup: AlbumGroup;
-  AlbumTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>>;
+  AlbumTrackConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.TrackSimplified>
+  >;
   AlbumTrackEdge: ResolverTypeWrapper<Spotify.Object.TrackSimplified>;
   AlbumType: AlbumType;
   Artist: ResolverTypeWrapper<Spotify.Object.Artist>;
   ArtistAlbumEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
-  ArtistAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>>;
+  ArtistAlbumsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>
+  >;
   Contains: ResolverTypeWrapper<Contains>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Copyright: ResolverTypeWrapper<Copyright>;
@@ -2029,7 +2039,9 @@ export type ResolversTypes = ResolversObject<{
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Developer: ResolverTypeWrapper<{}>;
   Device: ResolverTypeWrapper<Spotify.Object.Device>;
-  Episode: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.EpisodeSimplified>;
+  Episode: ResolverTypeWrapper<
+    Spotify.Object.Episode | Spotify.Object.EpisodeSimplified
+  >;
   ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']['output']>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   FeaturedPlaylistConnection: ResolverTypeWrapper<Spotify.Object.FeaturedPlaylists>;
@@ -2038,28 +2050,44 @@ export type ResolversTypes = ResolversObject<{
   FieldConfigInput: FieldConfigInput;
   FieldInput: FieldInput;
   FollowedArtistEdge: ResolverTypeWrapper<Spotify.Object.Artist>;
-  FollowedArtistsConnection: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<Spotify.Object.Artist>>;
+  FollowedArtistsConnection: ResolverTypeWrapper<
+    Spotify.Object.PaginatedCursorBased<Spotify.Object.Artist>
+  >;
   Followers: ResolverTypeWrapper<Followers>;
   Image: ResolverTypeWrapper<Image>;
   Mutation: ResolverTypeWrapper<{}>;
   NewReleaseEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
   NewReleasesConnection: ResolverTypeWrapper<Spotify.Object.NewReleases>;
   PageInfo: ResolverTypeWrapper<Spotify.Object.Paginated<unknown>>;
-  PageInfoCursorBased: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<unknown>>;
+  PageInfoCursorBased: ResolverTypeWrapper<
+    Spotify.Object.PaginatedCursorBased<unknown>
+  >;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
   PlaybackContextType: PlaybackContextType;
-  PlaybackItem: ResolverTypeWrapper<Spotify.Object.Episode | Spotify.Object.Track>;
+  PlaybackItem: ResolverTypeWrapper<
+    Spotify.Object.Episode | Spotify.Object.Track
+  >;
   PlaybackQueue: ResolverTypeWrapper<Spotify.Object.PlaybackQueue>;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
   Player: ResolverTypeWrapper<{}>;
-  Playlist: ResolverTypeWrapper<Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified>;
-  PlaylistConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Playlist>>;
+  Playlist: ResolverTypeWrapper<
+    Spotify.Object.Playlist | Spotify.Object.PlaylistSimplified
+  >;
+  PlaylistConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.Playlist>
+  >;
   PlaylistEdge: ResolverTypeWrapper<Spotify.Object.Playlist>;
-  PlaylistTrack: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.Episode>;
-  PlaylistTrackConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>>;
+  PlaylistTrack: ResolverTypeWrapper<
+    Spotify.Object.Track | Spotify.Object.Episode
+  >;
+  PlaylistTrackConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>
+  >;
   PlaylistTrackEdge: ResolverTypeWrapper<Spotify.Object.PlaylistTrack>;
   Query: ResolverTypeWrapper<{}>;
-  RecentlyPlayedConnection: ResolverTypeWrapper<Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>>;
+  RecentlyPlayedConnection: ResolverTypeWrapper<
+    Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>
+  >;
   RecentlyPlayedEdge: ResolverTypeWrapper<Spotify.Object.PlayHistory>;
   RecommendationAcousticnessInput: RecommendationAcousticnessInput;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
@@ -2083,68 +2111,142 @@ export type ResolversTypes = ResolversObject<{
   ReleaseDate: ResolverTypeWrapper<Releasable>;
   ReleaseDatePrecision: ReleaseDatePrecision;
   RemoveItemFromPlaylistInput: RemoveItemFromPlaylistInput;
-  RemoveItemFromPlaylistPayload: ResolverTypeWrapper<Omit<RemoveItemFromPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversTypes['Playlist']> }>;
+  RemoveItemFromPlaylistPayload: ResolverTypeWrapper<
+    Omit<RemoveItemFromPlaylistPayload, 'playlist'> & {
+      playlist?: Maybe<ResolversTypes['Playlist']>;
+    }
+  >;
   RemoveItemFromPlaylistTrackInput: RemoveItemFromPlaylistTrackInput;
   RemoveSavedAlbumsInput: RemoveSavedAlbumsInput;
-  RemoveSavedAlbumsPayload: ResolverTypeWrapper<Omit<RemoveSavedAlbumsPayload, 'removedAlbums'> & { removedAlbums?: Maybe<Array<ResolversTypes['Album']>> }>;
+  RemoveSavedAlbumsPayload: ResolverTypeWrapper<
+    Omit<RemoveSavedAlbumsPayload, 'removedAlbums'> & {
+      removedAlbums?: Maybe<Array<ResolversTypes['Album']>>;
+    }
+  >;
   RemoveSavedEpisodesInput: RemoveSavedEpisodesInput;
-  RemoveSavedEpisodesPayload: ResolverTypeWrapper<Omit<RemoveSavedEpisodesPayload, 'removedEpisodes'> & { removedEpisodes?: Maybe<Array<ResolversTypes['Episode']>> }>;
+  RemoveSavedEpisodesPayload: ResolverTypeWrapper<
+    Omit<RemoveSavedEpisodesPayload, 'removedEpisodes'> & {
+      removedEpisodes?: Maybe<Array<ResolversTypes['Episode']>>;
+    }
+  >;
   RemoveSavedShowsInput: RemoveSavedShowsInput;
-  RemoveSavedShowsPayload: ResolverTypeWrapper<Omit<RemoveSavedShowsPayload, 'removedShows'> & { removedShows?: Maybe<Array<ResolversTypes['Show']>> }>;
+  RemoveSavedShowsPayload: ResolverTypeWrapper<
+    Omit<RemoveSavedShowsPayload, 'removedShows'> & {
+      removedShows?: Maybe<Array<ResolversTypes['Show']>>;
+    }
+  >;
   RemoveSavedTracksInput: RemoveSavedTracksInput;
-  RemoveSavedTracksPayload: ResolverTypeWrapper<Omit<RemoveSavedTracksPayload, 'removedTracks'> & { removedTracks?: Maybe<Array<ResolversTypes['Track']>> }>;
+  RemoveSavedTracksPayload: ResolverTypeWrapper<
+    Omit<RemoveSavedTracksPayload, 'removedTracks'> & {
+      removedTracks?: Maybe<Array<ResolversTypes['Track']>>;
+    }
+  >;
   RepeatMode: RepeatMode;
   ResetFieldConfigInput: ResetFieldConfigInput;
-  ResetFieldConfigPayload: ResolverTypeWrapper<Omit<ResetFieldConfigPayload, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  ResetFieldConfigPayload: ResolverTypeWrapper<
+    Omit<ResetFieldConfigPayload, 'fieldConfig'> & {
+      fieldConfig?: Maybe<ResolversTypes['FieldConfig']>;
+    }
+  >;
   ResumePoint: ResolverTypeWrapper<Spotify.Object.ResumePoint>;
   SaveAlbumsInput: SaveAlbumsInput;
-  SaveAlbumsPayload: ResolverTypeWrapper<Omit<SaveAlbumsPayload, 'savedAlbums'> & { savedAlbums?: Maybe<Array<ResolversTypes['Album']>> }>;
+  SaveAlbumsPayload: ResolverTypeWrapper<
+    Omit<SaveAlbumsPayload, 'savedAlbums'> & {
+      savedAlbums?: Maybe<Array<ResolversTypes['Album']>>;
+    }
+  >;
   SaveEpisodesInput: SaveEpisodesInput;
-  SaveEpisodesPayload: ResolverTypeWrapper<Omit<SaveEpisodesPayload, 'savedEpisodes'> & { savedEpisodes?: Maybe<Array<ResolversTypes['Episode']>> }>;
+  SaveEpisodesPayload: ResolverTypeWrapper<
+    Omit<SaveEpisodesPayload, 'savedEpisodes'> & {
+      savedEpisodes?: Maybe<Array<ResolversTypes['Episode']>>;
+    }
+  >;
   SaveShowsInput: SaveShowsInput;
-  SaveShowsPayload: ResolverTypeWrapper<Omit<SaveShowsPayload, 'savedShows'> & { savedShows?: Maybe<Array<ResolversTypes['Show']>> }>;
+  SaveShowsPayload: ResolverTypeWrapper<
+    Omit<SaveShowsPayload, 'savedShows'> & {
+      savedShows?: Maybe<Array<ResolversTypes['Show']>>;
+    }
+  >;
   SaveTracksInput: SaveTracksInput;
-  SaveTracksPayload: ResolverTypeWrapper<Omit<SaveTracksPayload, 'savedTracks'> & { savedTracks?: Maybe<Array<ResolversTypes['Track']>> }>;
+  SaveTracksPayload: ResolverTypeWrapper<
+    Omit<SaveTracksPayload, 'savedTracks'> & {
+      savedTracks?: Maybe<Array<ResolversTypes['Track']>>;
+    }
+  >;
   SavedAlbumEdge: ResolverTypeWrapper<Spotify.Object.SavedAlbum>;
-  SavedAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedAlbum>>;
+  SavedAlbumsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.SavedAlbum>
+  >;
   SavedEpisodeEdge: ResolverTypeWrapper<Spotify.Object.SavedEpisode>;
-  SavedEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedEpisode>>;
+  SavedEpisodesConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.SavedEpisode>
+  >;
   SavedShowEdge: ResolverTypeWrapper<Spotify.Object.SavedShow>;
-  SavedShowsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedShow>>;
+  SavedShowsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.SavedShow>
+  >;
   SavedTrackEdge: ResolverTypeWrapper<Spotify.Object.SavedTrack>;
-  SavedTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.SavedTrack>>;
+  SavedTracksConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.SavedTrack>
+  >;
   SchemaField: ResolverTypeWrapper<SchemaField>;
   SchemaFieldInput: SchemaFieldInput;
   SearchAlbumEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
-  SearchAlbumsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>>;
+  SearchAlbumsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>
+  >;
   SearchArtistEdge: ResolverTypeWrapper<Spotify.Object.Artist>;
-  SearchArtistsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Artist>>;
+  SearchArtistsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.Artist>
+  >;
   SearchEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
-  SearchEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
+  SearchEpisodesConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>
+  >;
   SearchExternalValue: SearchExternalValue;
   SearchPlaylistEdge: ResolverTypeWrapper<Spotify.Object.PlaylistSimplified>;
-  SearchPlaylistsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.PlaylistSimplified>>;
+  SearchPlaylistsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.PlaylistSimplified>
+  >;
   SearchResults: ResolverTypeWrapper<Spotify.Object.SearchResults>;
   SearchShowEdge: ResolverTypeWrapper<Spotify.Object.ShowSimplified>;
-  SearchShowsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.ShowSimplified>>;
+  SearchShowsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.ShowSimplified>
+  >;
   SearchTrackEdge: ResolverTypeWrapper<Spotify.Object.Track>;
-  SearchTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Track>>;
+  SearchTracksConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.Track>
+  >;
   SearchType: SearchType;
-  Show: ResolverTypeWrapper<Spotify.Object.Show | Spotify.Object.ShowSimplified>;
+  Show: ResolverTypeWrapper<
+    Spotify.Object.Show | Spotify.Object.ShowSimplified
+  >;
   ShowEpisodeEdge: ResolverTypeWrapper<Spotify.Object.EpisodeSimplified>;
-  ShowEpisodesConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>>;
+  ShowEpisodesConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>
+  >;
   TextFormat: TextFormat;
   TimeRange: TimeRange;
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']['output']>;
   TopArtistEdge: ResolverTypeWrapper<Spotify.Object.Artist>;
-  TopArtistsConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Artist>>;
+  TopArtistsConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.Artist>
+  >;
   TopTrackEdge: ResolverTypeWrapper<Spotify.Object.Track>;
-  TopTracksConnection: ResolverTypeWrapper<Spotify.Object.Paginated<Spotify.Object.Track>>;
-  Track: ResolverTypeWrapper<Spotify.Object.Track | Spotify.Object.TrackSimplified>;
+  TopTracksConnection: ResolverTypeWrapper<
+    Spotify.Object.Paginated<Spotify.Object.Track>
+  >;
+  Track: ResolverTypeWrapper<
+    Spotify.Object.Track | Spotify.Object.TrackSimplified
+  >;
   TrackAudioFeatures: ResolverTypeWrapper<Spotify.Object.TrackAudioFeatures>;
   TrackExternalIds: ResolverTypeWrapper<TrackExternalIds>;
   UpdateFieldConfigInput: UpdateFieldConfigInput;
-  UpdateFieldConfigPayload: ResolverTypeWrapper<Omit<UpdateFieldConfigPayload, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversTypes['FieldConfig']> }>;
+  UpdateFieldConfigPayload: ResolverTypeWrapper<
+    Omit<UpdateFieldConfigPayload, 'fieldConfig'> & {
+      fieldConfig?: Maybe<ResolversTypes['FieldConfig']>;
+    }
+  >;
   User: ResolverTypeWrapper<Spotify.Object.User>;
 }>;
 
@@ -2154,10 +2256,15 @@ export type ResolversParentTypes = ResolversObject<{
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
   ID: Scalars['ID']['output'];
   String: Scalars['String']['output'];
-  AddItemToPlaybackQueuePayload: Omit<AddItemToPlaybackQueuePayload, 'playbackQueue'> & { playbackQueue?: Maybe<ResolversParentTypes['PlaybackQueue']> };
+  AddItemToPlaybackQueuePayload: Omit<
+    AddItemToPlaybackQueuePayload,
+    'playbackQueue'
+  > & { playbackQueue?: Maybe<ResolversParentTypes['PlaybackQueue']> };
   AddItemsToPlaylistInput: AddItemsToPlaylistInput;
   Int: Scalars['Int']['output'];
-  AddItemsToPlaylistPayload: Omit<AddItemsToPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversParentTypes['Playlist']> };
+  AddItemsToPlaylistPayload: Omit<AddItemsToPlaylistPayload, 'playlist'> & {
+    playlist?: Maybe<ResolversParentTypes['Playlist']>;
+  };
   Album: Spotify.Object.Album | Spotify.Object.AlbumSimplified;
   AlbumTrackConnection: Spotify.Object.Paginated<Spotify.Object.TrackSimplified>;
   AlbumTrackEdge: Spotify.Object.TrackSimplified;
@@ -2225,27 +2332,49 @@ export type ResolversParentTypes = ResolversObject<{
   Recommendations: Spotify.Object.Recommendations;
   ReleaseDate: Releasable;
   RemoveItemFromPlaylistInput: RemoveItemFromPlaylistInput;
-  RemoveItemFromPlaylistPayload: Omit<RemoveItemFromPlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversParentTypes['Playlist']> };
+  RemoveItemFromPlaylistPayload: Omit<
+    RemoveItemFromPlaylistPayload,
+    'playlist'
+  > & { playlist?: Maybe<ResolversParentTypes['Playlist']> };
   RemoveItemFromPlaylistTrackInput: RemoveItemFromPlaylistTrackInput;
   RemoveSavedAlbumsInput: RemoveSavedAlbumsInput;
-  RemoveSavedAlbumsPayload: Omit<RemoveSavedAlbumsPayload, 'removedAlbums'> & { removedAlbums?: Maybe<Array<ResolversParentTypes['Album']>> };
+  RemoveSavedAlbumsPayload: Omit<RemoveSavedAlbumsPayload, 'removedAlbums'> & {
+    removedAlbums?: Maybe<Array<ResolversParentTypes['Album']>>;
+  };
   RemoveSavedEpisodesInput: RemoveSavedEpisodesInput;
-  RemoveSavedEpisodesPayload: Omit<RemoveSavedEpisodesPayload, 'removedEpisodes'> & { removedEpisodes?: Maybe<Array<ResolversParentTypes['Episode']>> };
+  RemoveSavedEpisodesPayload: Omit<
+    RemoveSavedEpisodesPayload,
+    'removedEpisodes'
+  > & { removedEpisodes?: Maybe<Array<ResolversParentTypes['Episode']>> };
   RemoveSavedShowsInput: RemoveSavedShowsInput;
-  RemoveSavedShowsPayload: Omit<RemoveSavedShowsPayload, 'removedShows'> & { removedShows?: Maybe<Array<ResolversParentTypes['Show']>> };
+  RemoveSavedShowsPayload: Omit<RemoveSavedShowsPayload, 'removedShows'> & {
+    removedShows?: Maybe<Array<ResolversParentTypes['Show']>>;
+  };
   RemoveSavedTracksInput: RemoveSavedTracksInput;
-  RemoveSavedTracksPayload: Omit<RemoveSavedTracksPayload, 'removedTracks'> & { removedTracks?: Maybe<Array<ResolversParentTypes['Track']>> };
+  RemoveSavedTracksPayload: Omit<RemoveSavedTracksPayload, 'removedTracks'> & {
+    removedTracks?: Maybe<Array<ResolversParentTypes['Track']>>;
+  };
   ResetFieldConfigInput: ResetFieldConfigInput;
-  ResetFieldConfigPayload: Omit<ResetFieldConfigPayload, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  ResetFieldConfigPayload: Omit<ResetFieldConfigPayload, 'fieldConfig'> & {
+    fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']>;
+  };
   ResumePoint: Spotify.Object.ResumePoint;
   SaveAlbumsInput: SaveAlbumsInput;
-  SaveAlbumsPayload: Omit<SaveAlbumsPayload, 'savedAlbums'> & { savedAlbums?: Maybe<Array<ResolversParentTypes['Album']>> };
+  SaveAlbumsPayload: Omit<SaveAlbumsPayload, 'savedAlbums'> & {
+    savedAlbums?: Maybe<Array<ResolversParentTypes['Album']>>;
+  };
   SaveEpisodesInput: SaveEpisodesInput;
-  SaveEpisodesPayload: Omit<SaveEpisodesPayload, 'savedEpisodes'> & { savedEpisodes?: Maybe<Array<ResolversParentTypes['Episode']>> };
+  SaveEpisodesPayload: Omit<SaveEpisodesPayload, 'savedEpisodes'> & {
+    savedEpisodes?: Maybe<Array<ResolversParentTypes['Episode']>>;
+  };
   SaveShowsInput: SaveShowsInput;
-  SaveShowsPayload: Omit<SaveShowsPayload, 'savedShows'> & { savedShows?: Maybe<Array<ResolversParentTypes['Show']>> };
+  SaveShowsPayload: Omit<SaveShowsPayload, 'savedShows'> & {
+    savedShows?: Maybe<Array<ResolversParentTypes['Show']>>;
+  };
   SaveTracksInput: SaveTracksInput;
-  SaveTracksPayload: Omit<SaveTracksPayload, 'savedTracks'> & { savedTracks?: Maybe<Array<ResolversParentTypes['Track']>> };
+  SaveTracksPayload: Omit<SaveTracksPayload, 'savedTracks'> & {
+    savedTracks?: Maybe<Array<ResolversParentTypes['Track']>>;
+  };
   SavedAlbumEdge: Spotify.Object.SavedAlbum;
   SavedAlbumsConnection: Spotify.Object.Paginated<Spotify.Object.SavedAlbum>;
   SavedEpisodeEdge: Spotify.Object.SavedEpisode;
@@ -2281,7 +2410,9 @@ export type ResolversParentTypes = ResolversObject<{
   TrackAudioFeatures: Spotify.Object.TrackAudioFeatures;
   TrackExternalIds: TrackExternalIds;
   UpdateFieldConfigInput: UpdateFieldConfigInput;
-  UpdateFieldConfigPayload: Omit<UpdateFieldConfigPayload, 'fieldConfig'> & { fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']> };
+  UpdateFieldConfigPayload: Omit<UpdateFieldConfigPayload, 'fieldConfig'> & {
+    fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']>;
+  };
   User: Spotify.Object.User;
 }>;
 
@@ -2291,63 +2422,166 @@ export type ContactDirectiveArgs = {
   url?: Maybe<Scalars['String']['input']>;
 };
 
-export type ContactDirectiveResolver<Result, Parent, ContextType = ContextValue, Args = ContactDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+export type ContactDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = ContextValue,
+  Args = ContactDirectiveArgs,
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type ActionResolvers = { INTERRUPTING_PLAYBACK: 'interrupting_playback', PAUSING: 'pausing', RESUMING: 'resuming', SEEKING: 'seeking', SKIPPING_NEXT: 'skipping_next', SKIPPING_PREV: 'skipping_prev', TOGGLING_REPEAT_CONTEXT: 'toggling_repeat_context', TOGGLING_REPEAT_TRACK: 'toggling_repeat_track', TOGGLING_SHUFFLE: 'toggling_shuffle', TRANSFERRING_PLAYBACK: 'transferring_playback' };
+export type ActionResolvers = {
+  INTERRUPTING_PLAYBACK: 'interrupting_playback';
+  PAUSING: 'pausing';
+  RESUMING: 'resuming';
+  SEEKING: 'seeking';
+  SKIPPING_NEXT: 'skipping_next';
+  SKIPPING_PREV: 'skipping_prev';
+  TOGGLING_REPEAT_CONTEXT: 'toggling_repeat_context';
+  TOGGLING_REPEAT_TRACK: 'toggling_repeat_track';
+  TOGGLING_SHUFFLE: 'toggling_shuffle';
+  TRANSFERRING_PLAYBACK: 'transferring_playback';
+};
 
-export type ActionsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Actions'] = ResolversParentTypes['Actions']> = ResolversObject<{
-  disallows?: Resolver<Array<ResolversTypes['Action']>, ParentType, ContextType>;
+export type ActionsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Actions'] = ResolversParentTypes['Actions'],
+> = ResolversObject<{
+  disallows?: Resolver<
+    Array<ResolversTypes['Action']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AddItemToPlaybackQueuePayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AddItemToPlaybackQueuePayload'] = ResolversParentTypes['AddItemToPlaybackQueuePayload']> = ResolversObject<{
-  playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
+export type AddItemToPlaybackQueuePayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['AddItemToPlaybackQueuePayload'] = ResolversParentTypes['AddItemToPlaybackQueuePayload'],
+> = ResolversObject<{
+  playbackQueue?: Resolver<
+    Maybe<ResolversTypes['PlaybackQueue']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AddItemsToPlaylistPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AddItemsToPlaylistPayload'] = ResolversParentTypes['AddItemsToPlaylistPayload']> = ResolversObject<{
-  playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType>;
+export type AddItemsToPlaylistPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['AddItemsToPlaylistPayload'] = ResolversParentTypes['AddItemsToPlaylistPayload'],
+> = ResolversObject<{
+  playlist?: Resolver<
+    Maybe<ResolversTypes['Playlist']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AlbumResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Album'] = ResolversParentTypes['Album']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Album']>, { __typename: 'Album' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+export type AlbumResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Album'] = ResolversParentTypes['Album'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Album']>,
+    { __typename: 'Album' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
   albumType?: Resolver<ResolversTypes['AlbumType'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
-  copyrights?: Resolver<Array<ResolversTypes['Copyright']>, ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  copyrights?: Resolver<
+    Array<ResolversTypes['Copyright']>,
+    ParentType,
+    ContextType
+  >;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  releaseDate?: Resolver<ResolversTypes['ReleaseDate'], ParentType, ContextType>;
+  releaseDate?: Resolver<
+    ResolversTypes['ReleaseDate'],
+    ParentType,
+    ContextType
+  >;
   totalTracks?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  tracks?: Resolver<Maybe<ResolversTypes['AlbumTrackConnection']>, ParentType, ContextType, Partial<AlbumTracksArgs>>;
+  tracks?: Resolver<
+    Maybe<ResolversTypes['AlbumTrackConnection']>,
+    ParentType,
+    ContextType,
+    Partial<AlbumTracksArgs>
+  >;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AlbumGroupResolvers = { ALBUM: 'album', APPEARS_ON: 'appears_on', COMPILATION: 'compilation', SINGLE: 'single' };
+export type AlbumGroupResolvers = {
+  ALBUM: 'album';
+  APPEARS_ON: 'appears_on';
+  COMPILATION: 'compilation';
+  SINGLE: 'single';
+};
 
-export type AlbumTrackConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AlbumTrackConnection'] = ResolversParentTypes['AlbumTrackConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['AlbumTrackEdge']>, ParentType, ContextType>;
+export type AlbumTrackConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['AlbumTrackConnection'] = ResolversParentTypes['AlbumTrackConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['AlbumTrackEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AlbumTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['AlbumTrackEdge'] = ResolversParentTypes['AlbumTrackEdge']> = ResolversObject<{
+export type AlbumTrackEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['AlbumTrackEdge'] = ResolversParentTypes['AlbumTrackEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AlbumTypeResolvers = { ALBUM: 'album', COMPILATION: 'compilation', SINGLE: 'single' };
+export type AlbumTypeResolvers = {
+  ALBUM: 'album';
+  COMPILATION: 'compilation';
+  SINGLE: 'single';
+};
 
-export type ArtistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Artist']>, { __typename: 'Artist' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
-  albums?: Resolver<Maybe<ResolversTypes['ArtistAlbumsConnection']>, ParentType, ContextType, Partial<ArtistAlbumsArgs>>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+export type ArtistResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Artist'] = ResolversParentTypes['Artist'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Artist']>,
+    { __typename: 'Artist' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  albums?: Resolver<
+    Maybe<ResolversTypes['ArtistAlbumsConnection']>,
+    ParentType,
+    ContextType,
+    Partial<ArtistAlbumsArgs>
+  >;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -2355,89 +2589,230 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   popularity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  relatedArtists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
+  relatedArtists?: Resolver<
+    Array<ResolversTypes['Artist']>,
+    ParentType,
+    ContextType
+  >;
   topTracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ArtistAlbumEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ArtistAlbumEdge'] = ResolversParentTypes['ArtistAlbumEdge']> = ResolversObject<{
-  albumGroup?: Resolver<ResolversTypes['AlbumGroup'], ParentType, ContextType>;
+export type ArtistAlbumEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ArtistAlbumEdge'] = ResolversParentTypes['ArtistAlbumEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ArtistAlbumsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ArtistAlbumsConnection'] = ResolversParentTypes['ArtistAlbumsConnection']> = ResolversObject<{
-  edges?: Resolver<Maybe<Array<ResolversTypes['ArtistAlbumEdge']>>, ParentType, ContextType>;
+export type ArtistAlbumsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ArtistAlbumsConnection'] = ResolversParentTypes['ArtistAlbumsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Maybe<Array<ResolversTypes['ArtistAlbumEdge']>>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ContainsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Contains'] = ResolversParentTypes['Contains']> = ResolversObject<{
-  albums?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
-  episodes?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
-  shows?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
-  tracks?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType>;
+export type ContainsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Contains'] = ResolversParentTypes['Contains'],
+> = ResolversObject<{
+  albums?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType
+  >;
+  episodes?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType
+  >;
+  shows?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType
+  >;
+  tracks?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CopyrightResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Copyright'] = ResolversParentTypes['Copyright']> = ResolversObject<{
+export type CopyrightResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Copyright'] = ResolversParentTypes['Copyright'],
+> = ResolversObject<{
   text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['CopyrightType']>, ParentType, ContextType>;
+  type?: Resolver<
+    Maybe<ResolversTypes['CopyrightType']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export interface CountryCodeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['CountryCode'], any> {
+export interface CountryCodeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['CountryCode'], any> {
   name: 'CountryCode';
 }
 
-export type CurrentUserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser']> = ResolversObject<{
-  albums?: Resolver<Maybe<ResolversTypes['SavedAlbumsConnection']>, ParentType, ContextType, Partial<CurrentUserAlbumsArgs>>;
-  albumsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserAlbumsContainsArgs, 'ids'>>;
-  episodes?: Resolver<Maybe<ResolversTypes['SavedEpisodesConnection']>, ParentType, ContextType, Partial<CurrentUserEpisodesArgs>>;
-  episodesContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserEpisodesContainsArgs, 'ids'>>;
-  followedArtists?: Resolver<Maybe<ResolversTypes['FollowedArtistsConnection']>, ParentType, ContextType, Partial<CurrentUserFollowedArtistsArgs>>;
+export type CurrentUserResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['CurrentUser'] = ResolversParentTypes['CurrentUser'],
+> = ResolversObject<{
+  albums?: Resolver<
+    Maybe<ResolversTypes['SavedAlbumsConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserAlbumsArgs>
+  >;
+  albumsContains?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType,
+    RequireFields<CurrentUserAlbumsContainsArgs, 'ids'>
+  >;
+  episodes?: Resolver<
+    Maybe<ResolversTypes['SavedEpisodesConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserEpisodesArgs>
+  >;
+  episodesContains?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType,
+    RequireFields<CurrentUserEpisodesContainsArgs, 'ids'>
+  >;
+  followedArtists?: Resolver<
+    Maybe<ResolversTypes['FollowedArtistsConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserFollowedArtistsArgs>
+  >;
   player?: Resolver<ResolversTypes['Player'], ParentType, ContextType>;
-  playlists?: Resolver<Maybe<ResolversTypes['PlaylistConnection']>, ParentType, ContextType, Partial<CurrentUserPlaylistsArgs>>;
-  shows?: Resolver<Maybe<ResolversTypes['SavedShowsConnection']>, ParentType, ContextType, Partial<CurrentUserShowsArgs>>;
-  showsContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserShowsContainsArgs, 'ids'>>;
-  topArtists?: Resolver<Maybe<ResolversTypes['TopArtistsConnection']>, ParentType, ContextType, Partial<CurrentUserTopArtistsArgs>>;
-  topTracks?: Resolver<Maybe<ResolversTypes['TopTracksConnection']>, ParentType, ContextType, Partial<CurrentUserTopTracksArgs>>;
-  tracks?: Resolver<Maybe<ResolversTypes['SavedTracksConnection']>, ParentType, ContextType, Partial<CurrentUserTracksArgs>>;
-  tracksContains?: Resolver<Maybe<Array<ResolversTypes['Boolean']>>, ParentType, ContextType, RequireFields<CurrentUserTracksContainsArgs, 'ids'>>;
+  playlists?: Resolver<
+    Maybe<ResolversTypes['PlaylistConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserPlaylistsArgs>
+  >;
+  shows?: Resolver<
+    Maybe<ResolversTypes['SavedShowsConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserShowsArgs>
+  >;
+  showsContains?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType,
+    RequireFields<CurrentUserShowsContainsArgs, 'ids'>
+  >;
+  topArtists?: Resolver<
+    Maybe<ResolversTypes['TopArtistsConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserTopArtistsArgs>
+  >;
+  topTracks?: Resolver<
+    Maybe<ResolversTypes['TopTracksConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserTopTracksArgs>
+  >;
+  tracks?: Resolver<
+    Maybe<ResolversTypes['SavedTracksConnection']>,
+    ParentType,
+    ContextType,
+    Partial<CurrentUserTracksArgs>
+  >;
+  tracksContains?: Resolver<
+    Maybe<Array<ResolversTypes['Boolean']>>,
+    ParentType,
+    ContextType,
+    RequireFields<CurrentUserTracksContainsArgs, 'ids'>
+  >;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CurrentlyPlayingResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['CurrentlyPlaying'] = ResolversParentTypes['CurrentlyPlaying']> = ResolversObject<{
+export type CurrentlyPlayingResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['CurrentlyPlaying'] = ResolversParentTypes['CurrentlyPlaying'],
+> = ResolversObject<{
   actions?: Resolver<ResolversTypes['Actions'], ParentType, ContextType>;
-  context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
+  context?: Resolver<
+    Maybe<ResolversTypes['PlaybackContext']>,
+    ParentType,
+    ContextType
+  >;
   isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+  item?: Resolver<
+    Maybe<ResolversTypes['PlaybackItem']>,
+    ParentType,
+    ContextType
+  >;
   progressMs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   timestamp?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type CursorsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Cursors'] = ResolversParentTypes['Cursors']> = ResolversObject<{
+export type CursorsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Cursors'] = ResolversParentTypes['Cursors'],
+> = ResolversObject<{
   after?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   before?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
+export interface DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
 
-export type DeveloperResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Developer'] = ResolversParentTypes['Developer']> = ResolversObject<{
-  fieldConfigs?: Resolver<Array<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
+export type DeveloperResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Developer'] = ResolversParentTypes['Developer'],
+> = ResolversObject<{
+  fieldConfigs?: Resolver<
+    Array<ResolversTypes['FieldConfig']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type DeviceResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Device'] = ResolversParentTypes['Device']> = ResolversObject<{
+export type DeviceResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Device'] = ResolversParentTypes['Device'],
+> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   isActive?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  isPrivateSession?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isPrivateSession?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType
+  >;
   isRestricted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -2445,115 +2820,294 @@ export type DeviceResolvers<ContextType = ContextValue, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type EpisodeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Episode'] = ResolversParentTypes['Episode']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Episode']>, { __typename: 'Episode' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
-  audioPreviewUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<EpisodeDescriptionArgs, 'format'>>;
+export type EpisodeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Episode'] = ResolversParentTypes['Episode'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Episode']>,
+    { __typename: 'Episode' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  audioPreviewUrl?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  description?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<EpisodeDescriptionArgs, 'format'>
+  >;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
-  isExternallyHosted?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isExternallyHosted?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType
+  >;
   isPlayable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  languages?: Resolver<
+    Array<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  releaseDate?: Resolver<ResolversTypes['ReleaseDate'], ParentType, ContextType>;
-  resumePoint?: Resolver<ResolversTypes['ResumePoint'], ParentType, ContextType>;
+  releaseDate?: Resolver<
+    ResolversTypes['ReleaseDate'],
+    ParentType,
+    ContextType
+  >;
+  resumePoint?: Resolver<
+    ResolversTypes['ResumePoint'],
+    ParentType,
+    ContextType
+  >;
   show?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export interface ErrorRateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['ErrorRate'], any> {
+export interface ErrorRateScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['ErrorRate'], any> {
   name: 'ErrorRate';
 }
 
-export type ExternalUrlResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl']> = ResolversObject<{
+export type ExternalUrlResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ExternalUrl'] = ResolversParentTypes['ExternalUrl'],
+> = ResolversObject<{
   spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FeaturedPlaylistConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FeaturedPlaylistConnection'] = ResolversParentTypes['FeaturedPlaylistConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['FeaturedPlaylistEdge']>, ParentType, ContextType>;
+export type FeaturedPlaylistConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['FeaturedPlaylistConnection'] = ResolversParentTypes['FeaturedPlaylistConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['FeaturedPlaylistEdge']>,
+    ParentType,
+    ContextType
+  >;
   message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FeaturedPlaylistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FeaturedPlaylistEdge'] = ResolversParentTypes['FeaturedPlaylistEdge']> = ResolversObject<{
+export type FeaturedPlaylistEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['FeaturedPlaylistEdge'] = ResolversParentTypes['FeaturedPlaylistEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FieldConfigResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FieldConfig'] = ResolversParentTypes['FieldConfig']> = ResolversObject<{
+export type FieldConfigResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['FieldConfig'] = ResolversParentTypes['FieldConfig'],
+> = ResolversObject<{
   errorRate?: Resolver<ResolversTypes['ErrorRate'], ParentType, ContextType>;
-  schemaField?: Resolver<ResolversTypes['SchemaField'], ParentType, ContextType>;
+  schemaField?: Resolver<
+    ResolversTypes['SchemaField'],
+    ParentType,
+    ContextType
+  >;
   timeout?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FollowedArtistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FollowedArtistEdge'] = ResolversParentTypes['FollowedArtistEdge']> = ResolversObject<{
+export type FollowedArtistEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['FollowedArtistEdge'] = ResolversParentTypes['FollowedArtistEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FollowedArtistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['FollowedArtistsConnection'] = ResolversParentTypes['FollowedArtistsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['FollowedArtistEdge']>, ParentType, ContextType>;
-  pageInfo?: Resolver<ResolversTypes['PageInfoCursorBased'], ParentType, ContextType>;
+export type FollowedArtistsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['FollowedArtistsConnection'] = ResolversParentTypes['FollowedArtistsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['FollowedArtistEdge']>,
+    ParentType,
+    ContextType
+  >;
+  pageInfo?: Resolver<
+    ResolversTypes['PageInfoCursorBased'],
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type FollowersResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Followers'] = ResolversParentTypes['Followers']> = ResolversObject<{
+export type FollowersResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Followers'] = ResolversParentTypes['Followers'],
+> = ResolversObject<{
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ImageResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = ResolversObject<{
+export type ImageResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Image'] = ResolversParentTypes['Image'],
+> = ResolversObject<{
   height?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   width?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type MutationResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  addItemToPlaybackQueue?: Resolver<Maybe<ResolversTypes['AddItemToPlaybackQueuePayload']>, ParentType, ContextType, RequireFields<MutationAddItemToPlaybackQueueArgs, 'input'>>;
-  addItemsToPlaylist?: Resolver<Maybe<ResolversTypes['AddItemsToPlaylistPayload']>, ParentType, ContextType, RequireFields<MutationAddItemsToPlaylistArgs, 'input'>>;
-  removeItemFromPlaylist?: Resolver<Maybe<ResolversTypes['RemoveItemFromPlaylistPayload']>, ParentType, ContextType, RequireFields<MutationRemoveItemFromPlaylistArgs, 'input'>>;
-  removeSavedAlbums?: Resolver<Maybe<ResolversTypes['RemoveSavedAlbumsPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedAlbumsArgs, 'input'>>;
-  removeSavedEpisodes?: Resolver<Maybe<ResolversTypes['RemoveSavedEpisodesPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedEpisodesArgs, 'input'>>;
-  removeSavedShows?: Resolver<Maybe<ResolversTypes['RemoveSavedShowsPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedShowsArgs, 'input'>>;
-  removeSavedTracks?: Resolver<Maybe<ResolversTypes['RemoveSavedTracksPayload']>, ParentType, ContextType, RequireFields<MutationRemoveSavedTracksArgs, 'input'>>;
-  resetFieldConfig?: Resolver<Maybe<ResolversTypes['ResetFieldConfigPayload']>, ParentType, ContextType, RequireFields<MutationResetFieldConfigArgs, 'input'>>;
-  saveAlbums?: Resolver<Maybe<ResolversTypes['SaveAlbumsPayload']>, ParentType, ContextType, RequireFields<MutationSaveAlbumsArgs, 'input'>>;
-  saveEpisodes?: Resolver<Maybe<ResolversTypes['SaveEpisodesPayload']>, ParentType, ContextType, RequireFields<MutationSaveEpisodesArgs, 'input'>>;
-  saveShows?: Resolver<Maybe<ResolversTypes['SaveShowsPayload']>, ParentType, ContextType, RequireFields<MutationSaveShowsArgs, 'input'>>;
-  saveTracks?: Resolver<Maybe<ResolversTypes['SaveTracksPayload']>, ParentType, ContextType, RequireFields<MutationSaveTracksArgs, 'input'>>;
-  updateFieldConfig?: Resolver<Maybe<ResolversTypes['UpdateFieldConfigPayload']>, ParentType, ContextType, RequireFields<MutationUpdateFieldConfigArgs, 'input'>>;
+export type MutationResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation'],
+> = ResolversObject<{
+  addItemToPlaybackQueue?: Resolver<
+    Maybe<ResolversTypes['AddItemToPlaybackQueuePayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationAddItemToPlaybackQueueArgs, 'input'>
+  >;
+  addItemsToPlaylist?: Resolver<
+    Maybe<ResolversTypes['AddItemsToPlaylistPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationAddItemsToPlaylistArgs, 'input'>
+  >;
+  removeItemFromPlaylist?: Resolver<
+    Maybe<ResolversTypes['RemoveItemFromPlaylistPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRemoveItemFromPlaylistArgs, 'input'>
+  >;
+  removeSavedAlbums?: Resolver<
+    Maybe<ResolversTypes['RemoveSavedAlbumsPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRemoveSavedAlbumsArgs, 'input'>
+  >;
+  removeSavedEpisodes?: Resolver<
+    Maybe<ResolversTypes['RemoveSavedEpisodesPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRemoveSavedEpisodesArgs, 'input'>
+  >;
+  removeSavedShows?: Resolver<
+    Maybe<ResolversTypes['RemoveSavedShowsPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRemoveSavedShowsArgs, 'input'>
+  >;
+  removeSavedTracks?: Resolver<
+    Maybe<ResolversTypes['RemoveSavedTracksPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRemoveSavedTracksArgs, 'input'>
+  >;
+  resetFieldConfig?: Resolver<
+    Maybe<ResolversTypes['ResetFieldConfigPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationResetFieldConfigArgs, 'input'>
+  >;
+  saveAlbums?: Resolver<
+    Maybe<ResolversTypes['SaveAlbumsPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSaveAlbumsArgs, 'input'>
+  >;
+  saveEpisodes?: Resolver<
+    Maybe<ResolversTypes['SaveEpisodesPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSaveEpisodesArgs, 'input'>
+  >;
+  saveShows?: Resolver<
+    Maybe<ResolversTypes['SaveShowsPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSaveShowsArgs, 'input'>
+  >;
+  saveTracks?: Resolver<
+    Maybe<ResolversTypes['SaveTracksPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationSaveTracksArgs, 'input'>
+  >;
+  updateFieldConfig?: Resolver<
+    Maybe<ResolversTypes['UpdateFieldConfigPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateFieldConfigArgs, 'input'>
+  >;
 }>;
 
-export type NewReleaseEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['NewReleaseEdge'] = ResolversParentTypes['NewReleaseEdge']> = ResolversObject<{
+export type NewReleaseEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['NewReleaseEdge'] = ResolversParentTypes['NewReleaseEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type NewReleasesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['NewReleasesConnection'] = ResolversParentTypes['NewReleasesConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['NewReleaseEdge']>, ParentType, ContextType>;
+export type NewReleasesConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['NewReleasesConnection'] = ResolversParentTypes['NewReleasesConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['NewReleaseEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PageInfoResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
+export type PageInfoResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo'],
+> = ResolversObject<{
   hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  hasPreviousPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasPreviousPage?: Resolver<
+    ResolversTypes['Boolean'],
+    ParentType,
+    ContextType
+  >;
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   offset?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   total?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PageInfoCursorBasedResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PageInfoCursorBased'] = ResolversParentTypes['PageInfoCursorBased']> = ResolversObject<{
+export type PageInfoCursorBasedResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PageInfoCursorBased'] = ResolversParentTypes['PageInfoCursorBased'],
+> = ResolversObject<{
   cursors?: Resolver<Maybe<ResolversTypes['Cursors']>, ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   limit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -2562,38 +3116,94 @@ export type PageInfoCursorBasedResolvers<ContextType = ContextValue, ParentType 
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackContextResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackContext'] = ResolversParentTypes['PlaybackContext']> = ResolversObject<{
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+export type PlaybackContextResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaybackContext'] = ResolversParentTypes['PlaybackContext'],
+> = ResolversObject<{
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['PlaybackContextType'], ParentType, ContextType>;
+  type?: Resolver<
+    ResolversTypes['PlaybackContextType'],
+    ParentType,
+    ContextType
+  >;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackContextTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', AUDIO_FEATURES: 'audio_features', COLLECTION: 'collection', COLLECTION_YOUR_EPISODES: 'collectionyourepisodes', EPISODE: 'episode', GENRE: 'genre', PLAYLIST: 'playlist', SHOW: 'show', TRACK: 'track', USER: 'user' };
+export type PlaybackContextTypeResolvers = {
+  ALBUM: 'album';
+  ARTIST: 'artist';
+  AUDIO_FEATURES: 'audio_features';
+  COLLECTION: 'collection';
+  COLLECTION_YOUR_EPISODES: 'collectionyourepisodes';
+  EPISODE: 'episode';
+  GENRE: 'genre';
+  PLAYLIST: 'playlist';
+  SHOW: 'show';
+  TRACK: 'track';
+  USER: 'user';
+};
 
-export type PlaybackItemResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem']> = ResolversObject<{
+export type PlaybackItemResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaybackItem'] = ResolversParentTypes['PlaybackItem'],
+> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
-export type PlaybackQueueResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackQueue'] = ResolversParentTypes['PlaybackQueue']> = ResolversObject<{
-  currentlyPlaying?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
-  queue?: Resolver<Array<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+export type PlaybackQueueResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaybackQueue'] = ResolversParentTypes['PlaybackQueue'],
+> = ResolversObject<{
+  currentlyPlaying?: Resolver<
+    Maybe<ResolversTypes['PlaybackItem']>,
+    ParentType,
+    ContextType
+  >;
+  queue?: Resolver<
+    Array<ResolversTypes['PlaybackItem']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState']> = ResolversObject<{
+export type PlaybackStateResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaybackState'] = ResolversParentTypes['PlaybackState'],
+> = ResolversObject<{
   actions?: Resolver<ResolversTypes['Actions'], ParentType, ContextType>;
-  context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
+  context?: Resolver<
+    Maybe<ResolversTypes['PlaybackContext']>,
+    ParentType,
+    ContextType
+  >;
   device?: Resolver<ResolversTypes['Device'], ParentType, ContextType>;
   isPlaying?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  item?: Resolver<Maybe<ResolversTypes['PlaybackItem']>, ParentType, ContextType>;
+  item?: Resolver<
+    Maybe<ResolversTypes['PlaybackItem']>,
+    ParentType,
+    ContextType
+  >;
   progressMs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   repeatState?: Resolver<ResolversTypes['RepeatMode'], ParentType, ContextType>;
   shuffleState?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -2601,327 +3211,819 @@ export type PlaybackStateResolvers<ContextType = ContextValue, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlayerResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Player'] = ResolversParentTypes['Player']> = ResolversObject<{
-  currentlyPlaying?: Resolver<Maybe<ResolversTypes['CurrentlyPlaying']>, ParentType, ContextType>;
-  devices?: Resolver<Maybe<Array<ResolversTypes['Device']>>, ParentType, ContextType>;
-  playbackQueue?: Resolver<Maybe<ResolversTypes['PlaybackQueue']>, ParentType, ContextType>;
-  playbackState?: Resolver<Maybe<ResolversTypes['PlaybackState']>, ParentType, ContextType>;
-  recentlyPlayed?: Resolver<Maybe<ResolversTypes['RecentlyPlayedConnection']>, ParentType, ContextType, Partial<PlayerRecentlyPlayedArgs>>;
+export type PlayerResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Player'] = ResolversParentTypes['Player'],
+> = ResolversObject<{
+  currentlyPlaying?: Resolver<
+    Maybe<ResolversTypes['CurrentlyPlaying']>,
+    ParentType,
+    ContextType
+  >;
+  devices?: Resolver<
+    Maybe<Array<ResolversTypes['Device']>>,
+    ParentType,
+    ContextType
+  >;
+  playbackQueue?: Resolver<
+    Maybe<ResolversTypes['PlaybackQueue']>,
+    ParentType,
+    ContextType
+  >;
+  playbackState?: Resolver<
+    Maybe<ResolversTypes['PlaybackState']>,
+    ParentType,
+    ContextType
+  >;
+  recentlyPlayed?: Resolver<
+    Maybe<ResolversTypes['RecentlyPlayedConnection']>,
+    ParentType,
+    ContextType,
+    Partial<PlayerRecentlyPlayedArgs>
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaylistResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Playlist']>, { __typename: 'Playlist' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+export type PlaylistResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Playlist'] = ResolversParentTypes['Playlist'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Playlist']>,
+    { __typename: 'Playlist' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
   collaborative?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   owner?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   public?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  tracks?: Resolver<ResolversTypes['PlaylistTrackConnection'], ParentType, ContextType, Partial<PlaylistTracksArgs>>;
+  tracks?: Resolver<
+    ResolversTypes['PlaylistTrackConnection'],
+    ParentType,
+    ContextType,
+    Partial<PlaylistTracksArgs>
+  >;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaylistConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistConnection'] = ResolversParentTypes['PlaylistConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['PlaylistEdge']>, ParentType, ContextType>;
+export type PlaylistConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaylistConnection'] = ResolversParentTypes['PlaylistConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['PlaylistEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaylistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistEdge'] = ResolversParentTypes['PlaylistEdge']> = ResolversObject<{
+export type PlaylistEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaylistEdge'] = ResolversParentTypes['PlaylistEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaylistTrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistTrack'] = ResolversParentTypes['PlaylistTrack']> = ResolversObject<{
+export type PlaylistTrackResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaylistTrack'] = ResolversParentTypes['PlaylistTrack'],
+> = ResolversObject<{
   __resolveType: TypeResolveFn<'Episode' | 'Track', ParentType, ContextType>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 }>;
 
-export type PlaylistTrackConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistTrackConnection'] = ResolversParentTypes['PlaylistTrackConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['PlaylistTrackEdge']>, ParentType, ContextType>;
+export type PlaylistTrackConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaylistTrackConnection'] = ResolversParentTypes['PlaylistTrackConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['PlaylistTrackEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaylistTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['PlaylistTrackEdge'] = ResolversParentTypes['PlaylistTrackEdge']> = ResolversObject<{
-  addedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+export type PlaylistTrackEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['PlaylistTrackEdge'] = ResolversParentTypes['PlaylistTrackEdge'],
+> = ResolversObject<{
+  addedAt?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
   addedBy?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['PlaylistTrack'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type QueryResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  album?: Resolver<Maybe<ResolversTypes['Album']>, ParentType, ContextType, RequireFields<QueryAlbumArgs, 'id'>>;
-  albums?: Resolver<Maybe<Array<ResolversTypes['Album']>>, ParentType, ContextType, RequireFields<QueryAlbumsArgs, 'ids'>>;
-  artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
-  artists?: Resolver<Maybe<Array<ResolversTypes['Artist']>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, 'ids'>>;
+export type QueryResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
+> = ResolversObject<{
+  album?: Resolver<
+    Maybe<ResolversTypes['Album']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryAlbumArgs, 'id'>
+  >;
+  albums?: Resolver<
+    Maybe<Array<ResolversTypes['Album']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryAlbumsArgs, 'ids'>
+  >;
+  artist?: Resolver<
+    Maybe<ResolversTypes['Artist']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryArtistArgs, 'id'>
+  >;
+  artists?: Resolver<
+    Maybe<Array<ResolversTypes['Artist']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryArtistsArgs, 'ids'>
+  >;
   developer?: Resolver<ResolversTypes['Developer'], ParentType, ContextType>;
-  episode?: Resolver<Maybe<ResolversTypes['Episode']>, ParentType, ContextType, RequireFields<QueryEpisodeArgs, 'id'>>;
-  episodes?: Resolver<Maybe<Array<ResolversTypes['Episode']>>, ParentType, ContextType, RequireFields<QueryEpisodesArgs, 'ids'>>;
-  featuredPlaylists?: Resolver<Maybe<ResolversTypes['FeaturedPlaylistConnection']>, ParentType, ContextType, Partial<QueryFeaturedPlaylistsArgs>>;
+  episode?: Resolver<
+    Maybe<ResolversTypes['Episode']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryEpisodeArgs, 'id'>
+  >;
+  episodes?: Resolver<
+    Maybe<Array<ResolversTypes['Episode']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryEpisodesArgs, 'ids'>
+  >;
+  featuredPlaylists?: Resolver<
+    Maybe<ResolversTypes['FeaturedPlaylistConnection']>,
+    ParentType,
+    ContextType,
+    Partial<QueryFeaturedPlaylistsArgs>
+  >;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   me?: Resolver<Maybe<ResolversTypes['CurrentUser']>, ParentType, ContextType>;
-  newReleases?: Resolver<Maybe<ResolversTypes['NewReleasesConnection']>, ParentType, ContextType, Partial<QueryNewReleasesArgs>>;
-  playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType, RequireFields<QueryPlaylistArgs, 'id'>>;
-  recommendations?: Resolver<Maybe<ResolversTypes['Recommendations']>, ParentType, ContextType, RequireFields<QueryRecommendationsArgs, 'seeds'>>;
-  search?: Resolver<Maybe<ResolversTypes['SearchResults']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'q' | 'type'>>;
-  show?: Resolver<Maybe<ResolversTypes['Show']>, ParentType, ContextType, RequireFields<QueryShowArgs, 'id'>>;
-  shows?: Resolver<Maybe<Array<ResolversTypes['Show']>>, ParentType, ContextType, RequireFields<QueryShowsArgs, 'ids'>>;
-  track?: Resolver<Maybe<ResolversTypes['Track']>, ParentType, ContextType, RequireFields<QueryTrackArgs, 'id'>>;
-  tracks?: Resolver<Maybe<Array<ResolversTypes['Track']>>, ParentType, ContextType, RequireFields<QueryTracksArgs, 'ids'>>;
-  tracksAudioFeatures?: Resolver<Array<ResolversTypes['TrackAudioFeatures']>, ParentType, ContextType, RequireFields<QueryTracksAudioFeaturesArgs, 'ids'>>;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
+  newReleases?: Resolver<
+    Maybe<ResolversTypes['NewReleasesConnection']>,
+    ParentType,
+    ContextType,
+    Partial<QueryNewReleasesArgs>
+  >;
+  playlist?: Resolver<
+    Maybe<ResolversTypes['Playlist']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryPlaylistArgs, 'id'>
+  >;
+  recommendations?: Resolver<
+    Maybe<ResolversTypes['Recommendations']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryRecommendationsArgs, 'seeds'>
+  >;
+  search?: Resolver<
+    Maybe<ResolversTypes['SearchResults']>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchArgs, 'q' | 'type'>
+  >;
+  show?: Resolver<
+    Maybe<ResolversTypes['Show']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryShowArgs, 'id'>
+  >;
+  shows?: Resolver<
+    Maybe<Array<ResolversTypes['Show']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryShowsArgs, 'ids'>
+  >;
+  track?: Resolver<
+    Maybe<ResolversTypes['Track']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryTrackArgs, 'id'>
+  >;
+  tracks?: Resolver<
+    Maybe<Array<ResolversTypes['Track']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryTracksArgs, 'ids'>
+  >;
+  tracksAudioFeatures?: Resolver<
+    Array<ResolversTypes['TrackAudioFeatures']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryTracksAudioFeaturesArgs, 'ids'>
+  >;
+  user?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryUserArgs, 'id'>
+  >;
 }>;
 
-export type RecentlyPlayedConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RecentlyPlayedConnection'] = ResolversParentTypes['RecentlyPlayedConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['RecentlyPlayedEdge']>, ParentType, ContextType>;
+export type RecentlyPlayedConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RecentlyPlayedConnection'] = ResolversParentTypes['RecentlyPlayedConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['RecentlyPlayedEdge']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RecentlyPlayedEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RecentlyPlayedEdge'] = ResolversParentTypes['RecentlyPlayedEdge']> = ResolversObject<{
-  context?: Resolver<Maybe<ResolversTypes['PlaybackContext']>, ParentType, ContextType>;
+export type RecentlyPlayedEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RecentlyPlayedEdge'] = ResolversParentTypes['RecentlyPlayedEdge'],
+> = ResolversObject<{
+  context?: Resolver<
+    Maybe<ResolversTypes['PlaybackContext']>,
+    ParentType,
+    ContextType
+  >;
   node?: Resolver<ResolversTypes['PlaybackItem'], ParentType, ContextType>;
   playedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RecommendationSeedResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RecommendationSeed'] = ResolversParentTypes['RecommendationSeed']> = ResolversObject<{
+export type RecommendationSeedResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RecommendationSeed'] = ResolversParentTypes['RecommendationSeed'],
+> = ResolversObject<{
   afterFilteringSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   afterRelinkingSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   href?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   initialPoolSize?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  type?: Resolver<ResolversTypes['RecommendationSeedType'], ParentType, ContextType>;
+  type?: Resolver<
+    ResolversTypes['RecommendationSeedType'],
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RecommendationsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Recommendations'] = ResolversParentTypes['Recommendations']> = ResolversObject<{
-  seeds?: Resolver<Array<ResolversTypes['RecommendationSeed']>, ParentType, ContextType>;
+export type RecommendationsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Recommendations'] = ResolversParentTypes['Recommendations'],
+> = ResolversObject<{
+  seeds?: Resolver<
+    Array<ResolversTypes['RecommendationSeed']>,
+    ParentType,
+    ContextType
+  >;
   tracks?: Resolver<Array<ResolversTypes['Track']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ReleaseDateResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ReleaseDate'] = ResolversParentTypes['ReleaseDate']> = ResolversObject<{
+export type ReleaseDateResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ReleaseDate'] = ResolversParentTypes['ReleaseDate'],
+> = ResolversObject<{
   date?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  precision?: Resolver<ResolversTypes['ReleaseDatePrecision'], ParentType, ContextType>;
+  precision?: Resolver<
+    ResolversTypes['ReleaseDatePrecision'],
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ReleaseDatePrecisionResolvers = { DAY: 'day', MONTH: 'month', YEAR: 'year' };
+export type ReleaseDatePrecisionResolvers = {
+  DAY: 'day';
+  MONTH: 'month';
+  YEAR: 'year';
+};
 
-export type RemoveItemFromPlaylistPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RemoveItemFromPlaylistPayload'] = ResolversParentTypes['RemoveItemFromPlaylistPayload']> = ResolversObject<{
-  playlist?: Resolver<Maybe<ResolversTypes['Playlist']>, ParentType, ContextType>;
+export type RemoveItemFromPlaylistPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RemoveItemFromPlaylistPayload'] = ResolversParentTypes['RemoveItemFromPlaylistPayload'],
+> = ResolversObject<{
+  playlist?: Resolver<
+    Maybe<ResolversTypes['Playlist']>,
+    ParentType,
+    ContextType
+  >;
   snapshotId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RemoveSavedAlbumsPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RemoveSavedAlbumsPayload'] = ResolversParentTypes['RemoveSavedAlbumsPayload']> = ResolversObject<{
-  removedAlbums?: Resolver<Maybe<Array<ResolversTypes['Album']>>, ParentType, ContextType>;
+export type RemoveSavedAlbumsPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RemoveSavedAlbumsPayload'] = ResolversParentTypes['RemoveSavedAlbumsPayload'],
+> = ResolversObject<{
+  removedAlbums?: Resolver<
+    Maybe<Array<ResolversTypes['Album']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RemoveSavedEpisodesPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RemoveSavedEpisodesPayload'] = ResolversParentTypes['RemoveSavedEpisodesPayload']> = ResolversObject<{
-  removedEpisodes?: Resolver<Maybe<Array<ResolversTypes['Episode']>>, ParentType, ContextType>;
+export type RemoveSavedEpisodesPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RemoveSavedEpisodesPayload'] = ResolversParentTypes['RemoveSavedEpisodesPayload'],
+> = ResolversObject<{
+  removedEpisodes?: Resolver<
+    Maybe<Array<ResolversTypes['Episode']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RemoveSavedShowsPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RemoveSavedShowsPayload'] = ResolversParentTypes['RemoveSavedShowsPayload']> = ResolversObject<{
-  removedShows?: Resolver<Maybe<Array<ResolversTypes['Show']>>, ParentType, ContextType>;
+export type RemoveSavedShowsPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RemoveSavedShowsPayload'] = ResolversParentTypes['RemoveSavedShowsPayload'],
+> = ResolversObject<{
+  removedShows?: Resolver<
+    Maybe<Array<ResolversTypes['Show']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RemoveSavedTracksPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['RemoveSavedTracksPayload'] = ResolversParentTypes['RemoveSavedTracksPayload']> = ResolversObject<{
-  removedTracks?: Resolver<Maybe<Array<ResolversTypes['Track']>>, ParentType, ContextType>;
+export type RemoveSavedTracksPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['RemoveSavedTracksPayload'] = ResolversParentTypes['RemoveSavedTracksPayload'],
+> = ResolversObject<{
+  removedTracks?: Resolver<
+    Maybe<Array<ResolversTypes['Track']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RepeatModeResolvers = { CONTEXT: 'context', OFF: 'off', TRACK: 'track' };
+export type RepeatModeResolvers = {
+  CONTEXT: 'context';
+  OFF: 'off';
+  TRACK: 'track';
+};
 
-export type ResetFieldConfigPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResetFieldConfigPayload'] = ResolversParentTypes['ResetFieldConfigPayload']> = ResolversObject<{
-  fieldConfig?: Resolver<Maybe<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
+export type ResetFieldConfigPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ResetFieldConfigPayload'] = ResolversParentTypes['ResetFieldConfigPayload'],
+> = ResolversObject<{
+  fieldConfig?: Resolver<
+    Maybe<ResolversTypes['FieldConfig']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ResumePointResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ResumePoint'] = ResolversParentTypes['ResumePoint']> = ResolversObject<{
+export type ResumePointResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ResumePoint'] = ResolversParentTypes['ResumePoint'],
+> = ResolversObject<{
   fullyPlayed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   resumePositionMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SaveAlbumsPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveAlbumsPayload'] = ResolversParentTypes['SaveAlbumsPayload']> = ResolversObject<{
-  savedAlbums?: Resolver<Maybe<Array<ResolversTypes['Album']>>, ParentType, ContextType>;
+export type SaveAlbumsPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SaveAlbumsPayload'] = ResolversParentTypes['SaveAlbumsPayload'],
+> = ResolversObject<{
+  savedAlbums?: Resolver<
+    Maybe<Array<ResolversTypes['Album']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SaveEpisodesPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveEpisodesPayload'] = ResolversParentTypes['SaveEpisodesPayload']> = ResolversObject<{
-  savedEpisodes?: Resolver<Maybe<Array<ResolversTypes['Episode']>>, ParentType, ContextType>;
+export type SaveEpisodesPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SaveEpisodesPayload'] = ResolversParentTypes['SaveEpisodesPayload'],
+> = ResolversObject<{
+  savedEpisodes?: Resolver<
+    Maybe<Array<ResolversTypes['Episode']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SaveShowsPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveShowsPayload'] = ResolversParentTypes['SaveShowsPayload']> = ResolversObject<{
-  savedShows?: Resolver<Maybe<Array<ResolversTypes['Show']>>, ParentType, ContextType>;
+export type SaveShowsPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SaveShowsPayload'] = ResolversParentTypes['SaveShowsPayload'],
+> = ResolversObject<{
+  savedShows?: Resolver<
+    Maybe<Array<ResolversTypes['Show']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SaveTracksPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SaveTracksPayload'] = ResolversParentTypes['SaveTracksPayload']> = ResolversObject<{
-  savedTracks?: Resolver<Maybe<Array<ResolversTypes['Track']>>, ParentType, ContextType>;
+export type SaveTracksPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SaveTracksPayload'] = ResolversParentTypes['SaveTracksPayload'],
+> = ResolversObject<{
+  savedTracks?: Resolver<
+    Maybe<Array<ResolversTypes['Track']>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedAlbumEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedAlbumEdge'] = ResolversParentTypes['SavedAlbumEdge']> = ResolversObject<{
+export type SavedAlbumEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedAlbumEdge'] = ResolversParentTypes['SavedAlbumEdge'],
+> = ResolversObject<{
   addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedAlbumsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedAlbumsConnection'] = ResolversParentTypes['SavedAlbumsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SavedAlbumEdge']>, ParentType, ContextType>;
+export type SavedAlbumsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedAlbumsConnection'] = ResolversParentTypes['SavedAlbumsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SavedAlbumEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedEpisodeEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedEpisodeEdge'] = ResolversParentTypes['SavedEpisodeEdge']> = ResolversObject<{
+export type SavedEpisodeEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedEpisodeEdge'] = ResolversParentTypes['SavedEpisodeEdge'],
+> = ResolversObject<{
   addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['Episode'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedEpisodesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedEpisodesConnection'] = ResolversParentTypes['SavedEpisodesConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SavedEpisodeEdge']>, ParentType, ContextType>;
+export type SavedEpisodesConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedEpisodesConnection'] = ResolversParentTypes['SavedEpisodesConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SavedEpisodeEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedShowEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedShowEdge'] = ResolversParentTypes['SavedShowEdge']> = ResolversObject<{
+export type SavedShowEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedShowEdge'] = ResolversParentTypes['SavedShowEdge'],
+> = ResolversObject<{
   addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedShowsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedShowsConnection'] = ResolversParentTypes['SavedShowsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SavedShowEdge']>, ParentType, ContextType>;
+export type SavedShowsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedShowsConnection'] = ResolversParentTypes['SavedShowsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SavedShowEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedTrackEdge'] = ResolversParentTypes['SavedTrackEdge']> = ResolversObject<{
+export type SavedTrackEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedTrackEdge'] = ResolversParentTypes['SavedTrackEdge'],
+> = ResolversObject<{
   addedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SavedTracksConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SavedTracksConnection'] = ResolversParentTypes['SavedTracksConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SavedTrackEdge']>, ParentType, ContextType>;
+export type SavedTracksConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SavedTracksConnection'] = ResolversParentTypes['SavedTracksConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SavedTrackEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SchemaFieldResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SchemaField'] = ResolversParentTypes['SchemaField']> = ResolversObject<{
+export type SchemaFieldResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SchemaField'] = ResolversParentTypes['SchemaField'],
+> = ResolversObject<{
   fieldName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   typename?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchAlbumEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchAlbumEdge'] = ResolversParentTypes['SearchAlbumEdge']> = ResolversObject<{
+export type SearchAlbumEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchAlbumEdge'] = ResolversParentTypes['SearchAlbumEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchAlbumsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchAlbumsConnection'] = ResolversParentTypes['SearchAlbumsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SearchAlbumEdge']>, ParentType, ContextType>;
+export type SearchAlbumsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchAlbumsConnection'] = ResolversParentTypes['SearchAlbumsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SearchAlbumEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchArtistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchArtistEdge'] = ResolversParentTypes['SearchArtistEdge']> = ResolversObject<{
+export type SearchArtistEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchArtistEdge'] = ResolversParentTypes['SearchArtistEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchArtistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchArtistsConnection'] = ResolversParentTypes['SearchArtistsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SearchArtistEdge']>, ParentType, ContextType>;
+export type SearchArtistsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchArtistsConnection'] = ResolversParentTypes['SearchArtistsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SearchArtistEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchEpisodeEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchEpisodeEdge'] = ResolversParentTypes['SearchEpisodeEdge']> = ResolversObject<{
+export type SearchEpisodeEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchEpisodeEdge'] = ResolversParentTypes['SearchEpisodeEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Episode'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchEpisodesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchEpisodesConnection'] = ResolversParentTypes['SearchEpisodesConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SearchEpisodeEdge']>, ParentType, ContextType>;
+export type SearchEpisodesConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchEpisodesConnection'] = ResolversParentTypes['SearchEpisodesConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SearchEpisodeEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type SearchExternalValueResolvers = { AUDIO: 'audio' };
 
-export type SearchPlaylistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchPlaylistEdge'] = ResolversParentTypes['SearchPlaylistEdge']> = ResolversObject<{
+export type SearchPlaylistEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchPlaylistEdge'] = ResolversParentTypes['SearchPlaylistEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Playlist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchPlaylistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchPlaylistsConnection'] = ResolversParentTypes['SearchPlaylistsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SearchPlaylistEdge']>, ParentType, ContextType>;
+export type SearchPlaylistsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchPlaylistsConnection'] = ResolversParentTypes['SearchPlaylistsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SearchPlaylistEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchResultsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchResults'] = ResolversParentTypes['SearchResults']> = ResolversObject<{
-  albums?: Resolver<Maybe<ResolversTypes['SearchAlbumsConnection']>, ParentType, ContextType>;
-  artists?: Resolver<Maybe<ResolversTypes['SearchArtistsConnection']>, ParentType, ContextType>;
-  episodes?: Resolver<Maybe<ResolversTypes['SearchEpisodesConnection']>, ParentType, ContextType>;
-  playlists?: Resolver<Maybe<ResolversTypes['SearchPlaylistsConnection']>, ParentType, ContextType>;
-  shows?: Resolver<Maybe<ResolversTypes['SearchShowsConnection']>, ParentType, ContextType>;
-  tracks?: Resolver<Maybe<ResolversTypes['SearchTracksConnection']>, ParentType, ContextType>;
+export type SearchResultsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchResults'] = ResolversParentTypes['SearchResults'],
+> = ResolversObject<{
+  albums?: Resolver<
+    Maybe<ResolversTypes['SearchAlbumsConnection']>,
+    ParentType,
+    ContextType
+  >;
+  artists?: Resolver<
+    Maybe<ResolversTypes['SearchArtistsConnection']>,
+    ParentType,
+    ContextType
+  >;
+  episodes?: Resolver<
+    Maybe<ResolversTypes['SearchEpisodesConnection']>,
+    ParentType,
+    ContextType
+  >;
+  playlists?: Resolver<
+    Maybe<ResolversTypes['SearchPlaylistsConnection']>,
+    ParentType,
+    ContextType
+  >;
+  shows?: Resolver<
+    Maybe<ResolversTypes['SearchShowsConnection']>,
+    ParentType,
+    ContextType
+  >;
+  tracks?: Resolver<
+    Maybe<ResolversTypes['SearchTracksConnection']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchShowEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchShowEdge'] = ResolversParentTypes['SearchShowEdge']> = ResolversObject<{
+export type SearchShowEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchShowEdge'] = ResolversParentTypes['SearchShowEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Show'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchShowsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchShowsConnection'] = ResolversParentTypes['SearchShowsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SearchShowEdge']>, ParentType, ContextType>;
+export type SearchShowsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchShowsConnection'] = ResolversParentTypes['SearchShowsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SearchShowEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchTrackEdge'] = ResolversParentTypes['SearchTrackEdge']> = ResolversObject<{
+export type SearchTrackEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchTrackEdge'] = ResolversParentTypes['SearchTrackEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchTracksConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['SearchTracksConnection'] = ResolversParentTypes['SearchTracksConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['SearchTrackEdge']>, ParentType, ContextType>;
+export type SearchTracksConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['SearchTracksConnection'] = ResolversParentTypes['SearchTracksConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['SearchTrackEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type SearchTypeResolvers = { ALBUM: 'album', ARTIST: 'artist', EPISODE: 'episode', PLAYLIST: 'playlist', SHOW: 'show', TRACK: 'track' };
+export type SearchTypeResolvers = {
+  ALBUM: 'album';
+  ARTIST: 'artist';
+  EPISODE: 'episode';
+  PLAYLIST: 'playlist';
+  SHOW: 'show';
+  TRACK: 'track';
+};
 
-export type ShowResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Show'] = ResolversParentTypes['Show']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Show']>, { __typename: 'Show' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
-  description?: Resolver<ResolversTypes['String'], ParentType, ContextType, RequireFields<ShowDescriptionArgs, 'format'>>;
-  episodes?: Resolver<Maybe<ResolversTypes['ShowEpisodesConnection']>, ParentType, ContextType, Partial<ShowEpisodesArgs>>;
+export type ShowResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Show'] = ResolversParentTypes['Show'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Show']>,
+    { __typename: 'Show' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  description?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<ShowDescriptionArgs, 'format'>
+  >;
+  episodes?: Resolver<
+    Maybe<ResolversTypes['ShowEpisodesConnection']>,
+    ParentType,
+    ContextType,
+    Partial<ShowEpisodesArgs>
+  >;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
-  isExternallyHosted?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  isExternallyHosted?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType
+  >;
+  languages?: Resolver<
+    Array<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   mediaType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   publisher?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -2929,68 +4031,137 @@ export type ShowResolvers<ContextType = ContextValue, ParentType extends Resolve
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ShowEpisodeEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ShowEpisodeEdge'] = ResolversParentTypes['ShowEpisodeEdge']> = ResolversObject<{
+export type ShowEpisodeEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ShowEpisodeEdge'] = ResolversParentTypes['ShowEpisodeEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Episode'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ShowEpisodesConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ShowEpisodesConnection'] = ResolversParentTypes['ShowEpisodesConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['ShowEpisodeEdge']>, ParentType, ContextType>;
+export type ShowEpisodesConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ShowEpisodesConnection'] = ResolversParentTypes['ShowEpisodesConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['ShowEpisodeEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TimeRangeResolvers = { LONG_TERM: 'long_term', MEDIUM_TERM: 'medium_term', SHORT_TERM: 'short_term' };
+export type TimeRangeResolvers = {
+  LONG_TERM: 'long_term';
+  MEDIUM_TERM: 'medium_term';
+  SHORT_TERM: 'short_term';
+};
 
-export interface TimestampScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
+export interface TimestampScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['Timestamp'], any> {
   name: 'Timestamp';
 }
 
-export type TopArtistEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopArtistEdge'] = ResolversParentTypes['TopArtistEdge']> = ResolversObject<{
+export type TopArtistEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['TopArtistEdge'] = ResolversParentTypes['TopArtistEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TopArtistsConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopArtistsConnection'] = ResolversParentTypes['TopArtistsConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['TopArtistEdge']>, ParentType, ContextType>;
+export type TopArtistsConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['TopArtistsConnection'] = ResolversParentTypes['TopArtistsConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['TopArtistEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TopTrackEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopTrackEdge'] = ResolversParentTypes['TopTrackEdge']> = ResolversObject<{
+export type TopTrackEdgeResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['TopTrackEdge'] = ResolversParentTypes['TopTrackEdge'],
+> = ResolversObject<{
   node?: Resolver<ResolversTypes['Track'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TopTracksConnectionResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TopTracksConnection'] = ResolversParentTypes['TopTracksConnection']> = ResolversObject<{
-  edges?: Resolver<Array<ResolversTypes['TopTrackEdge']>, ParentType, ContextType>;
+export type TopTracksConnectionResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['TopTracksConnection'] = ResolversParentTypes['TopTracksConnection'],
+> = ResolversObject<{
+  edges?: Resolver<
+    Array<ResolversTypes['TopTrackEdge']>,
+    ParentType,
+    ContextType
+  >;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TrackResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['Track'] = ResolversParentTypes['Track']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['Track']>, { __typename: 'Track' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+export type TrackResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['Track'] = ResolversParentTypes['Track'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['Track']>,
+    { __typename: 'Track' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
   album?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   artists?: Resolver<Array<ResolversTypes['Artist']>, ParentType, ContextType>;
-  audioFeatures?: Resolver<Maybe<ResolversTypes['TrackAudioFeatures']>, ParentType, ContextType>;
+  audioFeatures?: Resolver<
+    Maybe<ResolversTypes['TrackAudioFeatures']>,
+    ParentType,
+    ContextType
+  >;
   discNumber?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   durationMs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   explicit?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  externalIds?: Resolver<Maybe<ResolversTypes['TrackExternalIds']>, ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+  externalIds?: Resolver<
+    Maybe<ResolversTypes['TrackExternalIds']>,
+    ParentType,
+    ContextType
+  >;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   isLocal?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   isPlayable?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   popularity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  previewUrl?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  previewUrl?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   trackNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TrackAudioFeaturesResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TrackAudioFeatures'] = ResolversParentTypes['TrackAudioFeatures']> = ResolversObject<{
+export type TrackAudioFeaturesResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['TrackAudioFeatures'] = ResolversParentTypes['TrackAudioFeatures'],
+> = ResolversObject<{
   acousticness?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   analysisUrl?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   danceability?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
@@ -3011,26 +4182,58 @@ export type TrackAudioFeaturesResolvers<ContextType = ContextValue, ParentType e
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TrackExternalIdsResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['TrackExternalIds'] = ResolversParentTypes['TrackExternalIds']> = ResolversObject<{
+export type TrackExternalIdsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['TrackExternalIds'] = ResolversParentTypes['TrackExternalIds'],
+> = ResolversObject<{
   ean?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   isrc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   upc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type UpdateFieldConfigPayloadResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['UpdateFieldConfigPayload'] = ResolversParentTypes['UpdateFieldConfigPayload']> = ResolversObject<{
-  fieldConfig?: Resolver<Maybe<ResolversTypes['FieldConfig']>, ParentType, ContextType>;
+export type UpdateFieldConfigPayloadResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['UpdateFieldConfigPayload'] = ResolversParentTypes['UpdateFieldConfigPayload'],
+> = ResolversObject<{
+  fieldConfig?: Resolver<
+    Maybe<ResolversTypes['FieldConfig']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type UserResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['User']>, { __typename: 'User' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
-  displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  externalUrls?: Resolver<ResolversTypes['ExternalUrl'], ParentType, ContextType>;
+export type UserResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['User'] = ResolversParentTypes['User'],
+> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['User']>,
+    { __typename: 'User' } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  displayName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  externalUrls?: Resolver<
+    ResolversTypes['ExternalUrl'],
+    ParentType,
+    ContextType
+  >;
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Maybe<Array<ResolversTypes['Image']>>, ParentType, ContextType>;
+  images?: Resolver<
+    Maybe<Array<ResolversTypes['Image']>>,
+    ParentType,
+    ContextType
+  >;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;

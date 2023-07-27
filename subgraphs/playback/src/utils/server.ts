@@ -25,7 +25,7 @@ import * as Sentry from '@sentry/node';
 export const app = express();
 export const httpServer = http.createServer(app);
 
-let typeDefs = gql(
+const typeDefs = gql(
   readFileSync('schema.graphql', {
     encoding: 'utf-8',
   })

@@ -5,4 +5,3 @@ export const Actions: ActionsResolvers = {
     return Object.keys(actions.disallows) as Action[];
   },
 };
-

@@ -68,7 +68,7 @@ const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
                 <button
                   className="flex w-full cursor-pointer items-center gap-4 rounded p-4 text-sm hover:bg-white/10"
                   onClick={() => {
-                    transferPlayback({ deviceId: device.id ?? "" });
+                    transferPlayback({ deviceId: device.id ?? '' });
                   }}
                 >
                   <DeviceIcon device={device} />

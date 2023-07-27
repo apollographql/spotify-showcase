@@ -49,7 +49,6 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "serve dist -s -n -L -p $PORT",
-    "lint": "eslint . --ext .ts,.tsx",
     "lint:types": "tsc --noEmit -p ./tsconfig.json"
   },
   "browserslist": {
