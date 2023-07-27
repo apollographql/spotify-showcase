@@ -7,7 +7,7 @@ import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
 
-let typeDefs = gql(
+const typeDefs = gql(
   readFileSync('schema.graphql', {
     encoding: 'utf-8',
   })

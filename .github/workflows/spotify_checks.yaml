@@ -37,17 +37,3 @@ jobs:
         run: npm run build -w spotify-subgraph
       - name: Run unit tests
         run: npm run test -w spotify-subgraph
-  check_spotify_typescript:
-    name: Check TypeScript
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-      - name: Install packages
-        run: npm install -w spotify-subgraph
-      - name: Check TypeScript
-        run: npm run lint:types -w spotify-subgraph

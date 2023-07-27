@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import { OAUTH_SCOPES } from './constants';
 
 type RestrictScope<
