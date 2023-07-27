@@ -13,7 +13,7 @@
     "format": "prettier . --write",
     "lint": "concurrently \"npm:lint:*\"",
     "lint:style": "prettier . --check",
-    "lint:all": "eslint . --ext .ts,.tsx",
+    "lint:all": "eslint .",
     "lint:types:client": "npm run lint:types -w client",
     "lint:types:spotify": "npm run lint:types -w spotify-subgraph",
     "lint:types:playback": "npm run lint:types -w playback-subgraph",
