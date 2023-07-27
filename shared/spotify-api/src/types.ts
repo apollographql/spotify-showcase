@@ -308,7 +308,7 @@ export namespace Spotify {
       id: string;
       images: Image[];
       name: string;
-      owner: User;
+      owner: UserSimplified;
       primary_color: string | null;
       public: boolean | null;
       snapshot_id: string;
@@ -580,7 +580,7 @@ export namespace Spotify {
     }
 
     export interface UserSimplified {
-      display_name: string | null;
+      display_name?: string | null;
       external_urls: ExternalUrl;
       href: string;
       id: string;
