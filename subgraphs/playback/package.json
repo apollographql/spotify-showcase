@@ -73,7 +73,6 @@
     ],
     "globals": {
       "ts-jest": {
-        "testRegext": "/__tests__/.*.test.ts",
         "verbose": true
       }
     }
