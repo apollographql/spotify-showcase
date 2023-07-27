@@ -53,7 +53,13 @@ if (!accessToken) {
   throw new Error('Please set a valid access as the `AUTH` env var');
 }
 
-const mockedData = {
+interface Database {
+  tracks: Spotify.Object.Track[];
+  albums: Spotify.Object.Album[];
+  playlists: Spotify.Object.Playlist[];
+}
+
+const mockedData: Database = {
   tracks: [],
   albums: [],
   playlists: [],
@@ -86,27 +92,21 @@ export const mocks: {
   writeFileSync(FILE_PATH, content, { encoding: 'utf-8' });
 }
 
-async function getPlaylist(id) {
-  const playlist = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-    method: 'GET',
-  }).then((res) => res.json());
+async function getPlaylist(id: string) {
+  const playlist = await get('/playlists/:id', { id });
 
   playlist.tracks.items = await Promise.all(
     playlist.tracks.items.map((item) => ({
       ...item,
-      track: mockedData.tracks.find((t) => t.id == item.id),
+      track: mockedData.tracks.find((t) => t.id == item.track.id)!,
     }))
   );
 
   return playlist;
 }
 
-async function getAlbum(id) {
-  const album = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-    method: 'GET',
-  }).then((res) => res.json());
+async function getAlbum(id: string) {
+  const album = await get('/albums/:id', { id });
 
   album.artists = await Promise.all(
     album.artists.map((artist) => getArtist(artist.id))
@@ -121,11 +121,8 @@ async function getAlbum(id) {
   return album;
 }
 
-async function getArtist(id) {
-  return await fetch(`https://api.spotify.com/v1/artists/${id}`, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-    method: 'GET',
-  }).then((res) => res.json());
+async function getArtist(id: string) {
+  return get('/artists/:id', { id });
 }
 
 async function getTrack(id: string) {
