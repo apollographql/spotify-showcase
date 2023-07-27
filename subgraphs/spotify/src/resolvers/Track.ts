@@ -1,6 +1,6 @@
 import { TrackResolvers } from '../__generated__/resolvers-types';
 import { prop } from './helpers';
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 import { shouldLoadFullArtist } from '../utils/graphql';
 
 export const Track: TrackResolvers = {
