@@ -17,6 +17,7 @@
     "lint:types:playback": "npm run lint:types -w playback-subgraph",
     "build": "npm run build -ws",
     "generate:mocks": "node mocks.js",
+    "graphos:ent": "ts-node scripts/enterprise.ts",
     "start": "npm run start:client",
     "start:all": "concurrently \"npm:dev -w playback-subgraph\" \"npm:dev -w spotify-subgraph\" \"npm:start:client\" \"npm:start:router\"",
     "start:client": "npm run start -w client",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@apollo/rover": "^0.17.1",
     "concurrently": "^8.2.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   },
   "dependencies": {
@@ -46,6 +48,7 @@
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-resolvers": "^4.0.1",
+    "dotenv": "^16.3.1",
     "upath": "^2.0.1"
   },
   "prettier": {
@@ -55,5 +58,8 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "es5"
+  },
+  "engines": {
+    "node": ">=18.0"
   }
 }
