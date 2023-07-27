@@ -303,6 +303,7 @@ export namespace Spotify {
       collaborative: boolean;
       description: string | null;
       external_urls: ExternalUrl;
+      followers: Followers;
       href: string;
       id: string;
       images: Image[];
