@@ -32,11 +32,11 @@ jobs:
         with:
           node-version: 18.x
       - name: Install packages
-        run: npm install --prefix=subgraphs/playback
+        run: npm install -w playback-subgraph
       - name: Check server compiles
-        run: npm run build --prefix=subgraphs/playback
+        run: npm run build -w playback-subgraph
       - name: Run unit tests
-        run: npm run test --prefix=subgraphs/playback
+        run: npm run test -ws playback-subgraph
   check_playback_typescript:
     name: Check TypeScript
     runs-on: ubuntu-latest
@@ -48,6 +48,6 @@ jobs:
         with:
           node-version: 18.x
       - name: Install packages
-        run: npm install --prefix=subgraphs/playback
+        run: npm install -ws playback-subgraph
       - name: Check TypeScript
-        run: npm run lint:types --prefix=subgraphs/playback
+        run: npm run lint:types -ws playback-subgraph
