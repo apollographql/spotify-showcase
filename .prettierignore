@@ -1,0 +1,5 @@
+__generated__
+client/schema.graphql
+client/src/persisted-query-manifest.json
+client/src/introspection.json
+client/src/types/api.ts
