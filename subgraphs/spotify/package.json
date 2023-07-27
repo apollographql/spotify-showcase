@@ -46,6 +46,7 @@
     "querystring": "^0.2.1",
     "request": "^2.88.2",
     "rxjs": "^7.8.1",
+    "spotify-api": "*",
     "ts-invariant": "^0.10.3",
     "type-fest": "^3.11.0",
     "winston": "^3.10.0"
