@@ -4,4 +4,3 @@ import { RecentlyPlayedConnectionResolvers } from '../__generated__/resolvers-ty
 export const RecentlyPlayedConnection: RecentlyPlayedConnectionResolvers = {
   edges: prop('items'),
 };
-

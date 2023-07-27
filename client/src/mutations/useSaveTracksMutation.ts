@@ -52,24 +52,27 @@ const useSaveTracksMutation = () => {
               tracks: (existing, { readField, toReference }) => {
                 return {
                   ...existing,
-                  edges: input.ids.reduce<Reference[]>((edges, id) => {
-                    const trackRef = toReference({ __typename: 'Track', id });
+                  edges: input.ids.reduce<Reference[]>(
+                    (edges, id) => {
+                      const trackRef = toReference({ __typename: 'Track', id });
 
-                    const edgeRef = toReference(
-                      {
-                        __typename: 'SavedTrackEdge',
-                        addedAt: new Date().toISOString(),
-                        node: trackRef,
-                      },
-                      true
-                    );
+                      const edgeRef = toReference(
+                        {
+                          __typename: 'SavedTrackEdge',
+                          addedAt: new Date().toISOString(),
+                          node: trackRef,
+                        },
+                        true
+                      );
 
-                    if (!edgeRef) {
-                      return edges;
-                    }
+                      if (!edgeRef) {
+                        return edges;
+                      }
 
-                    return [edgeRef, ...edges];
-                  }, Array.from(readField<Reference[]>('edges', existing) ?? [])),
+                      return [edgeRef, ...edges];
+                    },
+                    Array.from(readField<Reference[]>('edges', existing) ?? [])
+                  ),
                 };
               },
             },

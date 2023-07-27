@@ -9,7 +9,7 @@ interface Options<TValues, TSubmittedValues>
 
 const useForm = <
   TValues extends FormikValues,
-  TSubmittedValues extends TValues = TValues
+  TSubmittedValues extends TValues = TValues,
 >({
   onSubmit,
   validationSchema,

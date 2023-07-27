@@ -12,7 +12,7 @@
       "cwd": "${workspaceFolder}/subgraphs/playback",
       "program": "${workspaceFolder}/subgraphs/playback/src/index.ts",
       "outFiles": ["${workspaceFolder}/subgraphs/playback/dist/**/*.js"],
-      "preLaunchTask": "tsc: build - subgraphs/playback/tsconfig.json",
+      "preLaunchTask": "tsc: build - subgraphs/playback/tsconfig.json"
     },
     {
       "type": "node",
@@ -22,7 +22,7 @@
       "cwd": "${workspaceFolder}/subgraphs/spotify",
       "program": "${workspaceFolder}/subgraphs/spotify/src/index.ts",
       "outFiles": ["${workspaceFolder}/subgraphs/spotify/dist/**/*.js"],
-      "preLaunchTask": "tsc: build - subgraphs/spotify/tsconfig.json",
+      "preLaunchTask": "tsc: build - subgraphs/spotify/tsconfig.json"
     },
     {
       "type": "chrome",
@@ -30,10 +30,7 @@
       "name": "Website",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/client",
-      "outFiles": [
-        "${workspaceFolder}/dist/*.js",
-        "!**/node_modules/**"
-      ]
+      "outFiles": ["${workspaceFolder}/dist/*.js", "!**/node_modules/**"]
     }
   ]
 }
