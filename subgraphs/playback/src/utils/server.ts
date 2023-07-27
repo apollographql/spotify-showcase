@@ -9,7 +9,6 @@ import {
 } from '@apollo/server/plugin/landingPage/default';
 import resolvers from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
-const port = process.env.PORT ?? '4002';
 const routerSecret = process.env.ROUTER_SECRET;
 
 import { WebSocketServer } from 'ws';

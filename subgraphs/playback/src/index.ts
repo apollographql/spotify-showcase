@@ -1,7 +1,6 @@
 import { expressMiddleware } from '@apollo/server/express4';
 
 const port = process.env.PORT ?? '4002';
-const routerSecret = process.env.ROUTER_SECRET;
 import morgan from 'morgan';
 import chalk from 'chalk';
 import { json } from 'body-parser';
