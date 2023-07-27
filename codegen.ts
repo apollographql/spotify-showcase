@@ -2,7 +2,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   hooks: {
-    afterOneFileWrite: ['prettier --write'],
+    afterAllFileWrite: ['prettier --write'],
   },
   generates: {
     './subgraphs/playback/src/__generated__/resolvers-types.ts': {
