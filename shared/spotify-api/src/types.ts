@@ -1,9 +1,9 @@
-import { OAUTH_SCOPES } from '../utils/constants';
+import { OAUTH_SCOPES } from './constants';
 
 type RestrictScope<
   T,
-  TScope extends string
-> = TScope extends typeof OAUTH_SCOPES[number] ? T : never;
+  TScope extends string,
+> = TScope extends (typeof OAUTH_SCOPES)[number] ? T : never;
 
 type Prop<T, Key extends string> = Key extends keyof T ? T[Key] : never;
 
@@ -45,6 +45,7 @@ export namespace Spotify {
       images: Image[];
       label: string;
       name: string;
+      popularity: number;
       release_date: string;
       release_date_precision: ReleaseDatePrecision;
       total_tracks: number;
@@ -55,8 +56,7 @@ export namespace Spotify {
 
     export interface AlbumSimplified {
       album_type: AlbumType;
-      album_group: AlbumGroup;
-      artists: ArtistSimplified;
+      artists: ArtistSimplified[];
       available_markets: CountryCode[];
       external_urls: ExternalUrl;
       href: string;
@@ -249,7 +249,7 @@ export namespace Spotify {
     export interface Image {
       url: string;
       height: number | null;
-      weight: number | null;
+      width: number | null;
     }
 
     export interface NewReleases {
@@ -303,11 +303,12 @@ export namespace Spotify {
       collaborative: boolean;
       description: string | null;
       external_urls: ExternalUrl;
+      followers: Followers;
       href: string;
       id: string;
       images: Image[];
       name: string;
-      owner: User;
+      owner: UserSimplified;
       primary_color: string | null;
       public: boolean | null;
       snapshot_id: string;
@@ -338,15 +339,40 @@ export namespace Spotify {
       total: number;
     }
 
-    export type PlaylistItem = Track | PlaylistEpisode;
+    export type PlaylistItem = PlaylistTrackItem | PlaylistEpisodeItem;
 
-    export interface PlaylistEpisode {
+    export interface PlaylistTrackItem {
+      album: AlbumSimplified;
+      artists: ArtistSimplified[];
+      available_markets: CountryCode[];
+      disc_number: number;
+      duration_ms: number;
+      episode: false;
+      explicit: boolean;
+      external_ids: ExternalId;
+      external_urls: ExternalUrl;
+      href: string;
+      id: string;
+      is_local: boolean;
+      is_playable?: boolean;
+      linked_from?: Track;
+      name: string;
+      popularity: number;
+      preview_url: string;
+      restrictions?: Restrictions;
+      track: true;
+      track_number: number;
+      type: 'track';
+      uri: string;
+    }
+
+    export interface PlaylistEpisodeItem {
       album: PlaylistEpisodeShow;
       artist: PlaylistEpisodeArtist[];
       available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
-      episode: boolean;
+      episode: true;
       explicit: boolean;
       external_ids: ExternalId;
       external_urls: ExternalUrl;
@@ -357,7 +383,7 @@ export namespace Spotify {
       name: string;
       popularity: number;
       preview_url: string;
-      track: boolean;
+      track: false;
       track_number: number;
       type: 'episode';
       uri: string;
@@ -579,6 +605,7 @@ export namespace Spotify {
     }
 
     export interface UserSimplified {
+      display_name?: string | null;
       external_urls: ExternalUrl;
       href: string;
       id: string;
@@ -665,7 +692,7 @@ export namespace Spotify {
     export namespace BodyParams {
       export type Lookup<
         THttpMethod extends HTTPMethod,
-        Path extends Request.Paths
+        Path extends Request.Paths,
       > = THttpMethod extends 'PUT'
         ? Prop<PUT, Path>
         : THttpMethod extends 'POST'
@@ -735,7 +762,7 @@ export namespace Spotify {
     export namespace QueryParams {
       export type Lookup<
         THttpMethod extends HTTPMethod,
-        Path extends Request.Paths
+        Path extends Request.Paths,
       > = THttpMethod extends 'DELETE'
         ? Prop<DELETE, Path>
         : THttpMethod extends 'GET'

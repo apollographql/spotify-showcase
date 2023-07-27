@@ -1,4 +1,4 @@
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 
 export interface Releasable {
   release_date: string;

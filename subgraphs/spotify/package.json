@@ -1,5 +1,5 @@
 {
-  "name": "subgraph-template-typescript-apollo-server",
+  "name": "spotify-subgraph",
   "private": true,
   "description": "A template for TypeScript projects with pre-configured tooling",
   "version": "0.0.0",
@@ -22,13 +22,11 @@
     "start": "node dist/index.js",
     "dev": "nodemon --watch \"src/**\" --ext \"ts,json,graphql\" --exec 'ts-node' src/index.ts",
     "test": "jest",
-    "lint:types": "tsc --noEmit -p ./tsconfig.json"
+    "lint:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/datasource-rest": "^6.0.0",
     "@apollo/server": "^4.7.1",
     "@apollo/subgraph": "^2.4.7",
-    "@apollo/utils.keyvaluecache": "^3.0.0",
     "@graphql-tools/mock": "^9.0.0",
     "@graphql-tools/schema": "^10.0.0",
     "@sentry/node": "^7.59.3",
@@ -46,6 +44,7 @@
     "querystring": "^0.2.1",
     "request": "^2.88.2",
     "rxjs": "^7.8.1",
+    "spotify-api": "*",
     "ts-invariant": "^0.10.3",
     "type-fest": "^3.11.0",
     "winston": "^3.10.0"
@@ -55,12 +54,12 @@
     "@types/cors": "^2.8.13",
     "@types/jest": "^29.0.3",
     "@types/lodash": "^4.14.194",
-    "@types/node": "^18.7.23",
+    "@types/node": "^18.17.1",
     "jest": "^29.0.3",
     "nodemon": "^2.0.15",
     "ts-jest": "^29.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.0"
+    "typescript": "^5.1.6"
   },
   "jest": {
     "preset": "ts-jest",
@@ -70,7 +69,6 @@
     ],
     "globals": {
       "ts-jest": {
-        "testRegext": "/__tests__/.*.test.ts",
         "verbose": true
       }
     }

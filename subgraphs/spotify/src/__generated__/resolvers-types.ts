@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 import { FieldConfig as FieldConfigType } from '../fieldConfigs/fieldConfig';
 import { Releasable } from './mappers';
 import { ContextValue } from '../types/ContextValue';

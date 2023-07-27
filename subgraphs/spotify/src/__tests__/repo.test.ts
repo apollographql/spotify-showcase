@@ -1,12 +1,12 @@
 import { GraphQLRequest, GraphQLResponse } from '@apollo/server';
-import { MockedSpotifyDataSource } from '../utils/mocks';
+import { MockSpotifyClient } from 'spotify-api';
 import { server } from '../utils/server';
 import { VariableValues } from '@apollo/server/dist/esm/externalTypes/graphql';
 
 const options = {
   contextValue: {
     defaultCountryCode: 'US',
-    dataSources: { spotify: new MockedSpotifyDataSource('default') },
+    dataSources: { spotify: new MockSpotifyClient('default') },
   },
 };
 
@@ -99,13 +99,13 @@ describe('Repository Template Functionality', () => {
         _entities: [
           {
             __typename: 'Track',
-            name: 'Apollo I : The Writing Writer - Explicit Album Version',
-            durationMs: 315480,
+            name: 'Starlight',
+            durationMs: 240213,
             album: {
-              name: "Good Apollo I'm Burning Star IV Volume One: From Fear Through The Eyes Of Madness",
+              name: 'Black Holes and Revelations',
               artists: [
                 {
-                  name: 'Coheed and Cambria',
+                  name: 'Muse',
                 },
               ],
             },
@@ -121,7 +121,7 @@ describe('Repository Template Functionality', () => {
         representations: [
           {
             __typename: 'PlaybackItem',
-            id: '2398rj23498fj',
+            id: '3skn2lauGk7Dx6bVIt5DVj',
           },
         ],
       },
