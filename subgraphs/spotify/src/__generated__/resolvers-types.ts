@@ -216,8 +216,6 @@ export type ArtistAlbumsArgs = {
 
 export type ArtistAlbumEdge = {
   __typename?: 'ArtistAlbumEdge';
-  /** The album group this album belongs to. */
-  albumGroup: AlbumGroup;
   /** Spotify catalog information for the album. */
   node: Album;
 };
@@ -2362,7 +2360,6 @@ export type ArtistResolvers<ContextType = ContextValue, ParentType extends Resol
 }>;
 
 export type ArtistAlbumEdgeResolvers<ContextType = ContextValue, ParentType extends ResolversParentTypes['ArtistAlbumEdge'] = ResolversParentTypes['ArtistAlbumEdge']> = ResolversObject<{
-  albumGroup?: Resolver<ResolversTypes['AlbumGroup'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['Album'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
