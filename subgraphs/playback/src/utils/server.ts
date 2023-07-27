@@ -20,7 +20,7 @@ import express from 'express';
 import http from 'http';
 import SpotifyAPI from '../dataSources/spotify';
 import { GraphQLError } from 'graphql';
-import { MockedSpotifyDataSource } from '../utils/mocks';
+import { MockSpotifyClient } from 'spotify-api';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
 
@@ -75,7 +75,7 @@ const serverCleanup = useServer(
         return {
           defaultCountryCode,
           dataSources: {
-            spotify: new MockedSpotifyDataSource(userIdForMocks),
+            spotify: new MockSpotifyClient(userIdForMocks),
           },
           userIdForMocks,
         };
