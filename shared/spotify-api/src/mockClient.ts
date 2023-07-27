@@ -104,25 +104,29 @@ export class MockSpotifyClient implements SpotifyDataSource {
     id: string,
     params?: { market?: string }
   ): Promise<Spotify.Object.Album> {
-    const album = mocks.albums.find((t) => t.id == id);
-    if (album && params?.market) {
-      if (album.available_markets.includes(params.market)) return album;
-    } else if (album) return album;
-    else return null;
+    const album = mocks.albums[id];
+
+    if (params.market && album.available_markets.includes(params.market)) {
+      return album;
+    } else if (album) {
+      return album;
+    }
+
+    return null;
   }
 
   async getAlbums(params: {
     ids: string;
     market?: string;
   }): Promise<Spotify.Object.List<'albums', Spotify.Object.Album>> {
-    return { albums: mocks.albums };
+    return { albums: Object.values(mocks.albums) };
   }
 
   async getAlbumTracks(
     id: string,
     params?: { limit?: number; offset?: number; market?: string }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>> {
-    return mocks.albums.find((t) => t.id == id)?.tracks;
+    return mocks.albums[id]?.tracks;
   }
 
   async getArtist(id: string): Promise<Spotify.Object.Artist> {
@@ -311,16 +315,17 @@ export class MockSpotifyClient implements SpotifyDataSource {
     limit?: number;
     offset?: number;
   }): Promise<Spotify.Object.Paginated<Spotify.Object.Playlist>> {
-    const items: Spotify.Object.Playlist[] = [];
+    const playlists = Object.values(mocks.playlists);
+    const { offset = 0, limit = 10 } = params;
 
     return {
-      total: 10,
+      total: playlists.length,
       previous: '',
       next: '',
       href: '',
-      items: mocks.playlists,
-      limit: params.limit ?? 10,
-      offset: params.limit ?? 0,
+      items: playlists.slice(offset, offset + limit),
+      limit,
+      offset,
     };
   }
 
@@ -385,14 +390,14 @@ export class MockSpotifyClient implements SpotifyDataSource {
     id: string,
     params?: { additional_types?: string; fields?: string; market?: string }
   ): Promise<Spotify.Object.Playlist> {
-    return mocks.playlists.find((t) => t.id == id);
+    return mocks.playlists[id];
   }
 
   async getPlaylistTracks(
     id: string,
     params: { limit?: number; offset?: number }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>> {
-    return mocks.playlists.find((t) => t.id == id)?.tracks;
+    return mocks.playlists[id]?.tracks;
   }
 
   async getRecentlyPlayed(params?: {
@@ -425,11 +430,15 @@ export class MockSpotifyClient implements SpotifyDataSource {
     id: string,
     params?: { market?: string }
   ): Promise<Spotify.Object.Track> {
-    const track = mocks.tracks.find((t) => t.id == id);
+    const track = mocks.tracks[id];
+
     if (track && params?.market) {
       if (track.available_markets.includes(params.market)) return track;
-    } else if (track) return track;
-    else return null;
+    } else if (track) {
+      return track;
+    }
+
+    return null;
   }
 
   async getTrackAudioFeatures(
@@ -442,7 +451,11 @@ export class MockSpotifyClient implements SpotifyDataSource {
     ids: string;
     market?: string;
   }): Promise<Spotify.Object.List<'tracks', Spotify.Object.Track>> {
-    return { tracks: mocks.tracks };
+    return {
+      tracks: Object.values(mocks.tracks).filter((track) =>
+        params.ids.split(',').includes(track.id)
+      ),
+    };
   }
 
   async getTracksAudioFeatures(params: {
