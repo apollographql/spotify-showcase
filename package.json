@@ -4,7 +4,9 @@
   "description": "# React + Apollo Spotify Showcase",
   "main": "setup.js",
   "workspaces": [
-    "./shared/*"
+    "./client/",
+    "./shared/*",
+    "./subgraphs/*"
   ],
   "scripts": {
     "codegen": "rover graph fetch Spotify-tb7du2@prod-external > ./client/schema.graphql && graphql-codegen",
@@ -18,11 +20,6 @@
     "build:spotify": "npm run build --prefix=subgraphs/spotify",
     "build:playback": "npm run build --prefix=subgraphs/playback",
     "generate:mocks": "node mocks.js",
-    "postinstall": "npm run setup",
-    "setup": "concurrently \"npm:setup:*\"",
-    "setup:client": "npm install --prefix=client",
-    "setup:spotify": "npm install --prefix=subgraphs/spotify",
-    "setup:playback": "npm install --prefix=subgraphs/playback",
     "start": "npm run start:client",
     "start:all": "concurrently \"npm:dev --prefix=subgraphs/playback\" \"npm:dev --prefix=subgraphs/spotify\" \"npm:start:client\" \"npm:start:router\"",
     "start:client": "npm run start --prefix=client",
