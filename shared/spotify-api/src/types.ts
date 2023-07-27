@@ -338,15 +338,40 @@ export namespace Spotify {
       total: number;
     }
 
-    export type PlaylistItem = Track | PlaylistEpisode;
+    export type PlaylistItem = PlaylistTrackItem | PlaylistEpisodeItem;
 
-    export interface PlaylistEpisode {
+    export interface PlaylistTrackItem {
+      album: AlbumSimplified;
+      artists: ArtistSimplified[];
+      available_markets: CountryCode[];
+      disc_number: number;
+      duration_ms: number;
+      episode: false;
+      explicit: boolean;
+      external_ids: ExternalId;
+      external_urls: ExternalUrl;
+      href: string;
+      id: string;
+      is_local: boolean;
+      is_playable?: boolean;
+      linked_from?: Track;
+      name: string;
+      popularity: number;
+      preview_url: string;
+      restrictions?: Restrictions;
+      track: true;
+      track_number: number;
+      type: 'track';
+      uri: string;
+    }
+
+    export interface PlaylistEpisodeItem {
       album: PlaylistEpisodeShow;
       artist: PlaylistEpisodeArtist[];
       available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
-      episode: boolean;
+      episode: true;
       explicit: boolean;
       external_ids: ExternalId;
       external_urls: ExternalUrl;
@@ -357,7 +382,7 @@ export namespace Spotify {
       name: string;
       popularity: number;
       preview_url: string;
-      track: boolean;
+      track: false;
       track_number: number;
       type: 'episode';
       uri: string;
