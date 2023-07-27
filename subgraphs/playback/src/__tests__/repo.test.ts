@@ -1,5 +1,5 @@
 import { GraphQLRequest, GraphQLResponse } from '@apollo/server';
-import { MockedSpotifyDataSource } from '../utils/mocks';
+import { MockSpotifyClient } from 'spotify-api';
 import { callbackApolloServer, wsApolloServer } from '../utils/server';
 import { VariableValues } from '@apollo/server/dist/esm/externalTypes/graphql';
 import express from 'express';
@@ -9,7 +9,7 @@ import { json } from 'body-parser';
 const options = {
   contextValue: {
     defaultCountryCode: 'US',
-    dataSources: { spotify: new MockedSpotifyDataSource('default') },
+    dataSources: { spotify: new MockSpotifyClient('default') },
   },
 };
 

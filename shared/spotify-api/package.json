@@ -6,13 +6,22 @@
   "main": "dist/index.js",
   "types": "dist/*/**.d.ts",
   "scripts": {
-    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && tsc",
+    "generate:mocks": "ts-node ./scripts/generate-mocks.ts",
     "postinstall": "npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/datasource-rest": "^6.0.1",
+    "@apollo/server": "^4.8.1",
+    "@apollo/utils.fetcher": "^2.0.1",
+    "@apollo/utils.keyvaluecache": "^2.1.1",
     "typescript": "^5.1.6"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.1"
   }
 }
