@@ -22,7 +22,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon --watch \"src/**\" --ext \"ts,json,graphql\" --exec 'ts-node' src/index.ts",
     "test": "jest",
-    "lint:types": "tsc --noEmit -p ./tsconfig.json"
+    "lint:types": "tsc --noEmit"
   },
   "dependencies": {
     "@apollo/datasource-rest": "^6.0.0",
