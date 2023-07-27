@@ -1,6 +1,9 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
+  hooks: {
+    afterOneFileWrite: ['prettier --write'],
+  },
   generates: {
     './subgraphs/playback/src/__generated__/resolvers-types.ts': {
       schema: './subgraphs/playback/schema.graphql',
