@@ -1,6 +1,8 @@
 const accessToken = process.env.AUTH;
 const { writeFileSync } = require('fs');
-const { resolve } = require('path');
+const path = require('path');
+
+const FILE_PATH = path.join(__dirname, '../src/mocks.ts');
 
 if (!accessToken) {
   throw new Error('Please set a valid access as the `AUTH` env var');
@@ -82,11 +84,7 @@ export const mocks: {
   albums: any[];
 } = ${JSON.stringify(mockedData, null, 2)}`;
 
-  writeFileSync(
-    resolve('subgraphs', 'spotify', 'src', 'utils', 'mockedData.ts'),
-    content,
-    { encoding: 'utf-8' }
-  );
+  writeFileSync(FILE_PATH, content, { encoding: 'utf-8' });
 }
 
 async function getPlaylist(id) {

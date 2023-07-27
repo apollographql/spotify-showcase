@@ -8,6 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
+    "generate:mocks": "node ./scripts/generate-mocks.js",
     "postinstall": "npm run build"
   },
   "keywords": [],
