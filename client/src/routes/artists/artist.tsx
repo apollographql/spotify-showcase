@@ -67,7 +67,7 @@ const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
     return [];
   }
 
-  return albumConnection.edges.map((edge) => edge.node);
+  return (albumConnection.edges ?? []).map((edge) => edge.node);
 };
 
 const classNames = {
