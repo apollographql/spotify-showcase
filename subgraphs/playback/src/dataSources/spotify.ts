@@ -10,7 +10,7 @@ import {
   RequestOptions,
 } from '@apollo/datasource-rest';
 import { OmitNever } from '../types/OmitNever';
-import { Spotify } from './spotify.types';
+import { Spotify } from 'spotify-api';
 import path from 'path';
 import { GraphQLError } from 'graphql';
 
@@ -33,7 +33,7 @@ interface PostRequestOptions extends Omit<PostRequest, 'params'> {
 
 type RequestParams<
   HTTPMethod extends Spotify.HTTPMethod,
-  Path extends Spotify.Request.Paths
+  Path extends Spotify.Request.Paths,
 > = OmitNever<{
   body: Spotify.Request.BodyParams.Lookup<HTTPMethod, Path>;
   params: Spotify.Request.QueryParams.Lookup<HTTPMethod, Path>;

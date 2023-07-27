@@ -1,4 +1,4 @@
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 
 export const mocks: {
   tracks: any[];

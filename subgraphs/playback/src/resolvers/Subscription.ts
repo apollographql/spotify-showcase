@@ -1,5 +1,5 @@
 import { SubscriptionResolvers } from '../__generated__/resolvers-types';
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 import { catchError, map, distinctUntilChanged, of } from 'rxjs';
 import { equal } from '@wry/equality';
 import { GraphQLResolveInfo } from 'graphql';

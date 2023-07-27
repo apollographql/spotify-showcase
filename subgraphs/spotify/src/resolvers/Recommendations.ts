@@ -1,5 +1,5 @@
 import { RecommendationsResolvers } from '../__generated__/resolvers-types';
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 
 export const Recommendations: RecommendationsResolvers = {
   tracks: (recommendations) => {

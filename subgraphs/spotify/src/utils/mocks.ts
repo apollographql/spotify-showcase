@@ -1,4 +1,4 @@
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 import { SpotifyDataSource } from '../dataSources/spotify';
 import { mocks } from './mockedData';
 

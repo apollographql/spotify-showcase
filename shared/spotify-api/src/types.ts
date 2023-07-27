@@ -1,8 +1,8 @@
-import { OAUTH_SCOPES } from '../utils/constants';
+import { OAUTH_SCOPES } from './constants';
 
 type RestrictScope<
   T,
-  TScope extends string
+  TScope extends string,
 > = TScope extends (typeof OAUTH_SCOPES)[number] ? T : never;
 
 type Prop<T, Key extends string> = Key extends keyof T ? T[Key] : never;
@@ -665,7 +665,7 @@ export namespace Spotify {
     export namespace BodyParams {
       export type Lookup<
         THttpMethod extends HTTPMethod,
-        Path extends Request.Paths
+        Path extends Request.Paths,
       > = THttpMethod extends 'PUT'
         ? Prop<PUT, Path>
         : THttpMethod extends 'POST'
@@ -735,7 +735,7 @@ export namespace Spotify {
     export namespace QueryParams {
       export type Lookup<
         THttpMethod extends HTTPMethod,
-        Path extends Request.Paths
+        Path extends Request.Paths,
       > = THttpMethod extends 'DELETE'
         ? Prop<DELETE, Path>
         : THttpMethod extends 'GET'

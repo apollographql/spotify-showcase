@@ -1,5 +1,5 @@
 import { RecentlyPlayedEdgeResolvers } from '../__generated__/resolvers-types';
-import { Spotify } from '../dataSources/spotify.types';
+import { Spotify } from 'spotify-api';
 import { parseISO } from 'date-fns';
 
 export const RecentlyPlayedEdge: RecentlyPlayedEdgeResolvers = {

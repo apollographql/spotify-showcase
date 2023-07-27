@@ -32,11 +32,11 @@ jobs:
         with:
           node-version: 18.x
       - name: Install packages
-        run: npm install --prefix=subgraphs/spotify
+        run: npm install -w spotify-subgraph
       - name: Check server compiles
-        run: npm run build --prefix=subgraphs/spotify
+        run: npm run build -w spotify-subgraph
       - name: Run unit tests
-        run: npm run test --prefix=subgraphs/spotify
+        run: npm run test -w spotify-subgraph
   check_spotify_typescript:
     name: Check TypeScript
     runs-on: ubuntu-latest
@@ -48,6 +48,6 @@ jobs:
         with:
           node-version: 18.x
       - name: Install packages
-        run: npm install --prefix=subgraphs/spotify
+        run: npm install -w spotify-subgraph
       - name: Check TypeScript
-        run: npm run lint:types --prefix=subgraphs/spotify
+        run: npm run lint:types -w spotify-subgraph
