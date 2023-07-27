@@ -9,8 +9,6 @@ if (!accessToken) {
   throw new Error('Please set a valid access as the `AUTH` env var');
 }
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
 const mockedData = {
   tracks: [],
   albums: [],
@@ -63,13 +61,11 @@ async function main() {
   for (var i = 0; i < songIds.length; i++) {
     const track = await getTrack(songIds[i]);
     mockedData.tracks.push(track);
-    await sleep(2000);
   }
 
   for (var i = 0; i < playlistIds.length; i++) {
     const playlist = await getPlaylist(playlistIds[i]);
     mockedData.playlists.push(playlist);
-    await sleep(2000);
   }
 
   for (var i = 0; i < albumIds.length; i++) {
