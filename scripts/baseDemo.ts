@@ -2,6 +2,7 @@ import { v4 } from 'uuid';
 import { resolve } from 'path';
 import { readFileSync } from 'fs';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export const graphVariant = 'main';
 export const client = new ApolloClient({
@@ -31,6 +32,11 @@ const CREATE_GRAPH = gql(`
     newService(accountId: $accountId, id: $newServiceId, name: $name) {
       id
       apiKeys { token }
+      account {
+        currentPlan {
+          kind
+        }
+      }
     }
   }
 `);
@@ -73,6 +79,7 @@ const ADD_OPERATION_TO_COLLECTION = gql(`
         ... on AddOperationCollectionEntriesSuccess {
           operationCollectionEntries {
             id
+            name
           }
         }
       }
@@ -118,7 +125,7 @@ const UPDATE_LINTER_CONFIG = gql(`
     }
   }`);
 
-export function createGraph(id: string) {
+function createGraph(id: string) {
   const uniqueId = v4().replace('-', '').substring(0, 6);
   return client
     .mutate({
@@ -129,10 +136,12 @@ export function createGraph(id: string) {
         name: 'Spotify Demo Graph',
       },
     })
-    .then((r) => r.data);
+    .then((r) => ({
+      newService: r.data?.newService,
+    }));
 }
 
-export async function createOperationCollection(graphId: string) {
+async function createOperationCollection(graphId: string) {
   const { createOperationCollection } = await client
     .mutate({
       mutation: CREATE_OPERATION_COLLECTION,
@@ -144,15 +153,16 @@ export async function createOperationCollection(graphId: string) {
       },
     })
     .then((r) => r.data);
-  await client.mutate({
-    mutation: ADD_OPERATION_TO_COLLECTION,
-    variables: {
-      operationCollectionId: createOperationCollection.id,
-      operations: [
-        {
-          name: 'MyPlaylists',
-          document: {
-            body: `query MyPlaylists($offset: Int, $limit: Int) {
+  return await client
+    .mutate({
+      mutation: ADD_OPERATION_TO_COLLECTION,
+      variables: {
+        operationCollectionId: createOperationCollection.id,
+        operations: [
+          {
+            name: 'MyPlaylists',
+            document: {
+              body: `query MyPlaylists($offset: Int, $limit: Int) {
     me {
       playlists(offset: $offset, limit: $limit) {
         pageInfo {
@@ -170,12 +180,12 @@ export async function createOperationCollection(graphId: string) {
       }
     }
   }`,
+            },
           },
-        },
-        {
-          name: 'PlaybackState',
-          document: {
-            body: `subscription PlaybackState {
+          {
+            name: 'PlaybackState',
+            document: {
+              body: `subscription PlaybackState {
     playbackStateChanged {
       isPlaying
       progressMs
@@ -185,38 +195,39 @@ export async function createOperationCollection(graphId: string) {
     }
   }
   `,
+            },
           },
-        },
-        {
-          name: 'PausePlayback',
-          document: {
-            body: `mutation PausePlayback {
+          {
+            name: 'PausePlayback',
+            document: {
+              body: `mutation PausePlayback {
     pausePlayback {
       playbackState {
         isPlaying
       }
     }
   }`,
+            },
           },
-        },
-        {
-          name: 'ResumePlayback',
-          document: {
-            body: `mutation ResumePlayback {
+          {
+            name: 'ResumePlayback',
+            document: {
+              body: `mutation ResumePlayback {
     resumePlayback {
       playbackState {
         isPlaying
       }
     }
   }`,
+            },
           },
-        },
-      ],
-    },
-  });
+        ],
+      },
+    })
+    .then((r) => r.data);
 }
 
-export function updateLinterConfig(graphId: string) {
+function updateLinterConfig(graphId: string) {
   return client.mutate({
     mutation: UPDATE_LINTER_CONFIG,
     variables: {
@@ -233,27 +244,32 @@ export function updateLinterConfig(graphId: string) {
   });
 }
 
-export function updateReadme(graphId: string) {
+function updateReadme(
+  graphId: string,
+  readme: string,
+  ops: { id: string; name: string }[]
+) {
+  ops.forEach(({ id, name }) => {
+    readme = readme.replace(`<replace-${name}>`, `{{ operation.${id} }}`);
+  });
   return client.mutate({
     mutation: UPDATE_README,
     variables: {
       graphId,
       name: graphVariant,
-      readme: readFileSync(resolve('docs', 'enterprise-demo.md'), {
-        encoding: 'utf-8',
-      }),
+      readme,
     },
   });
 }
 
-export function createSubgraph(subgraph: any) {
+function createSubgraph(subgraph: any) {
   return client.mutate({
     mutation: CREATE_SUBGRAPH,
     variables: subgraph,
   });
 }
 
-export function updateExplorerUrl(graphId: string) {
+function updateExplorerUrl(graphId: string) {
   const apolloHostedRouter = 'https://showcase-router.apollographql.com';
   return client.mutate({
     mutation: UPDATE_EXPLORER_URL,
@@ -267,19 +283,81 @@ export function updateExplorerUrl(graphId: string) {
   });
 }
 
-export async function checkApiKey() {
-  try {
-    const data = await client
-      .query({
-        query: ME_CHECK,
-      })
-      .then((r) => r.data);
+async function checkApiKey() {
+  const data = await client
+    .query({
+      query: ME_CHECK,
+    })
+    .then((r) => r.data);
 
-    if (data.me?.memberships)
-      return { type: 'user', id: data.me.memberships[0].account.id };
-    if (data.me?.title) return { type: 'graph', id: data.me.id };
-  } catch (err) {
-    console.log(err);
+  if (data.me?.memberships) return data.me.memberships[0].account.id;
+  throw new Error(
+    'You must use a user api key and be an org administrator for your account.'
+  );
+}
+
+export async function createBaseDemo() {
+  const identity = await checkApiKey();
+  if (!identity) {
+    console.log('Invalid API key');
+    return;
   }
-  return null;
+
+  const { newService } = await createGraph(identity);
+  const isEnterprise = newService?.account?.currentPlan?.kind
+    ?.toLowerCase()
+    ?.includes('enterprise')
+    ? true
+    : false;
+  let graphId = newService?.id;
+
+  const subgraphs = [
+    {
+      graphId,
+      graphVariant,
+      activePartialSchema: {
+        sdl: readFileSync(resolve('subgraphs', 'spotify', 'schema.graphql'), {
+          encoding: 'utf-8',
+        }),
+      },
+      name: 'spotify',
+      url: 'https://showcase-spotify.apollographql.com',
+      revision: '1',
+    },
+    {
+      graphId,
+      graphVariant,
+      activePartialSchema: {
+        sdl: readFileSync(resolve('subgraphs', 'playback', 'schema.graphql'), {
+          encoding: 'utf-8',
+        }),
+      },
+      name: 'playback',
+      url: 'https://showcase-spotify.apollographql.com',
+      revision: '1',
+    },
+  ];
+
+  await createSubgraph(subgraphs[0]);
+  await sleep(1000);
+  await createSubgraph(subgraphs[1]);
+  await updateExplorerUrl(graphId);
+  const operationCollection = await createOperationCollection(graphId);
+  const ops =
+    operationCollection?.operationCollection?.addOperations
+      ?.operationCollectionEntries ?? [];
+
+  const readmeContentPath = isEnterprise
+    ? resolve('docs', 'enterprise-demo.md')
+    : resolve('docs', 'serverless-demo.md');
+  await updateReadme(
+    graphId,
+    readFileSync(readmeContentPath, {
+      encoding: 'utf-8',
+    }),
+    ops
+  );
+  await updateLinterConfig(graphId);
+
+  return graphId;
 }

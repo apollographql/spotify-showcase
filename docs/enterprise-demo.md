@@ -2,14 +2,12 @@
 
 Welcome to the **{{ graph.name }}** API! 🎉 You can follow along in this README to walk through a guided demo or just explore yourself.
 
-> If you're new to Apollo, learn more about GraphOS in [our docs](https://www.apollographql.com/docs/studio/).
-
 ## So what did clicking that button do to get me here?
 
-In creating this demo, we've set up GraphOS to work with two GraphQL APIs we have hosted for you:
+Behind the scenes, we've set up GraphOS to work with two GraphQL APIs we have hosted for you:
 
 - _spotify_: Exposes the Spotify REST API
-- _playback_: Exposes subscriptions for playback functionality coming from the Spotify REST API including the associated `mutation` operations
+- _playback_: Exposes Spotify playback functionality
 
 This includes provisioning a serverless instance of the [Apollo Router](https://www.apollographql.com/docs/graphos/routing/cloud) that can route traffic between our two GraphQL APIs 🚀
 
@@ -21,49 +19,15 @@ This includes provisioning a serverless instance of the [Apollo Router](https://
 
 You need a way to query your graph. [GraphOS Explorer](https://www.apollographql.com/docs/graphos/explorer) is built to make this easy. You can try querying this graph using [Explorer]({{ graph.url.explorer }}). Try running your first operation:
 
-```gql
-query RootWebsiteQuery($offset: Int, $limit: Int) {
-  me {
-    playlists(offset: $offset, limit: $limit) {
-      pageInfo {
-        offset
-        limit
-        hasNextPage
-      }
-      edges {
-        node {
-          id
-          name
-          uri
-        }
-      }
-    }
-  }
-}
-```
+<replace-MyPlaylists>
 
-The Apollo Router also supports [GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)!
+The Apollo Router also supports [GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)! The following operation subscribes to the current playback state of your music player on the 🚀. Don't worry, we automatically press play for you on your space radio when you start this up for the first time.
 
-```gql
-subscription PlaybackStateSubscriberSubscription {
-  playbackStateChanged {
-    isPlaying
-    progressMs
-  }
-}
-```
+<replace-PlaybackState>
 
-GraphOS Explorer also supports tabs. Open a new tab and try pausing the running subscription:
+GraphOS Explorer also supports tabs. Open a new tab and run the operation below to pause the running subscription:
 
-```gql
-mutation PausePlaybackMutation {
-  pausePlayback {
-    playbackState {
-      isPlaying
-    }
-  }
-}
-```
+<replace-PausePlayback>
 
 ## Identifying client operations
 
@@ -99,7 +63,7 @@ You can view all of the GraphQL APIs in the [subgraphs tab]({{  graph.url.subgra
 Since we added a new subgraph into our demo, we'll have a launch with these updates for our Apollo Router. Head over to the [Launches tab]({{ graph.url.launches }}) to see the update run through the appropriate checks and be deployed. Once it has deployed, head over to [Explorer]({{ graph.url.explorer }}) and you should be able to add some of the SpaceX operations to your graph:
 
 ```gql
-query RoolWebsiteQuery($offset: Int, $limit: Int) {
+query MyPlaylists($offset: Int, $limit: Int) {
   company {
     name
   }
@@ -132,17 +96,17 @@ You can also see a more detailed breakdown of the schema with the ability to sea
 
 ## Understanding the usage of your graph
 
-The Apollo Router automatically collects usage information on your graph based on what fields are being requested from client applications. You can start diving into specific fields and their usage in the graph by heading to the [Fields tab]({{ graph.url.fields }}).
+The Apollo Router automatically collects usage information on your graph based on what fields are being requested from client applications. You can start diving into specific fields and their usage in the graph by heading to the [Fields page]({{ graph.url.fields }}).
 
-In the top search bad of the Fields tab, try searching for `CurrentUser` to find the `me` field we queries. You can also click the flied insights button to the right to view a more detailed breakdown of the usage in this specific field.
+In the top search bad of the Fields page, try searching for `CurrentUser` to find the `me` field we queries. You can also click the flied insights button to the right to view a more detailed breakdown of the usage in this specific field.
 
 ## Knowing when to start pruning your graph
 
-Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being useed or not. In the same [Fields tab]({{ graph.url.fields }}), select the "Deprecations" at the top and you should see some deprecated fields that were added from the SpaceX API.
+Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being useed or not. In the same [Fields page]({{ graph.url.fields }}), select the "Deprecations" at the top and you should see some deprecated fields that were added from the SpaceX API.
 
 ## Looking at individual operations
 
-In addition to the aggregate usage information we saw in the Fields tab, GraphOS also enables you to view sample individual traces that includes resolver level traces 🙌. Head over to the [Operations]({{ graph.url.operations }}) tab and you can explore the traces generated from the operations we ran in previous steps.
+In addition to the aggregate usage information we saw in the Fields page, GraphOS also enables you to view sample individual traces that includes resolver level traces 🙌. Head over to the [Operations]({{ graph.url.operations }}) tab and you can explore the traces generated from the operations we ran in previous steps.
 
 ## Testing out making a change to your subgraphs locally
 
@@ -192,6 +156,12 @@ You can also [configure all of these checks](https://www.apollographql.com/docs/
 
 ## Wrap up
 
-We've covered some of the basics of GraphOS in this demo, but we can't cover everything. If you want to learn more about the details of these features and more in GraphOS, head over to our [docs](https://www.apollographql.com/docs/graphos) or jump in our [Discord server](https://discord.gg/graphos) and verify the email you used with this GraphOS account. It will give you access to a private channel where you can get help on anything GraphOS related!
+We've covered some of the basics of GraphOS in this demo. If you're looking for more resources, check out the links below:
+
+📚 [The Apollo documentation](https://www.apollographql.com/docs/graphos) covers all things GraphOS.
+
+✏️ Learn through hands-on tutorials [available on Odyssey, our GraphQL learning platform](https://www.apollographql.com/tutorials/browse?categories=GraphOS).
+
+👋 Need a little extra help? Jump into our [Discord server](https://discord.gg/graphos) and verify the email you used with this GraphOS account. It will give you access to a private channel where you can get help on anything GraphOS related!
 
 > Feedback or suggestions for this demo? Please [submit a GitHub issue](https://github.com/apollographql/spotify-showcase/issues)!

@@ -2,14 +2,12 @@
 
 Welcome to the **{{ graph.name }}** API! 🎉 You can follow along in this README to walk through a guided demo or just explore yourself.
 
-> If you're new to Apollo, learn more about GraphOS in [our docs](https://www.apollographql.com/docs/studio/).
-
 ## So what did clicking that button do to get me here?
 
-In creating this demo, we've set up GraphOS to work with two GraphQL APIs we have hosted for you:
+Behind the scenes, we've set up GraphOS to work with two GraphQL APIs we have hosted for you:
 
 - _spotify_: Exposes the Spotify REST API
-- _playback_: Exposes subscriptions for playback functionality coming from the Spotify REST API including the associated `mutation` operations
+- _playback_: Exposes Spotify playback functionality
 
 This includes provisioning a serverless instance of the [Apollo Router](https://www.apollographql.com/docs/graphos/routing/cloud) that can route traffic between our two GraphQL APIs 🚀
 
@@ -22,7 +20,7 @@ This includes provisioning a serverless instance of the [Apollo Router](https://
 You need a way to query your graph. [GraphOS Explorer](https://www.apollographql.com/docs/graphos/explorer) is built to make this easy. You can try querying this graph using [Explorer]({{ graph.url.explorer }}). Try running your first operation:
 
 ```gql
-query RootWebsiteQuery($offset: Int, $limit: Int) {
+query MyPlaylists($offset: Int, $limit: Int) {
   me {
     playlists(offset: $offset, limit: $limit) {
       pageInfo {
@@ -42,21 +40,26 @@ query RootWebsiteQuery($offset: Int, $limit: Int) {
 }
 ```
 
-The Apollo Router also supports [GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)!
+The [Apollo Router also supports GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)! The following operation subscribes to the current playback state of your music player on the 🚀. Don't worry, we automatically press play for you on your space radio when you start this up for the first time.
 
 ```gql
-subscription PlaybackStateSubscriberSubscription {
+subscription PlaybackState {
   playbackStateChanged {
     isPlaying
     progressMs
+    item {
+      name
+    }
   }
 }
 ```
 
-GraphOS Explorer also supports tabs. Open a new tab and try pausing the running subscription:
+GraphOS Explorer also supports tabs. Open a new tab and run the operation below to pause the running subscription:
+
+> If you open a new explorer tab in the same window, you can see the mutation pause the running subscription!
 
 ```gql
-mutation PausePlaybackMutation {
+mutation PausePlayback {
   pausePlayback {
     playbackState {
       isPlaying
@@ -69,12 +72,11 @@ mutation PausePlaybackMutation {
 
 You can begin [identifying your client traffic](https://www.apollographql.com/docs/graphos/metrics/client-awareness) by ensuring the proper headers are sent. GraphOS will automatically associate the graph usage with the identified client information:
 
-| Header name                    | Header value                                                                             |
-| ------------------------------ | ---------------------------------------------------------------------------------------- |
-| `apollographql-client-name`    | The name of your integration.                                                            |
-| `apollographql-client-version` | Increment this value with version numbers for your integration as its API usage changes. |
+| Header name                 | Header value                         |
+| --------------------------- | ------------------------------------ |
+| `apollographql-client-name` | The name of your client application. |
 
-> If you test out API operations in the [Explorer]({{ graph.url.explorer }}), add the `apollographql-client-name` and `apollographql-client-version` headers with `Apollo Explorer` and `main` (or whatever values you like).
+> If you test out API operations in the [Explorer]({{ graph.url.explorer }}), add the `apollographql-client-name` header with `Apollo Explorer` and `main` (or whatever values you like).
 
 If you have a client project, simply setting the `name` and `version` properties in the `ApolloClient` constructor will automatically add these header values to your requests for you. You can see how we set that in the Spotify Showcase Website [here](https://github.com/apollographql/spotify-showcase/blob/main/client/src/apollo.ts#L76):
 
@@ -83,8 +85,7 @@ const client = new ApolloClient({
   link: new HttpLink({
     uri: 'http://localhost:4000/graphql'
   }),
-  name: 'Spotify Showcase Website',
-  version: '1.0'
+  name: 'Spotify Showcase Website'
 });
 ```
 
@@ -192,6 +193,12 @@ You can also [configure all of these checks](https://www.apollographql.com/docs/
 
 ## Wrap up
 
-We've covered some of the basics of GraphOS in this demo, but we can't cover everything. If you want to learn more about the details of these features and more in GraphOS, head over to our [docs](https://www.apollographql.com/docs/graphos) or jump in our [Discord server](https://discord.gg/graphos) and verify the email you used with this GraphOS account. It will give you access to a private channel where you can get help on anything GraphOS related!
+We've covered some of the basics of GraphOS in this demo. If you're looking for more resources, check out the links below:
+
+📚 [The Apollo documentation](https://www.apollographql.com/docs/graphos) covers all things GraphOS.
+
+✏️ Learn through hands-on tutorials [available on Odyssey, our GraphQL learning platform](https://www.apollographql.com/tutorials/browse?categories=GraphOS).
+
+👋 Need a little extra help? Jump into our [Discord server](https://discord.gg/graphos) and verify the email you used with this GraphOS account. It will give you access to a private channel where you can get help on anything GraphOS related!
 
 > Feedback or suggestions for this demo? Please [submit a GitHub issue](https://github.com/apollographql/spotify-showcase/issues)!
