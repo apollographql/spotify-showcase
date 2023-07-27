@@ -1,6 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { Spotify } from '../src/types';
 import path from 'path';
+import prettier from 'prettier';
 
 const accessToken = process.env.AUTH;
 
@@ -89,7 +90,9 @@ export const mocks: {
   tracks: Record<string, Spotify.Object.Track>;
 } = ${JSON.stringify(store, null, 2)}`;
 
-  writeFileSync(FILE_PATH, content, { encoding: 'utf-8' });
+  writeFileSync(FILE_PATH, await format(content, { parser: 'typescript' }), {
+    encoding: 'utf-8',
+  });
 }
 
 async function getPlaylist(id: string) {
@@ -155,6 +158,14 @@ function replaceUrlParams(pathname: string, params: Record<string, string>) {
 function tap<T>(value: T, fn: (value: T) => void) {
   fn(value);
   return value;
+}
+
+async function format(code: string, options?: prettier.Options) {
+  const configFile = await prettier.resolveConfigFile();
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const formatOptions = await prettier.resolveConfig(configFile!);
+
+  return prettier.format(code, { ...options, ...formatOptions });
 }
 
 main();
