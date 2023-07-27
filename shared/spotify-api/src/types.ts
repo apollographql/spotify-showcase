@@ -580,6 +580,7 @@ export namespace Spotify {
     }
 
     export interface UserSimplified {
+      display_name: string | null;
       external_urls: ExternalUrl;
       href: string;
       id: string;
