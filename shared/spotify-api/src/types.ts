@@ -56,7 +56,6 @@ export namespace Spotify {
 
     export interface AlbumSimplified {
       album_type: AlbumType;
-      album_group: AlbumGroup;
       artists: ArtistSimplified[];
       available_markets: CountryCode[];
       external_urls: ExternalUrl;
