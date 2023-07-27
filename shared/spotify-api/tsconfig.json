@@ -3,10 +3,10 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "declarationMap": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "./dist",
     "target": "esnext",
-    "module": "commonjs",
+    "module": "nodenext",
     "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "sourceMap": true,
@@ -17,6 +17,5 @@
     "lib": ["esnext", "esnext.asynciterable", "DOM"],
     "types": ["node"],
     "baseUrl": "."
-  },
-  "include": ["./src/**/*.ts"]
+  }
 }
