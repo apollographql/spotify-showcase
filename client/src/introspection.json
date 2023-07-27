@@ -1,12 +1,6 @@
 {
   "possibleTypes": {
-    "PlaybackItem": [
-      "Episode",
-      "Track"
-    ],
-    "PlaylistTrack": [
-      "Episode",
-      "Track"
-    ]
+    "PlaybackItem": ["Episode", "Track"],
+    "PlaylistTrack": ["Episode", "Track"]
   }
 }

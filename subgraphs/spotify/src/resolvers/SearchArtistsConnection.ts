@@ -5,4 +5,3 @@ export const SearchArtistsConnection: SearchArtistsConnectionResolvers = {
   edges: prop('items'),
   pageInfo: itself(),
 };
-

@@ -1,21 +1,34 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  CountryCode: { input: string; output: string; }
-  DateTime: { input: string; output: string; }
-  ErrorRate: { input: number; output: number; }
-  Timestamp: { input: number; output: number; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  CountryCode: { input: string; output: string };
+  DateTime: { input: string; output: string };
+  ErrorRate: { input: number; output: number };
+  Timestamp: { input: number; output: number };
 };
 
 export enum Action {
@@ -28,7 +41,7 @@ export enum Action {
   TogglingRepeatContext = 'TOGGLING_REPEAT_CONTEXT',
   TogglingRepeatTrack = 'TOGGLING_REPEAT_TRACK',
   TogglingShuffle = 'TOGGLING_SHUFFLE',
-  TransferringPlayback = 'TRANSFERRING_PLAYBACK'
+  TransferringPlayback = 'TRANSFERRING_PLAYBACK',
 }
 
 export type Actions = {
@@ -121,7 +134,6 @@ export type Album = {
   uri: Scalars['String']['output'];
 };
 
-
 /** Spotify catalog information for an album. */
 export type AlbumtracksArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -132,7 +144,7 @@ export enum AlbumGroup {
   Album = 'ALBUM',
   AppearsOn = 'APPEARS_ON',
   Compilation = 'COMPILATION',
-  Single = 'SINGLE'
+  Single = 'SINGLE',
 }
 
 export type AlbumTrackConnection = {
@@ -152,7 +164,7 @@ export type AlbumTrackEdge = {
 export enum AlbumType {
   Album = 'ALBUM',
   Compilation = 'COMPILATION',
-  Single = 'SINGLE'
+  Single = 'SINGLE',
 }
 
 /** Spotify catalog information for an artist. */
@@ -201,7 +213,6 @@ export type Artist = {
   uri: Scalars['String']['output'];
 };
 
-
 /** Spotify catalog information for an artist. */
 export type ArtistalbumsArgs = {
   includeGroups?: InputMaybe<Array<AlbumGroup>>;
@@ -211,8 +222,6 @@ export type ArtistalbumsArgs = {
 
 export type ArtistAlbumEdge = {
   __typename: 'ArtistAlbumEdge';
-  /** The album group this album belongs to. */
-  albumGroup: AlbumGroup;
   /** Spotify catalog information for the album. */
   node: Album;
 };
@@ -264,7 +273,7 @@ export enum CopyrightType {
   /** The copyright */
   C = 'C',
   /** The sound recording (performance) copyright. */
-  P = 'P'
+  P = 'P',
 }
 
 export type CurrentUser = {
@@ -312,51 +321,42 @@ export type CurrentUser = {
   user: User;
 };
 
-
 export type CurrentUseralbumsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUseralbumsContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type CurrentUserepisodesArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUserepisodesContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type CurrentUserfollowedArtistsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUserplaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
-
 
 export type CurrentUsershowsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type CurrentUsershowsContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type CurrentUsertopArtistsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -364,19 +364,16 @@ export type CurrentUsertopArtistsArgs = {
   timeRange?: InputMaybe<TimeRange>;
 };
 
-
 export type CurrentUsertopTracksArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   timeRange?: InputMaybe<TimeRange>;
 };
 
-
 export type CurrentUsertracksArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
-
 
 export type CurrentUsertracksContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
@@ -448,51 +445,51 @@ export type Device = {
 };
 
 /** Spotify catalog information for an episode. */
-export type Episode = PlaybackItem & PlaylistTrack & {
-  __typename: 'Episode';
-  /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
-  audioPreviewUrl: Maybe<Scalars['String']['output']>;
-  /** A description of the episode */
-  description: Scalars['String']['output'];
-  /** The episode length in milliseconds. */
-  durationMs: Scalars['Int']['output'];
-  /**
-   * Whether or not the episode has explicit content (`true` = yes it does;
-   * `false` = no it does not OR unknown).
-   */
-  explicit: Scalars['Boolean']['output'];
-  /** External URLs for this episode. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the episode. */
-  href: Scalars['String']['output'];
-  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode. */
-  id: Scalars['ID']['output'];
-  /** The cover art for the episode in various sizes, widest first. */
-  images: Array<Image>;
-  /** `true` if the episode is hosted outside of Spotify's CDN. */
-  isExternallyHosted: Scalars['Boolean']['output'];
-  /** `true` if the episode is playable in the given market. Otherwise `false`. */
-  isPlayable: Scalars['Boolean']['output'];
-  /**
-   * A list of the languages used in the episode, identified by their
-   * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
-   */
-  languages: Array<Scalars['String']['output']>;
-  /** The name of the episode. */
-  name: Scalars['String']['output'];
-  /** The date the episode was first released */
-  releaseDate: ReleaseDate;
-  /** The user's most recent position in the episode. */
-  resumePoint: ResumePoint;
-  /** The show containing the episode. */
-  show: Show;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the episode.
-   */
-  uri: Scalars['String']['output'];
-};
-
+export type Episode = PlaybackItem &
+  PlaylistTrack & {
+    __typename: 'Episode';
+    /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
+    audioPreviewUrl: Maybe<Scalars['String']['output']>;
+    /** A description of the episode */
+    description: Scalars['String']['output'];
+    /** The episode length in milliseconds. */
+    durationMs: Scalars['Int']['output'];
+    /**
+     * Whether or not the episode has explicit content (`true` = yes it does;
+     * `false` = no it does not OR unknown).
+     */
+    explicit: Scalars['Boolean']['output'];
+    /** External URLs for this episode. */
+    externalUrls: ExternalUrl;
+    /** A link to the Web API endpoint providing full details of the episode. */
+    href: Scalars['String']['output'];
+    /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode. */
+    id: Scalars['ID']['output'];
+    /** The cover art for the episode in various sizes, widest first. */
+    images: Array<Image>;
+    /** `true` if the episode is hosted outside of Spotify's CDN. */
+    isExternallyHosted: Scalars['Boolean']['output'];
+    /** `true` if the episode is playable in the given market. Otherwise `false`. */
+    isPlayable: Scalars['Boolean']['output'];
+    /**
+     * A list of the languages used in the episode, identified by their
+     * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
+     */
+    languages: Array<Scalars['String']['output']>;
+    /** The name of the episode. */
+    name: Scalars['String']['output'];
+    /** The date the episode was first released */
+    releaseDate: ReleaseDate;
+    /** The user's most recent position in the episode. */
+    resumePoint: ResumePoint;
+    /** The show containing the episode. */
+    show: Show;
+    /**
+     * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+     * for the episode.
+     */
+    uri: Scalars['String']['output'];
+  };
 
 /** Spotify catalog information for an episode. */
 export type EpisodedescriptionArgs = {
@@ -644,115 +641,93 @@ export type Mutation = {
   updateFieldConfig: Maybe<UpdateFieldConfigPayload>;
 };
 
-
 export type MutationaddItemToPlaybackQueueArgs = {
   input: AddItemToPlaybackQueueInput;
 };
-
 
 export type MutationaddItemsToPlaylistArgs = {
   input: AddItemsToPlaylistInput;
 };
 
-
 export type MutationpausePlaybackArgs = {
   context?: InputMaybe<PausePlaybackContextInput>;
 };
-
 
 export type MutationremoveItemFromPlaylistArgs = {
   input: RemoveItemFromPlaylistInput;
 };
 
-
 export type MutationremoveSavedAlbumsArgs = {
   input: RemoveSavedAlbumsInput;
 };
-
 
 export type MutationremoveSavedEpisodesArgs = {
   input: RemoveSavedEpisodesInput;
 };
 
-
 export type MutationremoveSavedShowsArgs = {
   input: RemoveSavedShowsInput;
 };
-
 
 export type MutationremoveSavedTracksArgs = {
   input: RemoveSavedTracksInput;
 };
 
-
 export type MutationresetFieldConfigArgs = {
   input: ResetFieldConfigInput;
 };
-
 
 export type MutationresumePlaybackArgs = {
   input?: InputMaybe<ResumePlaybackInput>;
 };
 
-
 export type MutationsaveAlbumsArgs = {
   input: SaveAlbumsInput;
 };
-
 
 export type MutationsaveEpisodesArgs = {
   input: SaveEpisodesInput;
 };
 
-
 export type MutationsaveShowsArgs = {
   input: SaveShowsInput;
 };
 
-
 export type MutationsaveTracksArgs = {
   input: SaveTracksInput;
 };
-
 
 export type MutationseekToPositionArgs = {
   context?: InputMaybe<SeekToPositionContextInput>;
   positionMs: Scalars['Int']['input'];
 };
 
-
 export type MutationsetRepeatModeArgs = {
   context?: InputMaybe<SetRepeatModeContextInput>;
   state: RepeatMode;
 };
-
 
 export type MutationsetVolumeArgs = {
   context?: InputMaybe<SetVolumeContextInput>;
   volumePercent: Scalars['Int']['input'];
 };
 
-
 export type MutationshufflePlaybackArgs = {
   context?: InputMaybe<ShufflePlaybackContextInput>;
   state: Scalars['Boolean']['input'];
 };
 
-
 export type MutationskipToNextArgs = {
   context?: InputMaybe<SkipToNextContextInput>;
 };
-
 
 export type MutationskipToPreviousArgs = {
   context?: InputMaybe<SkipToPreviousContextInput>;
 };
 
-
 export type MutationtransferPlaybackArgs = {
   input: TransferPlaybackInput;
 };
-
 
 export type MutationupdateFieldConfigArgs = {
   input: UpdateFieldConfigInput;
@@ -840,7 +815,7 @@ export enum PlaybackContextType {
   Playlist = 'PLAYLIST',
   Show = 'SHOW',
   Track = 'TRACK',
-  User = 'USER'
+  User = 'USER',
 }
 
 export type PlaybackItem = {
@@ -915,7 +890,6 @@ export type Player = {
   recentlyPlayed: Maybe<RecentlyPlayedConnection>;
 };
 
-
 export type PlayerrecentlyPlayedArgs = {
   after?: InputMaybe<Scalars['Int']['input']>;
   before?: InputMaybe<Scalars['Int']['input']>;
@@ -965,7 +939,6 @@ export type Playlist = {
    */
   uri: Scalars['String']['output'];
 };
-
 
 /** Information about a playlist owned by a Spotify user */
 export type PlaylisttracksArgs = {
@@ -1096,36 +1069,29 @@ export type Query = {
   tracksAudioFeatures: Array<TrackAudioFeatures>;
 };
 
-
 export type QueryalbumArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryalbumsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-
 export type QueryartistArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryartistsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-
 export type QueryepisodeArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryepisodesArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type QueryfeaturedPlaylistsArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1133,18 +1099,15 @@ export type QueryfeaturedPlaylistsArgs = {
   timestamp?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-
 export type QuerynewReleasesArgs = {
   country?: InputMaybe<Scalars['CountryCode']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
 export type QueryplaylistArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryrecommendationsArgs = {
   acousticness?: InputMaybe<RecommendationAcousticnessInput>;
@@ -1165,7 +1128,6 @@ export type QueryrecommendationsArgs = {
   valence?: InputMaybe<RecommendationValenceInput>;
 };
 
-
 export type QuerysearchArgs = {
   includeExternal?: InputMaybe<SearchExternalValue>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1174,26 +1136,21 @@ export type QuerysearchArgs = {
   type: Array<SearchType>;
 };
 
-
 export type QueryshowArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type QueryshowsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-
 export type QuerytrackArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QuerytracksArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
-
 
 export type QuerytracksAudioFeaturesArgs = {
   ids: Array<Scalars['ID']['input']>;
@@ -1330,7 +1287,7 @@ export type RecommendationSeedInput = {
 export enum RecommendationSeedType {
   Artist = 'ARTIST',
   Genre = 'GENRE',
-  Track = 'TRACK'
+  Track = 'TRACK',
 }
 
 export type RecommendationSpeechinessInput = {
@@ -1383,7 +1340,7 @@ export type ReleaseDate = {
 export enum ReleaseDatePrecision {
   Day = 'DAY',
   Month = 'MONTH',
-  Year = 'YEAR'
+  Year = 'YEAR',
 }
 
 export type RemoveItemFromPlaylistInput = {
@@ -1477,7 +1434,7 @@ export type RemoveSavedTracksPayload = {
 export enum RepeatMode {
   Context = 'CONTEXT',
   Off = 'OFF',
-  Track = 'TRACK'
+  Track = 'TRACK',
 }
 
 export type ResetFieldConfigInput = {
@@ -1714,7 +1671,7 @@ export type SearchEpisodesConnection = {
 };
 
 export enum SearchExternalValue {
-  Audio = 'AUDIO'
+  Audio = 'AUDIO',
 }
 
 export type SearchPlaylistEdge = {
@@ -1781,7 +1738,7 @@ export enum SearchType {
   Episode = 'EPISODE',
   Playlist = 'PLAYLIST',
   Show = 'SHOW',
-  Track = 'TRACK'
+  Track = 'TRACK',
 }
 
 export type SeekToPositionContextInput = {
@@ -1857,12 +1814,10 @@ export type Show = {
   uri: Scalars['String']['output'];
 };
 
-
 /** Spotify catalog information for a show. */
 export type ShowdescriptionArgs = {
   format?: InputMaybe<TextFormat>;
 };
-
 
 /** Spotify catalog information for a show. */
 export type ShowepisodesArgs = {
@@ -1933,13 +1888,13 @@ export type Subscription = {
 
 export enum TextFormat {
   Html = 'HTML',
-  Plain = 'PLAIN'
+  Plain = 'PLAIN',
 }
 
 export enum TimeRange {
   LongTerm = 'LONG_TERM',
   MediumTerm = 'MEDIUM_TERM',
-  ShortTerm = 'SHORT_TERM'
+  ShortTerm = 'SHORT_TERM',
 }
 
 export type TopArtistEdge = {
@@ -1971,71 +1926,72 @@ export type TopTracksConnection = {
 };
 
 /** Spotify catalog information for a track. */
-export type Track = PlaybackItem & PlaylistTrack & {
-  __typename: 'Track';
-  /** The album on which the track appears. */
-  album: Album;
-  /** The artists who performed the track. */
-  artists: Array<Artist>;
-  /** The track's audio feature information */
-  audioFeatures: Maybe<TrackAudioFeatures>;
-  /** The disc number (usually `1` unless the album consists of more than one disc). */
-  discNumber: Scalars['Int']['output'];
-  /** The track length in milliseconds */
-  durationMs: Scalars['Int']['output'];
-  /**
-   * Whether or not the track has explicit lyrics (`true` = yes it does;
-   * `false` = no it does not OR unknown)
-   */
-  explicit: Scalars['Boolean']['output'];
-  /** Known external IDs for the track. */
-  externalIds: Maybe<TrackExternalIds>;
-  /** Known external URLs for this track. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the track. */
-  href: Scalars['String']['output'];
-  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
-  id: Scalars['ID']['output'];
-  /** Whether or not the track is from a local file. */
-  isLocal: Scalars['Boolean']['output'];
-  /**
-   * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
-   * is applied. If `true`, the track is playable in the given market.
-   * Otherwise `false`.
-   */
-  isPlayable: Scalars['Boolean']['output'];
-  /** The name of the track */
-  name: Scalars['String']['output'];
-  /**
-   * The popularity of the track. The value will be between 0 and 100, with 100
-   * being the most popular.
-   *
-   * The popularity of a track is a value between 0 and 100, with 100 being the
-   * most popular. The popularity is calculated by algorithm and is based, in the
-   * most part, on the total number of plays the track has had and how recent those
-   * plays are.
-   *
-   * Generally speaking, songs that are being played a lot now will have a higher
-   * popularity than songs that were played a lot in the past. Duplicate tracks
-   * (e.g. the same track from a single and an album) are rated independently.
-   * Artist and album popularity is derived mathematically from track popularity.
-   * Note: the popularity value may lag actual popularity by a few days: the value
-   * is not updated in real time.
-   */
-  popularity: Scalars['Int']['output'];
-  /** A link to a 30 second preview (MP3 format) of the track. Can be `null` */
-  previewUrl: Maybe<Scalars['String']['output']>;
-  /**
-   * The number of the track. If an album has several discs, the track number is
-   * the number on the specified disc.
-   */
-  trackNumber: Maybe<Scalars['Int']['output']>;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the track.
-   */
-  uri: Scalars['String']['output'];
-};
+export type Track = PlaybackItem &
+  PlaylistTrack & {
+    __typename: 'Track';
+    /** The album on which the track appears. */
+    album: Album;
+    /** The artists who performed the track. */
+    artists: Array<Artist>;
+    /** The track's audio feature information */
+    audioFeatures: Maybe<TrackAudioFeatures>;
+    /** The disc number (usually `1` unless the album consists of more than one disc). */
+    discNumber: Scalars['Int']['output'];
+    /** The track length in milliseconds */
+    durationMs: Scalars['Int']['output'];
+    /**
+     * Whether or not the track has explicit lyrics (`true` = yes it does;
+     * `false` = no it does not OR unknown)
+     */
+    explicit: Scalars['Boolean']['output'];
+    /** Known external IDs for the track. */
+    externalIds: Maybe<TrackExternalIds>;
+    /** Known external URLs for this track. */
+    externalUrls: ExternalUrl;
+    /** A link to the Web API endpoint providing full details of the track. */
+    href: Scalars['String']['output'];
+    /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
+    id: Scalars['ID']['output'];
+    /** Whether or not the track is from a local file. */
+    isLocal: Scalars['Boolean']['output'];
+    /**
+     * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
+     * is applied. If `true`, the track is playable in the given market.
+     * Otherwise `false`.
+     */
+    isPlayable: Scalars['Boolean']['output'];
+    /** The name of the track */
+    name: Scalars['String']['output'];
+    /**
+     * The popularity of the track. The value will be between 0 and 100, with 100
+     * being the most popular.
+     *
+     * The popularity of a track is a value between 0 and 100, with 100 being the
+     * most popular. The popularity is calculated by algorithm and is based, in the
+     * most part, on the total number of plays the track has had and how recent those
+     * plays are.
+     *
+     * Generally speaking, songs that are being played a lot now will have a higher
+     * popularity than songs that were played a lot in the past. Duplicate tracks
+     * (e.g. the same track from a single and an album) are rated independently.
+     * Artist and album popularity is derived mathematically from track popularity.
+     * Note: the popularity value may lag actual popularity by a few days: the value
+     * is not updated in real time.
+     */
+    popularity: Scalars['Int']['output'];
+    /** A link to a 30 second preview (MP3 format) of the track. Can be `null` */
+    previewUrl: Maybe<Scalars['String']['output']>;
+    /**
+     * The number of the track. If an album has several discs, the track number is
+     * the number on the specified disc.
+     */
+    trackNumber: Maybe<Scalars['Int']['output']>;
+    /**
+     * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+     * for the track.
+     */
+    uri: Scalars['String']['output'];
+  };
 
 export type TrackAudioFeatures = {
   __typename: 'TrackAudioFeatures';
@@ -2151,7 +2107,6 @@ export type __Directive = {
   args: Array<__InputValue>;
 };
 
-
 /**
  * A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
  *
@@ -2200,7 +2155,7 @@ export enum __DirectiveLocation {
   /** Location adjacent to an input object type definition. */
   InputObject = 'INPUT_OBJECT',
   /** Location adjacent to an input object field definition. */
-  InputFieldDefinition = 'INPUT_FIELD_DEFINITION'
+  InputFieldDefinition = 'INPUT_FIELD_DEFINITION',
 }
 
 /** One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string. */
@@ -2222,7 +2177,6 @@ export type __Field = {
   isDeprecated: Scalars['Boolean']['output'];
   deprecationReason: Maybe<Scalars['String']['output']>;
 };
-
 
 /** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
 export type __FieldargsArgs = {
@@ -2276,7 +2230,6 @@ export type __Type = {
   ofType: Maybe<__Type>;
 };
 
-
 /**
  * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
  *
@@ -2286,7 +2239,6 @@ export type __TypefieldsArgs = {
   includeDeprecated?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-
 /**
  * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
  *
@@ -2295,7 +2247,6 @@ export type __TypefieldsArgs = {
 export type __TypeenumValuesArgs = {
   includeDeprecated?: InputMaybe<Scalars['Boolean']['input']>;
 };
-
 
 /**
  * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
@@ -2323,417 +2274,1972 @@ export enum __TypeKind {
   /** Indicates this type is a list. `ofType` is a valid field. */
   List = 'LIST',
   /** Indicates this type is a non-null. `ofType` is a valid field. */
-  NonNull = 'NON_NULL'
+  NonNull = 'NON_NULL',
 }
 
-export type AlbumTile_album = { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> };
+export type AlbumTile_album = {
+  __typename: 'Album';
+  id: string;
+  name: string;
+  albumType: AlbumType;
+  totalTracks: number;
+  releaseDate: { __typename: 'ReleaseDate'; date: string };
+  images: Array<{ __typename: 'Image'; url: string }>;
+};
 
-export type AlbumTrackTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
+export type AlbumTrackTitleCell_playbackState = {
+  __typename: 'PlaybackState';
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+  item:
+    | { __typename: 'Episode'; id: string; uri: string }
+    | { __typename: 'Track'; id: string; uri: string }
+    | null;
+};
 
-export type AlbumTrackTitleCell_album = { __typename: 'Album', uri: string };
+export type AlbumTrackTitleCell_album = { __typename: 'Album'; uri: string };
 
-export type AlbumTrackTitleCell_track = { __typename: 'Track', id: string, name: string, uri: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
+export type AlbumTrackTitleCell_track = {
+  __typename: 'Track';
+  id: string;
+  name: string;
+  uri: string;
+  explicit: boolean;
+  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+};
 
-export type AlbumTracksTable_album = { __typename: 'Album', id: string, uri: string, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null };
+export type AlbumTracksTable_album = {
+  __typename: 'Album';
+  id: string;
+  uri: string;
+  tracks: {
+    __typename: 'AlbumTrackConnection';
+    edges: Array<{
+      __typename: 'AlbumTrackEdge';
+      node: {
+        __typename: 'Track';
+        id: string;
+        uri: string;
+        durationMs: number;
+        trackNumber: number | null;
+        name: string;
+        explicit: boolean;
+        artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+      };
+    }>;
+  } | null;
+};
 
-export type ArtistTile_artist = { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> };
+export type ArtistTile_artist = {
+  __typename: 'Artist';
+  id: string;
+  name: string;
+  images: Array<{ __typename: 'Image'; url: string }>;
+};
 
-export type ArtistTopTracks_tracks = { __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } };
+export type ArtistTopTracks_tracks = {
+  __typename: 'Track';
+  id: string;
+  durationMs: number;
+  explicit: boolean;
+  name: string;
+  album: {
+    __typename: 'Album';
+    id: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  };
+};
 
-export type Avatar_user = { __typename: 'User', id: string, images: Array<{ __typename: 'Image', url: string }> | null };
+export type Avatar_user = {
+  __typename: 'User';
+  id: string;
+  images: Array<{ __typename: 'Image'; url: string }> | null;
+};
 
 export type AddToPlaylistQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
+export type AddToPlaylistQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    playlists: {
+      __typename: 'PlaylistConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        hasNextPage: boolean;
+        limit: number;
+        offset: number;
+      };
+      edges: Array<{
+        __typename: 'PlaylistEdge';
+        node: { __typename: 'Playlist'; id: string; name: string };
+      }>;
+    } | null;
+  } | null;
+};
 
-export type AddToPlaylistQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', hasNextPage: boolean, limit: number, offset: number }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string } }> } | null } | null };
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+export type CurrentUserQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    user: {
+      __typename: 'User';
+      id: string;
+      displayName: string | null;
+      images: Array<{ __typename: 'Image'; url: string }> | null;
+    };
+  } | null;
+};
 
+export type DevicePopover_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  device: { __typename: 'Device'; id: string | null };
+};
 
-export type CurrentUserQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null, images: Array<{ __typename: 'Image', url: string }> | null } } | null };
+export type DevicePopover_devices = {
+  __typename: 'Device';
+  id: string | null;
+  name: string;
+  type: string;
+};
 
-export type DevicePopover_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, device: { __typename: 'Device', id: string | null } };
+export type EpisodeDetailsCell_episode = {
+  __typename: 'Episode';
+  id: string;
+  explicit: boolean;
+  name: string;
+  show: {
+    __typename: 'Show';
+    id: string;
+    publisher: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  };
+};
 
-export type DevicePopover_devices = { __typename: 'Device', id: string | null, name: string, type: string };
+export type EpisodePlaybackDetails_episode = {
+  __typename: 'Episode';
+  id: string;
+  name: string;
+  show: { __typename: 'Show'; id: string; name: string };
+};
 
-export type EpisodeDetailsCell_episode = { __typename: 'Episode', id: string, explicit: boolean, name: string, show: { __typename: 'Show', id: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
-
-export type EpisodePlaybackDetails_episode = { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } };
-
-export type EpisodeRemainingDuration_episode = { __typename: 'Episode', id: string, durationMs: number, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } };
+export type EpisodeRemainingDuration_episode = {
+  __typename: 'Episode';
+  id: string;
+  durationMs: number;
+  resumePoint: {
+    __typename: 'ResumePoint';
+    fullyPlayed: boolean;
+    resumePositionMs: number;
+  };
+};
 
 export type LikeControlQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
 
+export type LikeControlQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    episodesContains: Array<boolean> | null;
+    tracksContains: Array<boolean> | null;
+  } | null;
+};
 
-export type LikeControlQuery = { me: { __typename: 'CurrentUser', episodesContains: Array<boolean> | null, tracksContains: Array<boolean> | null } | null };
+type LikeControl_playbackItem_Episode_ = { __typename: 'Episode'; id: string };
 
-type LikeControl_playbackItem_Episode_ = { __typename: 'Episode', id: string };
+type LikeControl_playbackItem_Track_ = { __typename: 'Track'; id: string };
 
-type LikeControl_playbackItem_Track_ = { __typename: 'Track', id: string };
+export type LikeControl_playbackItem =
+  | LikeControl_playbackItem_Episode_
+  | LikeControl_playbackItem_Track_;
 
-export type LikeControl_playbackItem = LikeControl_playbackItem_Episode_ | LikeControl_playbackItem_Track_;
+export type LikedSongsTile_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+};
 
-export type LikedSongsTile_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+export type LikedSongsTile_connection = {
+  __typename: 'SavedTracksConnection';
+  pageInfo: { __typename: 'PageInfo'; total: number };
+  edges: Array<{
+    __typename: 'SavedTrackEdge';
+    node: {
+      __typename: 'Track';
+      id: string;
+      name: string;
+      artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+    };
+  }>;
+};
 
-export type LikedSongsTile_connection = { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> };
+export type NotificationManager_playbackState = {
+  __typename: 'PlaybackState';
+  device: { __typename: 'Device'; id: string | null };
+};
 
-export type NotificationManager_playbackState = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null } };
+export type PlaybackItemProgressBar_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  progressMs: number | null;
+  timestamp: number;
+  item:
+    | { __typename: 'Episode'; id: string; durationMs: number }
+    | { __typename: 'Track'; id: string; durationMs: number }
+    | null;
+};
 
-export type PlaybackItemProgressBar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, progressMs: number | null, timestamp: number, item: { __typename: 'Episode', id: string, durationMs: number } | { __typename: 'Track', id: string, durationMs: number } | null };
+export type PlaybackStateFragment = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  repeatState: RepeatMode;
+  shuffleState: boolean;
+  progressMs: number | null;
+  timestamp: number;
+  actions: { __typename: 'Actions'; disallows: Array<Action> };
+  context: {
+    __typename: 'PlaybackContext';
+    uri: string;
+    type: PlaybackContextType;
+  } | null;
+  device: {
+    __typename: 'Device';
+    id: string | null;
+    name: string;
+    type: string;
+    volumePercent: number;
+  };
+  item:
+    | {
+        __typename: 'Episode';
+        id: string;
+        durationMs: number;
+        name: string;
+        show: {
+          __typename: 'Show';
+          id: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }
+    | {
+        __typename: 'Track';
+        id: string;
+        durationMs: number;
+        name: string;
+        uri: string;
+        album: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+        artists: Array<{
+          __typename: 'Artist';
+          id: string;
+          uri: string;
+          name: string;
+        }>;
+      }
+    | null;
+};
 
-export type PlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
+export type PlaybackStateSubscriberQueryVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type PlaybackStateSubscriberQueryVariables = Exact<{ [key: string]: never; }>;
+export type PlaybackStateSubscriberQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    player: {
+      __typename: 'Player';
+      playbackState: {
+        __typename: 'PlaybackState';
+        isPlaying: boolean;
+        repeatState: RepeatMode;
+        shuffleState: boolean;
+        progressMs: number | null;
+        timestamp: number;
+        actions: { __typename: 'Actions'; disallows: Array<Action> };
+        context: {
+          __typename: 'PlaybackContext';
+          uri: string;
+          type: PlaybackContextType;
+        } | null;
+        device: {
+          __typename: 'Device';
+          id: string | null;
+          name: string;
+          type: string;
+          volumePercent: number;
+        };
+        item:
+          | {
+              __typename: 'Episode';
+              id: string;
+              durationMs: number;
+              name: string;
+              show: {
+                __typename: 'Show';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+            }
+          | {
+              __typename: 'Track';
+              id: string;
+              durationMs: number;
+              name: string;
+              uri: string;
+              album: {
+                __typename: 'Album';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+              artists: Array<{
+                __typename: 'Artist';
+                id: string;
+                uri: string;
+                name: string;
+              }>;
+            }
+          | null;
+      } | null;
+    };
+  } | null;
+};
 
+export type PlaybackStateSubscriberSubscriptionVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type PlaybackStateSubscriberQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null } | null } } | null };
+export type PlaybackStateSubscriberSubscription = {
+  playbackStateChanged: {
+    __typename: 'PlaybackState';
+    isPlaying: boolean;
+    repeatState: RepeatMode;
+    shuffleState: boolean;
+    progressMs: number | null;
+    timestamp: number;
+    actions: { __typename: 'Actions'; disallows: Array<Action> };
+    context: {
+      __typename: 'PlaybackContext';
+      uri: string;
+      type: PlaybackContextType;
+    } | null;
+    device: {
+      __typename: 'Device';
+      id: string | null;
+      name: string;
+      type: string;
+      volumePercent: number;
+    };
+    item:
+      | {
+          __typename: 'Episode';
+          id: string;
+          durationMs: number;
+          name: string;
+          show: {
+            __typename: 'Show';
+            id: string;
+            name: string;
+            images: Array<{ __typename: 'Image'; url: string }>;
+          };
+        }
+      | {
+          __typename: 'Track';
+          id: string;
+          durationMs: number;
+          name: string;
+          uri: string;
+          album: {
+            __typename: 'Album';
+            id: string;
+            name: string;
+            images: Array<{ __typename: 'Image'; url: string }>;
+          };
+          artists: Array<{
+            __typename: 'Artist';
+            id: string;
+            uri: string;
+            name: string;
+          }>;
+        }
+      | null;
+  } | null;
+};
 
-export type PlaybackStateSubscriberSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
 
+export type PlaybarQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    player: {
+      __typename: 'Player';
+      devices: Array<{
+        __typename: 'Device';
+        id: string | null;
+        name: string;
+        type: string;
+      }> | null;
+    };
+  } | null;
+};
 
-export type PlaybackStateSubscriberSubscription = { playbackStateChanged: { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null } | null };
+export type Playbar_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  repeatState: RepeatMode;
+  shuffleState: boolean;
+  progressMs: number | null;
+  timestamp: number;
+  actions: { __typename: 'Actions'; disallows: Array<Action> };
+  context: {
+    __typename: 'PlaybackContext';
+    uri: string;
+    type: PlaybackContextType;
+  } | null;
+  device: {
+    __typename: 'Device';
+    id: string | null;
+    name: string;
+    type: string;
+    volumePercent: number;
+  };
+  item:
+    | {
+        __typename: 'Episode';
+        id: string;
+        durationMs: number;
+        name: string;
+        show: {
+          __typename: 'Show';
+          id: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }
+    | {
+        __typename: 'Track';
+        id: string;
+        durationMs: number;
+        name: string;
+        uri: string;
+        album: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+        artists: Array<{
+          __typename: 'Artist';
+          id: string;
+          uri: string;
+          name: string;
+        }>;
+      }
+    | null;
+};
 
-export type PlaybarQueryVariables = Exact<{ [key: string]: never; }>;
+export type PlaylistSidebarLink_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+};
 
+export type PlaylistSidebarLink_playlist = {
+  __typename: 'Playlist';
+  id: string;
+  uri: string;
+  name: string;
+  owner: { __typename: 'User'; id: string; displayName: string | null };
+};
 
-export type PlaybarQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', devices: Array<{ __typename: 'Device', id: string | null, name: string, type: string }> | null } } | null };
+export type PlaylistTable_currentUser = {
+  __typename: 'CurrentUser';
+  user: { __typename: 'User'; id: string };
+};
 
-export type Playbar_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs: number | null, timestamp: number, actions: { __typename: 'Actions', disallows: Array<Action> }, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename: 'Device', id: string | null, name: string, type: string, volumePercent: number }, item: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> } | null };
+export type PlaylistTable_playlist = {
+  __typename: 'Playlist';
+  id: string;
+  uri: string;
+  owner: { __typename: 'User'; id: string };
+  tracks: {
+    __typename: 'PlaylistTrackConnection';
+    edges: Array<{
+      __typename: 'PlaylistTrackEdge';
+      addedAt: string | null;
+      node:
+        | {
+            __typename: 'Episode';
+            id: string;
+            name: string;
+            durationMs: number;
+            uri: string;
+            explicit: boolean;
+            releaseDate: {
+              __typename: 'ReleaseDate';
+              date: string;
+              precision: ReleaseDatePrecision;
+            };
+            show: {
+              __typename: 'Show';
+              id: string;
+              name: string;
+              publisher: string;
+              images: Array<{ __typename: 'Image'; url: string }>;
+            };
+          }
+        | {
+            __typename: 'Track';
+            id: string;
+            name: string;
+            durationMs: number;
+            uri: string;
+            trackNumber: number | null;
+            explicit: boolean;
+            album: {
+              __typename: 'Album';
+              id: string;
+              name: string;
+              images: Array<{ __typename: 'Image'; url: string }>;
+            };
+            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+          };
+    }>;
+  };
+};
 
-export type PlaylistSidebarLink_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+export type PlaylistTile_playlist = {
+  __typename: 'Playlist';
+  id: string;
+  name: string;
+  description: string | null;
+  uri: string;
+  images: Array<{ __typename: 'Image'; url: string }>;
+};
 
-export type PlaylistSidebarLink_playlist = { __typename: 'Playlist', id: string, uri: string, name: string, owner: { __typename: 'User', id: string, displayName: string | null } };
+export type PlaylistTitleCell_playbackState = {
+  __typename: 'PlaybackState';
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+  item:
+    | { __typename: 'Episode'; id: string; uri: string }
+    | { __typename: 'Track'; id: string; uri: string }
+    | null;
+};
 
-export type PlaylistTable_currentUser = { __typename: 'CurrentUser', user: { __typename: 'User', id: string } };
+export type PlaylistTitleCell_playlist = {
+  __typename: 'Playlist';
+  id: string;
+  uri: string;
+};
 
-export type PlaylistTable_playlist = { __typename: 'Playlist', id: string, uri: string, owner: { __typename: 'User', id: string }, tracks: { __typename: 'PlaylistTrackConnection', edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, explicit: boolean, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } };
+type PlaylistTitleCell_playlistTrack_Episode_ = {
+  __typename: 'Episode';
+  explicit: boolean;
+  id: string;
+  name: string;
+  uri: string;
+  show: {
+    __typename: 'Show';
+    id: string;
+    publisher: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  };
+};
 
-export type PlaylistTile_playlist = { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> };
+type PlaylistTitleCell_playlistTrack_Track_ = {
+  __typename: 'Track';
+  explicit: boolean;
+  id: string;
+  name: string;
+  uri: string;
+  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+  album: {
+    __typename: 'Album';
+    id: string;
+    name: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  };
+};
 
-export type PlaylistTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
+export type PlaylistTitleCell_playlistTrack =
+  | PlaylistTitleCell_playlistTrack_Episode_
+  | PlaylistTitleCell_playlistTrack_Track_;
 
-export type PlaylistTitleCell_playlist = { __typename: 'Playlist', id: string, uri: string };
+export type TrackNumberCell_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+  item:
+    | { __typename: 'Episode'; id: string; uri: string }
+    | { __typename: 'Track'; id: string; uri: string }
+    | null;
+};
 
-type PlaylistTitleCell_playlistTrack_Episode_ = { __typename: 'Episode', explicit: boolean, id: string, name: string, uri: string, show: { __typename: 'Show', id: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
+export type TrackNumberCell_track = {
+  __typename: 'Track';
+  id: string;
+  uri: string;
+  trackNumber: number | null;
+};
 
-type PlaylistTitleCell_playlistTrack_Track_ = { __typename: 'Track', explicit: boolean, id: string, name: string, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } };
+export type TrackPlaybackDetails_context = {
+  __typename: 'PlaybackContext';
+  uri: string;
+  type: PlaybackContextType;
+};
 
-export type PlaylistTitleCell_playlistTrack = PlaylistTitleCell_playlistTrack_Episode_ | PlaylistTitleCell_playlistTrack_Track_;
+export type TrackPlaybackDetails_track = {
+  __typename: 'Track';
+  id: string;
+  name: string;
+  uri: string;
+  album: { __typename: 'Album'; id: string; name: string };
+  artists: Array<{
+    __typename: 'Artist';
+    id: string;
+    uri: string;
+    name: string;
+  }>;
+};
 
-export type TrackNumberCell_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
+export type TrackTitleCell_playbackState = {
+  __typename: 'PlaybackState';
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+  item:
+    | { __typename: 'Episode'; id: string; uri: string }
+    | { __typename: 'Track'; id: string; uri: string }
+    | null;
+};
 
-export type TrackNumberCell_track = { __typename: 'Track', id: string, uri: string, trackNumber: number | null };
+export type TrackTitleCell_track = {
+  __typename: 'Track';
+  id: string;
+  explicit: boolean;
+  name: string;
+  uri: string;
+  album: {
+    __typename: 'Album';
+    id: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  };
+  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+};
 
-export type TrackPlaybackDetails_context = { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType };
-
-export type TrackPlaybackDetails_track = { __typename: 'Track', id: string, name: string, uri: string, album: { __typename: 'Album', id: string, name: string }, artists: Array<{ __typename: 'Artist', id: string, uri: string, name: string }> };
-
-export type TrackTitleCell_playbackState = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
-
-export type TrackTitleCell_track = { __typename: 'Track', id: string, explicit: boolean, name: string, uri: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
-
-export type YourEpisodesTile_connection = { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } } }> };
+export type YourEpisodesTile_connection = {
+  __typename: 'SavedEpisodesConnection';
+  pageInfo: { __typename: 'PageInfo'; total: number };
+  edges: Array<{
+    __typename: 'SavedEpisodeEdge';
+    node: {
+      __typename: 'Episode';
+      id: string;
+      name: string;
+      show: { __typename: 'Show'; id: string; name: string };
+    };
+  }>;
+};
 
 export type SavedTracksContainsQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
 
+export type SavedTracksContainsQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    tracksContains: Array<boolean> | null;
+  } | null;
+};
 
-export type SavedTracksContainsQuery = { me: { __typename: 'CurrentUser', tracksContains: Array<boolean> | null } | null };
-
-export type SavedTracksContainsFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
+export type SavedTracksContainsFragment = {
+  __typename: 'CurrentUser';
+  tracksContains: Array<boolean> | null;
+};
 
 export type AddToPlaylistMutationVariables = Exact<{
   input: AddItemsToPlaylistInput;
 }>;
 
-
-export type AddToPlaylistMutation = { addItemsToPlaylist: { __typename: 'AddItemsToPlaylistPayload', playlist: { __typename: 'Playlist', id: string } | null } | null };
+export type AddToPlaylistMutation = {
+  addItemsToPlaylist: {
+    __typename: 'AddItemsToPlaylistPayload';
+    playlist: { __typename: 'Playlist'; id: string } | null;
+  } | null;
+};
 
 export type AddToQueueMutationVariables = Exact<{
   input: AddItemToPlaybackQueueInput;
 }>;
 
+export type AddToQueueMutation = {
+  addItemToPlaybackQueue: {
+    __typename: 'AddItemToPlaybackQueuePayload';
+    playbackQueue: {
+      __typename: 'PlaybackQueue';
+      currentlyPlaying:
+        | { __typename: 'Episode'; id: string }
+        | { __typename: 'Track'; id: string }
+        | null;
+    } | null;
+  } | null;
+};
 
-export type AddToQueueMutation = { addItemToPlaybackQueue: { __typename: 'AddItemToPlaybackQueuePayload', playbackQueue: { __typename: 'PlaybackQueue', currentlyPlaying: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string } | null } | null } | null };
+export type PausePlaybackMutationVariables = Exact<{ [key: string]: never }>;
 
-export type PausePlaybackMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type PausePlaybackMutation = { pausePlayback: { __typename: 'PausePlaybackResponse', playbackState: { __typename: 'PlaybackState', isPlaying: boolean } | null } | null };
+export type PausePlaybackMutation = {
+  pausePlayback: {
+    __typename: 'PausePlaybackResponse';
+    playbackState: { __typename: 'PlaybackState'; isPlaying: boolean } | null;
+  } | null;
+};
 
 export type RemoveFromPlaylistMutationVariables = Exact<{
   input: RemoveItemFromPlaylistInput;
 }>;
 
-
-export type RemoveFromPlaylistMutation = { removeItemFromPlaylist: { __typename: 'RemoveItemFromPlaylistPayload', playlist: { __typename: 'Playlist', id: string } | null } | null };
+export type RemoveFromPlaylistMutation = {
+  removeItemFromPlaylist: {
+    __typename: 'RemoveItemFromPlaylistPayload';
+    playlist: { __typename: 'Playlist'; id: string } | null;
+  } | null;
+};
 
 export type RemoveSavedAlbumsMutationVariables = Exact<{
   input: RemoveSavedAlbumsInput;
 }>;
 
+export type RemoveSavedAlbumsMutation = {
+  removeSavedAlbums: {
+    __typename: 'RemoveSavedAlbumsPayload';
+    removedAlbums: Array<{ __typename: 'Album'; id: string }> | null;
+  } | null;
+};
 
-export type RemoveSavedAlbumsMutation = { removeSavedAlbums: { __typename: 'RemoveSavedAlbumsPayload', removedAlbums: Array<{ __typename: 'Album', id: string }> | null } | null };
-
-export type RemovedSavedAlbumsMutationFragment = { __typename: 'CurrentUser', albumsContains: Array<boolean> | null };
+export type RemovedSavedAlbumsMutationFragment = {
+  __typename: 'CurrentUser';
+  albumsContains: Array<boolean> | null;
+};
 
 export type RemoveSavedTracksMutationVariables = Exact<{
   input: RemoveSavedTracksInput;
 }>;
 
+export type RemoveSavedTracksMutation = {
+  removeSavedTracks: {
+    __typename: 'RemoveSavedTracksPayload';
+    removedTracks: Array<{ __typename: 'Track'; id: string }> | null;
+  } | null;
+};
 
-export type RemoveSavedTracksMutation = { removeSavedTracks: { __typename: 'RemoveSavedTracksPayload', removedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
-
-export type RemovedSavedTracksMutationFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
+export type RemovedSavedTracksMutationFragment = {
+  __typename: 'CurrentUser';
+  tracksContains: Array<boolean> | null;
+};
 
 export type ResetFieldConfigMutationVariables = Exact<{
   input: ResetFieldConfigInput;
 }>;
 
-
-export type ResetFieldConfigMutation = { resetFieldConfig: { __typename: 'ResetFieldConfigPayload', fieldConfig: { __typename: 'FieldConfig', schemaField: { __typename: 'SchemaField', fieldName: string, typename: string } } | null } | null };
+export type ResetFieldConfigMutation = {
+  resetFieldConfig: {
+    __typename: 'ResetFieldConfigPayload';
+    fieldConfig: {
+      __typename: 'FieldConfig';
+      schemaField: {
+        __typename: 'SchemaField';
+        fieldName: string;
+        typename: string;
+      };
+    } | null;
+  } | null;
+};
 
 export type ResumePlaybackMutationVariables = Exact<{
   input?: InputMaybe<ResumePlaybackInput>;
 }>;
 
+export type ResumePlaybackMutation = {
+  resumePlayback: {
+    __typename: 'ResumePlaybackPayload';
+    playbackState: {
+      __typename: 'PlaybackState';
+      isPlaying: boolean;
+      context: {
+        __typename: 'PlaybackContext';
+        uri: string;
+        type: PlaybackContextType;
+      } | null;
+    } | null;
+  } | null;
+};
 
-export type ResumePlaybackMutation = { resumePlayback: { __typename: 'ResumePlaybackPayload', playbackState: { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null } | null } | null };
-
-export type UseResumePlaybackStateFragment = { __typename: 'PlaybackState', context: { __typename: 'PlaybackContext', uri: string, type: PlaybackContextType } | null };
+export type UseResumePlaybackStateFragment = {
+  __typename: 'PlaybackState';
+  context: {
+    __typename: 'PlaybackContext';
+    uri: string;
+    type: PlaybackContextType;
+  } | null;
+};
 
 export type SaveAlbumsMutationVariables = Exact<{
   input: SaveAlbumsInput;
 }>;
 
+export type SaveAlbumsMutation = {
+  saveAlbums: {
+    __typename: 'SaveAlbumsPayload';
+    savedAlbums: Array<{ __typename: 'Album'; id: string }> | null;
+  } | null;
+};
 
-export type SaveAlbumsMutation = { saveAlbums: { __typename: 'SaveAlbumsPayload', savedAlbums: Array<{ __typename: 'Album', id: string }> | null } | null };
-
-export type SaveAlbumsMutationFragment = { __typename: 'CurrentUser', albumsContains: Array<boolean> | null };
+export type SaveAlbumsMutationFragment = {
+  __typename: 'CurrentUser';
+  albumsContains: Array<boolean> | null;
+};
 
 export type SaveTracksMutationVariables = Exact<{
   input: SaveTracksInput;
 }>;
 
+export type SaveTracksMutation = {
+  saveTracks: {
+    __typename: 'SaveTracksPayload';
+    savedTracks: Array<{ __typename: 'Track'; id: string }> | null;
+  } | null;
+};
 
-export type SaveTracksMutation = { saveTracks: { __typename: 'SaveTracksPayload', savedTracks: Array<{ __typename: 'Track', id: string }> | null } | null };
-
-export type SaveTracksMutationFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
+export type SaveTracksMutationFragment = {
+  __typename: 'CurrentUser';
+  tracksContains: Array<boolean> | null;
+};
 
 export type SeekToPositionMutationVariables = Exact<{
   positionMs: Scalars['Int']['input'];
 }>;
 
-
-export type SeekToPositionMutation = { seekToPosition: { __typename: 'SeekToPositionResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null } | null } | null };
+export type SeekToPositionMutation = {
+  seekToPosition: {
+    __typename: 'SeekToPositionResponse';
+    playbackState: {
+      __typename: 'PlaybackState';
+      progressMs: number | null;
+    } | null;
+  } | null;
+};
 
 export type SetRepeatModeMutationVariables = Exact<{
   state: RepeatMode;
 }>;
 
-
-export type SetRepeatModeMutation = { setRepeatMode: { __typename: 'SetRepeatModeResponse', playbackState: { __typename: 'PlaybackState', repeatState: RepeatMode } | null } | null };
+export type SetRepeatModeMutation = {
+  setRepeatMode: {
+    __typename: 'SetRepeatModeResponse';
+    playbackState: {
+      __typename: 'PlaybackState';
+      repeatState: RepeatMode;
+    } | null;
+  } | null;
+};
 
 export type SetVolumeMutationVariables = Exact<{
   volumePercent: Scalars['Int']['input'];
 }>;
 
+export type SetVolumeMutation = {
+  setVolume: {
+    __typename: 'SetVolumeResponse';
+    playbackState: {
+      __typename: 'PlaybackState';
+      device: {
+        __typename: 'Device';
+        id: string | null;
+        volumePercent: number;
+      };
+    } | null;
+  } | null;
+};
 
-export type SetVolumeMutation = { setVolume: { __typename: 'SetVolumeResponse', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null, volumePercent: number } } | null } | null };
-
-export type SetVolumeCacheFragment = { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null, volumePercent: number } };
+export type SetVolumeCacheFragment = {
+  __typename: 'PlaybackState';
+  device: { __typename: 'Device'; id: string | null; volumePercent: number };
+};
 
 export type ShufflePlaybackMutationVariables = Exact<{
   state: Scalars['Boolean']['input'];
 }>;
 
+export type ShufflePlaybackMutation = {
+  shufflePlayback: {
+    __typename: 'ShufflePlaybackResponse';
+    playbackState: {
+      __typename: 'PlaybackState';
+      shuffleState: boolean;
+    } | null;
+  } | null;
+};
 
-export type ShufflePlaybackMutation = { shufflePlayback: { __typename: 'ShufflePlaybackResponse', playbackState: { __typename: 'PlaybackState', shuffleState: boolean } | null } | null };
+export type SkipToNextMutationVariables = Exact<{ [key: string]: never }>;
 
-export type SkipToNextMutationVariables = Exact<{ [key: string]: never; }>;
+export type SkipToNextMutation = {
+  skipToNext: {
+    __typename: 'SkipToNextResponse';
+    playbackState: {
+      __typename: 'PlaybackState';
+      progressMs: number | null;
+      item:
+        | {
+            __typename: 'Episode';
+            id: string;
+            name: string;
+            show: {
+              __typename: 'Show';
+              id: string;
+              name: string;
+              images: Array<{ __typename: 'Image'; url: string }>;
+            };
+          }
+        | {
+            __typename: 'Track';
+            id: string;
+            name: string;
+            album: {
+              __typename: 'Album';
+              id: string;
+              name: string;
+              images: Array<{ __typename: 'Image'; url: string }>;
+            };
+            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+          }
+        | null;
+    } | null;
+  } | null;
+};
 
+export type SkipToPreviousMutationVariables = Exact<{ [key: string]: never }>;
 
-export type SkipToNextMutation = { skipToNext: { __typename: 'SkipToNextResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null, item: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null } | null } | null };
-
-export type SkipToPreviousMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type SkipToPreviousMutation = { skipToPrevious: { __typename: 'SkipToPreviousResponse', playbackState: { __typename: 'PlaybackState', progressMs: number | null, item: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null } | null } | null };
+export type SkipToPreviousMutation = {
+  skipToPrevious: {
+    __typename: 'SkipToPreviousResponse';
+    playbackState: {
+      __typename: 'PlaybackState';
+      progressMs: number | null;
+      item:
+        | {
+            __typename: 'Episode';
+            id: string;
+            name: string;
+            show: {
+              __typename: 'Show';
+              id: string;
+              name: string;
+              images: Array<{ __typename: 'Image'; url: string }>;
+            };
+          }
+        | {
+            __typename: 'Track';
+            id: string;
+            name: string;
+            album: {
+              __typename: 'Album';
+              id: string;
+              name: string;
+              images: Array<{ __typename: 'Image'; url: string }>;
+            };
+            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+          }
+        | null;
+    } | null;
+  } | null;
+};
 
 export type TransferPlaybackMutationVariables = Exact<{
   input: TransferPlaybackInput;
 }>;
 
-
-export type TransferPlaybackMutation = { transferPlayback: { __typename: 'TransferPlaybackPayload', playbackState: { __typename: 'PlaybackState', device: { __typename: 'Device', id: string | null } } | null } | null };
+export type TransferPlaybackMutation = {
+  transferPlayback: {
+    __typename: 'TransferPlaybackPayload';
+    playbackState: {
+      __typename: 'PlaybackState';
+      device: { __typename: 'Device'; id: string | null };
+    } | null;
+  } | null;
+};
 
 export type UpdateFieldConfigMutationVariables = Exact<{
   input: UpdateFieldConfigInput;
 }>;
 
-
-export type UpdateFieldConfigMutation = { updateFieldConfig: { __typename: 'UpdateFieldConfigPayload', fieldConfig: { __typename: 'FieldConfig', timeout: number, errorRate: number, schemaField: { __typename: 'SchemaField', fieldName: string, typename: string } } | null } | null };
+export type UpdateFieldConfigMutation = {
+  updateFieldConfig: {
+    __typename: 'UpdateFieldConfigPayload';
+    fieldConfig: {
+      __typename: 'FieldConfig';
+      timeout: number;
+      errorRate: number;
+      schemaField: {
+        __typename: 'SchemaField';
+        fieldName: string;
+        typename: string;
+      };
+    } | null;
+  } | null;
+};
 
 export type AlbumRouteQueryVariables = Exact<{
   albumId: Scalars['ID']['input'];
 }>;
 
+export type AlbumRouteQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    albumsContains: Array<boolean> | null;
+  } | null;
+  album: {
+    __typename: 'Album';
+    id: string;
+    albumType: AlbumType;
+    name: string;
+    totalTracks: number;
+    uri: string;
+    artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+    copyrights: Array<{
+      __typename: 'Copyright';
+      text: string;
+      type: CopyrightType | null;
+    }>;
+    images: Array<{ __typename: 'Image'; url: string }>;
+    releaseDate: {
+      __typename: 'ReleaseDate';
+      date: string;
+      precision: ReleaseDatePrecision;
+    };
+    tracks: {
+      __typename: 'AlbumTrackConnection';
+      edges: Array<{
+        __typename: 'AlbumTrackEdge';
+        node: {
+          __typename: 'Track';
+          id: string;
+          uri: string;
+          durationMs: number;
+          trackNumber: number | null;
+          name: string;
+          explicit: boolean;
+          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
-export type AlbumRouteQuery = { me: { __typename: 'CurrentUser', albumsContains: Array<boolean> | null } | null, album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, uri: string, artists: Array<{ __typename: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename: 'Copyright', text: string, type: CopyrightType | null }>, images: Array<{ __typename: 'Image', url: string }>, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
-
-export type AlbumRoutePlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+export type AlbumRoutePlaybackStateFragment = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+};
 
 export type ArtistRouteQueryVariables = Exact<{
   artistId: Scalars['ID']['input'];
 }>;
 
+export type ArtistRouteQuery = {
+  artist: {
+    __typename: 'Artist';
+    id: string;
+    name: string;
+    albums: {
+      __typename: 'ArtistAlbumsConnection';
+      edges: Array<{
+        __typename: 'ArtistAlbumEdge';
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          totalTracks: number;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }> | null;
+    } | null;
+    singles: {
+      __typename: 'ArtistAlbumsConnection';
+      edges: Array<{
+        __typename: 'ArtistAlbumEdge';
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          totalTracks: number;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }> | null;
+    } | null;
+    appearsOn: {
+      __typename: 'ArtistAlbumsConnection';
+      edges: Array<{
+        __typename: 'ArtistAlbumEdge';
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          totalTracks: number;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }> | null;
+    } | null;
+    followers: { __typename: 'Followers'; total: number };
+    images: Array<{ __typename: 'Image'; url: string }>;
+    relatedArtists: Array<{
+      __typename: 'Artist';
+      id: string;
+      name: string;
+      images: Array<{ __typename: 'Image'; url: string }>;
+    }>;
+    topTracks: Array<{
+      __typename: 'Track';
+      id: string;
+      durationMs: number;
+      explicit: boolean;
+      name: string;
+      album: {
+        __typename: 'Album';
+        id: string;
+        images: Array<{ __typename: 'Image'; url: string }>;
+      };
+    }>;
+  } | null;
+};
 
-export type ArtistRouteQuery = { artist: { __typename: 'Artist', id: string, name: string, albums: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> | null } | null, singles: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> | null } | null, appearsOn: { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> | null } | null, followers: { __typename: 'Followers', total: number }, images: Array<{ __typename: 'Image', url: string }>, relatedArtists: Array<{ __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }>, topTracks: Array<{ __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
-
-export type ArtistRouteQuery_albums = { __typename: 'ArtistAlbumsConnection', edges: Array<{ __typename: 'ArtistAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> | null };
+export type ArtistRouteQuery_albums = {
+  __typename: 'ArtistAlbumsConnection';
+  edges: Array<{
+    __typename: 'ArtistAlbumEdge';
+    node: {
+      __typename: 'Album';
+      id: string;
+      name: string;
+      albumType: AlbumType;
+      totalTracks: number;
+      releaseDate: { __typename: 'ReleaseDate'; date: string };
+      images: Array<{ __typename: 'Image'; url: string }>;
+    };
+  }> | null;
+};
 
 export type CollectionAlbumsRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-
-export type CollectionAlbumsRouteQuery = { me: { __typename: 'CurrentUser', albums: { __typename: 'SavedAlbumsConnection', pageInfo: { __typename: 'PageInfo', limit: number, offset: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedAlbumEdge', node: { __typename: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename: 'ReleaseDate', date: string }, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionAlbumsRouteQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    albums: {
+      __typename: 'SavedAlbumsConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        limit: number;
+        offset: number;
+        hasNextPage: boolean;
+      };
+      edges: Array<{
+        __typename: 'SavedAlbumEdge';
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          totalTracks: number;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type CollectionArtistsRouteQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-
-export type CollectionArtistsRouteQuery = { me: { __typename: 'CurrentUser', followedArtists: { __typename: 'FollowedArtistsConnection', pageInfo: { __typename: 'PageInfoCursorBased', cursors: { __typename: 'Cursors', after: string | null } | null }, edges: Array<{ __typename: 'FollowedArtistEdge', node: { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionArtistsRouteQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    followedArtists: {
+      __typename: 'FollowedArtistsConnection';
+      pageInfo: {
+        __typename: 'PageInfoCursorBased';
+        cursors: { __typename: 'Cursors'; after: string | null } | null;
+      };
+      edges: Array<{
+        __typename: 'FollowedArtistEdge';
+        node: {
+          __typename: 'Artist';
+          id: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type CollectionPlaylistsRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-
-export type CollectionPlaylistsRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string }, episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number } } | null, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedTrackEdge', node: { __typename: 'Track', id: string, name: string, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionPlaylistsRouteQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    user: { __typename: 'User'; id: string };
+    episodes: {
+      __typename: 'SavedEpisodesConnection';
+      pageInfo: { __typename: 'PageInfo'; total: number };
+    } | null;
+    tracks: {
+      __typename: 'SavedTracksConnection';
+      pageInfo: { __typename: 'PageInfo'; total: number };
+      edges: Array<{
+        __typename: 'SavedTrackEdge';
+        node: {
+          __typename: 'Track';
+          id: string;
+          name: string;
+          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+        };
+      }>;
+    } | null;
+    playlists: {
+      __typename: 'PlaylistConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        offset: number;
+        limit: number;
+        hasNextPage: boolean;
+      };
+      edges: Array<{
+        __typename: 'PlaylistEdge';
+        node: {
+          __typename: 'Playlist';
+          id: string;
+          name: string;
+          description: string | null;
+          uri: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-
-export type CollectionPlaylistsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionPlaylistsRoutePaginatedQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    playlists: {
+      __typename: 'PlaylistConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        offset: number;
+        limit: number;
+        hasNextPage: boolean;
+      };
+      edges: Array<{
+        __typename: 'PlaylistEdge';
+        node: {
+          __typename: 'Playlist';
+          id: string;
+          name: string;
+          description: string | null;
+          uri: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type CollectionPodcastsRouteQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-
-export type CollectionPodcastsRouteQuery = { me: { __typename: 'CurrentUser', episodes: { __typename: 'SavedEpisodesConnection', pageInfo: { __typename: 'PageInfo', total: number }, edges: Array<{ __typename: 'SavedEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, show: { __typename: 'Show', id: string, name: string } } }> } | null, shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionPodcastsRouteQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    episodes: {
+      __typename: 'SavedEpisodesConnection';
+      pageInfo: { __typename: 'PageInfo'; total: number };
+      edges: Array<{
+        __typename: 'SavedEpisodeEdge';
+        node: {
+          __typename: 'Episode';
+          id: string;
+          name: string;
+          show: { __typename: 'Show'; id: string; name: string };
+        };
+      }>;
+    } | null;
+    shows: {
+      __typename: 'SavedShowsConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        offset: number;
+        limit: number;
+        hasNextPage: boolean;
+      };
+      edges: Array<{
+        __typename: 'SavedShowEdge';
+        node: {
+          __typename: 'Show';
+          id: string;
+          name: string;
+          publisher: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type CollectionPodcastsRoutePaginatedQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-
-export type CollectionPodcastsRoutePaginatedQuery = { me: { __typename: 'CurrentUser', shows: { __typename: 'SavedShowsConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'SavedShowEdge', node: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type CollectionPodcastsRoutePaginatedQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    shows: {
+      __typename: 'SavedShowsConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        offset: number;
+        limit: number;
+        hasNextPage: boolean;
+      };
+      edges: Array<{
+        __typename: 'SavedShowEdge';
+        node: {
+          __typename: 'Show';
+          id: string;
+          name: string;
+          publisher: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type CollectionTracksRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
+export type CollectionTracksRouteQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    user: { __typename: 'User'; id: string; displayName: string | null };
+    tracks: {
+      __typename: 'SavedTracksConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        hasNextPage: boolean;
+        offset: number;
+        limit: number;
+        total: number;
+      };
+      edges: Array<{
+        __typename: 'SavedTrackEdge';
+        addedAt: string;
+        node: {
+          __typename: 'Track';
+          id: string;
+          name: string;
+          durationMs: number;
+          uri: string;
+          trackNumber: number | null;
+          explicit: boolean;
+          album: {
+            __typename: 'Album';
+            id: string;
+            images: Array<{ __typename: 'Image'; url: string }>;
+          };
+          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
-export type CollectionTracksRouteQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'SavedTracksConnection', pageInfo: { __typename: 'PageInfo', hasNextPage: boolean, offset: number, limit: number, total: number }, edges: Array<{ __typename: 'SavedTrackEdge', addedAt: string, node: { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null } | null };
+export type CollectionTracksRoutePlaylistStateFragment = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+};
 
-export type CollectionTracksRoutePlaylistStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
-
-export type CurrentUserFragment = { __typename: 'CurrentUser', tracksContains: Array<boolean> | null };
+export type CurrentUserFragment = {
+  __typename: 'CurrentUser';
+  tracksContains: Array<boolean> | null;
+};
 
 export type EpisodeRouteQueryVariables = Exact<{
   episodeId: Scalars['ID']['input'];
 }>;
 
-
-export type EpisodeRouteQuery = { episode: { __typename: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } | null };
+export type EpisodeRouteQuery = {
+  episode: {
+    __typename: 'Episode';
+    id: string;
+    name: string;
+    durationMs: number;
+    releaseDate: {
+      __typename: 'ReleaseDate';
+      date: string;
+      precision: ReleaseDatePrecision;
+    };
+    show: {
+      __typename: 'Show';
+      id: string;
+      name: string;
+      images: Array<{ __typename: 'Image'; url: string }>;
+    };
+    resumePoint: {
+      __typename: 'ResumePoint';
+      fullyPlayed: boolean;
+      resumePositionMs: number;
+    };
+  } | null;
+};
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']['input']>;
 }>;
 
-
-export type IndexRouteQuery = { featuredPlaylists: { __typename: 'FeaturedPlaylistConnection', message: string, edges: Array<{ __typename: 'FeaturedPlaylistEdge', node: { __typename: 'Playlist', id: string, name: string, description: string | null, uri: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null };
+export type IndexRouteQuery = {
+  featuredPlaylists: {
+    __typename: 'FeaturedPlaylistConnection';
+    message: string;
+    edges: Array<{
+      __typename: 'FeaturedPlaylistEdge';
+      node: {
+        __typename: 'Playlist';
+        id: string;
+        name: string;
+        description: string | null;
+        uri: string;
+        images: Array<{ __typename: 'Image'; url: string }>;
+      };
+    }>;
+  } | null;
+};
 
 export type PlaylistQueryVariables = Exact<{
   id: Scalars['ID']['input'];
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
+export type PlaylistQuery = {
+  playlist: {
+    __typename: 'Playlist';
+    id: string;
+    name: string;
+    uri: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+    owner: { __typename: 'User'; id: string; displayName: string | null };
+    tracks: {
+      __typename: 'PlaylistTrackConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        hasNextPage: boolean;
+        offset: number;
+        limit: number;
+        total: number;
+      };
+      edges: Array<{
+        __typename: 'PlaylistTrackEdge';
+        addedAt: string | null;
+        node:
+          | {
+              __typename: 'Episode';
+              id: string;
+              name: string;
+              durationMs: number;
+              uri: string;
+              explicit: boolean;
+              releaseDate: {
+                __typename: 'ReleaseDate';
+                date: string;
+                precision: ReleaseDatePrecision;
+              };
+              show: {
+                __typename: 'Show';
+                id: string;
+                name: string;
+                publisher: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+            }
+          | {
+              __typename: 'Track';
+              id: string;
+              name: string;
+              durationMs: number;
+              uri: string;
+              trackNumber: number | null;
+              explicit: boolean;
+              album: {
+                __typename: 'Album';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+              artists: Array<{
+                __typename: 'Artist';
+                id: string;
+                name: string;
+              }>;
+            };
+      }>;
+    };
+  } | null;
+};
 
-export type PlaylistQuery = { playlist: { __typename: 'Playlist', id: string, name: string, uri: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null }, tracks: { __typename: 'PlaylistTrackConnection', pageInfo: { __typename: 'PageInfo', hasNextPage: boolean, offset: number, limit: number, total: number }, edges: Array<{ __typename: 'PlaylistTrackEdge', addedAt: string | null, node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, explicit: boolean, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } } | null };
+export type PlaylistRoutePlaybackStateFragment = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+};
 
-export type PlaylistRoutePlaybackStateFragment = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null };
+export type QueueRouteQueryVariables = Exact<{ [key: string]: never }>;
 
-export type QueueRouteQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueueRouteQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    player: {
+      __typename: 'Player';
+      playbackQueue: {
+        __typename: 'PlaybackQueue';
+        currentlyPlaying:
+          | {
+              __typename: 'Episode';
+              id: string;
+              durationMs: number;
+              uri: string;
+              explicit: boolean;
+              name: string;
+              show: {
+                __typename: 'Show';
+                id: string;
+                name: string;
+                publisher: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+            }
+          | {
+              __typename: 'Track';
+              id: string;
+              durationMs: number;
+              uri: string;
+              trackNumber: number | null;
+              explicit: boolean;
+              name: string;
+              album: {
+                __typename: 'Album';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+              artists: Array<{
+                __typename: 'Artist';
+                id: string;
+                name: string;
+              }>;
+            }
+          | null;
+        queue: Array<
+          | {
+              __typename: 'Episode';
+              id: string;
+              durationMs: number;
+              uri: string;
+              explicit: boolean;
+              name: string;
+              show: {
+                __typename: 'Show';
+                id: string;
+                name: string;
+                publisher: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+            }
+          | {
+              __typename: 'Track';
+              id: string;
+              durationMs: number;
+              uri: string;
+              trackNumber: number | null;
+              explicit: boolean;
+              name: string;
+              album: {
+                __typename: 'Album';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+              artists: Array<{
+                __typename: 'Artist';
+                id: string;
+                name: string;
+              }>;
+            }
+        >;
+      } | null;
+    };
+  } | null;
+};
 
+type QueueRoute_playbackItem_Episode_ = {
+  __typename: 'Episode';
+  id: string;
+  durationMs: number;
+  uri: string;
+  explicit: boolean;
+  name: string;
+  show: {
+    __typename: 'Show';
+    id: string;
+    name: string;
+    publisher: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  };
+};
 
-export type QueueRouteQuery = { me: { __typename: 'CurrentUser', player: { __typename: 'Player', playbackQueue: { __typename: 'PlaybackQueue', currentlyPlaying: { __typename: 'Episode', id: string, durationMs: number, uri: string, explicit: boolean, name: string, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> } | null, queue: Array<{ __typename: 'Episode', id: string, durationMs: number, uri: string, explicit: boolean, name: string, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> }> } | null } } | null };
+type QueueRoute_playbackItem_Track_ = {
+  __typename: 'Track';
+  id: string;
+  durationMs: number;
+  uri: string;
+  trackNumber: number | null;
+  explicit: boolean;
+  name: string;
+  album: {
+    __typename: 'Album';
+    id: string;
+    name: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  };
+  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+};
 
-type QueueRoute_playbackItem_Episode_ = { __typename: 'Episode', id: string, durationMs: number, uri: string, explicit: boolean, name: string, show: { __typename: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename: 'Image', url: string }> } };
+export type QueueRoute_playbackItem =
+  | QueueRoute_playbackItem_Episode_
+  | QueueRoute_playbackItem_Track_;
 
-type QueueRoute_playbackItem_Track_ = { __typename: 'Track', id: string, durationMs: number, uri: string, trackNumber: number | null, explicit: boolean, name: string, album: { __typename: 'Album', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> }, artists: Array<{ __typename: 'Artist', id: string, name: string }> };
-
-export type QueueRoute_playbackItem = QueueRoute_playbackItem_Episode_ | QueueRoute_playbackItem_Track_;
-
-export type QueueRoute_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, context: { __typename: 'PlaybackContext', uri: string } | null, item: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string } | null };
+export type QueueRoute_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+  item:
+    | { __typename: 'Episode'; id: string }
+    | { __typename: 'Track'; id: string }
+    | null;
+};
 
 export type RootQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-
-export type RootQuery = { me: { __typename: 'CurrentUser', user: { __typename: 'User', id: string }, playlists: { __typename: 'PlaylistConnection', pageInfo: { __typename: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename: 'PlaylistEdge', node: { __typename: 'Playlist', id: string, uri: string, name: string, images: Array<{ __typename: 'Image', url: string }>, owner: { __typename: 'User', id: string, displayName: string | null } } }> } | null } | null };
+export type RootQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    user: { __typename: 'User'; id: string };
+    playlists: {
+      __typename: 'PlaylistConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        offset: number;
+        limit: number;
+        hasNextPage: boolean;
+      };
+      edges: Array<{
+        __typename: 'PlaylistEdge';
+        node: {
+          __typename: 'Playlist';
+          id: string;
+          uri: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+          owner: { __typename: 'User'; id: string; displayName: string | null };
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
 export type SearchRouteQueryVariables = Exact<{
   q: Scalars['String']['input'];
   type: Array<SearchType> | SearchType;
 }>;
 
+export type SearchRouteQuery = {
+  search: {
+    __typename: 'SearchResults';
+    artists: {
+      __typename: 'SearchArtistsConnection';
+      edges: Array<{
+        __typename: 'SearchArtistEdge';
+        node: {
+          __typename: 'Artist';
+          id: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+    } | null;
+  } | null;
+};
 
-export type SearchRouteQuery = { search: { __typename: 'SearchResults', artists: { __typename: 'SearchArtistsConnection', edges: Array<{ __typename: 'SearchArtistEdge', node: { __typename: 'Artist', id: string, name: string, images: Array<{ __typename: 'Image', url: string }> } }> } | null } | null };
+export type SettingsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type SettingsQueryVariables = Exact<{ [key: string]: never; }>;
+export type SettingsQuery = {
+  developer: {
+    __typename: 'Developer';
+    fieldConfigs: Array<{
+      __typename: 'FieldConfig';
+      timeout: number;
+      errorRate: number;
+      schemaField: {
+        __typename: 'SchemaField';
+        fieldName: string;
+        typename: string;
+      };
+    }>;
+  };
+};
 
+export type LimitedIntrospectionQueryVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type SettingsQuery = { developer: { __typename: 'Developer', fieldConfigs: Array<{ __typename: 'FieldConfig', timeout: number, errorRate: number, schemaField: { __typename: 'SchemaField', fieldName: string, typename: string } }> } };
+export type LimitedIntrospectionQuery = {
+  __schema: {
+    __typename: '__Schema';
+    types: Array<{
+      __typename: '__Type';
+      name: string | null;
+      kind: __TypeKind;
+      fields: Array<{
+        __typename: '__Field';
+        name: string;
+        description: string | null;
+        type: {
+          __typename: '__Type';
+          kind: __TypeKind;
+          name: string | null;
+          ofType: {
+            __typename: '__Type';
+            kind: __TypeKind;
+            name: string | null;
+            ofType: {
+              __typename: '__Type';
+              kind: __TypeKind;
+              name: string | null;
+              ofType: {
+                __typename: '__Type';
+                kind: __TypeKind;
+                name: string | null;
+                ofType: {
+                  __typename: '__Type';
+                  kind: __TypeKind;
+                  name: string | null;
+                  ofType: {
+                    __typename: '__Type';
+                    kind: __TypeKind;
+                    name: string | null;
+                    ofType: {
+                      __typename: '__Type';
+                      kind: __TypeKind;
+                      name: string | null;
+                      ofType: {
+                        __typename: '__Type';
+                        kind: __TypeKind;
+                        name: string | null;
+                      } | null;
+                    } | null;
+                  } | null;
+                } | null;
+              } | null;
+            } | null;
+          } | null;
+        };
+      }> | null;
+    }>;
+  };
+};
 
-export type LimitedIntrospectionQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LimitedIntrospectionQuery = { __schema: { __typename: '__Schema', types: Array<{ __typename: '__Type', name: string | null, kind: __TypeKind, fields: Array<{ __typename: '__Field', name: string, description: string | null, type: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null } | null } | null } | null } | null } | null } | null } | null } }> | null }> } };
-
-export type TypeRef = { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null, ofType: { __typename: '__Type', kind: __TypeKind, name: string | null } | null } | null } | null } | null } | null } | null } | null };
+export type TypeRef = {
+  __typename: '__Type';
+  kind: __TypeKind;
+  name: string | null;
+  ofType: {
+    __typename: '__Type';
+    kind: __TypeKind;
+    name: string | null;
+    ofType: {
+      __typename: '__Type';
+      kind: __TypeKind;
+      name: string | null;
+      ofType: {
+        __typename: '__Type';
+        kind: __TypeKind;
+        name: string | null;
+        ofType: {
+          __typename: '__Type';
+          kind: __TypeKind;
+          name: string | null;
+          ofType: {
+            __typename: '__Type';
+            kind: __TypeKind;
+            name: string | null;
+            ofType: {
+              __typename: '__Type';
+              kind: __TypeKind;
+              name: string | null;
+              ofType: {
+                __typename: '__Type';
+                kind: __TypeKind;
+                name: string | null;
+              } | null;
+            } | null;
+          } | null;
+        } | null;
+      } | null;
+    } | null;
+  } | null;
+};
 
 export type ShowRouteQueryVariables = Exact<{
   showId: Scalars['ID']['input'];
 }>;
 
+export type ShowRouteQuery = {
+  show: {
+    __typename: 'Show';
+    id: string;
+    description: string;
+    name: string;
+    publisher: string;
+    episodes: {
+      __typename: 'ShowEpisodesConnection';
+      edges: Array<{
+        __typename: 'ShowEpisodeEdge';
+        node: {
+          __typename: 'Episode';
+          id: string;
+          name: string;
+          durationMs: number;
+          uri: string;
+          releaseDate: {
+            __typename: 'ReleaseDate';
+            date: string;
+            precision: ReleaseDatePrecision;
+          };
+          resumePoint: {
+            __typename: 'ResumePoint';
+            fullyPlayed: boolean;
+            resumePositionMs: number;
+          };
+        };
+      }>;
+    } | null;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  } | null;
+};
 
-export type ShowRouteQuery = { show: { __typename: 'Show', id: string, description: string, name: string, publisher: string, episodes: { __typename: 'ShowEpisodesConnection', edges: Array<{ __typename: 'ShowEpisodeEdge', node: { __typename: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, resumePoint: { __typename: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } }> } | null, images: Array<{ __typename: 'Image', url: string }> } | null };
-
-export type ShowRoute_playbackState = { __typename: 'PlaybackState', isPlaying: boolean, item: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
+export type ShowRoute_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  item:
+    | { __typename: 'Episode'; id: string; uri: string }
+    | { __typename: 'Track'; id: string; uri: string }
+    | null;
+};
 
 export type TrackRouteQueryVariables = Exact<{
   trackId: Scalars['ID']['input'];
 }>;
 
-
-export type TrackRouteQuery = { track: { __typename: 'Track', id: string, durationMs: number, name: string, album: { __typename: 'Album', id: string, albumType: AlbumType, name: string, uri: string, images: Array<{ __typename: 'Image', url: string }>, tracks: { __typename: 'AlbumTrackConnection', edges: Array<{ __typename: 'AlbumTrackEdge', node: { __typename: 'Track', id: string, uri: string, durationMs: number, trackNumber: number | null, name: string, explicit: boolean, artists: Array<{ __typename: 'Artist', id: string, name: string }> } }> } | null }, artists: Array<{ __typename: 'Artist', id: string, name: string, topTracks: Array<{ __typename: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename: 'Album', id: string, images: Array<{ __typename: 'Image', url: string }> } }>, images: Array<{ __typename: 'Image', url: string }> }> } | null };
+export type TrackRouteQuery = {
+  track: {
+    __typename: 'Track';
+    id: string;
+    durationMs: number;
+    name: string;
+    album: {
+      __typename: 'Album';
+      id: string;
+      albumType: AlbumType;
+      name: string;
+      uri: string;
+      images: Array<{ __typename: 'Image'; url: string }>;
+      tracks: {
+        __typename: 'AlbumTrackConnection';
+        edges: Array<{
+          __typename: 'AlbumTrackEdge';
+          node: {
+            __typename: 'Track';
+            id: string;
+            uri: string;
+            durationMs: number;
+            trackNumber: number | null;
+            name: string;
+            explicit: boolean;
+            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+          };
+        }>;
+      } | null;
+    };
+    artists: Array<{
+      __typename: 'Artist';
+      id: string;
+      name: string;
+      topTracks: Array<{
+        __typename: 'Track';
+        id: string;
+        durationMs: number;
+        explicit: boolean;
+        name: string;
+        album: {
+          __typename: 'Album';
+          id: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+        };
+      }>;
+      images: Array<{ __typename: 'Image'; url: string }>;
+    }>;
+  } | null;
+};

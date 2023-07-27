@@ -12,7 +12,10 @@ export const notify = (message: string, options?: NotifyOptions) => {
   clearTimeout(timeoutId);
   notificationVar({ message });
 
-  timeoutId = setTimeout(() => {
-    notificationVar(null);
-  }, options?.duration ?? DEFAULT_DURATION);
+  timeoutId = setTimeout(
+    () => {
+      notificationVar(null);
+    },
+    options?.duration ?? DEFAULT_DURATION
+  );
 };

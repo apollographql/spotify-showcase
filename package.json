@@ -9,9 +9,11 @@
     "./subgraphs/*"
   ],
   "scripts": {
-    "codegen": "rover graph fetch Spotify-tb7du2@prod-external > ./client/schema.graphql && graphql-codegen",
+    "codegen": "rover graph fetch Spotify-tb7du2@prod-external | prettier --parser graphql > ./client/schema.graphql && graphql-codegen",
+    "format": "prettier . --write",
     "lint": "concurrently \"npm:lint:*\"",
-    "lint:client": "npm run lint -w client",
+    "lint:format": "prettier . --check",
+    "lint:all": "eslint .",
     "lint:types:client": "npm run lint:types -w client",
     "lint:types:spotify": "npm run lint:types -w spotify-subgraph",
     "lint:types:playback": "npm run lint:types -w playback-subgraph",
@@ -40,6 +42,7 @@
     "@types/inquirer": "^9.0.3",
     "concurrently": "^8.2.0",
     "ts-node": "^10.9.1",
+    "prettier": "^3.0.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {

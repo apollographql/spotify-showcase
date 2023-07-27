@@ -5,4 +5,3 @@ export const TimeRange: TimeRangeResolvers = {
   MEDIUM_TERM: 'medium_term',
   SHORT_TERM: 'short_term',
 };
-

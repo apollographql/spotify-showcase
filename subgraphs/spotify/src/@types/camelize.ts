@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 declare module 'camelize' {
   type CamelCase<S extends string> =
     S extends `${infer P1}_${infer P2}${infer P3}`

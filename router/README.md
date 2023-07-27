@@ -18,7 +18,7 @@ A starting point for deploying the Router via a Dockerfile using [GraphOS Enterp
 ## Next steps
 
 - [ ] Deploy to your environment of choice and set up CI/CD to deploy newer versions.
-    - [ ] [Set `APOLLO_KEY` and `APOLLO_GRAPH_REF` secrets in deploy](https://www.apollographql.com/docs/router/configuration/overview/#environment-variables)
+  - [ ] [Set `APOLLO_KEY` and `APOLLO_GRAPH_REF` secrets in deploy](https://www.apollographql.com/docs/router/configuration/overview/#environment-variables)
 - [ ] Enable Renovate on this repo to keep Router up to date
 - [ ] Set up a deployment preview for PRs to changes which you can run integration tests against
 - [ ] Set up secrets for each of your subgraphs so that only the routers can access them
@@ -29,10 +29,9 @@ A starting point for deploying the Router via a Dockerfile using [GraphOS Enterp
 - `docker build -t router .` builds the router image with the tag `router` for local testing.
 - `rover dev --supergraph-config supergraph.yaml --router-config router.yaml` to run the Router locally without Docker (using [Rover]). You'll need to update the `supergraph.yaml` file to point at the local versions of your subgraphs. **Make sure to set the required environment variables ahead of time!**
 - `docker run -it --env APOLLO_KEY --env APOLLO_GRAPH_REF -p4000:4000 router` runs the same router image you'll run in production. You can now query the router at `http://localhost:4000`.
-    - Make sure to set the env vars `APOLLO_KEY` and `APOLLO_GRAPH_REF` first
-    - You can alternatively create a file (e.g., `.env`) and run `docker run -it --env-file .env -p4000:4000 router`. **Make sure not to check this file into source control!**
-    - Your local router will need network access to the subgraphs
-
+  - Make sure to set the env vars `APOLLO_KEY` and `APOLLO_GRAPH_REF` first
+  - You can alternatively create a file (e.g., `.env`) and run `docker run -it --env-file .env -p4000:4000 router`. **Make sure not to check this file into source control!**
+  - Your local router will need network access to the subgraphs
 
 [GraphOS Enterprise]: https://www.apollographql.com/docs/graphos/enterprise
 [Rover]: https://www.apollographql.com/docs/rover/commands/dev

@@ -6,4 +6,3 @@ export const AlbumGroup: AlbumGroupResolvers = {
   COMPILATION: 'compilation',
   SINGLE: 'single',
 };
-

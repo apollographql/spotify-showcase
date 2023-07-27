@@ -2,6 +2,6 @@ We want this template to be useful to as many members of the community as possib
 
 We will be prioritizing new features based on how many people have "voted" for an idea using the little up-arrow button, so if you'd like to see certain improvements prioritized, please click that button!
 
-You can also hop into our Discord server to discuss all things GraphQL and Apollo: 
+You can also hop into our Discord server to discuss all things GraphQL and Apollo:
 
 [![](https://dcbadge.vercel.app/api/server/graphos)](https://discord.gg/graphos)
