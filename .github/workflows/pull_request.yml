@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
       - name: Run Lint
-        run: npm run lint:style
+        run: npm run lint:format
   typescript:
     runs-on: ubuntu-latest
     name: TypeScript
