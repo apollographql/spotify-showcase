@@ -1,5 +1,5 @@
 {
-  "name": "subgraph-template-typescript-apollo-server",
+  "name": "playback-subgraph",
   "private": true,
   "description": "A template for TypeScript projects with pre-configured tooling",
   "version": "0.0.0",
