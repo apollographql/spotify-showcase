@@ -53,86 +53,81 @@ if (!accessToken) {
   throw new Error('Please set a valid access as the `AUTH` env var');
 }
 
-interface Database {
-  tracks: Spotify.Object.Track[];
-  albums: Spotify.Object.Album[];
-  playlists: Spotify.Object.Playlist[];
+interface DataStore {
+  albums: Record<string, Spotify.Object.Album>;
+  artists: Record<string, Spotify.Object.Artist>;
+  playlists: Record<string, Spotify.Object.Playlist>;
+  tracks: Record<string, Spotify.Object.Track>;
 }
 
-const mockedData: Database = {
-  tracks: [],
-  albums: [],
-  playlists: [],
+const store: DataStore = {
+  albums: {},
+  artists: {},
+  playlists: {},
+  tracks: {},
 };
 
 async function main() {
   for (const id of TRACK_IDS) {
-    const track = await getTrack(id);
-    mockedData.tracks.push(track);
+    await getTrack(id);
   }
 
   for (const id of PLAYLIST_IDS) {
-    const playlist = await getPlaylist(id);
-    mockedData.playlists.push(playlist);
+    await getPlaylist(id);
   }
 
   for (const id of ALBUM_IDS) {
-    const album = await getAlbum(id);
-    mockedData.albums.push(album);
+    await getAlbum(id);
   }
 
   const content = `import { Spotify } from 'spotify-api';
 
 export const mocks: {
-  tracks: any[];
-  playlists: any[];
-  albums: any[];
-} = ${JSON.stringify(mockedData, null, 2)}`;
+  albums: Record<string, Spotify.Object.Album>;
+  artists: Record<string, Spotify.Object.Artist>;
+  playlists: Record<string, Spotify.Object.Playlist>;
+  tracks: Record<string, Spotify.Object.Track>;
+} = ${JSON.stringify(store, null, 2)}`;
 
   writeFileSync(FILE_PATH, content, { encoding: 'utf-8' });
 }
 
 async function getPlaylist(id: string) {
-  const playlist = await get('/playlists/:id', { id });
+  return tap(await get('/playlists/:id', { id }), async (playlist) => {
+    store.playlists[id] = playlist;
 
-  playlist.tracks.items = await Promise.all(
-    playlist.tracks.items.map((item) => ({
-      ...item,
-      track: mockedData.tracks.find((t) => t.id == item.track.id)!,
-    }))
-  );
-
-  return playlist;
+    await Promise.all(
+      playlist.tracks.items.map((item) => ({
+        ...item,
+        track: store.tracks[item.track.id],
+      }))
+    );
+  });
 }
 
 async function getAlbum(id: string) {
-  const album = await get('/albums/:id', { id });
+  return tap(await get('/albums/:id', { id }), async (album) => {
+    store.albums[id] = album;
 
-  album.artists = await Promise.all(
-    album.artists.map((artist) => getArtist(artist.id))
-  );
-  album.tracks.items = await Promise.all(
-    album.tracks.items.map((item) => ({
-      ...item,
-      track: mockedData.tracks.find((t) => t.id == item.id),
-    }))
-  );
-
-  return album;
+    await Promise.all([
+      ...album.artists.map((artist) => getArtist(artist.id)),
+      ...album.tracks.items.map((track) => getTrack(track.id)),
+    ]);
+  });
 }
 
 async function getArtist(id: string) {
-  return get('/artists/:id', { id });
+  return tap(await get('/artists/:id', { id }), (artist) => {
+    store.artists[id] = artist;
+  });
 }
 
 async function getTrack(id: string) {
-  const track = await get('/tracks/:id', { id });
+  return tap(await get('/tracks/:id', { id }), async (track) => {
+    store.tracks[id] = track;
 
-  track.artists = await Promise.all(
-    track.artists.map((artist) => getArtist(artist.id))
-  );
-
-  return track;
+    await Promise.all(track.artists.map((artist) => getArtist(artist.id)));
+  });
 }
 
 async function get<Pathname extends keyof Spotify.Response.GET>(
@@ -164,6 +159,11 @@ function replaceUrlParams(pathname: string, params: Record<string, string>) {
   return pathname.replace(/(?<=\/):(\w+)/g, (_, name) => {
     return params[name];
   });
+}
+
+function tap<T>(value: T, fn: (value: T) => void) {
+  fn(value);
+  return value;
 }
 
 main();
