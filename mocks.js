@@ -4,6 +4,12 @@ const { resolve } = require('path');
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+const mockedData = {
+  tracks: [],
+  albums: [],
+  playlists: [],
+};
+
 async function main() {
   const playlistIds = ['3W6LV9vlZ7fURhLmHqjBlM'];
   const albumIds = ['4ZaAM16hw3xpp680FJahJJ'];
@@ -47,76 +53,29 @@ async function main() {
     '5xYZXIgVAND5sWjN8G0hID', //Go!
     '5ERrJuNLnmHj525ooOKyqJ', //Tomorrow - The Race For Space Start End
   ];
-  const mockedData = {
-    tracks: [],
-    albums: [],
-    playlists: [],
-  };
   for (var i = 0; i < songIds.length; i++) {
-    const id = songIds[i];
-    try {
-      const response = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        method: 'GET',
-      });
-      if (response.ok) {
-        const track = await response.json();
-        sanitizeTrack(track);
-        mockedData.tracks.push(track);
-      }
-
-      await sleep(2000);
-    } catch (err) {
-      console.log(err);
-    }
+    const track = await getTrack(songIds[i]);
+    mockedData.tracks.push(track);
+    await sleep(2000);
   }
 
   for (var i = 0; i < playlistIds.length; i++) {
-    try {
-      const id = playlistIds[i];
-      const response = await fetch(
-        `https://api.spotify.com/v1/playlists/${id}`,
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-          method: 'GET',
-        }
-      );
-      if (response.ok) {
-        const playlist = await response.json();
-        sanitziePlaylist(playlist);
-        mockedData.playlists.push(playlist);
-      }
-
-      await sleep(2000);
-    } catch (err) {
-      console.log(err);
-    }
+    const playlist = await getPlaylist(playlistIds[i]);
+    mockedData.playlists.push(playlist);
+    await sleep(2000);
   }
-  for (var i = 0; i < albumIds.length; i++) {
-    try {
-      const id = albumIds[i];
-      const response = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        method: 'GET',
-      });
-      if (response.ok) {
-        const album = await response.json();
-        sanitizeAlbum(album);
-        mockedData.albums.push(album);
-      }
 
-      await sleep(2000);
-    } catch (err) {
-      console.log(err);
-    }
+  for (var i = 0; i < albumIds.length; i++) {
+    const album = await getAlbum(albumIds[i]);
+    mockedData.albums.push(album);
   }
 
   const content = `import { Spotify } from '../dataSources/spotify.types';
 
 export const mocks: {
-  tracks: Spotify.Object.Track[];
-  playlists: Spotify.Object.Playlist[];
-  albums: Spotify.Object.Album[];
+  tracks: any[];
+  playlists: any[];
+  albums: any[];
 } = ${JSON.stringify(mockedData, null, 2)}`;
 
   writeFileSync(
@@ -126,36 +85,59 @@ export const mocks: {
   );
 }
 
+async function getPlaylist(id) {
+  const playlist = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    method: 'GET',
+  }).then((res) => res.json());
+
+  playlist.tracks.items = await Promise.all(
+    playlist.tracks.items.map((item) => ({
+      ...item,
+      track: mockedData.tracks.find((t) => t.id == item.id),
+    }))
+  );
+
+  return playlist;
+}
+
+async function getAlbum(id) {
+  const album = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    method: 'GET',
+  }).then((res) => res.json());
+
+  album.artists = await Promise.all(
+    album.artists.map((artist) => getArtist(artist.id))
+  );
+  album.tracks.items = await Promise.all(
+    album.tracks.items.map((item) => ({
+      ...item,
+      track: mockedData.tracks.find((t) => t.id == item.id),
+    }))
+  );
+
+  return album;
+}
+
+async function getArtist(id) {
+  return await fetch(`https://api.spotify.com/v1/artists/${id}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    method: 'GET',
+  }).then((res) => res.json());
+}
+
+async function getTrack(id) {
+  const track = await fetch(`https://api.spotify.com/v1/tracks/${id}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    method: 'GET',
+  }).then((res) => res.json());
+
+  track.artists = await Promise.all(
+    track.artists.map((artist) => getArtist(artist.id))
+  );
+
+  return track;
+}
+
 main();
-
-function sanitziePlaylist(playlist) {
-  if (playlist.followers && playlist.owner) {
-    playlist.owner.followers = playlist.followers;
-    playlist.owner.images = [];
-    delete playlist.followers;
-  }
-  playlist?.tracks?.items?.forEach((item) => {
-    sanitizeTrack(item.track);
-  });
-}
-
-function sanitizeTrack(track) {
-  if (track.album) sanitizeAlbum(track.album);
-  if (track.artists) sanitizeArtist(track.artists);
-  if (track.episode != undefined) delete track.episode;
-  if (track.track) delete track.track;
-}
-
-function sanitizeAlbum(album) {
-  if (album.type) album.album_group = album.album_type;
-  if (album.popularity) delete album.popularity;
-
-  if (album?.artists && album?.artists?.length)
-    album.artists = album.artists[0];
-}
-function sanitizeArtist(artist) {
-  if (!artist?.length) artist = [artist];
-  artist.forEach((a) => {
-    if (a.images) sanitizeImages(a.images);
-  });
-}

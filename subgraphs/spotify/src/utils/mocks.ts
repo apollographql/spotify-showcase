@@ -363,12 +363,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     id: string,
     params?: { market?: string }
   ): Promise<Spotify.Object.Track> {
-    const mockedTrack = mocks.tracks.find((t) => t.id == id);
-    const track = structuredClone(mockedTrack);
-
-    if (!(track.album.artists as any)?.length)
-      track.album.artists = [track.album.artists as any] as any;
-
+    const track = mocks.tracks.find((t) => t.id == id);
     if (track && params?.market) {
       if (track.available_markets.includes(params.market)) return track;
     } else if (track) return track;
