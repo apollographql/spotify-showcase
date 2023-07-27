@@ -1,11 +1,6 @@
 import { Spotify } from '../dataSources/spotify.types';
 import { SpotifyDataSource } from '../dataSources/spotify';
-
-export const mocks = {
-  User: () => ({
-    displayName: 'Mocked Watson',
-  }),
-};
+import { mocks } from './mockedData';
 
 export class MockedSpotifyDataSource implements SpotifyDataSource {
   private userId: string;
@@ -55,21 +50,25 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     id: string,
     params?: { market?: string }
   ): Promise<Spotify.Object.Album> {
-    throw new Error('Method not implemented.');
+    const album = mocks.albums.find((t) => t.id == id);
+    if (album && params?.market) {
+      if (album.available_markets.includes(params.market)) return album;
+    } else if (album) return album;
+    else return null;
   }
 
   async getAlbums(params: {
     ids: string;
     market?: string;
   }): Promise<Spotify.Object.List<'albums', Spotify.Object.Album>> {
-    throw new Error('Method not implemented.');
+    return { albums: mocks.albums };
   }
 
   async getAlbumTracks(
     id: string,
     params?: { limit?: number; offset?: number; market?: string }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.TrackSimplified>> {
-    throw new Error('Method not implemented.');
+    return mocks.albums.find((t) => t.id == id)?.tracks;
   }
 
   async getArtist(id: string): Promise<Spotify.Object.Artist> {
@@ -258,12 +257,14 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     limit?: number;
     offset?: number;
   }): Promise<Spotify.Object.Paginated<Spotify.Object.Playlist>> {
+    const items: Spotify.Object.Playlist[] = [];
+
     return {
       total: 10,
       previous: '',
       next: '',
       href: '',
-      items: [],
+      items: mocks.playlists,
       limit: params.limit ?? 10,
       offset: params.limit ?? 0,
     };
@@ -322,14 +323,14 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     id: string,
     params?: { additional_types?: string; fields?: string; market?: string }
   ): Promise<Spotify.Object.Playlist> {
-    throw new Error('Method not implemented.');
+    return mocks.playlists.find((t) => t.id == id);
   }
 
   async getPlaylistTracks(
     id: string,
     params: { limit?: number; offset?: number }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>> {
-    throw new Error('Method not implemented.');
+    return mocks.playlists.find((t) => t.id == id)?.tracks;
   }
 
   async getRecentlyPlayed(params?: {
@@ -362,33 +363,11 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     id: string,
     params?: { market?: string }
   ): Promise<Spotify.Object.Track> {
-    return {
-      type: 'track',
-      id: '2jJIENqpTOjBECelzBJAVL',
-      name: 'Apollo I : The Writing Writer - Explicit Album Version',
-      duration_ms: 315480,
-      album: {
-        id: '4nYsnQpTAQaPzrPc6rOsBN',
-        name: "Good Apollo I'm Burning Star IV Volume One: From Fear Through The Eyes Of Madness",
-        artists: [
-          {
-            id: '3utxjLheHaVEd9bPjQRsy8',
-            name: 'Coheed and Cambria',
-          },
-        ],
-        images: [
-          {
-            url: 'https://i.scdn.co/image/ab67616d0000b273a9250e237a834437fa7d8739',
-          },
-          {
-            url: 'https://i.scdn.co/image/ab67616d00001e02a9250e237a834437fa7d8739',
-          },
-          {
-            url: 'https://i.scdn.co/image/ab67616d00004851a9250e237a834437fa7d8739',
-          },
-        ],
-      },
-    } as any;
+    const track = mocks.tracks.find((t) => t.id == id);
+    if (track && params?.market) {
+      if (track.available_markets.includes(params.market)) return track;
+    } else if (track) return track;
+    else return null;
   }
 
   async getTrackAudioFeatures(
@@ -401,7 +380,7 @@ export class MockedSpotifyDataSource implements SpotifyDataSource {
     ids: string;
     market?: string;
   }): Promise<Spotify.Object.List<'tracks', Spotify.Object.Track>> {
-    throw new Error('Method not implemented.');
+    return { tracks: mocks.tracks };
   }
 
   async getTracksAudioFeatures(params: {

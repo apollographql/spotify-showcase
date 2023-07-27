@@ -35,7 +35,7 @@ function createUserPlaybackState(): UserPlaybackState {
       volume_percent: 100,
     },
     is_playing: true,
-    item: { id: '2jJIENqpTOjBECelzBJAVL' },
+    item: { id: '4lhhYqzREcts4uOOqWHjRJ' },
     progress_ms: 0,
     repeat_state: 'off',
     shuffle_state: false,

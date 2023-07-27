@@ -3,7 +3,7 @@ import { OAUTH_SCOPES } from '../utils/constants';
 type RestrictScope<
   T,
   TScope extends string
-> = TScope extends typeof OAUTH_SCOPES[number] ? T : never;
+> = TScope extends (typeof OAUTH_SCOPES)[number] ? T : never;
 
 type Prop<T, Key extends string> = Key extends keyof T ? T[Key] : never;
 
@@ -249,7 +249,7 @@ export namespace Spotify {
     export interface Image {
       url: string;
       height: number | null;
-      weight: number | null;
+      width: number | null;
     }
 
     export interface NewReleases {
