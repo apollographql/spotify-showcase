@@ -4,10 +4,9 @@ const port = process.env.PORT ?? '4002';
 const routerSecret = process.env.ROUTER_SECRET;
 import morgan from 'morgan';
 import chalk from 'chalk';
-import SpotifyAPI from './dataSources/spotify';
 import { json } from 'body-parser';
 import cors from 'cors';
-import { MockSpotifyClient } from 'spotify-api';
+import { MockSpotifyClient, SpotifyClient } from 'spotify-api';
 import logger from './logger';
 import {
   app,
@@ -89,7 +88,7 @@ async function main() {
     return {
       defaultCountryCode,
       dataSources: {
-        spotify: new SpotifyAPI({
+        spotify: new SpotifyClient({
           cache: callbackApolloServer.cache,
           token,
         }),

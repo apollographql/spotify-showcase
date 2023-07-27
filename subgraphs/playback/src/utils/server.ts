@@ -18,9 +18,8 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 
 import express from 'express';
 import http from 'http';
-import SpotifyAPI from '../dataSources/spotify';
 import { GraphQLError } from 'graphql';
-import { MockSpotifyClient } from 'spotify-api';
+import { MockSpotifyClient, SpotifyClient } from 'spotify-api';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
 
@@ -84,7 +83,7 @@ const serverCleanup = useServer(
       return {
         defaultCountryCode,
         dataSources: {
-          spotify: new SpotifyAPI({
+          spotify: new SpotifyClient({
             cache: callbackApolloServer.cache,
             token,
           }),
