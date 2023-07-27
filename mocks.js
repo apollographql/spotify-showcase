@@ -74,7 +74,7 @@ async function main() {
     mockedData.albums.push(album);
   }
 
-  const content = `import { Spotify } from '../dataSources/spotify.types';
+  const content = `import { Spotify } from 'spotify-api';
 
 export const mocks: {
   tracks: any[];
