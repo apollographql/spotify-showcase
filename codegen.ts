@@ -12,105 +12,104 @@ const config: CodegenConfig = {
         federation: true,
         makeResolverTypeCallable: true,
         mappers: {
-          Actions: 'spotify-types#Spotify#Object.Actions',
+          Actions: 'spotify-api#Spotify#Object.Actions',
           Album:
-            'spotify-types#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
+            'spotify-api#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
           AlbumTrackConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.TrackSimplified>',
-          AlbumTrackEdge: 'spotify-types#Spotify#Object.TrackSimplified',
-          Artist: 'spotify-types#Spotify#Object.Artist',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.TrackSimplified>',
+          AlbumTrackEdge: 'spotify-api#Spotify#Object.TrackSimplified',
+          Artist: 'spotify-api#Spotify#Object.Artist',
           ArtistAlbumsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
-          ArtistAlbumEdge: 'spotify-types#Spotify#Object.AlbumSimplified',
-          CurrentlyPlaying: 'spotify-types#Spotify#Object.CurrentlyPlaying',
-          CurrentUser: 'spotify-types#Spotify#Object.CurrentUser',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
+          ArtistAlbumEdge: 'spotify-api#Spotify#Object.AlbumSimplified',
+          CurrentlyPlaying: 'spotify-api#Spotify#Object.CurrentlyPlaying',
+          CurrentUser: 'spotify-api#Spotify#Object.CurrentUser',
           Developer: '{}',
-          Device: 'spotify-types#Spotify#Object.Device',
+          Device: 'spotify-api#Spotify#Object.Device',
           Episode:
-            'spotify-types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
+            'spotify-api#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
           FeaturedPlaylistConnection:
-            'spotify-types#Spotify#Object.FeaturedPlaylists',
-          FeaturedPlaylistEdge:
-            'spotify-types#Spotify#Object.PlaylistSimplified',
+            'spotify-api#Spotify#Object.FeaturedPlaylists',
+          FeaturedPlaylistEdge: 'spotify-api#Spotify#Object.PlaylistSimplified',
           FieldConfig:
             '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
           FollowedArtistsConnection:
-            'spotify-types#Spotify#Object.PaginatedCursorBased<Spotify.Object.Artist>',
-          FollowedArtistEdge: 'spotify-types#Spotify#Object.Artist',
-          NewReleasesConnection: 'spotify-types#Spotify#Object.NewReleases',
-          NewReleaseEdge: 'spotify-types#Spotify#Object.AlbumSimplified',
-          PageInfo: 'spotify-types#Spotify#Object.Paginated<unknown>',
+            'spotify-api#Spotify#Object.PaginatedCursorBased<Spotify.Object.Artist>',
+          FollowedArtistEdge: 'spotify-api#Spotify#Object.Artist',
+          NewReleasesConnection: 'spotify-api#Spotify#Object.NewReleases',
+          NewReleaseEdge: 'spotify-api#Spotify#Object.AlbumSimplified',
+          PageInfo: 'spotify-api#Spotify#Object.Paginated<unknown>',
           PageInfoCursorBased:
-            'spotify-types#Spotify#Object.PaginatedCursorBased<unknown>',
+            'spotify-api#Spotify#Object.PaginatedCursorBased<unknown>',
           Player: '{}',
-          PlaybackContext: 'spotify-types#Spotify#Object.Context',
+          PlaybackContext: 'spotify-api#Spotify#Object.Context',
           PlaybackContextItem:
-            'spotify-types#Spotify#Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show',
+            'spotify-api#Spotify#Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show',
           PlaybackItem:
-            'spotify-types#Spotify#Object.Episode | Spotify.Object.Track',
-          PlaybackQueue: 'spotify-types#Spotify#Object.PlaybackQueue',
-          PlaybackState: 'spotify-types#Spotify#Object.PlaybackState',
+            'spotify-api#Spotify#Object.Episode | Spotify.Object.Track',
+          PlaybackQueue: 'spotify-api#Spotify#Object.PlaybackQueue',
+          PlaybackState: 'spotify-api#Spotify#Object.PlaybackState',
           Playlist:
-            'spotify-types#Spotify#Object.Playlist | Spotify.Object.PlaylistSimplified',
-          PlaylistEdge: 'spotify-types#Spotify#Object.Playlist',
+            'spotify-api#Spotify#Object.Playlist | Spotify.Object.PlaylistSimplified',
+          PlaylistEdge: 'spotify-api#Spotify#Object.Playlist',
           PlaylistConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Playlist>',
           PlaylistTrack:
-            'spotify-types#Spotify#Object.Track | Spotify.Object.Episode',
+            'spotify-api#Spotify#Object.Track | Spotify.Object.Episode',
           PlaylistTrackConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.PlaylistTrack>',
-          PlaylistTrackEdge: 'spotify-types#Spotify#Object.PlaylistTrack',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.PlaylistTrack>',
+          PlaylistTrackEdge: 'spotify-api#Spotify#Object.PlaylistTrack',
           RecentlyPlayedConnection:
-            'spotify-types#Spotify#Object.PaginatedCursorBased<Spotify.Object.PlayHistory>',
-          RecentlyPlayedEdge: 'spotify-types#Spotify#Object.PlayHistory',
-          Recommendations: 'spotify-types#Spotify#Object.Recommendations',
+            'spotify-api#Spotify#Object.PaginatedCursorBased<Spotify.Object.PlayHistory>',
+          RecentlyPlayedEdge: 'spotify-api#Spotify#Object.PlayHistory',
+          Recommendations: 'spotify-api#Spotify#Object.Recommendations',
           ReleaseDate: './mappers#Releasable',
-          ResumePoint: 'spotify-types#Spotify#Object.ResumePoint',
+          ResumePoint: 'spotify-api#Spotify#Object.ResumePoint',
           SavedAlbumsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedAlbum>',
-          SavedAlbumEdge: 'spotify-types#Spotify#Object.SavedAlbum',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedAlbum>',
+          SavedAlbumEdge: 'spotify-api#Spotify#Object.SavedAlbum',
           SavedEpisodesConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedEpisode>',
-          SavedEpisodeEdge: 'spotify-types#Spotify#Object.SavedEpisode',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedEpisode>',
+          SavedEpisodeEdge: 'spotify-api#Spotify#Object.SavedEpisode',
           SavedShowsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedShow>',
-          SavedShowEdge: 'spotify-types#Spotify#Object.SavedShow',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedShow>',
+          SavedShowEdge: 'spotify-api#Spotify#Object.SavedShow',
           SavedTracksConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedTrack>',
-          SavedTrackEdge: 'spotify-types#Spotify#Object.SavedTrack',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedTrack>',
+          SavedTrackEdge: 'spotify-api#Spotify#Object.SavedTrack',
           SearchAlbumsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
-          SearchAlbumEdge: 'spotify-types#Spotify#Object.AlbumSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
+          SearchAlbumEdge: 'spotify-api#Spotify#Object.AlbumSimplified',
           SearchArtistsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Artist>',
-          SearchArtistEdge: 'spotify-types#Spotify#Object.Artist',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Artist>',
+          SearchArtistEdge: 'spotify-api#Spotify#Object.Artist',
           SearchEpisodesConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
-          SearchEpisodeEdge: 'spotify-types#Spotify#Object.EpisodeSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
+          SearchEpisodeEdge: 'spotify-api#Spotify#Object.EpisodeSimplified',
           SearchPlaylistsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.PlaylistSimplified>',
-          SearchPlaylistEdge: 'spotify-types#Spotify#Object.PlaylistSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.PlaylistSimplified>',
+          SearchPlaylistEdge: 'spotify-api#Spotify#Object.PlaylistSimplified',
           SearchTracksConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Track>',
-          SearchTrackEdge: 'spotify-types#Spotify#Object.Track',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Track>',
+          SearchTrackEdge: 'spotify-api#Spotify#Object.Track',
           SearchShowsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.ShowSimplified>',
-          SearchShowEdge: 'spotify-types#Spotify#Object.ShowSimplified',
-          SearchResults: 'spotify-types#Spotify#Object.SearchResults',
-          Show: 'spotify-types#Spotify#Object.Show | Spotify.Object.ShowSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.ShowSimplified>',
+          SearchShowEdge: 'spotify-api#Spotify#Object.ShowSimplified',
+          SearchResults: 'spotify-api#Spotify#Object.SearchResults',
+          Show: 'spotify-api#Spotify#Object.Show | Spotify.Object.ShowSimplified',
           ShowEpisodesConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
-          ShowEpisodeEdge: 'spotify-types#Spotify#Object.EpisodeSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
+          ShowEpisodeEdge: 'spotify-api#Spotify#Object.EpisodeSimplified',
           TopArtistsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Artist>',
-          TopArtistEdge: 'spotify-types#Spotify#Object.Artist',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Artist>',
+          TopArtistEdge: 'spotify-api#Spotify#Object.Artist',
           TopTracksConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Track>',
-          TopTrackEdge: 'spotify-types#Spotify#Object.Track',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Track>',
+          TopTrackEdge: 'spotify-api#Spotify#Object.Track',
           Track:
-            'spotify-types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
-          TrackAudioFeatures: 'spotify-types#Spotify#Object.TrackAudioFeatures',
-          User: 'spotify-types#Spotify#Object.User',
+            'spotify-api#Spotify#Object.Track | Spotify.Object.TrackSimplified',
+          TrackAudioFeatures: 'spotify-api#Spotify#Object.TrackAudioFeatures',
+          User: 'spotify-api#Spotify#Object.User',
         },
         enumValues: {
           Action: {
@@ -162,105 +161,104 @@ const config: CodegenConfig = {
         federation: true,
         makeResolverTypeCallable: true,
         mappers: {
-          Actions: 'spotify-types#Spotify#Object.Actions',
+          Actions: 'spotify-api#Spotify#Object.Actions',
           Album:
-            'spotify-types#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
+            'spotify-api#Spotify#Object.Album | Spotify.Object.AlbumSimplified',
           AlbumTrackConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.TrackSimplified>',
-          AlbumTrackEdge: 'spotify-types#Spotify#Object.TrackSimplified',
-          Artist: 'spotify-types#Spotify#Object.Artist',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.TrackSimplified>',
+          AlbumTrackEdge: 'spotify-api#Spotify#Object.TrackSimplified',
+          Artist: 'spotify-api#Spotify#Object.Artist',
           ArtistAlbumsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
-          ArtistAlbumEdge: 'spotify-types#Spotify#Object.AlbumSimplified',
-          CurrentlyPlaying: 'spotify-types#Spotify#Object.CurrentlyPlaying',
-          CurrentUser: 'spotify-types#Spotify#Object.CurrentUser',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
+          ArtistAlbumEdge: 'spotify-api#Spotify#Object.AlbumSimplified',
+          CurrentlyPlaying: 'spotify-api#Spotify#Object.CurrentlyPlaying',
+          CurrentUser: 'spotify-api#Spotify#Object.CurrentUser',
           Developer: '{}',
-          Device: 'spotify-types#Spotify#Object.Device',
+          Device: 'spotify-api#Spotify#Object.Device',
           Episode:
-            'spotify-types#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
+            'spotify-api#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
           FeaturedPlaylistConnection:
-            'spotify-types#Spotify#Object.FeaturedPlaylists',
-          FeaturedPlaylistEdge:
-            'spotify-types#Spotify#Object.PlaylistSimplified',
+            'spotify-api#Spotify#Object.FeaturedPlaylists',
+          FeaturedPlaylistEdge: 'spotify-api#Spotify#Object.PlaylistSimplified',
           FieldConfig:
             '../fieldConfigs/fieldConfig#FieldConfig as FieldConfigType',
           FollowedArtistsConnection:
-            'spotify-types#Spotify#Object.PaginatedCursorBased<Spotify.Object.Artist>',
-          FollowedArtistEdge: 'spotify-types#Spotify#Object.Artist',
-          NewReleasesConnection: 'spotify-types#Spotify#Object.NewReleases',
-          NewReleaseEdge: 'spotify-types#Spotify#Object.AlbumSimplified',
-          PageInfo: 'spotify-types#Spotify#Object.Paginated<unknown>',
+            'spotify-api#Spotify#Object.PaginatedCursorBased<Spotify.Object.Artist>',
+          FollowedArtistEdge: 'spotify-api#Spotify#Object.Artist',
+          NewReleasesConnection: 'spotify-api#Spotify#Object.NewReleases',
+          NewReleaseEdge: 'spotify-api#Spotify#Object.AlbumSimplified',
+          PageInfo: 'spotify-api#Spotify#Object.Paginated<unknown>',
           PageInfoCursorBased:
-            'spotify-types#Spotify#Object.PaginatedCursorBased<unknown>',
+            'spotify-api#Spotify#Object.PaginatedCursorBased<unknown>',
           Player: '{}',
-          PlaybackContext: 'spotify-types#Spotify#Object.Context',
+          PlaybackContext: 'spotify-api#Spotify#Object.Context',
           PlaybackContextItem:
-            'spotify-types#Spotify#Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show',
+            'spotify-api#Spotify#Object.Album | Spotify.Object.Artist | Spotify.Object.Playlist | Spotify.Object.Show',
           PlaybackItem:
-            'spotify-types#Spotify#Object.Episode | Spotify.Object.Track',
-          PlaybackQueue: 'spotify-types#Spotify#Object.PlaybackQueue',
-          PlaybackState: 'spotify-types#Spotify#Object.PlaybackState',
+            'spotify-api#Spotify#Object.Episode | Spotify.Object.Track',
+          PlaybackQueue: 'spotify-api#Spotify#Object.PlaybackQueue',
+          PlaybackState: 'spotify-api#Spotify#Object.PlaybackState',
           Playlist:
-            'spotify-types#Spotify#Object.Playlist | Spotify.Object.PlaylistSimplified',
-          PlaylistEdge: 'spotify-types#Spotify#Object.Playlist',
+            'spotify-api#Spotify#Object.Playlist | Spotify.Object.PlaylistSimplified',
+          PlaylistEdge: 'spotify-api#Spotify#Object.Playlist',
           PlaylistConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Playlist>',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Playlist>',
           PlaylistTrack:
-            'spotify-types#Spotify#Object.Track | Spotify.Object.Episode',
+            'spotify-api#Spotify#Object.Track | Spotify.Object.Episode',
           PlaylistTrackConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.PlaylistTrack>',
-          PlaylistTrackEdge: 'spotify-types#Spotify#Object.PlaylistTrack',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.PlaylistTrack>',
+          PlaylistTrackEdge: 'spotify-api#Spotify#Object.PlaylistTrack',
           RecentlyPlayedConnection:
-            'spotify-types#Spotify#Object.PaginatedCursorBased<Spotify.Object.PlayHistory>',
-          RecentlyPlayedEdge: 'spotify-types#Spotify#Object.PlayHistory',
-          Recommendations: 'spotify-types#Spotify#Object.Recommendations',
+            'spotify-api#Spotify#Object.PaginatedCursorBased<Spotify.Object.PlayHistory>',
+          RecentlyPlayedEdge: 'spotify-api#Spotify#Object.PlayHistory',
+          Recommendations: 'spotify-api#Spotify#Object.Recommendations',
           ReleaseDate: './mappers#Releasable',
-          ResumePoint: 'spotify-types#Spotify#Object.ResumePoint',
+          ResumePoint: 'spotify-api#Spotify#Object.ResumePoint',
           SavedAlbumsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedAlbum>',
-          SavedAlbumEdge: 'spotify-types#Spotify#Object.SavedAlbum',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedAlbum>',
+          SavedAlbumEdge: 'spotify-api#Spotify#Object.SavedAlbum',
           SavedEpisodesConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedEpisode>',
-          SavedEpisodeEdge: 'spotify-types#Spotify#Object.SavedEpisode',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedEpisode>',
+          SavedEpisodeEdge: 'spotify-api#Spotify#Object.SavedEpisode',
           SavedShowsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedShow>',
-          SavedShowEdge: 'spotify-types#Spotify#Object.SavedShow',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedShow>',
+          SavedShowEdge: 'spotify-api#Spotify#Object.SavedShow',
           SavedTracksConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.SavedTrack>',
-          SavedTrackEdge: 'spotify-types#Spotify#Object.SavedTrack',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.SavedTrack>',
+          SavedTrackEdge: 'spotify-api#Spotify#Object.SavedTrack',
           SearchAlbumsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
-          SearchAlbumEdge: 'spotify-types#Spotify#Object.AlbumSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.AlbumSimplified>',
+          SearchAlbumEdge: 'spotify-api#Spotify#Object.AlbumSimplified',
           SearchArtistsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Artist>',
-          SearchArtistEdge: 'spotify-types#Spotify#Object.Artist',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Artist>',
+          SearchArtistEdge: 'spotify-api#Spotify#Object.Artist',
           SearchEpisodesConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
-          SearchEpisodeEdge: 'spotify-types#Spotify#Object.EpisodeSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
+          SearchEpisodeEdge: 'spotify-api#Spotify#Object.EpisodeSimplified',
           SearchPlaylistsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.PlaylistSimplified>',
-          SearchPlaylistEdge: 'spotify-types#Spotify#Object.PlaylistSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.PlaylistSimplified>',
+          SearchPlaylistEdge: 'spotify-api#Spotify#Object.PlaylistSimplified',
           SearchTracksConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Track>',
-          SearchTrackEdge: 'spotify-types#Spotify#Object.Track',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Track>',
+          SearchTrackEdge: 'spotify-api#Spotify#Object.Track',
           SearchShowsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.ShowSimplified>',
-          SearchShowEdge: 'spotify-types#Spotify#Object.ShowSimplified',
-          SearchResults: 'spotify-types#Spotify#Object.SearchResults',
-          Show: 'spotify-types#Spotify#Object.Show | Spotify.Object.ShowSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.ShowSimplified>',
+          SearchShowEdge: 'spotify-api#Spotify#Object.ShowSimplified',
+          SearchResults: 'spotify-api#Spotify#Object.SearchResults',
+          Show: 'spotify-api#Spotify#Object.Show | Spotify.Object.ShowSimplified',
           ShowEpisodesConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
-          ShowEpisodeEdge: 'spotify-types#Spotify#Object.EpisodeSimplified',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.EpisodeSimplified>',
+          ShowEpisodeEdge: 'spotify-api#Spotify#Object.EpisodeSimplified',
           TopArtistsConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Artist>',
-          TopArtistEdge: 'spotify-types#Spotify#Object.Artist',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Artist>',
+          TopArtistEdge: 'spotify-api#Spotify#Object.Artist',
           TopTracksConnection:
-            'spotify-types#Spotify#Object.Paginated<Spotify.Object.Track>',
-          TopTrackEdge: 'spotify-types#Spotify#Object.Track',
+            'spotify-api#Spotify#Object.Paginated<Spotify.Object.Track>',
+          TopTrackEdge: 'spotify-api#Spotify#Object.Track',
           Track:
-            'spotify-types#Spotify#Object.Track | Spotify.Object.TrackSimplified',
-          TrackAudioFeatures: 'spotify-types#Spotify#Object.TrackAudioFeatures',
-          User: 'spotify-types#Spotify#Object.User',
+            'spotify-api#Spotify#Object.Track | Spotify.Object.TrackSimplified',
+          TrackAudioFeatures: 'spotify-api#Spotify#Object.TrackAudioFeatures',
+          User: 'spotify-api#Spotify#Object.User',
         },
         enumValues: {
           Action: {
