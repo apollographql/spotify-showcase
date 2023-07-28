@@ -39,10 +39,10 @@
   "homepage": "https://github.com/apollographql/spotify-showcase#readme",
   "devDependencies": {
     "@apollo/rover": "^0.17.1",
-    "@types/inquirer": "^9.0.3",
+    "@types/inquirer": "^8.2.6",
     "concurrently": "^8.2.0",
-    "ts-node": "^10.9.1",
     "prettier": "^3.0.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   },
   "dependencies": {

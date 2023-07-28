@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { v4 } from 'uuid';
 import { resolve } from 'path';
-import inquirer from 'inquirer';
+import { prompt } from 'inquirer';
 import { readFileSync } from 'fs';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -19,10 +19,10 @@ const client = new ApolloClient({
   },
 });
 
-const ME_CHECK = gql(`
+const ME_CHECK = gql`
   query ApiCheck {
     me {
-      ...on User {
+      ... on User {
         id
         memberships {
           account {
@@ -37,32 +37,66 @@ const ME_CHECK = gql(`
       }
     }
   }
-`);
-const CREATE_GRAPH = gql(`
-  mutation CreateDemoGraph ($accountId: ID!, $graphType: GraphType!, $hiddenFromUninvitedNonAdmin: Boolean!, $createGraphId: ID!, $title: String!) {
+`;
+const CREATE_GRAPH = gql`
+  mutation CreateDemoGraph(
+    $accountId: ID!
+    $graphType: GraphType!
+    $hiddenFromUninvitedNonAdmin: Boolean!
+    $createGraphId: ID!
+    $title: String!
+  ) {
     account(id: $accountId) {
-      createGraph(graphType: $graphType, hiddenFromUninvitedNonAdmin: $hiddenFromUninvitedNonAdmin, id: $createGraphId, title: $title) {
-        ...on Service {
+      createGraph(
+        graphType: $graphType
+        hiddenFromUninvitedNonAdmin: $hiddenFromUninvitedNonAdmin
+        id: $createGraphId
+        title: $title
+      ) {
+        ... on Service {
           id
         }
       }
     }
   }
-`);
-const CREATE_SUBGRAPH = gql(`
-  mutation PublishSubgraphSchema($graphId: ID!, $graphVariant: String!, $name: String!, $activePartialSchema: PartialSchemaInput!, $url: String, $revision: String!) {
+`;
+const CREATE_SUBGRAPH = gql`
+  mutation PublishSubgraphSchema(
+    $graphId: ID!
+    $graphVariant: String!
+    $name: String!
+    $activePartialSchema: PartialSchemaInput!
+    $url: String
+    $revision: String!
+  ) {
     graph(id: $graphId) {
-      publishSubgraph(graphVariant: $graphVariant, activePartialSchema: $activePartialSchema, name: $name, url: $url, revision: $revision) { 
+      publishSubgraph(
+        graphVariant: $graphVariant
+        activePartialSchema: $activePartialSchema
+        name: $name
+        url: $url
+        revision: $revision
+      ) {
         launchUrl
         updatedGateway
         wasCreated
       }
     }
   }
-`);
-const CREATE_OPERATION_COLLECTION = gql(`
-  mutation CreateOperationCollection($isSandbox: Boolean!, $isShared: Boolean!, $name: String!, $variantRefs: [ID!]) {
-    createOperationCollection(isSandbox: $isSandbox, isShared: $isShared, name: $name, variantRefs: $variantRefs) {
+`;
+const CREATE_OPERATION_COLLECTION = gql`
+  mutation CreateOperationCollection(
+    $isSandbox: Boolean!
+    $isShared: Boolean!
+    $name: String!
+    $variantRefs: [ID!]
+  ) {
+    createOperationCollection(
+      isSandbox: $isSandbox
+      isShared: $isShared
+      name: $name
+      variantRefs: $variantRefs
+    ) {
       ... on OperationCollection {
         id
       }
@@ -74,9 +108,12 @@ const CREATE_OPERATION_COLLECTION = gql(`
       }
     }
   }
-`);
-const ADD_OPERATION_TO_COLLECTION = gql(`
-  mutation AddOperations($operations: [AddOperationInput!]!, $operationCollectionId: ID!) {
+`;
+const ADD_OPERATION_TO_COLLECTION = gql`
+  mutation AddOperations(
+    $operations: [AddOperationInput!]!
+    $operationCollectionId: ID!
+  ) {
     operationCollection(id: $operationCollectionId) {
       addOperations(operations: $operations) {
         ... on ValidationError {
@@ -94,9 +131,15 @@ const ADD_OPERATION_TO_COLLECTION = gql(`
       }
     }
   }
-`);
-const UPDATE_EXPLORER_URL = gql(`
-  mutation UpdateURL($name: String!, $graphId: ID!, $url: String, $subscriptionUrl: String, $sharedHeaders: String) {
+`;
+const UPDATE_EXPLORER_URL = gql`
+  mutation UpdateURL(
+    $name: String!
+    $graphId: ID!
+    $url: String
+    $subscriptionUrl: String
+    $sharedHeaders: String
+  ) {
     graph(id: $graphId) {
       variant(name: $name) {
         updateURL(url: $url) {
@@ -111,9 +154,13 @@ const UPDATE_EXPLORER_URL = gql(`
       }
     }
   }
-`);
-const UPDATE_README = gql(`
-  mutation UpdateVariantReadme($readme: String!, $name: String!, $graphId: ID!) {
+`;
+const UPDATE_README = gql`
+  mutation UpdateVariantReadme(
+    $readme: String!
+    $name: String!
+    $graphId: ID!
+  ) {
     graph(id: $graphId) {
       variant(name: $name) {
         updateVariantReadme(readme: $readme) {
@@ -121,10 +168,14 @@ const UPDATE_README = gql(`
         }
       }
     }
-  }`);
+  }
+`;
 
-const UPDATE_LINTER_CONFIG = gql(`
-  mutation UpdateLinterConfiguration($changes: GraphLinterConfigurationChangesInput!, $graphId: ID!) {
+const UPDATE_LINTER_CONFIG = gql`
+  mutation UpdateLinterConfiguration(
+    $changes: GraphLinterConfigurationChangesInput!
+    $graphId: ID!
+  ) {
     graph(id: $graphId) {
       updateLinterConfiguration(changes: $changes) {
         rules {
@@ -132,8 +183,9 @@ const UPDATE_LINTER_CONFIG = gql(`
         }
       }
     }
-  }`);
-const UPDATE_CLOUD_ROUTER_CONFIG = gql(`
+  }
+`;
+const UPDATE_CLOUD_ROUTER_CONFIG = gql`
   mutation UpdateRouterConfigMutation(
     $graphId: ID!
     $variant: String!
@@ -148,10 +200,11 @@ const UPDATE_CLOUD_ROUTER_CONFIG = gql(`
         }
       }
     }
-  }`);
+  }
+`;
 
 function createGraph(id: string, isEnterprise: boolean) {
-  const uniqueId = v4().replace('-', '').substring(0, 6);
+  const uniqueId = v4().replaceAll('-', '').substring(0, 8);
   return client
     .mutate({
       mutation: CREATE_GRAPH,
@@ -280,7 +333,7 @@ function updateReadme(
   ops: { id: string; name: string }[]
 ) {
   ops.forEach(({ id, name }) => {
-    readme = readme.replace(`<replace-${name}>`, `{{ operation.${id} }}`);
+    readme = readme.replaceAll(`<replace-${name}>`, `{{ operation.${id} }}`);
   });
   return client.mutate({
     mutation: UPDATE_README,
@@ -343,7 +396,7 @@ async function checkApiKey() {
 
     if (selectedAccount) return selectedAccount;
 
-    const { theme } = await inquirer.prompt([
+    const answer: any = await prompt([
       {
         type: 'list',
         name: 'theme',
@@ -353,9 +406,9 @@ async function checkApiKey() {
       },
     ]);
     const { account } = data.me.memberships.find(
-      (a: any) => a.account.id == accounts[theme]
+      (a: any) => a.account.id == accounts[answer.theme]
     );
-    if (theme) {
+    if (answer.theme) {
       selectedAccount = {
         id: account.id,
         isEnterprise: account.currentPlan.tier
@@ -373,10 +426,19 @@ async function checkApiKey() {
 }
 
 //Enterprise specific functions
-const CREATE_CONTRACT = gql(`
-  mutation UpsertContractVariant($contractVariantName: String!, $graphId: ID!, $filterConfig: FilterConfigInput!, $sourceVariant: String) {
+const CREATE_CONTRACT = gql`
+  mutation UpsertContractVariant(
+    $contractVariantName: String!
+    $graphId: ID!
+    $filterConfig: FilterConfigInput!
+    $sourceVariant: String
+  ) {
     graph(id: $graphId) {
-      upsertContractVariant(contractVariantName: $contractVariantName, filterConfig: $filterConfig, sourceVariant: $sourceVariant) {
+      upsertContractVariant(
+        contractVariantName: $contractVariantName
+        filterConfig: $filterConfig
+        sourceVariant: $sourceVariant
+      ) {
         ... on ContractVariantUpsertSuccess {
           launchUrl
         }
@@ -385,7 +447,8 @@ const CREATE_CONTRACT = gql(`
         }
       }
     }
-  }`);
+  }
+`;
 function createContract(graphId: string) {
   return client.mutate({
     mutation: CREATE_CONTRACT,
