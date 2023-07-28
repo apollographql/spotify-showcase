@@ -6,7 +6,6 @@
   "main": "dist/index.js",
   "types": "dist/*/**.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && tsc",
     "generate:mocks": "ts-node ./scripts/generate-mocks.ts",
     "postinstall": "npm run build"
@@ -23,5 +22,8 @@
   },
   "devDependencies": {
     "rimraf": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=18.0"
   }
 }

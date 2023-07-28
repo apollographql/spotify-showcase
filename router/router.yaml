@@ -8,10 +8,14 @@ headers:
       request:
         - propagate:
             matching: 'authorization'
+        - propagate:
+            matching: 'x-graphos-id'
     playback:
       request:
         - propagate:
             matching: 'authorization'
+        - propagate:
+            matching: 'x-graphos-id'
 sandbox:
   enabled: true
 supergraph:

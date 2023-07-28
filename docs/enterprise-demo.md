@@ -21,13 +21,11 @@ You need a way to query your graph. [GraphOS Explorer](https://www.apollographql
 
 <replace-MyPlaylists>
 
-The [Apollo Router also supports GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)! The following operation subscribes to the current playback state of your music player on the 🚀. Don't worry, we automatically press play for you on your space radio when you start this up for the first time.
+The Apollo Router also supports [GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)! The following operation subscribes to the current playback state of your music player on the 🚀. Don't worry, we automatically press play for you on your space radio when you start this up for the first time.
 
 <replace-PlaybackState>
 
 GraphOS Explorer also supports tabs. Open a new tab and run the operation below to pause the running subscription:
-
-> If you open a new explorer tab in the same window, you can see the mutation pause the running subscription!
 
 <replace-PausePlayback>
 
@@ -35,11 +33,12 @@ GraphOS Explorer also supports tabs. Open a new tab and run the operation below 
 
 You can begin [identifying your client traffic](https://www.apollographql.com/docs/graphos/metrics/client-awareness) by ensuring the proper headers are sent. GraphOS will automatically associate the graph usage with the identified client information:
 
-| Header name                 | Header value                         |
-| --------------------------- | ------------------------------------ |
-| `apollographql-client-name` | The name of your client application. |
+| Header name                    | Header value                                                                             |
+| ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `apollographql-client-name`    | The name of your integration.                                                            |
+| `apollographql-client-version` | Increment this value with version numbers for your integration as its API usage changes. |
 
-> If you test out API operations in the [Explorer]({{ graph.url.explorer }}), add the `apollographql-client-name` header with `Apollo Explorer` and `main` (or whatever values you like).
+> If you test out API operations in the [Explorer]({{ graph.url.explorer }}), add the `apollographql-client-name` and `apollographql-client-version` headers with `Apollo Explorer` and `main` (or whatever values you like).
 
 If you have a client project, simply setting the `name` and `version` properties in the `ApolloClient` constructor will automatically add these header values to your requests for you. You can see how we set that in the Spotify Showcase Website [here](https://github.com/apollographql/spotify-showcase/blob/main/client/src/apollo.ts#L76):
 
@@ -48,7 +47,8 @@ const client = new ApolloClient({
   link: new HttpLink({
     uri: 'http://localhost:4000/graphql'
   }),
-  name: 'Spotify Showcase Website'
+  name: 'Spotify Showcase Website',
+  version: '1.0'
 });
 ```
 
@@ -63,7 +63,7 @@ You can view all of the GraphQL APIs in the [subgraphs tab]({{  graph.url.subgra
 Since we added a new subgraph into our demo, we'll have a launch with these updates for our Apollo Router. Head over to the [Launches tab]({{ graph.url.launches }}) to see the update run through the appropriate checks and be deployed. Once it has deployed, head over to [Explorer]({{ graph.url.explorer }}) and you should be able to add some of the SpaceX operations to your graph:
 
 ```gql
-query RoolWebsiteQuery($offset: Int, $limit: Int) {
+query MyPlaylists($offset: Int, $limit: Int) {
   company {
     name
   }
@@ -96,17 +96,17 @@ You can also see a more detailed breakdown of the schema with the ability to sea
 
 ## Understanding the usage of your graph
 
-The Apollo Router automatically collects usage information on your graph based on what fields are being requested from client applications. You can start diving into specific fields and their usage in the graph by heading to the [Fields tab]({{ graph.url.fields }}).
+The Apollo Router automatically collects usage information on your graph based on what fields are being requested from client applications. You can start diving into specific fields and their usage in the graph by heading to the [Fields page]({{ graph.url.fields }}).
 
-In the top search bad of the Fields tab, try searching for `CurrentUser` to find the `me` field we queries. You can also click the flied insights button to the right to view a more detailed breakdown of the usage in this specific field.
+In the top search bad of the Fields page, try searching for `CurrentUser` to find the `me` field we queries. You can also click the flied insights button to the right to view a more detailed breakdown of the usage in this specific field.
 
 ## Knowing when to start pruning your graph
 
-Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being useed or not. In the same [Fields tab]({{ graph.url.fields }}), select the "Deprecations" at the top and you should see some deprecated fields that were added from the SpaceX API.
+Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being useed or not. In the same [Fields page]({{ graph.url.fields }}), select the "Deprecations" at the top and you should see some deprecated fields that were added from the SpaceX API.
 
 ## Looking at individual operations
 
-In addition to the aggregate usage information we saw in the Fields tab, GraphOS also enables you to view sample individual traces that includes resolver level traces 🙌. Head over to the [Operations]({{ graph.url.operations }}) tab and you can explore the traces generated from the operations we ran in previous steps.
+In addition to the aggregate usage information we saw in the Fields page, GraphOS also enables you to view sample individual traces that includes resolver level traces 🙌. Head over to the [Operations]({{ graph.url.operations }}) tab and you can explore the traces generated from the operations we ran in previous steps.
 
 ## Testing out making a change to your subgraphs locally
 
