@@ -8,7 +8,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const graphVariant = 'main';
 const ROUTER_CONFIG = (graphId: string) =>
-  `cors:\n  allow_any_origin: true\nheaders:\n  subgraphs:\n    spotify:\n      request:\n        - propagate:\n            matching: \"authorization\"\n        - insert:\n            name: \"x-graphos-id\"\n            value: \"${graphId}\"\n    playback:\n      request:\n        - propagate:\n            matching: \"authorization\"\n        - insert:\n            name: \"x-graphos-id\"\n            value: \"${graphId}\"`;
+  `cors:\n  allow_any_origin: true\nheaders:\n  subgraphs:\n    spotify:\n      request:\n        - propagate:\n            matching: "authorization"\n        - insert:\n            name: "x-graphos-id"\n            value: "${graphId}"\n    playback:\n      request:\n        - propagate:\n            matching: "authorization"\n        - insert:\n            name: "x-graphos-id"\n            value: "${graphId}"`;
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: 'https://graphql.api.apollographql.com/api/graphql',

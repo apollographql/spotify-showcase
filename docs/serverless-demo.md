@@ -19,54 +19,17 @@ This includes provisioning a serverless instance of the [Apollo Router](https://
 
 You need a way to query your graph. [GraphOS Explorer](https://www.apollographql.com/docs/graphos/explorer) is built to make this easy. You can try querying this graph using [Explorer]({{ graph.url.explorer }}). Try running your first operation:
 
-```gql
-query MyPlaylists($offset: Int, $limit: Int) {
-  me {
-    playlists(offset: $offset, limit: $limit) {
-      pageInfo {
-        offset
-        limit
-        hasNextPage
-      }
-      edges {
-        node {
-          id
-          name
-          uri
-        }
-      }
-    }
-  }
-}
-```
+<replace-MyPlaylists>
 
 The [Apollo Router also supports GraphQL subscriptions](https://www.apollographql.com/docs/graphos/operations/subscriptions/)! The following operation subscribes to the current playback state of your music player on the 🚀. Don't worry, we automatically press play for you on your space radio when you start this up for the first time.
 
-```gql
-subscription PlaybackState {
-  playbackStateChanged {
-    isPlaying
-    progressMs
-    item {
-      name
-    }
-  }
-}
-```
+<replace-PlaybackState>
 
 GraphOS Explorer also supports tabs. Open a new tab and run the operation below to pause the running subscription:
 
 > If you open a new explorer tab in the same window, you can see the mutation pause the running subscription!
 
-```gql
-mutation PausePlayback {
-  pausePlayback {
-    playbackState {
-      isPlaying
-    }
-  }
-}
-```
+<replace-PausePlayback>
 
 ## Identifying client operations
 
