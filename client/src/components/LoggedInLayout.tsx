@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
@@ -10,9 +10,7 @@ import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import { thumbnail } from '../utils/image';
-import OffsetBasedPaginationObserver, {
-  OffsetBasedPaginationObserverProps,
-} from './OffsetBasedPaginationObserver';
+import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
 import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 
@@ -44,6 +42,21 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
 `;
 
 const LoggedInLayout = () => {
+  return (
+    <Container>
+      <Sidebar />
+      <Layout.Main>
+        <Layout.Header />
+        <PlaybackStateSubscriber />
+        <Outlet />
+      </Layout.Main>
+      <Playbar />
+    </Container>
+  );
+};
+
+const Sidebar = () => {
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const { data, fetchMore } = useSuspenseQuery(ROOT_QUERY, {
     variables: { limit: 50 },
   });
@@ -53,32 +66,6 @@ const LoggedInLayout = () => {
   if (!me) {
     throw new Error('Must be logged in');
   }
-
-  return (
-    <div
-      onContextMenu={(e) => e.preventDefault()}
-      className={
-        'grid gap-2 p-2 h-screen grid-cols-[375px_1fr] [grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
-      }
-    >
-      <Sidebar me={me} fetchMore={fetchMore} />
-      <Layout.Main>
-        <Layout.Header />
-        <PlaybackStateSubscriber />
-        <Outlet />
-      </Layout.Main>
-      <Playbar />
-    </div>
-  );
-};
-
-interface SidebarProps {
-  me: NonNullable<RootQuery['me']>;
-  fetchMore: OffsetBasedPaginationObserverProps['fetchMore'];
-}
-
-const Sidebar = ({ me, fetchMore }: SidebarProps) => {
-  const sidebarRef = useRef<HTMLDivElement>(null);
 
   return (
     <Layout.Sidebar>
@@ -139,6 +126,23 @@ const Sidebar = ({ me, fetchMore }: SidebarProps) => {
         </ScrollContainerContext.Provider>
       </Layout.Sidebar.Section>
     </Layout.Sidebar>
+  );
+};
+
+interface ContainerProps {
+  children: ReactNode;
+}
+
+const Container = ({ children }: ContainerProps) => {
+  return (
+    <div
+      onContextMenu={(e) => e.preventDefault()}
+      className={
+        'grid gap-2 p-2 h-screen grid-cols-[375px_1fr] [grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
+      }
+    >
+      {children}
+    </div>
   );
 };
 
