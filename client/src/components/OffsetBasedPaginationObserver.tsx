@@ -3,9 +3,12 @@ import useOffsetBasedPaginationObserver, {
   UseOffsetBasedPaginationObserverOptions,
 } from '../hooks/useOffsetBasedPaginationObserver';
 
-type PaginationObserverProps = UseOffsetBasedPaginationObserverOptions;
+export type OffsetBasedPaginationObserverProps =
+  UseOffsetBasedPaginationObserverOptions;
 
-const OffsetBasedPaginationObserver = (props: PaginationObserverProps) => {
+const OffsetBasedPaginationObserver = (
+  props: OffsetBasedPaginationObserverProps
+) => {
   const ref = useRef<HTMLDivElement>(null);
   useOffsetBasedPaginationObserver(ref, props);
 
