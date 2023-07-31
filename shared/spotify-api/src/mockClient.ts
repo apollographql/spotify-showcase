@@ -135,13 +135,27 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async getArtist(id: string): Promise<Spotify.Object.Artist> {
-    throw new Error('Mock not implemented.');
+    const artist = mocks.artists[id];
+
+    if (!artist) {
+      throw new GraphQLError('invalid id', {
+        extensions: {
+          code: 'BAD_USER_INPUT',
+        },
+      });
+    }
+
+    return artist;
   }
 
   async getArtists(params: {
     ids: string;
   }): Promise<Spotify.Object.List<'artists', Spotify.Object.Artist>> {
-    throw new Error('Mock not implemented.');
+    return {
+      artists: Object.entries(mocks.artists)
+        .filter(([id]) => params.ids.includes(id))
+        .map(([, artist]) => artist),
+    };
   }
 
   async getArtistAlbums(
