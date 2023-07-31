@@ -138,10 +138,10 @@ export namespace Spotify {
     export type CurrentlyPlayingType = 'track' | 'episode' | 'ad' | 'unknown';
 
     export interface CurrentUser {
-      country: RestrictScope<string, 'user-read-private'>;
+      country?: RestrictScope<string, 'user-read-private'>;
       display_name: string | null;
       email: RestrictScope<string, 'user-read-email'>;
-      explicit_content: RestrictScope<
+      explicit_content?: RestrictScope<
         {
           filter_enabled: boolean;
           filter_locked: boolean;
@@ -153,7 +153,7 @@ export namespace Spotify {
       href: string;
       id: string;
       images: Image[];
-      product: RestrictScope<string, 'user-read-private'>;
+      product?: RestrictScope<string, 'user-read-private'>;
       type: 'user';
       uri: string;
     }
