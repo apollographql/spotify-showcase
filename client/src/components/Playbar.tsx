@@ -94,11 +94,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
 
     ...PlaybackItemProgressBar_playbackState
   }
-
-  ${PlaybackItemProgressBar.fragments.playbackState}
-  ${EpisodePlaybackDetails.fragments.episode}
-  ${TrackPlaybackDetails.fragments.context}
-  ${TrackPlaybackDetails.fragments.track}
 `;
 
 fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);

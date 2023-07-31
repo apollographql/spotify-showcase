@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import { EpisodePlaybackDetails_episode as Episode } from '../types/api';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface EpisodePlaybackDetailsProps {
   episode: Episode;
@@ -20,17 +21,15 @@ const EpisodePlaybackDetails = ({ episode }: EpisodePlaybackDetailsProps) => {
   );
 };
 
-EpisodePlaybackDetails.fragments = {
-  episode: gql`
-    fragment EpisodePlaybackDetails_episode on Episode {
+fragmentRegistry.register(gql`
+  fragment EpisodePlaybackDetails_episode on Episode {
+    id
+    name
+    show {
       id
       name
-      show {
-        id
-        name
-      }
     }
-  `,
-};
+  }
+`);
 
 export default EpisodePlaybackDetails;
