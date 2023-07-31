@@ -20,6 +20,7 @@ import cursorConnectionPagination from '../fieldPolicies/cursorConnectionPaginat
 import { getAccessToken } from '../auth';
 import { version } from '../../package.json';
 import { persistedQueryModeVar } from '../vars';
+import { fragmentRegistry } from './fragmentRegistry';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 
@@ -76,6 +77,7 @@ export default new ApolloClient({
   name: 'Spotify Showcase Website',
   version,
   cache: new InMemoryCache({
+    fragments: fragmentRegistry,
     possibleTypes: introspection.possibleTypes,
     typePolicies: {
       Album: {
