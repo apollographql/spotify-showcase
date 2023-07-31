@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
@@ -46,8 +46,8 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
 
 const LoggedInLayout = () => {
   const ref = useRef<HTMLElement>(null);
-  const [scrollContainer, setScrollContainerRef] =
-    useState<HTMLDivElement | null>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   const { data, fetchMore } = useSuspenseQuery(ROOT_QUERY, {
     variables: { limit: 50 },
   });
@@ -73,66 +73,69 @@ const LoggedInLayout = () => {
                 <Library /> Your Library
               </h2>
             </header>
-            <div
-              className="overflow-y-auto flex-1 -mx-1 px-3"
-              ref={setScrollContainerRef}
-            >
-              <PlaylistSidebarLink
-                pinned
-                playlist={{
-                  __typename: 'Playlist',
-                  id: 'collection:tracks',
-                  name: 'Liked Songs',
-                  uri: `spotify:user:${me.user.id}:collection`,
-                  owner: {
-                    __typename: 'User',
-                    id: 'spotify',
-                    displayName: 'Spotify',
-                  },
-                }}
-                coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
-                to="/collection/tracks"
-              />
-              <PlaylistSidebarLink
-                pinned
-                playlist={{
-                  __typename: 'Playlist',
-                  id: 'collection:episodes',
-                  name: 'Your Episodes',
-                  uri: `spotify:user:${me.user.id}:collection:your-episodes`,
-                  owner: {
-                    __typename: 'User',
-                    id: 'spotify',
-                    displayName: 'Spotify',
-                  },
-                }}
-                coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
-                to="/collection/episodes"
-              />
-              {data.me?.playlists?.edges.map(({ node: playlist }) => (
+            <ScrollContainerContext.Provider value={sidebarRef}>
+              <div
+                className="overflow-y-auto flex-1 -mx-1 px-3"
+                ref={sidebarRef}
+              >
                 <PlaylistSidebarLink
-                  pinned={false}
-                  key={playlist.id}
-                  playlist={playlist}
-                  coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
-                  to={`/playlists/${playlist.id}`}
+                  pinned
+                  playlist={{
+                    __typename: 'Playlist',
+                    id: 'collection:tracks',
+                    name: 'Liked Songs',
+                    uri: `spotify:user:${me.user.id}:collection`,
+                    owner: {
+                      __typename: 'User',
+                      id: 'spotify',
+                      displayName: 'Spotify',
+                    },
+                  }}
+                  coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
+                  to="/collection/tracks"
                 />
-              ))}
-              <OffsetBasedPaginationObserver
-                pageInfo={data.me?.playlists?.pageInfo}
-                fetchMore={fetchMore}
-                scrollContainer={scrollContainer}
-              />
-            </div>
+                <PlaylistSidebarLink
+                  pinned
+                  playlist={{
+                    __typename: 'Playlist',
+                    id: 'collection:episodes',
+                    name: 'Your Episodes',
+                    uri: `spotify:user:${me.user.id}:collection:your-episodes`,
+                    owner: {
+                      __typename: 'User',
+                      id: 'spotify',
+                      displayName: 'Spotify',
+                    },
+                  }}
+                  coverPhoto={
+                    <YourEpisodesPlaylistCoverPhoto iconSize="1rem" />
+                  }
+                  to="/collection/episodes"
+                />
+                {me.playlists?.edges.map(({ node: playlist }) => (
+                  <PlaylistSidebarLink
+                    pinned={false}
+                    key={playlist.id}
+                    playlist={playlist}
+                    coverPhoto={
+                      <CoverPhoto image={thumbnail(playlist.images)} />
+                    }
+                    to={`/playlists/${playlist.id}`}
+                  />
+                ))}
+                <OffsetBasedPaginationObserver
+                  pageInfo={me.playlists?.pageInfo}
+                  fetchMore={fetchMore}
+                />
+              </div>
+            </ScrollContainerContext.Provider>
           </Layout.Sidebar.Section>
         </Layout.Sidebar>
-        <ScrollContainerContext.Provider value={ref}>
-          <Layout.Main ref={ref}>
-            <Layout.Header />
-            <PlaybackStateSubscriber />
-            <Outlet />
-          </Layout.Main>
-        </ScrollContainerContext.Provider>
+        <Layout.Main ref={ref}>
+          <Layout.Header />
+          <PlaybackStateSubscriber />
+          <Outlet />
+        </Layout.Main>
         <Playbar className="[grid-area:playbar]" />
       </div>
       <NotificationManager />
