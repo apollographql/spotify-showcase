@@ -2477,6 +2477,38 @@ export type LikedSongsTile_connection = {
   }>;
 };
 
+export type RootQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type RootQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    user: { __typename: 'User'; id: string };
+    playlists: {
+      __typename: 'PlaylistConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        offset: number;
+        limit: number;
+        hasNextPage: boolean;
+      };
+      edges: Array<{
+        __typename: 'PlaylistEdge';
+        node: {
+          __typename: 'Playlist';
+          id: string;
+          uri: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+          owner: { __typename: 'User'; id: string; displayName: string | null };
+        };
+      }>;
+    } | null;
+  } | null;
+};
+
 export type NotificationManager_playbackState = {
   __typename: 'PlaybackState';
   device: { __typename: 'Device'; id: string | null };
@@ -3966,38 +3998,6 @@ export type QueueRoute_playbackState = {
     | { __typename: 'Episode'; id: string }
     | { __typename: 'Track'; id: string }
     | null;
-};
-
-export type RootQueryVariables = Exact<{
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-export type RootQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    user: { __typename: 'User'; id: string };
-    playlists: {
-      __typename: 'PlaylistConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        offset: number;
-        limit: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          uri: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-          owner: { __typename: 'User'; id: string; displayName: string | null };
-        };
-      }>;
-    } | null;
-  } | null;
 };
 
 export type SearchRouteQueryVariables = Exact<{

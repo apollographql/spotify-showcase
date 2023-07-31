@@ -152,9 +152,10 @@ export class MockSpotifyClient implements SpotifyDataSource {
     ids: string;
   }): Promise<Spotify.Object.List<'artists', Spotify.Object.Artist>> {
     return {
-      artists: Object.entries(mocks.artists)
-        .filter(([id]) => params.ids.includes(id))
-        .map(([, artist]) => artist),
+      artists: params.ids
+        .split(',')
+        .map((id) => mocks.artists[id])
+        .filter(Boolean),
     };
   }
 

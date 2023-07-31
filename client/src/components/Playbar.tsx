@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import {
   Action,
   RepeatMode,
@@ -29,6 +29,7 @@ import VolumeBar from './VolumeBar';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePlaybackState from '../hooks/usePlaybackState';
 import QueueControlButton from './QueueControlButton';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaybarProps {
   className?: string;
@@ -36,7 +37,10 @@ interface PlaybarProps {
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
-const PLAYBAR_QUERY = gql`
+const PLAYBAR_QUERY: TypedDocumentNode<
+  PlaybarQuery,
+  PlaybarQueryVariables
+> = gql`
   query PlaybarQuery {
     me {
       player {
@@ -51,14 +55,56 @@ const PLAYBAR_QUERY = gql`
   ${DevicePopover.fragments.devices}
 `;
 
+const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
+  fragment Playbar_playbackState on PlaybackState {
+    isPlaying
+    repeatState
+    shuffleState
+    actions {
+      disallows
+    }
+    context {
+      ...TrackPlaybackDetails_context
+    }
+    device {
+      id
+      name
+      type
+      volumePercent
+    }
+    item {
+      id
+
+      ... on Track {
+        album {
+          id
+          images {
+            url
+          }
+        }
+        ...TrackPlaybackDetails_track
+      }
+      ... on Episode {
+        show {
+          id
+          images {
+            url
+          }
+        }
+        ...EpisodePlaybackDetails_episode
+      }
+    }
+
+    ...PlaybackItemProgressBar_playbackState
+  }
+`;
+
+fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
+
 const Playbar = ({ className }: PlaybarProps) => {
-  const { data } = useSuspenseQuery<PlaybarQuery, PlaybarQueryVariables>(
-    PLAYBAR_QUERY
-  );
+  const { data } = useSuspenseQuery(PLAYBAR_QUERY);
   const [resumePlayback] = useResumePlaybackMutation();
-  const playbackState = usePlaybackState<PlaybackState>({
-    fragment: Playbar.fragments.playbackState,
-  });
+  const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
@@ -166,57 +212,6 @@ const Playbar = ({ className }: PlaybarProps) => {
       )}
     </footer>
   );
-};
-
-Playbar.fragments = {
-  playbackState: gql`
-    fragment Playbar_playbackState on PlaybackState {
-      isPlaying
-      repeatState
-      shuffleState
-      actions {
-        disallows
-      }
-      context {
-        ...TrackPlaybackDetails_context
-      }
-      device {
-        id
-        name
-        type
-        volumePercent
-      }
-      item {
-        id
-
-        ... on Track {
-          album {
-            id
-            images {
-              url
-            }
-          }
-          ...TrackPlaybackDetails_track
-        }
-        ... on Episode {
-          show {
-            id
-            images {
-              url
-            }
-          }
-          ...EpisodePlaybackDetails_episode
-        }
-      }
-
-      ...PlaybackItemProgressBar_playbackState
-    }
-
-    ${PlaybackItemProgressBar.fragments.playbackState}
-    ${EpisodePlaybackDetails.fragments.episode}
-    ${TrackPlaybackDetails.fragments.context}
-    ${TrackPlaybackDetails.fragments.track}
-  `,
 };
 
 export default Playbar;

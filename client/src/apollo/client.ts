@@ -14,12 +14,13 @@ import {
   PersistedQueryManifestForVerification,
 } from '@apollo/persisted-query-lists';
 import introspection from './introspection.json';
-import libraryContains from './fieldPolicies/libraryContains';
-import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
-import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
-import { getAccessToken } from './auth';
-import { version } from '../package.json';
-import { persistedQueryModeVar } from './vars';
+import libraryContains from '../fieldPolicies/libraryContains';
+import offsetConnectionPagination from '../fieldPolicies/offsetConnectionPagination';
+import cursorConnectionPagination from '../fieldPolicies/cursorConnectionPagination';
+import { getAccessToken } from '../auth';
+import { version } from '../../package.json';
+import { persistedQueryModeVar } from '../vars';
+import { fragmentRegistry } from './fragmentRegistry';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 
@@ -76,6 +77,7 @@ export default new ApolloClient({
   name: 'Spotify Showcase Website',
   version,
   cache: new InMemoryCache({
+    fragments: fragmentRegistry,
     possibleTypes: introspection.possibleTypes,
     typePolicies: {
       Album: {

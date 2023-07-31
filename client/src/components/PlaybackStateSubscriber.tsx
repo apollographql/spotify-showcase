@@ -5,7 +5,6 @@ import {
   PlaybackStateSubscriberSubscription,
 } from '../types/api';
 import merge from 'deepmerge';
-import Playbar from './Playbar';
 import { overwriteMerge } from '../utils/deepmerge';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,8 +49,6 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 
     ...Playbar_playbackState
   }
-
-  ${Playbar.fragments.playbackState}
 `;
 
 const PLAYBACK_STATE_SUBSCRIBER_QUERY = gql`

@@ -195,6 +195,12 @@
       "body": "query SavedTracksContainsQuery($ids: [ID!]!) {\n  me {\n    tracksContains(ids: $ids)\n    __typename\n  }\n}"
     },
     {
+      "id": "295215eedabf8ede94ff3d85baab88ce2d64ed3e9af450c4c77e9c9f122d4e72",
+      "name": "SearchRouteQuery",
+      "type": "query",
+      "body": "query SearchRouteQuery($q: String!, $type: [SearchType!]!) {\n  search(q: $q, type: $type) {\n    artists {\n      edges {\n        node {\n          id\n          ...ArtistTile_artist\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment ArtistTile_artist on Artist {\n  id\n  name\n  images {\n    url\n    __typename\n  }\n  __typename\n}"
+    },
+    {
       "id": "d8f790f0a8651c2e676389cadba67cc4a26d9ced02d9878d096fd6baf52862da",
       "name": "SeekToPositionMutation",
       "type": "mutation",
