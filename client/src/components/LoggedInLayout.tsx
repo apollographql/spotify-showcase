@@ -2,15 +2,9 @@ import { useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
-import NotificationManager from './NotificationManager';
 import Playbar from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
-import {
-  TypedDocumentNode,
-  UseSuspenseQueryResult,
-  gql,
-  useSuspenseQuery,
-} from '@apollo/client';
+import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import { RootQuery, RootQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
@@ -61,23 +55,20 @@ const LoggedInLayout = () => {
   }
 
   return (
-    <>
-      <NotificationManager />
-      <div
-        onContextMenu={(e) => e.preventDefault()}
-        className={
-          'grid gap-2 p-2 h-screen grid-cols-[375px_1fr] [grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
-        }
-      >
-        <Sidebar me={me} fetchMore={fetchMore} />
-        <Layout.Main>
-          <Layout.Header />
-          <PlaybackStateSubscriber />
-          <Outlet />
-        </Layout.Main>
-        <Playbar />
-      </div>
-    </>
+    <div
+      onContextMenu={(e) => e.preventDefault()}
+      className={
+        'grid gap-2 p-2 h-screen grid-cols-[375px_1fr] [grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
+      }
+    >
+      <Sidebar me={me} fetchMore={fetchMore} />
+      <Layout.Main>
+        <Layout.Header />
+        <PlaybackStateSubscriber />
+        <Outlet />
+      </Layout.Main>
+      <Playbar />
+    </div>
   );
 };
 

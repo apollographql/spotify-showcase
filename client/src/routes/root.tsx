@@ -7,11 +7,17 @@ import { randomBetween } from '../utils/common';
 import { range } from '../utils/lists';
 import LoggedOutLayout from '../components/LoggedOutLayout';
 import LoggedInLayout from '../components/LoggedInLayout';
+import NotificationManager from '../components/NotificationManager';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
 
-  return isLoggedIn ? <LoggedInLayout /> : <LoggedOutLayout />;
+  return (
+    <>
+      <NotificationManager />
+      {isLoggedIn ? <LoggedInLayout /> : <LoggedOutLayout />}
+    </>
+  );
 };
 
 export const LoadingState = () => {
