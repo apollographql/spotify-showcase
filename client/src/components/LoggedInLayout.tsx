@@ -45,7 +45,6 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
 `;
 
 const LoggedInLayout = () => {
-  const ref = useRef<HTMLElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchMore } = useSuspenseQuery(ROOT_QUERY, {
@@ -131,7 +130,7 @@ const LoggedInLayout = () => {
             </ScrollContainerContext.Provider>
           </Layout.Sidebar.Section>
         </Layout.Sidebar>
-        <Layout.Main ref={ref}>
+        <Layout.Main>
           <Layout.Header />
           <PlaybackStateSubscriber />
           <Outlet />
