@@ -359,7 +359,7 @@ export namespace Spotify {
       linked_from?: Track;
       name: string;
       popularity: number;
-      preview_url: string;
+      preview_url: string | null;
       restrictions?: Restrictions;
       track: true;
       track_number: number;
@@ -539,7 +539,7 @@ export namespace Spotify {
       linked_from?: Track;
       name: string;
       popularity: number;
-      preview_url: string;
+      preview_url: string | null;
       track_number: number;
       restrictions?: Restrictions;
       type: 'track';
