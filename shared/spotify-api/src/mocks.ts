@@ -5,6 +5,7 @@ export const mocks: {
   artists: Record<string, Spotify.Object.Artist>;
   playlists: Record<string, Spotify.Object.Playlist>;
   tracks: Record<string, Spotify.Object.Track>;
+  genres: string[];
 } = {
   albums: {
     '4ZaAM16hw3xpp680FJahJJ': {
@@ -364,7 +365,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 11660,
+        total: 11663,
       },
       genres: [],
       href: 'https://api.spotify.com/v1/artists/4Y5X8SqUVCXq9jIlg7DWKV',
@@ -402,7 +403,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 64442,
+        total: 64559,
       },
       genres: ['miami bass'],
       href: 'https://api.spotify.com/v1/artists/4mar1GMMEhvGyJdWagu6KS',
@@ -435,7 +436,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 1340304,
+        total: 1342840,
       },
       genres: ['mpb', 'samba-rock'],
       href: 'https://api.spotify.com/v1/artists/0i1s9WcIu0PrUvHzALgofo',
@@ -501,7 +502,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 8470158,
+        total: 8486439,
       },
       genres: [
         'alternative rock',
@@ -541,7 +542,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 1168842,
+        total: 1172144,
       },
       genres: [
         'indie poptimism',
@@ -580,7 +581,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 4073539,
+        total: 4078706,
       },
       genres: [
         'alternative metal',
@@ -621,7 +622,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 592421,
+        total: 592835,
       },
       genres: [
         'alternative dance',
@@ -668,7 +669,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 673387,
+        total: 680679,
       },
       genres: ['electra', 'float house'],
       href: 'https://api.spotify.com/v1/artists/2mLA48B366zkELXYx7hcDN',
@@ -701,7 +702,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 19344590,
+        total: 19367822,
       },
       genres: [
         'album rock',
@@ -747,7 +748,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 269837,
+        total: 270065,
       },
       genres: ['alternative r&b', 'indie soul'],
       href: 'https://api.spotify.com/v1/artists/0oBsnAC3fzYkTHF3bkfNx6',
@@ -780,9 +781,9 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 7605075,
+        total: 7612377,
       },
-      genres: ['modern rock', 'permanent wave', 'rock'],
+      genres: ['alternative rock', 'modern rock', 'permanent wave', 'rock'],
       href: 'https://api.spotify.com/v1/artists/12Chz98pHFMPJEknJQMWvI',
       id: '12Chz98pHFMPJEknJQMWvI',
       images: [
@@ -807,13 +808,51 @@ export const mocks: {
       type: 'artist',
       uri: 'spotify:artist:12Chz98pHFMPJEknJQMWvI',
     },
+    '0LklyUMMUhpIjMgYHlV0hN': {
+      external_urls: {
+        spotify: 'https://open.spotify.com/artist/0LklyUMMUhpIjMgYHlV0hN',
+      },
+      followers: {
+        href: null,
+        total: 207950,
+      },
+      genres: [
+        'la indie',
+        'latinx alternative',
+        'psychedelic soul',
+        'tropical alternativo',
+      ],
+      href: 'https://api.spotify.com/v1/artists/0LklyUMMUhpIjMgYHlV0hN',
+      id: '0LklyUMMUhpIjMgYHlV0hN',
+      images: [
+        {
+          height: 640,
+          url: 'https://i.scdn.co/image/ab6761610000e5eb4a239c0fa1fff88fbf531f9c',
+          width: 640,
+        },
+        {
+          height: 320,
+          url: 'https://i.scdn.co/image/ab676161000051744a239c0fa1fff88fbf531f9c',
+          width: 320,
+        },
+        {
+          height: 160,
+          url: 'https://i.scdn.co/image/ab6761610000f1784a239c0fa1fff88fbf531f9c',
+          width: 160,
+        },
+      ],
+      name: 'Chicano Batman',
+      popularity: 45,
+      type: 'artist',
+      uri: 'spotify:artist:0LklyUMMUhpIjMgYHlV0hN',
+    },
     '5c3GLXai8YOMid29ZEuR9y': {
       external_urls: {
         spotify: 'https://open.spotify.com/artist/5c3GLXai8YOMid29ZEuR9y',
       },
       followers: {
         href: null,
-        total: 734642,
+        total: 735613,
       },
       genres: ['british folk', 'folk', 'melancholia', 'singer-songwriter'],
       href: 'https://api.spotify.com/v1/artists/5c3GLXai8YOMid29ZEuR9y',
@@ -845,51 +884,13 @@ export const mocks: {
       type: 'artist',
       uri: 'spotify:artist:5c3GLXai8YOMid29ZEuR9y',
     },
-    '0LklyUMMUhpIjMgYHlV0hN': {
-      external_urls: {
-        spotify: 'https://open.spotify.com/artist/0LklyUMMUhpIjMgYHlV0hN',
-      },
-      followers: {
-        href: null,
-        total: 207737,
-      },
-      genres: [
-        'la indie',
-        'latinx alternative',
-        'psychedelic soul',
-        'tropical alternativo',
-      ],
-      href: 'https://api.spotify.com/v1/artists/0LklyUMMUhpIjMgYHlV0hN',
-      id: '0LklyUMMUhpIjMgYHlV0hN',
-      images: [
-        {
-          height: 640,
-          url: 'https://i.scdn.co/image/ab6761610000e5eb4a239c0fa1fff88fbf531f9c',
-          width: 640,
-        },
-        {
-          height: 320,
-          url: 'https://i.scdn.co/image/ab676161000051744a239c0fa1fff88fbf531f9c',
-          width: 320,
-        },
-        {
-          height: 160,
-          url: 'https://i.scdn.co/image/ab6761610000f1784a239c0fa1fff88fbf531f9c',
-          width: 160,
-        },
-      ],
-      name: 'Chicano Batman',
-      popularity: 44,
-      type: 'artist',
-      uri: 'spotify:artist:0LklyUMMUhpIjMgYHlV0hN',
-    },
     '4fXkvh05wFhuH77MfD4m9o': {
       external_urls: {
         spotify: 'https://open.spotify.com/artist/4fXkvh05wFhuH77MfD4m9o',
       },
       followers: {
         href: null,
-        total: 398125,
+        total: 398466,
       },
       genres: ['new americana', 'retro soul'],
       href: 'https://api.spotify.com/v1/artists/4fXkvh05wFhuH77MfD4m9o',
@@ -922,7 +923,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 3081678,
+        total: 3086947,
       },
       genres: ['art pop', 'norwegian pop'],
       href: 'https://api.spotify.com/v1/artists/1WgXqy2Dd70QQOU7Ay074N',
@@ -955,7 +956,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 457011,
+        total: 457475,
       },
       genres: ['boy band', 'talent show'],
       href: 'https://api.spotify.com/v1/artists/47izDDvtOxxz3FzHYuUptd',
@@ -988,7 +989,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 373974,
+        total: 375106,
       },
       genres: ['art pop', 'chamber pop', 'experimental folk', 'indie pop'],
       href: 'https://api.spotify.com/v1/artists/3Uqu1mEdkUJxPe7s31n1M9',
@@ -1021,7 +1022,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 148588,
+        total: 148786,
       },
       genres: ['chamber psych', 'scottish rock'],
       href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
@@ -1044,7 +1045,7 @@ export const mocks: {
         },
       ],
       name: 'Public Service Broadcasting',
-      popularity: 42,
+      popularity: 43,
       type: 'artist',
       uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
     },
@@ -1054,7 +1055,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 493108,
+        total: 493948,
       },
       genres: [
         'art pop',
@@ -1091,13 +1092,46 @@ export const mocks: {
       type: 'artist',
       uri: 'spotify:artist:3kzwYV3OCB010YfXMF0Avt',
     },
+    '1N1JZ3SRv6PSzAsOEW2aZp': {
+      external_urls: {
+        spotify: 'https://open.spotify.com/artist/1N1JZ3SRv6PSzAsOEW2aZp',
+      },
+      followers: {
+        href: null,
+        total: 70774,
+      },
+      genres: ['phoenix indie'],
+      href: 'https://api.spotify.com/v1/artists/1N1JZ3SRv6PSzAsOEW2aZp',
+      id: '1N1JZ3SRv6PSzAsOEW2aZp',
+      images: [
+        {
+          height: 640,
+          url: 'https://i.scdn.co/image/ab6761610000e5eb89f663f7ba9f18a390c91d06',
+          width: 640,
+        },
+        {
+          height: 320,
+          url: 'https://i.scdn.co/image/ab6761610000517489f663f7ba9f18a390c91d06',
+          width: 320,
+        },
+        {
+          height: 160,
+          url: 'https://i.scdn.co/image/ab6761610000f17889f663f7ba9f18a390c91d06',
+          width: 160,
+        },
+      ],
+      name: 'Bear Ghost',
+      popularity: 46,
+      type: 'artist',
+      uri: 'spotify:artist:1N1JZ3SRv6PSzAsOEW2aZp',
+    },
     '0YC192cP3KPCRWx8zr8MfZ': {
       external_urls: {
         spotify: 'https://open.spotify.com/artist/0YC192cP3KPCRWx8zr8MfZ',
       },
       followers: {
         href: null,
-        total: 3409681,
+        total: 3417034,
       },
       genres: ['german soundtrack', 'orchestral soundtrack', 'soundtrack'],
       href: 'https://api.spotify.com/v1/artists/0YC192cP3KPCRWx8zr8MfZ',
@@ -1120,7 +1154,7 @@ export const mocks: {
         },
       ],
       name: 'Hans Zimmer',
-      popularity: 73,
+      popularity: 74,
       type: 'artist',
       uri: 'spotify:artist:0YC192cP3KPCRWx8zr8MfZ',
     },
@@ -1130,7 +1164,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 120754,
+        total: 120893,
       },
       genres: ['british soundtrack', 'orchestral soundtrack', 'soundtrack'],
       href: 'https://api.spotify.com/v1/artists/1BxqJ6pOCi8mkSjCbFYjpW',
@@ -1162,46 +1196,13 @@ export const mocks: {
       type: 'artist',
       uri: 'spotify:artist:1BxqJ6pOCi8mkSjCbFYjpW',
     },
-    '1N1JZ3SRv6PSzAsOEW2aZp': {
-      external_urls: {
-        spotify: 'https://open.spotify.com/artist/1N1JZ3SRv6PSzAsOEW2aZp',
-      },
-      followers: {
-        href: null,
-        total: 70551,
-      },
-      genres: ['phoenix indie'],
-      href: 'https://api.spotify.com/v1/artists/1N1JZ3SRv6PSzAsOEW2aZp',
-      id: '1N1JZ3SRv6PSzAsOEW2aZp',
-      images: [
-        {
-          height: 640,
-          url: 'https://i.scdn.co/image/ab6761610000e5eb89f663f7ba9f18a390c91d06',
-          width: 640,
-        },
-        {
-          height: 320,
-          url: 'https://i.scdn.co/image/ab6761610000517489f663f7ba9f18a390c91d06',
-          width: 320,
-        },
-        {
-          height: 160,
-          url: 'https://i.scdn.co/image/ab6761610000f17889f663f7ba9f18a390c91d06',
-          width: 160,
-        },
-      ],
-      name: 'Bear Ghost',
-      popularity: 46,
-      type: 'artist',
-      uri: 'spotify:artist:1N1JZ3SRv6PSzAsOEW2aZp',
-    },
     '4fSMtiyC6lF5BUO1tUMWMs': {
       external_urls: {
         spotify: 'https://open.spotify.com/artist/4fSMtiyC6lF5BUO1tUMWMs',
       },
       followers: {
         href: null,
-        total: 205055,
+        total: 205897,
       },
       genres: ['meme'],
       href: 'https://api.spotify.com/v1/artists/4fSMtiyC6lF5BUO1tUMWMs',
@@ -1234,7 +1235,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 332323,
+        total: 332555,
       },
       genres: [
         'big band',
@@ -1279,7 +1280,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 6450396,
+        total: 6459770,
       },
       genres: ['adult standards', 'easy listening', 'lounge'],
       href: 'https://api.spotify.com/v1/artists/1Mxqyy3pSjf8kZZL4QVxS0',
@@ -1307,7 +1308,7 @@ export const mocks: {
         },
       ],
       name: 'Frank Sinatra',
-      popularity: 73,
+      popularity: 74,
       type: 'artist',
       uri: 'spotify:artist:1Mxqyy3pSjf8kZZL4QVxS0',
     },
@@ -1317,7 +1318,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 9548322,
+        total: 9556410,
       },
       genres: ['electro', 'filter house', 'rock'],
       href: 'https://api.spotify.com/v1/artists/4tZwfgrHOc3mvqYlEYSvVi',
@@ -1350,7 +1351,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 618739,
+        total: 619066,
       },
       genres: [
         'american post-rock',
@@ -1389,7 +1390,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 13920,
+        total: 13957,
       },
       genres: [
         'atmospheric post-rock',
@@ -1427,7 +1428,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 9857,
+        total: 9866,
       },
       genres: ['modern folk rock'],
       href: 'https://api.spotify.com/v1/artists/7wbZFLV3wwTqyrKNCJ8Y8D',
@@ -7256,7 +7257,7 @@ export const mocks: {
               id: '4KROoGIaPaR1pBHPnR3bwC',
               is_local: false,
               name: 'Pink Moon',
-              popularity: 72,
+              popularity: 71,
               preview_url:
                 'https://p.scdn.co/mp3-preview/1214bef39b6dc307d7550aefb34d99ca95beeb35?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
@@ -9583,7 +9584,7 @@ export const mocks: {
               id: '69WRV2IAqgEcsvJm7YBTJ7',
               is_local: false,
               name: 'Ones Who Love You',
-              popularity: 53,
+              popularity: 52,
               preview_url:
                 'https://p.scdn.co/mp3-preview/2ab08a4a81bf6cc4692e4f6b7f20999557ae769b?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
@@ -15484,7 +15485,7 @@ export const mocks: {
       id: '4KROoGIaPaR1pBHPnR3bwC',
       is_local: false,
       name: 'Pink Moon',
-      popularity: 72,
+      popularity: 71,
       preview_url:
         'https://p.scdn.co/mp3-preview/1214bef39b6dc307d7550aefb34d99ca95beeb35?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
@@ -17667,7 +17668,7 @@ export const mocks: {
       id: '69WRV2IAqgEcsvJm7YBTJ7',
       is_local: false,
       name: 'Ones Who Love You',
-      popularity: 53,
+      popularity: 52,
       preview_url:
         'https://p.scdn.co/mp3-preview/2ab08a4a81bf6cc4692e4f6b7f20999557ae769b?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 3,
@@ -20675,7 +20676,7 @@ export const mocks: {
       id: '3xyTufSSGLP3oZnomceAVW',
       is_local: false,
       name: 'Interstellar Overdrive',
-      popularity: 46,
+      popularity: 45,
       preview_url:
         'https://p.scdn.co/mp3-preview/050b63e3ed4f93f8f13766323af0d3c592028f7a?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 7,
@@ -21699,7 +21700,7 @@ export const mocks: {
       id: '3982V8R7oW3xyV8zASbCGG',
       is_local: false,
       name: 'The Race For Space',
-      popularity: 34,
+      popularity: 35,
       preview_url:
         'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
@@ -24586,5 +24587,367 @@ export const mocks: {
       type: 'track',
       uri: 'spotify:track:5ERrJuNLnmHj525ooOKyqJ',
     },
+    '1FqK4gHPyrnwo2kQLOuw6J': {
+      album: {
+        album_type: 'album',
+        artists: [
+          {
+            external_urls: {
+              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+            },
+            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+            id: '6VsiDFMZJlJ053P1uO4A6h',
+            name: 'Public Service Broadcasting',
+            type: 'artist',
+            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+          },
+        ],
+        available_markets: ['AU'],
+        external_urls: {
+          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
+        },
+        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
+        id: '4ZaAM16hw3xpp680FJahJJ',
+        images: [
+          {
+            height: 640,
+            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
+            width: 640,
+          },
+          {
+            height: 300,
+            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
+            width: 300,
+          },
+          {
+            height: 64,
+            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
+            width: 64,
+          },
+        ],
+        name: 'The Race For Space',
+        release_date: '2015-02-27',
+        release_date_precision: 'day',
+        total_tracks: 9,
+        type: 'album',
+        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
+      },
+      artists: [
+        {
+          external_urls: {
+            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+          },
+          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+          id: '6VsiDFMZJlJ053P1uO4A6h',
+          name: 'Public Service Broadcasting',
+          type: 'artist',
+          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+        },
+      ],
+      available_markets: ['AU'],
+      disc_number: 1,
+      duration_ms: 159859,
+      explicit: false,
+      external_ids: {
+        isrc: 'GBSZF1400166',
+      },
+      external_urls: {
+        spotify: 'https://open.spotify.com/track/1FqK4gHPyrnwo2kQLOuw6J',
+      },
+      href: 'https://api.spotify.com/v1/tracks/1FqK4gHPyrnwo2kQLOuw6J',
+      id: '1FqK4gHPyrnwo2kQLOuw6J',
+      is_local: false,
+      name: 'The Race For Space',
+      popularity: 11,
+      preview_url:
+        'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=2254dce9797a4e91880c97b856207f8c',
+      track_number: 1,
+      type: 'track',
+      uri: 'spotify:track:1FqK4gHPyrnwo2kQLOuw6J',
+    },
+    '7voASF1yQMRlAwNJS3pemX': {
+      album: {
+        album_type: 'album',
+        artists: [
+          {
+            external_urls: {
+              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+            },
+            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+            id: '6VsiDFMZJlJ053P1uO4A6h',
+            name: 'Public Service Broadcasting',
+            type: 'artist',
+            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+          },
+        ],
+        available_markets: ['AU'],
+        external_urls: {
+          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
+        },
+        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
+        id: '4ZaAM16hw3xpp680FJahJJ',
+        images: [
+          {
+            height: 640,
+            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
+            width: 640,
+          },
+          {
+            height: 300,
+            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
+            width: 300,
+          },
+          {
+            height: 64,
+            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
+            width: 64,
+          },
+        ],
+        name: 'The Race For Space',
+        release_date: '2015-02-27',
+        release_date_precision: 'day',
+        total_tracks: 9,
+        type: 'album',
+        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
+      },
+      artists: [
+        {
+          external_urls: {
+            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+          },
+          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+          id: '6VsiDFMZJlJ053P1uO4A6h',
+          name: 'Public Service Broadcasting',
+          type: 'artist',
+          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+        },
+      ],
+      available_markets: ['AU'],
+      disc_number: 1,
+      duration_ms: 228623,
+      explicit: false,
+      external_ids: {
+        isrc: 'GBSZF1400168',
+      },
+      external_urls: {
+        spotify: 'https://open.spotify.com/track/7voASF1yQMRlAwNJS3pemX',
+      },
+      href: 'https://api.spotify.com/v1/tracks/7voASF1yQMRlAwNJS3pemX',
+      id: '7voASF1yQMRlAwNJS3pemX',
+      is_local: false,
+      name: 'Gagarin',
+      popularity: 19,
+      preview_url:
+        'https://p.scdn.co/mp3-preview/d07e163d50e1cd061f63d8613155458240dcbf8c?cid=2254dce9797a4e91880c97b856207f8c',
+      track_number: 3,
+      type: 'track',
+      uri: 'spotify:track:7voASF1yQMRlAwNJS3pemX',
+    },
+    '1VxR4vZ2wpdBYvQrJatMrx': {
+      album: {
+        album_type: 'album',
+        artists: [
+          {
+            external_urls: {
+              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+            },
+            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+            id: '6VsiDFMZJlJ053P1uO4A6h',
+            name: 'Public Service Broadcasting',
+            type: 'artist',
+            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+          },
+        ],
+        available_markets: ['AU'],
+        external_urls: {
+          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
+        },
+        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
+        id: '4ZaAM16hw3xpp680FJahJJ',
+        images: [
+          {
+            height: 640,
+            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
+            width: 640,
+          },
+          {
+            height: 300,
+            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
+            width: 300,
+          },
+          {
+            height: 64,
+            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
+            width: 64,
+          },
+        ],
+        name: 'The Race For Space',
+        release_date: '2015-02-27',
+        release_date_precision: 'day',
+        total_tracks: 9,
+        type: 'album',
+        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
+      },
+      artists: [
+        {
+          external_urls: {
+            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+          },
+          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+          id: '6VsiDFMZJlJ053P1uO4A6h',
+          name: 'Public Service Broadcasting',
+          type: 'artist',
+          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+        },
+      ],
+      available_markets: ['AU'],
+      disc_number: 1,
+      duration_ms: 429374,
+      explicit: false,
+      external_ids: {
+        isrc: 'GBSZF1400167',
+      },
+      external_urls: {
+        spotify: 'https://open.spotify.com/track/1VxR4vZ2wpdBYvQrJatMrx',
+      },
+      href: 'https://api.spotify.com/v1/tracks/1VxR4vZ2wpdBYvQrJatMrx',
+      id: '1VxR4vZ2wpdBYvQrJatMrx',
+      is_local: false,
+      name: 'Sputnik',
+      popularity: 16,
+      preview_url:
+        'https://p.scdn.co/mp3-preview/f88f7df964974222d5f02ce255d5ad5abfd00ab4?cid=2254dce9797a4e91880c97b856207f8c',
+      track_number: 2,
+      type: 'track',
+      uri: 'spotify:track:1VxR4vZ2wpdBYvQrJatMrx',
+    },
   },
+  genres: [
+    'acoustic',
+    'afrobeat',
+    'alt-rock',
+    'alternative',
+    'ambient',
+    'anime',
+    'black-metal',
+    'bluegrass',
+    'blues',
+    'bossanova',
+    'brazil',
+    'breakbeat',
+    'british',
+    'cantopop',
+    'chicago-house',
+    'children',
+    'chill',
+    'classical',
+    'club',
+    'comedy',
+    'country',
+    'dance',
+    'dancehall',
+    'death-metal',
+    'deep-house',
+    'detroit-techno',
+    'disco',
+    'disney',
+    'drum-and-bass',
+    'dub',
+    'dubstep',
+    'edm',
+    'electro',
+    'electronic',
+    'emo',
+    'folk',
+    'forro',
+    'french',
+    'funk',
+    'garage',
+    'german',
+    'gospel',
+    'goth',
+    'grindcore',
+    'groove',
+    'grunge',
+    'guitar',
+    'happy',
+    'hard-rock',
+    'hardcore',
+    'hardstyle',
+    'heavy-metal',
+    'hip-hop',
+    'holidays',
+    'honky-tonk',
+    'house',
+    'idm',
+    'indian',
+    'indie',
+    'indie-pop',
+    'industrial',
+    'iranian',
+    'j-dance',
+    'j-idol',
+    'j-pop',
+    'j-rock',
+    'jazz',
+    'k-pop',
+    'kids',
+    'latin',
+    'latino',
+    'malay',
+    'mandopop',
+    'metal',
+    'metal-misc',
+    'metalcore',
+    'minimal-techno',
+    'movies',
+    'mpb',
+    'new-age',
+    'new-release',
+    'opera',
+    'pagode',
+    'party',
+    'philippines-opm',
+    'piano',
+    'pop',
+    'pop-film',
+    'post-dubstep',
+    'power-pop',
+    'progressive-house',
+    'psych-rock',
+    'punk',
+    'punk-rock',
+    'r-n-b',
+    'rainy-day',
+    'reggae',
+    'reggaeton',
+    'road-trip',
+    'rock',
+    'rock-n-roll',
+    'rockabilly',
+    'romance',
+    'sad',
+    'salsa',
+    'samba',
+    'sertanejo',
+    'show-tunes',
+    'singer-songwriter',
+    'ska',
+    'sleep',
+    'songwriter',
+    'soul',
+    'soundtracks',
+    'spanish',
+    'study',
+    'summer',
+    'swedish',
+    'synth-pop',
+    'tango',
+    'techno',
+    'trance',
+    'trip-hop',
+    'turkish',
+    'work-out',
+    'world-music',
+  ],
 };

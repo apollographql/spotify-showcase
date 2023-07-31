@@ -16,6 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext", "esnext.asynciterable", "DOM"],
     "types": ["node"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "strict": true
   }
 }

@@ -138,10 +138,10 @@ export namespace Spotify {
     export type CurrentlyPlayingType = 'track' | 'episode' | 'ad' | 'unknown';
 
     export interface CurrentUser {
-      country: RestrictScope<string, 'user-read-private'>;
+      country?: RestrictScope<string, 'user-read-private'>;
       display_name: string | null;
       email: RestrictScope<string, 'user-read-email'>;
-      explicit_content: RestrictScope<
+      explicit_content?: RestrictScope<
         {
           filter_enabled: boolean;
           filter_locked: boolean;
@@ -153,7 +153,7 @@ export namespace Spotify {
       href: string;
       id: string;
       images: Image[];
-      product: RestrictScope<string, 'user-read-private'>;
+      product?: RestrictScope<string, 'user-read-private'>;
       type: 'user';
       uri: string;
     }
@@ -359,7 +359,7 @@ export namespace Spotify {
       linked_from?: Track;
       name: string;
       popularity: number;
-      preview_url: string;
+      preview_url: string | null;
       restrictions?: Restrictions;
       track: true;
       track_number: number;
@@ -539,7 +539,7 @@ export namespace Spotify {
       linked_from?: Track;
       name: string;
       popularity: number;
-      preview_url: string;
+      preview_url: string | null;
       track_number: number;
       restrictions?: Restrictions;
       type: 'track';

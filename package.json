@@ -17,6 +17,7 @@
     "lint:types:client": "npm run lint:types -w client",
     "lint:types:spotify": "npm run lint:types -w spotify-subgraph",
     "lint:types:playback": "npm run lint:types -w playback-subgraph",
+    "lint:types:spotify-api": "npm run lint:types -w spotify-api",
     "build": "npm run build -ws",
     "graphos-demo": "ts-node scripts/demo.ts",
     "generate:mocks": "npm run generate:mocks -w spotify-api",
