@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode, Suspense, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
@@ -13,6 +13,8 @@ import { thumbnail } from '../utils/image';
 import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
 import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
+import { randomBetween, range } from '../utils/common';
+import Skeleton from './Skeleton';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -43,15 +45,17 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
 
 const LoggedInLayout = () => {
   return (
-    <Container>
-      <Sidebar />
-      <Layout.Main>
-        <Layout.Header />
-        <PlaybackStateSubscriber />
-        <Outlet />
-      </Layout.Main>
-      <Playbar />
-    </Container>
+    <Suspense fallback={<LoadingState />}>
+      <Container>
+        <Sidebar />
+        <Layout.Main>
+          <Layout.Header />
+          <PlaybackStateSubscriber />
+          <Outlet />
+        </Layout.Main>
+        <Playbar />
+      </Container>
+    </Suspense>
   );
 };
 
@@ -143,6 +147,39 @@ const Container = ({ children }: ContainerProps) => {
     >
       {children}
     </div>
+  );
+};
+
+const LoadingState = () => {
+  const skeletons = range(0, randomBetween(30, 40));
+
+  return (
+    <Layout type="player">
+      <Layout.Sidebar>
+        <Layout.Sidebar.Section className="flex flex-col flex-1">
+          <header className="px-4 py-2">
+            <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+              <Library /> Your Library
+            </h2>
+          </header>
+          <div className="flex-1">
+            {skeletons.map((num) => (
+              <li key={num} className="px-0 py-2">
+                <Skeleton.Text key={num} width={`${randomBetween(40, 60)}%`} />
+              </li>
+            ))}
+          </div>
+        </Layout.Sidebar.Section>
+      </Layout.Sidebar>
+      <Layout.Main>
+        <header className="flex items-center justify-end text-primary bg-transparent py-4 px-[var(--main-content--padding)] sticky top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
+          <div className="flex items-center gap-2">
+            <Skeleton.Avatar size="2rem" />
+            <Skeleton.Text width="10ch" />
+          </div>
+        </header>
+      </Layout.Main>
+    </Layout>
   );
 };
 

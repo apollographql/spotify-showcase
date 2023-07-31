@@ -48,13 +48,7 @@ const routes = createRoutesFromElements(
       loader={LoggedOutRoute.loader}
       element={<LoggedOutRoute.RouteComponent />}
     />
-    <Route
-      element={
-        <Suspense fallback={<RootRoute.LoadingState />}>
-          <RootRoute.RouteComponent />
-        </Suspense>
-      }
-    >
+    <Route element={<RootRoute.RouteComponent />}>
       <Route
         index
         element={
