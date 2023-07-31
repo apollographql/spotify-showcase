@@ -296,9 +296,11 @@ export class MockSpotifyClient implements SpotifyDataSource {
       email: 'contact@apollographql.com',
       external_urls: { spotify: '' },
       followers: { href: '', total: 1000000 },
+      href: '',
       images: [],
       uri: 'https://discord.gg/graphos',
-    } as Spotify.Object.CurrentUser;
+      type: 'user',
+    };
   }
 
   async getCurrentUserAlbums(params: {
