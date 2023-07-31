@@ -31,10 +31,6 @@ import usePlaybackState from '../hooks/usePlaybackState';
 import QueueControlButton from './QueueControlButton';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
-interface PlaybarProps {
-  className?: string;
-}
-
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
 const PLAYBAR_QUERY: TypedDocumentNode<
@@ -101,7 +97,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
 
 fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
 
-const Playbar = ({ className }: PlaybarProps) => {
+const Playbar = () => {
   const { data } = useSuspenseQuery(PLAYBAR_QUERY);
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
@@ -118,7 +114,7 @@ const Playbar = ({ className }: PlaybarProps) => {
   const disallowed = (action: Action) => !device || disallows.includes(action);
 
   return (
-    <footer className={cx('flex flex-col', className)}>
+    <footer className="flex flex-col [grid-area:playbar]">
       <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-4 px-6">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />

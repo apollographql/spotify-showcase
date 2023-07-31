@@ -136,7 +136,7 @@ const LoggedInLayout = () => {
           <PlaybackStateSubscriber />
           <Outlet />
         </Layout.Main>
-        <Playbar className="[grid-area:playbar]" />
+        <Playbar />
       </div>
     </>
   );
