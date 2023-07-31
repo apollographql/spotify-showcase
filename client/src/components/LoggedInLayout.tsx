@@ -40,8 +40,6 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
       }
     }
   }
-
-  ${PlaylistSidebarLink.fragments.playlist}
 `;
 
 const LoggedInLayout = () => {

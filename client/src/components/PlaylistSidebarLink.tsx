@@ -11,6 +11,7 @@ import cx from 'classnames';
 import ContextMenuAction from './ContextMenuAction';
 import DelimitedList from './DelimitedList';
 import usePlaybackState from '../hooks/usePlaybackState';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaylistSidebarLinkProps {
   playlist: Playlist;
@@ -102,18 +103,16 @@ const PlaylistSidebarLink = ({
   );
 };
 
-PlaylistSidebarLink.fragments = {
-  playlist: gql`
-    fragment PlaylistSidebarLink_playlist on Playlist {
+fragmentRegistry.register(gql`
+  fragment PlaylistSidebarLink_playlist on Playlist {
+    id
+    uri
+    name
+    owner {
       id
-      uri
-      name
-      owner {
-        id
-        displayName
-      }
+      displayName
     }
-  `,
-};
+  }
+`);
 
 export default PlaylistSidebarLink;
