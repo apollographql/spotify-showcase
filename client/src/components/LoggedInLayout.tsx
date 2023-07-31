@@ -8,8 +8,7 @@ import PlaybackStateSubscriber from './PlaybackStateSubscriber';
 import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import { RootQuery, RootQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
-import { Bookmark, Heart, Library } from 'lucide-react';
-import GradientIcon from './GradientIcon';
+import { Library } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import { thumbnail } from '../utils/image';
 import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
@@ -53,9 +52,9 @@ const LoggedInLayout = () => {
     variables: { limit: 50 },
   });
 
-  const { me: currentUser } = data;
+  const { me } = data;
 
-  if (!currentUser) {
+  if (!me) {
     throw new Error('Must be logged in');
   }
 
@@ -84,7 +83,7 @@ const LoggedInLayout = () => {
                   __typename: 'Playlist',
                   id: 'collection:tracks',
                   name: 'Liked Songs',
-                  uri: `spotify:user:${currentUser.user.id}:collection`,
+                  uri: `spotify:user:${me.user.id}:collection`,
                   owner: {
                     __typename: 'User',
                     id: 'spotify',
@@ -100,7 +99,7 @@ const LoggedInLayout = () => {
                   __typename: 'Playlist',
                   id: 'collection:episodes',
                   name: 'Your Episodes',
-                  uri: `spotify:user:${currentUser.user.id}:collection:your-episodes`,
+                  uri: `spotify:user:${me.user.id}:collection:your-episodes`,
                   owner: {
                     __typename: 'User',
                     id: 'spotify',
