@@ -2477,12 +2477,12 @@ export type LikedSongsTile_connection = {
   }>;
 };
 
-export type RootQueryVariables = Exact<{
+export type SidebarQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type RootQuery = {
+export type SidebarQuery = {
   me: {
     __typename: 'CurrentUser';
     user: { __typename: 'User'; id: string };

@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 import { Avatar_user as User } from '../types/api';
 import { thumbnail } from '../utils/image';
 import LazyImage from './LazyImage';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface AvatarProps {
   size?: CSSProperties['width'];
@@ -21,15 +22,13 @@ const Avatar = ({ user, size }: AvatarProps) => {
   );
 };
 
-Avatar.fragments = {
-  user: gql`
-    fragment Avatar_user on User {
-      id
-      images {
-        url
-      }
+fragmentRegistry.register(gql`
+  fragment Avatar_user on User {
+    id
+    images {
+      url
     }
-  `,
-};
+  }
+`);
 
 export default Avatar;

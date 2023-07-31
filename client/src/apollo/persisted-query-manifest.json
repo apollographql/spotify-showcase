@@ -171,12 +171,6 @@
       "body": "mutation ResumePlaybackMutation($input: ResumePlaybackInput) {\n  resumePlayback(input: $input) {\n    playbackState {\n      context {\n        uri\n        type\n        __typename\n      }\n      isPlaying\n      __typename\n    }\n    __typename\n  }\n}"
     },
     {
-      "id": "63a9b3594212ac1656c68ae3a4af9517ad6564f544f9a1d0650f974c814a86b2",
-      "name": "RootQuery",
-      "type": "query",
-      "body": "query RootQuery($offset: Int, $limit: Int) {\n  me {\n    user {\n      id\n      __typename\n    }\n    playlists(offset: $offset, limit: $limit) {\n      pageInfo {\n        offset\n        limit\n        hasNextPage\n        __typename\n      }\n      edges {\n        node {\n          id\n          images {\n            url\n            __typename\n          }\n          ...PlaylistSidebarLink_playlist\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment PlaylistSidebarLink_playlist on Playlist {\n  id\n  uri\n  name\n  owner {\n    id\n    displayName\n    __typename\n  }\n  __typename\n}"
-    },
-    {
       "id": "ecc1978f7ed6defd58266b56dbf17124a781edd0f2882fbfec9c90838e53b594",
       "name": "SaveAlbumsMutation",
       "type": "mutation",
@@ -235,6 +229,12 @@
       "name": "ShufflePlaybackMutation",
       "type": "mutation",
       "body": "mutation ShufflePlaybackMutation($state: Boolean!) {\n  shufflePlayback(state: $state) {\n    playbackState {\n      shuffleState\n      __typename\n    }\n    __typename\n  }\n}"
+    },
+    {
+      "id": "2e27517f630e9cd7812af5c42a6bc18c15581b8f644ba368be5f8cfd56a44790",
+      "name": "SidebarQuery",
+      "type": "query",
+      "body": "query SidebarQuery($offset: Int, $limit: Int) {\n  me {\n    user {\n      id\n      __typename\n    }\n    playlists(offset: $offset, limit: $limit) {\n      pageInfo {\n        offset\n        limit\n        hasNextPage\n        __typename\n      }\n      edges {\n        node {\n          id\n          images {\n            url\n            __typename\n          }\n          ...PlaylistSidebarLink_playlist\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment PlaylistSidebarLink_playlist on Playlist {\n  id\n  uri\n  name\n  owner {\n    id\n    displayName\n    __typename\n  }\n  __typename\n}"
     },
     {
       "id": "06239921bc697ff8c5103f65bcfc01c7353672af1f554ab980cb27540d16aea2",
