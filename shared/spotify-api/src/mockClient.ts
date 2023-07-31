@@ -179,16 +179,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async checkContainsAlbums(ids: string): Promise<boolean[]> {
-    const response = [];
-    const splitIds = ids.split(',');
-    const albums = Object.keys(mocks.albums) ?? [];
-
-    for (let i = 0; i < splitIds.length; i++) {
-      if (albums.includes(splitIds[i])) response.push(true);
-      else response.push(false);
-    }
-
-    return response;
+    return ids.split(',').map((id) => Boolean(mocks.albums[id]));
   }
 
   async checkContainsEpisodes(ids: string): Promise<boolean[]> {
