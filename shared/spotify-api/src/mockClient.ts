@@ -1,3 +1,4 @@
+import { GraphQLError } from 'graphql';
 import { Spotify } from './types';
 import { SpotifyDataSource } from './dataSource';
 import { mocks } from './mocks';
@@ -106,13 +107,17 @@ export class MockSpotifyClient implements SpotifyDataSource {
   ): Promise<Spotify.Object.Album> {
     const album = mocks.albums[id];
 
-    if (params.market && album.available_markets.includes(params.market)) {
+    if (params?.market && album.available_markets.includes(params.market)) {
       return album;
     } else if (album) {
       return album;
     }
 
-    return null;
+    throw new GraphQLError(`Album with id '${id}' not found`, {
+      extensions: {
+        code: 'NOT_FOUND',
+      },
+    });
   }
 
   async getAlbums(params: {
