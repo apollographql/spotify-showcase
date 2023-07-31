@@ -113,9 +113,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
       return album;
     }
 
-    throw new GraphQLError(`Album with id '${id}' not found`, {
+    throw new GraphQLError('invalid id', {
       extensions: {
-        code: 'NOT_FOUND',
+        code: 'BAD_USER_INPUT',
       },
     });
   }
@@ -445,7 +445,11 @@ export class MockSpotifyClient implements SpotifyDataSource {
       return track;
     }
 
-    return null;
+    throw new GraphQLError('invalid id', {
+      extensions: {
+        code: 'BAD_USER_INPUT',
+      },
+    });
   }
 
   async getTrackAudioFeatures(
