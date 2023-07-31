@@ -37,7 +37,10 @@ interface PlaybarProps {
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
-const PLAYBAR_QUERY = gql`
+const PLAYBAR_QUERY: TypedDocumentNode<
+  PlaybarQuery,
+  PlaybarQueryVariables
+> = gql`
   query PlaybarQuery {
     me {
       player {
@@ -99,9 +102,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
 fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
 
 const Playbar = ({ className }: PlaybarProps) => {
-  const { data } = useSuspenseQuery<PlaybarQuery, PlaybarQueryVariables>(
-    PLAYBAR_QUERY
-  );
+  const { data } = useSuspenseQuery(PLAYBAR_QUERY);
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
