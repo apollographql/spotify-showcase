@@ -15,6 +15,7 @@ import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import { randomBetween, range } from '../utils/common';
 import Skeleton from './Skeleton';
+import CurrentUserMenu from './CurrentUserMenu';
 
 const LoggedInLayout = () => {
   return (
@@ -31,10 +32,20 @@ const LoggedInLayout = () => {
 const Main = () => {
   return (
     <Layout.Main>
-      <Layout.Header />
+      <Header />
       <PlaybackStateSubscriber />
       <Outlet />
     </Layout.Main>
+  );
+};
+
+const Header = () => {
+  return (
+    <header className="flex items-center justify-end text-primary bg-transparent py-4 px-[var(--main-content--padding)] absolute top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
+      <div className="flex gap-4 items-center pointer-events-auto">
+        <CurrentUserMenu />
+      </div>
+    </header>
   );
 };
 
