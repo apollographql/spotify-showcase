@@ -202,7 +202,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async getGenres(): Promise<Spotify.Object.List<'genres', string>> {
-    throw new Error('Method not implemented.');
+    return { genres: mocks.genres };
   }
 
   async getEpisode(id: string): Promise<Spotify.Object.Episode> {
