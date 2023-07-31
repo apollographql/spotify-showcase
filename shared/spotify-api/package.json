@@ -8,7 +8,8 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "generate:mocks": "ts-node ./scripts/generate-mocks.ts",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "lint:types": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
