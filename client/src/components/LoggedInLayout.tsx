@@ -14,6 +14,7 @@ import CoverPhoto from './CoverPhoto';
 import { thumbnail } from '../utils/image';
 import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
 import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
+import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -106,14 +107,7 @@ const LoggedInLayout = () => {
                     displayName: 'Spotify',
                   },
                 }}
-                coverPhoto={
-                  <GradientIcon
-                    fill="var(--color--theme)"
-                    backgroundColor="#056952"
-                    lucideIcon={Bookmark}
-                    iconSize="1rem"
-                  />
-                }
+                coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
                 to="/collection/episodes"
               />
               {data.me?.playlists?.edges.map(({ node: playlist }) => (
