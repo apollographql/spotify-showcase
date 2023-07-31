@@ -59,6 +59,7 @@ interface DataStore {
   artists: Record<string, Spotify.Object.Artist>;
   playlists: Record<string, Spotify.Object.Playlist>;
   tracks: Record<string, Spotify.Object.Track>;
+  genres: string[];
 }
 
 const store: DataStore = {
@@ -66,6 +67,7 @@ const store: DataStore = {
   artists: {},
   playlists: {},
   tracks: {},
+  genres: [],
 };
 
 async function main() {
@@ -81,6 +83,8 @@ async function main() {
     await getAlbum(id);
   }
 
+  store.genres = await getGenres();
+
   const content = `import { Spotify } from 'spotify-api';
 
 export const mocks: {
@@ -88,11 +92,18 @@ export const mocks: {
   artists: Record<string, Spotify.Object.Artist>;
   playlists: Record<string, Spotify.Object.Playlist>;
   tracks: Record<string, Spotify.Object.Track>;
+  genres: string[];
 } = ${JSON.stringify(store, null, 2)}`;
 
   writeFileSync(FILE_PATH, await format(content, { parser: 'typescript' }), {
     encoding: 'utf-8',
   });
+}
+
+async function getGenres() {
+  return get('/recommendations/available-genre-seeds').then(
+    (list) => list.genres
+  );
 }
 
 async function getPlaylist(id: string) {
