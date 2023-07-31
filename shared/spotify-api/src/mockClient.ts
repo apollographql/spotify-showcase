@@ -180,7 +180,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async checkContainsAlbums(ids: string): Promise<boolean[]> {
-    throw new Error('Mock not implemented.');
+    return ids.split(',').map((id) => Boolean(mocks.albums[id]));
   }
 
   async checkContainsEpisodes(ids: string): Promise<boolean[]> {
