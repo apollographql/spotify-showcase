@@ -48,7 +48,12 @@ const LoggedInLayout = () => {
 
   return (
     <ScrollContainerContext.Provider value={ref}>
-      <Layout type="player" onContextMenu={(e) => e.preventDefault()}>
+      <div
+        onContextMenu={(e) => e.preventDefault()}
+        className={
+          'grid gap-2 p-2 h-screen grid-cols-[375px_1fr] [grid-template-areas:"sidebar_main-view""playbar_playbar"] [grid-template-rows:1fr_auto]'
+        }
+      >
         <Layout.Sidebar>
           <Playlists />
         </Layout.Sidebar>
@@ -58,7 +63,7 @@ const LoggedInLayout = () => {
           <Outlet />
         </Layout.Main>
         <Playbar className="[grid-area:playbar]" />
-      </Layout>
+      </div>
       <NotificationManager />
     </ScrollContainerContext.Provider>
   );
