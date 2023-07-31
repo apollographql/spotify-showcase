@@ -183,7 +183,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     const splitIds = ids.split(',');
     const albums = Object.keys(mocks.albums) ?? [];
 
-    for (var i = 0; i < splitIds.length; i++) {
+    for (let i = 0; i < splitIds.length; i++) {
       if (albums.includes(splitIds[i])) response.push(true);
       else response.push(false);
     }
