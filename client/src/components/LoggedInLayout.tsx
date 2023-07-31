@@ -5,7 +5,7 @@ import ScrollContainerContext from './ScrollContainerContext';
 import Playbar from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
 import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
-import { RootQuery, RootQueryVariables } from '../types/api';
+import { SidebarQuery, SidebarQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
@@ -16,8 +16,33 @@ import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import { randomBetween, range } from '../utils/common';
 import Skeleton from './Skeleton';
 
-const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
-  query RootQuery($offset: Int, $limit: Int) {
+const LoggedInLayout = () => {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <Container>
+        <Sidebar />
+        <Main />
+        <Playbar />
+      </Container>
+    </Suspense>
+  );
+};
+
+const Main = () => {
+  return (
+    <Layout.Main>
+      <Layout.Header />
+      <PlaybackStateSubscriber />
+      <Outlet />
+    </Layout.Main>
+  );
+};
+
+const SIDEBAR_QUERY: TypedDocumentNode<
+  SidebarQuery,
+  SidebarQueryVariables
+> = gql`
+  query SidebarQuery($offset: Int, $limit: Int) {
     me {
       user {
         id
@@ -43,25 +68,9 @@ const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   }
 `;
 
-const LoggedInLayout = () => {
-  return (
-    <Suspense fallback={<LoadingState />}>
-      <Container>
-        <Sidebar />
-        <Layout.Main>
-          <Layout.Header />
-          <PlaybackStateSubscriber />
-          <Outlet />
-        </Layout.Main>
-        <Playbar />
-      </Container>
-    </Suspense>
-  );
-};
-
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const { data, fetchMore } = useSuspenseQuery(ROOT_QUERY, {
+  const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
 
