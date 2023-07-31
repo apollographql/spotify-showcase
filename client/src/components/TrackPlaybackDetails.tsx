@@ -10,6 +10,7 @@ import DelimitedList from './DelimitedList';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
 import { parseSpotifyIDFromURI } from '../utils/spotify';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface TrackPlaybackDetailsProps {
   context: Context | null;
@@ -83,29 +84,26 @@ const TrackPlaybackDetails = ({
   );
 };
 
-TrackPlaybackDetails.fragments = {
-  context: gql`
-    fragment TrackPlaybackDetails_context on PlaybackContext {
-      uri
-      type
-    }
-  `,
-  track: gql`
-    fragment TrackPlaybackDetails_track on Track {
+fragmentRegistry.register(gql`
+  fragment TrackPlaybackDetails_context on PlaybackContext {
+    uri
+    type
+  }
+
+  fragment TrackPlaybackDetails_track on Track {
+    id
+    name
+    uri
+    album {
       id
       name
-      uri
-      album {
-        id
-        name
-      }
-      artists {
-        id
-        uri
-        name
-      }
     }
-  `,
-};
+    artists {
+      id
+      uri
+      name
+    }
+  }
+`);
 
 export default TrackPlaybackDetails;
