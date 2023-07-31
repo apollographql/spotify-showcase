@@ -674,8 +674,11 @@ export class MockSpotifyClient implements SpotifyDataSource {
     }
 
     this.state.device.id = body.device_ids[0];
-    this.state.device.is_active = body.play;
-    this.state.is_playing = body.play;
+
+    if (body.play) {
+      this.state.device.is_active = body.play;
+      this.state.is_playing = body.play;
+    }
 
     return true;
   }
