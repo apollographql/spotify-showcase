@@ -13,6 +13,7 @@ import GradientIcon from './GradientIcon';
 import CoverPhoto from './CoverPhoto';
 import { thumbnail } from '../utils/image';
 import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
+import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 
 const ROOT_QUERY: TypedDocumentNode<RootQuery, RootQueryVariables> = gql`
   query RootQuery($offset: Int, $limit: Int) {
@@ -89,13 +90,7 @@ const LoggedInLayout = () => {
                     displayName: 'Spotify',
                   },
                 }}
-                coverPhoto={
-                  <GradientIcon
-                    backgroundColor="linear-gradient(135deg,#450af5,#c4efd9)"
-                    lucideIcon={Heart}
-                    iconSize="1rem"
-                  />
-                }
+                coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
                 to="/collection/tracks"
               />
               <PlaylistSidebarLink
