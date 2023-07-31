@@ -2,7 +2,7 @@ import { PersistedQueryManifestConfig } from '@apollo/generate-persisted-query-m
 
 const config: PersistedQueryManifestConfig = {
   documents: 'client/src/**/*.{ts,tsx}',
-  output: 'client/src/persisted-query-manifest.json',
+  output: 'client/src/apollo/persisted-query-manifest.json',
 };
 
 export default config;

@@ -336,7 +336,7 @@ const config: CodegenConfig = {
       },
       plugins: ['typescript', 'typescript-resolvers'],
     },
-    './client/src/introspection.json': {
+    './client/src/apollo/introspection.json': {
       schema: './client/schema.graphql',
       documents: ['client/src/**/*.{ts,tsx}'],
       plugins: ['fragment-matcher'],

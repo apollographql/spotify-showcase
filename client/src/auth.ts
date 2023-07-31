@@ -1,5 +1,5 @@
 import { isLoggedInVar } from './vars';
-import client from './apollo';
+import client from './apollo/client';
 import { STORAGE_KEYS } from './constants';
 import {
   AccessTokenResponse,

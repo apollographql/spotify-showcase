@@ -14,12 +14,12 @@ import {
   PersistedQueryManifestForVerification,
 } from '@apollo/persisted-query-lists';
 import introspection from './introspection.json';
-import libraryContains from './fieldPolicies/libraryContains';
-import offsetConnectionPagination from './fieldPolicies/offsetConnectionPagination';
-import cursorConnectionPagination from './fieldPolicies/cursorConnectionPagination';
-import { getAccessToken } from './auth';
-import { version } from '../package.json';
-import { persistedQueryModeVar } from './vars';
+import libraryContains from '../fieldPolicies/libraryContains';
+import offsetConnectionPagination from '../fieldPolicies/offsetConnectionPagination';
+import cursorConnectionPagination from '../fieldPolicies/cursorConnectionPagination';
+import { getAccessToken } from '../auth';
+import { version } from '../../package.json';
+import { persistedQueryModeVar } from '../vars';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 

@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
 import BackgroundColorProvider from './components/BackgroundColorProvider';
 import router from './router';
-import client from './apollo';
+import client from './apollo/client';
 import './reset.css';
 import './index.css';
 
