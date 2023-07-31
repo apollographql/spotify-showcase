@@ -27,6 +27,7 @@ import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
 import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';
 import TrackLikeButtonCell from '../../components/TrackLikeButtonCell';
+import LikedSongsPlaylistCoverPhoto from '../../components/LikedSongsPlaylistCoverPhoto';
 
 type SavedTrackEdge = NonNullable<
   Get<CollectionTracksRouteQuery, 'me.tracks.edges[0]'>
@@ -135,13 +136,7 @@ export const RouteComponent = () => {
       <Page.Header
         title="Liked Songs"
         mediaType="playlist"
-        coverPhoto={
-          <GradientIcon
-            backgroundColor="linear-gradient(135deg,#450af5,#c4efd9)"
-            lucideIcon={Heart}
-            iconSize="100px"
-          />
-        }
+        coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="100px" />}
         details={[
           <EntityLink key={currentUser.user.id} entity={currentUser.user}>
             {currentUser.user.displayName}

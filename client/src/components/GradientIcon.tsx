@@ -5,7 +5,7 @@ import cx from 'classnames';
 type BackgroundColor = CSSProperties['backgroundColor'];
 type Size = CSSProperties['width'];
 
-interface GradientIconProps {
+export interface GradientIconProps {
   className?: string;
   backgroundColor: BackgroundColor;
   fill?: LucideProps['fill'];
