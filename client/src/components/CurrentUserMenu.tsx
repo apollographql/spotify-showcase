@@ -13,8 +13,6 @@ const CURRENT_USER_QUERY = gql`
       }
     }
   }
-
-  ${Avatar.fragments.user}
 `;
 
 const CurrentUserMenu = () => {
