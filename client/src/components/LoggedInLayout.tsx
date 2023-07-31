@@ -22,20 +22,13 @@ const LoggedInLayout = () => {
     <Suspense fallback={<LoadingState />}>
       <Container>
         <Sidebar />
-        <Main />
+        <Main>
+          <Header />
+          <Outlet />
+        </Main>
         <Playbar />
       </Container>
     </Suspense>
-  );
-};
-
-const Main = () => {
-  return (
-    <Layout.Main>
-      <Header />
-      <PlaybackStateSubscriber />
-      <Outlet />
-    </Layout.Main>
   );
 };
 
@@ -46,6 +39,19 @@ const Header = () => {
         <CurrentUserMenu />
       </div>
     </header>
+  );
+};
+
+interface MainProps {
+  children: ReactNode;
+}
+
+const Main = ({ children }: MainProps) => {
+  return (
+    <Layout.Main>
+      <PlaybackStateSubscriber />
+      {children}
+    </Layout.Main>
   );
 };
 
