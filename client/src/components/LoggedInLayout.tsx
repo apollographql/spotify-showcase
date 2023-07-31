@@ -59,6 +59,7 @@ const LoggedInLayout = () => {
 
   return (
     <>
+      <NotificationManager />
       <div
         onContextMenu={(e) => e.preventDefault()}
         className={
@@ -137,7 +138,6 @@ const LoggedInLayout = () => {
         </Layout.Main>
         <Playbar className="[grid-area:playbar]" />
       </div>
-      <NotificationManager />
     </>
   );
 };
