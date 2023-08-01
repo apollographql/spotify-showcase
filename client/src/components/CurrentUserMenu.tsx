@@ -2,6 +2,7 @@ import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import { CurrentUserQuery, CurrentUserQueryVariables } from '../types/api';
 import DropdownMenu from './DropdownMenu';
 import Avatar from './Avatar';
+import Skeleton from './Skeleton';
 
 const CURRENT_USER_QUERY: TypedDocumentNode<
   CurrentUserQuery,
@@ -57,6 +58,15 @@ const CurrentUserMenu = () => {
         <DropdownMenu.Item to="/logout">Logout</DropdownMenu.Item>
       </DropdownMenu.Menu>
     </DropdownMenu>
+  );
+};
+
+export const LoadingState = () => {
+  return (
+    <div className="flex items-center gap-2">
+      <Skeleton.Avatar size="2rem" />
+      <Skeleton.Text width="10ch" />
+    </div>
   );
 };
 

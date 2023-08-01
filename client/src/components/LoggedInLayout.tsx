@@ -15,7 +15,9 @@ import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import { randomBetween, range } from '../utils/common';
 import Skeleton from './Skeleton';
-import CurrentUserMenu from './CurrentUserMenu';
+import CurrentUserMenu, {
+  LoadingState as CurrentUserMenuLoadingState,
+} from './CurrentUserMenu';
 
 const LoggedInLayout = () => {
   return (
@@ -211,10 +213,7 @@ const LoadingState = () => {
       </Layout.Sidebar>
       <Layout.Main>
         <header className="flex items-center justify-end text-primary bg-transparent py-4 px-[var(--main-content--padding)] sticky top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
-          <div className="flex items-center gap-2">
-            <Skeleton.Avatar size="2rem" />
-            <Skeleton.Text width="10ch" />
-          </div>
+          <CurrentUserMenuLoadingState />
         </header>
       </Layout.Main>
       <PlaybarLoadingState />
