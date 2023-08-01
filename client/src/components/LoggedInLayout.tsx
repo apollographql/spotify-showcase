@@ -37,7 +37,7 @@ const LoggedInLayout = () => {
 
 const Header = () => {
   return (
-    <header className="flex items-center justify-end text-primary bg-transparent py-4 px-[var(--main-content--padding)] absolute top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
+    <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
       <div className="flex gap-4 items-center pointer-events-auto">
         <CurrentUserMenu />
       </div>
@@ -219,7 +219,7 @@ const LoadingState = () => {
     <Layout type="player">
       <SidebarLoadingState />
       <Layout.Main>
-        <header className="flex items-center justify-end text-primary bg-transparent py-4 px-[var(--main-content--padding)] absolute top-0 h-[var(--main-header--height)] w-full pointer-events-none flex-shrink-0 z-10">
+        <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
           <CurrentUserMenuLoadingState />
         </header>
       </Layout.Main>
