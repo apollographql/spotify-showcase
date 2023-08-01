@@ -17,6 +17,7 @@ import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
 import TrackLikeButtonCell from './TrackLikeButtonCell';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaylistTableProps {
   className?: string;
@@ -50,6 +51,51 @@ const parentOf = (playlistItem: PlaylistTrackEdge['node']) => {
 
   return playlistItem.album;
 };
+
+fragmentRegistry.register(gql`
+  fragment PlaylistTable_playlist on Playlist {
+    id
+    uri
+    owner {
+      id
+    }
+    tracks(offset: $offset) {
+      edges {
+        addedAt
+        node {
+          id
+          name
+          durationMs
+          uri
+
+          ... on Track {
+            album {
+              id
+              name
+            }
+
+            ...TrackNumberCell_track
+          }
+
+          ... on Episode {
+            releaseDate {
+              date
+              precision
+            }
+            show {
+              id
+              name
+            }
+          }
+
+          ...PlaylistTitleCell_playlistTrack
+        }
+      }
+    }
+
+    ...PlaylistTitleCell_playlist
+  }
+`);
 
 const PlaylistTable = ({
   className,
@@ -180,53 +226,6 @@ const PlaylistTable = ({
       }}
     />
   );
-};
-
-PlaylistTable.fragments = {
-  playlist: gql`
-    fragment PlaylistTable_playlist on Playlist {
-      id
-      uri
-      owner {
-        id
-      }
-      tracks(offset: $offset) {
-        edges {
-          addedAt
-          node {
-            id
-            name
-            durationMs
-            uri
-
-            ... on Track {
-              album {
-                id
-                name
-              }
-
-              ...TrackNumberCell_track
-            }
-
-            ... on Episode {
-              releaseDate {
-                date
-                precision
-              }
-              show {
-                id
-                name
-              }
-            }
-
-            ...PlaylistTitleCell_playlistTrack
-          }
-        }
-      }
-
-      ...PlaylistTitleCell_playlist
-    }
-  `,
 };
 
 const columns = [
