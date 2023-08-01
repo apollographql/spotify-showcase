@@ -23,8 +23,6 @@ const SEARCH_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${ArtistTile.fragments.artist}
 `;
 
 export const LoadingState = () => {

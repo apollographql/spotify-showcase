@@ -2,11 +2,22 @@ import { gql } from '@apollo/client';
 import { ArtistTile_artist as Artist } from '../types/api';
 import CoverPhoto from './CoverPhoto';
 import MediaTile from './MediaTile';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface ArtistTileProps {
   artist: Artist;
   animateIn?: boolean;
 }
+
+fragmentRegistry.register(gql`
+  fragment ArtistTile_artist on Artist {
+    id
+    name
+    images {
+      url
+    }
+  }
+`);
 
 const ArtistTile = ({ artist, animateIn }: ArtistTileProps) => {
   return (
@@ -23,18 +34,6 @@ const ArtistTile = ({ artist, animateIn }: ArtistTileProps) => {
       to={`/artists/${artist.id}`}
     />
   );
-};
-
-ArtistTile.fragments = {
-  artist: gql`
-    fragment ArtistTile_artist on Artist {
-      id
-      name
-      images {
-        url
-      }
-    }
-  `,
 };
 
 export default ArtistTile;

@@ -57,7 +57,6 @@ const ARTIST_ROUTE_QUERY = gql`
     }
   }
 
-  ${ArtistTile.fragments.artist}
   ${ArtistTopTracks.fragments.tracks}
 `;
 
