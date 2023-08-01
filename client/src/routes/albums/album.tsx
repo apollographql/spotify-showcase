@@ -54,8 +54,6 @@ const ALBUM_ROUTE_QUERY = gql`
       ...AlbumTracksTable_album
     }
   }
-
-  ${AlbumTracksTable.fragments.album}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`

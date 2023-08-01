@@ -12,6 +12,7 @@ import TrackNumberCell from './TrackNumberCell';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import { useMemo } from 'react';
 import TrackLikeButtonCell from './TrackLikeButtonCell';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
 
@@ -23,6 +24,33 @@ interface AlbumTracksTableProps {
 interface AlbumTracksTableMeta {
   tracksContains: Map<string, boolean>;
 }
+
+fragmentRegistry.register(gql`
+  fragment AlbumTracksTable_album on Album {
+    id
+    uri
+    tracks {
+      edges {
+        node {
+          id
+          uri
+          durationMs
+          trackNumber
+          artists {
+            id
+          }
+
+          ...AlbumTrackTitleCell_track
+        }
+      }
+    }
+
+    ...AlbumTrackTitleCell_album
+  }
+
+  ${AlbumTrackTitleCell.fragments.album}
+  ${AlbumTrackTitleCell.fragments.track}
+`);
 
 const columnHelper = createColumnHelper<Track>();
 
@@ -146,35 +174,6 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
       }}
     />
   );
-};
-
-AlbumTracksTable.fragments = {
-  album: gql`
-    fragment AlbumTracksTable_album on Album {
-      id
-      uri
-      tracks {
-        edges {
-          node {
-            id
-            uri
-            durationMs
-            trackNumber
-            artists {
-              id
-            }
-
-            ...AlbumTrackTitleCell_track
-          }
-        }
-      }
-
-      ...AlbumTrackTitleCell_album
-    }
-
-    ${AlbumTrackTitleCell.fragments.album}
-    ${AlbumTrackTitleCell.fragments.track}
-  `,
 };
 
 export default AlbumTracksTable;

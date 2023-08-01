@@ -41,8 +41,6 @@ const TRACK_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${AlbumTracksTable.fragments.album}
 `;
 
 export const RouteComponent = () => {
