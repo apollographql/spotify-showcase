@@ -223,9 +223,9 @@ PlaylistTable.fragments = {
           }
         }
       }
-    }
 
-    ${PlaylistTitleCell.fragments.playlistTrack}
+      ...PlaylistTitleCell_playlist
+    }
   `,
 };
 
