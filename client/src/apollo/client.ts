@@ -21,6 +21,7 @@ import { getAccessToken } from '../auth';
 import { version } from '../../package.json';
 import { persistedQueryModeVar } from '../vars';
 import { fragmentRegistry } from './fragmentRegistry';
+import { resolvers } from './resolvers';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 
@@ -75,6 +76,7 @@ export default new ApolloClient({
   link: from([httpAuthLink, persistedQueries, httpLink]),
   connectToDevTools: true,
   name: 'Spotify Showcase Website',
+  resolvers,
   version,
   cache: new InMemoryCache({
     fragments: fragmentRegistry,

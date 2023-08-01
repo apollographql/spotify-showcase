@@ -337,12 +337,18 @@ const config: CodegenConfig = {
       plugins: ['typescript', 'typescript-resolvers'],
     },
     './client/src/apollo/introspection.json': {
-      schema: './client/schema.graphql',
+      schema: [
+        './client/schema.graphql',
+        './client/src/apollo/localSchema.graphql',
+      ],
       documents: ['client/src/**/*.{ts,tsx}'],
       plugins: ['fragment-matcher'],
     },
     './client/src/types/api.ts': {
-      schema: './client/schema.graphql',
+      schema: [
+        './client/schema.graphql',
+        './client/src/apollo/localSchema.graphql',
+      ],
       documents: ['client/src/**/*.{ts,tsx}'],
       config: {
         avoidOptionals: {

@@ -1,0 +1,9 @@
+type Image {
+  vibrantColor: RGB
+}
+
+type RGB {
+  red: Int!
+  green: Int!
+  blue: Int!
+}
