@@ -10,9 +10,9 @@ import HeaderDetails from './HeaderDetails';
 import SkeletonHeader from './SkeletonHeader';
 import Title from './Title';
 import MediaType from './MediaType';
-import useBackgroundColor from '../../hooks/useBackgroundColor';
 
 interface PageProps {
+  bgColor?: string | null;
   children?: ReactNode;
   className?: string;
 }
@@ -21,13 +21,11 @@ interface BackdropStyle extends CSSProperties {
   '--backdrop-color': string;
 }
 
-const Page = ({ children, className }: PageProps) => {
-  const [backgroundColor] = useBackgroundColor();
-
+const Page = ({ bgColor, children, className }: PageProps) => {
   return (
     <div
       className={cx(className, 'flex flex-1 flex-col')}
-      style={{ '--backdrop-color': backgroundColor } as BackdropStyle}
+      style={{ '--backdrop-color': bgColor } as BackdropStyle}
     >
       {children}
     </div>

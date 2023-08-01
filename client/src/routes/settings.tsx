@@ -16,8 +16,6 @@ import Page from '../components/Page';
 import Skeleton from '../components/Skeleton';
 import useUpdateFieldConfigMutation from '../mutations/useUpdateFieldConfigMutation';
 import { useState } from 'react';
-import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
-import { DEFAULT_BACKGROUND_COLOR } from '../constants';
 import AppSettingsForm from '../components/AppSettingsForm';
 
 const SETTINGS_QUERY = gql`
@@ -90,8 +88,6 @@ const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
 `;
 
 export const RouteComponent = () => {
-  useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
-
   const [queryRef] = useBackgroundQuery(LIMITED_INTROSPECTION_QUERY, {
     fetchPolicy: 'no-cache',
   });

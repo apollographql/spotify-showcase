@@ -6,7 +6,6 @@ import {
   ShowRouteQueryVariables,
   ShowRoute_playbackState as PlaybackState,
 } from '../../types/api';
-import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import CoverPhoto from '../../components/CoverPhoto';
 import DelimitedList from '../../components/DelimitedList';
 import EntityLink from '../../components/EntityLink';
@@ -42,6 +41,7 @@ const SHOW_ROUTE_QUERY = gql`
       }
       images {
         url
+        vibrantColor(format: RGB, alpha: 0.9) @client
       }
     }
   }
@@ -80,12 +80,8 @@ export const RouteComponent = () => {
   const coverPhoto = show.images[0];
   const upNext = show.episodes?.edges[0].node;
 
-  useSetBackgroundColorFromImage(coverPhoto, {
-    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
-  });
-
   return (
-    <Page>
+    <Page bgColor={coverPhoto.vibrantColor}>
       <Page.Header
         mediaType="podcast"
         coverPhoto={<CoverPhoto image={coverPhoto} />}

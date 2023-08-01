@@ -12,8 +12,7 @@ import ErrorTitle from './ErrorTitle';
 import ErrorDescription from './ErrorDescription';
 import ErrorActionLink from './ErrorActionLink';
 import Layout from './Layout';
-import { DEFAULT_BACKGROUND_COLOR, NOT_IMPLEMENTED_ROUTES } from '../constants';
-import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
+import { NOT_IMPLEMENTED_ROUTES } from '../constants';
 
 const didBecomeUnauthenticated = (error: unknown) => {
   if (
@@ -40,8 +39,6 @@ const matchesNotImplementedRoute = (location: Location) => {
 
 const RootErrorBoundary = () => {
   const error = useRouteError();
-
-  useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
 
   return (
     <Layout type="fullscreen">

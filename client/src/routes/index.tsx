@@ -12,8 +12,6 @@ import PlaylistTile from '../components/PlaylistTile';
 import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
-import { DEFAULT_BACKGROUND_COLOR } from '../constants';
-import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
@@ -47,7 +45,6 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
 const containerStyles = 'bg-black-base p-[var(--main-content--padding)] flex-1';
 
 const LoggedIn = () => {
-  useSetBackgroundColor('#1A101C');
   // Use startOfHour to prevent infinite loop with a brand new date each time
   // this component unsuspends
   const timestamp = startOfHour(new Date()).toISOString();
@@ -82,8 +79,6 @@ const PlaylistTileGrid = ({
 };
 
 const LoggedOut = () => {
-  useSetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
-
   return (
     <div className={cx(containerStyles)}>
       <div className="flex flex-col max-w-3xl my-0 mx-auto">

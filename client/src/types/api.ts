@@ -234,6 +234,10 @@ export type ArtistAlbumsConnection = {
   pageInfo: PageInfo;
 };
 
+export enum ColorFormat {
+  Rgb = 'RGB',
+}
+
 export type Contains = {
   __typename: 'Contains';
   /**
@@ -585,8 +589,14 @@ export type Image = {
   height: Maybe<Scalars['Int']['output']>;
   /** The source URL of the image. */
   url: Scalars['String']['output'];
+  vibrantColor: Maybe<Scalars['String']['output']>;
   /** The image width in pixels. */
   width: Maybe<Scalars['Int']['output']>;
+};
+
+export type ImagevibrantColorArgs = {
+  alpha?: InputMaybe<Scalars['Float']['input']>;
+  format: ColorFormat;
 };
 
 export type Mutation = {
@@ -3350,7 +3360,11 @@ export type AlbumRouteQuery = {
       text: string;
       type: CopyrightType | null;
     }>;
-    images: Array<{ __typename: 'Image'; url: string }>;
+    images: Array<{
+      __typename: 'Image';
+      url: string;
+      vibrantColor: string | null;
+    }>;
     releaseDate: {
       __typename: 'ReleaseDate';
       date: string;
@@ -3756,7 +3770,11 @@ export type EpisodeRouteQuery = {
       __typename: 'Show';
       id: string;
       name: string;
-      images: Array<{ __typename: 'Image'; url: string }>;
+      images: Array<{
+        __typename: 'Image';
+        url: string;
+        vibrantColor: string | null;
+      }>;
     };
     resumePoint: {
       __typename: 'ResumePoint';
@@ -3799,7 +3817,11 @@ export type PlaylistQuery = {
     id: string;
     name: string;
     uri: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
+    images: Array<{
+      __typename: 'Image';
+      url: string;
+      vibrantColor: string | null;
+    }>;
     owner: { __typename: 'User'; id: string; displayName: string | null };
     tracks: {
       __typename: 'PlaylistTrackConnection';
@@ -4176,7 +4198,11 @@ export type ShowRouteQuery = {
         };
       }>;
     } | null;
-    images: Array<{ __typename: 'Image'; url: string }>;
+    images: Array<{
+      __typename: 'Image';
+      url: string;
+      vibrantColor: string | null;
+    }>;
   } | null;
 };
 
@@ -4205,7 +4231,11 @@ export type TrackRouteQuery = {
       albumType: AlbumType;
       name: string;
       uri: string;
-      images: Array<{ __typename: 'Image'; url: string }>;
+      images: Array<{
+        __typename: 'Image';
+        url: string;
+        vibrantColor: string | null;
+      }>;
       tracks: {
         __typename: 'AlbumTrackConnection';
         edges: Array<{

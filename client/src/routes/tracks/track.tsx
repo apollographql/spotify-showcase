@@ -9,7 +9,6 @@ import EntityLink from '../../components/EntityLink';
 import Duration from '../../components/Duration';
 import Page from '../../components/Page';
 import TileGrid from '../../components/TileGrid';
-import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import Flex from '../../components/Flex';
 import useSavedTracksContains from '../../hooks/useSavedTracksContains';
 
@@ -25,6 +24,7 @@ const TRACK_ROUTE_QUERY = gql`
         name
         images {
           url
+          vibrantColor(format: RGB, alpha: 0.9) @client
         }
 
         ...AlbumTracksTable_album
@@ -68,12 +68,8 @@ export const RouteComponent = () => {
     album.tracks?.edges.map((edge) => edge.node.id) ?? []
   );
 
-  useSetBackgroundColorFromImage(coverPhoto, {
-    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
-  });
-
   return (
-    <Page>
+    <Page bgColor={coverPhoto.vibrantColor}>
       <Page.Header
         mediaType="song"
         coverPhoto={<CoverPhoto image={coverPhoto} />}

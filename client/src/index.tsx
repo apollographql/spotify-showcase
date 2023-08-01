@@ -4,7 +4,6 @@ import { ApolloProvider } from '@apollo/client';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
-import BackgroundColorProvider from './components/BackgroundColorProvider';
 import router from './router';
 import client from './apollo/client';
 import './reset.css';
@@ -23,9 +22,7 @@ root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Tooltip.Provider delayDuration={300}>
-        <BackgroundColorProvider>
-          <RouterProvider router={router} />
-        </BackgroundColorProvider>
+        <RouterProvider router={router} />
       </Tooltip.Provider>
     </ApolloProvider>
   </React.StrictMode>
