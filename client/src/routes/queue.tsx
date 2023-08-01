@@ -74,7 +74,6 @@ const QUEUE_ROUTE_QUERY = gql`
     }
   }
 
-  ${EpisodeDetailsCell.fragments.episode}
   ${TrackNumberCell.fragments.track}
 `;
 

@@ -4,10 +4,26 @@ import { thumbnail } from '../utils/image';
 import CoverPhoto from './CoverPhoto';
 import EntityLink from './EntityLink';
 import ExplicitBadge from './ExplicitBadge';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface EpisodeDetailsCellProps {
   episode: Episode;
 }
+
+fragmentRegistry.register(gql`
+  fragment EpisodeDetailsCell_episode on Episode {
+    id
+    explicit
+    name
+    show {
+      id
+      publisher
+      images {
+        url
+      }
+    }
+  }
+`);
 
 const EpisodeDetailsCell = ({ episode }: EpisodeDetailsCellProps) => {
   return (
@@ -24,23 +40,6 @@ const EpisodeDetailsCell = ({ episode }: EpisodeDetailsCellProps) => {
       </div>
     </div>
   );
-};
-
-EpisodeDetailsCell.fragments = {
-  episode: gql`
-    fragment EpisodeDetailsCell_episode on Episode {
-      id
-      explicit
-      name
-      show {
-        id
-        publisher
-        images {
-          url
-        }
-      }
-    }
-  `,
 };
 
 export default EpisodeDetailsCell;
