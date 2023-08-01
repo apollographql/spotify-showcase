@@ -9,7 +9,6 @@ import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
-import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import PlaylistTable from '../../components/PlaylistTable';
 import PlayButton from '../../components/PlayButton';
 import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';
@@ -27,6 +26,7 @@ const PLAYLIST_QUERY = gql`
       uri
       images {
         url
+        vibrantColor(format: RGB, alpha: 0.9) @client
       }
       owner {
         id
@@ -87,12 +87,8 @@ export const RouteComponent = () => {
   const isPlaying = playbackState?.isPlaying ?? false;
   const isPlayingPlaylist = playbackState?.context?.uri === playlist.uri;
 
-  useSetBackgroundColorFromImage(coverPhoto, {
-    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
-  });
-
   return (
-    <Page>
+    <Page bgColor={coverPhoto.vibrantColor}>
       <Page.Header
         mediaType="playlist"
         coverPhoto={<CoverPhoto image={coverPhoto} />}
