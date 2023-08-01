@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ReactNode, Suspense } from 'react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import {
   gql,
   useBackgroundQuery,
@@ -17,6 +17,7 @@ import useSetBackgroundColor from '../hooks/useSetBackgroundColor';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
+import Suspense from '../components/Suspense';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();

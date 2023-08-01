@@ -1,4 +1,4 @@
-import { ReactNode, Suspense, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
@@ -18,6 +18,7 @@ import Skeleton from './Skeleton';
 import CurrentUserMenu, {
   LoadingState as CurrentUserMenuLoadingState,
 } from './CurrentUserMenu';
+import Suspense from './Suspense';
 
 const LoggedInLayout = () => {
   return (
