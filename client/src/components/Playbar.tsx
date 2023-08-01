@@ -29,7 +29,6 @@ import VolumeBar from './VolumeBar';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePlaybackState from '../hooks/usePlaybackState';
 import QueueControlButton from './QueueControlButton';
-import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 
