@@ -1,19 +1,37 @@
 import Switch from './Switch';
-import { persistedQueryModeVar } from '../vars';
+import { persistedQueryModeVar, highlightSuspenseBoundariesVar } from '../vars';
 import { useReactiveVar } from '@apollo/client';
 import SettingsField from './SettingsField';
 
 const AppSettingsForm = () => {
   const persistedQueryMode = useReactiveVar(persistedQueryModeVar);
+  const highlightSuspenseBoundaries = useReactiveVar(
+    highlightSuspenseBoundariesVar
+  );
 
   return (
-    <SettingsField
-      title="Persisted Query Mode"
-      description="Run queries as persisted queries"
-      control={
-        <Switch checked={persistedQueryMode} onChange={persistedQueryModeVar} />
-      }
-    />
+    <div className="flex flex-col gap-4">
+      <SettingsField
+        title="Persisted Query Mode"
+        description="Run queries as persisted queries"
+        control={
+          <Switch
+            checked={persistedQueryMode}
+            onChange={persistedQueryModeVar}
+          />
+        }
+      />
+      <SettingsField
+        title="Highlight Suspense Boundaries"
+        description="Display a red border around React suspense boundaries to indicate loading states"
+        control={
+          <Switch
+            checked={highlightSuspenseBoundaries}
+            onChange={highlightSuspenseBoundariesVar}
+          />
+        }
+      />
+    </div>
   );
 };
 

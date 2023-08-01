@@ -25,7 +25,7 @@ const makePersistedVar = <TValue>(
 export const isLoggedInVar = makeVar(Boolean(readToken()));
 export const notificationVar = makeVar<Notification | null>(null);
 
-export const highlightSuspenseBoundaries = makePersistedVar(
+export const highlightSuspenseBoundariesVar = makePersistedVar(
   STORAGE_KEYS.HIGHLIGHT_SUSPENSE_BOUNDARIES,
   false
 );
