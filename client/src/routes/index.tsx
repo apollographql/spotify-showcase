@@ -38,8 +38,6 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
       }
     }
   }
-
-  ${PlaylistTile.fragments.playlist}
 `;
 
 const containerStyles = 'bg-black-base p-[var(--main-content--padding)] flex-1';

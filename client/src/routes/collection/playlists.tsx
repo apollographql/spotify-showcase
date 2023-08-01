@@ -60,7 +60,6 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
   }
 
   ${LikedSongsTile.fragments.connection}
-  ${PlaylistTile.fragments.playlist}
 `;
 
 const PAGINATED_QUERY = gql`
@@ -82,8 +81,6 @@ const PAGINATED_QUERY = gql`
       }
     }
   }
-
-  ${PlaylistTile.fragments.playlist}
 `;
 
 export const RouteComponent = () => {

@@ -4,10 +4,23 @@ import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
 import CoverPhoto from './CoverPhoto';
 import MediaTile from './MediaTile';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaylistTileProps {
   playlist: Playlist;
 }
+
+fragmentRegistry.register(gql`
+  fragment PlaylistTile_playlist on Playlist {
+    id
+    name
+    description
+    uri
+    images {
+      url
+    }
+  }
+`);
 
 const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
   return (
@@ -36,20 +49,6 @@ const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
       />
     </ContextMenu>
   );
-};
-
-PlaylistTile.fragments = {
-  playlist: gql`
-    fragment PlaylistTile_playlist on Playlist {
-      id
-      name
-      description
-      uri
-      images {
-        url
-      }
-    }
-  `,
 };
 
 export default PlaylistTile;
