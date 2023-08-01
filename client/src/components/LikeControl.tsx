@@ -8,6 +8,7 @@ import LikeButton, { LikeButtonProps } from './LikeButton';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
 import { useDeferredValue } from 'react';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
@@ -23,6 +24,13 @@ const LIKE_CONTROL_QUERY = gql`
     }
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment LikeControl_playbackItem on PlaybackItem {
+    __typename
+    id
+  }
+`);
 
 const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
   const deferredId = useDeferredValue(playbackItem?.id);
@@ -68,15 +76,6 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
       }}
     />
   );
-};
-
-LikeControl.fragments = {
-  playbackItem: gql`
-    fragment LikeControl_playbackItem on PlaybackItem {
-      __typename
-      id
-    }
-  `,
 };
 
 export default LikeControl;
