@@ -1,7 +1,5 @@
 import Vibrant from 'node-vibrant';
-
-type Palette = Awaited<ReturnType<Vibrant['getPalette']>>;
-type Swatch = Palette[string];
+import { Swatch } from 'node-vibrant/lib/color';
 
 interface Image {
   __typename: 'Image';
