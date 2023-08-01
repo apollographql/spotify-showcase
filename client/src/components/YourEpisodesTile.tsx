@@ -2,11 +2,30 @@ import { gql } from '@apollo/client';
 import cx from 'classnames';
 import { YourEpisodesTile_connection as Connection } from '../types/api';
 import DelimitedList from './DelimitedList';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface YourEpisodesTileProps {
   className?: string;
   connection: Connection;
 }
+
+fragmentRegistry.register(gql`
+  fragment YourEpisodesTile_connection on SavedEpisodesConnection {
+    pageInfo {
+      total
+    }
+    edges {
+      node {
+        id
+        name
+        show {
+          id
+          name
+        }
+      }
+    }
+  }
+`);
 
 const YourEpisodesTile = ({ className, connection }: YourEpisodesTileProps) => {
   const { pageInfo, edges } = connection;
@@ -37,26 +56,6 @@ const YourEpisodesTile = ({ className, connection }: YourEpisodesTileProps) => {
       </div>
     </div>
   );
-};
-
-YourEpisodesTile.fragments = {
-  connection: gql`
-    fragment YourEpisodesTile_connection on SavedEpisodesConnection {
-      pageInfo {
-        total
-      }
-      edges {
-        node {
-          id
-          name
-          show {
-            id
-            name
-          }
-        }
-      }
-    }
-  `,
 };
 
 export default YourEpisodesTile;
