@@ -43,7 +43,6 @@ const TRACK_ROUTE_QUERY = gql`
   }
 
   ${AlbumTracksTable.fragments.album}
-  ${ArtistTopTracks.fragments.tracks}
 `;
 
 export const RouteComponent = () => {
