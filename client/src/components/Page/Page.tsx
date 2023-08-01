@@ -13,6 +13,7 @@ import MediaType from './MediaType';
 import useBackgroundColor from '../../hooks/useBackgroundColor';
 
 interface PageProps {
+  bgColor?: string | null;
   children?: ReactNode;
   className?: string;
 }
@@ -21,13 +22,15 @@ interface BackdropStyle extends CSSProperties {
   '--backdrop-color': string;
 }
 
-const Page = ({ children, className }: PageProps) => {
+const Page = ({ bgColor, children, className }: PageProps) => {
   const [backgroundColor] = useBackgroundColor();
 
   return (
     <div
       className={cx(className, 'flex flex-1 flex-col')}
-      style={{ '--backdrop-color': backgroundColor } as BackdropStyle}
+      style={
+        { '--backdrop-color': bgColor ?? backgroundColor } as BackdropStyle
+      }
     >
       {children}
     </div>
