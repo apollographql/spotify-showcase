@@ -58,8 +58,6 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${LikedSongsTile.fragments.connection}
 `;
 
 const PAGINATED_QUERY = gql`
