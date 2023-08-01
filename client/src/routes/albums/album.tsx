@@ -8,7 +8,6 @@ import {
 import AlbumTracksTable from '../../components/AlbumTracksTable';
 import Page from '../../components/Page';
 import EntityLink from '../../components/EntityLink';
-import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 import { yearOfRelease } from '../../utils/releaseDate';
 import { pluralize } from '../../utils/string';
@@ -45,6 +44,7 @@ const ALBUM_ROUTE_QUERY = gql`
       }
       images {
         url
+        vibrantColor(format: RGB, alpha: 0.9) @client
       }
       releaseDate {
         date
@@ -98,12 +98,8 @@ export const RouteComponent = () => {
   const isPlayingAlbum = playbackState?.context?.uri === album.uri;
   const isLiked = me?.albumsContains?.[0] ?? false;
 
-  useSetBackgroundColorFromImage(coverPhoto, {
-    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
-  });
-
   return (
-    <Page>
+    <Page bgColor={coverPhoto.vibrantColor}>
       <Page.Header
         coverPhoto={<CoverPhoto image={coverPhoto} />}
         title={album.name}

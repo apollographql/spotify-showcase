@@ -3360,7 +3360,11 @@ export type AlbumRouteQuery = {
       text: string;
       type: CopyrightType | null;
     }>;
-    images: Array<{ __typename: 'Image'; url: string }>;
+    images: Array<{
+      __typename: 'Image';
+      url: string;
+      vibrantColor: string | null;
+    }>;
     releaseDate: {
       __typename: 'ReleaseDate';
       date: string;
