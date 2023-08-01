@@ -97,8 +97,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
   }
 `;
 
-fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
-
 const Playbar = () => {
   const { data } = useSuspenseQuery(PLAYBAR_QUERY);
   const [resumePlayback] = useResumePlaybackMutation();
