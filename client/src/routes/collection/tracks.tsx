@@ -66,7 +66,6 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
     }
   }
 
-  ${TrackTitleCell.fragments.track}
   ${TrackNumberCell.fragments.track}
 `;
 

@@ -11,6 +11,7 @@ import CommaSeparatedList from './CommaSeparatedList';
 import usePlaybackState from '../hooks/usePlaybackState';
 import ExplicitBadge from './ExplicitBadge';
 import { thumbnail } from '../utils/image';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface Context {
   uri: string;
@@ -32,6 +33,25 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     }
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment TrackTitleCell_track on Track {
+    id
+    explicit
+    name
+    uri
+    album {
+      id
+      images {
+        url
+      }
+    }
+    artists {
+      id
+      name
+    }
+  }
+`);
 
 const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
   const playbackState = usePlaybackState<PlaybackState>({
@@ -73,27 +93,6 @@ const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
       </Flex>
     </Flex>
   );
-};
-
-TrackTitleCell.fragments = {
-  track: gql`
-    fragment TrackTitleCell_track on Track {
-      id
-      explicit
-      name
-      uri
-      album {
-        id
-        images {
-          url
-        }
-      }
-      artists {
-        id
-        name
-      }
-    }
-  `,
 };
 
 export default TrackTitleCell;

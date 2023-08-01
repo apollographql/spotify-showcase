@@ -76,7 +76,6 @@ const QUEUE_ROUTE_QUERY = gql`
 
   ${EpisodeDetailsCell.fragments.episode}
   ${TrackNumberCell.fragments.track}
-  ${TrackTitleCell.fragments.track}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`
