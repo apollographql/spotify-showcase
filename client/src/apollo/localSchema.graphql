@@ -1,9 +1,7 @@
-type Image {
-  vibrantColor: RGB
+extend type Image {
+  vibrantColor(format: ColorFormat!, alpha: Float): String
 }
 
-type RGB {
-  red: Int!
-  green: Int!
-  blue: Int!
+enum ColorFormat {
+  RGB
 }
