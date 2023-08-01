@@ -5,11 +5,27 @@ import CoverPhoto from './CoverPhoto';
 import ExplicitBadge from './ExplicitBadge';
 import Duration from './Duration';
 import Flex from './Flex';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface ArtistTopTracksProps {
   className?: string;
   tracks: Track[];
 }
+
+fragmentRegistry.register(gql`
+  fragment ArtistTopTracks_tracks on Track {
+    id
+    durationMs
+    explicit
+    name
+    album {
+      id
+      images {
+        url
+      }
+    }
+  }
+`);
 
 const ArtistTopTracks = ({ className, tracks }: ArtistTopTracksProps) => {
   return (
@@ -40,23 +56,6 @@ const ArtistTopTracks = ({ className, tracks }: ArtistTopTracksProps) => {
       })}
     </div>
   );
-};
-
-ArtistTopTracks.fragments = {
-  tracks: gql`
-    fragment ArtistTopTracks_tracks on Track {
-      id
-      durationMs
-      explicit
-      name
-      album {
-        id
-        images {
-          url
-        }
-      }
-    }
-  `,
 };
 
 export default ArtistTopTracks;

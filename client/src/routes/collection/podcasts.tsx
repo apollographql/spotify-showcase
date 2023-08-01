@@ -38,8 +38,6 @@ const COLLECTION_PODCASTS_ROUTE_QUERY: TypedDocumentNode<
       }
     }
   }
-
-  ${YourEpisodesTile.fragments.connection}
 `;
 
 const PAGINATED_QUERY = gql`

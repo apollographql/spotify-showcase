@@ -9,6 +9,7 @@ import CommaSeparatedList from './CommaSeparatedList';
 import EntityLink from './EntityLink';
 import ExplicitBadge from './ExplicitBadge';
 import Flex from './Flex';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface AlbumTrackTitleCellProps {
   album: Album;
@@ -26,6 +27,23 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     }
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment AlbumTrackTitleCell_album on Album {
+    uri
+  }
+
+  fragment AlbumTrackTitleCell_track on Track {
+    id
+    name
+    uri
+    explicit
+    artists {
+      id
+      name
+    }
+  }
+`);
 
 const AlbumTrackTitleCell = ({ album, track }: AlbumTrackTitleCellProps) => {
   const playbackState = usePlaybackState<PlaybackState>({
@@ -59,26 +77,6 @@ const AlbumTrackTitleCell = ({ album, track }: AlbumTrackTitleCellProps) => {
       </Flex>
     </Flex>
   );
-};
-
-AlbumTrackTitleCell.fragments = {
-  album: gql`
-    fragment AlbumTrackTitleCell_album on Album {
-      uri
-    }
-  `,
-  track: gql`
-    fragment AlbumTrackTitleCell_track on Track {
-      id
-      name
-      uri
-      explicit
-      artists {
-        id
-        name
-      }
-    }
-  `,
 };
 
 export default AlbumTrackTitleCell;

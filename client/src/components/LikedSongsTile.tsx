@@ -9,6 +9,7 @@ import DelimitedList from './DelimitedList';
 import PlayButton from './PlayButton';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
 import usePlaybackState from '../hooks/usePlaybackState';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface CurrentUser {
   id: string;
@@ -28,6 +29,24 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     }
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment LikedSongsTile_connection on SavedTracksConnection {
+    pageInfo {
+      total
+    }
+    edges {
+      node {
+        id
+        name
+        artists {
+          id
+          name
+        }
+      }
+    }
+  }
+`);
 
 const LikedSongsTile = ({
   className,
@@ -92,26 +111,6 @@ const LikedSongsTile = ({
       />
     </Link>
   );
-};
-
-LikedSongsTile.fragments = {
-  connection: gql`
-    fragment LikedSongsTile_connection on SavedTracksConnection {
-      pageInfo {
-        total
-      }
-      edges {
-        node {
-          id
-          name
-          artists {
-            id
-            name
-          }
-        }
-      }
-    }
-  `,
 };
 
 export default LikedSongsTile;

@@ -26,8 +26,6 @@ const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${AlbumTile.fragments.album}
 `;
 
 export const RouteComponent = () => {

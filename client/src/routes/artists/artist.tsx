@@ -56,10 +56,6 @@ const ARTIST_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${AlbumTile.fragments.album}
-  ${ArtistTile.fragments.artist}
-  ${ArtistTopTracks.fragments.tracks}
 `;
 
 const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {

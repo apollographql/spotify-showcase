@@ -44,8 +44,6 @@ const PLAYLIST_QUERY = gql`
       ...PlaylistTable_playlist
     }
   }
-
-  ${PlaylistTable.fragments.playlist}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`

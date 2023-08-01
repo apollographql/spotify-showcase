@@ -12,6 +12,7 @@ import {
 } from '../types/api';
 import usePlaybackState from '../hooks/usePlaybackState';
 import ExplicitBadge from './ExplicitBadge';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaylistTitleCellProps {
   playlist: Playlist;
@@ -29,6 +30,45 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     }
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment PlaylistTitleCell_playlist on Playlist {
+    id
+    uri
+  }
+
+  fragment PlaylistTitleCell_playlistTrack on PlaylistTrack {
+    id
+    name
+    uri
+
+    ... on Episode {
+      explicit
+      show {
+        id
+        publisher
+        images {
+          url
+        }
+      }
+    }
+
+    ... on Track {
+      explicit
+      artists {
+        id
+        name
+      }
+      album {
+        id
+        name
+        images {
+          url
+        }
+      }
+    }
+  }
+`);
 
 const PlaylistTitleCell = ({
   playlist,
@@ -84,48 +124,6 @@ const PlaylistTitleCell = ({
       </Flex>
     </Flex>
   );
-};
-
-PlaylistTitleCell.fragments = {
-  playlist: gql`
-    fragment PlaylistTitleCell_playlist on Playlist {
-      id
-      uri
-    }
-  `,
-  playlistTrack: gql`
-    fragment PlaylistTitleCell_playlistTrack on PlaylistTrack {
-      id
-      name
-      uri
-
-      ... on Episode {
-        explicit
-        show {
-          id
-          publisher
-          images {
-            url
-          }
-        }
-      }
-
-      ... on Track {
-        explicit
-        artists {
-          id
-          name
-        }
-        album {
-          id
-          name
-          images {
-            url
-          }
-        }
-      }
-    }
-  `,
 };
 
 export default PlaylistTitleCell;

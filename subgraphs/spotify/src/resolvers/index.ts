@@ -8,6 +8,7 @@ import { AlbumTrackEdge } from './AlbumTrackEdge';
 import { AlbumType } from './AlbumType';
 import { Artist } from './Artist';
 import { ArtistAlbumEdge } from './ArtistAlbumEdge';
+import { ArtistAlbumsConnection } from './ArtistAlbumsConnection';
 import { CountryCode } from './CountryCode';
 import { CurrentUser } from './CurrentUser';
 import { CurrentlyPlaying } from './CurrentlyPlaying';
@@ -93,6 +94,7 @@ const actualResolvers = {
   AlbumType,
   Artist,
   ArtistAlbumEdge,
+  ArtistAlbumsConnection,
   CountryCode,
   CurrentlyPlaying,
   CurrentUser,

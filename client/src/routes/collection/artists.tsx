@@ -26,8 +26,6 @@ const COLLECTION_ARTISTS_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${ArtistTile.fragments.artist}
 `;
 
 export const RouteComponent = () => {
