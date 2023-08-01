@@ -5,7 +5,7 @@ import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
 import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
-import { RepeatMode, SidebarQuery, SidebarQueryVariables } from '../types/api';
+import { SidebarQuery, SidebarQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
@@ -16,18 +16,6 @@ import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import { randomBetween, range } from '../utils/common';
 import Skeleton from './Skeleton';
 import CurrentUserMenu from './CurrentUserMenu';
-import LikeButton from './LikeButton';
-import PlayButton from './PlayButton';
-import ShufflePlaybackControl from './ShufflePlaybackControl';
-import SkipToPreviousControl from './SkipToPreviousControl';
-import SkipToNextControl from './SkipToNextControl';
-import PlaybackItemProgressBar from './PlaybackItemProgressBar';
-import RepeatControl from './RepeatControl';
-import QueueControlButton from './QueueControlButton';
-import PlaybarControlButton from './PlaybarControlButton';
-import DeviceIcon from './DeviceIcon';
-import MuteControl from './MuteControl';
-import VolumeBar from './VolumeBar';
 
 const LoggedInLayout = () => {
   return (
