@@ -4194,7 +4194,11 @@ export type ShowRouteQuery = {
         };
       }>;
     } | null;
-    images: Array<{ __typename: 'Image'; url: string }>;
+    images: Array<{
+      __typename: 'Image';
+      url: string;
+      vibrantColor: string | null;
+    }>;
   } | null;
 };
 
