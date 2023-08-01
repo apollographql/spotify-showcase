@@ -14,3 +14,8 @@ export const range = (lower: number, upper: number) => {
 export const stripSingleLineBreak = (content: string) => {
   return content.replace(/(?<!\n)\n(?!\n)/g, ' ').trim();
 };
+
+// Returns `undefined` if the value is `null`
+export const maybe = <T>(value: T | null | undefined) => {
+  return value ?? undefined;
+};
