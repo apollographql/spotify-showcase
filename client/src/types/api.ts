@@ -4227,7 +4227,11 @@ export type TrackRouteQuery = {
       albumType: AlbumType;
       name: string;
       uri: string;
-      images: Array<{ __typename: 'Image'; url: string }>;
+      images: Array<{
+        __typename: 'Image';
+        url: string;
+        vibrantColor: string | null;
+      }>;
       tracks: {
         __typename: 'AlbumTrackConnection';
         edges: Array<{
