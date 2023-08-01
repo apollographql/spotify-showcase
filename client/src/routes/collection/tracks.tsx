@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { gql, useSuspenseQuery } from '@apollo/client';
 import { Get } from 'type-fest';
-import { Heart } from 'lucide-react';
 import { createColumnHelper } from '@tanstack/react-table';
 import {
   CollectionTracksRouteQuery,
@@ -11,12 +10,10 @@ import {
 import DateTime from '../../components/DateTime';
 import Flex from '../../components/Flex';
 import Page from '../../components/Page';
-import GradientIcon from '../../components/GradientIcon';
 import Skeleton from '../../components/Skeleton';
 import PlayButton from '../../components/PlayButton';
 import Table from '../../components/Table';
 import TrackTitleCell from '../../components/TrackTitleCell';
-import useSetBackgroundColor from '../../hooks/useSetBackgroundColor';
 import { Clock } from 'lucide-react';
 import Duration from '../../components/Duration';
 import EntityLink from '../../components/EntityLink';
@@ -83,8 +80,6 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 `;
 
 export const RouteComponent = () => {
-  useSetBackgroundColor('#1F3363');
-
   const { client, data, fetchMore } = useSuspenseQuery<
     CollectionTracksRouteQuery,
     CollectionTracksRouteQueryVariables
@@ -132,7 +127,7 @@ export const RouteComponent = () => {
   const isPlayingCollection = playbackState?.context?.uri === spotifyURI;
 
   return (
-    <Page>
+    <Page bgColor="#1F3363">
       <Page.Header
         title="Liked Songs"
         mediaType="playlist"
