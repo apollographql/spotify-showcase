@@ -15,7 +15,7 @@ const LoadingStateHighlighter = ({
 
   return cloneElement(
     highlightSuspenseBoundaries ? (
-      <div className="border-4 border-suspense-boundary" />
+      <div className="[&>*]:border-2 [&>*]:border-suspense-boundary" />
     ) : (
       <Fragment />
     ),
