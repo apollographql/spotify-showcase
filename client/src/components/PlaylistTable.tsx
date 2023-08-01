@@ -226,7 +226,6 @@ PlaylistTable.fragments = {
     }
 
     ${PlaylistTitleCell.fragments.playlistTrack}
-    ${TrackNumberCell.fragments.track}
   `,
 };
 

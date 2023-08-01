@@ -65,8 +65,6 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${TrackNumberCell.fragments.track}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`

@@ -73,8 +73,6 @@ const QUEUE_ROUTE_QUERY = gql`
       ...EpisodeDetailsCell_episode
     }
   }
-
-  ${TrackNumberCell.fragments.track}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`

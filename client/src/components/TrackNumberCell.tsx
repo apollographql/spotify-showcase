@@ -7,6 +7,7 @@ import cx from 'classnames';
 import AnimatedSoundWave from './AnimatedSoundWave';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Music } from 'lucide-react';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface Context {
   __typename: 'Playlist' | 'Album';
@@ -32,6 +33,14 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     }
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment TrackNumberCell_track on Track {
+    id
+    uri
+    trackNumber
+  }
+`);
 
 const TrackNumberCell = ({
   context,
@@ -70,16 +79,6 @@ const TrackNumberCell = ({
       )}
     </div>
   );
-};
-
-TrackNumberCell.fragments = {
-  track: gql`
-    fragment TrackNumberCell_track on Track {
-      id
-      uri
-      trackNumber
-    }
-  `,
 };
 
 export default TrackNumberCell;
