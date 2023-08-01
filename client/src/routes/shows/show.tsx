@@ -45,8 +45,6 @@ const SHOW_ROUTE_QUERY = gql`
       }
     }
   }
-
-  ${EpisodeRemainingDuration.fragments.episode}
 `;
 
 const PLAYBACK_STATE_FRAGMENT = gql`

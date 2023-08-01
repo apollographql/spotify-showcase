@@ -30,8 +30,6 @@ const EPISODE_ROUTE_QUERY = gql`
       ...EpisodeRemainingDuration_episode
     }
   }
-
-  ${EpisodeRemainingDuration.fragments.episode}
 `;
 
 export const RouteComponent = () => {

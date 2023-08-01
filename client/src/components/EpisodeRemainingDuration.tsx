@@ -4,10 +4,22 @@ import { Check } from 'lucide-react';
 import Duration from './Duration';
 import Flex from './Flex';
 import ProgressBar from './ProgressBar';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface EpisodeRemainingDurationProps {
   episode: Episode;
 }
+
+fragmentRegistry.register(gql`
+  fragment EpisodeRemainingDuration_episode on Episode {
+    id
+    durationMs
+    resumePoint {
+      fullyPlayed
+      resumePositionMs
+    }
+  }
+`);
 
 const EpisodeRemainingDuration = ({
   episode,
@@ -45,19 +57,6 @@ const EpisodeRemainingDuration = ({
   }
 
   return <Duration durationMs={durationMs} format={Duration.FORMAT.LONG} />;
-};
-
-EpisodeRemainingDuration.fragments = {
-  episode: gql`
-    fragment EpisodeRemainingDuration_episode on Episode {
-      id
-      durationMs
-      resumePoint {
-        fullyPlayed
-        resumePositionMs
-      }
-    }
-  `,
 };
 
 export default EpisodeRemainingDuration;
