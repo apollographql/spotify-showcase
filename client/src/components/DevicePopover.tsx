@@ -9,6 +9,7 @@ import AnimatedSoundWave from './AnimatedSoundWave';
 import DeviceIcon from './DeviceIcon';
 import usePlaybackState from '../hooks/usePlaybackState';
 import useTransferPlaybackMutation from '../mutations/useTransferPlaybackMutation';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface DevicePopoverProps {
   devices: Device[];
@@ -23,6 +24,14 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     }
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment DevicePopover_devices on Device {
+    id
+    name
+    type
+  }
+`);
 
 const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
   const [transferPlayback] = useTransferPlaybackMutation();
@@ -83,16 +92,6 @@ const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
       {children}
     </Popover>
   );
-};
-
-DevicePopover.fragments = {
-  devices: gql`
-    fragment DevicePopover_devices on Device {
-      id
-      name
-      type
-    }
-  `,
 };
 
 export default DevicePopover;

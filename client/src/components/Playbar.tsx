@@ -49,8 +49,6 @@ const PLAYBAR_QUERY: TypedDocumentNode<
       }
     }
   }
-
-  ${DevicePopover.fragments.devices}
 `;
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
