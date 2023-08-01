@@ -344,6 +344,10 @@ const config: CodegenConfig = {
       documents: ['client/src/**/*.{ts,tsx}'],
       plugins: ['fragment-matcher'],
     },
+    './client/src/apollo/__generated__/local-resolvers.ts': {
+      schema: './client/src/apollo/localSchema.graphql',
+      plugins: ['typescript', 'typescript-resolvers'],
+    },
     './client/src/types/api.ts': {
       schema: [
         './client/schema.graphql',
