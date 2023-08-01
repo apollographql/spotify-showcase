@@ -20,16 +20,25 @@ const PREFERRED_SWATCHES = [
   'DarkMuted',
 ];
 
+const swatchCache = new Map<string, Swatch | undefined>();
+
 export const getVibrantColor = async (src: string) => {
   return new Promise<Swatch | undefined>((resolve) => {
+    if (swatchCache.has(src)) {
+      return resolve(swatchCache.get(src));
+    }
+
     const img = new Image();
 
     img.crossOrigin = 'anonymous';
     img.onload = async () => {
       const palette = await Vibrant.from(img).getPalette();
       const name = PREFERRED_SWATCHES.find((name) => palette[name]);
+      const swatch = name ? palette[name] : undefined;
 
-      resolve(name ? palette[name] : undefined);
+      swatchCache.set(src, swatch);
+
+      resolve(swatch);
     };
 
     img.src = src;
