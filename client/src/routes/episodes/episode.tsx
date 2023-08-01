@@ -8,7 +8,6 @@ import EntityLink from '../../components/EntityLink';
 import EpisodeReleaseDate from '../../components/EpisodeReleaseDate';
 import EpisodeRemainingDuration from '../../components/EpisodeRemainingDuration';
 import Page from '../../components/Page';
-import useSetBackgroundColorFromImage from '../../hooks/useSetBackgroundColorFromImage';
 
 const EPISODE_ROUTE_QUERY = gql`
   query EpisodeRouteQuery($episodeId: ID!) {
@@ -24,6 +23,7 @@ const EPISODE_ROUTE_QUERY = gql`
         name
         images {
           url
+          vibrantColor(format: RGB, alpha: 0.9) @client
         }
       }
 
@@ -50,12 +50,8 @@ export const RouteComponent = () => {
   const { show } = episode;
   const coverPhoto = show.images[0];
 
-  useSetBackgroundColorFromImage(coverPhoto, {
-    fallback: 'rgba(var(--background--surface--rgb), 0.5)',
-  });
-
   return (
-    <Page>
+    <Page bgColor={coverPhoto.vibrantColor}>
       <Page.Header
         mediaType="podcast episode"
         coverPhoto={<CoverPhoto image={coverPhoto} />}

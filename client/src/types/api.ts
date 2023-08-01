@@ -3770,7 +3770,11 @@ export type EpisodeRouteQuery = {
       __typename: 'Show';
       id: string;
       name: string;
-      images: Array<{ __typename: 'Image'; url: string }>;
+      images: Array<{
+        __typename: 'Image';
+        url: string;
+        vibrantColor: string | null;
+      }>;
     };
     resumePoint: {
       __typename: 'ResumePoint';
