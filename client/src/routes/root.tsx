@@ -8,8 +8,8 @@ export const RouteComponent = () => {
 
   return (
     <>
-      <NotificationManager />
       {isLoggedIn ? <LoggedInLayout /> : <LoggedOutLayout />}
+      <NotificationManager />
     </>
   );
 };
