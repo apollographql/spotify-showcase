@@ -47,9 +47,6 @@ fragmentRegistry.register(gql`
 
     ...AlbumTrackTitleCell_album
   }
-
-  ${AlbumTrackTitleCell.fragments.album}
-  ${AlbumTrackTitleCell.fragments.track}
 `);
 
 const columnHelper = createColumnHelper<Track>();
