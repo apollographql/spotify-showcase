@@ -1,10 +1,11 @@
-import { Suspense } from 'react';
 import {
   Route,
   createBrowserRouter,
   createRoutesFromElements,
   redirect,
 } from 'react-router-dom';
+
+import Suspense from './components/Suspense';
 
 import * as AlbumRoute from './routes/albums/album';
 import * as ArtistRoute from './routes/artists/artist';

@@ -8,6 +8,7 @@ export const STORAGE_KEYS = {
   REFRESH_TOKEN: 'refreshToken',
   STATE: 'state',
   PERSISTED_QUERY_MODE: 'persistedQueryMode',
+  HIGHLIGHT_SUSPENSE_BOUNDARIES: 'highlightSuspenseBoundaries',
 } as const;
 
 export const NOTIFICATION = {

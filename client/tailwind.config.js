@@ -67,6 +67,7 @@ module.exports = {
       },
       borderColor: {
         primary: 'hsla(0, 0%, 100%, 0.1)',
+        'suspense-boundary': '#ff0000',
       },
       backgroundColor: ({ theme }) => ({
         code: 'rgba(99, 110, 123, 0.4)',

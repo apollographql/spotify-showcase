@@ -1,6 +1,6 @@
 import { STORAGE_KEYS } from '../constants';
 
-type StorageKey = {
+export type StorageKey = {
   [K in keyof typeof STORAGE_KEYS]: (typeof STORAGE_KEYS)[K];
 }[keyof typeof STORAGE_KEYS];
 
