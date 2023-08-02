@@ -41,6 +41,7 @@ export const CurrentUser: CurrentUserResolvers = {
       offset: args.offset ?? undefined,
     });
   },
+  profile: itself(),
   shows: (_, { limit, offset }, { dataSources }) => {
     return dataSources.spotify.getSavedShows({
       limit: maybe(limit),

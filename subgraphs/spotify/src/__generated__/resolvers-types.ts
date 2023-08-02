@@ -2090,7 +2090,7 @@ export type ResolversTypes = ResolversObject<{
   CopyrightType: CopyrightType;
   CountryCode: ResolverTypeWrapper<Scalars['CountryCode']['output']>;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
-  CurrentUserProfile: ResolverTypeWrapper<CurrentUserProfile>;
+  CurrentUserProfile: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
   CurrentlyPlaying: ResolverTypeWrapper<Spotify.Object.CurrentlyPlaying>;
   Cursors: ResolverTypeWrapper<Cursors>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
@@ -2100,7 +2100,7 @@ export type ResolversTypes = ResolversObject<{
     Spotify.Object.Episode | Spotify.Object.EpisodeSimplified
   >;
   ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']['output']>;
-  ExplicitContentSettings: ResolverTypeWrapper<ExplicitContentSettings>;
+  ExplicitContentSettings: ResolverTypeWrapper<Spotify.Object.ExplicitContentSettings>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   FeaturedPlaylistConnection: ResolverTypeWrapper<Spotify.Object.FeaturedPlaylists>;
   FeaturedPlaylistEdge: ResolverTypeWrapper<Spotify.Object.PlaylistSimplified>;
@@ -2334,7 +2334,7 @@ export type ResolversParentTypes = ResolversObject<{
   Copyright: Copyright;
   CountryCode: Scalars['CountryCode']['output'];
   CurrentUser: Spotify.Object.CurrentUser;
-  CurrentUserProfile: CurrentUserProfile;
+  CurrentUserProfile: Spotify.Object.CurrentUser;
   CurrentlyPlaying: Spotify.Object.CurrentlyPlaying;
   Cursors: Cursors;
   DateTime: Scalars['DateTime']['output'];
@@ -2342,7 +2342,7 @@ export type ResolversParentTypes = ResolversObject<{
   Device: Spotify.Object.Device;
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
   ErrorRate: Scalars['ErrorRate']['output'];
-  ExplicitContentSettings: ExplicitContentSettings;
+  ExplicitContentSettings: Spotify.Object.ExplicitContentSettings;
   ExternalUrl: ExternalUrl;
   FeaturedPlaylistConnection: Spotify.Object.FeaturedPlaylists;
   FeaturedPlaylistEdge: Spotify.Object.PlaylistSimplified;

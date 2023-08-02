@@ -176,10 +176,13 @@ const config: CodegenConfig = {
           ArtistAlbumEdge: 'spotify-api#Spotify#Object.AlbumSimplified',
           CurrentlyPlaying: 'spotify-api#Spotify#Object.CurrentlyPlaying',
           CurrentUser: 'spotify-api#Spotify#Object.CurrentUser',
+          CurrentUserProfile: 'spotify-api#Spotify#Object.CurrentUser',
           Developer: '{}',
           Device: 'spotify-api#Spotify#Object.Device',
           Episode:
             'spotify-api#Spotify#Object.Episode | Spotify.Object.EpisodeSimplified',
+          ExplicitContentSettings:
+            'spotify-api#Spotify#Object.ExplicitContentSettings',
           FeaturedPlaylistConnection:
             'spotify-api#Spotify#Object.FeaturedPlaylists',
           FeaturedPlaylistEdge: 'spotify-api#Spotify#Object.PlaylistSimplified',
