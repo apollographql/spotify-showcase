@@ -11,6 +11,10 @@ interface StyleProps extends CSSProperties {
   '--shade': string;
 }
 
+interface ContainerSyleProps extends CSSProperties {
+  '--border-color': string;
+}
+
 const LoadingStateHighlighter = ({
   children,
   shade,
@@ -23,7 +27,11 @@ const LoadingStateHighlighter = ({
     <div className="relative">
       <div
         className="border-2 border-[var(--border-color)] absolute inset-0"
-        style={{ '--border-color': shade || 'border-suspense-boundary' }}
+        style={
+          {
+            '--border-color': shade || 'border-suspense-boundary',
+          } as ContainerSyleProps
+        }
       >
         {shade && (
           <div
