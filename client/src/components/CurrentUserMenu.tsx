@@ -25,7 +25,7 @@ const CurrentUserMenu = () => {
 
   if (!data || loading) {
     return (
-      <LoadingStateHighlighter>
+      <LoadingStateHighlighter shade="#00F900">
         <LoadingState />
       </LoadingStateHighlighter>
     );
