@@ -873,7 +873,7 @@ type CurrentUser {
   ): [Boolean!]
 }
 
-type CurrentUserProfile {
+type CurrentUserProfile implements UserProfile @key(fields: "id") {
   """
   The country of the user, as set in the user's account profile. An ISO 3166-1
   alpha-2 country code.
@@ -1294,6 +1294,37 @@ enum PlaybackContextType {
   SHOW
   TRACK
   USER
+}
+
+interface UserProfile @key(fields: "id") {
+  """
+  The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
+  """
+  id: ID!
+
+  """
+  The name displayed on the user's profile. `null` if not available.
+  """
+  displayName: String
+
+  """
+  Information about the followers of this user.
+  """
+  followers: Followers!
+
+  """
+  A link to the Web API endpoint for this user.
+  """
+  href: String!
+
+  "The user's profile image."
+  images: [Image!]
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for this user.
+  """
+  uri: String!
 }
 
 interface PlaybackItem @key(fields: "id") {
@@ -2030,7 +2061,7 @@ type TrackExternalIds {
 }
 
 "Public profile information about a Spotify user."
-type User @key(fields: "id") {
+type User implements UserProfile @key(fields: "id") {
   """
   The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
   """

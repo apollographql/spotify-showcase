@@ -387,7 +387,7 @@ export type CurrentUserTracksContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-export type CurrentUserProfile = {
+export type CurrentUserProfile = UserProfile & {
   __typename?: 'CurrentUserProfile';
   /**
    * The country of the user, as set in the user's account profile. An ISO 3166-1
@@ -1905,12 +1905,30 @@ export type UpdateFieldConfigPayload = {
 };
 
 /** Public profile information about a Spotify user. */
-export type User = {
+export type User = UserProfile & {
   __typename?: 'User';
   /** The name displayed on the user's profile. `null` if not available. */
   displayName?: Maybe<Scalars['String']['output']>;
   /** Known public external URLs for this user. */
   externalUrls: ExternalUrl;
+  /** Information about the followers of this user. */
+  followers: Followers;
+  /** A link to the Web API endpoint for this user. */
+  href: Scalars['String']['output'];
+  /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
+  id: Scalars['ID']['output'];
+  /** The user's profile image. */
+  images?: Maybe<Array<Image>>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for this user.
+   */
+  uri: Scalars['String']['output'];
+};
+
+export type UserProfile = {
+  /** The name displayed on the user's profile. `null` if not available. */
+  displayName?: Maybe<Scalars['String']['output']>;
   /** Information about the followers of this user. */
   followers: Followers;
   /** A link to the Web API endpoint for this user. */
@@ -2050,6 +2068,18 @@ export type DirectiveResolverFn<
   context: TContext,
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
+
+/** Mapping of interface types */
+export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> =
+  ResolversObject<{
+    PlaybackItem:
+      | (Spotify.Object.Episode | Spotify.Object.EpisodeSimplified)
+      | (Spotify.Object.Track | Spotify.Object.TrackSimplified);
+    PlaylistTrack:
+      | (Spotify.Object.Episode | Spotify.Object.EpisodeSimplified)
+      | (Spotify.Object.Track | Spotify.Object.TrackSimplified);
+    UserProfile: Spotify.Object.CurrentUser | Spotify.Object.User;
+  }>;
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
@@ -2306,6 +2336,9 @@ export type ResolversTypes = ResolversObject<{
     }
   >;
   User: ResolverTypeWrapper<Spotify.Object.User>;
+  UserProfile: ResolverTypeWrapper<
+    ResolversInterfaceTypes<ResolversTypes>['UserProfile']
+  >;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -2474,6 +2507,7 @@ export type ResolversParentTypes = ResolversObject<{
     fieldConfig?: Maybe<ResolversParentTypes['FieldConfig']>;
   };
   User: Spotify.Object.User;
+  UserProfile: ResolversInterfaceTypes<ResolversParentTypes>['UserProfile'];
 }>;
 
 export type ContactDirectiveArgs = {
@@ -2821,6 +2855,14 @@ export type CurrentUserProfileResolvers<
   ParentType extends
     ResolversParentTypes['CurrentUserProfile'] = ResolversParentTypes['CurrentUserProfile'],
 > = ResolversObject<{
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes['CurrentUserProfile']>,
+    { __typename: 'CurrentUserProfile' } & GraphQLRecursivePick<
+      ParentType,
+      { id: true }
+    >,
+    ContextType
+  >;
   country?: Resolver<
     Maybe<ResolversTypes['CountryCode']>,
     ParentType,
@@ -4343,6 +4385,32 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UserProfileResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['UserProfile'] = ResolversParentTypes['UserProfile'],
+> = ResolversObject<{
+  __resolveType: TypeResolveFn<
+    'CurrentUserProfile' | 'User',
+    ParentType,
+    ContextType
+  >;
+  displayName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<
+    Maybe<Array<ResolversTypes['Image']>>,
+    ParentType,
+    ContextType
+  >;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+}>;
+
 export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Action?: ActionResolvers;
   Actions?: ActionsResolvers<ContextType>;
@@ -4451,6 +4519,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   TrackExternalIds?: TrackExternalIdsResolvers<ContextType>;
   UpdateFieldConfigPayload?: UpdateFieldConfigPayloadResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  UserProfile?: UserProfileResolvers<ContextType>;
 }>;
 
 export type DirectiveResolvers<ContextType = ContextValue> = ResolversObject<{
