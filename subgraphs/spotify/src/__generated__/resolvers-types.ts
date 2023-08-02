@@ -414,7 +414,7 @@ export type CurrentUserProfile = UserProfile & {
    */
   id: Scalars['ID']['output'];
   /** The user's profile image. */
-  images: Array<Image>;
+  images?: Maybe<Array<Image>>;
   /**
    * The user's Spotify subscription level: "premium", "free", etc. (The
    * subscription level "open" can be considered the same as "free".)
@@ -2882,7 +2882,11 @@ export type CurrentUserProfileResolvers<
   followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
   href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
+  images?: Resolver<
+    Maybe<Array<ResolversTypes['Image']>>,
+    ParentType,
+    ContextType
+  >;
   product?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

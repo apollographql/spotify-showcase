@@ -415,7 +415,7 @@ export type CurrentUserProfile = UserProfile & {
    */
   id: Scalars['ID']['output'];
   /** The user's profile image. */
-  images: Array<Image>;
+  images: Maybe<Array<Image>>;
   /**
    * The user's Spotify subscription level: "premium", "free", etc. (The
    * subscription level "open" can be considered the same as "free".)
@@ -2441,7 +2441,7 @@ export type ArtistTopTracks_tracks = {
 type Avatar_profile_CurrentUserProfile_ = {
   __typename: 'CurrentUserProfile';
   id: string;
-  images: Array<{ __typename: 'Image'; url: string }>;
+  images: Array<{ __typename: 'Image'; url: string }> | null;
 };
 
 type Avatar_profile_User_ = {
@@ -2487,7 +2487,7 @@ export type CurrentUserQuery = {
       __typename: 'CurrentUserProfile';
       id: string;
       displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }>;
+      images: Array<{ __typename: 'Image'; url: string }> | null;
     };
   } | null;
 };

@@ -916,7 +916,7 @@ type CurrentUserProfile implements UserProfile @key(fields: "id") {
   """
   The user's profile image.
   """
-  images: [Image!]!
+  images: [Image!]
 
   """
   The user's Spotify subscription level: "premium", "free", etc. (The
