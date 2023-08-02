@@ -324,7 +324,7 @@ export type CurrentUser = {
   tracksContains?: Maybe<Array<Scalars['Boolean']['output']>>;
   /**
    * Detailed profile information about the current user.
-   * @deprecated Use the profile field instead which provides richer user information.
+   * @deprecated Use the profile field instead which provides richer current user information.
    */
   user: User;
 };
@@ -393,7 +393,7 @@ export type CurrentUserProfile = {
    * The country of the user, as set in the user's account profile. An ISO 3166-1
    * alpha-2 country code.
    */
-  country: Scalars['CountryCode']['output'];
+  country?: Maybe<Scalars['CountryCode']['output']>;
   /** The name displayed on the user's profile. `null` if not available. */
   displayName?: Maybe<Scalars['String']['output']>;
   /**
@@ -2821,7 +2821,11 @@ export type CurrentUserProfileResolvers<
   ParentType extends
     ResolversParentTypes['CurrentUserProfile'] = ResolversParentTypes['CurrentUserProfile'],
 > = ResolversObject<{
-  country?: Resolver<ResolversTypes['CountryCode'], ParentType, ContextType>;
+  country?: Resolver<
+    Maybe<ResolversTypes['CountryCode']>,
+    ParentType,
+    ContextType
+  >;
   displayName?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,

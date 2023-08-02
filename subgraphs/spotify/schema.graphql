@@ -878,7 +878,7 @@ type CurrentUserProfile {
   The country of the user, as set in the user's account profile. An ISO 3166-1
   alpha-2 country code.
   """
-  country: CountryCode!
+  country: CountryCode
 
   """
   The name displayed on the user's profile. `null` if not available.
