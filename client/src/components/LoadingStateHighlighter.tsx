@@ -24,7 +24,7 @@ const LoadingStateHighlighter = ({
   );
 
   return highlightSuspenseBoundaries ? (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <div
         className="border-4 border-[var(--border-color)] absolute inset-0 z-50"
         style={
