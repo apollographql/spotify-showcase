@@ -11,6 +11,7 @@ export const OAUTH_SCOPES = [
   'user-read-currently-playing',
   'user-read-playback-position',
   'user-read-playback-state',
+  'user-read-private',
   'user-library-read',
   'user-library-modify',
   'user-top-read',
