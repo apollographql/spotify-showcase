@@ -308,12 +308,18 @@ export class MockSpotifyClient implements SpotifyDataSource {
     return {
       id: this.userId,
       display_name: 'GraphOS User',
+      country: process.env.DEFAULT_COUNTRY_CODE || 'US',
       email: 'contact@apollographql.com',
       external_urls: { spotify: '' },
+      explicit_content: {
+        filter_enabled: false,
+        filter_locked: false,
+      },
       followers: { href: '', total: 1000000 },
       href: '',
       images: [],
       uri: 'https://discord.gg/graphos',
+      product: 'free',
       type: 'user',
     };
   }
