@@ -749,7 +749,7 @@ type CurrentUser {
   """
   user: User!
     @deprecated(
-      reason: "Use the profile field instead which provides richer user information."
+      reason: "Use the profile field instead which provides richer current user information."
     )
 
   """
