@@ -1,17 +1,17 @@
 import { CSSProperties } from 'react';
 import { gql } from '@apollo/client';
-import { Avatar_user as User } from '../types/api';
+import { Avatar_profile as Profile } from '../types/api';
 import { thumbnail } from '../utils/image';
 import LazyImage from './LazyImage';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface AvatarProps {
   size?: CSSProperties['width'];
-  user: User;
+  profile: Profile;
 }
 
-const Avatar = ({ user, size }: AvatarProps) => {
-  const image = thumbnail(user.images ?? []);
+const Avatar = ({ profile, size }: AvatarProps) => {
+  const image = thumbnail(profile.images ?? []);
 
   return (
     <LazyImage
@@ -23,7 +23,7 @@ const Avatar = ({ user, size }: AvatarProps) => {
 };
 
 fragmentRegistry.register(gql`
-  fragment Avatar_user on User {
+  fragment Avatar_profile on UserProfile {
     id
     images {
       url

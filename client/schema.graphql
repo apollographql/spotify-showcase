@@ -575,7 +575,7 @@ type CurrentUser {
   ): [Boolean!]
 }
 
-type CurrentUserProfile {
+type CurrentUserProfile implements UserProfile {
   """
   The country of the user, as set in the user's account profile. An ISO 3166-1
   alpha-2 country code.
@@ -618,7 +618,7 @@ type CurrentUserProfile {
   """
   The user's profile image.
   """
-  images: [Image!]!
+  images: [Image!]
 
   """
   The user's Spotify subscription level: "premium", "free", etc. (The
@@ -2976,7 +2976,7 @@ type UpdateFieldConfigPayload {
 """
 Public profile information about a Spotify user.
 """
-type User {
+type User implements UserProfile {
   """
   The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
   """
@@ -2991,6 +2991,39 @@ type User {
   Known public external URLs for this user.
   """
   externalUrls: ExternalUrl!
+
+  """
+  Information about the followers of this user.
+  """
+  followers: Followers!
+
+  """
+  A link to the Web API endpoint for this user.
+  """
+  href: String!
+
+  """
+  The user's profile image.
+  """
+  images: [Image!]
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for this user.
+  """
+  uri: String!
+}
+
+interface UserProfile {
+  """
+  The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
+  """
+  id: ID!
+
+  """
+  The name displayed on the user's profile. `null` if not available.
+  """
+  displayName: String
 
   """
   Information about the followers of this user.

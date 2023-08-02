@@ -1,6 +1,7 @@
 {
   "possibleTypes": {
     "PlaybackItem": ["Episode", "Track"],
-    "PlaylistTrack": ["Episode", "Track"]
+    "PlaylistTrack": ["Episode", "Track"],
+    "UserProfile": ["CurrentUserProfile", "User"]
   }
 }
