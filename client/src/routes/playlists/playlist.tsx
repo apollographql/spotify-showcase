@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { gql, useQuery, useSuspenseQuery } from '@apollo/client';
 import {
   PlaylistQuery,
   PlaylistQueryVariables,
@@ -17,6 +17,7 @@ import usePlaybackState from '../../hooks/usePlaybackState';
 import useResumePlaybackMutation from '../../mutations/useResumePlaybackMutation';
 import { parseSpotifyIDFromURI } from '../../utils/spotify';
 import useSavedTracksContains from '../../hooks/useSavedTracksContains';
+import LoadingStateHighlighter from '../../components/LoadingStateHighlighter';
 
 const PLAYLIST_QUERY = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
@@ -57,20 +58,16 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 
 export const RouteComponent = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
-  const { data, fetchMore } = useSuspenseQuery<
+  const { data, fetchMore, loading } = useQuery<
     PlaylistQuery,
     PlaylistQueryVariables
   >(PLAYLIST_QUERY, { variables: { id: playlistId } });
-  const playlist = data.playlist;
-
-  if (!playlist) {
-    throw new Error('Playlist not found');
-  }
+  const playlist = data?.playlist;
 
   const tracksContains = useSavedTracksContains(
-    playlist.tracks.edges
+    playlist?.tracks.edges
       .filter((edge) => edge.node.__typename === 'Track')
-      .map((edge) => edge.node.id)
+      .map((edge) => edge.node.id) ?? []
   );
 
   const [resumePlayback] = useResumePlaybackMutation();
@@ -78,6 +75,18 @@ export const RouteComponent = () => {
   const playbackState = usePlaybackState<PlaylistRoutePlaybackStateFragment>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
+
+  if (!data || loading) {
+    return (
+      <LoadingStateHighlighter shade="#FF2600">
+        <LoadingState />
+      </LoadingStateHighlighter>
+    );
+  }
+
+  if (!playlist) {
+    throw new Error('Playlist not found');
+  }
 
   const { tracks } = playlist;
   const images = playlist.images ?? [];
