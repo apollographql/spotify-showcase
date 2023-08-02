@@ -388,7 +388,7 @@ export type CurrentUsertracksContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
 };
 
-export type CurrentUserProfile = {
+export type CurrentUserProfile = UserProfile & {
   __typename: 'CurrentUserProfile';
   /**
    * The country of the user, as set in the user's account profile. An ISO 3166-1
@@ -415,7 +415,7 @@ export type CurrentUserProfile = {
    */
   id: Scalars['ID']['output'];
   /** The user's profile image. */
-  images: Array<Image>;
+  images: Maybe<Array<Image>>;
   /**
    * The user's Spotify subscription level: "premium", "free", etc. (The
    * subscription level "open" can be considered the same as "free".)
@@ -2138,12 +2138,30 @@ export type UpdateFieldConfigPayload = {
 };
 
 /** Public profile information about a Spotify user. */
-export type User = {
+export type User = UserProfile & {
   __typename: 'User';
   /** The name displayed on the user's profile. `null` if not available. */
   displayName: Maybe<Scalars['String']['output']>;
   /** Known public external URLs for this user. */
   externalUrls: ExternalUrl;
+  /** Information about the followers of this user. */
+  followers: Followers;
+  /** A link to the Web API endpoint for this user. */
+  href: Scalars['String']['output'];
+  /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
+  id: Scalars['ID']['output'];
+  /** The user's profile image. */
+  images: Maybe<Array<Image>>;
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for this user.
+   */
+  uri: Scalars['String']['output'];
+};
+
+export type UserProfile = {
+  /** The name displayed on the user's profile. `null` if not available. */
+  displayName: Maybe<Scalars['String']['output']>;
   /** Information about the followers of this user. */
   followers: Followers;
   /** A link to the Web API endpoint for this user. */
