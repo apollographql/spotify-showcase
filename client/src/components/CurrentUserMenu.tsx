@@ -1,8 +1,9 @@
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import { CurrentUserQuery, CurrentUserQueryVariables } from '../types/api';
 import DropdownMenu from './DropdownMenu';
 import Avatar from './Avatar';
 import Skeleton from './Skeleton';
+import LoadingStateHighlighter from './LoadingStateHighlighter';
 
 const CURRENT_USER_QUERY: TypedDocumentNode<
   CurrentUserQuery,
@@ -20,7 +21,15 @@ const CURRENT_USER_QUERY: TypedDocumentNode<
 `;
 
 const CurrentUserMenu = () => {
-  const { data } = useSuspenseQuery(CURRENT_USER_QUERY);
+  const { data, loading } = useQuery(CURRENT_USER_QUERY);
+
+  if (!data || loading) {
+    return (
+      <LoadingStateHighlighter>
+        <LoadingState />
+      </LoadingStateHighlighter>
+    );
+  }
 
   if (!data.me) {
     throw new Error('You must be logged in');
