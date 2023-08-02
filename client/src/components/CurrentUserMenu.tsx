@@ -10,10 +10,10 @@ const CURRENT_USER_QUERY: TypedDocumentNode<
 > = gql`
   query CurrentUserQuery {
     me {
-      profile {
+      user {
         id
         displayName
-        ...Avatar_profile
+        ...Avatar_user
       }
     }
   }
@@ -26,7 +26,7 @@ const CurrentUserMenu = () => {
     throw new Error('You must be logged in');
   }
 
-  const { profile } = data.me;
+  const { user } = data.me;
 
   const exploreSchemaUrl =
     process.env.NODE_ENV == 'production'
@@ -40,8 +40,8 @@ const CurrentUserMenu = () => {
         variant="ghost"
         size="sm"
       >
-        <Avatar size="2rem" profile={profile} />
-        {profile.displayName}
+        <Avatar size="2rem" user={user} />
+        {user.displayName}
       </DropdownMenu.Trigger>
       <DropdownMenu.Menu align="end">
         <DropdownMenu.Item to="/settings">Settings</DropdownMenu.Item>
