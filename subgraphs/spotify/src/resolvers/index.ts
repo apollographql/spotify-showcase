@@ -83,6 +83,7 @@ import { TopTracksConnection } from './TopTracksConnection';
 import { Track } from './Track';
 import { TrackAudioFeatures } from './TrackAudioFeatures';
 import { User } from './User';
+import { UserProfile } from './UserProfile';
 import { Resolver, Resolvers } from '../__generated__/resolvers-types';
 import { wrapWithSynthetics } from './helpers';
 
@@ -171,6 +172,7 @@ const actualResolvers = {
   Track,
   TrackAudioFeatures,
   User,
+  UserProfile,
 };
 
 //We are wrapping all fo the resolvers for a purpose in the demo to display `@apollo/client` resiliency when the API is throwing errors

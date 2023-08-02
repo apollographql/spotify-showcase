@@ -53,6 +53,7 @@ const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
     }
   }
 
+  # eslint-disable-next-line @graphql-eslint/naming-convention
   fragment TypeRef on __Type {
     kind
     name
