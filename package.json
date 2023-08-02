@@ -42,7 +42,13 @@
     "@apollo/rover": "^0.17.1",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@types/inquirer": "^8.2.6",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
     "concurrently": "^8.2.0",
+    "eslint": "^8.35.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "graphql": "^16.7.1",
     "prettier": "^3.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
