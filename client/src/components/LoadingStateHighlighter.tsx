@@ -1,4 +1,4 @@
-import { cloneElement, CSSProperties, Fragment, ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { useReactiveVar } from '@apollo/client';
 import { highlightSuspenseBoundariesVar } from '../vars';
 
@@ -29,7 +29,7 @@ const LoadingStateHighlighter = ({
         className="border-2 border-[var(--border-color)] absolute inset-0 z-50"
         style={
           {
-            '--border-color': shade || 'border-suspense-boundary',
+            '--border-color': shade || 'red',
           } as ContainerSyleProps
         }
       >
