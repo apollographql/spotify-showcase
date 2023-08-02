@@ -4,7 +4,12 @@ import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import {
+  TypedDocumentNode,
+  gql,
+  useQuery,
+  useSuspenseQuery,
+} from '@apollo/client';
 import { SidebarQuery, SidebarQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
@@ -18,20 +23,18 @@ import Skeleton from './Skeleton';
 import CurrentUserMenu, {
   LoadingState as CurrentUserMenuLoadingState,
 } from './CurrentUserMenu';
-import Suspense from './Suspense';
+import LoadingStateHighlighter from './LoadingStateHighlighter';
 
 const LoggedInLayout = () => {
   return (
-    <Suspense fallback={<LoadingState />}>
-      <Container>
-        <Sidebar />
-        <Main>
-          <Header />
-          <Outlet />
-        </Main>
-        <Playbar />
-      </Container>
-    </Suspense>
+    <Container>
+      <Sidebar />
+      <Main>
+        <Header />
+        <Outlet />
+      </Main>
+      <Playbar />
+    </Container>
   );
 };
 
@@ -90,9 +93,17 @@ const SIDEBAR_QUERY: TypedDocumentNode<
 
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
+  const { data, fetchMore, loading } = useQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
+
+  if (!data || loading) {
+    return (
+      <LoadingStateHighlighter shade="#FF40FF">
+        <SidebarLoadingState />
+      </LoadingStateHighlighter>
+    );
+  }
 
   const { me } = data;
 
