@@ -303,6 +303,8 @@ export type CurrentUser = {
   player: Player;
   /** Playlists owned or followed by the current Spotify user. */
   playlists?: Maybe<PlaylistConnection>;
+  /** Get detailed profile information about the current user (including the current user's username). */
+  profile: CurrentUserProfile;
   /** Get a list of the albums saved in the current Spotify user's 'Your Music' library. */
   shows?: Maybe<SavedShowsConnection>;
   /**
@@ -320,7 +322,10 @@ export type CurrentUser = {
    * 'Your Music' library.
    */
   tracksContains?: Maybe<Array<Scalars['Boolean']['output']>>;
-  /** Detailed profile information about the current user. */
+  /**
+   * Detailed profile information about the current user.
+   * @deprecated Use the profile field instead which provides richer user information.
+   */
   user: User;
 };
 
@@ -380,6 +385,46 @@ export type CurrentUserTracksArgs = {
 
 export type CurrentUserTracksContainsArgs = {
   ids: Array<Scalars['ID']['input']>;
+};
+
+export type CurrentUserProfile = {
+  __typename?: 'CurrentUserProfile';
+  /**
+   * The country of the user, as set in the user's account profile. An ISO 3166-1
+   * alpha-2 country code.
+   */
+  country: Scalars['CountryCode']['output'];
+  /** The name displayed on the user's profile. `null` if not available. */
+  displayName?: Maybe<Scalars['String']['output']>;
+  /**
+   * The user's email address, as entered by the user when creating their account.
+   * _**Important!** This email address is unverified; there is no proof that it
+   * actually belongs to the user._
+   */
+  email: Scalars['String']['output'];
+  /** The user's explicit content settings. */
+  explicitContent: ExplicitContentSettings;
+  /** Information about the followers of the user. */
+  followers: Followers;
+  /** A link to the Web API endpoint for this user. */
+  href: Scalars['String']['output'];
+  /**
+   * The [Spotify user ID](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
+   * for the user.
+   */
+  id: Scalars['ID']['output'];
+  /** The user's profile image. */
+  images: Array<Image>;
+  /**
+   * The user's Spotify subscription level: "premium", "free", etc. (The
+   * subscription level "open" can be considered the same as "free".)
+   */
+  product: Scalars['String']['output'];
+  /**
+   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
+   * for the user.
+   */
+  uri: Scalars['String']['output'];
 };
 
 export type CurrentlyPlaying = {
@@ -497,6 +542,17 @@ export type Episode = PlaybackItem &
 /** Spotify catalog information for an episode. */
 export type EpisodeDescriptionArgs = {
   format?: InputMaybe<TextFormat>;
+};
+
+export type ExplicitContentSettings = {
+  __typename?: 'ExplicitContentSettings';
+  /** When `true`, indicates that explicit content should not be played. */
+  filterEnabled: Scalars['Boolean']['output'];
+  /**
+   * When `true`, indicates that the explicit content setting is locked and can't
+   * be changed by the user.
+   */
+  filterLocked: Scalars['Boolean']['output'];
 };
 
 export type ExternalUrl = {
@@ -2034,6 +2090,7 @@ export type ResolversTypes = ResolversObject<{
   CopyrightType: CopyrightType;
   CountryCode: ResolverTypeWrapper<Scalars['CountryCode']['output']>;
   CurrentUser: ResolverTypeWrapper<Spotify.Object.CurrentUser>;
+  CurrentUserProfile: ResolverTypeWrapper<CurrentUserProfile>;
   CurrentlyPlaying: ResolverTypeWrapper<Spotify.Object.CurrentlyPlaying>;
   Cursors: ResolverTypeWrapper<Cursors>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
@@ -2043,6 +2100,7 @@ export type ResolversTypes = ResolversObject<{
     Spotify.Object.Episode | Spotify.Object.EpisodeSimplified
   >;
   ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']['output']>;
+  ExplicitContentSettings: ResolverTypeWrapper<ExplicitContentSettings>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   FeaturedPlaylistConnection: ResolverTypeWrapper<Spotify.Object.FeaturedPlaylists>;
   FeaturedPlaylistEdge: ResolverTypeWrapper<Spotify.Object.PlaylistSimplified>;
@@ -2276,6 +2334,7 @@ export type ResolversParentTypes = ResolversObject<{
   Copyright: Copyright;
   CountryCode: Scalars['CountryCode']['output'];
   CurrentUser: Spotify.Object.CurrentUser;
+  CurrentUserProfile: CurrentUserProfile;
   CurrentlyPlaying: Spotify.Object.CurrentlyPlaying;
   Cursors: Cursors;
   DateTime: Scalars['DateTime']['output'];
@@ -2283,6 +2342,7 @@ export type ResolversParentTypes = ResolversObject<{
   Device: Spotify.Object.Device;
   Episode: Spotify.Object.Episode | Spotify.Object.EpisodeSimplified;
   ErrorRate: Scalars['ErrorRate']['output'];
+  ExplicitContentSettings: ExplicitContentSettings;
   ExternalUrl: ExternalUrl;
   FeaturedPlaylistConnection: Spotify.Object.FeaturedPlaylists;
   FeaturedPlaylistEdge: Spotify.Object.PlaylistSimplified;
@@ -2711,6 +2771,11 @@ export type CurrentUserResolvers<
     ContextType,
     Partial<CurrentUserPlaylistsArgs>
   >;
+  profile?: Resolver<
+    ResolversTypes['CurrentUserProfile'],
+    ParentType,
+    ContextType
+  >;
   shows?: Resolver<
     Maybe<ResolversTypes['SavedShowsConnection']>,
     ParentType,
@@ -2748,6 +2813,32 @@ export type CurrentUserResolvers<
     RequireFields<CurrentUserTracksContainsArgs, 'ids'>
   >;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type CurrentUserProfileResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['CurrentUserProfile'] = ResolversParentTypes['CurrentUserProfile'],
+> = ResolversObject<{
+  country?: Resolver<ResolversTypes['CountryCode'], ParentType, ContextType>;
+  displayName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  explicitContent?: Resolver<
+    ResolversTypes['ExplicitContentSettings'],
+    ParentType,
+    ContextType
+  >;
+  followers?: Resolver<ResolversTypes['Followers'], ParentType, ContextType>;
+  href?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
+  product?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2882,6 +2973,16 @@ export interface ErrorRateScalarConfig
   extends GraphQLScalarTypeConfig<ResolversTypes['ErrorRate'], any> {
   name: 'ErrorRate';
 }
+
+export type ExplicitContentSettingsResolvers<
+  ContextType = ContextValue,
+  ParentType extends
+    ResolversParentTypes['ExplicitContentSettings'] = ResolversParentTypes['ExplicitContentSettings'],
+> = ResolversObject<{
+  filterEnabled?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  filterLocked?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
 
 export type ExternalUrlResolvers<
   ContextType = ContextValue,
@@ -4255,6 +4356,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Copyright?: CopyrightResolvers<ContextType>;
   CountryCode?: GraphQLScalarType;
   CurrentUser?: CurrentUserResolvers<ContextType>;
+  CurrentUserProfile?: CurrentUserProfileResolvers<ContextType>;
   CurrentlyPlaying?: CurrentlyPlayingResolvers<ContextType>;
   Cursors?: CursorsResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
@@ -4262,6 +4364,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Device?: DeviceResolvers<ContextType>;
   Episode?: EpisodeResolvers<ContextType>;
   ErrorRate?: GraphQLScalarType;
+  ExplicitContentSettings?: ExplicitContentSettingsResolvers<ContextType>;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
   FeaturedPlaylistConnection?: FeaturedPlaylistConnectionResolvers<ContextType>;
   FeaturedPlaylistEdge?: FeaturedPlaylistEdgeResolvers<ContextType>;

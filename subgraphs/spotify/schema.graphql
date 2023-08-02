@@ -748,6 +748,9 @@ type CurrentUser {
   Detailed profile information about the current user.
   """
   user: User!
+    @deprecated(
+      reason: "Use the profile field instead which provides richer user information."
+    )
 
   """
   Information about the user's current playback state
@@ -770,6 +773,11 @@ type CurrentUser {
     """
     offset: Int
   ): PlaylistConnection
+
+  """
+  Get detailed profile information about the current user (including the current user's username).
+  """
+  profile: CurrentUserProfile!
 
   """
   Get a list of the albums saved in the current Spotify user's 'Your Music' library.
@@ -863,6 +871,64 @@ type CurrentUser {
     """
     ids: [ID!]!
   ): [Boolean!]
+}
+
+type CurrentUserProfile {
+  """
+  The country of the user, as set in the user's account profile. An ISO 3166-1
+  alpha-2 country code.
+  """
+  country: CountryCode!
+
+  """
+  The name displayed on the user's profile. `null` if not available.
+  """
+  displayName: String
+
+  """
+  The user's email address, as entered by the user when creating their account.
+  _**Important!** This email address is unverified; there is no proof that it
+  actually belongs to the user._
+  """
+  email: String!
+
+  """
+  The user's explicit content settings.
+  """
+  explicitContent: ExplicitContentSettings!
+
+  """
+  Information about the followers of the user.
+  """
+  followers: Followers!
+
+  """
+  A link to the Web API endpoint for this user.
+  """
+  href: String!
+
+  """
+  The [Spotify user ID](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
+  for the user.
+  """
+  id: ID!
+
+  """
+  The user's profile image.
+  """
+  images: [Image!]!
+
+  """
+  The user's Spotify subscription level: "premium", "free", etc. (The
+  subscription level "open" can be considered the same as "free".)
+  """
+  product: String!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
+  for the user.
+  """
+  uri: String!
 }
 
 type Developer {
@@ -987,6 +1053,19 @@ type Episode implements PlaylistTrack & PlaybackItem @key(fields: "id") {
   for the episode.
   """
   uri: String! @shareable
+}
+
+type ExplicitContentSettings {
+  """
+  When `true`, indicates that explicit content should not be played.
+  """
+  filterEnabled: Boolean!
+
+  """
+  When `true`, indicates that the explicit content setting is locked and can't
+  be changed by the user.
+  """
+  filterLocked: Boolean!
 }
 
 type ExternalUrl @shareable {
