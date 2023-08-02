@@ -26,7 +26,7 @@ const LoadingStateHighlighter = ({
   return highlightSuspenseBoundaries ? (
     <div className="relative">
       <div
-        className="border-2 border-[var(--border-color)] absolute inset-0"
+        className="border-2 border-[var(--border-color)] absolute inset-0 z-50"
         style={
           {
             '--border-color': shade || 'border-suspense-boundary',
