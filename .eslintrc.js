@@ -9,6 +9,7 @@ module.exports = {
   overrides: [
     {
       files: ['client/src/**/*.{ts,tsx}'],
+      processor: '@graphql-eslint/graphql',
       extends: [
         'plugin:react/recommended',
         'plugin:react/jsx-runtime',
@@ -16,6 +17,30 @@ module.exports = {
       ],
       rules: {
         'react/display-name': 'off',
+      },
+    },
+    {
+      files: ['client/src/**/*.graphql'],
+      excludedFiles: ['client/src/apollo/localSchema.graphql'],
+      extends: 'plugin:@graphql-eslint/operations-recommended',
+      rules: {
+        '@graphql-eslint/naming-convention': [
+          'error',
+          {
+            FragmentDefinition: {
+              ignorePattern: '.+_.+',
+            },
+          },
+        ],
+        '@graphql-eslint/no-deprecated': 'warn',
+        '@graphql-eslint/no-unused-fragments': 'off',
+      },
+      parserOptions: {
+        operations: './client/src/**/*.{ts,tsx}',
+        schema: [
+          './client/schema.graphql',
+          './client/src/apollo/localSchema.graphql',
+        ],
       },
     },
   ],
