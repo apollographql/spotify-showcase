@@ -12,6 +12,7 @@ interface CopyLinkToEntityProps {
 const LABELS: Record<Entity['__typename'], string> = {
   Album: 'Copy album link',
   Artist: 'Copy link to artist',
+  CurrentUserProfile: 'Copy link to profile',
   Episode: 'Copy episode link',
   Playlist: 'Copy link to playlist',
   Show: 'Copy show link',
