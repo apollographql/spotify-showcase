@@ -2438,11 +2438,21 @@ export type ArtistTopTracks_tracks = {
   };
 };
 
-export type Avatar_user = {
+type Avatar_profile_CurrentUserProfile_ = {
+  __typename: 'CurrentUserProfile';
+  id: string;
+  images: Array<{ __typename: 'Image'; url: string }>;
+};
+
+type Avatar_profile_User_ = {
   __typename: 'User';
   id: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
 };
+
+export type Avatar_profile =
+  | Avatar_profile_CurrentUserProfile_
+  | Avatar_profile_User_;
 
 export type AddToPlaylistQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2473,11 +2483,11 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 export type CurrentUserQuery = {
   me: {
     __typename: 'CurrentUser';
-    user: {
-      __typename: 'User';
+    profile: {
+      __typename: 'CurrentUserProfile';
       id: string;
       displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }> | null;
+      images: Array<{ __typename: 'Image'; url: string }>;
     };
   } | null;
 };
