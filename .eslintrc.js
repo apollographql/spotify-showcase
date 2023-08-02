@@ -24,6 +24,10 @@ module.exports = {
       excludedFiles: ['client/src/apollo/localSchema.graphql'],
       extends: 'plugin:@graphql-eslint/operations-recommended',
       rules: {
+        '@graphql-eslint/known-directives': [
+          'error',
+          { ignoreClientDirectives: ['client', 'connection'] },
+        ],
         '@graphql-eslint/naming-convention': [
           'error',
           {
