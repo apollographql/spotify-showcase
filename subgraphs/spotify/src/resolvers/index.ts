@@ -11,12 +11,14 @@ import { ArtistAlbumEdge } from './ArtistAlbumEdge';
 import { ArtistAlbumsConnection } from './ArtistAlbumsConnection';
 import { CountryCode } from './CountryCode';
 import { CurrentUser } from './CurrentUser';
+import { CurrentUserProfile } from './CurrentUserProfile';
 import { CurrentlyPlaying } from './CurrentlyPlaying';
 import { DateTime } from './DateTime';
 import { Developer } from './Developer';
 import { Device } from './Device';
 import { Episode } from './Episode';
 import { ErrorRate } from './ErrorRate';
+import { ExplicitContentSettings } from './ExplicitContentSettings';
 import { FeaturedPlaylistConnection } from './FeaturedPlaylistConnection';
 import { FeaturedPlaylistEdge } from './FeaturedPlaylistEdge';
 import { FieldConfig } from './FieldConfig';
@@ -98,11 +100,13 @@ const actualResolvers = {
   CountryCode,
   CurrentlyPlaying,
   CurrentUser,
+  CurrentUserProfile,
   DateTime,
   Developer,
   Device,
   Episode,
   ErrorRate,
+  ExplicitContentSettings,
   FeaturedPlaylistConnection,
   FeaturedPlaylistEdge,
   FieldConfig,
