@@ -2,6 +2,7 @@ export interface Entity {
   __typename:
     | 'Album'
     | 'Artist'
+    | 'CurrentUserProfile'
     | 'Episode'
     | 'Playlist'
     | 'Show'
@@ -13,6 +14,7 @@ export interface Entity {
 const ENTITYS_TO_PATHS: Record<string, string> = {
   Album: '/albums',
   Artist: '/artists',
+  CurrentUserProfile: '/users',
   Episode: '/episodes',
   Playlist: '/playlists',
   Show: '/shows',

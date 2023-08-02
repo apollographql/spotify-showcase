@@ -37,7 +37,7 @@ interface TableMeta {
 const COLLECTION_TRACKS_ROUTE_QUERY = gql`
   query CollectionTracksRouteQuery($offset: Int, $limit: Int) {
     me {
-      user {
+      profile {
         id
         displayName
       }
@@ -118,7 +118,7 @@ export const RouteComponent = () => {
     throw new Error('You must be logged in');
   }
 
-  const spotifyURI = `spotify:user:${currentUser.user.id}:collection`;
+  const spotifyURI = `spotify:user:${currentUser.profile.id}:collection`;
 
   const isPlaying = playbackState?.isPlaying ?? false;
   const isPlayingCollection = playbackState?.context?.uri === spotifyURI;
@@ -130,8 +130,8 @@ export const RouteComponent = () => {
         mediaType="playlist"
         coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="100px" />}
         details={[
-          <EntityLink key={currentUser.user.id} entity={currentUser.user}>
-            {currentUser.user.displayName}
+          <EntityLink key={currentUser.profile.id} entity={currentUser.profile}>
+            {currentUser.profile.displayName}
           </EntityLink>,
           <span key="numTracks" className="text-muted">
             {new Intl.NumberFormat().format(
