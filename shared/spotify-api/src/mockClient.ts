@@ -63,7 +63,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     this.state = findOrCreateUserPlaybackState(userId);
   }
 
-  addItemsToPlaylist(
+  async addItemsToPlaylist(
     playlistId: string,
     {
       params,
@@ -73,7 +73,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
       params: { position?: number; uris?: string[] };
     }
   ): Promise<{ snapshot_id: string }> {
-    throw new Error('Mock not implemented.');
+    return { snapshot_id: '' };
   }
 
   async addItemToPlaybackQueue({
@@ -81,7 +81,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { uri: string; device_id?: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return true;
   }
 
   async follow({
@@ -91,14 +91,14 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body: { ids?: string[] };
     params: { ids: string; type: 'artist' | 'user' };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return true;
   }
 
   async followPlaylist(
     playlistId: string,
     { body }: { body: { public?: boolean } }
   ): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return true;
   }
 
   async getAlbum(
@@ -163,20 +163,44 @@ export class MockSpotifyClient implements SpotifyDataSource {
     id: string,
     params?: { limit?: number; offset?: number; include_groups?: string }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>> {
-    throw new Error('Mock not implemented.');
+    const albums = Object.values(mocks.albums).filter((album) =>
+      album.artists.some((artist) => artist.id === id)
+    );
+
+    return {
+      total: albums.length,
+      limit: params?.limit ?? 10,
+      offset: params?.offset ?? 0,
+      href: 'http://mocked.com/artistAlbums',
+      next: 'http://mocked.com/artistAlbums',
+      previous: 'http://mocked.com/artistAlbums',
+      items: albums,
+    };
   }
 
   async getArtistRelatedArtists(
     artistId: string
   ): Promise<Spotify.Object.List<'artists', Spotify.Object.Artist>> {
-    throw new Error('Mock not implemented.');
+    return { artists: [] };
   }
 
   async getArtistTopTracks(
     artistId: string,
-    params: { market: string }
+    _params: { market: string }
   ): Promise<Spotify.Object.ArtistTopTracks> {
-    throw new Error('Mock not implemented.');
+    const artist = mocks.artists[artistId];
+
+    if (!artist) {
+      return { tracks: [] };
+    }
+
+    return {
+      tracks: Object.values(mocks.tracks)
+        .filter((track) =>
+          track.artists.some((artist) => artist.id === artistId)
+        )
+        .slice(0, 10),
+    };
   }
 
   async checkContainsAlbums(ids: string): Promise<boolean[]> {
@@ -184,35 +208,35 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async checkContainsEpisodes(ids: string): Promise<boolean[]> {
-    throw new Error('Mock not implemented.');
+    return ids.split(',').map(() => false);
   }
 
   async checkContainsShows(ids: string): Promise<boolean[]> {
-    throw new Error('Mock not implemented.');
+    return ids.split(',').map(() => false);
   }
 
   async checkContainsTracks(ids: string): Promise<boolean[]> {
-    throw new Error('Mock not implemented.');
+    return ids.split(',').map(() => false);
   }
 
   async checkFollowing(params: {
     ids: string;
     type: 'artist' | 'user';
   }): Promise<boolean[]> {
-    throw new Error('Mock not implemented.');
+    return params.ids.split(',').map(() => false);
   }
 
   async checkUsersFollowingPlaylist(
     playlistId: string,
     params: { ids: string }
   ): Promise<boolean[]> {
-    throw new Error('Mock not implemented.');
+    return params.ids.split(',').map(() => false);
   }
 
   async getCurrentlyPlaying(params?: {
     additional_types?: string;
   }): Promise<null | Spotify.Object.CurrentlyPlaying> {
-    throw new Error('Mock not implemented.');
+    return { ...this.state, item: mocks.tracks[this.state.item.id] };
   }
 
   async getDevices(): Promise<
@@ -243,14 +267,23 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }): Promise<{
     artists: Spotify.Object.PaginatedCursorBased<Spotify.Object.Artist>;
   }> {
-    throw new Error('Mock not implemented.');
+    return {
+      artists: {
+        href: '',
+        cursors: {},
+        limit: 10,
+        next: '',
+        total: Object.keys(mocks.artists).length,
+        items: Object.values(mocks.artists),
+      },
+    };
   }
 
   async getShows(params: {
     ids: string;
     market?: string;
   }): Promise<Spotify.Object.List<'shows', Spotify.Object.Show>> {
-    throw new Error('Mock not implemented.');
+    return { shows: [] };
   }
 
   async getRecommendations(params: {
@@ -301,7 +334,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     target_time_signature?: number;
     target_valence?: number;
   }): Promise<Spotify.Object.Recommendations> {
-    throw new Error('Mock not implemented.');
+    return { tracks: Object.values(mocks.tracks), seeds: [] };
   }
 
   async getCurrentUser(): Promise<Spotify.Object.CurrentUser> {
@@ -328,7 +361,18 @@ export class MockSpotifyClient implements SpotifyDataSource {
     limit?: number;
     offset?: number;
   }): Promise<Spotify.Object.Paginated<Spotify.Object.SavedAlbum>> {
-    throw new Error('Mock not implemented.');
+    return {
+      href: '',
+      offset: 0,
+      previous: '',
+      limit: 10,
+      next: '',
+      total: Object.keys(mocks.albums).length,
+      items: Object.values(mocks.albums).map((album) => ({
+        album,
+        added_at: new Date(0).toISOString(),
+      })),
+    };
   }
 
   async getCurrentUserEpisodes(params: {
@@ -336,7 +380,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     offset?: number;
     market?: string;
   }): Promise<Spotify.Object.Paginated<Spotify.Object.SavedEpisode>> {
-    throw new Error('Mock not implemented.');
+    return emptyPaginated;
   }
 
   async getCurrentUserPlaylists(params: {
@@ -362,7 +406,15 @@ export class MockSpotifyClient implements SpotifyDataSource {
     offset?: number;
     time_range?: 'long_term' | 'medium_term' | 'short_term';
   }): Promise<Spotify.Object.Paginated<Spotify.Object.Artist>> {
-    throw new Error('Mock not implemented.');
+    return {
+      href: '',
+      offset: 0,
+      previous: '',
+      limit: 10,
+      next: '',
+      total: Object.keys(mocks.artists).length,
+      items: Object.values(mocks.artists),
+    };
   }
 
   async getCurrentUserTopTracks(params: {
@@ -370,14 +422,33 @@ export class MockSpotifyClient implements SpotifyDataSource {
     offset?: number;
     time_range?: 'long_term' | 'medium_term' | 'short_term';
   }): Promise<Spotify.Object.Paginated<Spotify.Object.Track>> {
-    throw new Error('Mock not implemented.');
+    return {
+      href: '',
+      offset: 0,
+      previous: '',
+      limit: 10,
+      next: '',
+      total: Object.keys(mocks.tracks).length,
+      items: Object.values(mocks.tracks),
+    };
   }
 
   async getCurrentUserTracks(params?: {
     limit?: number;
     offset?: number;
   }): Promise<Spotify.Object.Paginated<Spotify.Object.SavedTrack>> {
-    throw new Error('Mock not implemented.');
+    return {
+      href: '',
+      offset: 0,
+      previous: '',
+      limit: 10,
+      next: '',
+      total: Object.keys(mocks.tracks).length,
+      items: Object.values(mocks.tracks).map((track) => ({
+        added_at: new Date(0).toISOString(),
+        track,
+      })),
+    };
   }
 
   async getFeaturedPlaylists(params: {
@@ -385,7 +456,10 @@ export class MockSpotifyClient implements SpotifyDataSource {
     offset?: number;
     timestamp?: string;
   }): Promise<Spotify.Object.FeaturedPlaylists> {
-    throw new Error('Mock not implemented.');
+    return {
+      message: 'Currently no featured playlists',
+      playlists: emptyPaginated,
+    };
   }
 
   async getNewReleases(params: {
@@ -393,7 +467,17 @@ export class MockSpotifyClient implements SpotifyDataSource {
     limit?: number;
     offset?: number;
   }): Promise<Spotify.Object.NewReleases> {
-    throw new Error('Mock not implemented.');
+    return {
+      albums: {
+        href: '',
+        offset: 0,
+        previous: '',
+        limit: 10,
+        next: '',
+        total: Object.values(mocks.albums).length,
+        items: Object.values(mocks.albums),
+      },
+    };
   }
 
   async getPlaybackState(params?: {
@@ -411,7 +495,11 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async getPlaybackQueue(): Promise<Spotify.Object.PlaybackQueue> {
-    throw new Error('Mock not implemented.');
+    const tracks = Object.values(mocks.tracks);
+    return {
+      queue: tracks.slice(1, tracks.length - 1),
+      currently_playing: tracks[0],
+    };
   }
 
   async getPlaylist(
@@ -433,14 +521,14 @@ export class MockSpotifyClient implements SpotifyDataSource {
     before?: number;
     limit?: number;
   }): Promise<Spotify.Object.PaginatedCursorBased<Spotify.Object.PlayHistory>> {
-    throw new Error('Mock not implemented.');
+    return emptyPaginatedCursor;
   }
 
   async getSavedShows(params?: {
     limit?: number;
     offset?: number;
   }): Promise<Spotify.Object.Paginated<Spotify.Object.SavedShow>> {
-    throw new Error('Mock not implemented.');
+    return emptyPaginated;
   }
 
   async getShow(id: string): Promise<Spotify.Object.Show> {
@@ -451,7 +539,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     showId: string,
     params: { limit?: number; offset?: number }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>> {
-    throw new Error('Mock not implemented.');
+    return emptyPaginated;
   }
 
   async getTrack(
@@ -495,7 +583,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }): Promise<
     Spotify.Object.List<'audio_features', Spotify.Object.TrackAudioFeatures>
   > {
-    throw new Error('Mock not implemented.');
+    return { audio_features: [] };
   }
 
   async getUser(userId: string): Promise<Spotify.Object.User> {
@@ -506,7 +594,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     playlistId: string,
     { body }: { body: { snapshot_id?: string; tracks: { uri: string }[] } }
   ): Promise<{ snapshot_id: string }> {
-    throw new Error('Mock not implemented.');
+    return { snapshot_id: 'removed' };
   }
 
   async removeSavedAlbums({
@@ -516,7 +604,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body: { ids?: string[] };
     params: { ids: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return true;
   }
 
   async removeSavedEpisodes({
@@ -526,7 +614,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body: { ids?: string[] };
     params: { ids: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return true;
   }
 
   async removeSavedShows({
@@ -534,7 +622,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { ids: string; market?: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return true;
   }
 
   async removeSavedTracks({
@@ -544,7 +632,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body: { ids?: string[] };
     params: { ids: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return true;
   }
 
   async resumePlayback({
@@ -591,7 +679,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body: { ids?: string[] };
     params: { ids: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return false;
   }
 
   async saveEpisodesToLibrary({
@@ -601,7 +689,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body: { ids?: string[] };
     params: { ids: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return false;
   }
 
   async saveShowsToLibrary({
@@ -609,7 +697,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { ids: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return false;
   }
 
   async saveTracksToLibrary({
@@ -617,7 +705,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }: {
     params: { ids: string };
   }): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return false;
   }
 
   async search(params: {
@@ -628,7 +716,17 @@ export class MockSpotifyClient implements SpotifyDataSource {
     market?: string;
     offset?: number;
   }): Promise<Spotify.Object.SearchResults> {
-    throw new Error('Mock not implemented.');
+    return {
+      tracks: {
+        href: '',
+        offset: 0,
+        previous: '',
+        limit: 10,
+        next: '',
+        total: 0,
+        items: Object.values(mocks.tracks),
+      },
+    };
   }
 
   async seekToPosition({
@@ -717,10 +815,28 @@ export class MockSpotifyClient implements SpotifyDataSource {
     body: { ids?: string[] };
     params: { ids: string; type: 'artist' | 'user' };
   }): Promise<unknown> {
-    throw new Error('Mock not implemented.');
+    return false;
   }
 
   async unfollowPlaylist(playlistId: string): Promise<boolean> {
-    throw new Error('Mock not implemented.');
+    return false;
   }
 }
+
+const emptyPaginated = {
+  href: '',
+  offset: 0,
+  previous: '',
+  limit: 10,
+  next: '',
+  total: 0,
+  items: [],
+};
+const emptyPaginatedCursor = {
+  cursors: {},
+  href: '',
+  limit: 10,
+  next: '',
+  total: 0,
+  items: [],
+};

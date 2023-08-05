@@ -511,6 +511,11 @@ async function createDemo() {
   ];
 
   await createSubgraph(subgraphs[0]);
+  // We provide 1s between subgraph publishes to avoid race conditions
+  // in updating the graph
+  //
+  // If it's the cloud router, we wait for the launch to deploy
+  // This should take less than 10s, but it would be better to ping the router status
   await sleep(isEnterprise ? 1000 : 10000);
   await createSubgraph(subgraphs[1]);
   await sleep(isEnterprise ? 10 : 10000);
