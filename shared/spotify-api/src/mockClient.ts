@@ -201,29 +201,29 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async checkContainsEpisodes(ids: string): Promise<boolean[]> {
-    return ids.split(',').map((id) => false);
+    return ids.split(',').map(() => false);
   }
 
   async checkContainsShows(ids: string): Promise<boolean[]> {
-    return ids.split(',').map((id) => false);
+    return ids.split(',').map(() => false);
   }
 
   async checkContainsTracks(ids: string): Promise<boolean[]> {
-    return ids.split(',').map((id) => false);
+    return ids.split(',').map(() => false);
   }
 
   async checkFollowing(params: {
     ids: string;
     type: 'artist' | 'user';
   }): Promise<boolean[]> {
-    return params.ids.split(',').map((id) => false);
+    return params.ids.split(',').map(() => false);
   }
 
   async checkUsersFollowingPlaylist(
     playlistId: string,
     params: { ids: string }
   ): Promise<boolean[]> {
-    return params.ids.split(',').map((id) => false);
+    return params.ids.split(',').map(() => false);
   }
 
   async getCurrentlyPlaying(params?: {
