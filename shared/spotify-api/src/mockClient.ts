@@ -370,7 +370,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
       total: Object.keys(mocks.albums).length,
       items: Object.values(mocks.albums).map((album) => ({
         album,
-        added_at: '',
+        added_at: new Date(0).toISOString(),
       })),
     };
   }
@@ -445,7 +445,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
       next: '',
       total: Object.keys(mocks.tracks).length,
       items: Object.values(mocks.tracks).map((track) => ({
-        added_at: '',
+        added_at: new Date(0).toISOString(),
         track,
       })),
     };
