@@ -26,7 +26,7 @@ module.exports = {
       rules: {
         '@graphql-eslint/known-directives': [
           'error',
-          { ignoreClientDirectives: ['client', 'connection'] },
+          { ignoreClientDirectives: ['client', 'connection', 'synthetics'] },
         ],
         '@graphql-eslint/naming-convention': [
           'error',
