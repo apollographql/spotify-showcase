@@ -195,9 +195,11 @@ export class MockSpotifyClient implements SpotifyDataSource {
     }
 
     return {
-      tracks: Object.values(mocks.tracks).filter((track) =>
-        track.artists.some((artist) => artist.id === artistId)
-      ),
+      tracks: Object.values(mocks.tracks)
+        .filter((track) =>
+          track.artists.some((artist) => artist.id === artistId)
+        )
+        .slice(0, 10),
     };
   }
 
