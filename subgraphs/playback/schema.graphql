@@ -13,12 +13,12 @@ directive @synthetics(
   """
   The synthetic timeout configured for the field.
   """
-  timeout: Int!
+  timeout: Int
 
   """
   The synthetic error rate configured for the field.
   """
-  errorRate: ErrorRate!
+  errorRate: ErrorRate
 
   """
   Enable or disable synthetics for the field.
