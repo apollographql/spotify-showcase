@@ -186,14 +186,19 @@ export class MockSpotifyClient implements SpotifyDataSource {
 
   async getArtistTopTracks(
     artistId: string,
-    params: { market: string }
+    _params: { market: string }
   ): Promise<Spotify.Object.ArtistTopTracks> {
     const artist = mocks.artists[artistId];
-    if (!artist) return { tracks: [] };
-    const tracks = Object.entries(mocks.tracks)
-      .filter(([id, track]) => track.artists[0].id == artistId)
-      .map(([, track]) => track);
-    return { tracks };
+
+    if (!artist) {
+      return { tracks: [] };
+    }
+
+    return {
+      tracks: Object.values(mocks.tracks).filter((track) =>
+        track.artists.some((artist) => artist.id === artistId)
+      ),
+    };
   }
 
   async checkContainsAlbums(ids: string): Promise<boolean[]> {
