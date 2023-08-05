@@ -163,9 +163,10 @@ export class MockSpotifyClient implements SpotifyDataSource {
     id: string,
     params?: { limit?: number; offset?: number; include_groups?: string }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.AlbumSimplified>> {
-    const albums = Object.entries(mocks.albums).filter(
-      ([id, album]) => id == id
+    const albums = Object.values(mocks.albums).filter((album) =>
+      album.artists.some((artist) => artist.id === id)
     );
+
     return {
       total: albums.length,
       limit: params?.limit ?? 10,
@@ -173,7 +174,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
       href: 'http://mocked.com/artistAlbums',
       next: 'http://mocked.com/artistAlbums',
       previous: 'http://mocked.com/artistAlbums',
-      items: albums.values() as any,
+      items: albums,
     };
   }
 
