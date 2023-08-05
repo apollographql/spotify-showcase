@@ -2525,8 +2525,8 @@ export type ContactDirectiveResolver<
 
 export type SyntheticsDirectiveArgs = {
   enabled?: Maybe<Scalars['Boolean']['input']>;
-  errorRate: Scalars['ErrorRate']['input'];
-  timeout: Scalars['Int']['input'];
+  errorRate?: Maybe<Scalars['ErrorRate']['input']>;
+  timeout?: Maybe<Scalars['Int']['input']>;
 };
 
 export type SyntheticsDirectiveResolver<

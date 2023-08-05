@@ -38,6 +38,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  ErrorRate: { input: number; output: number };
   Timestamp: { input: unknown; output: unknown };
   _FieldSet: { input: unknown; output: unknown };
 };
@@ -507,6 +508,7 @@ export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  ErrorRate: ResolverTypeWrapper<Scalars['ErrorRate']['output']>;
   ExternalUrl: ResolverTypeWrapper<ExternalUrl>;
   Mutation: ResolverTypeWrapper<{}>;
   PausePlaybackContextInput: PausePlaybackContextInput;
@@ -583,6 +585,7 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean']['output'];
   String: Scalars['String']['output'];
   Int: Scalars['Int']['output'];
+  ErrorRate: Scalars['ErrorRate']['output'];
   ExternalUrl: ExternalUrl;
   Mutation: {};
   PausePlaybackContextInput: PausePlaybackContextInput;
@@ -642,6 +645,19 @@ export type ContactDirectiveResolver<
   Args = ContactDirectiveArgs,
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
+export type SyntheticsDirectiveArgs = {
+  enabled?: Maybe<Scalars['Boolean']['input']>;
+  errorRate?: Maybe<Scalars['ErrorRate']['input']>;
+  timeout?: Maybe<Scalars['Int']['input']>;
+};
+
+export type SyntheticsDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = ContextValue,
+  Args = SyntheticsDirectiveArgs,
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type ActionResolvers = {
   INTERRUPTING_PLAYBACK: 'interrupting_playback';
   PAUSING: 'pausing';
@@ -686,6 +702,11 @@ export type DeviceResolvers<
   volumePercent?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
+
+export interface ErrorRateScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['ErrorRate'], any> {
+  name: 'ErrorRate';
+}
 
 export type ExternalUrlResolvers<
   ContextType = ContextValue,
@@ -978,6 +999,7 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
   Action?: ActionResolvers;
   Actions?: ActionsResolvers<ContextType>;
   Device?: DeviceResolvers<ContextType>;
+  ErrorRate?: GraphQLScalarType;
   ExternalUrl?: ExternalUrlResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   PausePlaybackResponse?: PausePlaybackResponseResolvers<ContextType>;
@@ -1000,4 +1022,5 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
 
 export type DirectiveResolvers<ContextType = ContextValue> = ResolversObject<{
   contact?: ContactDirectiveResolver<any, any, ContextType>;
+  synthetics?: SyntheticsDirectiveResolver<any, any, ContextType>;
 }>;

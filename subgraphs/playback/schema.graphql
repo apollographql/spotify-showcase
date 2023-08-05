@@ -9,6 +9,20 @@ directive @contact(
   description: String
 ) on SCHEMA
 
+extend schema
+  @contact(
+    name: "Playback Subscription Subgraph"
+    url: "https://discord.gg/graphos"
+    description: "Ask questions in our Discord or [open an issue](https://github.com/apollographql/spotify-showcase/issues)."
+  )
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.3"
+    import: ["@key", "@shareable", "@interfaceObject"]
+  )
+
+scalar ErrorRate
+scalar Timestamp
+
 directive @synthetics(
   """
   The synthetic timeout configured for the field.
@@ -25,19 +39,6 @@ directive @synthetics(
   """
   enabled: Boolean = true
 ) on FIELD
-
-extend schema
-  @contact(
-    name: "Playback Subscription Subgraph"
-    url: "https://discord.gg/graphos"
-    description: "Ask questions in our Discord or [open an issue](https://github.com/apollographql/spotify-showcase/issues)."
-  )
-  @link(
-    url: "https://specs.apollo.dev/federation/v2.3"
-    import: ["@key", "@shareable", "@interfaceObject"]
-  )
-
-scalar Timestamp
 
 type Mutation {
   """
