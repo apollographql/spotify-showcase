@@ -2523,6 +2523,19 @@ export type ContactDirectiveResolver<
   Args = ContactDirectiveArgs,
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
+export type SyntheticsDirectiveArgs = {
+  enabled?: Maybe<Scalars['Boolean']['input']>;
+  errorRate: Scalars['ErrorRate']['input'];
+  timeout: Scalars['Int']['input'];
+};
+
+export type SyntheticsDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = ContextValue,
+  Args = SyntheticsDirectiveArgs,
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type ActionResolvers = {
   INTERRUPTING_PLAYBACK: 'interrupting_playback';
   PAUSING: 'pausing';
@@ -4528,4 +4541,5 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
 
 export type DirectiveResolvers<ContextType = ContextValue> = ResolversObject<{
   contact?: ContactDirectiveResolver<any, any, ContextType>;
+  synthetics?: SyntheticsDirectiveResolver<any, any, ContextType>;
 }>;
