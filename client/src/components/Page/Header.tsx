@@ -24,9 +24,7 @@ const Header = ({ coverPhoto, details, mediaType, title }: HeaderProps) => {
       })}
       <HeaderDetails>
         {mediaType && <MediaType mediaType={mediaType} />}
-        <FitText maxFontSize={96} minFontSize={48}>
-          <Title>{title}</Title>
-        </FitText>
+        <Title style={{ fontSize: 96 }}>{title}</Title>
         <Details items={details} />
       </HeaderDetails>
     </HeaderContainer>
