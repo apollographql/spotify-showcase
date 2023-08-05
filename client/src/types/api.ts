@@ -2888,62 +2888,6 @@ export type PlaylistSidebarLink_playlist = {
   owner: { __typename: 'User'; id: string; displayName: string | null };
 };
 
-export type PlaylistTable_currentUser = {
-  __typename: 'CurrentUser';
-  user: { __typename: 'User'; id: string };
-};
-
-export type PlaylistTable_playlist = {
-  __typename: 'Playlist';
-  id: string;
-  uri: string;
-  owner: { __typename: 'User'; id: string };
-  tracks: {
-    __typename: 'PlaylistTrackConnection';
-    edges: Array<{
-      __typename: 'PlaylistTrackEdge';
-      addedAt: string | null;
-      node:
-        | {
-            __typename: 'Episode';
-            id: string;
-            name: string;
-            durationMs: number;
-            uri: string;
-            explicit: boolean;
-            releaseDate: {
-              __typename: 'ReleaseDate';
-              date: string;
-              precision: ReleaseDatePrecision;
-            };
-            show: {
-              __typename: 'Show';
-              id: string;
-              name: string;
-              publisher: string;
-              images: Array<{ __typename: 'Image'; url: string }>;
-            };
-          }
-        | {
-            __typename: 'Track';
-            id: string;
-            name: string;
-            durationMs: number;
-            uri: string;
-            trackNumber: number | null;
-            explicit: boolean;
-            album: {
-              __typename: 'Album';
-              id: string;
-              name: string;
-              images: Array<{ __typename: 'Image'; url: string }>;
-            };
-            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-          };
-    }>;
-  };
-};
-
 export type PlaylistTile_playlist = {
   __typename: 'Playlist';
   id: string;
@@ -3900,6 +3844,10 @@ export type PlaylistQueryVariables = Exact<{
 }>;
 
 export type PlaylistQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    profile: { __typename: 'CurrentUserProfile'; id: string };
+  } | null;
   playlist: {
     __typename: 'Playlist';
     id: string;
@@ -3913,13 +3861,6 @@ export type PlaylistQuery = {
     owner: { __typename: 'User'; id: string; displayName: string | null };
     tracks: {
       __typename: 'PlaylistTrackConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        hasNextPage: boolean;
-        offset: number;
-        limit: number;
-        total: number;
-      };
       edges: Array<{
         __typename: 'PlaylistTrackEdge';
         addedAt: string | null;
@@ -3965,6 +3906,13 @@ export type PlaylistQuery = {
               }>;
             };
       }>;
+      pageInfo: {
+        __typename: 'PageInfo';
+        hasNextPage: boolean;
+        offset: number;
+        limit: number;
+        total: number;
+      };
     };
   } | null;
 };
