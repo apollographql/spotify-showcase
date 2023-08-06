@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "type-fest": "^4.1.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
