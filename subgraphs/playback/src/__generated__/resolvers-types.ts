@@ -4,7 +4,6 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 import { Spotify } from 'spotify-api';
-import { FieldConfig as FieldConfigType } from '@shared/field-synthetics';
 import { Releasable } from './mappers';
 import { ContextValue } from '../types/ContextValue';
 export type Maybe<T> = T | null;

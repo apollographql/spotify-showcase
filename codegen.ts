@@ -34,8 +34,6 @@ const config: CodegenConfig = {
           FeaturedPlaylistConnection:
             'spotify-api#Spotify#Object.FeaturedPlaylists',
           FeaturedPlaylistEdge: 'spotify-api#Spotify#Object.PlaylistSimplified',
-          FieldConfig:
-            '@shared/field-synthetics#FieldConfig as FieldConfigType',
           FollowedArtistsConnection:
             'spotify-api#Spotify#Object.PaginatedCursorBased<Spotify.Object.Artist>',
           FollowedArtistEdge: 'spotify-api#Spotify#Object.Artist',
