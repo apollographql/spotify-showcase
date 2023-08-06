@@ -2,8 +2,8 @@ import {
   gql,
   TypedDocumentNode,
   useApolloClient,
+  useBackgroundQuery,
   useFragment,
-  useSuspenseQuery,
 } from '@apollo/client';
 import { useEffect } from 'react';
 import {
@@ -58,7 +58,7 @@ const useSavedTracksContains = (ids: string[]) => {
   // We rely on the useFragment above to actually return the results for us.
   // This means we can ignore the result returned from this query and the
   // queries loaded in useEffect.
-  useSuspenseQuery(SAVED_TRACKS_CONTAINS_QUERY, {
+  useBackgroundQuery(SAVED_TRACKS_CONTAINS_QUERY, {
     errorPolicy: 'ignore',
     variables: { ids: ids.slice(0, INITIAL_BATCH_COUNT) },
   });
