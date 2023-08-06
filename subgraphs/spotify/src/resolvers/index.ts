@@ -16,7 +16,6 @@ import { DateTime } from './DateTime';
 import { Developer } from './Developer';
 import { Device } from './Device';
 import { Episode } from './Episode';
-import { ErrorRate } from './ErrorRate';
 import { ExplicitContentSettings } from './ExplicitContentSettings';
 import { FeaturedPlaylistConnection } from './FeaturedPlaylistConnection';
 import { FeaturedPlaylistEdge } from './FeaturedPlaylistEdge';
@@ -103,7 +102,6 @@ export const resolvers = {
   Developer,
   Device,
   Episode,
-  ErrorRate,
   ExplicitContentSettings,
   FeaturedPlaylistConnection,
   FeaturedPlaylistEdge,
