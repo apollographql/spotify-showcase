@@ -6,6 +6,7 @@ import {
 } from 'graphql';
 import { getDirectiveNode } from './utils/graphql';
 import { wait } from './utils/common';
+import { getFieldConfig, fromResolverInfo } from './fieldConfigs';
 
 interface SyntheticsDirectiveArguments {
   timeout?: number;
@@ -36,30 +37,37 @@ export function wrapWithSynthetics(
 }
 
 function getSyntheticsConfig(info: GraphQLResolveInfo) {
+  const { config: fieldConfig } = getFieldConfig(fromResolverInfo(info));
+  const directiveConfig = getSyntheticsConfigFromDirective(info);
+
+  return {
+    timeout: directiveConfig?.timeout ?? fieldConfig.timeout,
+    errorRate: directiveConfig?.errorRate ?? fieldConfig.errorRate,
+    enabled: directiveConfig?.enabled ?? true,
+  };
+}
+
+function getSyntheticsConfigFromDirective(info: GraphQLResolveInfo) {
   const directive = info.schema.getDirective('synthetics');
 
   if (!directive) {
-    throw new Error('`synthetics` directive must be defined in the schema');
+    throw new Error('`synthetics` directive must be added to the schema');
   }
 
-  const syntheticsDirectiveNode = getDirectiveNode(info, 'synthetics');
+  const node = getDirectiveNode(info, 'synthetics');
 
-  if (!syntheticsDirectiveNode) {
-    return {
-      timeout: 0,
-      errorRate: 0,
-      enabled: true,
-    };
+  if (!node) {
+    return;
   }
 
   const args = getArgumentValues(
     directive,
-    syntheticsDirectiveNode
+    node
   ) as unknown as SyntheticsDirectiveArguments;
 
   return {
-    timeout: args.timeout ?? 0,
-    errorRate: args.errorRate ?? 0,
+    timeout: args.timeout,
+    errorRate: args.errorRate,
     enabled: args.enabled,
   };
 }
