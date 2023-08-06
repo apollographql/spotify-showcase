@@ -6,6 +6,7 @@ import resolvers from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
+import defaultResolver from '../resolvers/default';
 
 const typeDefs = gql(
   readFileSync('schema.graphql', {
@@ -19,6 +20,7 @@ const schema = buildSubgraphSchema({
 
 export const server = new ApolloServer<ContextValue>({
   schema,
+  fieldResolver: defaultResolver,
   introspection: true,
   logger,
   plugins: [
@@ -49,7 +51,7 @@ export const server = new ApolloServer<ContextValue>({
               else
                 Sentry.withScope((scope) => {
                   // Annotate whether failing operation was query/mutation/subscription
-                  scope.setTag('kind', ctx.operation.operation);
+                  scope.setTag('kind', ctx.operation?.operation);
                   // Log query and variables as extras
                   // (make sure to strip out sensitive data!)
                   scope.setExtra('query', ctx.request.query);
