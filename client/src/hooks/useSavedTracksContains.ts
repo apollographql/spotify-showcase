@@ -24,7 +24,10 @@ const SAVED_TRACKS_CONTAINS_QUERY: TypedDocumentNode<
   }
 `;
 
-const SAVED_TRACKS_CONTAINS_FRAGMENT = gql`
+const SAVED_TRACKS_CONTAINS_FRAGMENT: TypedDocumentNode<
+  SavedTracksContainsFragment,
+  { ids: string[] }
+> = gql`
   fragment SavedTracksContainsFragment on CurrentUser {
     tracksContains(ids: $ids)
   }
@@ -62,10 +65,7 @@ const useSavedTracksContains = (ids: string[]) => {
     });
   }, [client, ids]);
 
-  const { complete, data } = useFragment<
-    SavedTracksContainsFragment,
-    { ids: string[] }
-  >({
+  const { complete, data } = useFragment({
     from: { __typename: 'CurrentUser' },
     fragment: SAVED_TRACKS_CONTAINS_FRAGMENT,
     variables: {
@@ -81,7 +81,7 @@ const useSavedTracksContains = (ids: string[]) => {
   }
 
   return ids.reduce(
-    (map, id, index) => map.set(id, data?.tracksContains?.[index] ?? false),
+    (map, id, index) => map.set(id, data.tracksContains?.[index] ?? false),
     new Map<string, boolean>()
   );
 };
