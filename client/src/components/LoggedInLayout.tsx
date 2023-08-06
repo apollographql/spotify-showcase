@@ -19,15 +19,18 @@ import CurrentUserMenu, {
   LoadingState as CurrentUserMenuLoadingState,
 } from './CurrentUserMenu';
 import Suspense from './Suspense';
+import StandardLoadingState from './StandardLoadingState';
 
 const LoggedInLayout = () => {
   return (
-    <Suspense fallback={<LoadingState />}>
+    <Suspense shade="#67EEF0" fallback={<LoadingState />}>
       <Container>
         <Sidebar />
         <Main>
           <Header />
-          <Outlet />
+          <Suspense shade="#FF2600" fallback={<StandardLoadingState />}>
+            <Outlet />
+          </Suspense>
         </Main>
         <Playbar />
       </Container>
@@ -222,6 +225,7 @@ const LoadingState = () => {
         <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
           <CurrentUserMenuLoadingState />
         </header>
+        <StandardLoadingState />
       </Layout.Main>
       <PlaybarLoadingState />
     </Layout>
