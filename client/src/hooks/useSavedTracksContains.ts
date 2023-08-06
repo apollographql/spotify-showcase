@@ -2,8 +2,8 @@ import {
   gql,
   TypedDocumentNode,
   useApolloClient,
+  useBackgroundQuery,
   useFragment,
-  useSuspenseQuery,
 } from '@apollo/client';
 import { useEffect } from 'react';
 import {
@@ -24,7 +24,10 @@ const SAVED_TRACKS_CONTAINS_QUERY: TypedDocumentNode<
   }
 `;
 
-const SAVED_TRACKS_CONTAINS_FRAGMENT = gql`
+const SAVED_TRACKS_CONTAINS_FRAGMENT: TypedDocumentNode<
+  SavedTracksContainsFragment,
+  { ids: string[] }
+> = gql`
   fragment SavedTracksContainsFragment on CurrentUser {
     tracksContains(ids: $ids)
   }
@@ -35,17 +38,6 @@ const INITIAL_BATCH_COUNT = 20;
 
 const useSavedTracksContains = (ids: string[]) => {
   const client = useApolloClient();
-  const { complete, data } = useFragment<
-    SavedTracksContainsFragment,
-    { ids: string[] }
-  >({
-    from: { __typename: 'CurrentUser' },
-    fragment: SAVED_TRACKS_CONTAINS_FRAGMENT,
-    variables: {
-      ids,
-    },
-  });
-
   // We can only check 50 results at a time. We pick an initial amount to load
   // results that are displayed above the fold. This query is suspended to allow
   // the results to load with the rest of the parent context (such as a playlist).
@@ -58,7 +50,7 @@ const useSavedTracksContains = (ids: string[]) => {
   // We rely on the useFragment above to actually return the results for us.
   // This means we can ignore the result returned from this query and the
   // queries loaded in useEffect.
-  useSuspenseQuery(SAVED_TRACKS_CONTAINS_QUERY, {
+  useBackgroundQuery(SAVED_TRACKS_CONTAINS_QUERY, {
     errorPolicy: 'ignore',
     variables: { ids: ids.slice(0, INITIAL_BATCH_COUNT) },
   });
@@ -73,6 +65,14 @@ const useSavedTracksContains = (ids: string[]) => {
     });
   }, [client, ids]);
 
+  const { complete, data } = useFragment({
+    from: { __typename: 'CurrentUser' },
+    fragment: SAVED_TRACKS_CONTAINS_FRAGMENT,
+    variables: {
+      ids,
+    },
+  });
+
   if (!complete) {
     return ids.reduce(
       (map, id) => map.set(id, false),
@@ -81,7 +81,7 @@ const useSavedTracksContains = (ids: string[]) => {
   }
 
   return ids.reduce(
-    (map, id, index) => map.set(id, data?.tracksContains?.[index] ?? false),
+    (map, id, index) => map.set(id, data.tracksContains?.[index] ?? false),
     new Map<string, boolean>()
   );
 };
