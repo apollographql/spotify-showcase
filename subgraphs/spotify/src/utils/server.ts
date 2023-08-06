@@ -2,13 +2,14 @@ import { readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer } from '@apollo/server';
-import resolvers from '../resolvers';
+import {
+  addSyntheticsToSchema,
+  syntheticsDirective,
+} from '@shared/field-synthetics';
+import { resolvers } from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
-import { mapSchema, MapperKind } from '@graphql-tools/utils';
-import { wrapWithSynthetics } from '../resolvers/helpers';
-import { defaultFieldResolver } from 'graphql';
 
 const typeDefs = gql(
   readFileSync('schema.graphql', {
@@ -16,25 +17,13 @@ const typeDefs = gql(
   })
 );
 
-const schema = mapSchema(
-  buildSubgraphSchema({
-    typeDefs,
-    resolvers,
-  }),
-  {
-    [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
-      return {
-        ...fieldConfig,
-        resolve: wrapWithSynthetics(
-          fieldConfig.resolve ?? defaultFieldResolver
-        ),
-      };
-    },
-  }
-);
+const schema = buildSubgraphSchema({
+  typeDefs: [syntheticsDirective, typeDefs],
+  resolvers,
+});
 
 export const server = new ApolloServer<ContextValue>({
-  schema,
+  schema: addSyntheticsToSchema(schema),
   introspection: true,
   logger,
   plugins: [
