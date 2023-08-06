@@ -2,7 +2,10 @@ import { readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer } from '@apollo/server';
-import { addSyntheticsToSchema } from '@shared/field-synthetics';
+import {
+  addSyntheticsToSchema,
+  resolvers as fieldSyntheticsResolvers,
+} from '@shared/field-synthetics';
 import { resolvers } from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
@@ -16,7 +19,10 @@ const typeDefs = gql(
 
 const schema = buildSubgraphSchema({
   typeDefs,
-  resolvers,
+  resolvers: {
+    ...fieldSyntheticsResolvers,
+    ...resolvers,
+  },
 });
 
 export const server = new ApolloServer<ContextValue>({
