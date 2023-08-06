@@ -6,21 +6,35 @@ import resolvers from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
-import defaultResolver from '../resolvers/default';
+import { mapSchema, MapperKind } from '@graphql-tools/utils';
+import { wrapWithSynthetics } from '../resolvers/helpers';
+import { defaultFieldResolver } from 'graphql';
 
 const typeDefs = gql(
   readFileSync('schema.graphql', {
     encoding: 'utf-8',
   })
 );
-const schema = buildSubgraphSchema({
-  typeDefs,
-  resolvers,
-});
+
+const schema = mapSchema(
+  buildSubgraphSchema({
+    typeDefs,
+    resolvers,
+  }),
+  {
+    [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
+      return {
+        ...fieldConfig,
+        resolve: wrapWithSynthetics(
+          fieldConfig.resolve ?? defaultFieldResolver
+        ),
+      };
+    },
+  }
+);
 
 export const server = new ApolloServer<ContextValue>({
   schema,
-  fieldResolver: defaultResolver,
   introspection: true,
   logger,
   plugins: [

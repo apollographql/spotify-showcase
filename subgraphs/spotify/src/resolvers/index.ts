@@ -1,4 +1,3 @@
-import { GraphQLScalarType } from 'graphql';
 import { Action } from './Action';
 import { Actions } from './Actions';
 import { Album } from './Album';
@@ -84,10 +83,8 @@ import { Track } from './Track';
 import { TrackAudioFeatures } from './TrackAudioFeatures';
 import { User } from './User';
 import { UserProfile } from './UserProfile';
-import { Resolver, Resolvers } from '../__generated__/resolvers-types';
-import { wrapWithSynthetics } from './helpers';
 
-const actualResolvers = {
+export const resolvers = {
   Action,
   Actions,
   Album,
@@ -174,36 +171,3 @@ const actualResolvers = {
   User,
   UserProfile,
 };
-
-//We are wrapping all fo the resolvers for a purpose in the demo to display `@apollo/client` resiliency when the API is throwing errors
-type EnumResolver = Record<string, string>;
-type ResolverMap = Record<string, EnumResolver | Resolver<unknown>>;
-
-const wrapFieldResolvers = (typeResolvers: ResolverMap) => {
-  if (typeResolvers instanceof GraphQLScalarType) {
-    return typeResolvers;
-  }
-
-  return Object.fromEntries(
-    Object.entries(typeResolvers).map(([key, resolver]) =>
-      key === '__resolveType' || key === '__resolveReference'
-        ? [key, resolver]
-        : [
-            key,
-            typeof resolver === 'function'
-              ? wrapWithSynthetics(resolver)
-              : resolver,
-          ]
-    )
-  );
-};
-
-const resolvers: Resolvers = Object.entries(actualResolvers).reduce(
-  (resolvers, resolverName) => ({
-    ...resolvers,
-    [resolverName[0]]: wrapFieldResolvers(resolverName[1] as any),
-  }),
-  {}
-);
-
-export default resolvers;
