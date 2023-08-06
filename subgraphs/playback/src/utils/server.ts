@@ -7,6 +7,7 @@ import {
   ApolloServerPluginLandingPageProductionDefault,
   ApolloServerPluginLandingPageLocalDefault,
 } from '@apollo/server/plugin/landingPage/default';
+import { addSyntheticsToSchema } from '@shared/field-synthetics';
 import resolvers from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
 const routerSecret = process.env.ROUTER_SECRET;
@@ -30,10 +31,14 @@ const typeDefs = gql(
     encoding: 'utf-8',
   })
 );
-const schema = buildSubgraphSchema({
-  typeDefs,
-  resolvers,
-});
+
+const schema = addSyntheticsToSchema(
+  buildSubgraphSchema({
+    typeDefs,
+    resolvers,
+  })
+);
+
 const wsServer = new WebSocketServer({
   server: httpServer,
   path: '/ws',
