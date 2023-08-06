@@ -17,6 +17,9 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "graphql": "^16.7.1"
+    "@graphql-tools/schema": "^10.0.0",
+    "@graphql-tools/utils": "^10.0.4",
+    "graphql": "^16.7.1",
+    "graphql-tag": "^2.12.6"
   }
 }
