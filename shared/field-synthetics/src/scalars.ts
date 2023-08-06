@@ -1,9 +1,8 @@
 import { GraphQLError, GraphQLScalarType, Kind } from 'graphql';
-import { ErrorRateScalarConfig } from '../__generated__/resolvers-types';
 
 const isValidValue = (errorRate: number) => errorRate >= 0 && errorRate <= 1;
 
-const config: ErrorRateScalarConfig = {
+export const ErrorRate = new GraphQLScalarType({
   name: 'ErrorRate',
   description: 'The rate of error reflected as a number between 0 and 1',
   serialize(value) {
@@ -53,6 +52,4 @@ const config: ErrorRateScalarConfig = {
 
     return value;
   },
-};
-
-export const ErrorRate = new GraphQLScalarType(config);
+});

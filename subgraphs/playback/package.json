@@ -29,6 +29,7 @@
     "@apollo/subgraph": "^2.4.7",
     "@graphql-tools/mock": "^9.0.0",
     "@sentry/node": "^7.59.3",
+    "@shared/field-synthetics": "*",
     "@wry/equality": "^0.5.6",
     "body-parser": "^1.20.2",
     "chalk": "^4.1.2",

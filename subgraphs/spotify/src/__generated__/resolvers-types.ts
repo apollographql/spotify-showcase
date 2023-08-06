@@ -4,7 +4,7 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 import { Spotify } from 'spotify-api';
-import { FieldConfig as FieldConfigType } from '../fieldConfigs/fieldConfig';
+import { FieldConfig as FieldConfigType } from '@shared/field-synthetics';
 import { Releasable } from './mappers';
 import { ContextValue } from '../types/ContextValue';
 export type Maybe<T> = T | null;
@@ -2523,6 +2523,19 @@ export type ContactDirectiveResolver<
   Args = ContactDirectiveArgs,
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
+export type SyntheticsDirectiveArgs = {
+  enabled?: Maybe<Scalars['Boolean']['input']>;
+  errorRate?: Maybe<Scalars['ErrorRate']['input']>;
+  timeout?: Maybe<Scalars['Int']['input']>;
+};
+
+export type SyntheticsDirectiveResolver<
+  Result,
+  Parent,
+  ContextType = ContextValue,
+  Args = SyntheticsDirectiveArgs,
+> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+
 export type ActionResolvers = {
   INTERRUPTING_PLAYBACK: 'interrupting_playback';
   PAUSING: 'pausing';
@@ -4528,4 +4541,5 @@ export type Resolvers<ContextType = ContextValue> = ResolversObject<{
 
 export type DirectiveResolvers<ContextType = ContextValue> = ResolversObject<{
   contact?: ContactDirectiveResolver<any, any, ContextType>;
+  synthetics?: SyntheticsDirectiveResolver<any, any, ContextType>;
 }>;

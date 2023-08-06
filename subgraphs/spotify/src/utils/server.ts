@@ -2,7 +2,11 @@ import { readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer } from '@apollo/server';
-import resolvers from '../resolvers';
+import {
+  addSyntheticsToSchema,
+  resolvers as fieldSyntheticsResolvers,
+} from '@shared/field-synthetics';
+import { resolvers } from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
@@ -12,13 +16,17 @@ const typeDefs = gql(
     encoding: 'utf-8',
   })
 );
+
 const schema = buildSubgraphSchema({
   typeDefs,
-  resolvers,
+  resolvers: {
+    ...fieldSyntheticsResolvers,
+    ...resolvers,
+  },
 });
 
 export const server = new ApolloServer<ContextValue>({
-  schema,
+  schema: addSyntheticsToSchema(schema),
   introspection: true,
   logger,
   plugins: [
@@ -49,7 +57,7 @@ export const server = new ApolloServer<ContextValue>({
               else
                 Sentry.withScope((scope) => {
                   // Annotate whether failing operation was query/mutation/subscription
-                  scope.setTag('kind', ctx.operation.operation);
+                  scope.setTag('kind', ctx.operation?.operation);
                   // Log query and variables as extras
                   // (make sure to strip out sensitive data!)
                   scope.setExtra('query', ctx.request.query);

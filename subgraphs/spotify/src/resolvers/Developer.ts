@@ -1,6 +1,6 @@
-import { getFieldConfigs } from '../fieldConfigs';
+import { fieldConfigs } from '@shared/field-synthetics';
 import { DeveloperResolvers } from '../__generated__/resolvers-types';
 
 export const Developer: DeveloperResolvers = {
-  fieldConfigs: () => getFieldConfigs(),
+  fieldConfigs: () => fieldConfigs.getFieldConfigs(),
 };

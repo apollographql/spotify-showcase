@@ -1,8 +1,7 @@
 import { MutationResolvers } from '../__generated__/resolvers-types';
-import { identify, updateFieldConfig, resetFieldConfig } from '../fieldConfigs';
 import { GraphQLError } from 'graphql';
 import { maybe } from '../utils/common';
-import { FieldConfig } from '../fieldConfigs';
+import { FieldConfig, fieldConfigs } from '@shared/field-synthetics';
 
 export const Mutation: MutationResolvers = {
   addItemToPlaybackQueue: async (_, { input }, { dataSources }) => {
@@ -31,8 +30,8 @@ export const Mutation: MutationResolvers = {
       throw new GraphQLError('You must provide field.schemaField');
     }
 
-    const fieldConfig = updateFieldConfig(
-      identify.fromSchemaField(field.schemaField),
+    const fieldConfig = fieldConfigs.updateFieldConfig(
+      fieldConfigs.fromSchemaField(field.schemaField),
       config
     );
 
@@ -90,8 +89,8 @@ export const Mutation: MutationResolvers = {
       throw new GraphQLError('You must provide field.schemaField');
     }
 
-    const id = identify.fromSchemaField(field.schemaField);
-    resetFieldConfig(id);
+    const id = fieldConfigs.fromSchemaField(field.schemaField);
+    fieldConfigs.resetFieldConfig(id);
 
     return { fieldConfig: new FieldConfig(id) };
   },

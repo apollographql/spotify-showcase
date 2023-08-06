@@ -1,8 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { NullifyOptionalProperties } from '../types/NullifyOptionalProperties';
+import { NullifyOptionalProperties } from './utils/types';
 import { FieldConfig, FieldConfigID, Config } from './fieldConfig';
-
-export { FieldConfig };
 
 interface SchemaField {
   typename: string;
@@ -11,13 +9,11 @@ interface SchemaField {
 
 const configs: Record<FieldConfigID, FieldConfig> = {};
 
-export const identify = {
-  fromSchemaField: (schemaField: SchemaField): FieldConfigID =>
-    `${schemaField.typename}.${schemaField.fieldName}`,
+export const fromSchemaField = (schemaField: SchemaField): FieldConfigID =>
+  `${schemaField.typename}.${schemaField.fieldName}`;
 
-  fromResolverInfo: (info: GraphQLResolveInfo): FieldConfigID =>
-    `${info.parentType.name}.${info.fieldName}`,
-};
+export const fromResolverInfo = (info: GraphQLResolveInfo): FieldConfigID =>
+  `${info.parentType.name}.${info.fieldName}`;
 
 export const getFieldConfig = (id: FieldConfigID): FieldConfig => {
   return configs[id] ?? new FieldConfig(id);

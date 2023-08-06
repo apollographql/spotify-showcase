@@ -1,4 +1,4 @@
-import { NullifyOptionalProperties } from '../types/NullifyOptionalProperties';
+import { NullifyOptionalProperties } from './utils/types';
 
 export type FieldConfigID =
   `${FieldConfig['typename']}.${FieldConfig['fieldName']}`;
