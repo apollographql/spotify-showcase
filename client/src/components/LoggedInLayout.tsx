@@ -23,12 +23,12 @@ import StandardLoadingState from './StandardLoadingState';
 
 const LoggedInLayout = () => {
   return (
-    <Suspense fallback={<LoadingState />}>
+    <Suspense shade="#67EEF0" fallback={<LoadingState />}>
       <Container>
         <Sidebar />
         <Main>
           <Header />
-          <Suspense fallback={<StandardLoadingState />}>
+          <Suspense shade="#FF2600" fallback={<StandardLoadingState />}>
             <Outlet />
           </Suspense>
         </Main>
