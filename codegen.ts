@@ -153,10 +153,7 @@ const config: CodegenConfig = {
       plugins: ['typescript', 'typescript-resolvers'],
     },
     './subgraphs/spotify/src/__generated__/resolvers-types.ts': {
-      schema: [
-        './shared/field-synthetics/src/schema.graphql',
-        './subgraphs/spotify/schema.graphql',
-      ],
+      schema: './subgraphs/spotify/schema.graphql',
       config: {
         contextType: '../types/ContextValue#ContextValue',
         defaultScalarType: 'unknown',
