@@ -15,12 +15,10 @@ import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import { randomBetween, range } from '../utils/common';
 import Skeleton from './Skeleton';
-import CurrentUserMenu, {
-  LoadingState as CurrentUserMenuLoadingState,
-} from './CurrentUserMenu';
 import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
+import { CurrentUserMenu } from './ConferenceTalk';
 
 const LoggedInLayout = () => {
   return (
@@ -28,7 +26,7 @@ const LoggedInLayout = () => {
       <Container>
         <Sidebar />
         <Main>
-          <Header />
+          <CurrentUserMenu />
           <Suspense fallback={<StandardLoadingState />}>
             <Outlet />
           </Suspense>
@@ -36,16 +34,6 @@ const LoggedInLayout = () => {
         <Playbar />
       </Container>
     </Suspense>
-  );
-};
-
-const Header = () => {
-  return (
-    <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
-      <div className="flex gap-4 items-center pointer-events-auto">
-        <CurrentUserMenu />
-      </div>
-    </header>
   );
 };
 
@@ -224,9 +212,7 @@ const LoadingState = withHighlight(
       <Layout type="player">
         <SidebarLoadingState />
         <Layout.Main>
-          <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
-            <CurrentUserMenuLoadingState />
-          </header>
+          <CurrentUserMenu.LoadingState />
           <StandardLoadingState />
         </Layout.Main>
         <PlaybarLoadingState />
