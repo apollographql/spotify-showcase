@@ -8,6 +8,7 @@ interface LoadingStateHighlighterProps {
 }
 
 interface HighlightConfig {
+  className?: string;
   shade: string;
 }
 
@@ -27,7 +28,9 @@ const LoadingStateHighlighter = ({
       : defaultConfig;
 
   return highlightSuspenseBoundaries ? (
-    <LoadingStateBackdrop shade={config.shade}>{children}</LoadingStateBackdrop>
+    <LoadingStateBackdrop className={config.className} shade={config.shade}>
+      {children}
+    </LoadingStateBackdrop>
   ) : (
     children
   );
@@ -45,18 +48,20 @@ interface HighlightableComponent<TProps> {
 }
 
 interface Options {
+  className?: string;
   shade?: string;
 }
 
 export function withHighlight<TProps = unknown>(
   LoadingState: (props: TProps) => ReactNode,
-  { shade = 'red' }: Options = {}
+  { className, shade = 'red' }: Options = {}
 ): HighlightableComponent<TProps> {
   const LoadingStateWithHighlight =
     LoadingState as HighlightableComponent<TProps>;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (LoadingStateWithHighlight as any).__highlight = {
+    className,
     shade,
   };
 

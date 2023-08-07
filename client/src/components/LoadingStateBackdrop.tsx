@@ -1,6 +1,8 @@
 import { CSSProperties, ReactNode } from 'react';
+import cx from 'classnames';
 
 interface LoadingStateBackdropProps {
+  className?: string;
   shade: string;
   children?: ReactNode;
 }
@@ -14,11 +16,12 @@ interface ContainerSyleProps extends CSSProperties {
 }
 
 const LoadingStateBackdrop = ({
+  className,
   children,
   shade,
 }: LoadingStateBackdropProps) => {
   return (
-    <div className="relative overflow-hidden">
+    <div className={cx(className, 'relative overflow-hidden')}>
       <div
         className="border-4 border-[var(--border-color)] absolute inset-0 z-50"
         style={
