@@ -256,7 +256,7 @@ export const LoadingState = withHighlight(
       </footer>
     );
   },
-  { shade: '#0433FF' }
+  { className: '[grid-area:playbar] flex flex-col', shade: '#0433FF' }
 );
 
 export default Playbar;
