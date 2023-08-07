@@ -13,6 +13,7 @@ import ErrorDescription from './ErrorDescription';
 import ErrorActionLink from './ErrorActionLink';
 import Layout from './Layout';
 import { NOT_IMPLEMENTED_ROUTES } from '../constants';
+import { AuthorizationError } from '../errors';
 
 const didBecomeUnauthenticated = (error: unknown) => {
   if (
@@ -23,8 +24,11 @@ const didBecomeUnauthenticated = (error: unknown) => {
   }
 
   if (error instanceof ApolloError) {
-    return error.graphQLErrors.some(
-      (error) => error.extensions.code === 'UNAUTHENTICATED'
+    return (
+      error.networkError instanceof AuthorizationError ||
+      error.graphQLErrors.some(
+        (error) => error.extensions.code === 'UNAUTHENTICATED'
+      )
     );
   }
 
