@@ -32,6 +32,7 @@ import QueueControlButton from './QueueControlButton';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
+import { withHighlight } from './LoadingStateHighlighter';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
@@ -212,47 +213,50 @@ const Playbar = () => {
   );
 };
 
-export const LoadingState = () => {
-  return (
-    <footer className="[grid-area:playbar] flex flex-col">
-      <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-5 px-6">
-        <div className="flex items-center gap-4">
-          <Skeleton.CoverPhoto size="4rem" />
+export const LoadingState = withHighlight(
+  () => {
+    return (
+      <footer className="[grid-area:playbar] flex flex-col">
+        <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-5 px-6">
+          <div className="flex items-center gap-4">
+            <Skeleton.CoverPhoto size="4rem" />
+            <div className="flex flex-col gap-2">
+              <Skeleton.Text width="4rem" />
+              <Skeleton.Text width="8rem" />
+            </div>
+            <LikeButton disabled liked={false} />
+          </div>
           <div className="flex flex-col gap-2">
-            <Skeleton.Text width="4rem" />
-            <Skeleton.Text width="8rem" />
+            <div className="flex items-center gap-5 justify-center">
+              <ShufflePlaybackControl
+                disallowed
+                size="1.25rem"
+                shuffled={false}
+              />
+              <SkipToPreviousControl disallowed progressMs={0} />
+              <PlayButton disabled playing={false} size="2.5rem" />
+              <SkipToNextControl disallowed />
+              <RepeatControl disallowed repeatState={RepeatMode.Off} />
+            </div>
+            <PlaybackItemProgressBar playbackState={null} />
           </div>
-          <LikeButton disabled liked={false} />
-        </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-5 justify-center">
-            <ShufflePlaybackControl
+          <div className="flex justify-end gap-4 items-center">
+            <QueueControlButton />
+            <PlaybarControlButton
               disallowed
-              size="1.25rem"
-              shuffled={false}
+              icon={<DeviceIcon device={undefined} strokeWidth={1.5} />}
+              tooltip="Connect to a device"
             />
-            <SkipToPreviousControl disallowed progressMs={0} />
-            <PlayButton disabled playing={false} size="2.5rem" />
-            <SkipToNextControl disallowed />
-            <RepeatControl disallowed repeatState={RepeatMode.Off} />
-          </div>
-          <PlaybackItemProgressBar playbackState={null} />
-        </div>
-        <div className="flex justify-end gap-4 items-center">
-          <QueueControlButton />
-          <PlaybarControlButton
-            disallowed
-            icon={<DeviceIcon device={undefined} strokeWidth={1.5} />}
-            tooltip="Connect to a device"
-          />
-          <div className="flex gap-2 items-center">
-            <MuteControl disallowed volumePercent={100} />
-            <VolumeBar volumePercent={100} width="100px" />
+            <div className="flex gap-2 items-center">
+              <MuteControl disallowed volumePercent={100} />
+              <VolumeBar volumePercent={100} width="100px" />
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
-  );
-};
+      </footer>
+    );
+  },
+  { className: '[grid-area:playbar] flex flex-col', shade: '#0433FF' }
+);
 
 export default Playbar;

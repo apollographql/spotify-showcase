@@ -20,15 +20,16 @@ import CurrentUserMenu, {
 } from './CurrentUserMenu';
 import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
+import { withHighlight } from './LoadingStateHighlighter';
 
 const LoggedInLayout = () => {
   return (
-    <Suspense shade="#67EEF0" fallback={<LoadingState />}>
+    <Suspense fallback={<LoadingState />}>
       <Container>
         <Sidebar />
         <Main>
           <Header />
-          <Suspense shade="#FF2600" fallback={<StandardLoadingState />}>
+          <Suspense fallback={<StandardLoadingState />}>
             <Outlet />
           </Suspense>
         </Main>
@@ -217,19 +218,22 @@ const Container = ({ children }: ContainerProps) => {
   );
 };
 
-const LoadingState = () => {
-  return (
-    <Layout type="player">
-      <SidebarLoadingState />
-      <Layout.Main>
-        <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
-          <CurrentUserMenuLoadingState />
-        </header>
-        <StandardLoadingState />
-      </Layout.Main>
-      <PlaybarLoadingState />
-    </Layout>
-  );
-};
+const LoadingState = withHighlight(
+  () => {
+    return (
+      <Layout type="player">
+        <SidebarLoadingState />
+        <Layout.Main>
+          <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
+            <CurrentUserMenuLoadingState />
+          </header>
+          <StandardLoadingState />
+        </Layout.Main>
+        <PlaybarLoadingState />
+      </Layout>
+    );
+  },
+  { shade: '#67EEF0' }
+);
 
 export default LoggedInLayout;
