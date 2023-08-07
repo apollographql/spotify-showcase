@@ -20,6 +20,7 @@ import CurrentUserMenu, {
 } from './CurrentUserMenu';
 import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
+import { withHighlight } from './LoadingStateHighlighter';
 
 const LoggedInLayout = () => {
   return (
@@ -217,7 +218,7 @@ const Container = ({ children }: ContainerProps) => {
   );
 };
 
-const LoadingState = () => {
+const LoadingState = withHighlight(() => {
   return (
     <Layout type="player">
       <SidebarLoadingState />
@@ -230,6 +231,6 @@ const LoadingState = () => {
       <PlaybarLoadingState />
     </Layout>
   );
-};
+});
 
 export default LoggedInLayout;

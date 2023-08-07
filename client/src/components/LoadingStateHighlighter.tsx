@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, ElementType, ReactNode } from 'react';
 import { useReactiveVar } from '@apollo/client';
 import { highlightSuspenseBoundariesVar } from '../vars';
 
@@ -45,6 +45,12 @@ const LoadingStateHighlighter = ({
   ) : (
     children
   );
+};
+
+export const withHighlight = (LoadingState: ElementType) => {
+  return function DecoratedLoadingState() {
+    return <LoadingState />;
+  };
 };
 
 export default LoadingStateHighlighter;
