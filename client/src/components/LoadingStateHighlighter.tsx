@@ -1,10 +1,4 @@
-import {
-  Children,
-  CSSProperties,
-  ElementType,
-  ReactNode,
-  isValidElement,
-} from 'react';
+import { Children, CSSProperties, ReactNode, isValidElement } from 'react';
 import { useReactiveVar } from '@apollo/client';
 import { highlightSuspenseBoundariesVar } from '../vars';
 
@@ -26,7 +20,11 @@ const isHighlighted = (
   return typeof element !== 'string' && '__highlight' in element;
 };
 
-const defaultConfig = { shade: 'red' };
+interface HighlightConfig {
+  shade: string;
+}
+
+const defaultConfig: HighlightConfig = { shade: 'red' };
 
 const LoadingStateHighlighter = ({
   children,
@@ -65,9 +63,7 @@ const LoadingStateHighlighter = ({
 
 interface HighlightableComponent<TProps> {
   (props: TProps): ReactNode;
-  readonly __highlight: {
-    shade: string;
-  };
+  readonly __highlight: HighlightConfig;
 }
 
 interface Options {
