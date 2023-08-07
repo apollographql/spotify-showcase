@@ -2,6 +2,7 @@ import { randomBetween } from './common';
 import generateRandomString from './generateRandomString';
 import { readToken } from '../auth';
 import { STORAGE_KEYS } from '../constants';
+import { AuthorizationError } from '../errors';
 
 export interface AccessTokenResponse {
   access_token: string;
@@ -63,7 +64,7 @@ export const exchangeToken = async (
   });
 
   if (!res.ok) {
-    throw new Error('Not authorized');
+    throw new AuthorizationError();
   }
 
   return res.json();
@@ -96,7 +97,7 @@ export const refreshAccessToken =
       }),
     }).then((res) => {
       if (!res.ok) {
-        throw new Error('Not authorized');
+        throw new AuthorizationError();
       }
 
       return res.json();
