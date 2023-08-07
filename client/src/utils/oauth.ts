@@ -15,6 +15,7 @@ export interface AccessTokenResponse {
 export interface RefreshAccessTokenResponse {
   access_token: string;
   token_type: 'Bearer';
+  refresh_token: string;
   scope: string;
   expires_in: number;
 }
