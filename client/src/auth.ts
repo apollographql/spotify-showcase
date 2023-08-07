@@ -42,6 +42,7 @@ export const refreshSession = (response: RefreshAccessTokenResponse) => {
   const expiresAt = now.setSeconds(now.getSeconds() + response.expires_in);
 
   writeToken('access', response.access_token);
+  writeToken('refresh', response.refresh_token);
   localStorage.setItem(STORAGE_KEYS.EXPIRES_AT, String(expiresAt));
 };
 
