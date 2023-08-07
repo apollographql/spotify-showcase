@@ -1,0 +1,1719 @@
+{
+  "href" : "https://api.spotify.com/v1/users/1228247189/playlists?offset=0&limit=50",
+  "items" : [ {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/4subONn3i7xYpg5SZBx1me"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/4subONn3i7xYpg5SZBx1me",
+    "id" : "4subONn3i7xYpg5SZBx1me",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebba923de2d2b705345c86fd369",
+      "width" : null
+    } ],
+    "name" : "Ivy Dance",
+    "owner" : {
+      "display_name" : "miller.liz",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/miller.liz"
+      },
+      "href" : "https://api.spotify.com/v1/users/miller.liz",
+      "id" : "miller.liz",
+      "type" : "user",
+      "uri" : "spotify:user:miller.liz"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTM4LDc2ZGU2MTA1NGI0MGUzNDUzMTc5NDc5NjAxMTIxMGI4MDZhYWQyYTM=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/4subONn3i7xYpg5SZBx1me/tracks",
+      "total" : 36
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:4subONn3i7xYpg5SZBx1me"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E4xVjArYlH5aH"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4xVjArYlH5aH",
+    "id" : "37i9dQZF1E4xVjArYlH5aH",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://seeded-session-images.scdn.co/v1/img/artist/6rYiuq9UagagePoJApgYQj/en",
+      "width" : null
+    } ],
+    "name" : "The Luminary  Radio",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTM3MTQ5MCwwMDAwMDAwMGFlN2I4MDlmYTNmMDNhN2IyNzMxMzNlMGI2NWZiZTE1",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4xVjArYlH5aH/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E4xVjArYlH5aH"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E4qbsXIsN9Myu"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4qbsXIsN9Myu",
+    "id" : "37i9dQZF1E4qbsXIsN9Myu",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://seeded-session-images.scdn.co/v1/img/artist/1dgKyJ17rujJe8wpFaX67v/en",
+      "width" : null
+    } ],
+    "name" : "Dream on Dreamer Radio",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTM3MDk5MiwwMDAwMDAwMDdkMjM5YjJhYTc4ZmEwNTVjMjA0ZGJhZjg2ZGQ5YjE5",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4qbsXIsN9Myu/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E4qbsXIsN9Myu"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E4kgqUorARyNs"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4kgqUorARyNs",
+    "id" : "37i9dQZF1E4kgqUorARyNs",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://seeded-session-images.scdn.co/v1/img/artist/2n2RSaZqBuUUukhbLlpnE6/en",
+      "width" : null
+    } ],
+    "name" : "Sleep Token Radio",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTM3MTQ5MCwwMDAwMDAwMDJiNzczYTlkNGQ3YTVmYmNkZDM4MDdlNzc4OGRiODAw",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4kgqUorARyNs/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E4kgqUorARyNs"
+  }, {
+    "collaborative" : false,
+    "description" : "Playlist created by the tutorial on developer.spotify.com",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/3qoEUcHqqZTBxuSOBtDLG9"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/3qoEUcHqqZTBxuSOBtDLG9",
+    "id" : "3qoEUcHqqZTBxuSOBtDLG9",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b27318750c54dd6f354963868d93ab67616d0000b2732aaa9372a6922e6e3575d828ab67616d0000b27342c0825afa32deeb17c9391aab67616d0000b273fdf16e6dc8b69f3e7c2b258b",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b27318750c54dd6f354963868d93ab67616d0000b2732aaa9372a6922e6e3575d828ab67616d0000b27342c0825afa32deeb17c9391aab67616d0000b273fdf16e6dc8b69f3e7c2b258b",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b27318750c54dd6f354963868d93ab67616d0000b2732aaa9372a6922e6e3575d828ab67616d0000b27342c0825afa32deeb17c9391aab67616d0000b273fdf16e6dc8b69f3e7c2b258b",
+      "width" : 60
+    } ],
+    "name" : "My recommendation playlist",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MywxYmM4ZTUzNmIzYjdlODJlYmJkN2YwODg2NGU0ZWQ3MzljODk2YzRl",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/3qoEUcHqqZTBxuSOBtDLG9/tracks",
+      "total" : 10
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:3qoEUcHqqZTBxuSOBtDLG9"
+  }, {
+    "collaborative" : false,
+    "description" : "Rock out while you game.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWZjmJmeiazwd"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWZjmJmeiazwd",
+    "id" : "37i9dQZF1DWZjmJmeiazwd",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f0000000379b949bf5f567974a439d2cd",
+      "width" : null
+    } ],
+    "name" : "Ultimate Rock Gaming",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MDQ3ODE4OCwwMDAwMDAwMGUzY2Y0ZGJhZmFkZDE4Yjk0YmQ0MDk0N2NiYTlhZWMx",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWZjmJmeiazwd/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DWZjmJmeiazwd"
+  }, {
+    "collaborative" : false,
+    "description" : "If your workout doubles as an outlet for your aggression, this is the playlist for you.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXe6bgV3TmZOL"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXe6bgV3TmZOL",
+    "id" : "37i9dQZF1DXe6bgV3TmZOL",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f0000000368c6d3646278eb57046b8aba",
+      "width" : null
+    } ],
+    "name" : "Adrenaline Workout",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MDMwMjk5NCwwMDAwMDAwMDE3NDM1ZjczMzM2MzFmNmUwMjRiNzJjZGFlMTZmZjQw",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXe6bgV3TmZOL/tracks",
+      "total" : 150
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DXe6bgV3TmZOL"
+  }, {
+    "collaborative" : false,
+    "description" : "Listen to the recent hits of Christian Rock.  Cover:  <a href=\"https://open.spotify.com/artist/01crEa9G3pNpXZ5m7wuHOk?si=gnYOdOZxT_-mL-QVsbRxKQ\">Red</a> ",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX0N57moxx9BL"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX0N57moxx9BL",
+    "id" : "37i9dQZF1DX0N57moxx9BL",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f00000003c905f27b62c5a4486662f429",
+      "width" : null
+    } ],
+    "name" : "Top Christian Rock",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTE1MTA5NCwwMDAwMDAwMDc3ZDY2NTIyODVjODlhYzJkNTE3YzAxODViOWMyMDQ1",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX0N57moxx9BL/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DX0N57moxx9BL"
+  }, {
+    "collaborative" : false,
+    "description" : "Unwind and let the afternoon unfold.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX4E3UdUs7fUx"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX4E3UdUs7fUx",
+    "id" : "37i9dQZF1DX4E3UdUs7fUx",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f000000031cb21db1932b5c9139bbf136",
+      "width" : null
+    } ],
+    "name" : "Afternoon Acoustic",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY4ODA5NzYwMCwwMDAwMDAwMDFlMDQyZjQ3ZjBmYWY2Njg5OWQ0MWVmNDYyZDM1ODUw",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX4E3UdUs7fUx/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DX4E3UdUs7fUx"
+  }, {
+    "collaborative" : false,
+    "description" : "This is Throw The Fight. The essential tracks, all in one playlist.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DZ06evO0LbA3u"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DZ06evO0LbA3u",
+    "id" : "37i9dQZF1DZ06evO0LbA3u",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://thisis-images.scdn.co/37i9dQZF1DZ06evO0LbA3u-large.jpg",
+      "width" : null
+    } ],
+    "name" : "This Is Throw The Fight",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjgxODg3NTIsMDAwMDAwMDBlYTBmZDdlYTNmNjdiNjc2NDEyNDUzYWM0Njc4MTJiZQ==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DZ06evO0LbA3u/tracks",
+      "total" : 49
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DZ06evO0LbA3u"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/3cf43or8QTlxEJXkWKXH07"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/3cf43or8QTlxEJXkWKXH07",
+    "id" : "3cf43or8QTlxEJXkWKXH07",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b27330c358011bd1278f12c0a14fab67616d0000b27354c65d9a5577dfd5e401b78dab67616d0000b273870642d1aa8ca6e8c8bbb8dcab67616d0000b27388375d0b6ebbf5e30556cd71",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b27330c358011bd1278f12c0a14fab67616d0000b27354c65d9a5577dfd5e401b78dab67616d0000b273870642d1aa8ca6e8c8bbb8dcab67616d0000b27388375d0b6ebbf5e30556cd71",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b27330c358011bd1278f12c0a14fab67616d0000b27354c65d9a5577dfd5e401b78dab67616d0000b273870642d1aa8ca6e8c8bbb8dcab67616d0000b27388375d0b6ebbf5e30556cd71",
+      "width" : 60
+    } ],
+    "name" : "Flight",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MzMsMDJlNzcxMjk4MTg4NzJiNjRmMmUwOTJhNWUwZWJiMTYzMGY0OTZlNQ==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/3cf43or8QTlxEJXkWKXH07/tracks",
+      "total" : 29
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:3cf43or8QTlxEJXkWKXH07"
+  }, {
+    "collaborative" : false,
+    "description" : "Back to the golden age of the scene. Cover: Underoath",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX8sGALGjOrTu"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX8sGALGjOrTu",
+    "id" : "37i9dQZF1DX8sGALGjOrTu",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f00000003637d93312e14dc610a3f12a3",
+      "width" : null
+    } ],
+    "name" : "Chaos Anthems",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY4NjkyMDg0NCwwMDAwMDAwMDAyN2IzMjFkMWQxNGMzNmE0NjAzZGJhZGRlMTZhMTk4",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX8sGALGjOrTu/tracks",
+      "total" : 75
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DX8sGALGjOrTu"
+  }, {
+    "collaborative" : false,
+    "description" : "The perfect mix between old-school and modern Metalcore. Cover: Bring Me The Horizon",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX6P51sFpSo2r"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX6P51sFpSo2r",
+    "id" : "37i9dQZF1DX6P51sFpSo2r",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f00000003e9b5f5f4a6b5deb2639072b6",
+      "width" : null
+    } ],
+    "name" : "Metalcore Classics",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY4NjkxOTMxNywwMDAwMDAwMGE5ZWY4NDJlMWNmMTljM2Q0MjExNTEwNjQ4ZTY5NDFl",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX6P51sFpSo2r/tracks",
+      "total" : 60
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DX6P51sFpSo2r"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/476VyK6FZdE3Hny0pQREwF"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/476VyK6FZdE3Hny0pQREwF",
+    "id" : "476VyK6FZdE3Hny0pQREwF",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b2730b73608b678f169d3c8f35f0ab67616d0000b2731acd4a506bb46ea92d587be9ab67616d0000b2733652e851d5fe6e108a97f29bab67616d0000b273acae56710bb44ae079cd24f0",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b2730b73608b678f169d3c8f35f0ab67616d0000b2731acd4a506bb46ea92d587be9ab67616d0000b2733652e851d5fe6e108a97f29bab67616d0000b273acae56710bb44ae079cd24f0",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b2730b73608b678f169d3c8f35f0ab67616d0000b2731acd4a506bb46ea92d587be9ab67616d0000b2733652e851d5fe6e108a97f29bab67616d0000b273acae56710bb44ae079cd24f0",
+      "width" : 60
+    } ],
+    "name" : "Test add/remove playlist",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NTUsNmM4ZDY5ZGUyZTAwOTY2ZmQzYjY0ZTljMDhhNzJhZTZiZjkyNDY4OQ==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/476VyK6FZdE3Hny0pQREwF/tracks",
+      "total" : 9
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:476VyK6FZdE3Hny0pQREwF"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/0kcRcFSoVw0fu3EiUnl1k2"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/0kcRcFSoVw0fu3EiUnl1k2",
+    "id" : "0kcRcFSoVw0fu3EiUnl1k2",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab6765630000ba8a16b9a523e035becd31cecf3c",
+      "width" : 640
+    } ],
+    "name" : "12-08-22 Bonus Hour of Broncos Country Tonight",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "Miw1MGYzMDhkNGUwYmNlZjZlYjMxMTc0YTM0NmNkN2NiY2MxYjQ3MDRk",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/0kcRcFSoVw0fu3EiUnl1k2/tracks",
+      "total" : 1
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:0kcRcFSoVw0fu3EiUnl1k2"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5u8f75PfN9DUV5cUdOck7m"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5u8f75PfN9DUV5cUdOck7m",
+    "id" : "5u8f75PfN9DUV5cUdOck7m",
+    "images" : [ ],
+    "name" : "My Playlist #300",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NSxhZGNmZDJlZTQyN2VhOTFmMWM0NWE2NWI1YjI4ZDI2MzUxMmVkMjIw",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5u8f75PfN9DUV5cUdOck7m/tracks",
+      "total" : 0
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5u8f75PfN9DUV5cUdOck7m"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/2T59hrwYRBB3f5ESmp8xbS"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/2T59hrwYRBB3f5ESmp8xbS",
+    "id" : "2T59hrwYRBB3f5ESmp8xbS",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b27349a4637ad0514e78085b4ddc",
+      "width" : 640
+    } ],
+    "name" : "Spotify enhanced",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NSw5OGUwMTQ3N2RmMzNlODBlZTJhYWMyOWQ3MDNkZjQ3NWI1ZjljMDdj",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/2T59hrwYRBB3f5ESmp8xbS/tracks",
+      "total" : 3
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:2T59hrwYRBB3f5ESmp8xbS"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/7ztqQ9YOM05hRje13ZUg7J"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/7ztqQ9YOM05hRje13ZUg7J",
+    "id" : "7ztqQ9YOM05hRje13ZUg7J",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b27349a4637ad0514e78085b4ddc",
+      "width" : 640
+    } ],
+    "name" : "TEST - Mix of songs and episodes",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NCwwYTZlZjVhNzE1YjBmOWExZmVhNDkxNDQwMWM2ZDI3MGY5ZWI3MTJj",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/7ztqQ9YOM05hRje13ZUg7J/tracks",
+      "total" : 2
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:7ztqQ9YOM05hRje13ZUg7J"
+  }, {
+    "collaborative" : false,
+    "description" : "Spotify Wrapped presents the songs that you loved most this year.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1F0sijgNaJdgit"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1F0sijgNaJdgit",
+    "id" : "37i9dQZF1F0sijgNaJdgit",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://wrapped-images.spotifycdn.com/image/yts-2022/large/your-top-songs-2022_large_en.jpg",
+      "width" : null
+    } ],
+    "name" : "Your Top Songs 2022",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY2OTkwODk2MiwwMDAwMDAwMGExMjYwYjE4NmU4YjYyOWU1MWRjOTdiMDQ3M2NhYjI1",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1F0sijgNaJdgit/tracks",
+      "total" : 101
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1F0sijgNaJdgit"
+  }, {
+    "collaborative" : false,
+    "description" : "<a href=spotify:playlist:37i9dQZF1EIWg3u9VWHhk9>Stepson</a>, <a href=spotify:playlist:37i9dQZF1EIVbwNwLhDE83>NOTHING MORE</a>, <a href=spotify:playlist:37i9dQZF1EIV0HJjQDEQK9>Hotel Books</a> and more",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EVKuMoAJjoTIw"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EVKuMoAJjoTIw",
+    "id" : "37i9dQZF1EVKuMoAJjoTIw",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://seed-mix-image.spotifycdn.com/v6/img/moody/5zAwXQwC3M34U7lKFgeX1y/en/large",
+      "width" : null
+    } ],
+    "name" : "Moody Mix",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTMwMTYwMCwwMDAwMDAwMDRlYTRiYTZhZTM5ZDBhZjA4MGMyY2E1NTRkOWJjYjkw",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EVKuMoAJjoTIw/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1EVKuMoAJjoTIw"
+  }, {
+    "collaborative" : false,
+    "description" : "Tunes to listen to when I&#x27;m in the mood for something good",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/20KgxsMrDSCC2CKbV6swnk"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/20KgxsMrDSCC2CKbV6swnk",
+    "id" : "20KgxsMrDSCC2CKbV6swnk",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b2734703f6ad5c70c8c4615b9491ab67616d0000b273e4bc43447b9474c879a5fd9cab67616d0000b273e6f1c9becfcd16feaaae87a2ab67616d0000b273fe2a07f5cef07ab62c48e9ff",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b2734703f6ad5c70c8c4615b9491ab67616d0000b273e4bc43447b9474c879a5fd9cab67616d0000b273e6f1c9becfcd16feaaae87a2ab67616d0000b273fe2a07f5cef07ab62c48e9ff",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b2734703f6ad5c70c8c4615b9491ab67616d0000b273e4bc43447b9474c879a5fd9cab67616d0000b273e6f1c9becfcd16feaaae87a2ab67616d0000b273fe2a07f5cef07ab62c48e9ff",
+      "width" : 60
+    } ],
+    "name" : "In the mood for",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MzcsYmYxNTU3NTIwZTAwMjAxNDhmODcwN2VmMTZlYTIzYTYzNjBjYWIzZA==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/20KgxsMrDSCC2CKbV6swnk/tracks",
+      "total" : 136
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:20KgxsMrDSCC2CKbV6swnk"
+  }, {
+    "collaborative" : false,
+    "description" : "Spotify Wrapped presents the songs that you loved most this year.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EUMDoJuT8yJsl"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EUMDoJuT8yJsl",
+    "id" : "37i9dQZF1EUMDoJuT8yJsl",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://lineup-images.scdn.co/wrapped-2021-top100_LARGE-en.jpg",
+      "width" : null
+    } ],
+    "name" : "Your Top Songs 2021",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MCwwMDAwMDAwMDRjNDUwZWRhMzA5ZjM3OGFjMTdlZDZmZWU4Njc5ZTQx",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EUMDoJuT8yJsl/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1EUMDoJuT8yJsl"
+  }, {
+    "collaborative" : false,
+    "description" : "Underoath, Celldweller, Caskets and more",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E37qcXW0knBDv"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E37qcXW0knBDv",
+    "id" : "37i9dQZF1E37qcXW0knBDv",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebbbd7c23baf6f0752d366c679/1/en/large",
+      "width" : null
+    } ],
+    "name" : "Daily Mix 1",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMDI0N2E2NGUzMmQ1ZTZiNWFjMGIzMjIwMGZjMmZiYzZi",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E37qcXW0knBDv/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E37qcXW0knBDv"
+  }, {
+    "collaborative" : false,
+    "description" : "Northlane, Grayscale Season, Fit For A King and more",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E350G7HFkREfO"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E350G7HFkREfO",
+    "id" : "37i9dQZF1E350G7HFkREfO",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb2010ab96fca0e8bd7928c969/2/en/large",
+      "width" : null
+    } ],
+    "name" : "Daily Mix 2",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMGE0MmM1ZThiNWFlNmY4NWRlMDcyZmU1ZjZjMDZmOWFj",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E350G7HFkREfO/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E350G7HFkREfO"
+  }, {
+    "collaborative" : false,
+    "description" : "Our Last Night, Bad Omens, Afterglow and more",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E38Gk9Iv4Eqz5"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E38Gk9Iv4Eqz5",
+    "id" : "37i9dQZF1E38Gk9Iv4Eqz5",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb260044c082d05531fb8b8807/3/en/large",
+      "width" : null
+    } ],
+    "name" : "Daily Mix 3",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMDJkYjkwNjIxYzIzYWJlMDc4YWJiNjJiNzBmYTViMmE0",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E38Gk9Iv4Eqz5/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E38Gk9Iv4Eqz5"
+  }, {
+    "collaborative" : false,
+    "description" : "Throw The Fight, ENMY, AVOID and more",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35ZkR2evoKBv"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35ZkR2evoKBv",
+    "id" : "37i9dQZF1E35ZkR2evoKBv",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebdba3d6fd78f7ced1e3a84e51/4/en/large",
+      "width" : null
+    } ],
+    "name" : "Daily Mix 4",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMGZhNDAzYzZiMzU5ZTdlYzJmMTE5NGVlZjI0ZDE4OTQ2",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35ZkR2evoKBv/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E35ZkR2evoKBv"
+  }, {
+    "collaborative" : false,
+    "description" : "Classic Jack, Living in Fiction, Flight Paths and more",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35EcH9nl2uk2"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35EcH9nl2uk2",
+    "id" : "37i9dQZF1E35EcH9nl2uk2",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb85797a37a84599689b4b03ff/5/en/large",
+      "width" : null
+    } ],
+    "name" : "Daily Mix 5",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMDFmMDNmZGZkN2RmMGUyZmIwMzUyODk2YjMzZGVjZGQx",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35EcH9nl2uk2/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E35EcH9nl2uk2"
+  }, {
+    "collaborative" : false,
+    "description" : "Bring Me The Horizon, Architects, Bury Tomorrow and more",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35l2TWP8gS60"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35l2TWP8gS60",
+    "id" : "37i9dQZF1E35l2TWP8gS60",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebad65800f55f7a8d7d917624b/6/en/large",
+      "width" : null
+    } ],
+    "name" : "Daily Mix 6",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMGViMGE0NmE4ZTcwMmM2ZDk3NDFlZmMzNTVkMzI0Mjg1",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35l2TWP8gS60/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1E35l2TWP8gS60"
+  }, {
+    "collaborative" : false,
+    "description" : "The songs you loved most this year, all wrapped up.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1ELZJi6dzRgOOe"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1ELZJi6dzRgOOe",
+    "id" : "37i9dQZF1ELZJi6dzRgOOe",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://lineup-images.scdn.co/wrapped-2020-top100_LARGE-en.jpg",
+      "width" : null
+    } ],
+    "name" : "Your Top Songs 2020",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjY3NzQ2ODcsMDAwMDAwMDAyYzZmNGYyODA0YmYwNDE1YjJiOTYwM2ExMjQ5NzY3Yg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1ELZJi6dzRgOOe/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1ELZJi6dzRgOOe"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5tRIqw2UyxoQB6VbwUdMJt"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5tRIqw2UyxoQB6VbwUdMJt",
+    "id" : "5tRIqw2UyxoQB6VbwUdMJt",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b2732f423e601138faf556f3399d",
+      "width" : 640
+    } ],
+    "name" : "Favorite Core",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NSwzZTYxMGZkY2VlN2RhMGM5OTcwOThhNDc1YWNjNDkwODhkMWJjNjdl",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5tRIqw2UyxoQB6VbwUdMJt/tracks",
+      "total" : 3
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5tRIqw2UyxoQB6VbwUdMJt"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/4uIhXJdexL5dxrm5FkSyEn"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/4uIhXJdexL5dxrm5FkSyEn",
+    "id" : "4uIhXJdexL5dxrm5FkSyEn",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b273b39558b37df5a31a727759f1",
+      "width" : 640
+    } ],
+    "name" : "Ride tunes",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "Miw1MDc1ZGI2Nzc1MjhjNGUxNWI2MTliNDExMjJmY2U3NGU3MTQ5ZGVi",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/4uIhXJdexL5dxrm5FkSyEn/tracks",
+      "total" : 1
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:4uIhXJdexL5dxrm5FkSyEn"
+  }, {
+    "collaborative" : false,
+    "description" : "Metalcore at its finest. Cover: Silent Planet",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWXIcbzpLauPS"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWXIcbzpLauPS",
+    "id" : "37i9dQZF1DWXIcbzpLauPS",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f0000000379de45f2b2204a77bd8a73b5",
+      "width" : null
+    } ],
+    "name" : "The Core",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTEyMTY2MCwwMDAwMDAwMDgzZTllNGY1ZDE5NWIyNTRkMWE1NTZmYjdiOWMzMTFi",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWXIcbzpLauPS/tracks",
+      "total" : 85
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DWXIcbzpLauPS"
+  }, {
+    "collaborative" : false,
+    "description" : "A mix of news and music made for you",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EfPxEbWLK8FJt"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EfPxEbWLK8FJt",
+    "id" : "37i9dQZF1EfPxEbWLK8FJt",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://mixed-media-images.spotifycdn.com/daily-drive/daily-drive-2.0-en-large.jpg",
+      "width" : null
+    } ],
+    "name" : "Daily Drive",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MCwwMDAwMDAwMDM0YjdlYmI5NGNhNjkwNDE0NWU1Njk2M2FmZmEzOGJi",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EfPxEbWLK8FJt/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1EfPxEbWLK8FJt"
+  }, {
+    "collaborative" : false,
+    "description" : "Born in the 90&#x27;s, I was raised on Christian Rock. See my profile for the Punk and Alt-rock playlists. ",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/7GBU9vQszQR2mUPvOWzhlc"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/7GBU9vQszQR2mUPvOWzhlc",
+    "id" : "7GBU9vQszQR2mUPvOWzhlc",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebb69fbdaddc607e04cfc0f07ce",
+      "width" : null
+    } ],
+    "name" : "2000s Christian Rock Albums",
+    "owner" : {
+      "display_name" : "Travis Jantzer",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/12178775746"
+      },
+      "href" : "https://api.spotify.com/v1/users/12178775746",
+      "id" : "12178775746",
+      "type" : "user",
+      "uri" : "spotify:user:12178775746"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTQ2LGFlOTQzMmE2ODFkN2Y1ODM2NDBmZTUzNGM5Nzc4MTdkMDAwNzg3Y2I=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/7GBU9vQszQR2mUPvOWzhlc/tracks",
+      "total" : 506
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:7GBU9vQszQR2mUPvOWzhlc"
+  }, {
+    "collaborative" : false,
+    "description" : "The songs you loved most this year, all wrapped up.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EtdtBWEixtFyu"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EtdtBWEixtFyu",
+    "id" : "37i9dQZF1EtdtBWEixtFyu",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://lineup-images.scdn.co/your-top-songs-2019_LARGE-en.jpg",
+      "width" : null
+    } ],
+    "name" : "Your Top Songs 2019",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjYyNjk3MjYsMDAwMDAwMDA2OGUzMzBhNDE0NTYxZjAwNGRhYmYyY2U1NzM3MWFkOA==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EtdtBWEixtFyu/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1EtdtBWEixtFyu"
+  }, {
+    "collaborative" : false,
+    "description" : "Your past favorites",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EpDMzetCLBmIm"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EpDMzetCLBmIm",
+    "id" : "37i9dQZF1EpDMzetCLBmIm",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://daily-mix.scdn.co/covers/backtracks/PZN_Repeat_Rewind2_LARGE-en.jpg",
+      "width" : null
+    } ],
+    "name" : "Repeat Rewind",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTIzMTg4NywwMDAwMDAwMDZiNmRlNzE5NTc3MjE2ZWFlYTg4MzBjODZkMDY3YzEx",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EpDMzetCLBmIm/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1EpDMzetCLBmIm"
+  }, {
+    "collaborative" : false,
+    "description" : "Songs you love right now",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EprEOfYrbSBii"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EprEOfYrbSBii",
+    "id" : "37i9dQZF1EprEOfYrbSBii",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://daily-mix.scdn.co/covers/on_repeat/PZN_On_Repeat2_LARGE-en.jpg",
+      "width" : null
+    } ],
+    "name" : "On Repeat",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTIzMTg4NywwMDAwMDAwMDZiNmRlNzE5NTc3MjE2ZWFlYTg4MzBjODZkMDY3YzEx",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EprEOfYrbSBii/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1EprEOfYrbSBii"
+  }, {
+    "collaborative" : false,
+    "description" : "This week's best new metal tracks. Cover: Dark Divine",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX5J7FIl4q56G"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX5J7FIl4q56G",
+    "id" : "37i9dQZF1DX5J7FIl4q56G",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://i.scdn.co/image/ab67706f00000003116830c07a85fe630884849c",
+      "width" : null
+    } ],
+    "name" : "All New Metal",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTY5MTEyMTY2MCwwMDAwMDAwMGRkNWU5ZWJkOTIwZWNiYmFmZTQ0MjA2YmY1ODU3Mzk1",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX5J7FIl4q56G/tracks",
+      "total" : 62
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1DX5J7FIl4q56G"
+  }, {
+    "collaborative" : false,
+    "description" : "Time for Your Summer Rewind! We’ve made you a new playlist featuring your old summer favorites.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1CAiR8OxjZE9kB"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1CAiR8OxjZE9kB",
+    "id" : "37i9dQZF1CAiR8OxjZE9kB",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://lineup-images.scdn.co/summer-rewind-2020_LARGE-en.jpg",
+      "width" : null
+    } ],
+    "name" : "Your Summer Rewind",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjY1NDgyMDAsMDAwMDAwMDBmZjRkMjcxMTYzNWM0NzJlY2U5NjcxYzQyMzc4OTFjYw==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1CAiR8OxjZE9kB/tracks",
+      "total" : 50
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1CAiR8OxjZE9kB"
+  }, {
+    "collaborative" : false,
+    "description" : "The songs you loved most this year, all wrapped up.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EjreuumWQlnt7"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EjreuumWQlnt7",
+    "id" : "37i9dQZF1EjreuumWQlnt7",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://lineup-images.scdn.co/your-top-songs-2018_LARGE-en.jpg",
+      "width" : null
+    } ],
+    "name" : "Your Top Songs 2018",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjU3NjA5MTYsMDAwMDAwMDA2MzkzMWI3MGE2OTE4NDM1NjVlMmVjNzA5NjJkMDM5YQ==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EjreuumWQlnt7/tracks",
+      "total" : 100
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZF1EjreuumWQlnt7"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/7qjC1XpCnIZIBTdqHVkIvv"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/7qjC1XpCnIZIBTdqHVkIvv",
+    "id" : "7qjC1XpCnIZIBTdqHVkIvv",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b27343e531d5f69170aba281ef43ab67616d0000b2736e03725e2974bc473216c0d9ab67616d0000b2737cc8e24a8c573f68c99416a5ab67616d0000b273f6e138b27645971de2bbec63",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b27343e531d5f69170aba281ef43ab67616d0000b2736e03725e2974bc473216c0d9ab67616d0000b2737cc8e24a8c573f68c99416a5ab67616d0000b273f6e138b27645971de2bbec63",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b27343e531d5f69170aba281ef43ab67616d0000b2736e03725e2974bc473216c0d9ab67616d0000b2737cc8e24a8c573f68c99416a5ab67616d0000b273f6e138b27645971de2bbec63",
+      "width" : 60
+    } ],
+    "name" : "Christian Hard Rock 2000's",
+    "owner" : {
+      "display_name" : "Adri Acosta",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/apaz173"
+      },
+      "href" : "https://api.spotify.com/v1/users/apaz173",
+      "id" : "apaz173",
+      "type" : "user",
+      "uri" : "spotify:user:apaz173"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NTMsNTc2OGI2NmIyZDcxNzJiNzczN2EzMjRmMmI0N2I4ODlkMzcxNjMwYw==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/7qjC1XpCnIZIBTdqHVkIvv/tracks",
+      "total" : 51
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:7qjC1XpCnIZIBTdqHVkIvv"
+  }, {
+    "collaborative" : false,
+    "description" : "A heavy devotional of sorts. Pictured band: Earth Groans. New EP 'Tongue Tied' out now.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5J6q8hRPrlGRxWCkvVMuJQ"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5J6q8hRPrlGRxWCkvVMuJQ",
+    "id" : "5J6q8hRPrlGRxWCkvVMuJQ",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebb590bdccd0f4d21d93167e4c9",
+      "width" : null
+    } ],
+    "name" : "Forever Unbroken",
+    "owner" : {
+      "display_name" : "Solid State Records",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/solidstaterecords"
+      },
+      "href" : "https://api.spotify.com/v1/users/solidstaterecords",
+      "id" : "solidstaterecords",
+      "type" : "user",
+      "uri" : "spotify:user:solidstaterecords"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MjE5LDQ5OGY1MDBmNTk0Y2UxYzNlYThjYjQ0YjA0MjdmN2NjYzNkMTg3Yzk=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5J6q8hRPrlGRxWCkvVMuJQ/tracks",
+      "total" : 44
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5J6q8hRPrlGRxWCkvVMuJQ"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/2WR9ggwzilVlSvAftxZMEp"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/2WR9ggwzilVlSvAftxZMEp",
+    "id" : "2WR9ggwzilVlSvAftxZMEp",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b27308f33ee5ad0ad98307bd9a82ab67616d0000b2730c6f67f3235e643ed6fa2ca4ab67616d0000b2731d28eb4f810bcc3c31826bc6ab67616d0000b2733c9f840d2bb5e6430b19040b",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b27308f33ee5ad0ad98307bd9a82ab67616d0000b2730c6f67f3235e643ed6fa2ca4ab67616d0000b2731d28eb4f810bcc3c31826bc6ab67616d0000b2733c9f840d2bb5e6430b19040b",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b27308f33ee5ad0ad98307bd9a82ab67616d0000b2730c6f67f3235e643ed6fa2ca4ab67616d0000b2731d28eb4f810bcc3c31826bc6ab67616d0000b2733c9f840d2bb5e6430b19040b",
+      "width" : 60
+    } ],
+    "name" : "Covers",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NywwZDNiMDg3ZjEzOTkzNGZlNDliMzEyNWZkYjg1NWQ4YzUyZmQxY2I5",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/2WR9ggwzilVlSvAftxZMEp/tracks",
+      "total" : 5
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:2WR9ggwzilVlSvAftxZMEp"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5aqLjlTxkwDALZVcV9N73B"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5aqLjlTxkwDALZVcV9N73B",
+    "id" : "5aqLjlTxkwDALZVcV9N73B",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b273da5d5aeeabacacc1263c0f4b",
+      "width" : 640
+    } ],
+    "name" : "Look What You Made Me Do",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NiwxZTJlNzY1YWRhZDgyYmU1MjI1NmY1ZjdhMjgzZjc0ZGQzMTA5MWUy",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5aqLjlTxkwDALZVcV9N73B/tracks",
+      "total" : 3
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5aqLjlTxkwDALZVcV9N73B"
+  }, {
+    "collaborative" : false,
+    "description" : "Catch all the latest music from artists you follow, plus new singles picked for you. Updates every Friday.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZEVXbgWKzpjZn289"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZEVXbgWKzpjZn289",
+    "id" : "37i9dQZEVXbgWKzpjZn289",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://newjams-images.scdn.co/image/ab6764780000c480/dt/v3/release-radar/ab6761610000e5ebabc6bfe5ac21c41ab9174adf/en",
+      "width" : null
+    } ],
+    "name" : "Release Radar",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MCwwMDAwMDAwMGM4NGExMDAwN2YxMjVhYzM4NTM3NjQ5MjFhYzRmMzk0",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZEVXbgWKzpjZn289/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZEVXbgWKzpjZn289"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5owCbRHuZxj2J7apPceW8e"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5owCbRHuZxj2J7apPceW8e",
+    "id" : "5owCbRHuZxj2J7apPceW8e",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b273053f006079bce979e5fef1e1ab67616d0000b2738b1dc76f3a0cc8381b012e24ab67616d0000b2739dcf31d6b5eb82fa24de783aab67616d0000b273e2f039481babe23658fc719a",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b273053f006079bce979e5fef1e1ab67616d0000b2738b1dc76f3a0cc8381b012e24ab67616d0000b2739dcf31d6b5eb82fa24de783aab67616d0000b273e2f039481babe23658fc719a",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b273053f006079bce979e5fef1e1ab67616d0000b2738b1dc76f3a0cc8381b012e24ab67616d0000b2739dcf31d6b5eb82fa24de783aab67616d0000b273e2f039481babe23658fc719a",
+      "width" : 60
+    } ],
+    "name" : "Ben's Workout",
+    "owner" : {
+      "display_name" : "kelsirae27",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/kelsirae27"
+      },
+      "href" : "https://api.spotify.com/v1/users/kelsirae27",
+      "id" : "kelsirae27",
+      "type" : "user",
+      "uri" : "spotify:user:kelsirae27"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "OTQsYjNhMWNlMTRhZDczOTU3OWU1ZGM0NGFlMDVmZWRiZTQ3ZGU3MzY1Yw==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5owCbRHuZxj2J7apPceW8e/tracks",
+      "total" : 60
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5owCbRHuZxj2J7apPceW8e"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/1uFwDDpTCJVce0kqN1d55C"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/1uFwDDpTCJVce0kqN1d55C",
+    "id" : "1uFwDDpTCJVce0kqN1d55C",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://i.scdn.co/image/ab67616d0000b273af52c228c9619ff6298b08cd",
+      "width" : 640
+    } ],
+    "name" : "Checking out some alternative",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NSxkMmZiNjI5ZGU0ZDExMmYwNzA4MjliMmZhMzFiNjYwMjM2M2MzODMy",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/1uFwDDpTCJVce0kqN1d55C/tracks",
+      "total" : 3
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:1uFwDDpTCJVce0kqN1d55C"
+  }, {
+    "collaborative" : false,
+    "description" : "Your weekly mixtape of fresh music. Enjoy new music and deep cuts picked for you. Updates every Monday.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/37i9dQZEVXcJdMxcgPzWUu"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/37i9dQZEVXcJdMxcgPzWUu",
+    "id" : "37i9dQZEVXcJdMxcgPzWUu",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://newjams-images.scdn.co/image/ab676477000033ad/dt/v3/discover-weekly/LqZS4Omohi4NrLfgij3CWRFa-h0LSAgiZBRUqOYrlGn6RvR9M5duH9QgffX7Zd92MwLpJNboS259iBJDGOMqVk-TQoItN72K-PcJzFp47n8=/NzQ6MDU6NjBUNDEtODAtMw==",
+      "width" : null
+    } ],
+    "name" : "Discover Weekly",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MCwwMDAwMDAwMDkzNmJiN2MwZmE2ZjY0ZGMwMDk1M2Q3Mzc0Yzg1NWNk",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZEVXcJdMxcgPzWUu/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:37i9dQZEVXcJdMxcgPzWUu"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/7psl06ul2YwwRmiwxPdi15"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/7psl06ul2YwwRmiwxPdi15",
+    "id" : "7psl06ul2YwwRmiwxPdi15",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ab67616d0000b2731847f957df0e25104cf32351ab67616d0000b2736f2ca7ad4026d888ab123ff1ab67616d0000b27391a567aaa648854deac83866ab67616d0000b273ee73032852ad5ad7a961f805",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ab67616d0000b2731847f957df0e25104cf32351ab67616d0000b2736f2ca7ad4026d888ab123ff1ab67616d0000b27391a567aaa648854deac83866ab67616d0000b273ee73032852ad5ad7a961f805",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ab67616d0000b2731847f957df0e25104cf32351ab67616d0000b2736f2ca7ad4026d888ab123ff1ab67616d0000b27391a567aaa648854deac83866ab67616d0000b273ee73032852ad5ad7a961f805",
+      "width" : 60
+    } ],
+    "name" : "Liked from Radio",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "OCxjNTBhZmZlZWE5MjM0YWJmNDQ5ZWM2NDA1NTgxYWQ1NGU0ZmVhN2Jm",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/7psl06ul2YwwRmiwxPdi15/tracks",
+      "total" : 6
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:7psl06ul2YwwRmiwxPdi15"
+  }, {
+    "collaborative" : false,
+    "description" : "Have a very metal christmas. From Solid State Records.",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/5PGjoE1yRh6ZS31cP5iFN4"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/5PGjoE1yRh6ZS31cP5iFN4",
+    "id" : "5PGjoE1yRh6ZS31cP5iFN4",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebbb3849450fd2f4088c5b466f1",
+      "width" : null
+    } ],
+    "name" : "HEAVY METAL CHRISTMAS",
+    "owner" : {
+      "display_name" : "Solid State Records",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/solidstaterecords"
+      },
+      "href" : "https://api.spotify.com/v1/users/solidstaterecords",
+      "id" : "solidstaterecords",
+      "type" : "user",
+      "uri" : "spotify:user:solidstaterecords"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "NTUsZDU2MjYxODNjNDlhZGNjMTAyOTBiMGI2NjQ3Y2JlNmY2NDllMjBhMA==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/5PGjoE1yRh6ZS31cP5iFN4/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:5PGjoE1yRh6ZS31cP5iFN4"
+  } ],
+  "limit" : 50,
+  "next" : "https://api.spotify.com/v1/users/1228247189/playlists?offset=50&limit=50",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 343
+}

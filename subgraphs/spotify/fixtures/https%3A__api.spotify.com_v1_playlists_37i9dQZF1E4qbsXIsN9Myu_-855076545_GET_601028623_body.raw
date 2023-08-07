@@ -1,0 +1,26 @@
+{
+  "collaborative" : false,
+  "description" : "With The Color Morale, Like Moths To Flames, The Word Alive and more",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E4qbsXIsN9Myu"
+  },
+  "id" : "37i9dQZF1E4qbsXIsN9Myu",
+  "images" : [ {
+    "height" : null,
+    "url" : "https://seeded-session-images.scdn.co/v1/img/artist/1dgKyJ17rujJe8wpFaX67v/en",
+    "width" : null
+  } ],
+  "name" : "Dream on Dreamer Radio",
+  "owner" : {
+    "display_name" : "Spotify",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify",
+    "id" : "spotify",
+    "type" : "user",
+    "uri" : "spotify:user:spotify"
+  },
+  "public" : false,
+  "uri" : "spotify:playlist:37i9dQZF1E4qbsXIsN9Myu"
+}

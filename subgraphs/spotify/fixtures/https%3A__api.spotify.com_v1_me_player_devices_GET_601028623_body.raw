@@ -1,0 +1,11 @@
+{
+  "devices" : [ {
+    "id" : "a89a868606765274752ae209d29cc4398e3ff727",
+    "is_active" : true,
+    "is_private_session" : false,
+    "is_restricted" : false,
+    "name" : "Jerel’s Apollo MacBook Pro",
+    "type" : "Computer",
+    "volume_percent" : 100
+  } ]
+}

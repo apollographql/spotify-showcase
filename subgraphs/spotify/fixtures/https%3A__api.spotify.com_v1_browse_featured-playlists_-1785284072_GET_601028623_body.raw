@@ -1,0 +1,342 @@
+{
+  "message" : "Sunday fun day",
+  "playlists" : {
+    "href" : "https://api.spotify.com/v1/browse/featured-playlists?country=US&timestamp=2023-08-06T19%3A00%3A00&offset=0&limit=20",
+    "items" : [ {
+      "collaborative" : false,
+      "description" : "The best in folk & acoustic today. Cover: Tyler Childers",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWYV7OOaGhoH0"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWYV7OOaGhoH0",
+      "id" : "37i9dQZF1DWYV7OOaGhoH0",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003f4967d7b5b32f466e2fdc41f",
+        "width" : null
+      } ],
+      "name" : "Roots Rising",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTEyMTYwMCwwMDAwMDAwMDhmZTc5ZGViZjBlMGZkN2Y4N2Q4ZjdiYjc1MjY4NzIz",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWYV7OOaGhoH0/tracks",
+        "total" : 100
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DWYV7OOaGhoH0"
+    }, {
+      "collaborative" : false,
+      "description" : "Mood: Turnt",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWY4xHQp97fN6"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWY4xHQp97fN6",
+      "id" : "37i9dQZF1DWY4xHQp97fN6",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003190c3b2d05550ca2fe10e27e",
+        "width" : null
+      } ],
+      "name" : "Get Turnt",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTE2NDIwMywwMDAwMDAwMDY3MTE5ODYyNjk4YTMzZDI1Mzk2Nzc3Nzc3NTViNDNj",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWY4xHQp97fN6/tracks",
+        "total" : 100
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DWY4xHQp97fN6"
+    }, {
+      "collaborative" : false,
+      "description" : "hi Barbie! happy August!🧂💨",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWWvvyNmW9V9a"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWWvvyNmW9V9a",
+      "id" : "37i9dQZF1DWWvvyNmW9V9a",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f000000036492645ec2e541c18823e0e1",
+        "width" : null
+      } ],
+      "name" : "teen beats",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTE2NTc3OSwwMDAwMDAwMDY1MTc5NzZiMTIxYTgyOTlkMGY3YTVkNmJhZTMzMWFl",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWWvvyNmW9V9a/tracks",
+        "total" : 105
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DWWvvyNmW9V9a"
+    }, {
+      "collaborative" : false,
+      "description" : "Bring Me The Horizon along with today's Rock songs you need to hear.",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXcF6B6QPhFDv"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXcF6B6QPhFDv",
+      "id" : "37i9dQZF1DXcF6B6QPhFDv",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f000000037e4d5dea2c04332d51ca5bae",
+        "width" : null
+      } ],
+      "name" : "Rock This",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTEyMTY2MCwwMDAwMDAwMDAwNTI3YjI3MTliODdiZWVkM2UzZjljNjIwY2FmNGNj",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXcF6B6QPhFDv/tracks",
+        "total" : 50
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DXcF6B6QPhFDv"
+    }, {
+      "collaborative" : false,
+      "description" : "Still in rotation. Cover: SZA",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWXnexX7CktaI"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWXnexX7CktaI",
+      "id" : "37i9dQZF1DWXnexX7CktaI",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f0000000350b573cc48a9a52d9904dab3",
+        "width" : null
+      } ],
+      "name" : "Gold Edition",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTEwMjIwOSwwMDAwMDAwMDdiYzViMGVlMzMwNDFiMzQxYmYzMDcyYTQ0MWY3OTBm",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWXnexX7CktaI/tracks",
+        "total" : 75
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DWXnexX7CktaI"
+    }, {
+      "collaborative" : false,
+      "description" : "Classic soft rock. For that free and easy feeling.",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX6fhMYWIyuww"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX6fhMYWIyuww",
+      "id" : "37i9dQZF1DX6fhMYWIyuww",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003d7da4bfb91461e08e2f3bed5",
+        "width" : null
+      } ],
+      "name" : "Free & Easy",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY4NjkxOTkyMiwwMDAwMDAwMGUxYzNjZTJhMGY2ZGUzZDM1Y2VkYTViY2M3YzBlZGNk",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX6fhMYWIyuww/tracks",
+        "total" : 100
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DX6fhMYWIyuww"
+    }, {
+      "collaborative" : false,
+      "description" : "Feel good with this positively timeless playlist!",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX9XIFQuFvzM4"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX9XIFQuFvzM4",
+      "id" : "37i9dQZF1DX9XIFQuFvzM4",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f000000034887bcc008e0dad5275de257",
+        "width" : null
+      } ],
+      "name" : "Feelin' Good",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTA4NTE3NCwwMDAwMDAwMDcyYjgyODBjOTc5ZjU4Yjg1ZDIwMDYxZTJkYjlhMzM0",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX9XIFQuFvzM4/tracks",
+        "total" : 150
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DX9XIFQuFvzM4"
+    }, {
+      "collaborative" : false,
+      "description" : "The best new music every Friday. Cover: Bathe Alone",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXdbXrPNafg9d"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXdbXrPNafg9d",
+      "id" : "37i9dQZF1DXdbXrPNafg9d",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f0000000336da184e952fccc722015214",
+        "width" : null
+      } ],
+      "name" : "All New Indie",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTE2MjM3OSwwMDAwMDAwMDA0YjJlODk0MjhhZjZiMDdkYzkwYzRiMmFhZjljYTY3",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXdbXrPNafg9d/tracks",
+        "total" : 150
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DXdbXrPNafg9d"
+    }, {
+      "collaborative" : false,
+      "description" : "Remixed pop and <a href=\"spotify:genre:edm_dance\">dance</a> collabs. Cover: Aqua",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXcZDD7cfEKhW"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXcZDD7cfEKhW",
+      "id" : "37i9dQZF1DXcZDD7cfEKhW",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003f770a8bf34ff0a8a3775ebe4",
+        "width" : null
+      } ],
+      "name" : "Pop Remix",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTE2NTkyNSwwMDAwMDAwMGM4YWE2ZjFkMmY0OTIxZjY5NGRjYWZkOGJkMjU5YWQ4",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXcZDD7cfEKhW/tracks",
+        "total" : 75
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DXcZDD7cfEKhW"
+    }, {
+      "collaborative" : false,
+      "description" : "have fun with it.",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX2SK4ytI2KAZ"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX2SK4ytI2KAZ",
+      "id" : "37i9dQZF1DX2SK4ytI2KAZ",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003da04dfcb81b2a2a864ab6407",
+        "width" : null
+      } ],
+      "name" : "It's ALT Good!",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY4ODA5NzYwMCwwMDAwMDAwMDVmZWFlMDI4MDBmYWU5MjY2OTE5YTAyMzkwYjhmZDcy",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX2SK4ytI2KAZ/tracks",
+        "total" : 100
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DX2SK4ytI2KAZ"
+    } ],
+    "limit" : 20,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 10
+  }
+}

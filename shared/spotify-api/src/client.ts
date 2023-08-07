@@ -1,6 +1,6 @@
 import { ApolloServerErrorCode } from '@apollo/server/errors';
 import { KeyValueCache } from '@apollo/utils.keyvaluecache';
-import { FetcherResponse } from '@apollo/utils.fetcher';
+import { Fetcher, FetcherResponse } from '@apollo/utils.fetcher';
 import {
   RESTDataSource,
   DeleteRequest,
@@ -14,6 +14,16 @@ import { Spotify, SpotifyDataSource } from 'spotify-api';
 import path from 'path';
 import { GraphQLError } from 'graphql';
 import { ConditionalKeys } from 'type-fest';
+import fetchVcr from 'fetch-vcr';
+
+fetchVcr.configure({
+  fixturePath: path.resolve('./fixtures'),
+  mode: 'playback',
+});
+
+const httpFetch: Fetcher = (uri, options) => {
+  return fetchVcr(uri, options as object);
+};
 
 export type OmitNever<T> = Omit<T, ConditionalKeys<T, never>>;
 
@@ -51,7 +61,7 @@ export class SpotifyClient extends RESTDataSource implements SpotifyDataSource {
   private token: string;
 
   constructor(options: { token: string; cache: KeyValueCache }) {
-    super(options);
+    super({ ...options, fetch: httpFetch });
     this.token = options.token;
   }
 

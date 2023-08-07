@@ -1,0 +1,26 @@
+{
+  "collaborative" : false,
+  "description" : "",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/4subONn3i7xYpg5SZBx1me"
+  },
+  "id" : "4subONn3i7xYpg5SZBx1me",
+  "images" : [ {
+    "height" : null,
+    "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebba923de2d2b705345c86fd369",
+    "width" : null
+  } ],
+  "name" : "Ivy Dance",
+  "owner" : {
+    "display_name" : "miller.liz",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/miller.liz"
+    },
+    "href" : "https://api.spotify.com/v1/users/miller.liz",
+    "id" : "miller.liz",
+    "type" : "user",
+    "uri" : "spotify:user:miller.liz"
+  },
+  "public" : true,
+  "uri" : "spotify:playlist:4subONn3i7xYpg5SZBx1me"
+}

@@ -1,0 +1,26 @@
+{
+  "collaborative" : false,
+  "description" : "With Dayshifter, Endeavour, In Fear and more",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E4xVjArYlH5aH"
+  },
+  "id" : "37i9dQZF1E4xVjArYlH5aH",
+  "images" : [ {
+    "height" : null,
+    "url" : "https://seeded-session-images.scdn.co/v1/img/artist/6rYiuq9UagagePoJApgYQj/en",
+    "width" : null
+  } ],
+  "name" : "The Luminary  Radio",
+  "owner" : {
+    "display_name" : "Spotify",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify",
+    "id" : "spotify",
+    "type" : "user",
+    "uri" : "spotify:user:spotify"
+  },
+  "public" : false,
+  "uri" : "spotify:playlist:37i9dQZF1E4xVjArYlH5aH"
+}
