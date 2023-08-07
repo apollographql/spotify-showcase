@@ -1,24 +1,11 @@
-import { Children, CSSProperties, ReactNode, isValidElement } from 'react';
+import { Children, ReactNode, isValidElement } from 'react';
 import { useReactiveVar } from '@apollo/client';
 import { highlightSuspenseBoundariesVar } from '../vars';
+import LoadingStateBackdrop from './LoadingStateBackdrop';
 
 interface LoadingStateHighlighterProps {
   children: ReactNode;
 }
-
-interface OverlayStyleProps extends CSSProperties {
-  '--shade': string;
-}
-
-interface ContainerSyleProps extends CSSProperties {
-  '--border-color': string;
-}
-
-const isHighlighted = (
-  element: JSX.ElementType
-): element is HighlightableComponent<unknown> => {
-  return typeof element !== 'string' && '__highlight' in element;
-};
 
 interface HighlightConfig {
   shade: string;
@@ -40,25 +27,16 @@ const LoadingStateHighlighter = ({
       : defaultConfig;
 
   return highlightSuspenseBoundaries ? (
-    <div className="relative overflow-hidden">
-      <div
-        className="border-4 border-[var(--border-color)] absolute inset-0 z-50"
-        style={
-          {
-            '--border-color': config.shade,
-          } as ContainerSyleProps
-        }
-      >
-        <div
-          className="absolute inset-0 opacity-25 bg-[var(--shade)]"
-          style={{ '--shade': config.shade } as OverlayStyleProps}
-        />
-      </div>
-      {children}
-    </div>
+    <LoadingStateBackdrop shade={config.shade}>{children}</LoadingStateBackdrop>
   ) : (
     children
   );
+};
+
+const isHighlighted = (
+  element: JSX.ElementType
+): element is HighlightableComponent<unknown> => {
+  return typeof element !== 'string' && '__highlight' in element;
 };
 
 interface HighlightableComponent<TProps> {
@@ -70,7 +48,6 @@ interface Options {
   shade?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export function withHighlight<TProps = unknown>(
   LoadingState: (props: TProps) => ReactNode,
   { shade = 'red' }: Options = {}
