@@ -1,9 +1,12 @@
 import { useParams } from 'react-router-dom';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import { PlaylistPage } from '../../components/PlaylistPage';
 
-const PLAYLIST_QUERY = gql`
+const PLAYLIST_QUERY: TypedDocumentNode<
+  PlaylistQuery,
+  PlaylistQueryVariables
+> = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
     playlist(id: $id) {
       id
@@ -17,12 +20,12 @@ const PLAYLIST_QUERY = gql`
 `;
 
 export const PlaylistRoute = () => {
-  const { playlistId } = useParams() as { playlistId: 'string' };
-  const { data, fetchMore } = useSuspenseQuery<
-    PlaylistQuery,
-    PlaylistQueryVariables
-  >(PLAYLIST_QUERY, { variables: { id: playlistId } });
-  const playlist = data.playlist;
+  const { playlistId } = useParams() as { playlistId: string };
+  const { data, fetchMore } = useSuspenseQuery(PLAYLIST_QUERY, {
+    variables: { id: playlistId },
+  });
+
+  const { playlist } = data;
 
   if (!playlist) {
     throw new Response('Playlist not found', { status: 404 });
