@@ -110,6 +110,9 @@ export default new ApolloClient({
           tracks: offsetConnectionPagination('SavedTracksConnection'),
         },
       },
+      CurrentUserProfile: {
+        keyFields: [],
+      },
       Developer: {
         keyFields: [],
       },
