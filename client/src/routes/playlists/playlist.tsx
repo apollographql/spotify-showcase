@@ -31,11 +31,15 @@ export const PlaylistRoute = () => {
     throw new Response('Playlist not found', { status: 404 });
   }
 
+  const handleLoadMore = (offset: number) => {
+    return fetchMore({ variables: { offset } });
+  };
+
   return (
     <PlaylistPage
       playlist={playlist}
       tracks={playlist.tracks}
-      onLoadMore={fetchMore}
+      onLoadMore={handleLoadMore}
     />
   );
 };

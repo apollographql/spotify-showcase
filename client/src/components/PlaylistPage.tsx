@@ -99,7 +99,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaylistPagePlaybackStateFragme
 interface PlaylistDetailsProps {
   playlist: Playlist;
   tracks: Tracks | null;
-  onLoadMore: (options: { variables: { offset: number } }) => Promise<unknown>;
+  onLoadMore: (offset: number) => Promise<unknown>;
 }
 
 export const PlaylistPage = ({
@@ -277,7 +277,7 @@ export const PlaylistPage = ({
           />
         )}
         <OffsetBasedPaginationObserver
-          fetchMore={onLoadMore}
+          fetchMore={({ variables }) => onLoadMore(variables.offset)}
           pageInfo={tracks?.pageInfo}
           threshold="1000px"
         />
