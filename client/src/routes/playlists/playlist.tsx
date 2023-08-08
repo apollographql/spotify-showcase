@@ -32,7 +32,7 @@ export const PlaylistRoute = () => {
   }
 
   const handleLoadMore = (offset: number) => {
-    return fetchMore({ variables: { offset } });
+    fetchMore({ variables: { offset } });
   };
 
   return (
