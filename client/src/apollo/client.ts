@@ -95,16 +95,19 @@ export default new ApolloClient({
       CurrentUser: {
         keyFields: [],
         fields: {
-          albums: offsetConnectionPagination(),
+          albums: offsetConnectionPagination('SavedAlbumsConnection'),
           albumsContains: libraryContains(),
           // TODO: Figure out why this doesn't work when using with fragment
           // episodes: offsetConnectionPagination(),
           episodesContains: libraryContains(),
           followedArtists: cursorConnectionPagination(),
           showsContains: libraryContains(),
-          playlists: offsetConnectionPagination(['@connection', ['key']]),
+          playlists: offsetConnectionPagination('PlaylistConnection', [
+            '@connection',
+            ['key'],
+          ]),
           tracksContains: libraryContains(),
-          tracks: offsetConnectionPagination(),
+          tracks: offsetConnectionPagination('SavedTracksConnection'),
         },
       },
       Developer: {
@@ -148,7 +151,7 @@ export default new ApolloClient({
       },
       Playlist: {
         fields: {
-          tracks: offsetConnectionPagination(),
+          tracks: offsetConnectionPagination('PlaylistTrackConnection'),
         },
       },
       Query: {

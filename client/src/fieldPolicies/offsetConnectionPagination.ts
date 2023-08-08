@@ -4,23 +4,22 @@ import { FieldPolicy, Reference } from '@apollo/client';
 type KeyArgs = FieldPolicy<unknown>['keyArgs'];
 
 interface ConnectionPagination<T> {
+  __typename: string;
   pageInfo: Partial<PageInfo>;
   edges: T[];
 }
 
 const offsetConnectionPagination = <T = Reference>(
+  typename: string,
   keyArgs: KeyArgs = false
 ): FieldPolicy<ConnectionPagination<T>> => {
   return {
     keyArgs,
-    merge(
-      existing = { pageInfo: {}, edges: [] },
-      incoming,
-      { args, mergeObjects }
-    ) {
+    merge(existing, incoming, { args, mergeObjects }) {
       const result: ConnectionPagination<T> = {
-        pageInfo: mergeObjects(existing.pageInfo, incoming.pageInfo),
-        edges: existing.edges.slice(0),
+        __typename: typename,
+        pageInfo: mergeObjects(existing?.pageInfo ?? {}, incoming.pageInfo),
+        edges: existing?.edges.slice(0) ?? [],
       };
 
       if (!incoming.edges) {
