@@ -2906,12 +2906,75 @@ export type Playbar_playbackState = {
     | null;
 };
 
-export type PlaylistDetails_playlist = {
+export type PlaylistPage_playlist = {
   __typename: 'Playlist';
   id: string;
   name: string;
-  images: Array<{ __typename: 'Image'; url: string }>;
+  uri: string;
+  images: Array<{
+    __typename: 'Image';
+    url: string;
+    vibrantColor: string | null;
+  }>;
   owner: { __typename: 'User'; id: string; displayName: string | null };
+};
+
+export type PlaylistPage_tracks = {
+  __typename: 'PlaylistTrackConnection';
+  pageInfo: {
+    __typename: 'PageInfo';
+    total: number;
+    hasNextPage: boolean;
+    offset: number;
+    limit: number;
+  };
+  edges: Array<{
+    __typename: 'PlaylistTrackEdge';
+    addedAt: string | null;
+    node:
+      | {
+          __typename: 'Episode';
+          id: string;
+          name: string;
+          durationMs: number;
+          uri: string;
+          explicit: boolean;
+          releaseDate: {
+            __typename: 'ReleaseDate';
+            date: string;
+            precision: ReleaseDatePrecision;
+          };
+          show: {
+            __typename: 'Show';
+            id: string;
+            name: string;
+            publisher: string;
+            images: Array<{ __typename: 'Image'; url: string }>;
+          };
+        }
+      | {
+          __typename: 'Track';
+          id: string;
+          name: string;
+          durationMs: number;
+          uri: string;
+          trackNumber: number | null;
+          explicit: boolean;
+          album: {
+            __typename: 'Album';
+            id: string;
+            name: string;
+            images: Array<{ __typename: 'Image'; url: string }>;
+          };
+          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+        };
+  }>;
+};
+
+export type PlaylistPagePlaybackStateFragment = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
 };
 
 export type PlaylistSidebarLink_playbackState = {
