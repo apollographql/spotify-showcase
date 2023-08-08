@@ -9,6 +9,10 @@ interface ConnectionPagination<T> {
   edges: T[];
 }
 
+// Enforce a typename with this helper. It mostly works without it with the
+// exception when connection fields are pulled into fragments. Once that is
+// done, the cache seems to lose these values. Enforcing a __typename field
+// returned from this merge policy ensures consistency.
 const offsetConnectionPagination = <T = Reference>(
   typename: string,
   keyArgs: KeyArgs = false
