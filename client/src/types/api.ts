@@ -2457,7 +2457,7 @@ export type SidebarQueryVariables = Exact<{
 export type SidebarQuery = {
   me: {
     __typename: 'CurrentUser';
-    user: { __typename: 'User'; id: string };
+    profile: { __typename: 'CurrentUserProfile'; id: string };
     playlists: {
       __typename: 'PlaylistConnection';
       pageInfo: {
