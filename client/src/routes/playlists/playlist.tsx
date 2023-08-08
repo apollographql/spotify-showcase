@@ -18,43 +18,6 @@ const PLAYLIST_QUERY = gql`
     playlist(id: $id) {
       id
       tracks(offset: $offset) {
-        edges {
-          addedAt
-          node {
-            id
-            name
-            durationMs
-            uri
-
-            ... on Track {
-              album {
-                id
-                name
-              }
-
-              ...TrackNumberCell_track
-            }
-
-            ... on Episode {
-              releaseDate {
-                date
-                precision
-              }
-              show {
-                id
-                name
-              }
-            }
-
-            ...PlaylistTitleCell_playlistTrack
-          }
-        }
-        pageInfo {
-          hasNextPage
-          offset
-          limit
-          total
-        }
         ...PlaylistPage_tracks
       }
 
@@ -72,7 +35,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const PlaylistRoute = () => {
+export const PlaylistRoute = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
   const { data, fetchMore } = useSuspenseQuery<
     PlaylistQuery,
@@ -92,8 +55,6 @@ const PlaylistRoute = () => {
     />
   );
 };
-
-export const RouteComponent = PlaylistRoute;
 
 export const LoadingState = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
