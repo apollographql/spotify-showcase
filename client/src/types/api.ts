@@ -3952,21 +3952,11 @@ export type PlaylistQueryVariables = Exact<{
 }>;
 
 export type PlaylistQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: { __typename: 'CurrentUserProfile'; id: string };
-  } | null;
   playlist: {
     __typename: 'Playlist';
     id: string;
     name: string;
     uri: string;
-    images: Array<{
-      __typename: 'Image';
-      url: string;
-      vibrantColor: string | null;
-    }>;
-    owner: { __typename: 'User'; id: string; displayName: string | null };
     tracks: {
       __typename: 'PlaylistTrackConnection';
       edges: Array<{
@@ -4022,6 +4012,12 @@ export type PlaylistQuery = {
         total: number;
       };
     };
+    images: Array<{
+      __typename: 'Image';
+      url: string;
+      vibrantColor: string | null;
+    }>;
+    owner: { __typename: 'User'; id: string; displayName: string | null };
   } | null;
 };
 

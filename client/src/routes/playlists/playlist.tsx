@@ -15,23 +15,8 @@ import { PlaylistPage } from '../../components/PlaylistPage';
 
 const PLAYLIST_QUERY = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
-    me {
-      profile {
-        id
-      }
-    }
     playlist(id: $id) {
       id
-      name
-      uri
-      images {
-        url
-        vibrantColor(format: RGB, alpha: 0.9) @client
-      }
-      owner {
-        id
-        displayName
-      }
       tracks(offset: $offset) {
         edges {
           addedAt
@@ -74,7 +59,6 @@ const PLAYLIST_QUERY = gql`
       }
 
       ...PlaylistPage_playlist
-      ...PlaylistTitleCell_playlist
     }
   }
 `;
