@@ -4021,12 +4021,6 @@ export type PlaylistQuery = {
   } | null;
 };
 
-export type PlaylistRoutePlaybackStateFragment = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
-
 export type QueueRouteQueryVariables = Exact<{ [key: string]: never }>;
 
 export type QueueRouteQuery = {
