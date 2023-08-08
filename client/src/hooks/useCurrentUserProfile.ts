@@ -13,11 +13,7 @@ const useCurrentUserProfile = () => {
     from: { __typename: 'CurrentUserProfile' },
   });
 
-  if (!complete) {
-    throw new Error('Must be logged in');
-  }
-
-  return data;
+  return complete ? data : { __typename: 'CurrentUserProfile', id: '' };
 };
 
 export default useCurrentUserProfile;
