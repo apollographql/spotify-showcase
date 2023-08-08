@@ -98,7 +98,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaylistPagePlaybackStateFragme
 
 interface PlaylistDetailsProps {
   playlist: Playlist;
-  tracks: Tracks | null;
+  tracks: Tracks | undefined;
   onLoadMore: (offset: number) => void;
 }
 
