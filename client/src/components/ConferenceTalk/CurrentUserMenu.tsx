@@ -1,29 +1,26 @@
 import CoreCurrentUserMenu, { LoadingState } from '../CurrentUserMenu';
 import cx from 'classnames';
 import { withHighlight } from '../LoadingStateHighlighter';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import {
   CurrentUserMenuQuery,
   CurrentUserMenuQueryVariables,
 } from '../../types/api';
+import { fragmentRegistry } from '../../apollo/fragmentRegistry';
+import { CURRENT_USER_MENU_QUERY } from './queries';
 
-const CURRENT_USER_QUERY: TypedDocumentNode<
-  CurrentUserMenuQuery,
-  CurrentUserMenuQueryVariables
-> = gql`
-  query CurrentUserMenuQuery {
-    me {
-      profile {
-        id
-        displayName
-        ...Avatar_profile
-      }
-    }
+fragmentRegistry.register(gql`
+  fragment CurrentUserMenuFields on CurrentUserProfile {
+    displayName
+    ...Avatar_profile
   }
-`;
+`);
 
 export const CurrentUserMenu = () => {
-  const { data } = useSuspenseQuery(CURRENT_USER_QUERY);
+  const { data } = useSuspenseQuery<
+    CurrentUserMenuQuery,
+    CurrentUserMenuQueryVariables
+  >(CURRENT_USER_MENU_QUERY);
 
   const { me } = data;
 
