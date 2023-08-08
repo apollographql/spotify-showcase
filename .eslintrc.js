@@ -25,8 +25,15 @@ module.exports = {
       extends: 'plugin:@graphql-eslint/operations-recommended',
       rules: {
         '@graphql-eslint/known-directives': [
-          'error',
-          { ignoreClientDirectives: ['client', 'connection', 'synthetics'] },
+          'off',
+          {
+            ignoreClientDirectives: [
+              'client',
+              'connection',
+              'synthetics',
+              'defer',
+            ],
+          },
         ],
         '@graphql-eslint/naming-convention': [
           'error',
