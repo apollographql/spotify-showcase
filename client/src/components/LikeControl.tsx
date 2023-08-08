@@ -1,4 +1,4 @@
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import {
   LikeControlQuery,
   LikeControlQueryVariables,
@@ -7,7 +7,6 @@ import {
 import LikeButton, { LikeButtonProps } from './LikeButton';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
-import { useDeferredValue } from 'react';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface LikeControlProps {
@@ -33,31 +32,24 @@ fragmentRegistry.register(gql`
 `);
 
 const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
-  const deferredId = useDeferredValue(playbackItem?.id);
-
-  const { data } = useSuspenseQuery<
-    LikeControlQuery,
-    LikeControlQueryVariables
-  >(LIKE_CONTROL_QUERY, {
-    errorPolicy: 'ignore',
-    variables: {
-      ids: [deferredId].filter(Boolean),
-    },
-  });
+  const { data } = useQuery<LikeControlQuery, LikeControlQueryVariables>(
+    LIKE_CONTROL_QUERY,
+    {
+      errorPolicy: 'ignore',
+      variables: {
+        ids: [playbackItem?.id].filter(Boolean),
+      },
+    }
+  );
 
   const [saveTracks] = useSaveTracksMutation();
   const [removeTracks] = useRemoveTracksMutation();
 
-  if (!data?.me) {
-    throw new Response('You must be logged in', { status: 401 });
-  }
-
-  const {
-    me: { episodesContains, tracksContains },
-  } = data;
+  const episodesContains = data?.me?.episodesContains ?? [];
+  const tracksContains = data?.me?.tracksContains ?? [];
 
   const isLiked = Boolean(
-    episodesContains?.some(Boolean) || tracksContains?.some(Boolean)
+    episodesContains.some(Boolean) || tracksContains.some(Boolean)
   );
 
   return (
