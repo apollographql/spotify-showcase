@@ -2449,6 +2449,20 @@ export type Avatar_profile =
   | Avatar_profile_CurrentUserProfile_
   | Avatar_profile_User_;
 
+export type CurrentUserMenuQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CurrentUserMenuQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    profile: {
+      __typename: 'CurrentUserProfile';
+      id: string;
+      displayName: string | null;
+      images: Array<{ __typename: 'Image'; url: string }> | null;
+    };
+  } | null;
+};
+
 export type SidebarQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2505,18 +2519,11 @@ export type AddToPlaylistQuery = {
   } | null;
 };
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
-
-export type CurrentUserQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: {
-      __typename: 'CurrentUserProfile';
-      id: string;
-      displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }> | null;
-    };
-  } | null;
+export type CurrentUserMenu_profile = {
+  __typename: 'CurrentUserProfile';
+  id: string;
+  displayName: string | null;
+  images: Array<{ __typename: 'Image'; url: string }> | null;
 };
 
 export type DevicePopover_playbackState = {
