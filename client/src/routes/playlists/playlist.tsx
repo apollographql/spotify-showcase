@@ -1,14 +1,21 @@
 import { useParams } from 'react-router-dom';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import {
+  TypedDocumentNode,
+  gql,
+  useSuspenseQuery,
+  useQuery,
+} from '@apollo/client';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import { PlaylistPage } from '../../components/PlaylistPage';
+import StandardLoadingState from '../../components/StandardLoadingState';
+import LoadingStateHighlighter from '../../components/LoadingStateHighlighter';
 
 const PLAYLIST_QUERY: TypedDocumentNode<
   PlaylistQuery,
   PlaylistQueryVariables
 > = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
-    playlist(id: $id) {
+    playlist(id: $id) @synthetics(timeout: 4000) {
       id
       tracks(offset: $offset) {
         ...PlaylistPage_tracks
@@ -21,11 +28,19 @@ const PLAYLIST_QUERY: TypedDocumentNode<
 
 export const PlaylistRoute = () => {
   const { playlistId } = useParams() as { playlistId: string };
-  const { data, fetchMore } = useSuspenseQuery(PLAYLIST_QUERY, {
+  const { data, fetchMore, loading } = useQuery(PLAYLIST_QUERY, {
     variables: { id: playlistId },
   });
 
-  const { playlist } = data;
+  if (loading) {
+    return (
+      <LoadingStateHighlighter>
+        <StandardLoadingState />
+      </LoadingStateHighlighter>
+    );
+  }
+
+  const playlist = data?.playlist;
 
   if (!playlist) {
     throw new Response('Playlist not found', { status: 404 });

@@ -10,18 +10,16 @@ import {
 
 const Layout = () => {
   return (
-    <Suspense fallback={<LayoutContainer.LoadingState />}>
-      <LayoutContainer>
-        <Sidebar />
-        <Main>
-          <CurrentUserMenu />
-          <Suspense fallback={<Route.LoadingState />}>
-            <Route />
-          </Suspense>
-        </Main>
-        <Playbar />
-      </LayoutContainer>
-    </Suspense>
+    <LayoutContainer>
+      <Sidebar />
+      <Main>
+        <CurrentUserMenu />
+        <Suspense fallback={<Route.LoadingState />}>
+          <Route />
+        </Suspense>
+      </Main>
+      <Playbar />
+    </LayoutContainer>
   );
 };
 

@@ -1,5 +1,10 @@
 import cx from 'classnames';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import {
+  TypedDocumentNode,
+  gql,
+  useSuspenseQuery,
+  useQuery,
+} from '@apollo/client';
 import {
   Action,
   RepeatMode,
@@ -32,7 +37,9 @@ import QueueControlButton from './QueueControlButton';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
-import { withHighlight } from './LoadingStateHighlighter';
+import LoadingStateHighlighter, {
+  withHighlight,
+} from './LoadingStateHighlighter';
 import { PLAYBAR_QUERY } from './ConferenceTalk/queries';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
@@ -95,15 +102,23 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
 fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
 
 const Playbar = () => {
-  const { data } = useSuspenseQuery<PlaybarQuery, PlaybarQueryVariables>(
+  const { data, loading } = useQuery<PlaybarQuery, PlaybarQueryVariables>(
     PLAYBAR_QUERY
   );
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
+  if (loading) {
+    return (
+      <LoadingStateHighlighter>
+        <LoadingState />
+      </LoadingStateHighlighter>
+    );
+  }
+
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
-  const devices = data.me?.player.devices ?? [];
+  const devices = data?.me?.player.devices ?? [];
   const disallows = playbackState?.actions.disallows ?? [];
   const coverPhoto =
     playbackItem?.__typename === 'Track'

@@ -1,7 +1,9 @@
 import CoreCurrentUserMenu, { LoadingState } from '../CurrentUserMenu';
 import cx from 'classnames';
-import { withHighlight } from '../LoadingStateHighlighter';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import LoadingStateHighlighter, {
+  withHighlight,
+} from '../LoadingStateHighlighter';
+import { gql, useSuspenseQuery, useQuery } from '@apollo/client';
 import {
   CurrentUserMenuQuery,
   CurrentUserMenuQueryVariables,
@@ -17,12 +19,20 @@ fragmentRegistry.register(gql`
 `);
 
 export const CurrentUserMenu = () => {
-  const { data } = useSuspenseQuery<
+  const { data, loading } = useQuery<
     CurrentUserMenuQuery,
     CurrentUserMenuQueryVariables
   >(CURRENT_USER_MENU_QUERY);
 
-  const { me } = data;
+  if (loading) {
+    return (
+      <LoadingStateHighlighter>
+        <CurrentUserMenu.LoadingState />
+      </LoadingStateHighlighter>
+    );
+  }
+
+  const me = data?.me;
 
   if (!me) {
     throw new Error('You must be logged in');

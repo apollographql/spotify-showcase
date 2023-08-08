@@ -1,4 +1,4 @@
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { gql, useSuspenseQuery, useQuery } from '@apollo/client';
 import { Library } from 'lucide-react';
 import { useRef } from 'react';
 import { thumbnail } from '../../utils/image';
@@ -12,7 +12,9 @@ import YourEpisodesPlaylistCoverPhoto from '../YourEpisodesPlaylistCoverPhoto';
 import { SidebarQuery, SidebarQueryVariables } from '../../types/api';
 import { randomBetween, range } from '../../utils/common';
 import Skeleton from '../Skeleton';
-import { withHighlight } from '../LoadingStateHighlighter';
+import LoadingStateHighlighter, {
+  withHighlight,
+} from '../LoadingStateHighlighter';
 import useCurrentUserProfile from '../../hooks/useCurrentUserProfile';
 import { fragmentRegistry } from '../../apollo/fragmentRegistry';
 import { SIDEBAR_QUERY } from './queries';
@@ -29,14 +31,22 @@ fragmentRegistry.register(gql`
 
 export const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const { data, fetchMore } = useSuspenseQuery<
+  const { data, fetchMore, loading } = useQuery<
     SidebarQuery,
     SidebarQueryVariables
   >(SIDEBAR_QUERY, { variables: { limit: 50 } });
 
   const profile = useCurrentUserProfile();
 
-  const { me } = data;
+  if (loading) {
+    return (
+      <LoadingStateHighlighter>
+        <Sidebar.LoadingState />
+      </LoadingStateHighlighter>
+    );
+  }
+
+  const me = data?.me;
 
   if (!me) {
     throw new Error('Must be logged in');
