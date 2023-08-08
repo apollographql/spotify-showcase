@@ -10,16 +10,16 @@
   },
   "shuffle_state" : false,
   "repeat_state" : "context",
-  "timestamp" : 1691371565926,
+  "timestamp" : 1691536063865,
   "context" : {
     "external_urls" : {
-      "spotify" : "https://open.spotify.com/artist/3GzWhE2xadJiW8MqRKIVSK"
+      "spotify" : "https://open.spotify.com/playlist/4tIPmkZMGXRUkpHrCavkFL"
     },
-    "href" : "https://api.spotify.com/v1/artists/3GzWhE2xadJiW8MqRKIVSK",
-    "type" : "artist",
-    "uri" : "spotify:artist:3GzWhE2xadJiW8MqRKIVSK"
+    "href" : "https://api.spotify.com/v1/playlists/4tIPmkZMGXRUkpHrCavkFL",
+    "type" : "playlist",
+    "uri" : "spotify:playlist:4tIPmkZMGXRUkpHrCavkFL"
   },
-  "progress_ms" : 97835,
+  "progress_ms" : 140982,
   "item" : {
     "album" : {
       "album_type" : "album",
@@ -35,29 +35,29 @@
       } ],
       "available_markets" : [ "AD", "AE", "AG", "AL", "AM", "AO", "AR", "AT", "AU", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BN", "BO", "BR", "BS", "BT", "BW", "BY", "BZ", "CA", "CD", "CG", "CH", "CI", "CL", "CM", "CO", "CR", "CV", "CW", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "ES", "ET", "FI", "FJ", "FM", "FR", "GA", "GB", "GD", "GE", "GH", "GM", "GN", "GQ", "GR", "GT", "GW", "GY", "HK", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IN", "IQ", "IS", "IT", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KR", "KW", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MG", "MH", "MK", "ML", "MN", "MO", "MR", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NE", "NG", "NI", "NL", "NO", "NP", "NR", "NZ", "OM", "PA", "PE", "PG", "PH", "PK", "PL", "PS", "PT", "PW", "PY", "QA", "RO", "RS", "RW", "SA", "SB", "SC", "SE", "SG", "SI", "SK", "SL", "SM", "SN", "SR", "ST", "SV", "SZ", "TD", "TG", "TH", "TJ", "TL", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "US", "UY", "UZ", "VC", "VE", "VN", "VU", "WS", "XK", "ZA", "ZM", "ZW" ],
       "external_urls" : {
-        "spotify" : "https://open.spotify.com/album/613KEpSUb8NIzGmpfqhXAw"
+        "spotify" : "https://open.spotify.com/album/6YQu7tXYfN1r2NLx8tfEI6"
       },
-      "href" : "https://api.spotify.com/v1/albums/613KEpSUb8NIzGmpfqhXAw",
-      "id" : "613KEpSUb8NIzGmpfqhXAw",
+      "href" : "https://api.spotify.com/v1/albums/6YQu7tXYfN1r2NLx8tfEI6",
+      "id" : "6YQu7tXYfN1r2NLx8tfEI6",
       "images" : [ {
         "height" : 640,
-        "url" : "https://i.scdn.co/image/ab67616d0000b273cd3f45e3169631ebd5d24c3f",
+        "url" : "https://i.scdn.co/image/ab67616d0000b2732356287844a9caa378291699",
         "width" : 640
       }, {
         "height" : 300,
-        "url" : "https://i.scdn.co/image/ab67616d00001e02cd3f45e3169631ebd5d24c3f",
+        "url" : "https://i.scdn.co/image/ab67616d00001e022356287844a9caa378291699",
         "width" : 300
       }, {
         "height" : 64,
-        "url" : "https://i.scdn.co/image/ab67616d00004851cd3f45e3169631ebd5d24c3f",
+        "url" : "https://i.scdn.co/image/ab67616d000048512356287844a9caa378291699",
         "width" : 64
       } ],
-      "name" : "Lost In The Sound Of Separation",
-      "release_date" : "2008-01-01",
+      "name" : "Define The Great Line",
+      "release_date" : "2006-01-01",
       "release_date_precision" : "day",
       "total_tracks" : 11,
       "type" : "album",
-      "uri" : "spotify:album:613KEpSUb8NIzGmpfqhXAw"
+      "uri" : "spotify:album:6YQu7tXYfN1r2NLx8tfEI6"
     },
     "artists" : [ {
       "external_urls" : {
@@ -71,23 +71,23 @@
     } ],
     "available_markets" : [ "AR", "AU", "AT", "BE", "BO", "BR", "BG", "CA", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "DE", "EC", "EE", "SV", "FI", "FR", "GR", "GT", "HN", "HK", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MY", "MT", "MX", "NL", "NZ", "NI", "NO", "PA", "PY", "PE", "PH", "PL", "PT", "SG", "SK", "ES", "SE", "CH", "TW", "TR", "UY", "US", "GB", "AD", "LI", "MC", "ID", "JP", "TH", "VN", "RO", "IL", "ZA", "SA", "AE", "BH", "QA", "OM", "KW", "EG", "MA", "DZ", "TN", "LB", "JO", "PS", "IN", "BY", "KZ", "MD", "UA", "AL", "BA", "HR", "ME", "MK", "RS", "SI", "KR", "BD", "PK", "LK", "GH", "KE", "NG", "TZ", "UG", "AG", "AM", "BS", "BB", "BZ", "BT", "BW", "BF", "CV", "CW", "DM", "FJ", "GM", "GE", "GD", "GW", "GY", "HT", "JM", "KI", "LS", "LR", "MW", "MV", "ML", "MH", "FM", "NA", "NR", "NE", "PW", "PG", "WS", "SM", "ST", "SN", "SC", "SL", "SB", "KN", "LC", "VC", "SR", "TL", "TO", "TT", "TV", "VU", "AZ", "BN", "BI", "KH", "CM", "TD", "KM", "GQ", "SZ", "GA", "GN", "KG", "LA", "MO", "MR", "MN", "NP", "RW", "TG", "UZ", "ZW", "BJ", "MG", "MU", "MZ", "AO", "CI", "DJ", "ZM", "CD", "CG", "IQ", "LY", "TJ", "VE", "ET", "XK" ],
     "disc_number" : 1,
-    "duration_ms" : 242146,
+    "duration_ms" : 242413,
     "explicit" : false,
     "external_ids" : {
-      "isrc" : "USTN10800604"
+      "isrc" : "USTN10600072"
     },
     "external_urls" : {
-      "spotify" : "https://open.spotify.com/track/0XM6SBa7xYMWv3ng5QNvWq"
+      "spotify" : "https://open.spotify.com/track/313yF0VXTCmFFoYEJF7nBQ"
     },
-    "href" : "https://api.spotify.com/v1/tracks/0XM6SBa7xYMWv3ng5QNvWq",
-    "id" : "0XM6SBa7xYMWv3ng5QNvWq",
+    "href" : "https://api.spotify.com/v1/tracks/313yF0VXTCmFFoYEJF7nBQ",
+    "id" : "313yF0VXTCmFFoYEJF7nBQ",
     "is_local" : false,
-    "name" : "The Created Void",
-    "popularity" : 31,
-    "preview_url" : "https://p.scdn.co/mp3-preview/aaca229c5d580eef8a221096ad8ec05ecdb4584e?cid=2254dce9797a4e91880c97b856207f8c",
-    "track_number" : 7,
+    "name" : "Writing On The Walls",
+    "popularity" : 61,
+    "preview_url" : "https://p.scdn.co/mp3-preview/30fe98e1727d1f975de7d8cfd6493c170eb9dd4b?cid=2254dce9797a4e91880c97b856207f8c",
+    "track_number" : 9,
     "type" : "track",
-    "uri" : "spotify:track:0XM6SBa7xYMWv3ng5QNvWq"
+    "uri" : "spotify:track:313yF0VXTCmFFoYEJF7nBQ"
   },
   "currently_playing_type" : "track",
   "actions" : {

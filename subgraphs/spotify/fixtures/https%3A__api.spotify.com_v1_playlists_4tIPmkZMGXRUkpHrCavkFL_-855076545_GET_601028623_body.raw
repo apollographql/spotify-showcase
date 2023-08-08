@@ -1,0 +1,26 @@
+{
+  "collaborative" : false,
+  "description" : "",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/4tIPmkZMGXRUkpHrCavkFL"
+  },
+  "id" : "4tIPmkZMGXRUkpHrCavkFL",
+  "images" : [ {
+    "height" : null,
+    "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebb6a373017b18fa4793569fcf0",
+    "width" : null
+  } ],
+  "name" : "React Rally 2023",
+  "owner" : {
+    "display_name" : "Jerel Miller",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/1228247189"
+    },
+    "href" : "https://api.spotify.com/v1/users/1228247189",
+    "id" : "1228247189",
+    "type" : "user",
+    "uri" : "spotify:user:1228247189"
+  },
+  "public" : false,
+  "uri" : "spotify:playlist:4tIPmkZMGXRUkpHrCavkFL"
+}

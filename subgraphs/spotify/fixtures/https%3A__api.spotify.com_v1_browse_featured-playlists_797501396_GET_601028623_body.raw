@@ -1,0 +1,243 @@
+{
+  "message" : "Tuesday jams",
+  "playlists" : {
+    "href" : "https://api.spotify.com/v1/browse/featured-playlists?country=US&timestamp=2023-08-08T17%3A00%3A00&offset=0&limit=20",
+    "items" : [ {
+      "collaborative" : false,
+      "description" : "A mega mix of 75 favorites from the last few years! ",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXbYM3nMM0oPk"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXbYM3nMM0oPk",
+      "id" : "37i9dQZF1DXbYM3nMM0oPk",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003b5df54673da0935a538c8e48",
+        "width" : null
+      } ],
+      "name" : "Mega Hit Mix",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY4ODU3MjczNywwMDAwMDAwMGU1N2JlYjM0YTNmNDU0YWY1ZjQyZjk2NjVlMTY2MTQ2",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXbYM3nMM0oPk/tracks",
+        "total" : 75
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DXbYM3nMM0oPk"
+    }, {
+      "collaborative" : false,
+      "description" : "Unwind and let the afternoon unfold.",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX4E3UdUs7fUx"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX4E3UdUs7fUx",
+      "id" : "37i9dQZF1DX4E3UdUs7fUx",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f000000031cb21db1932b5c9139bbf136",
+        "width" : null
+      } ],
+      "name" : "Afternoon Acoustic",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY4ODA5NzYwMCwwMDAwMDAwMDFlMDQyZjQ3ZjBmYWY2Njg5OWQ0MWVmNDYyZDM1ODUw",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX4E3UdUs7fUx/tracks",
+        "total" : 100
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DX4E3UdUs7fUx"
+    }, {
+      "collaborative" : false,
+      "description" : "Set it off with these epic anthems. Only good vibes here!",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWYBO1MoTDhZI"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWYBO1MoTDhZI",
+      "id" : "37i9dQZF1DWYBO1MoTDhZI",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003ed91f72d69d10c9805cf25b3",
+        "width" : null
+      } ],
+      "name" : "Good Vibes",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTEyMTYwMCwwMDAwMDAwMDBmMWYxNzRhY2ZkYWQ1MWZlMzUzYzNlMmVhYWJkNDU3",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWYBO1MoTDhZI/tracks",
+        "total" : 85
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DWYBO1MoTDhZI"
+    }, {
+      "collaborative" : false,
+      "description" : "Uplifting and energetic music that helps you stay motivated.",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DXdxcBWuJkbcy"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXdxcBWuJkbcy",
+      "id" : "37i9dQZF1DXdxcBWuJkbcy",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f000000035f2635e031078672e7b384a5",
+        "width" : null
+      } ],
+      "name" : "Motivation Mix",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTEwMDAwMCwwMDAwMDAwMDdhNjU5YTJmMzc1NjJkMDA3MzQwYjY5NjA3ZjcxZGVl",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DXdxcBWuJkbcy/tracks",
+        "total" : 80
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DXdxcBWuJkbcy"
+    }, {
+      "collaborative" : false,
+      "description" : "Kick back to the best new and recent chill hits.",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX4WYpdgoIcn6"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX4WYpdgoIcn6",
+      "id" : "37i9dQZF1DX4WYpdgoIcn6",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f0000000386607d3edd412dcdf39c645a",
+        "width" : null
+      } ],
+      "name" : "Chill Hits",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTQxNjcyOSwwMDAwMDAwMGM2YmE3OThiMmEyYTQ4NWIzMTZiMDdhYThiYWUyMTQy",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX4WYpdgoIcn6/tracks",
+        "total" : 130
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DX4WYpdgoIcn6"
+    }, {
+      "collaborative" : false,
+      "description" : "Smooth joints. Cover: Snoh Aalegra",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWVzZlRWgqAGH"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWVzZlRWgqAGH",
+      "id" : "37i9dQZF1DWVzZlRWgqAGH",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003b0253513f10a277fe921a340",
+        "width" : null
+      } ],
+      "name" : "BUTTER",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MTEyMTY2MCwwMDAwMDAwMGY4NDA5MzE4YzkzM2Q2ZTU1ZTI1OTUwMDQ0NzAyYmFi",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWVzZlRWgqAGH/tracks",
+        "total" : 100
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DWVzZlRWgqAGH"
+    }, {
+      "collaborative" : false,
+      "description" : "Music from Nashville's emerging Singers and Songwriters. Cover: King Calaway",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWTvM9hRJYH10"
+      },
+      "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWTvM9hRJYH10",
+      "id" : "37i9dQZF1DWTvM9hRJYH10",
+      "images" : [ {
+        "height" : null,
+        "url" : "https://i.scdn.co/image/ab67706f00000003b11fb0a0cb9b6be296a1668e",
+        "width" : null
+      } ],
+      "name" : "Young Nashville",
+      "owner" : {
+        "display_name" : "Spotify",
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "primary_color" : null,
+      "public" : null,
+      "snapshot_id" : "MTY5MDkwODcxMSwwMDAwMDAwMDZhNmNiZDllYjllNTg0MWNkNzNiMGE0MTNjYjRkOWVh",
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWTvM9hRJYH10/tracks",
+        "total" : 163
+      },
+      "type" : "playlist",
+      "uri" : "spotify:playlist:37i9dQZF1DWTvM9hRJYH10"
+    } ],
+    "limit" : 20,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 7
+  }
+}

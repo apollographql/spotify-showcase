@@ -4,6 +4,39 @@
     "collaborative" : false,
     "description" : "",
     "external_urls" : {
+      "spotify" : "https://open.spotify.com/playlist/4tIPmkZMGXRUkpHrCavkFL"
+    },
+    "href" : "https://api.spotify.com/v1/playlists/4tIPmkZMGXRUkpHrCavkFL",
+    "id" : "4tIPmkZMGXRUkpHrCavkFL",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebb6a373017b18fa4793569fcf0",
+      "width" : null
+    } ],
+    "name" : "React Rally 2023",
+    "owner" : {
+      "display_name" : "Jerel Miller",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1228247189"
+      },
+      "href" : "https://api.spotify.com/v1/users/1228247189",
+      "id" : "1228247189",
+      "type" : "user",
+      "uri" : "spotify:user:1228247189"
+    },
+    "primary_color" : null,
+    "public" : false,
+    "snapshot_id" : "MTQsNGNiMTk2ZTMxNDQ0NzZmZWIzZGU1ZjA3N2JjMzM3NDk3ZDkwZGI1Mg==",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/playlists/4tIPmkZMGXRUkpHrCavkFL/tracks",
+      "total" : 6
+    },
+    "type" : "playlist",
+    "uri" : "spotify:playlist:4tIPmkZMGXRUkpHrCavkFL"
+  }, {
+    "collaborative" : false,
+    "description" : "",
+    "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/4subONn3i7xYpg5SZBx1me"
     },
     "href" : "https://api.spotify.com/v1/playlists/4subONn3i7xYpg5SZBx1me",
@@ -59,7 +92,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTM3MTQ5MCwwMDAwMDAwMGFlN2I4MDlmYTNmMDNhN2IyNzMxMzNlMGI2NWZiZTE1",
+    "snapshot_id" : "MTY5MTUzNTI0NCwwMDAwMDAwMDM5MTUxM2I1ZjNlMzU1ZjVkZDk1MTI5ZmJiMTMzZDEw",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4xVjArYlH5aH/tracks",
       "total" : 50
@@ -92,7 +125,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTM3MDk5MiwwMDAwMDAwMDdkMjM5YjJhYTc4ZmEwNTVjMjA0ZGJhZjg2ZGQ5YjE5",
+    "snapshot_id" : "MTY5MTUzNTI0NCwwMDAwMDAwMGVjNzFjMzk3YTIyNmQ4MTdlZTBkODQ2YmMzY2UzMDFj",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4qbsXIsN9Myu/tracks",
       "total" : 50
@@ -125,7 +158,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTM3MTQ5MCwwMDAwMDAwMDJiNzczYTlkNGQ3YTVmYmNkZDM4MDdlNzc4OGRiODAw",
+    "snapshot_id" : "MTY5MTUzNTI0NCwwMDAwMDAwMDYzYzI5YzZhMWIyYmJiMTlhN2M4NDU0OWJlMTE1MzYz",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4kgqUorARyNs/tracks",
       "total" : 50
@@ -331,7 +364,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MjgxODg3NTIsMDAwMDAwMDBlYTBmZDdlYTNmNjdiNjc2NDEyNDUzYWM0Njc4MTJiZQ==",
+    "snapshot_id" : "MjgxOTE2NzksMDAwMDAwMDBjOTNhMTA1MzQ5MGM0NjZmY2I3MDU5ZTU1YmYyZWMzMw==",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DZ06evO0LbA3u/tracks",
       "total" : 49
@@ -649,7 +682,7 @@
     "uri" : "spotify:playlist:37i9dQZF1F0sijgNaJdgit"
   }, {
     "collaborative" : false,
-    "description" : "<a href=spotify:playlist:37i9dQZF1EIWg3u9VWHhk9>Stepson</a>, <a href=spotify:playlist:37i9dQZF1EIVbwNwLhDE83>NOTHING MORE</a>, <a href=spotify:playlist:37i9dQZF1EIV0HJjQDEQK9>Hotel Books</a> and more",
+    "description" : "<a href=spotify:playlist:37i9dQZF1EIV0HJjQDEQK9>Hotel Books</a>, <a href=spotify:playlist:37i9dQZF1EIWg3u9VWHhk9>Stepson</a>, <a href=spotify:playlist:37i9dQZF1EIZpbvHjy7meF>Movements</a> and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EVKuMoAJjoTIw"
     },
@@ -657,7 +690,7 @@
     "id" : "37i9dQZF1EVKuMoAJjoTIw",
     "images" : [ {
       "height" : null,
-      "url" : "https://seed-mix-image.spotifycdn.com/v6/img/moody/5zAwXQwC3M34U7lKFgeX1y/en/large",
+      "url" : "https://seed-mix-image.spotifycdn.com/v6/img/moody/0PsTewblEJFN5oC1Qb7IwX/en/large",
       "width" : null
     } ],
     "name" : "Moody Mix",
@@ -673,7 +706,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTMwMTYwMCwwMDAwMDAwMDRlYTRiYTZhZTM5ZDBhZjA4MGMyY2E1NTRkOWJjYjkw",
+    "snapshot_id" : "MTY5MTQ3NDQwMCwwMDAwMDAwMDBjYjI3N2YzYjU4Mzc2NTUxMjkwMzM3NjFkNDE1YzVh",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EVKuMoAJjoTIw/tracks",
       "total" : 50
@@ -756,7 +789,7 @@
     "uri" : "spotify:playlist:37i9dQZF1EUMDoJuT8yJsl"
   }, {
     "collaborative" : false,
-    "description" : "Underoath, Celldweller, Caskets and more",
+    "description" : "Underoath, The Ghost Inside, coldrain and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E37qcXW0knBDv"
     },
@@ -780,7 +813,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMDI0N2E2NGUzMmQ1ZTZiNWFjMGIzMjIwMGZjMmZiYzZi",
+    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDU4NWE3YmE4YjI1OTk0ZTdlYzFhMTdhODVlYjI1YjI0",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E37qcXW0knBDv/tracks",
       "total" : 50
@@ -789,7 +822,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E37qcXW0knBDv"
   }, {
     "collaborative" : false,
-    "description" : "Northlane, Grayscale Season, Fit For A King and more",
+    "description" : "Northlane, Silent Planet, Sever Your Ties and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E350G7HFkREfO"
     },
@@ -813,7 +846,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMGE0MmM1ZThiNWFlNmY4NWRlMDcyZmU1ZjZjMDZmOWFj",
+    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDUxMmQ3MTU4N2E0MDM3Yjc1OGM3MjgxZGZkNzcwNWMw",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E350G7HFkREfO/tracks",
       "total" : 50
@@ -822,7 +855,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E350G7HFkREfO"
   }, {
     "collaborative" : false,
-    "description" : "Our Last Night, Bad Omens, Afterglow and more",
+    "description" : "Our Last Night, Bad Omens, It Comes in Waves and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E38Gk9Iv4Eqz5"
     },
@@ -846,7 +879,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMDJkYjkwNjIxYzIzYWJlMDc4YWJiNjJiNzBmYTViMmE0",
+    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDQxNWNjMDU3OGI5NzAwMTUwNzYyYzYyZDczY2Q2MzNi",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E38Gk9Iv4Eqz5/tracks",
       "total" : 50
@@ -855,7 +888,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E38Gk9Iv4Eqz5"
   }, {
     "collaborative" : false,
-    "description" : "Throw The Fight, ENMY, AVOID and more",
+    "description" : "Classic Jack, Living in Fiction, Flight Paths and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35ZkR2evoKBv"
     },
@@ -863,7 +896,7 @@
     "id" : "37i9dQZF1E35ZkR2evoKBv",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebdba3d6fd78f7ced1e3a84e51/4/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb85797a37a84599689b4b03ff/4/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 4",
@@ -879,7 +912,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMGZhNDAzYzZiMzU5ZTdlYzJmMTE5NGVlZjI0ZDE4OTQ2",
+    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMGYyN2NkMDAxNTM0ZWFiNDYwYTZhNjMwOWY2ZTQwZGMx",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35ZkR2evoKBv/tracks",
       "total" : 50
@@ -888,7 +921,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E35ZkR2evoKBv"
   }, {
     "collaborative" : false,
-    "description" : "Classic Jack, Living in Fiction, Flight Paths and more",
+    "description" : "Solence, Veio, Fight The Fade and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35EcH9nl2uk2"
     },
@@ -896,7 +929,7 @@
     "id" : "37i9dQZF1E35EcH9nl2uk2",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb85797a37a84599689b4b03ff/5/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb5e17a3183e3184033ca2742d/5/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 5",
@@ -912,7 +945,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMDFmMDNmZGZkN2RmMGUyZmIwMzUyODk2YjMzZGVjZGQx",
+    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDZkNDI4ZTA0YTA1M2RiMjYzM2QyNzdlZGVkYjE0NDk5",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35EcH9nl2uk2/tracks",
       "total" : 50
@@ -921,7 +954,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E35EcH9nl2uk2"
   }, {
     "collaborative" : false,
-    "description" : "Bring Me The Horizon, Architects, Bury Tomorrow and more",
+    "description" : "Hail The Sun, I The Mighty, Hrvrd and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35l2TWP8gS60"
     },
@@ -929,7 +962,7 @@
     "id" : "37i9dQZF1E35l2TWP8gS60",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebad65800f55f7a8d7d917624b/6/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb2226815d2da483dd7dada86b/6/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 6",
@@ -945,7 +978,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTMyNDE5MSwwMDAwMDAwMGViMGE0NmE4ZTcwMmM2ZDk3NDFlZmMzNTVkMzI0Mjg1",
+    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDYzMDhkOGRkMTEzYWYwOTE2NzZiNzJhZWZiMjM1YTY2",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35l2TWP8gS60/tracks",
       "total" : 50
@@ -1110,7 +1143,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MCwwMDAwMDAwMDM0YjdlYmI5NGNhNjkwNDE0NWU1Njk2M2FmZmEzOGJi",
+    "snapshot_id" : "MCwwMDAwMDAwMDk3YjA5NzJjM2JhYjFiOWNhZmNhN2UzYWZkYmM1ZTNm",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EfPxEbWLK8FJt/tracks",
       "total" : 30
@@ -1209,7 +1242,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTIzMTg4NywwMDAwMDAwMDZiNmRlNzE5NTc3MjE2ZWFlYTg4MzBjODZkMDY3YzEx",
+    "snapshot_id" : "MTY5MTQ5Mjg0NCwwMDAwMDAwMDY0YzcxOGUxYzA4OTY5MWMwMWMxYTk2MzQxOGI0M2Ix",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EpDMzetCLBmIm/tracks",
       "total" : 30
@@ -1242,7 +1275,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTIzMTg4NywwMDAwMDAwMDZiNmRlNzE5NTc3MjE2ZWFlYTg4MzBjODZkMDY3YzEx",
+    "snapshot_id" : "MTY5MTQ5Mjg0NCwwMDAwMDAwMDY0YzcxOGUxYzA4OTY5MWMwMWMxYTk2MzQxOGI0M2Ix",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EprEOfYrbSBii/tracks",
       "total" : 30
@@ -1613,7 +1646,7 @@
     "id" : "37i9dQZEVXcJdMxcgPzWUu",
     "images" : [ {
       "height" : null,
-      "url" : "https://newjams-images.scdn.co/image/ab676477000033ad/dt/v3/discover-weekly/LqZS4Omohi4NrLfgij3CWRFa-h0LSAgiZBRUqOYrlGn6RvR9M5duH9QgffX7Zd92MwLpJNboS259iBJDGOMqVk-TQoItN72K-PcJzFp47n8=/NzQ6MDU6NjBUNDEtODAtMw==",
+      "url" : "https://newjams-images.scdn.co/image/ab676477000033ad/dt/v3/discover-weekly/o5itzg1No0Sf1Un-qubilvYye-2nYMgAQvC4OuZ-D-893Mg61xaDZIf3HwPj_KUQRm7MImapdp1ftxEY27uolJHzilzes9xEHNbtXH9C64c=/NzQ6MTM6NjBUMTItODAtMw==",
       "width" : null
     } ],
     "name" : "Discover Weekly",
@@ -1677,43 +1710,10 @@
     },
     "type" : "playlist",
     "uri" : "spotify:playlist:7psl06ul2YwwRmiwxPdi15"
-  }, {
-    "collaborative" : false,
-    "description" : "Have a very metal christmas. From Solid State Records.",
-    "external_urls" : {
-      "spotify" : "https://open.spotify.com/playlist/5PGjoE1yRh6ZS31cP5iFN4"
-    },
-    "href" : "https://api.spotify.com/v1/playlists/5PGjoE1yRh6ZS31cP5iFN4",
-    "id" : "5PGjoE1yRh6ZS31cP5iFN4",
-    "images" : [ {
-      "height" : null,
-      "url" : "https://images-ak.spotifycdn.com/image/ab67706c0000bebbb3849450fd2f4088c5b466f1",
-      "width" : null
-    } ],
-    "name" : "HEAVY METAL CHRISTMAS",
-    "owner" : {
-      "display_name" : "Solid State Records",
-      "external_urls" : {
-        "spotify" : "https://open.spotify.com/user/solidstaterecords"
-      },
-      "href" : "https://api.spotify.com/v1/users/solidstaterecords",
-      "id" : "solidstaterecords",
-      "type" : "user",
-      "uri" : "spotify:user:solidstaterecords"
-    },
-    "primary_color" : null,
-    "public" : false,
-    "snapshot_id" : "NTUsZDU2MjYxODNjNDlhZGNjMTAyOTBiMGI2NjQ3Y2JlNmY2NDllMjBhMA==",
-    "tracks" : {
-      "href" : "https://api.spotify.com/v1/playlists/5PGjoE1yRh6ZS31cP5iFN4/tracks",
-      "total" : 30
-    },
-    "type" : "playlist",
-    "uri" : "spotify:playlist:5PGjoE1yRh6ZS31cP5iFN4"
   } ],
   "limit" : 50,
   "next" : "https://api.spotify.com/v1/users/1228247189/playlists?offset=50&limit=50",
   "offset" : 0,
   "previous" : null,
-  "total" : 343
+  "total" : 344
 }

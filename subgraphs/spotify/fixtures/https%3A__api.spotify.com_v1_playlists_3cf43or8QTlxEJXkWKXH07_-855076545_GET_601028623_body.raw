@@ -1,0 +1,34 @@
+{
+  "collaborative" : false,
+  "description" : "",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/3cf43or8QTlxEJXkWKXH07"
+  },
+  "id" : "3cf43or8QTlxEJXkWKXH07",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://mosaic.scdn.co/640/ab67616d0000b27330c358011bd1278f12c0a14fab67616d0000b27354c65d9a5577dfd5e401b78dab67616d0000b273870642d1aa8ca6e8c8bbb8dcab67616d0000b27388375d0b6ebbf5e30556cd71",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://mosaic.scdn.co/300/ab67616d0000b27330c358011bd1278f12c0a14fab67616d0000b27354c65d9a5577dfd5e401b78dab67616d0000b273870642d1aa8ca6e8c8bbb8dcab67616d0000b27388375d0b6ebbf5e30556cd71",
+    "width" : 300
+  }, {
+    "height" : 60,
+    "url" : "https://mosaic.scdn.co/60/ab67616d0000b27330c358011bd1278f12c0a14fab67616d0000b27354c65d9a5577dfd5e401b78dab67616d0000b273870642d1aa8ca6e8c8bbb8dcab67616d0000b27388375d0b6ebbf5e30556cd71",
+    "width" : 60
+  } ],
+  "name" : "Flight",
+  "owner" : {
+    "display_name" : "Jerel Miller",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/1228247189"
+    },
+    "href" : "https://api.spotify.com/v1/users/1228247189",
+    "id" : "1228247189",
+    "type" : "user",
+    "uri" : "spotify:user:1228247189"
+  },
+  "public" : false,
+  "uri" : "spotify:playlist:3cf43or8QTlxEJXkWKXH07"
+}

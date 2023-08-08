@@ -1,0 +1,26 @@
+{
+  "collaborative" : false,
+  "description" : "Rock out while you game.",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DWZjmJmeiazwd"
+  },
+  "id" : "37i9dQZF1DWZjmJmeiazwd",
+  "images" : [ {
+    "height" : null,
+    "url" : "https://i.scdn.co/image/ab67706f0000000379b949bf5f567974a439d2cd",
+    "width" : null
+  } ],
+  "name" : "Ultimate Rock Gaming",
+  "owner" : {
+    "display_name" : "Spotify",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify",
+    "id" : "spotify",
+    "type" : "user",
+    "uri" : "spotify:user:spotify"
+  },
+  "public" : true,
+  "uri" : "spotify:playlist:37i9dQZF1DWZjmJmeiazwd"
+}

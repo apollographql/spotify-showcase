@@ -1,0 +1,34 @@
+{
+  "collaborative" : false,
+  "description" : "Playlist created by the tutorial on developer.spotify.com",
+  "external_urls" : {
+    "spotify" : "https://open.spotify.com/playlist/3qoEUcHqqZTBxuSOBtDLG9"
+  },
+  "id" : "3qoEUcHqqZTBxuSOBtDLG9",
+  "images" : [ {
+    "height" : 640,
+    "url" : "https://mosaic.scdn.co/640/ab67616d0000b27318750c54dd6f354963868d93ab67616d0000b2732aaa9372a6922e6e3575d828ab67616d0000b27342c0825afa32deeb17c9391aab67616d0000b273fdf16e6dc8b69f3e7c2b258b",
+    "width" : 640
+  }, {
+    "height" : 300,
+    "url" : "https://mosaic.scdn.co/300/ab67616d0000b27318750c54dd6f354963868d93ab67616d0000b2732aaa9372a6922e6e3575d828ab67616d0000b27342c0825afa32deeb17c9391aab67616d0000b273fdf16e6dc8b69f3e7c2b258b",
+    "width" : 300
+  }, {
+    "height" : 60,
+    "url" : "https://mosaic.scdn.co/60/ab67616d0000b27318750c54dd6f354963868d93ab67616d0000b2732aaa9372a6922e6e3575d828ab67616d0000b27342c0825afa32deeb17c9391aab67616d0000b273fdf16e6dc8b69f3e7c2b258b",
+    "width" : 60
+  } ],
+  "name" : "My recommendation playlist",
+  "owner" : {
+    "display_name" : "Jerel Miller",
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/1228247189"
+    },
+    "href" : "https://api.spotify.com/v1/users/1228247189",
+    "id" : "1228247189",
+    "type" : "user",
+    "uri" : "spotify:user:1228247189"
+  },
+  "public" : false,
+  "uri" : "spotify:playlist:3qoEUcHqqZTBxuSOBtDLG9"
+}
