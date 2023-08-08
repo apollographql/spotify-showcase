@@ -28,6 +28,7 @@ import TrackLikeButtonCell from '../../components/TrackLikeButtonCell';
 import Duration from '../../components/Duration';
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
+import { PlaylistDetails } from '../../components/PlaylistDetails';
 
 const PLAYLIST_QUERY = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
@@ -88,6 +89,7 @@ const PLAYLIST_QUERY = gql`
         }
       }
 
+      ...PlaylistDetails_playlist
       ...PlaylistTitleCell_playlist
     }
   }
@@ -102,7 +104,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-export const RouteComponent = () => {
+const PlaylistRoute = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
   const { data, fetchMore } = useSuspenseQuery<
     PlaylistQuery,
@@ -151,19 +153,9 @@ export const RouteComponent = () => {
 
   return (
     <Page bgColor={coverPhoto.vibrantColor}>
-      <Page.Header
-        mediaType="playlist"
-        coverPhoto={<CoverPhoto image={coverPhoto} />}
-        title={playlist.name}
-        details={[
-          <EntityLink key="owner" entity={playlist.owner}>
-            {playlist.owner.displayName}
-          </EntityLink>,
-          <span key="numSongs">
-            {tracks.pageInfo.total}{' '}
-            {tracks.pageInfo.total === 1 ? 'song' : 'songs'}
-          </span>,
-        ]}
+      <PlaylistDetails
+        playlist={playlist}
+        totalTracks={playlist.tracks.pageInfo.total}
       />
       <Page.Content>
         <Page.ActionsBar>
@@ -294,6 +286,8 @@ export const RouteComponent = () => {
     </Page>
   );
 };
+
+export const RouteComponent = PlaylistRoute;
 
 export const LoadingState = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };

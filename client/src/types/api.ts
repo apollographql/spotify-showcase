@@ -2906,6 +2906,14 @@ export type Playbar_playbackState = {
     | null;
 };
 
+export type PlaylistDetails_playlist = {
+  __typename: 'Playlist';
+  id: string;
+  name: string;
+  images: Array<{ __typename: 'Image'; url: string }>;
+  owner: { __typename: 'User'; id: string; displayName: string | null };
+};
+
 export type PlaylistSidebarLink_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
