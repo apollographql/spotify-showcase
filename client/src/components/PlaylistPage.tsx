@@ -281,7 +281,7 @@ export const PlaylistPage = ({
             Promise.resolve(onLoadMore(variables.offset))
           }
           pageInfo={tracks?.pageInfo}
-          threshold="1000px"
+          threshold="20px"
         />
       </Page.Content>
     </Page>
