@@ -3959,6 +3959,13 @@ export type PlaylistQuery = {
     uri: string;
     tracks: {
       __typename: 'PlaylistTrackConnection';
+      pageInfo: {
+        __typename: 'PageInfo';
+        total: number;
+        hasNextPage: boolean;
+        offset: number;
+        limit: number;
+      };
       edges: Array<{
         __typename: 'PlaylistTrackEdge';
         addedAt: string | null;
@@ -4004,13 +4011,6 @@ export type PlaylistQuery = {
               }>;
             };
       }>;
-      pageInfo: {
-        __typename: 'PageInfo';
-        hasNextPage: boolean;
-        offset: number;
-        limit: number;
-        total: number;
-      };
     };
     images: Array<{
       __typename: 'Image';

@@ -20,7 +20,7 @@ import * as EpisodeRoute from './routes/episodes/episode';
 import * as IndexRoute from './routes/index';
 import * as LoggedOutRoute from './routes/logged-out';
 import * as LogoutRoute from './routes/logout';
-import * as PlaylistRoute from './routes/playlists/playlist';
+import { PlaylistRoute } from './routes/playlists/playlist';
 import * as QueueRoute from './routes/queue';
 import * as RootRoute from './routes/root';
 import * as SettingsRoute from './routes/settings';
@@ -109,14 +109,7 @@ const routes = createRoutesFromElements(
             </Suspense>
           }
         />
-        <Route
-          path="playlists/:playlistId"
-          element={
-            // <Suspense fallback={<PlaylistRoute.LoadingState />}>
-            <PlaylistRoute.RouteComponent />
-            // </Suspense>
-          }
-        />
+        <Route path="playlists/:playlistId" element={<PlaylistRoute />} />
         <Route
           path="shows/:showId"
           element={
