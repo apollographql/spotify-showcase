@@ -2510,6 +2510,23 @@ export type SidebarQuery = {
   } | null;
 };
 
+export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
+
+export type PlaybarQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    player: {
+      __typename: 'Player';
+      devices: Array<{
+        __typename: 'Device';
+        id: string | null;
+        name: string;
+        type: string;
+      }> | null;
+    };
+  } | null;
+};
+
 export type AddToPlaylistQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2824,21 +2841,14 @@ export type PlaybackStateSubscriberSubscription = {
   } | null;
 };
 
-export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
-
-export type PlaybarQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    player: {
-      __typename: 'Player';
-      devices: Array<{
-        __typename: 'Device';
-        id: string | null;
-        name: string;
-        type: string;
-      }> | null;
-    };
-  } | null;
+export type PlaybarQueryFields = {
+  __typename: 'Player';
+  devices: Array<{
+    __typename: 'Device';
+    id: string | null;
+    name: string;
+    type: string;
+  }> | null;
 };
 
 export type Playbar_playbackState = {

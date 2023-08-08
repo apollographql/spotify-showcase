@@ -30,3 +30,13 @@ export const SIDEBAR_QUERY = gql`
     }
   }
 `;
+
+export const PLAYBAR_QUERY = gql`
+  query PlaybarQuery {
+    me {
+      player {
+        ...PlaybarQueryFields
+      }
+    }
+  }
+`;

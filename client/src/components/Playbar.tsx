@@ -33,24 +33,18 @@ import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 import { withHighlight } from './LoadingStateHighlighter';
+import { PLAYBAR_QUERY } from './ConferenceTalk/queries';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
-const PLAYBAR_QUERY: TypedDocumentNode<
-  PlaybarQuery,
-  PlaybarQueryVariables
-> = gql`
-  query PlaybarQuery {
-    me {
-      player {
-        devices {
-          id
-          ...DevicePopover_devices
-        }
-      }
+fragmentRegistry.register(gql`
+  fragment PlaybarQueryFields on Player {
+    devices {
+      id
+      ...DevicePopover_devices
     }
   }
-`;
+`);
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
   fragment Playbar_playbackState on PlaybackState {
@@ -101,7 +95,9 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
 fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
 
 const Playbar = () => {
-  const { data } = useSuspenseQuery(PLAYBAR_QUERY);
+  const { data } = useSuspenseQuery<PlaybarQuery, PlaybarQueryVariables>(
+    PLAYBAR_QUERY
+  );
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
