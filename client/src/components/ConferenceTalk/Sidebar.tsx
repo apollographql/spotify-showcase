@@ -13,6 +13,7 @@ import { SidebarQuery, SidebarQueryVariables } from '../../types/api';
 import { randomBetween, range } from '../../utils/common';
 import Skeleton from '../Skeleton';
 import { withHighlight } from '../LoadingStateHighlighter';
+import useCurrentUserProfile from '../../hooks/useCurrentUserProfile';
 
 const SIDEBAR_QUERY: TypedDocumentNode<
   SidebarQuery,
@@ -20,9 +21,6 @@ const SIDEBAR_QUERY: TypedDocumentNode<
 > = gql`
   query SidebarQuery($offset: Int, $limit: Int) {
     me {
-      profile {
-        id
-      }
       playlists(offset: $offset, limit: $limit)
         @connection(key: "rootPlaylists") {
         pageInfo {
@@ -50,6 +48,8 @@ export const Sidebar = () => {
     variables: { limit: 50 },
   });
 
+  const profile = useCurrentUserProfile();
+
   const { me } = data;
 
   if (!me) {
@@ -72,7 +72,7 @@ export const Sidebar = () => {
                 __typename: 'Playlist',
                 id: 'collection:tracks',
                 name: 'Liked Songs',
-                uri: `spotify:user:${me.profile.id}:collection`,
+                uri: `spotify:user:${profile.id}:collection`,
                 owner: {
                   __typename: 'User',
                   id: 'spotify',
@@ -88,7 +88,7 @@ export const Sidebar = () => {
                 __typename: 'Playlist',
                 id: 'collection:episodes',
                 name: 'Your Episodes',
-                uri: `spotify:user:${me.profile.id}:collection:your-episodes`,
+                uri: `spotify:user:${profile.id}:collection:your-episodes`,
                 owner: {
                   __typename: 'User',
                   id: 'spotify',

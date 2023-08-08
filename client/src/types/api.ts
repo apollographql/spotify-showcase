@@ -2464,7 +2464,6 @@ export type SidebarQueryVariables = Exact<{
 export type SidebarQuery = {
   me: {
     __typename: 'CurrentUser';
-    profile: { __typename: 'CurrentUserProfile'; id: string };
     playlists: {
       __typename: 'PlaylistConnection';
       pageInfo: {
@@ -3031,6 +3030,11 @@ export type YourEpisodesTile_connection = {
       show: { __typename: 'Show'; id: string; name: string };
     };
   }>;
+};
+
+export type CurrentUserProfileFragment = {
+  __typename: 'CurrentUserProfile';
+  id: string;
 };
 
 export type SavedTracksContainsQueryVariables = Exact<{
