@@ -1,4 +1,4 @@
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import { Library } from 'lucide-react';
 import { useRef } from 'react';
 import { thumbnail } from '../../utils/image';
@@ -14,39 +14,25 @@ import { randomBetween, range } from '../../utils/common';
 import Skeleton from '../Skeleton';
 import { withHighlight } from '../LoadingStateHighlighter';
 import useCurrentUserProfile from '../../hooks/useCurrentUserProfile';
+import { fragmentRegistry } from '../../apollo/fragmentRegistry';
+import { SIDEBAR_QUERY } from './queries';
 
-const SIDEBAR_QUERY: TypedDocumentNode<
-  SidebarQuery,
-  SidebarQueryVariables
-> = gql`
-  query SidebarQuery($offset: Int, $limit: Int) {
-    me {
-      playlists(offset: $offset, limit: $limit)
-        @connection(key: "rootPlaylists") {
-        pageInfo {
-          offset
-          limit
-          hasNextPage
-        }
-        edges {
-          node {
-            id
-            images {
-              url
-            }
-            ...PlaylistSidebarLink_playlist
-          }
-        }
-      }
+fragmentRegistry.register(gql`
+  fragment SidebarQueryFields on Playlist {
+    id
+    images {
+      url
     }
+    ...PlaylistSidebarLink_playlist
   }
-`;
+`);
 
 export const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
-    variables: { limit: 50 },
-  });
+  const { data, fetchMore } = useSuspenseQuery<
+    SidebarQuery,
+    SidebarQueryVariables
+  >(SIDEBAR_QUERY, { variables: { limit: 50 } });
 
   const profile = useCurrentUserProfile();
 

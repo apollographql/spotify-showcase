@@ -2456,35 +2456,13 @@ export type CurrentUserMenuFields = {
   images: Array<{ __typename: 'Image'; url: string }> | null;
 };
 
-export type SidebarQueryVariables = Exact<{
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-}>;
-
-export type SidebarQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    playlists: {
-      __typename: 'PlaylistConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        offset: number;
-        limit: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          uri: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-          owner: { __typename: 'User'; id: string; displayName: string | null };
-        };
-      }>;
-    } | null;
-  } | null;
+export type SidebarQueryFields = {
+  __typename: 'Playlist';
+  id: string;
+  uri: string;
+  name: string;
+  images: Array<{ __typename: 'Image'; url: string }>;
+  owner: { __typename: 'User'; id: string; displayName: string | null };
 };
 
 export type CurrentUserMenuQueryVariables = Exact<{ [key: string]: never }>;
@@ -2498,6 +2476,37 @@ export type CurrentUserMenuQuery = {
       displayName: string | null;
       images: Array<{ __typename: 'Image'; url: string }> | null;
     };
+  } | null;
+};
+
+export type SidebarQueryVariables = Exact<{
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type SidebarQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    playlists: {
+      __typename: 'PlaylistConnection';
+      edges: Array<{
+        __typename: 'PlaylistEdge';
+        node: {
+          __typename: 'Playlist';
+          id: string;
+          uri: string;
+          name: string;
+          images: Array<{ __typename: 'Image'; url: string }>;
+          owner: { __typename: 'User'; id: string; displayName: string | null };
+        };
+      }>;
+      pageInfo: {
+        __typename: 'PageInfo';
+        offset: number;
+        limit: number;
+        hasNextPage: boolean;
+      };
+    } | null;
   } | null;
 };
 
