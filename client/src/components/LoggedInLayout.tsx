@@ -10,18 +10,14 @@ import {
 
 const Layout = () => {
   return (
-    <Suspense fallback={<LayoutContainer.LoadingState />}>
-      <LayoutContainer>
-        <Sidebar />
-        <Main>
-          <UserMenu />
-          <Suspense fallback={<Route.LoadingState />}>
-            <Route />
-          </Suspense>
-        </Main>
-        <Playbar />
-      </LayoutContainer>
-    </Suspense>
+    <LayoutContainer>
+      <Sidebar />
+      <Main>
+        <UserMenu />
+        <Route />
+      </Main>
+      <Playbar />
+    </LayoutContainer>
   );
 };
 
