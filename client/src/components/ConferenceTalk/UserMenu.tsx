@@ -1,7 +1,6 @@
 import CurrentUserMenu, { LoadingState } from '../CurrentUserMenu';
 import { UserMenuQuery, UserMenuQueryVariables } from '../../types/api';
 import UserMenuContainer from '../UserMenuContainer';
-import LoadingStateHighlighter from '../LoadingStateHighlighter';
 
 import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 
@@ -38,11 +37,4 @@ export const UserMenu = () => {
   );
 };
 
-// UserMenu.LoadingState = LoadingState;
-UserMenu.LoadingState = () => {
-  return (
-    <LoadingStateHighlighter>
-      <LoadingState />
-    </LoadingStateHighlighter>
-  );
-};
+UserMenu.LoadingState = LoadingState;

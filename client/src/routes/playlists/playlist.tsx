@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import { PlaylistPage } from '../../components/PlaylistPage';
 import StandardLoadingState from '../../components/StandardLoadingState';
-import LoadingStateHighlighter from '../../components/LoadingStateHighlighter';
 
 import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 
@@ -51,10 +50,4 @@ export const PlaylistRoute = () => {
   );
 };
 
-PlaylistRoute.LoadingState = () => {
-  return (
-    <LoadingStateHighlighter>
-      <StandardLoadingState />
-    </LoadingStateHighlighter>
-  );
-};
+PlaylistRoute.LoadingState = StandardLoadingState;

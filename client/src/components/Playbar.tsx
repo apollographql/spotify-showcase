@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   Action,
   RepeatMode,
@@ -31,7 +31,7 @@ import QueueControlButton from './QueueControlButton';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
-import { withHighlight } from './LoadingStateHighlighter';
+import LoadingStateHighlighter from './LoadingStateHighlighter';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
@@ -208,9 +208,12 @@ const Playbar = ({ player }: PlaybarProps) => {
   );
 };
 
-export const LoadingState = withHighlight(
-  () => {
-    return (
+export const LoadingState = () => {
+  return (
+    <LoadingStateHighlighter
+      shade="#0433ff"
+      className="[grid-area:playbar] flex flex-col"
+    >
       <footer className="[grid-area:playbar] flex flex-col">
         <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-5 px-6">
           <div className="flex items-center gap-4">
@@ -249,9 +252,8 @@ export const LoadingState = withHighlight(
           </div>
         </div>
       </footer>
-    );
-  },
-  { className: '[grid-area:playbar] flex flex-col', shade: '#0433FF' }
-);
+    </LoadingStateHighlighter>
+  );
+};
 
 export default Playbar;

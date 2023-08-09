@@ -4,7 +4,6 @@ import { UserMenu } from './UserMenu';
 import { Sidebar } from './Sidebar';
 import { Playbar } from './Playbar';
 import { Route } from './Route';
-import { withHighlight } from '../LoadingStateHighlighter';
 
 interface LayoutContainerProps {
   children: ReactNode;
@@ -23,18 +22,15 @@ export const LayoutContainer = ({ children }: LayoutContainerProps) => {
   );
 };
 
-LayoutContainer.LoadingState = withHighlight(
-  () => {
-    return (
-      <Layout type="player">
-        <Sidebar.LoadingState />
-        <Layout.Main>
-          <UserMenu.LoadingState />
-          <Route.LoadingState />
-        </Layout.Main>
-        <Playbar.LoadingState />
-      </Layout>
-    );
-  },
-  { shade: '#67EEF0' }
-);
+LayoutContainer.LoadingState = () => {
+  return (
+    <Layout type="player">
+      <Sidebar.LoadingState />
+      <Layout.Main>
+        <UserMenu.LoadingState />
+        <Route.LoadingState />
+      </Layout.Main>
+      <Playbar.LoadingState />
+    </Layout>
+  );
+};

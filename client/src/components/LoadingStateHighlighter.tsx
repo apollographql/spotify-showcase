@@ -11,6 +11,8 @@ import { highlightSuspenseBoundariesVar } from '../vars';
 import LoadingStateBackdrop from './LoadingStateBackdrop';
 
 interface LoadingStateHighlighterProps {
+  className?: string;
+  shade?: string;
   children: ReactNode;
 }
 
@@ -19,10 +21,10 @@ interface HighlightConfig {
   shade: string;
 }
 
-const defaultConfig: HighlightConfig = { shade: 'red' };
-
 const LoadingStateHighlighter = ({
+  className,
   children,
+  shade = 'red',
 }: LoadingStateHighlighterProps) => {
   const highlightSuspenseBoundaries = useReactiveVar(
     highlightSuspenseBoundariesVar
@@ -32,7 +34,7 @@ const LoadingStateHighlighter = ({
   const config =
     isValidElement(element) && isHighlighted(element.type)
       ? element.type.__highlight
-      : defaultConfig;
+      : { shade, className };
 
   const child =
     isValidElement<WithHighlightProps>(element) && isHighlighted(element.type)

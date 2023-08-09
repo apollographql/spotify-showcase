@@ -1,6 +1,5 @@
 import CorePlaybar, { LoadingState } from '../Playbar';
 import { PlaybarQuery, PlaybarQueryVariables } from '../../types/api';
-import LoadingStateHighlighter from '../LoadingStateHighlighter';
 
 import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 
@@ -33,11 +32,4 @@ export const Playbar = () => {
   return <CorePlaybar player={me.player} />;
 };
 
-// Playbar.LoadingState = LoadingState;
-Playbar.LoadingState = () => {
-  return (
-    <LoadingStateHighlighter>
-      <LoadingState />
-    </LoadingStateHighlighter>
-  );
-};
+Playbar.LoadingState = LoadingState;

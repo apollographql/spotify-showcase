@@ -1,15 +1,15 @@
 import { range } from 'lodash';
 import { Library } from 'lucide-react';
 import { randomBetween } from '../utils/common';
-import { withHighlight } from './LoadingStateHighlighter';
+import LoadingStateHighlighter from './LoadingStateHighlighter';
 import Skeleton from './Skeleton';
 import Layout from './Layout';
 
-export const SidebarLoadingState = withHighlight(
-  () => {
-    const skeletons = range(0, randomBetween(10, 15));
+export const SidebarLoadingState = () => {
+  const skeletons = range(0, randomBetween(10, 15));
 
-    return (
+  return (
+    <LoadingStateHighlighter shade="#FF40FF">
       <Layout.Sidebar>
         <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
           <header className="px-4 py-2">
@@ -38,7 +38,6 @@ export const SidebarLoadingState = withHighlight(
           </div>
         </Layout.Sidebar.Section>
       </Layout.Sidebar>
-    );
-  },
-  { shade: '#FF40FF' }
-);
+    </LoadingStateHighlighter>
+  );
+};

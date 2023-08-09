@@ -5,7 +5,6 @@ import SidebarPlaylists from '../SidebarPlaylists';
 import SidebarSection from '../SidebarSection';
 import SidebarTitle from '../SidebarTitle';
 import { SidebarLoadingState } from '../SidebarLoadingState';
-import LoadingStateHighlighter from '../LoadingStateHighlighter';
 
 import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 
@@ -60,11 +59,4 @@ export const Sidebar = () => {
   );
 };
 
-// Sidebar.LoadingState = SidebarLoadingState;
-Sidebar.LoadingState = () => {
-  return (
-    <LoadingStateHighlighter>
-      <SidebarLoadingState />
-    </LoadingStateHighlighter>
-  );
-};
+Sidebar.LoadingState = SidebarLoadingState;

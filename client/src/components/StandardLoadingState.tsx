@@ -1,11 +1,11 @@
 import Page from './Page';
 import PlayButton from './PlayButton';
 import Skeleton from './Skeleton';
-import { withHighlight } from './LoadingStateHighlighter';
+import LoadingStateHighlighter from './LoadingStateHighlighter';
 
-const StandardLoadingState = withHighlight(
-  () => {
-    return (
+const StandardLoadingState = () => {
+  return (
+    <LoadingStateHighlighter shade="#ff2600">
       <Page>
         <Page.SkeletonHeader />
         <Page.Content>
@@ -34,9 +34,8 @@ const StandardLoadingState = withHighlight(
           />
         </Page.Content>
       </Page>
-    );
-  },
-  { shade: '#ff2600' }
-);
+    </LoadingStateHighlighter>
+  );
+};
 
 export default StandardLoadingState;
