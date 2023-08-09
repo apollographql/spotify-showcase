@@ -1,9 +1,11 @@
 import { gql } from '@apollo/client';
+import cx from 'classnames';
 import { CurrentUserMenu_profile as Profile } from '../types/api';
 import DropdownMenu from './DropdownMenu';
 import Avatar from './Avatar';
 import Skeleton from './Skeleton';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
+import { withHighlight } from './LoadingStateHighlighter';
 
 interface CurrentUserMenuProps {
   profile: Profile;
@@ -51,13 +53,30 @@ const CurrentUserMenu = ({ profile }: CurrentUserMenuProps) => {
   );
 };
 
-export const LoadingState = () => {
-  return (
-    <div className="flex items-center gap-2">
-      <Skeleton.Avatar size="2rem" />
-      <Skeleton.Text width="10ch" />
-    </div>
-  );
-};
+export const LoadingState = withHighlight(
+  ({ isActiveSuspenseBoundary }) => {
+    return (
+      <header
+        className={cx(
+          'flex items-center text-primary bg-transparent pointer-events-none flex-shrink-0 z-10',
+          {
+            ['absolute top-[var(--main-content--padding)] right-[var(--main-content--padding)]']:
+              !isActiveSuspenseBoundary,
+          }
+        )}
+      >
+        <div className="flex items-center gap-2">
+          <Skeleton.Avatar size="2rem" />
+          <Skeleton.Text width="10ch" />
+        </div>
+      </header>
+    );
+  },
+  {
+    className:
+      '!absolute top-[var(--main-content--padding)] right-[var(--main-content--padding)] z-10',
+    shade: '#00F900',
+  }
+);
 
 export default CurrentUserMenu;

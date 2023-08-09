@@ -2501,16 +2501,9 @@ export type SidebarQueryFields = {
   };
 };
 
-export type CurrentUserMenuFields = {
-  __typename: 'CurrentUserProfile';
-  id: string;
-  displayName: string | null;
-  images: Array<{ __typename: 'Image'; url: string }> | null;
-};
+export type UserMenuQueryVariables = Exact<{ [key: string]: never }>;
 
-export type CurrentUserMenuQueryVariables = Exact<{ [key: string]: never }>;
-
-export type CurrentUserMenuQuery = {
+export type UserMenuQuery = {
   me: {
     __typename: 'CurrentUser';
     profile: {
