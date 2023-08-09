@@ -27,9 +27,7 @@ const SIDEBAR_QUERY: TypedDocumentNode<
           }
         }
         pageInfo {
-          offset
-          limit
-          hasNextPage
+          ...SidebarPlaylists_pageInfo
         }
       }
     }
