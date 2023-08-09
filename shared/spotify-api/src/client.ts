@@ -61,7 +61,10 @@ export class SpotifyClient extends RESTDataSource implements SpotifyDataSource {
   private token: string;
 
   constructor(options: { token: string; cache: KeyValueCache }) {
-    super({ ...options, fetch: httpFetch });
+    super({
+      ...options,
+      // fetch: httpFetch,
+    });
     this.token = options.token;
   }
 
