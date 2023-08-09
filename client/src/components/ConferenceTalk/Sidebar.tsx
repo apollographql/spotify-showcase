@@ -1,21 +1,67 @@
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import { Library } from 'lucide-react';
-import { useRef } from 'react';
-import { thumbnail } from '../../utils/image';
-import CoverPhoto from '../CoverPhoto';
 import Layout from '../Layout';
-import LikedSongsPlaylistCoverPhoto from '../LikedSongsPlaylistCoverPhoto';
-import OffsetBasedPaginationObserver from '../OffsetBasedPaginationObserver';
-import PlaylistSidebarLink from '../PlaylistSidebarLink';
-import ScrollContainerContext from '../ScrollContainerContext';
-import YourEpisodesPlaylistCoverPhoto from '../YourEpisodesPlaylistCoverPhoto';
 import { SidebarQuery, SidebarQueryVariables } from '../../types/api';
 import { randomBetween, range } from '../../utils/common';
 import Skeleton from '../Skeleton';
 import { withHighlight } from '../LoadingStateHighlighter';
-import useCurrentUserProfile from '../../hooks/useCurrentUserProfile';
 import { fragmentRegistry } from '../../apollo/fragmentRegistry';
-import { SIDEBAR_QUERY } from './queries';
+import SidebarPlaylists from '../SidebarPlaylists';
+import SidebarSection from '../SidebarSection';
+import SidebarTitle from '../SidebarTitle';
+
+const SIDEBAR_QUERY: TypedDocumentNode<
+  SidebarQuery,
+  SidebarQueryVariables
+> = gql`
+  query SidebarQuery($offset: Int, $limit: Int) {
+    me {
+      playlists(offset: $offset, limit: $limit) @synthetics(timeout: 2000) {
+        edges {
+          node {
+            id
+            images {
+              url
+            }
+            ...SidebarPlaylists_playlists
+          }
+        }
+        pageInfo {
+          offset
+          limit
+          hasNextPage
+        }
+      }
+    }
+  }
+`;
+
+export const Sidebar = () => {
+  const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
+    variables: { limit: 50 },
+  });
+
+  const me = data.me;
+
+  if (!me || !me.playlists) {
+    throw new Error('Oops');
+  }
+
+  return (
+    <Layout.Sidebar>
+      <SidebarSection>
+        <SidebarTitle>
+          <Library /> Your Library
+        </SidebarTitle>
+        <SidebarPlaylists
+          playlists={me.playlists.edges.map((edge) => edge.node)}
+          pageInfo={me.playlists.pageInfo}
+          onLoadMore={fetchMore}
+        />
+      </SidebarSection>
+    </Layout.Sidebar>
+  );
+};
 
 fragmentRegistry.register(gql`
   fragment SidebarQueryFields on PlaylistConnection {
@@ -35,83 +81,6 @@ fragmentRegistry.register(gql`
     }
   }
 `);
-
-export const Sidebar = () => {
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const { data, fetchMore } = useSuspenseQuery<
-    SidebarQuery,
-    SidebarQueryVariables
-  >(SIDEBAR_QUERY, { variables: { limit: 50 } });
-
-  const profile = useCurrentUserProfile();
-
-  const { me } = data;
-
-  if (!me) {
-    throw new Error('Must be logged in');
-  }
-
-  return (
-    <Layout.Sidebar>
-      <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
-        <header className="px-4 py-2">
-          <h2 className="text-muted flex gap-2 items-center py-2 text-base">
-            <Library /> Your Library
-          </h2>
-        </header>
-        <ScrollContainerContext.Provider value={sidebarRef}>
-          <div className="overflow-y-auto flex-1 -mx-1 px-3" ref={sidebarRef}>
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:tracks',
-                name: 'Liked Songs',
-                uri: `spotify:user:${profile.id}:collection`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/tracks"
-            />
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:episodes',
-                name: 'Your Episodes',
-                uri: `spotify:user:${profile.id}:collection:your-episodes`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/episodes"
-            />
-            {me.playlists?.edges.map(({ node: playlist }) => (
-              <PlaylistSidebarLink
-                pinned={false}
-                key={playlist.id}
-                playlist={playlist}
-                coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
-                to={`/playlists/${playlist.id}`}
-              />
-            ))}
-            <OffsetBasedPaginationObserver
-              pageInfo={me.playlists?.pageInfo}
-              fetchMore={fetchMore}
-            />
-          </div>
-        </ScrollContainerContext.Provider>
-      </Layout.Sidebar.Section>
-    </Layout.Sidebar>
-  );
-};
 
 Sidebar.LoadingState = withHighlight(
   () => {

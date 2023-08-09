@@ -2449,36 +2449,6 @@ export type Avatar_profile =
   | Avatar_profile_CurrentUserProfile_
   | Avatar_profile_User_;
 
-export type CurrentUserMenuFields = {
-  __typename: 'CurrentUserProfile';
-  displayName: string | null;
-  id: string;
-  images: Array<{ __typename: 'Image'; url: string }> | null;
-};
-
-export type SidebarQueryFields = {
-  __typename: 'Playlist';
-  id: string;
-  uri: string;
-  name: string;
-  images: Array<{ __typename: 'Image'; url: string }>;
-  owner: { __typename: 'User'; id: string; displayName: string | null };
-};
-
-export type CurrentUserMenuQueryVariables = Exact<{ [key: string]: never }>;
-
-export type CurrentUserMenuQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: {
-      __typename: 'CurrentUserProfile';
-      id: string;
-      displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }> | null;
-    };
-  } | null;
-};
-
 export type SidebarQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2507,6 +2477,48 @@ export type SidebarQuery = {
         hasNextPage: boolean;
       };
     } | null;
+  } | null;
+};
+
+export type SidebarQueryFields = {
+  __typename: 'PlaylistConnection';
+  edges: Array<{
+    __typename: 'PlaylistEdge';
+    node: {
+      __typename: 'Playlist';
+      id: string;
+      uri: string;
+      name: string;
+      images: Array<{ __typename: 'Image'; url: string }>;
+      owner: { __typename: 'User'; id: string; displayName: string | null };
+    };
+  }>;
+  pageInfo: {
+    __typename: 'PageInfo';
+    offset: number;
+    limit: number;
+    hasNextPage: boolean;
+  };
+};
+
+export type CurrentUserMenuFields = {
+  __typename: 'CurrentUserProfile';
+  id: string;
+  displayName: string | null;
+  images: Array<{ __typename: 'Image'; url: string }> | null;
+};
+
+export type CurrentUserMenuQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CurrentUserMenuQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    profile: {
+      __typename: 'CurrentUserProfile';
+      id: string;
+      displayName: string | null;
+      images: Array<{ __typename: 'Image'; url: string }> | null;
+    };
   } | null;
 };
 
@@ -3047,6 +3059,22 @@ type PlaylistTitleCell_playlistTrack_Track_ = {
 export type PlaylistTitleCell_playlistTrack =
   | PlaylistTitleCell_playlistTrack_Episode_
   | PlaylistTitleCell_playlistTrack_Track_;
+
+export type SidebarPlaylists_playlists = {
+  __typename: 'Playlist';
+  id: string;
+  uri: string;
+  name: string;
+  images: Array<{ __typename: 'Image'; url: string }>;
+  owner: { __typename: 'User'; id: string; displayName: string | null };
+};
+
+export type SidebarPlaylists_pageInfo = {
+  __typename: 'PageInfo';
+  offset: number;
+  limit: number;
+  hasNextPage: boolean;
+};
 
 export type TrackNumberCell_playbackState = {
   __typename: 'PlaybackState';
