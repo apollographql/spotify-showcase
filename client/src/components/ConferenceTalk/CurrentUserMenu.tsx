@@ -11,6 +11,7 @@ import { CURRENT_USER_MENU_QUERY } from './queries';
 
 fragmentRegistry.register(gql`
   fragment CurrentUserMenuFields on CurrentUserProfile {
+    id
     displayName
     ...Avatar_profile
   }
