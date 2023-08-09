@@ -1,6 +1,6 @@
 import Suspense from './Suspense';
 import {
-  CurrentUserMenu,
+  UserMenu,
   LayoutContainer,
   Main,
   Playbar,
@@ -14,7 +14,7 @@ const Layout = () => {
       <LayoutContainer>
         <Sidebar />
         <Main>
-          <CurrentUserMenu />
+          <UserMenu />
           <Suspense fallback={<Route.LoadingState />}>
             <Route />
           </Suspense>
