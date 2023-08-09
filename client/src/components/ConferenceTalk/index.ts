@@ -1,4 +1,4 @@
-export { CurrentUserMenu as UserMenu } from './CurrentUserMenu';
+export { UserMenu } from './UserMenu';
 export { LayoutContainer } from './LayoutContainer';
 export { Main } from './Main';
 export { Playbar } from './Playbar';

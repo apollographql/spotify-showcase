@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Layout from '../Layout';
-import { CurrentUserMenu } from './CurrentUserMenu';
+import { UserMenu } from './UserMenu';
 import { Sidebar } from './Sidebar';
 import { Playbar } from './Playbar';
 import { Route } from './Route';
@@ -29,7 +29,7 @@ LayoutContainer.LoadingState = withHighlight(
       <Layout type="player">
         <Sidebar.LoadingState />
         <Layout.Main>
-          <CurrentUserMenu.LoadingState />
+          <UserMenu.LoadingState />
           <Route.LoadingState />
         </Layout.Main>
         <Playbar.LoadingState />

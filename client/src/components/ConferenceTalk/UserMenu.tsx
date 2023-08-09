@@ -17,7 +17,7 @@ fragmentRegistry.register(gql`
   }
 `);
 
-export const CurrentUserMenu = () => {
+export const UserMenu = () => {
   const { data } = useSuspenseQuery<
     CurrentUserMenuQuery,
     CurrentUserMenuQueryVariables
@@ -38,7 +38,7 @@ export const CurrentUserMenu = () => {
   );
 };
 
-CurrentUserMenu.LoadingState = withHighlight(
+UserMenu.LoadingState = withHighlight(
   ({ isActiveSuspenseBoundary }) => {
     return (
       <header
