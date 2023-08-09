@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import Layout from '../Layout';
 import PlaybackStateSubscriber from '../PlaybackStateSubscriber';
 
@@ -9,7 +9,9 @@ interface MainProps {
 export const Main = ({ children }: MainProps) => {
   return (
     <Layout.Main>
-      <PlaybackStateSubscriber />
+      <Suspense fallback={<div />}>
+        <PlaybackStateSubscriber />
+      </Suspense>
       {children}
     </Layout.Main>
   );
