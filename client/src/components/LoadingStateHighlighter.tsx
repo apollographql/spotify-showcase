@@ -6,6 +6,7 @@ import {
   cloneElement,
   isValidElement,
 } from 'react';
+import cx from 'classnames';
 import { useReactiveVar } from '@apollo/client';
 import { highlightSuspenseBoundariesVar } from '../vars';
 import LoadingStateBackdrop from './LoadingStateBackdrop';
@@ -45,8 +46,10 @@ const LoadingStateHighlighter = ({
     <LoadingStateBackdrop className={config.className} shade={config.shade}>
       {child}
     </LoadingStateBackdrop>
+  ) : isValidElement<{ className?: string }>(child) ? (
+    cloneElement(child, { className: cx(child.props.className, className) })
   ) : (
-    children
+    child
   );
 };
 
