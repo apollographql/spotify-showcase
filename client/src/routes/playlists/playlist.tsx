@@ -23,16 +23,12 @@ const PLAYLIST_QUERY: TypedDocumentNode<
 
 export const PlaylistRoute = () => {
   const { playlistId } = useParams() as { playlistId: string };
-  const { data, fetchMore, loading, error } = useQuery(PLAYLIST_QUERY, {
+  const { data, fetchMore, loading } = useQuery(PLAYLIST_QUERY, {
     variables: { id: playlistId },
   });
 
   if (loading) {
     return <PlaylistRoute.LoadingState />;
-  }
-
-  if (error) {
-    throw error;
   }
 
   const playlist = data?.playlist;

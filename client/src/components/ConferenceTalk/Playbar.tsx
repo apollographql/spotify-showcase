@@ -17,14 +17,10 @@ const PLAYBAR_QUERY: TypedDocumentNode<
 `;
 
 export const Playbar = () => {
-  const { data, loading, error } = useQuery(PLAYBAR_QUERY);
+  const { data, loading } = useQuery(PLAYBAR_QUERY);
 
   if (loading) {
     return <Playbar.LoadingState />;
-  }
-
-  if (error) {
-    throw error;
   }
 
   const me = data?.me;

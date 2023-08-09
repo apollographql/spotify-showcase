@@ -18,14 +18,10 @@ const USER_MENU_QUERY: TypedDocumentNode<
 `;
 
 export const UserMenu = () => {
-  const { data, loading, error } = useQuery(USER_MENU_QUERY);
+  const { data, loading } = useQuery(USER_MENU_QUERY);
 
   if (loading) {
     return <UserMenu.LoadingState />;
-  }
-
-  if (error) {
-    throw error;
   }
 
   const me = data?.me;

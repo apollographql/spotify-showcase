@@ -34,16 +34,12 @@ const SIDEBAR_QUERY: TypedDocumentNode<
 `;
 
 export const Sidebar = () => {
-  const { data, fetchMore, loading, error } = useQuery(SIDEBAR_QUERY, {
+  const { data, fetchMore, loading } = useQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
 
   if (loading) {
     return <Sidebar.LoadingState />;
-  }
-
-  if (error) {
-    throw error;
   }
 
   const me = data?.me;
