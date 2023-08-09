@@ -42,7 +42,7 @@ export const Sidebar = () => {
   const me = data.me;
 
   if (!me || !me.playlists) {
-    throw new Error('Oops');
+    throw new Error('Oops, no playlists');
   }
 
   return (
