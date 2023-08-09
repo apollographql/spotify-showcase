@@ -2449,6 +2449,23 @@ export type Avatar_profile =
   | Avatar_profile_CurrentUserProfile_
   | Avatar_profile_User_;
 
+export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
+
+export type PlaybarQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    player: {
+      __typename: 'Player';
+      devices: Array<{
+        __typename: 'Device';
+        id: string | null;
+        name: string;
+        type: string;
+      }> | null;
+    };
+  } | null;
+};
+
 export type SidebarQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2511,23 +2528,6 @@ export type UserMenuQuery = {
       id: string;
       displayName: string | null;
       images: Array<{ __typename: 'Image'; url: string }> | null;
-    };
-  } | null;
-};
-
-export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
-
-export type PlaybarQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    player: {
-      __typename: 'Player';
-      devices: Array<{
-        __typename: 'Device';
-        id: string | null;
-        name: string;
-        type: string;
-      }> | null;
     };
   } | null;
 };
@@ -2846,7 +2846,7 @@ export type PlaybackStateSubscriberSubscription = {
   } | null;
 };
 
-export type PlaybarQueryFields = {
+export type Playbar_player = {
   __typename: 'Player';
   devices: Array<{
     __typename: 'Device';
