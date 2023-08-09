@@ -1,7 +1,8 @@
-import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import CorePlaybar, { LoadingState } from '../Playbar';
 import { PlaybarQuery, PlaybarQueryVariables } from '../../types/api';
 import LoadingStateHighlighter from '../LoadingStateHighlighter';
+
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 
 const PLAYBAR_QUERY: TypedDocumentNode<
   PlaybarQuery,

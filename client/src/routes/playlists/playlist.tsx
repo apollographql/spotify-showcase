@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
-import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import { PlaylistQuery, PlaylistQueryVariables } from '../../types/api';
 import { PlaylistPage } from '../../components/PlaylistPage';
 import StandardLoadingState from '../../components/StandardLoadingState';
 import LoadingStateHighlighter from '../../components/LoadingStateHighlighter';
+
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 
 const PLAYLIST_QUERY: TypedDocumentNode<
   PlaylistQuery,

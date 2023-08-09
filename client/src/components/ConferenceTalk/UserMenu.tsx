@@ -1,8 +1,9 @@
 import CurrentUserMenu, { LoadingState } from '../CurrentUserMenu';
-import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import { UserMenuQuery, UserMenuQueryVariables } from '../../types/api';
 import UserMenuContainer from '../UserMenuContainer';
 import LoadingStateHighlighter from '../LoadingStateHighlighter';
+
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 
 const USER_MENU_QUERY: TypedDocumentNode<
   UserMenuQuery,
