@@ -2,7 +2,6 @@ import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import { Library } from 'lucide-react';
 import Layout from '../Layout';
 import { SidebarQuery, SidebarQueryVariables } from '../../types/api';
-import { fragmentRegistry } from '../../apollo/fragmentRegistry';
 import SidebarPlaylists from '../SidebarPlaylists';
 import SidebarSection from '../SidebarSection';
 import SidebarTitle from '../SidebarTitle';
@@ -18,10 +17,6 @@ const SIDEBAR_QUERY: TypedDocumentNode<
       playlists(offset: $offset, limit: $limit) @synthetics(timeout: 2000) {
         edges {
           node {
-            id
-            images {
-              url
-            }
             ...SidebarPlaylists_playlists
           }
         }
@@ -63,25 +58,6 @@ export const Sidebar = () => {
     </Layout.Sidebar>
   );
 };
-
-fragmentRegistry.register(gql`
-  fragment SidebarQueryFields on PlaylistConnection {
-    edges {
-      node {
-        id
-        images {
-          url
-        }
-        ...PlaylistSidebarLink_playlist
-      }
-    }
-    pageInfo {
-      offset
-      limit
-      hasNextPage
-    }
-  }
-`);
 
 // Sidebar.LoadingState = SidebarLoadingState;
 Sidebar.LoadingState = () => {
