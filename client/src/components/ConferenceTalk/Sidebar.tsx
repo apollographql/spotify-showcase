@@ -1,4 +1,4 @@
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import { Library } from 'lucide-react';
 import Layout from '../Layout';
 import { SidebarQuery, SidebarQueryVariables } from '../../types/api';
@@ -7,6 +7,7 @@ import SidebarPlaylists from '../SidebarPlaylists';
 import SidebarSection from '../SidebarSection';
 import SidebarTitle from '../SidebarTitle';
 import { SidebarLoadingState } from '../SidebarLoadingState';
+import LoadingStateHighlighter from '../LoadingStateHighlighter';
 
 const SIDEBAR_QUERY: TypedDocumentNode<
   SidebarQuery,
@@ -33,11 +34,19 @@ const SIDEBAR_QUERY: TypedDocumentNode<
 `;
 
 export const Sidebar = () => {
-  const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
+  const { data, fetchMore, loading, error } = useQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
 
-  const me = data.me;
+  if (loading) {
+    return <Sidebar.LoadingState />;
+  }
+
+  if (error) {
+    throw error;
+  }
+
+  const me = data?.me;
 
   if (!me || !me.playlists) {
     throw new Error('Oops, no playlists');
@@ -78,4 +87,11 @@ fragmentRegistry.register(gql`
   }
 `);
 
-Sidebar.LoadingState = SidebarLoadingState;
+// Sidebar.LoadingState = SidebarLoadingState;
+Sidebar.LoadingState = () => {
+  return (
+    <LoadingStateHighlighter>
+      <SidebarLoadingState />
+    </LoadingStateHighlighter>
+  );
+};

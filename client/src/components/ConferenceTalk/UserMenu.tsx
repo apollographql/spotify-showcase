@@ -1,7 +1,8 @@
 import CurrentUserMenu, { LoadingState } from '../CurrentUserMenu';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import { UserMenuQuery, UserMenuQueryVariables } from '../../types/api';
 import UserMenuContainer from '../UserMenuContainer';
+import LoadingStateHighlighter from '../LoadingStateHighlighter';
 
 const USER_MENU_QUERY: TypedDocumentNode<
   UserMenuQuery,
@@ -17,9 +18,17 @@ const USER_MENU_QUERY: TypedDocumentNode<
 `;
 
 export const UserMenu = () => {
-  const { data } = useSuspenseQuery(USER_MENU_QUERY);
+  const { data, loading, error } = useQuery(USER_MENU_QUERY);
 
-  const { me } = data;
+  if (loading) {
+    return <UserMenu.LoadingState />;
+  }
+
+  if (error) {
+    throw error;
+  }
+
+  const me = data?.me;
 
   if (!me) {
     throw new Error('Oops, user expected');
@@ -32,4 +41,11 @@ export const UserMenu = () => {
   );
 };
 
-UserMenu.LoadingState = LoadingState;
+// UserMenu.LoadingState = LoadingState;
+UserMenu.LoadingState = () => {
+  return (
+    <LoadingStateHighlighter>
+      <LoadingState />
+    </LoadingStateHighlighter>
+  );
+};
