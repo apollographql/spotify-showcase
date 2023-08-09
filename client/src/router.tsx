@@ -5,7 +5,7 @@ import {
   redirect,
 } from 'react-router-dom';
 
-import Suspense from './components/Suspense';
+import { Suspense } from 'react';
 
 import * as AlbumRoute from './routes/albums/album';
 import * as ArtistRoute from './routes/artists/artist';
