@@ -10,9 +10,9 @@ const PLAYLIST_QUERY: TypedDocumentNode<
   PlaylistQueryVariables
 > = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
-    playlist(id: $id) @synthetics(timeout: 4000) {
+    playlist(id: $id) @synthetics(timeout: 2000) {
       id
-      tracks(offset: $offset) {
+      tracks(offset: $offset) @synthetics(timeout: 2000) {
         ...PlaylistPage_tracks
       }
 
