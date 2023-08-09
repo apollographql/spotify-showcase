@@ -12,7 +12,7 @@ const PLAYLIST_QUERY: TypedDocumentNode<
   query PlaylistQuery($id: ID!, $offset: Int) {
     playlist(id: $id) @synthetics(timeout: 2000) {
       id
-      tracks(offset: $offset) @synthetics(timeout: 2000) {
+      tracks(offset: $offset, limit: 15) @synthetics(timeout: 2000) {
         ...PlaylistPage_tracks
       }
 
