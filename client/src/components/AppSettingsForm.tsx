@@ -23,7 +23,7 @@ const AppSettingsForm = () => {
       />
       <SettingsField
         title="Highlight Suspense Boundaries"
-        description="Display a red border around React suspense boundaries to indicate loading states"
+        description="Display a colored overlay around React suspense boundaries to indicate loading states"
         control={
           <Switch
             checked={highlightSuspenseBoundaries}
