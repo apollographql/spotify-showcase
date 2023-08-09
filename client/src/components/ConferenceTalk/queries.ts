@@ -15,17 +15,7 @@ export const SIDEBAR_QUERY = gql`
   query SidebarQuery($offset: Int, $limit: Int) {
     me {
       playlists(offset: $offset, limit: $limit) {
-        edges {
-          node {
-            id
-            ...SidebarQueryFields
-          }
-        }
-        pageInfo {
-          offset
-          limit
-          hasNextPage
-        }
+        ...SidebarQueryFields
       }
     }
   }

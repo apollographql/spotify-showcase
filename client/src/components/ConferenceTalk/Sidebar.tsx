@@ -18,12 +18,21 @@ import { fragmentRegistry } from '../../apollo/fragmentRegistry';
 import { SIDEBAR_QUERY } from './queries';
 
 fragmentRegistry.register(gql`
-  fragment SidebarQueryFields on Playlist {
-    id
-    images {
-      url
+  fragment SidebarQueryFields on PlaylistConnection {
+    edges {
+      node {
+        id
+        images {
+          url
+        }
+        ...PlaylistSidebarLink_playlist
+      }
     }
-    ...PlaylistSidebarLink_playlist
+    pageInfo {
+      offset
+      limit
+      hasNextPage
+    }
   }
 `);
 
