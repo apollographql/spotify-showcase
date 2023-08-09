@@ -2497,27 +2497,6 @@ export type SidebarQuery = {
   } | null;
 };
 
-export type SidebarQueryFields = {
-  __typename: 'PlaylistConnection';
-  edges: Array<{
-    __typename: 'PlaylistEdge';
-    node: {
-      __typename: 'Playlist';
-      id: string;
-      uri: string;
-      name: string;
-      images: Array<{ __typename: 'Image'; url: string }>;
-      owner: { __typename: 'User'; id: string; displayName: string | null };
-    };
-  }>;
-  pageInfo: {
-    __typename: 'PageInfo';
-    offset: number;
-    limit: number;
-    hasNextPage: boolean;
-  };
-};
-
 export type UserMenuQueryVariables = Exact<{ [key: string]: never }>;
 
 export type UserMenuQuery = {
