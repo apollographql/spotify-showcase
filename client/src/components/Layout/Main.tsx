@@ -1,11 +1,11 @@
-import { forwardRef, ReactNode, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import ScrollContainerContext from '../ScrollContainerContext';
 
 interface MainProps {
   children: ReactNode;
 }
 
-const Main = forwardRef<HTMLElement, MainProps>(({ children }) => {
+const Main = ({ children }: MainProps) => {
   const scrollRef = useRef<HTMLElement>(null);
 
   return (
@@ -17,6 +17,6 @@ const Main = forwardRef<HTMLElement, MainProps>(({ children }) => {
       </article>
     </main>
   );
-});
+};
 
 export default Main;
