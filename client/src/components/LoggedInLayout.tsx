@@ -1,4 +1,3 @@
-import Suspense from './Suspense';
 import {
   UserMenu,
   LayoutContainer,
