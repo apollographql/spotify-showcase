@@ -52,15 +52,15 @@ const client = new ApolloClient({
 });
 ```
 
-Once you've sent some traffic, head over to the [Clients tab]({{ graph.url.clients }}) and you should see the traffic being identified now 🎉
+Once you've sent some traffic, head over to the [Clients tab]({{ graph.url.clients }}), and you should see the traffic being identified now 🎉
 
 ## Adding a new GraphQL API to GraphOS
 
-You can view all of the GraphQL APIs in the [subgraphs tab]({{  graph.url.subgraphs }}). Try adding SpaceX to the demo by using the "Add a subgraph" button. You'll use https://spacex-production.up.railway.app/ for the routing URL and it should be able to fetch the subgraph schema/
+You can view all of the GraphQL APIs in the [subgraphs tab]({{  graph.url.subgraphs }}). Try adding SpaceX to the demo by using the "Add a subgraph" button. You'll use https://spacex-production.up.railway.app/ for the routing URL, and it should be able to fetch the subgraph schema/
 
 > If you try adding a subgraph that doesn't support introspection or Apollo Federation, you will have to paste your schema into the UI using the "Advanced options" drop down.
 
-Since we added a new subgraph into our demo, we'll have a launch with these updates for our Apollo Router. Head over to the [Launches tab]({{ graph.url.launches }}) to see the update run through the appropriate checks and be deployed. Once it has deployed, head over to [Explorer]({{ graph.url.explorer }}) and you should be able to add some of the SpaceX operations to your graph:
+Since we added a new subgraph into our demo, we'll have a launch with these updates for our Apollo Router. Head over to the [Launches tab]({{ graph.url.launches }}) to see the update run through the appropriate checks and be deployed. Once it has deployed, head over to [Explorer]({{ graph.url.explorer }}), and you should be able to add some of the SpaceX operations to your graph:
 
 ```gql
 query MyPlaylists($offset: Int, $limit: Int) {
@@ -88,7 +88,7 @@ query MyPlaylists($offset: Int, $limit: Int) {
 
 ## Viewing your graphs changelog
 
-Every update that is successfully made to your graph will appear as a changelog entry. Since we just added the SpaceX API, we can head over to the [Changelog]({{ graph.url.changelog }}) tab and wee a list of everything we added.
+Every update that is successfully made to your graph will appear as a changelog entry. Since we just added the SpaceX API, we can head over to the [Changelog]({{ graph.url.changelog }}) tab and see a list of everything we added.
 
 You can also see a more detailed breakdown of the schema with the ability to search to find whatever you need. You can filter by multiple criteria, like specific subgraphs or even Entities you have defined.
 
@@ -98,15 +98,15 @@ You can also see a more detailed breakdown of the schema with the ability to sea
 
 The Apollo Router automatically collects usage information on your graph based on what fields are being requested from client applications. You can start diving into specific fields and their usage in the graph by heading to the [Fields page]({{ graph.url.fields }}).
 
-In the top search bad of the Fields page, try searching for `CurrentUser` to find the `me` field we queries. You can also click the flied insights button to the right to view a more detailed breakdown of the usage in this specific field.
+In the top search bad of the Fields page, try searching for `CurrentUser` to find the `me` field we query. You can also click the flied insights button to the right to view a more detailed breakdown of the usage in this specific field.
 
 ## Knowing when to start pruning your graph
 
-Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being useed or not. In the same [Fields page]({{ graph.url.fields }}), select the "Deprecations" at the top and you should see some deprecated fields that were added from the SpaceX API.
+Since GraphOS has the usage information of our graph, it can also identify fields marked with the `@deprecated` directive and tell us if they are still being used or not. In the same [Fields page]({{ graph.url.fields }}), select the "Deprecations" at the top, and you should see some deprecated fields that were added from the SpaceX API.
 
 ## Looking at individual operations
 
-In addition to the aggregate usage information we saw in the Fields page, GraphOS also enables you to view sample individual traces that includes resolver level traces 🙌. Head over to the [Operations]({{ graph.url.operations }}) tab and you can explore the traces generated from the operations we ran in previous steps.
+In addition to the aggregate usage information we saw in the Fields page, GraphOS also enables you to view sample individual traces that include resolver level traces 🙌. Head over to the [Operations]({{ graph.url.operations }}) tab, and you can explore the traces generated from the operations we ran in previous steps.
 
 ## Testing out making a change to your subgraphs locally
 
@@ -130,9 +130,9 @@ rover subgraph check {{ graph.ref }} --profile=demo --name=spotify --schema={PAT
 
 You should see a failed output with a url. Go ahead and click that URL to see why the check failed. Shema Checks use our graphs usage information to validate whether a change is safe to make or not 🚀
 
-## Seeing shcema checks in a PR
+## Seeing schema checks in a PR
 
-You can also see schema checks in a PR, but you'll have to [fork the demo repo](https://github.com/apollographql/spotify-showcase/fork). Once you've forked the repo, you'll need to do some minimumm configuration:
+You can also see schema checks in a PR, but you'll have to [fork the demo repo](https://github.com/apollographql/spotify-showcase/fork). Once you've forked the repo, you'll need to do some minimum configuration:
 
 1. [Ensure the Apollo app is installed in the repo](https://www.apollographql.com/docs/rover/ci-cd/#displaying-schema-check-results-on-github-pull-requests)
 2. Add these secrets to your GitHub Actions secrets:
@@ -140,7 +140,7 @@ You can also see schema checks in a PR, but you'll have to [fork the demo repo](
 - `APOLLO_KEY`: You can use the key we used to configure rover in this example or feel free to create a new key.
 - `APOLLO_GRAPH_REF`: You'll want to set this to {{ graph.ref }}
 
-Now that the new repo is configured, navigate to the `subgraphs/spotify/schema.graphql` file. Find the `type Query` and delete the `me` field from the schema (make sure you also delete the comment above it supprounded by three quotes """). Commit that change to a new branch and you'll see the schema checks pop up in the PR with the apollo app providing a link to [Apollo Studio checks page]({{ graph.url.checks }}).
+Now that the new repo is configured, navigate to the `subgraphs/spotify/schema.graphql` file. Find the `type Query` and delete the `me` field from the schema (make sure you also delete the comment above it surrounded by three quotes """). Commit that change to a new branch, and you'll see the schema checks pop up in the PR with the apollo app providing a link to [Apollo Studio checks page]({{ graph.url.checks }}).
 
 > If you don't see the Apollo App in your checks, you probably don't have the [Apollo App installed](<(https://www.apollographql.com/docs/rover/ci-cd/#displaying-schema-check-results-on-github-pull-requests)>). You can also click into the individual actions and see the url printed out in the console window
 
