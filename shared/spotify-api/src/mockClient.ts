@@ -269,7 +269,7 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }): Promise<Spotify.Object.List<'episodes', Spotify.Object.Episode>> {
     return {
       episodes: Object.values(mocks.episodes).filter((episode) =>
-          params.ids.split(',').includes(episode.id)
+        params.ids.split(',').includes(episode.id)
       ),
     };
   }
@@ -299,9 +299,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }): Promise<Spotify.Object.List<'shows', Spotify.Object.Show>> {
     return {
       shows: params.ids
-          .split(',')
-          .map((id) => mocks.shows[id])
-          .filter(Boolean),
+        .split(',')
+        .map((id) => mocks.shows[id])
+        .filter(Boolean),
     };
   }
 
@@ -476,11 +476,13 @@ export class MockSpotifyClient implements SpotifyDataSource {
     offset?: number;
     timestamp?: string;
   }): Promise<Spotify.Object.FeaturedPlaylists> {
-    const items: Spotify.Object.PlaylistSimplified[] = Object.values(mocks.playlists).map((playlist) => {
-      return {...playlist, owner: mocks.users[playlist.owner.id]};
+    const items: Spotify.Object.PlaylistSimplified[] = Object.values(
+      mocks.playlists
+    ).map((playlist) => {
+      return { ...playlist, owner: mocks.users[playlist.owner.id] };
     });
     return {
-      message: "Featured playlists",
+      message: 'Featured playlists',
       playlists: {
         items,
         href: '',
@@ -488,9 +490,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
         next: null,
         offset: 0,
         previous: null,
-        total: 0
-      }
-    }
+        total: 0,
+      },
+    };
   }
 
   async getNewReleases(params: {

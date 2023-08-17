@@ -9,7 +9,12 @@ const BASE_URI = 'https://api.spotify.com';
 const FILE_PATH = path.join(__dirname, '../src/mocks.ts');
 const ALBUM_IDS = ['4ZaAM16hw3xpp680FJahJJ'];
 const USER_IDS = ['31qgjbmjlo4t75pyq6mjqfbl7nja'];
-const PLAYLIST_IDS = ['3W6LV9vlZ7fURhLmHqjBlM', '748GuzX7eACeswGoJt6hOw', '6AYofvO5tp5PnDYNAee45O', '4qP1j7LvQSAfNxs9iRei0W'];
+const PLAYLIST_IDS = [
+  '3W6LV9vlZ7fURhLmHqjBlM',
+  '748GuzX7eACeswGoJt6hOw',
+  '6AYofvO5tp5PnDYNAee45O',
+  '4qP1j7LvQSAfNxs9iRei0W',
+];
 const TRACK_IDS = [
   '5kBAk4dSQX4aXbTqjaPvF6', //Space Oddity
   '683hRieVmYdAhVA1DkjSAk', //Space Jam
@@ -51,12 +56,12 @@ const TRACK_IDS = [
   '5ERrJuNLnmHj525ooOKyqJ', //Tomorrow - The Race For Space Start End
 ];
 const EPISODE_IDS = [
-    '1Wq3HgaoISjc9ZUmXdbaSK',
-    '53GQ1LSSLptukYmHW96UQe',
-    '5zOi1QrfEldKskg9MnW7tQ',
-    '2nuhXq3YEQAI8BCDN6Dzex',
-    '2Mmay1mmdUm9X6bjQVV6PE',
-    '3PeTcQOTOTpWoz6zYxZ3qP',
+  '1Wq3HgaoISjc9ZUmXdbaSK',
+  '53GQ1LSSLptukYmHW96UQe',
+  '5zOi1QrfEldKskg9MnW7tQ',
+  '2nuhXq3YEQAI8BCDN6Dzex',
+  '2Mmay1mmdUm9X6bjQVV6PE',
+  '3PeTcQOTOTpWoz6zYxZ3qP',
 ];
 
 if (!accessToken) {
@@ -153,7 +158,7 @@ async function getArtist(id: string) {
 }
 
 async function getUser(id: string) {
-    return (store.users[id] ||= await get('/users/:id', { id }));
+  return (store.users[id] ||= await get('/users/:id', { id }));
 }
 
 async function getTrack(id: string) {
@@ -169,13 +174,13 @@ async function getEpisode(id: string) {
   return tap(
     (store.episodes[id] ||= await get('/episodes/:id', { id })),
     async (episode) => {
-        episode.show = await getShow(episode.show.id);
+      episode.show = await getShow(episode.show.id);
     }
-    );
+  );
 }
 
 async function getShow(id: string) {
-    return (store.shows[id] ||= await get('/shows/:id', { id }));
+  return (store.shows[id] ||= await get('/shows/:id', { id }));
 }
 
 async function get<Pathname extends keyof Spotify.Response.GET>(
