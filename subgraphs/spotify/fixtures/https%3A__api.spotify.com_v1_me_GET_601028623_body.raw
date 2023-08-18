@@ -26,5 +26,6 @@
     "filter_enabled" : false,
     "filter_locked" : false
   },
-  "email" : "jerelmiller@gmail.com"
+  "email" : "jerelmiller@gmail.com",
+  "birthdate" : "1989-06-12"
 }

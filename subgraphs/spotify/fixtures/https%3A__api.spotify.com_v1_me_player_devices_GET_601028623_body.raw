@@ -5,6 +5,7 @@
     "is_private_session" : false,
     "is_restricted" : false,
     "name" : "Jerel’s Apollo MacBook Pro",
+    "supports_volume" : true,
     "type" : "Computer",
     "volume_percent" : 100
   } ]

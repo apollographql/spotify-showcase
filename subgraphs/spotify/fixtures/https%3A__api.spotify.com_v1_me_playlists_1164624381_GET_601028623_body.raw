@@ -26,10 +26,10 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTQsNGNiMTk2ZTMxNDQ0NzZmZWIzZGU1ZjA3N2JjMzM3NDk3ZDkwZGI1Mg==",
+    "snapshot_id" : "NTAsNjM0YzQwOTU5OGFmNDI3YmQ4YmI0NDVkOGZlZDFiNWUxNzY4YjI0ZQ==",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/4tIPmkZMGXRUkpHrCavkFL/tracks",
-      "total" : 6
+      "total" : 52
     },
     "type" : "playlist",
     "uri" : "spotify:playlist:4tIPmkZMGXRUkpHrCavkFL"
@@ -92,7 +92,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUzNTI0NCwwMDAwMDAwMDM5MTUxM2I1ZjNlMzU1ZjVkZDk1MTI5ZmJiMTMzZDEw",
+    "snapshot_id" : "MTY5MjMzMzI3NSwwMDAwMDAwMDljY2U1ZTFmMWZmMzIxOGExYTczYWY0ZmM5NDdiMzU4",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4xVjArYlH5aH/tracks",
       "total" : 50
@@ -125,7 +125,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUzNTI0NCwwMDAwMDAwMGVjNzFjMzk3YTIyNmQ4MTdlZTBkODQ2YmMzY2UzMDFj",
+    "snapshot_id" : "MTY5MjMzMzI3NSwwMDAwMDAwMGFhZDI3MjliMjdhZDk0ZTU5YTZmMWE4YTY1MDFkY2Q3",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4qbsXIsN9Myu/tracks",
       "total" : 50
@@ -158,7 +158,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUzNTI0NCwwMDAwMDAwMDYzYzI5YzZhMWIyYmJiMTlhN2M4NDU0OWJlMTE1MzYz",
+    "snapshot_id" : "MTY5MjMzMzI3NSwwMDAwMDAwMDE0YmQyYWU0OGVkOGQxMjFhMDBlZDZjZmMwZWM3ZTQz",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E4kgqUorARyNs/tracks",
       "total" : 50
@@ -364,7 +364,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MjgxOTE2NzksMDAwMDAwMDBjOTNhMTA1MzQ5MGM0NjZmY2I3MDU5ZTU1YmYyZWMzMw==",
+    "snapshot_id" : "MjgyMDQ2MzYsMDAwMDAwMDBkNTg3NDgzY2U5ZTU2NTcxNGJjYTU5ZWEwMzdkZDYyMw==",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DZ06evO0LbA3u/tracks",
       "total" : 49
@@ -405,10 +405,10 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MzMsMDJlNzcxMjk4MTg4NzJiNjRmMmUwOTJhNWUwZWJiMTYzMGY0OTZlNQ==",
+    "snapshot_id" : "MzgsYTNlYzMwNzk2MWYyMjYxMTE2OWQ1N2Q1YmMyMDMyM2M1YzQ0N2NlMA==",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/3cf43or8QTlxEJXkWKXH07/tracks",
-      "total" : 29
+      "total" : 78
     },
     "type" : "playlist",
     "uri" : "spotify:playlist:3cf43or8QTlxEJXkWKXH07"
@@ -682,7 +682,7 @@
     "uri" : "spotify:playlist:37i9dQZF1F0sijgNaJdgit"
   }, {
     "collaborative" : false,
-    "description" : "<a href=spotify:playlist:37i9dQZF1EIV0HJjQDEQK9>Hotel Books</a>, <a href=spotify:playlist:37i9dQZF1EIWg3u9VWHhk9>Stepson</a>, <a href=spotify:playlist:37i9dQZF1EIZpbvHjy7meF>Movements</a> and more",
+    "description" : "<a href=spotify:playlist:37i9dQZF1EIV0HJjQDEQK9>Hotel Books</a>, <a href=spotify:playlist:37i9dQZF1EIVzW07cAyOSG>Dream on Dreamer</a>, <a href=spotify:playlist:37i9dQZF1EIZpbvHjy7meF>Movements</a> and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1EVKuMoAJjoTIw"
     },
@@ -706,7 +706,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTQ3NDQwMCwwMDAwMDAwMDBjYjI3N2YzYjU4Mzc2NTUxMjkwMzM3NjFkNDE1YzVh",
+    "snapshot_id" : "MTY5MjI1MjAwMCwwMDAwMDAwMDJhOGE3MmFmNWJjODAzZDJiNGE5MzMxYTI5ZTFiMDRj",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EVKuMoAJjoTIw/tracks",
       "total" : 50
@@ -789,7 +789,7 @@
     "uri" : "spotify:playlist:37i9dQZF1EUMDoJuT8yJsl"
   }, {
     "collaborative" : false,
-    "description" : "Underoath, The Ghost Inside, coldrain and more",
+    "description" : "Caskets, Between Oceans, Dream on Dreamer and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E37qcXW0knBDv"
     },
@@ -797,7 +797,7 @@
     "id" : "37i9dQZF1E37qcXW0knBDv",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebbbd7c23baf6f0752d366c679/1/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb932f8dbf2d66afef023c209c/1/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 1",
@@ -813,7 +813,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDU4NWE3YmE4YjI1OTk0ZTdlYzFhMTdhODVlYjI1YjI0",
+    "snapshot_id" : "MTY5MjI1NjkxNSwwMDAwMDAwMDNjNTdiYzQ3NTQxNzEwMzU5N2JlZTY0YTg5MDcxNTEy",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E37qcXW0knBDv/tracks",
       "total" : 50
@@ -822,7 +822,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E37qcXW0knBDv"
   }, {
     "collaborative" : false,
-    "description" : "Northlane, Silent Planet, Sever Your Ties and more",
+    "description" : "Crown The Empire, Underoath, Too Close To Touch and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E350G7HFkREfO"
     },
@@ -830,7 +830,7 @@
     "id" : "37i9dQZF1E350G7HFkREfO",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb2010ab96fca0e8bd7928c969/2/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb101cbaaa80ec6a8535ae4f88/2/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 2",
@@ -846,7 +846,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDUxMmQ3MTU4N2E0MDM3Yjc1OGM3MjgxZGZkNzcwNWMw",
+    "snapshot_id" : "MTY5MjI1NjkxNSwwMDAwMDAwMDFhOTgzYzNiOTg2NGYyMjIzNDNlN2FjZDZmZTZkZjE0",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E350G7HFkREfO/tracks",
       "total" : 50
@@ -855,7 +855,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E350G7HFkREfO"
   }, {
     "collaborative" : false,
-    "description" : "Our Last Night, Bad Omens, It Comes in Waves and more",
+    "description" : "Our Last Night, Asleep At The Helm, Bad Omens and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E38Gk9Iv4Eqz5"
     },
@@ -879,7 +879,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDQxNWNjMDU3OGI5NzAwMTUwNzYyYzYyZDczY2Q2MzNi",
+    "snapshot_id" : "MTY5MjI1NjkxNSwwMDAwMDAwMDljOThiOGNhNWM0M2FkN2Q0Yzc5Y2I2NGZkNmU3YmE0",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E38Gk9Iv4Eqz5/tracks",
       "total" : 50
@@ -888,7 +888,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E38Gk9Iv4Eqz5"
   }, {
     "collaborative" : false,
-    "description" : "Classic Jack, Living in Fiction, Flight Paths and more",
+    "description" : "Invent Animate, Joshua Travis, Silent Planet and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35ZkR2evoKBv"
     },
@@ -896,7 +896,7 @@
     "id" : "37i9dQZF1E35ZkR2evoKBv",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb85797a37a84599689b4b03ff/4/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebe0b26c1c00a538ef485f74cf/4/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 4",
@@ -912,7 +912,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMGYyN2NkMDAxNTM0ZWFiNDYwYTZhNjMwOWY2ZTQwZGMx",
+    "snapshot_id" : "MTY5MjI1NjkxNSwwMDAwMDAwMDc2ZWY4MDQ1OGU2NjhhY2E4YjE4MzNhMDFkNWRkZWY1",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35ZkR2evoKBv/tracks",
       "total" : 50
@@ -921,7 +921,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E35ZkR2evoKBv"
   }, {
     "collaborative" : false,
-    "description" : "Solence, Veio, Fight The Fade and more",
+    "description" : "Classic Jack, Living in Fiction, Awaken I Am and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35EcH9nl2uk2"
     },
@@ -929,7 +929,7 @@
     "id" : "37i9dQZF1E35EcH9nl2uk2",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb5e17a3183e3184033ca2742d/5/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb85797a37a84599689b4b03ff/5/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 5",
@@ -945,7 +945,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDZkNDI4ZTA0YTA1M2RiMjYzM2QyNzdlZGVkYjE0NDk5",
+    "snapshot_id" : "MTY5MjI1NjkxNSwwMDAwMDAwMDlmYzMyMWUxMmIwODM3MzA5ZWE2ZDc5YzhhNjZmMDE2",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35EcH9nl2uk2/tracks",
       "total" : 50
@@ -954,7 +954,7 @@
     "uri" : "spotify:playlist:37i9dQZF1E35EcH9nl2uk2"
   }, {
     "collaborative" : false,
-    "description" : "Hail The Sun, I The Mighty, Hrvrd and more",
+    "description" : "Throw The Fight, Fight The Fade, ENMY and more",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1E35l2TWP8gS60"
     },
@@ -962,7 +962,7 @@
     "id" : "37i9dQZF1E35l2TWP8gS60",
     "images" : [ {
       "height" : null,
-      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb2226815d2da483dd7dada86b/6/en/large",
+      "url" : "https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebdba3d6fd78f7ced1e3a84e51/6/en/large",
       "width" : null
     } ],
     "name" : "Daily Mix 6",
@@ -978,7 +978,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTUwNzAzNywwMDAwMDAwMDYzMDhkOGRkMTEzYWYwOTE2NzZiNzJhZWZiMjM1YTY2",
+    "snapshot_id" : "MTY5MjI1NjkxNSwwMDAwMDAwMDE1MTRiYTM5ZDY0OGVkZDlkMmUzOTUyMjRmOTY4ZWY3",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1E35l2TWP8gS60/tracks",
       "total" : 50
@@ -1110,10 +1110,10 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTEyMTY2MCwwMDAwMDAwMDgzZTllNGY1ZDE5NWIyNTRkMWE1NTZmYjdiOWMzMTFi",
+    "snapshot_id" : "MTY5MjMzMTI2MCwwMDAwMDAwMGQ1M2IxYjhmMjg0ZGJjNjhkOTE2OGFkNDgzYWM3NTkx",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DWXIcbzpLauPS/tracks",
-      "total" : 85
+      "total" : 86
     },
     "type" : "playlist",
     "uri" : "spotify:playlist:37i9dQZF1DWXIcbzpLauPS"
@@ -1143,7 +1143,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MCwwMDAwMDAwMDk3YjA5NzJjM2JhYjFiOWNhZmNhN2UzYWZkYmM1ZTNm",
+    "snapshot_id" : "MCwwMDAwMDAwMDhkNjVkMWRiNjEwYjI4YmM0ZTc5ZmM2MjkxNGU0Mzg2",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EfPxEbWLK8FJt/tracks",
       "total" : 30
@@ -1242,7 +1242,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTQ5Mjg0NCwwMDAwMDAwMDY0YzcxOGUxYzA4OTY5MWMwMWMxYTk2MzQxOGI0M2Ix",
+    "snapshot_id" : "MTY5MjI1NjUzOSwwMDAwMDAwMDQ2ZWFkZjUyZmQ3OWRhY2QzZGE0ZjA3Zjc0YTY5ODcz",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EpDMzetCLBmIm/tracks",
       "total" : 30
@@ -1275,7 +1275,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTQ5Mjg0NCwwMDAwMDAwMDY0YzcxOGUxYzA4OTY5MWMwMWMxYTk2MzQxOGI0M2Ix",
+    "snapshot_id" : "MTY5MjI1NjUzOSwwMDAwMDAwMDQ2ZWFkZjUyZmQ3OWRhY2QzZGE0ZjA3Zjc0YTY5ODcz",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1EprEOfYrbSBii/tracks",
       "total" : 30
@@ -1284,7 +1284,7 @@
     "uri" : "spotify:playlist:37i9dQZF1EprEOfYrbSBii"
   }, {
     "collaborative" : false,
-    "description" : "This week's best new metal tracks. Cover: Dark Divine",
+    "description" : "This week's best new metal tracks. Cover: Within Temptation",
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/37i9dQZF1DX5J7FIl4q56G"
     },
@@ -1292,7 +1292,7 @@
     "id" : "37i9dQZF1DX5J7FIl4q56G",
     "images" : [ {
       "height" : null,
-      "url" : "https://i.scdn.co/image/ab67706f00000003116830c07a85fe630884849c",
+      "url" : "https://i.scdn.co/image/ab67706f000000032892d32ea505e9fb9fe94c0d",
       "width" : null
     } ],
     "name" : "All New Metal",
@@ -1308,10 +1308,10 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MTY5MTEyMTY2MCwwMDAwMDAwMGRkNWU5ZWJkOTIwZWNiYmFmZTQ0MjA2YmY1ODU3Mzk1",
+    "snapshot_id" : "MTY5MjMzMTIwMCwwMDAwMDAwMDQwOWNhYzk4ZGMwYjliOTA2MmY4ZmI0NGFhY2UyMjBj",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZF1DX5J7FIl4q56G/tracks",
-      "total" : 62
+      "total" : 84
     },
     "type" : "playlist",
     "uri" : "spotify:playlist:37i9dQZF1DX5J7FIl4q56G"
@@ -1539,7 +1539,7 @@
     "id" : "37i9dQZEVXbgWKzpjZn289",
     "images" : [ {
       "height" : null,
-      "url" : "https://newjams-images.scdn.co/image/ab6764780000c480/dt/v3/release-radar/ab6761610000e5ebabc6bfe5ac21c41ab9174adf/en",
+      "url" : "https://newjams-images.scdn.co/image/ab6764780000c480/dt/v3/release-radar/ab6761610000e5ebbbd7c23baf6f0752d366c679/en",
       "width" : null
     } ],
     "name" : "Release Radar",
@@ -1555,7 +1555,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MCwwMDAwMDAwMGM4NGExMDAwN2YxMjVhYzM4NTM3NjQ5MjFhYzRmMzk0",
+    "snapshot_id" : "MCwwMDAwMDAwMGM2ZWEyY2U5NzE2MTJlZTU5NWQzODM0ZTAwYTU4NzAx",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZEVXbgWKzpjZn289/tracks",
       "total" : 30
@@ -1646,7 +1646,7 @@
     "id" : "37i9dQZEVXcJdMxcgPzWUu",
     "images" : [ {
       "height" : null,
-      "url" : "https://newjams-images.scdn.co/image/ab676477000033ad/dt/v3/discover-weekly/o5itzg1No0Sf1Un-qubilvYye-2nYMgAQvC4OuZ-D-893Mg61xaDZIf3HwPj_KUQRm7MImapdp1ftxEY27uolJHzilzes9xEHNbtXH9C64c=/NzQ6MTM6NjBUMTItODAtMw==",
+      "url" : "https://newjams-images.scdn.co/image/ab676477000033ad/dt/v3/discover-weekly/M_3_ZJevC6rObMUwZTE27Q-Gc8nVqdRAIsFSNRei2BTFtDX13MuzL6XhaCrMqnsggqQ8R8a6FFLcqWOKHDUG8gg4nBryMmUtZsWupUkPS_o=/NzQ6MDA6NzBUODItODAtMw==",
       "width" : null
     } ],
     "name" : "Discover Weekly",
@@ -1662,7 +1662,7 @@
     },
     "primary_color" : null,
     "public" : false,
-    "snapshot_id" : "MCwwMDAwMDAwMDkzNmJiN2MwZmE2ZjY0ZGMwMDk1M2Q3Mzc0Yzg1NWNk",
+    "snapshot_id" : "MCwwMDAwMDAwMGY0NmU5MDkyZDc0ZmZmNGMwOGNjNDVjYjlkYTcyZDFk",
     "tracks" : {
       "href" : "https://api.spotify.com/v1/playlists/37i9dQZEVXcJdMxcgPzWUu/tracks",
       "total" : 30

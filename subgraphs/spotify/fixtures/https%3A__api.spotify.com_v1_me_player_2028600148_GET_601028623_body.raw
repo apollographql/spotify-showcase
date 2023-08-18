@@ -5,12 +5,13 @@
     "is_private_session" : false,
     "is_restricted" : false,
     "name" : "Jerel’s Apollo MacBook Pro",
+    "supports_volume" : true,
     "type" : "Computer",
     "volume_percent" : 100
   },
   "shuffle_state" : false,
-  "repeat_state" : "context",
-  "timestamp" : 1691536063865,
+  "repeat_state" : "track",
+  "timestamp" : 1692333580435,
   "context" : {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/4tIPmkZMGXRUkpHrCavkFL"
@@ -19,7 +20,7 @@
     "type" : "playlist",
     "uri" : "spotify:playlist:4tIPmkZMGXRUkpHrCavkFL"
   },
-  "progress_ms" : 140982,
+  "progress_ms" : 73543,
   "item" : {
     "album" : {
       "album_type" : "album",
@@ -71,23 +72,23 @@
     } ],
     "available_markets" : [ "AR", "AU", "AT", "BE", "BO", "BR", "BG", "CA", "CL", "CO", "CR", "CY", "CZ", "DK", "DO", "DE", "EC", "EE", "SV", "FI", "FR", "GR", "GT", "HN", "HK", "HU", "IS", "IE", "IT", "LV", "LT", "LU", "MY", "MT", "MX", "NL", "NZ", "NI", "NO", "PA", "PY", "PE", "PH", "PL", "PT", "SG", "SK", "ES", "SE", "CH", "TW", "TR", "UY", "US", "GB", "AD", "LI", "MC", "ID", "JP", "TH", "VN", "RO", "IL", "ZA", "SA", "AE", "BH", "QA", "OM", "KW", "EG", "MA", "DZ", "TN", "LB", "JO", "PS", "IN", "BY", "KZ", "MD", "UA", "AL", "BA", "HR", "ME", "MK", "RS", "SI", "KR", "BD", "PK", "LK", "GH", "KE", "NG", "TZ", "UG", "AG", "AM", "BS", "BB", "BZ", "BT", "BW", "BF", "CV", "CW", "DM", "FJ", "GM", "GE", "GD", "GW", "GY", "HT", "JM", "KI", "LS", "LR", "MW", "MV", "ML", "MH", "FM", "NA", "NR", "NE", "PW", "PG", "WS", "SM", "ST", "SN", "SC", "SL", "SB", "KN", "LC", "VC", "SR", "TL", "TO", "TT", "TV", "VU", "AZ", "BN", "BI", "KH", "CM", "TD", "KM", "GQ", "SZ", "GA", "GN", "KG", "LA", "MO", "MR", "MN", "NP", "RW", "TG", "UZ", "ZW", "BJ", "MG", "MU", "MZ", "AO", "CI", "DJ", "ZM", "CD", "CG", "IQ", "LY", "TJ", "VE", "ET", "XK" ],
     "disc_number" : 1,
-    "duration_ms" : 242413,
+    "duration_ms" : 239866,
     "explicit" : false,
     "external_ids" : {
-      "isrc" : "USTN10600072"
+      "isrc" : "USTN10600065"
     },
     "external_urls" : {
-      "spotify" : "https://open.spotify.com/track/313yF0VXTCmFFoYEJF7nBQ"
+      "spotify" : "https://open.spotify.com/track/1SBceOn4txhXq6Uan8EMPt"
     },
-    "href" : "https://api.spotify.com/v1/tracks/313yF0VXTCmFFoYEJF7nBQ",
-    "id" : "313yF0VXTCmFFoYEJF7nBQ",
+    "href" : "https://api.spotify.com/v1/tracks/1SBceOn4txhXq6Uan8EMPt",
+    "id" : "1SBceOn4txhXq6Uan8EMPt",
     "is_local" : false,
-    "name" : "Writing On The Walls",
-    "popularity" : 61,
-    "preview_url" : "https://p.scdn.co/mp3-preview/30fe98e1727d1f975de7d8cfd6493c170eb9dd4b?cid=2254dce9797a4e91880c97b856207f8c",
-    "track_number" : 9,
+    "name" : "A Moment Suspended In Time",
+    "popularity" : 42,
+    "preview_url" : "https://p.scdn.co/mp3-preview/7935107ef8884b9a9366f6b98640c7f1bb7e67ed?cid=2254dce9797a4e91880c97b856207f8c",
+    "track_number" : 2,
     "type" : "track",
-    "uri" : "spotify:track:313yF0VXTCmFFoYEJF7nBQ"
+    "uri" : "spotify:track:1SBceOn4txhXq6Uan8EMPt"
   },
   "currently_playing_type" : "track",
   "actions" : {
