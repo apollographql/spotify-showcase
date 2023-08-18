@@ -28,6 +28,7 @@ import useCurrentUserProfile from '../hooks/useCurrentUserProfile';
 import ContextMenu from './ContextMenu';
 import Skeleton from './Skeleton';
 import Flex from './Flex';
+import LoadingStateHighlighter from './LoadingStateHighlighter';
 
 fragmentRegistry.register(gql`
   fragment PlaylistPage_playlist on Playlist {
@@ -166,7 +167,11 @@ export const PlaylistPage = ({
           />
         </Page.ActionsBar>
         {tracks == null ? (
-          <TracksLoadingState />
+          <div className="relative">
+            <LoadingStateHighlighter shade="#67EEF0">
+              <TracksLoadingState />
+            </LoadingStateHighlighter>
+          </div>
         ) : (
           <Table
             enableRowSelection
