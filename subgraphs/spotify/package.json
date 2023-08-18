@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "nodemon --watch \"src/**\" --ext \"ts,json,graphql\" --exec 'ts-node' src/index.ts",
+    "dev": "nodemon --watch \"src/**\" --watch \"restart.txt\" --ext \"ts,json,graphql\" --exec 'ts-node' src/index.ts",
     "test": "jest",
     "lint:types": "tsc --noEmit"
   },
