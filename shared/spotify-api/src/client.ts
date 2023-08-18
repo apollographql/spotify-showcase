@@ -67,7 +67,8 @@ export class SpotifyClient extends RESTDataSource implements SpotifyDataSource {
   constructor(options: { token: string; cache: KeyValueCache }) {
     super({
       ...options,
-      fetch: httpFetch,
+      // Enable if conference wi-fi is spotty to playback network requests
+      // fetch: httpFetch,
     });
     this.token = options.token;
   }
