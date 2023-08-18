@@ -22,7 +22,11 @@ fetchVcr.configure({
 });
 
 const httpFetch: Fetcher = (uri, options) => {
-  return fetchVcr(uri, options as object);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      fetchVcr(uri, options as object).then(resolve, reject);
+    }, 200);
+  });
 };
 
 export type OmitNever<T> = Omit<T, ConditionalKeys<T, never>>;
@@ -63,7 +67,7 @@ export class SpotifyClient extends RESTDataSource implements SpotifyDataSource {
   constructor(options: { token: string; cache: KeyValueCache }) {
     super({
       ...options,
-      // fetch: httpFetch,
+      fetch: httpFetch,
     });
     this.token = options.token;
   }
