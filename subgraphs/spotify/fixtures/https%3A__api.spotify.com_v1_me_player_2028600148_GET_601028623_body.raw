@@ -10,8 +10,8 @@
     "volume_percent" : 100
   },
   "shuffle_state" : false,
-  "repeat_state" : "track",
-  "timestamp" : 1692333580435,
+  "repeat_state" : "off",
+  "timestamp" : 1692333913922,
   "context" : {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/playlist/4tIPmkZMGXRUkpHrCavkFL"
@@ -20,7 +20,7 @@
     "type" : "playlist",
     "uri" : "spotify:playlist:4tIPmkZMGXRUkpHrCavkFL"
   },
-  "progress_ms" : 73543,
+  "progress_ms" : 88065,
   "item" : {
     "album" : {
       "album_type" : "album",
