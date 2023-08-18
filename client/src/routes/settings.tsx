@@ -106,7 +106,7 @@ export const RouteComponent = () => {
   const schemaFields = fieldConfigs.map((field) => field.schemaField);
 
   return (
-    <Page className="mx-auto w-full max-w-4xl gap-4 py-8">
+    <Page className="mx-auto w-full max-w-4xl gap-4 p-8">
       <h1>Settings</h1>
       <div className="flex flex-col gap-16">
         <section>
