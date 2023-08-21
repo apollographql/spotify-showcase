@@ -8,7 +8,13 @@ const accessToken = process.env.AUTH;
 const BASE_URI = 'https://api.spotify.com';
 const FILE_PATH = path.join(__dirname, '../src/mocks.ts');
 const ALBUM_IDS = ['4ZaAM16hw3xpp680FJahJJ'];
-const PLAYLIST_IDS = ['3W6LV9vlZ7fURhLmHqjBlM'];
+const USER_IDS = ['31qgjbmjlo4t75pyq6mjqfbl7nja'];
+const PLAYLIST_IDS = [
+  '3W6LV9vlZ7fURhLmHqjBlM',
+  '748GuzX7eACeswGoJt6hOw',
+  '6AYofvO5tp5PnDYNAee45O',
+  '4qP1j7LvQSAfNxs9iRei0W',
+];
 const TRACK_IDS = [
   '5kBAk4dSQX4aXbTqjaPvF6', //Space Oddity
   '683hRieVmYdAhVA1DkjSAk', //Space Jam
@@ -49,6 +55,14 @@ const TRACK_IDS = [
   '5xYZXIgVAND5sWjN8G0hID', //Go!
   '5ERrJuNLnmHj525ooOKyqJ', //Tomorrow - The Race For Space Start End
 ];
+const EPISODE_IDS = [
+  '1Wq3HgaoISjc9ZUmXdbaSK',
+  '53GQ1LSSLptukYmHW96UQe',
+  '5zOi1QrfEldKskg9MnW7tQ',
+  '2nuhXq3YEQAI8BCDN6Dzex',
+  '2Mmay1mmdUm9X6bjQVV6PE',
+  '3PeTcQOTOTpWoz6zYxZ3qP',
+];
 
 if (!accessToken) {
   throw new Error('Please set a valid access as the `AUTH` env var');
@@ -57,17 +71,23 @@ if (!accessToken) {
 interface DataStore {
   albums: Record<string, Spotify.Object.Album>;
   artists: Record<string, Spotify.Object.Artist>;
+  episodes: Record<string, Spotify.Object.Episode>;
   playlists: Record<string, Spotify.Object.Playlist>;
   tracks: Record<string, Spotify.Object.Track>;
   genres: string[];
+  shows: Record<string, Spotify.Object.Show>;
+  users: Record<string, Spotify.Object.User>;
 }
 
 const store: DataStore = {
   albums: {},
   artists: {},
+  episodes: {},
   playlists: {},
   tracks: {},
   genres: [],
+  shows: {},
+  users: {},
 };
 
 async function main() {
@@ -83,6 +103,14 @@ async function main() {
     await getAlbum(id);
   }
 
+  for (const id of USER_IDS) {
+    await getUser(id);
+  }
+
+  for (const id of EPISODE_IDS) {
+    await getEpisode(id);
+  }
+
   store.genres = await getGenres();
 
   const content = `import { Spotify } from 'spotify-api';
@@ -90,9 +118,12 @@ async function main() {
 export const mocks: {
   albums: Record<string, Spotify.Object.Album>;
   artists: Record<string, Spotify.Object.Artist>;
+  episodes: Record<string, Spotify.Object.Episode>;
   playlists: Record<string, Spotify.Object.Playlist>;
   tracks: Record<string, Spotify.Object.Track>;
   genres: string[];
+  users: Record<string, Spotify.Object.User>;
+  shows: Record<string, Spotify.Object.Show>;
 } = ${JSON.stringify(store, null, 2)}`;
 
   writeFileSync(FILE_PATH, await format(content, { parser: 'typescript' }), {
@@ -126,6 +157,10 @@ async function getArtist(id: string) {
   return (store.artists[id] ||= await get('/artists/:id', { id }));
 }
 
+async function getUser(id: string) {
+  return (store.users[id] ||= await get('/users/:id', { id }));
+}
+
 async function getTrack(id: string) {
   return tap(
     (store.tracks[id] ||= await get('/tracks/:id', { id })),
@@ -133,6 +168,19 @@ async function getTrack(id: string) {
       await Promise.all(track.artists.map((artist) => getArtist(artist.id)));
     }
   );
+}
+
+async function getEpisode(id: string) {
+  return tap(
+    (store.episodes[id] ||= await get('/episodes/:id', { id })),
+    async (episode) => {
+      await getShow(episode.show.id);
+    }
+  );
+}
+
+async function getShow(id: string) {
+  return (store.shows[id] ||= await get('/shows/:id', { id }));
 }
 
 async function get<Pathname extends keyof Spotify.Response.GET>(

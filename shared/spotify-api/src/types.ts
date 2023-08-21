@@ -195,6 +195,12 @@ export namespace Spotify {
       images: Image[];
       is_externally_hosted: boolean;
       is_playable: boolean;
+      /**
+       * The language used in the episode, identified by a {@link https://en.wikipedia.org/wiki/ISO_639 | ISO 639} code.
+       *
+       * @deprecated This field is deprecated and might be removed in the future. Please use the `languages` field instead.
+       */
+      language: string;
       languages: string[];
       name: string;
       release_date: string;
@@ -217,6 +223,12 @@ export namespace Spotify {
       images: Image[];
       is_externally_hosted: boolean;
       is_playable: boolean;
+      /**
+       * The language used in the episode, identified by a {@link https://en.wikipedia.org/wiki/ISO_639 | ISO 639} code.
+       *
+       * @deprecated This field is deprecated and might be removed in the future. Please use the `languages` field instead.
+       */
+      language: string;
       languages: string[];
       name: string;
       release_date: string;
@@ -350,7 +362,7 @@ export namespace Spotify {
       available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
-      episode: false;
+      episode: boolean;
       explicit: boolean;
       external_ids: ExternalId;
       external_urls: ExternalUrl;
@@ -363,7 +375,7 @@ export namespace Spotify {
       popularity: number;
       preview_url: string | null;
       restrictions?: Restrictions;
-      track: true;
+      track: boolean;
       track_number: number;
       type: 'track';
       uri: string;
@@ -371,11 +383,11 @@ export namespace Spotify {
 
     export interface PlaylistEpisodeItem {
       album: PlaylistEpisodeShow;
-      artist: PlaylistEpisodeArtist[];
+      artists: PlaylistEpisodeArtist[];
       available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
-      episode: true;
+      episode: boolean;
       explicit: boolean;
       external_ids: ExternalId;
       external_urls: ExternalUrl;
@@ -386,7 +398,7 @@ export namespace Spotify {
       name: string;
       popularity: number;
       preview_url: string;
-      track: false;
+      track: boolean;
       track_number: number;
       type: 'episode';
       uri: string;
@@ -502,6 +514,7 @@ export namespace Spotify {
       media_type: string;
       name: string;
       publisher: string;
+      total_episodes: number;
       type: 'show';
       uri: string;
     }
@@ -521,6 +534,7 @@ export namespace Spotify {
       media_type: string;
       name: string;
       publisher: string;
+      total_episodes: number;
       type: 'show';
       uri: string;
     }

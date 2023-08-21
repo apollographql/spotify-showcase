@@ -250,14 +250,28 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async getEpisode(id: string): Promise<Spotify.Object.Episode> {
-    throw new Error('Mock not implemented.');
+    const episode = mocks.episodes[id];
+
+    if (episode) {
+      return episode;
+    }
+
+    throw new GraphQLError('invalid id', {
+      extensions: {
+        code: 'BAD_USER_INPUT',
+      },
+    });
   }
 
   async getEpisodes(params: {
     ids: string;
     market?: string;
   }): Promise<Spotify.Object.List<'episodes', Spotify.Object.Episode>> {
-    throw new Error('Mock not implemented.');
+    return {
+      episodes: Object.values(mocks.episodes).filter((episode) =>
+        params.ids.split(',').includes(episode.id)
+      ),
+    };
   }
 
   async getFollowed(params: {
@@ -283,7 +297,12 @@ export class MockSpotifyClient implements SpotifyDataSource {
     ids: string;
     market?: string;
   }): Promise<Spotify.Object.List<'shows', Spotify.Object.Show>> {
-    return { shows: [] };
+    return {
+      shows: params.ids
+        .split(',')
+        .map((id) => mocks.shows[id])
+        .filter(Boolean),
+    };
   }
 
   async getRecommendations(params: {
@@ -451,14 +470,27 @@ export class MockSpotifyClient implements SpotifyDataSource {
     };
   }
 
-  async getFeaturedPlaylists(params: {
+  async getFeaturedPlaylists(_params: {
     limit?: number;
     offset?: number;
     timestamp?: string;
   }): Promise<Spotify.Object.FeaturedPlaylists> {
+    const items: Spotify.Object.PlaylistSimplified[] = Object.values(
+      mocks.playlists
+    ).map((playlist) => {
+      return { ...playlist, owner: mocks.users[playlist.owner.id] };
+    });
     return {
-      message: 'Currently no featured playlists',
-      playlists: emptyPaginated,
+      message: 'Featured playlists',
+      playlists: {
+        items,
+        href: '',
+        limit: 0,
+        next: null,
+        offset: 0,
+        previous: null,
+        total: 0,
+      },
     };
   }
 
@@ -511,9 +543,9 @@ export class MockSpotifyClient implements SpotifyDataSource {
 
   async getPlaylistTracks(
     id: string,
-    params: { limit?: number; offset?: number }
+    _params: { limit?: number; offset?: number }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.PlaylistTrack>> {
-    return mocks.playlists[id]?.tracks;
+    return mocks.playlists[id].tracks;
   }
 
   async getRecentlyPlayed(params?: {
@@ -532,14 +564,14 @@ export class MockSpotifyClient implements SpotifyDataSource {
   }
 
   async getShow(id: string): Promise<Spotify.Object.Show> {
-    throw new Error('Mock not implemented.');
+    return mocks.shows[id];
   }
 
   async getShowEpisodes(
     showId: string,
-    params: { limit?: number; offset?: number }
+    _params: { limit?: number; offset?: number }
   ): Promise<Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>> {
-    return emptyPaginated;
+    return mocks.shows[showId].episodes;
   }
 
   async getTrack(
