@@ -97,7 +97,7 @@ export const mocks: {
             is_local: false,
             name: 'The Race For Space',
             preview_url:
-              'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 1,
             type: 'track',
             uri: 'spotify:track:1FqK4gHPyrnwo2kQLOuw6J',
@@ -128,7 +128,7 @@ export const mocks: {
             is_local: false,
             name: 'Sputnik',
             preview_url:
-              'https://p.scdn.co/mp3-preview/f88f7df964974222d5f02ce255d5ad5abfd00ab4?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/f88f7df964974222d5f02ce255d5ad5abfd00ab4?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 2,
             type: 'track',
             uri: 'spotify:track:1VxR4vZ2wpdBYvQrJatMrx',
@@ -159,7 +159,7 @@ export const mocks: {
             is_local: false,
             name: 'Gagarin',
             preview_url:
-              'https://p.scdn.co/mp3-preview/d07e163d50e1cd061f63d8613155458240dcbf8c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/d07e163d50e1cd061f63d8613155458240dcbf8c?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 3,
             type: 'track',
             uri: 'spotify:track:7voASF1yQMRlAwNJS3pemX',
@@ -190,7 +190,7 @@ export const mocks: {
             is_local: false,
             name: 'Fire In The Cockpit',
             preview_url:
-              'https://p.scdn.co/mp3-preview/1c9fee92d83b86fd0ca2c597efb40658eb569eee?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/1c9fee92d83b86fd0ca2c597efb40658eb569eee?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 4,
             type: 'track',
             uri: 'spotify:track:7wC8NjlDkefVfNRO34Yb1W',
@@ -221,7 +221,7 @@ export const mocks: {
             is_local: false,
             name: 'E.V.A.',
             preview_url:
-              'https://p.scdn.co/mp3-preview/cdbf77294ddaf3d13d7f4423e7d1024522398e91?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/cdbf77294ddaf3d13d7f4423e7d1024522398e91?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 5,
             type: 'track',
             uri: 'spotify:track:0X8ewj5V8wVpCUmCjdLeqw',
@@ -252,7 +252,7 @@ export const mocks: {
             is_local: false,
             name: 'The Other Side',
             preview_url:
-              'https://p.scdn.co/mp3-preview/77768b7834f18acc98071b64ec97ce07c338850e?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/77768b7834f18acc98071b64ec97ce07c338850e?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 6,
             type: 'track',
             uri: 'spotify:track:5sKihjG4Uveox2Tc5JzFPc',
@@ -283,7 +283,7 @@ export const mocks: {
             is_local: false,
             name: 'Valentina',
             preview_url:
-              'https://p.scdn.co/mp3-preview/12bedf34e3e8d44dfa25859bffb45c4a24d4153c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/12bedf34e3e8d44dfa25859bffb45c4a24d4153c?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 7,
             type: 'track',
             uri: 'spotify:track:5jR9aQAJLduNhbTl4nuyfz',
@@ -314,7 +314,7 @@ export const mocks: {
             is_local: false,
             name: 'Go!',
             preview_url:
-              'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 8,
             type: 'track',
             uri: 'spotify:track:6FttZyUJKD3aSZaKkEv7gK',
@@ -345,7 +345,7 @@ export const mocks: {
             is_local: false,
             name: 'Tomorrow',
             preview_url:
-              'https://p.scdn.co/mp3-preview/680fe2546c59ce42833fa2cd7d812e5084102fd1?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+              'https://p.scdn.co/mp3-preview/680fe2546c59ce42833fa2cd7d812e5084102fd1?cid=2254dce9797a4e91880c97b856207f8c',
             track_number: 9,
             type: 'track',
             uri: 'spotify:track:3grjVTs1SI2XYGHI4A27ic',
@@ -368,7 +368,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 11704,
+        total: 11712,
       },
       genres: [],
       href: 'https://api.spotify.com/v1/artists/4Y5X8SqUVCXq9jIlg7DWKV',
@@ -406,7 +406,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 64992,
+        total: 65129,
       },
       genres: ['miami bass'],
       href: 'https://api.spotify.com/v1/artists/4mar1GMMEhvGyJdWagu6KS',
@@ -439,7 +439,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 1351949,
+        total: 1354849,
       },
       genres: ['mpb', 'samba-rock'],
       href: 'https://api.spotify.com/v1/artists/0i1s9WcIu0PrUvHzALgofo',
@@ -499,51 +499,13 @@ export const mocks: {
       type: 'artist',
       uri: 'spotify:artist:7l8Mi6perqO0yDVBcEEwTm',
     },
-    '1KP6TWI40m7p3QBTU6u2xo': {
-      external_urls: {
-        spotify: 'https://open.spotify.com/artist/1KP6TWI40m7p3QBTU6u2xo',
-      },
-      followers: {
-        href: null,
-        total: 1179996,
-      },
-      genres: [
-        'indie poptimism',
-        'modern alternative rock',
-        'modern rock',
-        'pov: indie',
-      ],
-      href: 'https://api.spotify.com/v1/artists/1KP6TWI40m7p3QBTU6u2xo',
-      id: '1KP6TWI40m7p3QBTU6u2xo',
-      images: [
-        {
-          height: 640,
-          url: 'https://i.scdn.co/image/ab6761610000e5ebd7958f2550c9fa80ad9028e2',
-          width: 640,
-        },
-        {
-          height: 320,
-          url: 'https://i.scdn.co/image/ab67616100005174d7958f2550c9fa80ad9028e2',
-          width: 320,
-        },
-        {
-          height: 160,
-          url: 'https://i.scdn.co/image/ab6761610000f178d7958f2550c9fa80ad9028e2',
-          width: 160,
-        },
-      ],
-      name: 'BØRNS',
-      popularity: 66,
-      type: 'artist',
-      uri: 'spotify:artist:1KP6TWI40m7p3QBTU6u2xo',
-    },
     '4Z8W4fKeB5YxbusRsdQVPb': {
       external_urls: {
         spotify: 'https://open.spotify.com/artist/4Z8W4fKeB5YxbusRsdQVPb',
       },
       followers: {
         href: null,
-        total: 8555981,
+        total: 8578130,
       },
       genres: [
         'alternative rock',
@@ -577,13 +539,51 @@ export const mocks: {
       type: 'artist',
       uri: 'spotify:artist:4Z8W4fKeB5YxbusRsdQVPb',
     },
+    '1KP6TWI40m7p3QBTU6u2xo': {
+      external_urls: {
+        spotify: 'https://open.spotify.com/artist/1KP6TWI40m7p3QBTU6u2xo',
+      },
+      followers: {
+        href: null,
+        total: 1181924,
+      },
+      genres: [
+        'indie poptimism',
+        'modern alternative rock',
+        'modern rock',
+        'pov: indie',
+      ],
+      href: 'https://api.spotify.com/v1/artists/1KP6TWI40m7p3QBTU6u2xo',
+      id: '1KP6TWI40m7p3QBTU6u2xo',
+      images: [
+        {
+          height: 640,
+          url: 'https://i.scdn.co/image/ab6761610000e5ebd7958f2550c9fa80ad9028e2',
+          width: 640,
+        },
+        {
+          height: 320,
+          url: 'https://i.scdn.co/image/ab67616100005174d7958f2550c9fa80ad9028e2',
+          width: 320,
+        },
+        {
+          height: 160,
+          url: 'https://i.scdn.co/image/ab6761610000f178d7958f2550c9fa80ad9028e2',
+          width: 160,
+        },
+      ],
+      name: 'BØRNS',
+      popularity: 66,
+      type: 'artist',
+      uri: 'spotify:artist:1KP6TWI40m7p3QBTU6u2xo',
+    },
     '5xUf6j4upBrXZPg6AI4MRK': {
       external_urls: {
         spotify: 'https://open.spotify.com/artist/5xUf6j4upBrXZPg6AI4MRK',
       },
       followers: {
         href: null,
-        total: 4098436,
+        total: 4105033,
       },
       genres: [
         'alternative metal',
@@ -624,7 +624,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 594497,
+        total: 595009,
       },
       genres: [
         'alternative dance',
@@ -671,7 +671,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 710262,
+        total: 720294,
       },
       genres: ['electra', 'float house'],
       href: 'https://api.spotify.com/v1/artists/2mLA48B366zkELXYx7hcDN',
@@ -704,7 +704,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 19451431,
+        total: 19478768,
       },
       genres: [
         'album rock',
@@ -750,7 +750,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 270846,
+        total: 271139,
       },
       genres: ['alternative r&b', 'indie soul'],
       href: 'https://api.spotify.com/v1/artists/0oBsnAC3fzYkTHF3bkfNx6',
@@ -783,7 +783,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 7637327,
+        total: 7645091,
       },
       genres: ['alternative rock', 'modern rock', 'permanent wave', 'rock'],
       href: 'https://api.spotify.com/v1/artists/12Chz98pHFMPJEknJQMWvI',
@@ -806,7 +806,7 @@ export const mocks: {
         },
       ],
       name: 'Muse',
-      popularity: 74,
+      popularity: 73,
       type: 'artist',
       uri: 'spotify:artist:12Chz98pHFMPJEknJQMWvI',
     },
@@ -816,7 +816,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 209068,
+        total: 209379,
       },
       genres: [
         'la indie',
@@ -854,7 +854,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 739950,
+        total: 741416,
       },
       genres: ['british folk', 'folk', 'melancholia', 'singer-songwriter'],
       href: 'https://api.spotify.com/v1/artists/5c3GLXai8YOMid29ZEuR9y',
@@ -892,7 +892,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 399897,
+        total: 400416,
       },
       genres: ['new americana', 'retro soul'],
       href: 'https://api.spotify.com/v1/artists/4fXkvh05wFhuH77MfD4m9o',
@@ -925,7 +925,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 3107769,
+        total: 3115091,
       },
       genres: ['art pop', 'norwegian pop'],
       href: 'https://api.spotify.com/v1/artists/1WgXqy2Dd70QQOU7Ay074N',
@@ -958,7 +958,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 458814,
+        total: 459249,
       },
       genres: ['boy band', 'talent show'],
       href: 'https://api.spotify.com/v1/artists/47izDDvtOxxz3FzHYuUptd',
@@ -991,7 +991,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 378814,
+        total: 380126,
       },
       genres: ['art pop', 'chamber pop', 'experimental folk', 'indie pop'],
       href: 'https://api.spotify.com/v1/artists/3Uqu1mEdkUJxPe7s31n1M9',
@@ -1024,7 +1024,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 149363,
+        total: 149531,
       },
       genres: ['chamber psych', 'scottish rock'],
       href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
@@ -1057,7 +1057,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 497661,
+        total: 498735,
       },
       genres: [
         'art pop',
@@ -1100,7 +1100,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 72125,
+        total: 72516,
       },
       genres: ['phoenix indie'],
       href: 'https://api.spotify.com/v1/artists/1N1JZ3SRv6PSzAsOEW2aZp',
@@ -1133,7 +1133,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 3445679,
+        total: 3454107,
       },
       genres: ['german soundtrack', 'orchestral soundtrack', 'soundtrack'],
       href: 'https://api.spotify.com/v1/artists/0YC192cP3KPCRWx8zr8MfZ',
@@ -1166,7 +1166,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 121504,
+        total: 121686,
       },
       genres: ['british soundtrack', 'orchestral soundtrack', 'soundtrack'],
       href: 'https://api.spotify.com/v1/artists/1BxqJ6pOCi8mkSjCbFYjpW',
@@ -1204,7 +1204,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 208843,
+        total: 209594,
       },
       genres: ['meme'],
       href: 'https://api.spotify.com/v1/artists/4fSMtiyC6lF5BUO1tUMWMs',
@@ -1237,7 +1237,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 333580,
+        total: 333890,
       },
       genres: [
         'big band',
@@ -1282,7 +1282,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 6495855,
+        total: 6507848,
       },
       genres: ['adult standards', 'easy listening', 'lounge'],
       href: 'https://api.spotify.com/v1/artists/1Mxqyy3pSjf8kZZL4QVxS0',
@@ -1310,7 +1310,7 @@ export const mocks: {
         },
       ],
       name: 'Frank Sinatra',
-      popularity: 73,
+      popularity: 74,
       type: 'artist',
       uri: 'spotify:artist:1Mxqyy3pSjf8kZZL4QVxS0',
     },
@@ -1320,7 +1320,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 9588232,
+        total: 9598704,
       },
       genres: ['electro', 'filter house', 'rock'],
       href: 'https://api.spotify.com/v1/artists/4tZwfgrHOc3mvqYlEYSvVi',
@@ -1353,7 +1353,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 621011,
+        total: 621720,
       },
       genres: [
         'american post-rock',
@@ -1392,7 +1392,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 14080,
+        total: 14109,
       },
       genres: [
         'atmospheric post-rock',
@@ -1430,7 +1430,7 @@ export const mocks: {
       },
       followers: {
         href: null,
-        total: 9887,
+        total: 9891,
       },
       genres: ['modern folk rock'],
       href: 'https://api.spotify.com/v1/artists/7wbZFLV3wwTqyrKNCJ8Y8D',
@@ -1462,7 +1462,6 @@ export const mocks: {
     '1Wq3HgaoISjc9ZUmXdbaSK': {
       audio_preview_url:
         'https://podz-content.spotifycdn.com/audio/clips/7B95PnkRlqf3DH8mRn6be9/clip_281015_341015.mp3',
-      content_type: 'PODCAST_EPISODE',
       description:
         'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
       duration_ms: 3202844,
@@ -1492,7 +1491,6 @@ export const mocks: {
         },
       ],
       is_externally_hosted: false,
-      is_paywall_content: false,
       is_playable: true,
       language: 'en',
       languages: ['en'],
@@ -1653,304 +1651,6 @@ export const mocks: {
         copyrights: [],
         description:
           "Apollonauts discuss GraphQL APIs, both what we're building and what we see in the community.",
-        episodes: {
-          href: 'https://api.spotify.com/v1/shows/22ZdnFXLzdXDEmv8vpyPyD/episodes?offset=0&limit=50',
-          items: [
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/84e2c21a8ea52ef54ba45eff08216d5cb0fd0c62',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
-              duration_ms: 3203053,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/53GQ1LSSLptukYmHW96UQe',
-              },
-              href: 'https://api.spotify.com/v1/episodes/53GQ1LSSLptukYmHW96UQe',
-              html_description:
-                '<p>Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a>.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/docs/react/data/suspense⁠" rel="nofollow">Apollo Client Suspense docs</a></li><li><a href="https://github.com/apollographql/spotify-showcase⁠" rel="nofollow">Spotify showcase</a></li><li><a href="https://github.com/apollographql/apollo-client/releases/tag/v3.8.0⁠" rel="nofollow">Apollo Client 3.8 release notes</a></li><li><a href="https://www.apollographql.com/blog/apollo-client/introducing-apollo-clients-nonreactive-directive-and-usefragment-hook/⁠" rel="nofollow">&#64;nonreactive blog post</a></li><li><a href="https://github.com/apollographql/apollo-feature-requests⁠" rel="nofollow">Apollo Feature Requests repo</a></li></ul><br/><p>Topics:</p><br/><ul><li>React suspense</li><li>React lazy and code splitting</li><li>useSuspenseQuery</li><li>useBackgroundQuery &amp; useReadQuery</li><li>Apollo Spotify showcase</li><li>Apollo Client 3.8</li><li>Document transforms</li></ul>',
-              id: '53GQ1LSSLptukYmHW96UQe',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Jerel Miller',
-              release_date: '2023-07-25',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/d76b7268d3f56141b9cf4209f5c83917b829ea9c',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
-              duration_ms: 2728298,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2nuhXq3YEQAI8BCDN6Dzex',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2nuhXq3YEQAI8BCDN6Dzex',
-              html_description:
-                '<p>Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a> on July 3, 2023.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/announcing-the-apollo-kotlin-plugin-for-android-studio-and-intellij-idea/⁠" rel="nofollow">JetBrains Plugin Announcement</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues?q&#61;is%3Aissue&#43;is%3Aopen&#43;label%3A%22%3Ajigsaw%3A&#43;IJ%2FAS&#43;plugin%22⁠" rel="nofollow">JetBrains Plugin GitHub Issues</a></li><li><a href="https://slack-chats.kotlinlang.org/c/apollo-kotlin⁠" rel="nofollow">Apollo Kotlin Slack</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues/4711⁠" rel="nofollow">4.0 Error handling issue</a></li><li><a href="https://www.apollographql.com/docs/kotlin/tutorial/00-introduction⁠" rel="nofollow">Apollo Kotlin tutorial</a></li><li><a href="https://jraf.org⁠" rel="nofollow">Benoit’s website</a></li></ul><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Android Studio and IntelliJ IDEA Plugin</li><li>Apollo Kotlin 4.0</li><li>Jetpack Compose</li><li>Gradle Enterprise</li><li>&#64;defer</li><li>Google I/O 2023</li></ul>',
-              id: '2nuhXq3YEQAI8BCDN6Dzex',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Benoit Lubek',
-              release_date: '2023-07-03',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2nuhXq3YEQAI8BCDN6Dzex',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/5973b17ac1192a3467d8a4b3beaeab0e3bb91b0e',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
-              duration_ms: 2781379,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/3PeTcQOTOTpWoz6zYxZ3qP',
-              },
-              href: 'https://api.spotify.com/v1/episodes/3PeTcQOTOTpWoz6zYxZ3qP',
-              html_description:
-                '<p>Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-06-16.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/office-hours-apollo-ios-16-june-2023/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li><li><a href="https://github.com/apollographql/apollo-ios/issues/3078" rel="nofollow">WWDC &#39;23 Megathread</a></li></ul><br/><p>Topics:</p><br/><ul><li>Defer directive</li><li>Directives refresher</li><li>Apollo iOS 1.2</li><li>New codegen configuration option</li><li>Migration guide and breaking changes</li><li>Initializers and test mocks</li><li>Raw JSON vs models</li><li>Custom scalars</li><li>WWDC</li><li>Apple Vision Pro</li><li>Supporting Mac, Apple Watch, and more</li></ul>',
-              id: '3PeTcQOTOTpWoz6zYxZ3qP',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Calvin Cestari',
-              release_date: '2023-06-16',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:3PeTcQOTOTpWoz6zYxZ3qP',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/afef211a0ad43d67abcfe75b9a292bba96af031a',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
-              duration_ms: 3202844,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/1Wq3HgaoISjc9ZUmXdbaSK',
-              },
-              href: 'https://api.spotify.com/v1/episodes/1Wq3HgaoISjc9ZUmXdbaSK',
-              html_description:
-                '<p>Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-30.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/apollo-client/office-hours-apollo-client/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/react/" rel="nofollow">Apollo Client</a></li><li><a href="https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html" rel="nofollow">React Server Components</a></li><li><a href="https://github.com/apollographql/apollo-client-nextjs" rel="nofollow">Apollo Client Next.js</a></li></ul><br/><p>Topics:</p><br/><ul><li>Caching in Apollo Client</li><li>Cache Metrics</li><li>React Server Components</li><li>Apollo Client 3.8</li><li>How to contact us</li><li>Apollo Client and React Native</li></ul>',
-              id: '1Wq3HgaoISjc9ZUmXdbaSK',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Lenz Weber-Tronic',
-              release_date: '2023-05-30',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:1Wq3HgaoISjc9ZUmXdbaSK',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/6311283c57a1504cbe569b78650e481fe285feab',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
-              duration_ms: 2923554,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/5zOi1QrfEldKskg9MnW7tQ',
-              },
-              href: 'https://api.spotify.com/v1/episodes/5zOi1QrfEldKskg9MnW7tQ',
-              html_description:
-                '<p>Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-10.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/office-hours-apollo-kotlin/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/kotlin/" rel="nofollow">Apollo Kotlin</a></li><li><a href="https://github.com/joreilly/Confetti" rel="nofollow">Confetti</a></li></ul><br/><p>Topics:</p><br/><ul><li>Normalized Cache</li><li>Jetpack compose</li><li>Confetti</li><li>Optimistic updates</li><li>Java Support</li><li>WASM</li></ul>',
-              id: '5zOi1QrfEldKskg9MnW7tQ',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Martin Bonnin',
-              release_date: '2023-05-10',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:5zOi1QrfEldKskg9MnW7tQ',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/184c59a19e2bc34f37e5d703788f883567410e39',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
-              duration_ms: 3511785,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2Mmay1mmdUm9X6bjQVV6PE',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2Mmay1mmdUm9X6bjQVV6PE',
-              html_description:
-                '<p>Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">⁠Apollo&#39;s Discord⁠</a> on 2023-04-20.</p><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Migrating to 1.0</li><li>What will 2.0 be like?</li><li>Generating models</li><li>Community feedback</li><li>Codable protocol</li><li>GraphQL Nullable</li><li>&#64;exported</li><li>&#64;defer</li><li>Scalars</li></ul><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/ios/office-hours-apollo-ios/" rel="nofollow">Full Transcript</a></li></ul><br/><ul><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li></ul>',
-              id: '2Mmay1mmdUm9X6bjQVV6PE',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Anthony Miller',
-              release_date: '2023-04-20',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 6000,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
-            },
-          ],
-          limit: 50,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 6,
-        },
         explicit: false,
         external_urls: {
           spotify: 'https://open.spotify.com/show/22ZdnFXLzdXDEmv8vpyPyD',
@@ -1991,7 +1691,6 @@ export const mocks: {
     '53GQ1LSSLptukYmHW96UQe': {
       audio_preview_url:
         'https://podz-content.spotifycdn.com/audio/clips/6VKKYCFQPZVwASv2Jaa48b/clip_203248_263248.mp3',
-      content_type: 'PODCAST_EPISODE',
       description:
         'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
       duration_ms: 3203053,
@@ -2021,7 +1720,6 @@ export const mocks: {
         },
       ],
       is_externally_hosted: false,
-      is_paywall_content: false,
       is_playable: true,
       language: 'en',
       languages: ['en'],
@@ -2030,7 +1728,7 @@ export const mocks: {
       release_date_precision: 'day',
       resume_point: {
         fully_played: false,
-        resume_position_ms: 0,
+        resume_position_ms: 4000,
       },
       show: {
         available_markets: [
@@ -2182,304 +1880,6 @@ export const mocks: {
         copyrights: [],
         description:
           "Apollonauts discuss GraphQL APIs, both what we're building and what we see in the community.",
-        episodes: {
-          href: 'https://api.spotify.com/v1/shows/22ZdnFXLzdXDEmv8vpyPyD/episodes?offset=0&limit=50',
-          items: [
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/84e2c21a8ea52ef54ba45eff08216d5cb0fd0c62',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
-              duration_ms: 3203053,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/53GQ1LSSLptukYmHW96UQe',
-              },
-              href: 'https://api.spotify.com/v1/episodes/53GQ1LSSLptukYmHW96UQe',
-              html_description:
-                '<p>Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a>.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/docs/react/data/suspense⁠" rel="nofollow">Apollo Client Suspense docs</a></li><li><a href="https://github.com/apollographql/spotify-showcase⁠" rel="nofollow">Spotify showcase</a></li><li><a href="https://github.com/apollographql/apollo-client/releases/tag/v3.8.0⁠" rel="nofollow">Apollo Client 3.8 release notes</a></li><li><a href="https://www.apollographql.com/blog/apollo-client/introducing-apollo-clients-nonreactive-directive-and-usefragment-hook/⁠" rel="nofollow">&#64;nonreactive blog post</a></li><li><a href="https://github.com/apollographql/apollo-feature-requests⁠" rel="nofollow">Apollo Feature Requests repo</a></li></ul><br/><p>Topics:</p><br/><ul><li>React suspense</li><li>React lazy and code splitting</li><li>useSuspenseQuery</li><li>useBackgroundQuery &amp; useReadQuery</li><li>Apollo Spotify showcase</li><li>Apollo Client 3.8</li><li>Document transforms</li></ul>',
-              id: '53GQ1LSSLptukYmHW96UQe',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Jerel Miller',
-              release_date: '2023-07-25',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/d76b7268d3f56141b9cf4209f5c83917b829ea9c',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
-              duration_ms: 2728298,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2nuhXq3YEQAI8BCDN6Dzex',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2nuhXq3YEQAI8BCDN6Dzex',
-              html_description:
-                '<p>Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a> on July 3, 2023.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/announcing-the-apollo-kotlin-plugin-for-android-studio-and-intellij-idea/⁠" rel="nofollow">JetBrains Plugin Announcement</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues?q&#61;is%3Aissue&#43;is%3Aopen&#43;label%3A%22%3Ajigsaw%3A&#43;IJ%2FAS&#43;plugin%22⁠" rel="nofollow">JetBrains Plugin GitHub Issues</a></li><li><a href="https://slack-chats.kotlinlang.org/c/apollo-kotlin⁠" rel="nofollow">Apollo Kotlin Slack</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues/4711⁠" rel="nofollow">4.0 Error handling issue</a></li><li><a href="https://www.apollographql.com/docs/kotlin/tutorial/00-introduction⁠" rel="nofollow">Apollo Kotlin tutorial</a></li><li><a href="https://jraf.org⁠" rel="nofollow">Benoit’s website</a></li></ul><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Android Studio and IntelliJ IDEA Plugin</li><li>Apollo Kotlin 4.0</li><li>Jetpack Compose</li><li>Gradle Enterprise</li><li>&#64;defer</li><li>Google I/O 2023</li></ul>',
-              id: '2nuhXq3YEQAI8BCDN6Dzex',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Benoit Lubek',
-              release_date: '2023-07-03',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2nuhXq3YEQAI8BCDN6Dzex',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/5973b17ac1192a3467d8a4b3beaeab0e3bb91b0e',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
-              duration_ms: 2781379,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/3PeTcQOTOTpWoz6zYxZ3qP',
-              },
-              href: 'https://api.spotify.com/v1/episodes/3PeTcQOTOTpWoz6zYxZ3qP',
-              html_description:
-                '<p>Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-06-16.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/office-hours-apollo-ios-16-june-2023/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li><li><a href="https://github.com/apollographql/apollo-ios/issues/3078" rel="nofollow">WWDC &#39;23 Megathread</a></li></ul><br/><p>Topics:</p><br/><ul><li>Defer directive</li><li>Directives refresher</li><li>Apollo iOS 1.2</li><li>New codegen configuration option</li><li>Migration guide and breaking changes</li><li>Initializers and test mocks</li><li>Raw JSON vs models</li><li>Custom scalars</li><li>WWDC</li><li>Apple Vision Pro</li><li>Supporting Mac, Apple Watch, and more</li></ul>',
-              id: '3PeTcQOTOTpWoz6zYxZ3qP',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Calvin Cestari',
-              release_date: '2023-06-16',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:3PeTcQOTOTpWoz6zYxZ3qP',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/afef211a0ad43d67abcfe75b9a292bba96af031a',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
-              duration_ms: 3202844,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/1Wq3HgaoISjc9ZUmXdbaSK',
-              },
-              href: 'https://api.spotify.com/v1/episodes/1Wq3HgaoISjc9ZUmXdbaSK',
-              html_description:
-                '<p>Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-30.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/apollo-client/office-hours-apollo-client/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/react/" rel="nofollow">Apollo Client</a></li><li><a href="https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html" rel="nofollow">React Server Components</a></li><li><a href="https://github.com/apollographql/apollo-client-nextjs" rel="nofollow">Apollo Client Next.js</a></li></ul><br/><p>Topics:</p><br/><ul><li>Caching in Apollo Client</li><li>Cache Metrics</li><li>React Server Components</li><li>Apollo Client 3.8</li><li>How to contact us</li><li>Apollo Client and React Native</li></ul>',
-              id: '1Wq3HgaoISjc9ZUmXdbaSK',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Lenz Weber-Tronic',
-              release_date: '2023-05-30',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:1Wq3HgaoISjc9ZUmXdbaSK',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/6311283c57a1504cbe569b78650e481fe285feab',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
-              duration_ms: 2923554,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/5zOi1QrfEldKskg9MnW7tQ',
-              },
-              href: 'https://api.spotify.com/v1/episodes/5zOi1QrfEldKskg9MnW7tQ',
-              html_description:
-                '<p>Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-10.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/office-hours-apollo-kotlin/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/kotlin/" rel="nofollow">Apollo Kotlin</a></li><li><a href="https://github.com/joreilly/Confetti" rel="nofollow">Confetti</a></li></ul><br/><p>Topics:</p><br/><ul><li>Normalized Cache</li><li>Jetpack compose</li><li>Confetti</li><li>Optimistic updates</li><li>Java Support</li><li>WASM</li></ul>',
-              id: '5zOi1QrfEldKskg9MnW7tQ',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Martin Bonnin',
-              release_date: '2023-05-10',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:5zOi1QrfEldKskg9MnW7tQ',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/184c59a19e2bc34f37e5d703788f883567410e39',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
-              duration_ms: 3511785,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2Mmay1mmdUm9X6bjQVV6PE',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2Mmay1mmdUm9X6bjQVV6PE',
-              html_description:
-                '<p>Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">⁠Apollo&#39;s Discord⁠</a> on 2023-04-20.</p><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Migrating to 1.0</li><li>What will 2.0 be like?</li><li>Generating models</li><li>Community feedback</li><li>Codable protocol</li><li>GraphQL Nullable</li><li>&#64;exported</li><li>&#64;defer</li><li>Scalars</li></ul><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/ios/office-hours-apollo-ios/" rel="nofollow">Full Transcript</a></li></ul><br/><ul><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li></ul>',
-              id: '2Mmay1mmdUm9X6bjQVV6PE',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Anthony Miller',
-              release_date: '2023-04-20',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 6000,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
-            },
-          ],
-          limit: 50,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 6,
-        },
         explicit: false,
         external_urls: {
           spotify: 'https://open.spotify.com/show/22ZdnFXLzdXDEmv8vpyPyD',
@@ -2520,7 +1920,6 @@ export const mocks: {
     '5zOi1QrfEldKskg9MnW7tQ': {
       audio_preview_url:
         'https://podz-content.spotifycdn.com/audio/clips/0DtyVzU1608ummuAyl1C88/clip_424642_484642.mp3',
-      content_type: 'PODCAST_EPISODE',
       description:
         'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
       duration_ms: 2923554,
@@ -2550,7 +1949,6 @@ export const mocks: {
         },
       ],
       is_externally_hosted: false,
-      is_paywall_content: false,
       is_playable: true,
       language: 'en',
       languages: ['en'],
@@ -2711,304 +2109,6 @@ export const mocks: {
         copyrights: [],
         description:
           "Apollonauts discuss GraphQL APIs, both what we're building and what we see in the community.",
-        episodes: {
-          href: 'https://api.spotify.com/v1/shows/22ZdnFXLzdXDEmv8vpyPyD/episodes?offset=0&limit=50',
-          items: [
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/84e2c21a8ea52ef54ba45eff08216d5cb0fd0c62',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
-              duration_ms: 3203053,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/53GQ1LSSLptukYmHW96UQe',
-              },
-              href: 'https://api.spotify.com/v1/episodes/53GQ1LSSLptukYmHW96UQe',
-              html_description:
-                '<p>Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a>.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/docs/react/data/suspense⁠" rel="nofollow">Apollo Client Suspense docs</a></li><li><a href="https://github.com/apollographql/spotify-showcase⁠" rel="nofollow">Spotify showcase</a></li><li><a href="https://github.com/apollographql/apollo-client/releases/tag/v3.8.0⁠" rel="nofollow">Apollo Client 3.8 release notes</a></li><li><a href="https://www.apollographql.com/blog/apollo-client/introducing-apollo-clients-nonreactive-directive-and-usefragment-hook/⁠" rel="nofollow">&#64;nonreactive blog post</a></li><li><a href="https://github.com/apollographql/apollo-feature-requests⁠" rel="nofollow">Apollo Feature Requests repo</a></li></ul><br/><p>Topics:</p><br/><ul><li>React suspense</li><li>React lazy and code splitting</li><li>useSuspenseQuery</li><li>useBackgroundQuery &amp; useReadQuery</li><li>Apollo Spotify showcase</li><li>Apollo Client 3.8</li><li>Document transforms</li></ul>',
-              id: '53GQ1LSSLptukYmHW96UQe',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Jerel Miller',
-              release_date: '2023-07-25',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/d76b7268d3f56141b9cf4209f5c83917b829ea9c',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
-              duration_ms: 2728298,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2nuhXq3YEQAI8BCDN6Dzex',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2nuhXq3YEQAI8BCDN6Dzex',
-              html_description:
-                '<p>Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a> on July 3, 2023.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/announcing-the-apollo-kotlin-plugin-for-android-studio-and-intellij-idea/⁠" rel="nofollow">JetBrains Plugin Announcement</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues?q&#61;is%3Aissue&#43;is%3Aopen&#43;label%3A%22%3Ajigsaw%3A&#43;IJ%2FAS&#43;plugin%22⁠" rel="nofollow">JetBrains Plugin GitHub Issues</a></li><li><a href="https://slack-chats.kotlinlang.org/c/apollo-kotlin⁠" rel="nofollow">Apollo Kotlin Slack</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues/4711⁠" rel="nofollow">4.0 Error handling issue</a></li><li><a href="https://www.apollographql.com/docs/kotlin/tutorial/00-introduction⁠" rel="nofollow">Apollo Kotlin tutorial</a></li><li><a href="https://jraf.org⁠" rel="nofollow">Benoit’s website</a></li></ul><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Android Studio and IntelliJ IDEA Plugin</li><li>Apollo Kotlin 4.0</li><li>Jetpack Compose</li><li>Gradle Enterprise</li><li>&#64;defer</li><li>Google I/O 2023</li></ul>',
-              id: '2nuhXq3YEQAI8BCDN6Dzex',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Benoit Lubek',
-              release_date: '2023-07-03',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2nuhXq3YEQAI8BCDN6Dzex',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/5973b17ac1192a3467d8a4b3beaeab0e3bb91b0e',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
-              duration_ms: 2781379,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/3PeTcQOTOTpWoz6zYxZ3qP',
-              },
-              href: 'https://api.spotify.com/v1/episodes/3PeTcQOTOTpWoz6zYxZ3qP',
-              html_description:
-                '<p>Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-06-16.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/office-hours-apollo-ios-16-june-2023/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li><li><a href="https://github.com/apollographql/apollo-ios/issues/3078" rel="nofollow">WWDC &#39;23 Megathread</a></li></ul><br/><p>Topics:</p><br/><ul><li>Defer directive</li><li>Directives refresher</li><li>Apollo iOS 1.2</li><li>New codegen configuration option</li><li>Migration guide and breaking changes</li><li>Initializers and test mocks</li><li>Raw JSON vs models</li><li>Custom scalars</li><li>WWDC</li><li>Apple Vision Pro</li><li>Supporting Mac, Apple Watch, and more</li></ul>',
-              id: '3PeTcQOTOTpWoz6zYxZ3qP',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Calvin Cestari',
-              release_date: '2023-06-16',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:3PeTcQOTOTpWoz6zYxZ3qP',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/afef211a0ad43d67abcfe75b9a292bba96af031a',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
-              duration_ms: 3202844,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/1Wq3HgaoISjc9ZUmXdbaSK',
-              },
-              href: 'https://api.spotify.com/v1/episodes/1Wq3HgaoISjc9ZUmXdbaSK',
-              html_description:
-                '<p>Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-30.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/apollo-client/office-hours-apollo-client/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/react/" rel="nofollow">Apollo Client</a></li><li><a href="https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html" rel="nofollow">React Server Components</a></li><li><a href="https://github.com/apollographql/apollo-client-nextjs" rel="nofollow">Apollo Client Next.js</a></li></ul><br/><p>Topics:</p><br/><ul><li>Caching in Apollo Client</li><li>Cache Metrics</li><li>React Server Components</li><li>Apollo Client 3.8</li><li>How to contact us</li><li>Apollo Client and React Native</li></ul>',
-              id: '1Wq3HgaoISjc9ZUmXdbaSK',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Lenz Weber-Tronic',
-              release_date: '2023-05-30',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:1Wq3HgaoISjc9ZUmXdbaSK',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/6311283c57a1504cbe569b78650e481fe285feab',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
-              duration_ms: 2923554,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/5zOi1QrfEldKskg9MnW7tQ',
-              },
-              href: 'https://api.spotify.com/v1/episodes/5zOi1QrfEldKskg9MnW7tQ',
-              html_description:
-                '<p>Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-10.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/office-hours-apollo-kotlin/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/kotlin/" rel="nofollow">Apollo Kotlin</a></li><li><a href="https://github.com/joreilly/Confetti" rel="nofollow">Confetti</a></li></ul><br/><p>Topics:</p><br/><ul><li>Normalized Cache</li><li>Jetpack compose</li><li>Confetti</li><li>Optimistic updates</li><li>Java Support</li><li>WASM</li></ul>',
-              id: '5zOi1QrfEldKskg9MnW7tQ',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Martin Bonnin',
-              release_date: '2023-05-10',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:5zOi1QrfEldKskg9MnW7tQ',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/184c59a19e2bc34f37e5d703788f883567410e39',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
-              duration_ms: 3511785,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2Mmay1mmdUm9X6bjQVV6PE',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2Mmay1mmdUm9X6bjQVV6PE',
-              html_description:
-                '<p>Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">⁠Apollo&#39;s Discord⁠</a> on 2023-04-20.</p><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Migrating to 1.0</li><li>What will 2.0 be like?</li><li>Generating models</li><li>Community feedback</li><li>Codable protocol</li><li>GraphQL Nullable</li><li>&#64;exported</li><li>&#64;defer</li><li>Scalars</li></ul><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/ios/office-hours-apollo-ios/" rel="nofollow">Full Transcript</a></li></ul><br/><ul><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li></ul>',
-              id: '2Mmay1mmdUm9X6bjQVV6PE',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Anthony Miller',
-              release_date: '2023-04-20',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 6000,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
-            },
-          ],
-          limit: 50,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 6,
-        },
         explicit: false,
         external_urls: {
           spotify: 'https://open.spotify.com/show/22ZdnFXLzdXDEmv8vpyPyD',
@@ -3049,7 +2149,6 @@ export const mocks: {
     '2nuhXq3YEQAI8BCDN6Dzex': {
       audio_preview_url:
         'https://podz-content.spotifycdn.com/audio/clips/7bCupyEx7HUJXrNmgR0aVI/clip_528813_588813.mp3',
-      content_type: 'PODCAST_EPISODE',
       description:
         'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
       duration_ms: 2728298,
@@ -3079,7 +2178,6 @@ export const mocks: {
         },
       ],
       is_externally_hosted: false,
-      is_paywall_content: false,
       is_playable: true,
       language: 'en',
       languages: ['en'],
@@ -3240,304 +2338,6 @@ export const mocks: {
         copyrights: [],
         description:
           "Apollonauts discuss GraphQL APIs, both what we're building and what we see in the community.",
-        episodes: {
-          href: 'https://api.spotify.com/v1/shows/22ZdnFXLzdXDEmv8vpyPyD/episodes?offset=0&limit=50',
-          items: [
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/84e2c21a8ea52ef54ba45eff08216d5cb0fd0c62',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
-              duration_ms: 3203053,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/53GQ1LSSLptukYmHW96UQe',
-              },
-              href: 'https://api.spotify.com/v1/episodes/53GQ1LSSLptukYmHW96UQe',
-              html_description:
-                '<p>Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a>.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/docs/react/data/suspense⁠" rel="nofollow">Apollo Client Suspense docs</a></li><li><a href="https://github.com/apollographql/spotify-showcase⁠" rel="nofollow">Spotify showcase</a></li><li><a href="https://github.com/apollographql/apollo-client/releases/tag/v3.8.0⁠" rel="nofollow">Apollo Client 3.8 release notes</a></li><li><a href="https://www.apollographql.com/blog/apollo-client/introducing-apollo-clients-nonreactive-directive-and-usefragment-hook/⁠" rel="nofollow">&#64;nonreactive blog post</a></li><li><a href="https://github.com/apollographql/apollo-feature-requests⁠" rel="nofollow">Apollo Feature Requests repo</a></li></ul><br/><p>Topics:</p><br/><ul><li>React suspense</li><li>React lazy and code splitting</li><li>useSuspenseQuery</li><li>useBackgroundQuery &amp; useReadQuery</li><li>Apollo Spotify showcase</li><li>Apollo Client 3.8</li><li>Document transforms</li></ul>',
-              id: '53GQ1LSSLptukYmHW96UQe',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Jerel Miller',
-              release_date: '2023-07-25',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/d76b7268d3f56141b9cf4209f5c83917b829ea9c',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
-              duration_ms: 2728298,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2nuhXq3YEQAI8BCDN6Dzex',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2nuhXq3YEQAI8BCDN6Dzex',
-              html_description:
-                '<p>Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a> on July 3, 2023.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/announcing-the-apollo-kotlin-plugin-for-android-studio-and-intellij-idea/⁠" rel="nofollow">JetBrains Plugin Announcement</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues?q&#61;is%3Aissue&#43;is%3Aopen&#43;label%3A%22%3Ajigsaw%3A&#43;IJ%2FAS&#43;plugin%22⁠" rel="nofollow">JetBrains Plugin GitHub Issues</a></li><li><a href="https://slack-chats.kotlinlang.org/c/apollo-kotlin⁠" rel="nofollow">Apollo Kotlin Slack</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues/4711⁠" rel="nofollow">4.0 Error handling issue</a></li><li><a href="https://www.apollographql.com/docs/kotlin/tutorial/00-introduction⁠" rel="nofollow">Apollo Kotlin tutorial</a></li><li><a href="https://jraf.org⁠" rel="nofollow">Benoit’s website</a></li></ul><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Android Studio and IntelliJ IDEA Plugin</li><li>Apollo Kotlin 4.0</li><li>Jetpack Compose</li><li>Gradle Enterprise</li><li>&#64;defer</li><li>Google I/O 2023</li></ul>',
-              id: '2nuhXq3YEQAI8BCDN6Dzex',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Benoit Lubek',
-              release_date: '2023-07-03',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2nuhXq3YEQAI8BCDN6Dzex',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/5973b17ac1192a3467d8a4b3beaeab0e3bb91b0e',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
-              duration_ms: 2781379,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/3PeTcQOTOTpWoz6zYxZ3qP',
-              },
-              href: 'https://api.spotify.com/v1/episodes/3PeTcQOTOTpWoz6zYxZ3qP',
-              html_description:
-                '<p>Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-06-16.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/office-hours-apollo-ios-16-june-2023/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li><li><a href="https://github.com/apollographql/apollo-ios/issues/3078" rel="nofollow">WWDC &#39;23 Megathread</a></li></ul><br/><p>Topics:</p><br/><ul><li>Defer directive</li><li>Directives refresher</li><li>Apollo iOS 1.2</li><li>New codegen configuration option</li><li>Migration guide and breaking changes</li><li>Initializers and test mocks</li><li>Raw JSON vs models</li><li>Custom scalars</li><li>WWDC</li><li>Apple Vision Pro</li><li>Supporting Mac, Apple Watch, and more</li></ul>',
-              id: '3PeTcQOTOTpWoz6zYxZ3qP',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Calvin Cestari',
-              release_date: '2023-06-16',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:3PeTcQOTOTpWoz6zYxZ3qP',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/afef211a0ad43d67abcfe75b9a292bba96af031a',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
-              duration_ms: 3202844,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/1Wq3HgaoISjc9ZUmXdbaSK',
-              },
-              href: 'https://api.spotify.com/v1/episodes/1Wq3HgaoISjc9ZUmXdbaSK',
-              html_description:
-                '<p>Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-30.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/apollo-client/office-hours-apollo-client/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/react/" rel="nofollow">Apollo Client</a></li><li><a href="https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html" rel="nofollow">React Server Components</a></li><li><a href="https://github.com/apollographql/apollo-client-nextjs" rel="nofollow">Apollo Client Next.js</a></li></ul><br/><p>Topics:</p><br/><ul><li>Caching in Apollo Client</li><li>Cache Metrics</li><li>React Server Components</li><li>Apollo Client 3.8</li><li>How to contact us</li><li>Apollo Client and React Native</li></ul>',
-              id: '1Wq3HgaoISjc9ZUmXdbaSK',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Lenz Weber-Tronic',
-              release_date: '2023-05-30',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:1Wq3HgaoISjc9ZUmXdbaSK',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/6311283c57a1504cbe569b78650e481fe285feab',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
-              duration_ms: 2923554,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/5zOi1QrfEldKskg9MnW7tQ',
-              },
-              href: 'https://api.spotify.com/v1/episodes/5zOi1QrfEldKskg9MnW7tQ',
-              html_description:
-                '<p>Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-10.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/office-hours-apollo-kotlin/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/kotlin/" rel="nofollow">Apollo Kotlin</a></li><li><a href="https://github.com/joreilly/Confetti" rel="nofollow">Confetti</a></li></ul><br/><p>Topics:</p><br/><ul><li>Normalized Cache</li><li>Jetpack compose</li><li>Confetti</li><li>Optimistic updates</li><li>Java Support</li><li>WASM</li></ul>',
-              id: '5zOi1QrfEldKskg9MnW7tQ',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Martin Bonnin',
-              release_date: '2023-05-10',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:5zOi1QrfEldKskg9MnW7tQ',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/184c59a19e2bc34f37e5d703788f883567410e39',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
-              duration_ms: 3511785,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2Mmay1mmdUm9X6bjQVV6PE',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2Mmay1mmdUm9X6bjQVV6PE',
-              html_description:
-                '<p>Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">⁠Apollo&#39;s Discord⁠</a> on 2023-04-20.</p><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Migrating to 1.0</li><li>What will 2.0 be like?</li><li>Generating models</li><li>Community feedback</li><li>Codable protocol</li><li>GraphQL Nullable</li><li>&#64;exported</li><li>&#64;defer</li><li>Scalars</li></ul><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/ios/office-hours-apollo-ios/" rel="nofollow">Full Transcript</a></li></ul><br/><ul><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li></ul>',
-              id: '2Mmay1mmdUm9X6bjQVV6PE',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Anthony Miller',
-              release_date: '2023-04-20',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 6000,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
-            },
-          ],
-          limit: 50,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 6,
-        },
         explicit: false,
         external_urls: {
           spotify: 'https://open.spotify.com/show/22ZdnFXLzdXDEmv8vpyPyD',
@@ -3578,7 +2378,6 @@ export const mocks: {
     '2Mmay1mmdUm9X6bjQVV6PE': {
       audio_preview_url:
         'https://podz-content.spotifycdn.com/audio/clips/4tJbuzKhVG8qD0ROoa08L7/clip_250004_310004.mp3',
-      content_type: 'PODCAST_EPISODE',
       description:
         "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
       duration_ms: 3511785,
@@ -3608,7 +2407,6 @@ export const mocks: {
         },
       ],
       is_externally_hosted: false,
-      is_paywall_content: false,
       is_playable: true,
       language: 'en',
       languages: ['en'],
@@ -3617,7 +2415,7 @@ export const mocks: {
       release_date_precision: 'day',
       resume_point: {
         fully_played: false,
-        resume_position_ms: 6000,
+        resume_position_ms: 0,
       },
       show: {
         available_markets: [
@@ -3769,304 +2567,6 @@ export const mocks: {
         copyrights: [],
         description:
           "Apollonauts discuss GraphQL APIs, both what we're building and what we see in the community.",
-        episodes: {
-          href: 'https://api.spotify.com/v1/shows/22ZdnFXLzdXDEmv8vpyPyD/episodes?offset=0&limit=50',
-          items: [
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/84e2c21a8ea52ef54ba45eff08216d5cb0fd0c62',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
-              duration_ms: 3203053,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/53GQ1LSSLptukYmHW96UQe',
-              },
-              href: 'https://api.spotify.com/v1/episodes/53GQ1LSSLptukYmHW96UQe',
-              html_description:
-                '<p>Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a>.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/docs/react/data/suspense⁠" rel="nofollow">Apollo Client Suspense docs</a></li><li><a href="https://github.com/apollographql/spotify-showcase⁠" rel="nofollow">Spotify showcase</a></li><li><a href="https://github.com/apollographql/apollo-client/releases/tag/v3.8.0⁠" rel="nofollow">Apollo Client 3.8 release notes</a></li><li><a href="https://www.apollographql.com/blog/apollo-client/introducing-apollo-clients-nonreactive-directive-and-usefragment-hook/⁠" rel="nofollow">&#64;nonreactive blog post</a></li><li><a href="https://github.com/apollographql/apollo-feature-requests⁠" rel="nofollow">Apollo Feature Requests repo</a></li></ul><br/><p>Topics:</p><br/><ul><li>React suspense</li><li>React lazy and code splitting</li><li>useSuspenseQuery</li><li>useBackgroundQuery &amp; useReadQuery</li><li>Apollo Spotify showcase</li><li>Apollo Client 3.8</li><li>Document transforms</li></ul>',
-              id: '53GQ1LSSLptukYmHW96UQe',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Jerel Miller',
-              release_date: '2023-07-25',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/d76b7268d3f56141b9cf4209f5c83917b829ea9c',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
-              duration_ms: 2728298,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2nuhXq3YEQAI8BCDN6Dzex',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2nuhXq3YEQAI8BCDN6Dzex',
-              html_description:
-                '<p>Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a> on July 3, 2023.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/announcing-the-apollo-kotlin-plugin-for-android-studio-and-intellij-idea/⁠" rel="nofollow">JetBrains Plugin Announcement</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues?q&#61;is%3Aissue&#43;is%3Aopen&#43;label%3A%22%3Ajigsaw%3A&#43;IJ%2FAS&#43;plugin%22⁠" rel="nofollow">JetBrains Plugin GitHub Issues</a></li><li><a href="https://slack-chats.kotlinlang.org/c/apollo-kotlin⁠" rel="nofollow">Apollo Kotlin Slack</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues/4711⁠" rel="nofollow">4.0 Error handling issue</a></li><li><a href="https://www.apollographql.com/docs/kotlin/tutorial/00-introduction⁠" rel="nofollow">Apollo Kotlin tutorial</a></li><li><a href="https://jraf.org⁠" rel="nofollow">Benoit’s website</a></li></ul><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Android Studio and IntelliJ IDEA Plugin</li><li>Apollo Kotlin 4.0</li><li>Jetpack Compose</li><li>Gradle Enterprise</li><li>&#64;defer</li><li>Google I/O 2023</li></ul>',
-              id: '2nuhXq3YEQAI8BCDN6Dzex',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Benoit Lubek',
-              release_date: '2023-07-03',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2nuhXq3YEQAI8BCDN6Dzex',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/5973b17ac1192a3467d8a4b3beaeab0e3bb91b0e',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
-              duration_ms: 2781379,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/3PeTcQOTOTpWoz6zYxZ3qP',
-              },
-              href: 'https://api.spotify.com/v1/episodes/3PeTcQOTOTpWoz6zYxZ3qP',
-              html_description:
-                '<p>Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-06-16.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/office-hours-apollo-ios-16-june-2023/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li><li><a href="https://github.com/apollographql/apollo-ios/issues/3078" rel="nofollow">WWDC &#39;23 Megathread</a></li></ul><br/><p>Topics:</p><br/><ul><li>Defer directive</li><li>Directives refresher</li><li>Apollo iOS 1.2</li><li>New codegen configuration option</li><li>Migration guide and breaking changes</li><li>Initializers and test mocks</li><li>Raw JSON vs models</li><li>Custom scalars</li><li>WWDC</li><li>Apple Vision Pro</li><li>Supporting Mac, Apple Watch, and more</li></ul>',
-              id: '3PeTcQOTOTpWoz6zYxZ3qP',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Calvin Cestari',
-              release_date: '2023-06-16',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:3PeTcQOTOTpWoz6zYxZ3qP',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/afef211a0ad43d67abcfe75b9a292bba96af031a',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
-              duration_ms: 3202844,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/1Wq3HgaoISjc9ZUmXdbaSK',
-              },
-              href: 'https://api.spotify.com/v1/episodes/1Wq3HgaoISjc9ZUmXdbaSK',
-              html_description:
-                '<p>Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-30.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/apollo-client/office-hours-apollo-client/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/react/" rel="nofollow">Apollo Client</a></li><li><a href="https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html" rel="nofollow">React Server Components</a></li><li><a href="https://github.com/apollographql/apollo-client-nextjs" rel="nofollow">Apollo Client Next.js</a></li></ul><br/><p>Topics:</p><br/><ul><li>Caching in Apollo Client</li><li>Cache Metrics</li><li>React Server Components</li><li>Apollo Client 3.8</li><li>How to contact us</li><li>Apollo Client and React Native</li></ul>',
-              id: '1Wq3HgaoISjc9ZUmXdbaSK',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Lenz Weber-Tronic',
-              release_date: '2023-05-30',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:1Wq3HgaoISjc9ZUmXdbaSK',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/6311283c57a1504cbe569b78650e481fe285feab',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
-              duration_ms: 2923554,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/5zOi1QrfEldKskg9MnW7tQ',
-              },
-              href: 'https://api.spotify.com/v1/episodes/5zOi1QrfEldKskg9MnW7tQ',
-              html_description:
-                '<p>Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-10.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/office-hours-apollo-kotlin/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/kotlin/" rel="nofollow">Apollo Kotlin</a></li><li><a href="https://github.com/joreilly/Confetti" rel="nofollow">Confetti</a></li></ul><br/><p>Topics:</p><br/><ul><li>Normalized Cache</li><li>Jetpack compose</li><li>Confetti</li><li>Optimistic updates</li><li>Java Support</li><li>WASM</li></ul>',
-              id: '5zOi1QrfEldKskg9MnW7tQ',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Martin Bonnin',
-              release_date: '2023-05-10',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:5zOi1QrfEldKskg9MnW7tQ',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/184c59a19e2bc34f37e5d703788f883567410e39',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
-              duration_ms: 3511785,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2Mmay1mmdUm9X6bjQVV6PE',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2Mmay1mmdUm9X6bjQVV6PE',
-              html_description:
-                '<p>Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">⁠Apollo&#39;s Discord⁠</a> on 2023-04-20.</p><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Migrating to 1.0</li><li>What will 2.0 be like?</li><li>Generating models</li><li>Community feedback</li><li>Codable protocol</li><li>GraphQL Nullable</li><li>&#64;exported</li><li>&#64;defer</li><li>Scalars</li></ul><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/ios/office-hours-apollo-ios/" rel="nofollow">Full Transcript</a></li></ul><br/><ul><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li></ul>',
-              id: '2Mmay1mmdUm9X6bjQVV6PE',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Anthony Miller',
-              release_date: '2023-04-20',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 6000,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
-            },
-          ],
-          limit: 50,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 6,
-        },
         explicit: false,
         external_urls: {
           spotify: 'https://open.spotify.com/show/22ZdnFXLzdXDEmv8vpyPyD',
@@ -4107,7 +2607,6 @@ export const mocks: {
     '3PeTcQOTOTpWoz6zYxZ3qP': {
       audio_preview_url:
         'https://podz-content.spotifycdn.com/audio/clips/7HocRyGeA5KEttdVnLIm6t/clip_513836_573836.mp3',
-      content_type: 'PODCAST_EPISODE',
       description:
         "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
       duration_ms: 2781379,
@@ -4137,7 +2636,6 @@ export const mocks: {
         },
       ],
       is_externally_hosted: false,
-      is_paywall_content: false,
       is_playable: true,
       language: 'en',
       languages: ['en'],
@@ -4298,304 +2796,6 @@ export const mocks: {
         copyrights: [],
         description:
           "Apollonauts discuss GraphQL APIs, both what we're building and what we see in the community.",
-        episodes: {
-          href: 'https://api.spotify.com/v1/shows/22ZdnFXLzdXDEmv8vpyPyD/episodes?offset=0&limit=50',
-          items: [
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/84e2c21a8ea52ef54ba45eff08216d5cb0fd0c62',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
-              duration_ms: 3203053,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/53GQ1LSSLptukYmHW96UQe',
-              },
-              href: 'https://api.spotify.com/v1/episodes/53GQ1LSSLptukYmHW96UQe',
-              html_description:
-                '<p>Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a>.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/docs/react/data/suspense⁠" rel="nofollow">Apollo Client Suspense docs</a></li><li><a href="https://github.com/apollographql/spotify-showcase⁠" rel="nofollow">Spotify showcase</a></li><li><a href="https://github.com/apollographql/apollo-client/releases/tag/v3.8.0⁠" rel="nofollow">Apollo Client 3.8 release notes</a></li><li><a href="https://www.apollographql.com/blog/apollo-client/introducing-apollo-clients-nonreactive-directive-and-usefragment-hook/⁠" rel="nofollow">&#64;nonreactive blog post</a></li><li><a href="https://github.com/apollographql/apollo-feature-requests⁠" rel="nofollow">Apollo Feature Requests repo</a></li></ul><br/><p>Topics:</p><br/><ul><li>React suspense</li><li>React lazy and code splitting</li><li>useSuspenseQuery</li><li>useBackgroundQuery &amp; useReadQuery</li><li>Apollo Spotify showcase</li><li>Apollo Client 3.8</li><li>Document transforms</li></ul>',
-              id: '53GQ1LSSLptukYmHW96UQe',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Jerel Miller',
-              release_date: '2023-07-25',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/d76b7268d3f56141b9cf4209f5c83917b829ea9c',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
-              duration_ms: 2728298,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2nuhXq3YEQAI8BCDN6Dzex',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2nuhXq3YEQAI8BCDN6Dzex',
-              html_description:
-                '<p>Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the <a href="https://discord.gg/M6FT5cNR5B⁠" rel="nofollow">Apollo Discord</a> on July 3, 2023.</p><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/announcing-the-apollo-kotlin-plugin-for-android-studio-and-intellij-idea/⁠" rel="nofollow">JetBrains Plugin Announcement</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues?q&#61;is%3Aissue&#43;is%3Aopen&#43;label%3A%22%3Ajigsaw%3A&#43;IJ%2FAS&#43;plugin%22⁠" rel="nofollow">JetBrains Plugin GitHub Issues</a></li><li><a href="https://slack-chats.kotlinlang.org/c/apollo-kotlin⁠" rel="nofollow">Apollo Kotlin Slack</a></li><li><a href="https://github.com/apollographql/apollo-kotlin/issues/4711⁠" rel="nofollow">4.0 Error handling issue</a></li><li><a href="https://www.apollographql.com/docs/kotlin/tutorial/00-introduction⁠" rel="nofollow">Apollo Kotlin tutorial</a></li><li><a href="https://jraf.org⁠" rel="nofollow">Benoit’s website</a></li></ul><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Android Studio and IntelliJ IDEA Plugin</li><li>Apollo Kotlin 4.0</li><li>Jetpack Compose</li><li>Gradle Enterprise</li><li>&#64;defer</li><li>Google I/O 2023</li></ul>',
-              id: '2nuhXq3YEQAI8BCDN6Dzex',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Benoit Lubek',
-              release_date: '2023-07-03',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2nuhXq3YEQAI8BCDN6Dzex',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/5973b17ac1192a3467d8a4b3beaeab0e3bb91b0e',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
-              duration_ms: 2781379,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/3PeTcQOTOTpWoz6zYxZ3qP',
-              },
-              href: 'https://api.spotify.com/v1/episodes/3PeTcQOTOTpWoz6zYxZ3qP',
-              html_description:
-                '<p>Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-06-16.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/office-hours-apollo-ios-16-june-2023/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li><li><a href="https://github.com/apollographql/apollo-ios/issues/3078" rel="nofollow">WWDC &#39;23 Megathread</a></li></ul><br/><p>Topics:</p><br/><ul><li>Defer directive</li><li>Directives refresher</li><li>Apollo iOS 1.2</li><li>New codegen configuration option</li><li>Migration guide and breaking changes</li><li>Initializers and test mocks</li><li>Raw JSON vs models</li><li>Custom scalars</li><li>WWDC</li><li>Apple Vision Pro</li><li>Supporting Mac, Apple Watch, and more</li></ul>',
-              id: '3PeTcQOTOTpWoz6zYxZ3qP',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Calvin Cestari',
-              release_date: '2023-06-16',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:3PeTcQOTOTpWoz6zYxZ3qP',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/afef211a0ad43d67abcfe75b9a292bba96af031a',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
-              duration_ms: 3202844,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/1Wq3HgaoISjc9ZUmXdbaSK',
-              },
-              href: 'https://api.spotify.com/v1/episodes/1Wq3HgaoISjc9ZUmXdbaSK',
-              html_description:
-                '<p>Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-30.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/apollo-client/office-hours-apollo-client/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/react/" rel="nofollow">Apollo Client</a></li><li><a href="https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html" rel="nofollow">React Server Components</a></li><li><a href="https://github.com/apollographql/apollo-client-nextjs" rel="nofollow">Apollo Client Next.js</a></li></ul><br/><p>Topics:</p><br/><ul><li>Caching in Apollo Client</li><li>Cache Metrics</li><li>React Server Components</li><li>Apollo Client 3.8</li><li>How to contact us</li><li>Apollo Client and React Native</li></ul>',
-              id: '1Wq3HgaoISjc9ZUmXdbaSK',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Web Client Office Hours with Lenz Weber-Tronic',
-              release_date: '2023-05-30',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:1Wq3HgaoISjc9ZUmXdbaSK',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/6311283c57a1504cbe569b78650e481fe285feab',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
-              duration_ms: 2923554,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/5zOi1QrfEldKskg9MnW7tQ',
-              },
-              href: 'https://api.spotify.com/v1/episodes/5zOi1QrfEldKskg9MnW7tQ',
-              html_description:
-                '<p>Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">Apollo Discord</a> on 2023-05-10.<br/></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/kotlin/office-hours-apollo-kotlin/" rel="nofollow">Full Transcript</a></li><li><a href="https://www.apollographql.com/docs/kotlin/" rel="nofollow">Apollo Kotlin</a></li><li><a href="https://github.com/joreilly/Confetti" rel="nofollow">Confetti</a></li></ul><br/><p>Topics:</p><br/><ul><li>Normalized Cache</li><li>Jetpack compose</li><li>Confetti</li><li>Optimistic updates</li><li>Java Support</li><li>WASM</li></ul>',
-              id: '5zOi1QrfEldKskg9MnW7tQ',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'Kotlin Office Hours with Martin Bonnin',
-              release_date: '2023-05-10',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 0,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:5zOi1QrfEldKskg9MnW7tQ',
-            },
-            {
-              audio_preview_url:
-                'https://p.scdn.co/mp3-preview/184c59a19e2bc34f37e5d703788f883567410e39',
-              content_type: 'PODCAST_EPISODE',
-              description:
-                "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
-              duration_ms: 3511785,
-              explicit: false,
-              external_urls: {
-                spotify:
-                  'https://open.spotify.com/episode/2Mmay1mmdUm9X6bjQVV6PE',
-              },
-              href: 'https://api.spotify.com/v1/episodes/2Mmay1mmdUm9X6bjQVV6PE',
-              html_description:
-                '<p>Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in <a href="https://discord.gg/M6FT5cNR5B" rel="nofollow">⁠Apollo&#39;s Discord⁠</a> on 2023-04-20.</p><br/><p><br /></p><br/><p>Topics:</p><br/><ul><li>Migrating to 1.0</li><li>What will 2.0 be like?</li><li>Generating models</li><li>Community feedback</li><li>Codable protocol</li><li>GraphQL Nullable</li><li>&#64;exported</li><li>&#64;defer</li><li>Scalars</li></ul><br/><p><br /></p><br/><p>Links:</p><br/><ul><li><a href="https://www.apollographql.com/blog/mobile/ios/office-hours-apollo-ios/" rel="nofollow">Full Transcript</a></li></ul><br/><ul><li><a href="https://www.apollographql.com/docs/ios" rel="nofollow">Apollo iOS</a></li></ul>',
-              id: '2Mmay1mmdUm9X6bjQVV6PE',
-              images: [
-                {
-                  height: 640,
-                  url: 'https://i.scdn.co/image/ab6765630000ba8a6d2087f0952ded824410aca0',
-                  width: 640,
-                },
-                {
-                  height: 300,
-                  url: 'https://i.scdn.co/image/ab67656300005f1f6d2087f0952ded824410aca0',
-                  width: 300,
-                },
-                {
-                  height: 64,
-                  url: 'https://i.scdn.co/image/ab6765630000f68d6d2087f0952ded824410aca0',
-                  width: 64,
-                },
-              ],
-              is_externally_hosted: false,
-              is_paywall_content: false,
-              is_playable: true,
-              language: 'en',
-              languages: ['en'],
-              name: 'iOS Office Hours with Anthony Miller',
-              release_date: '2023-04-20',
-              release_date_precision: 'day',
-              resume_point: {
-                fully_played: false,
-                resume_position_ms: 6000,
-              },
-              type: 'episode',
-              uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
-            },
-          ],
-          limit: 50,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 6,
-        },
         explicit: false,
         external_urls: {
           spotify: 'https://open.spotify.com/show/22ZdnFXLzdXDEmv8vpyPyD',
@@ -4677,12 +2877,6 @@ export const mocks: {
       },
       primary_color: null,
       public: false,
-      sharing_info: {
-        share_id: 'U7t1pfHkTu-yclbIGMfjsQ',
-        share_url:
-          'https://open.spotify.com/playlist/3W6LV9vlZ7fURhLmHqjBlM?si=U7t1pfHkTu-yclbIGMfjsQ',
-        uri: 'spotify:playlist:3W6LV9vlZ7fURhLmHqjBlM',
-      },
       snapshot_id: 'Myw1MDI0ZTkzYTY5MjgzMjg0MzhhZGRmOWJhZDNiNjRhMzNhOTFjZDg1',
       tracks: {
         href: 'https://api.spotify.com/v1/playlists/3W6LV9vlZ7fURhLmHqjBlM/tracks?offset=0&limit=100&locale=*',
@@ -4701,12 +2895,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'TIrJnu0GTmyc8ezNMPKfOA',
-              share_url:
-                'https://open.spotify.com/track/0JP9xo3adEtGSdUEISiszL?si=TIrJnu0GTmyc8ezNMPKfOA',
-              uri: 'spotify:track:0JP9xo3adEtGSdUEISiszL',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -5151,7 +3339,7 @@ export const mocks: {
               name: 'Moonlight',
               popularity: 84,
               preview_url:
-                'https://p.scdn.co/mp3-preview/fc7faf8b857409dd3655ccbc084d90c4f2551797?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/fc7faf8b857409dd3655ccbc084d90c4f2551797?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 3,
               type: 'track',
@@ -5175,12 +3363,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'aAcYIl4LQuK9ZlvvAnLefQ',
-              share_url:
-                'https://open.spotify.com/track/1bcoI2VWqABMDhwoZHf5dp?si=aAcYIl4LQuK9ZlvvAnLefQ',
-              uri: 'spotify:track:1bcoI2VWqABMDhwoZHf5dp',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -5627,7 +3809,7 @@ export const mocks: {
               name: 'Starman',
               popularity: 45,
               preview_url:
-                'https://p.scdn.co/mp3-preview/5257065df3cf6c6b2bc0eb83423c80fcdac72d4c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/5257065df3cf6c6b2bc0eb83423c80fcdac72d4c?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 3,
               type: 'track',
@@ -5651,12 +3833,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'hLq1cCl3SuC3Kj40pFOkVg',
-              share_url:
-                'https://open.spotify.com/track/1j6lrR4BzRGKwvAPfrIcbf?si=hLq1cCl3SuC3Kj40pFOkVg',
-              uri: 'spotify:track:1j6lrR4BzRGKwvAPfrIcbf',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -6099,7 +4275,7 @@ export const mocks: {
               name: 'Invaders Must Die',
               popularity: 58,
               preview_url:
-                'https://p.scdn.co/mp3-preview/1c434a6ddacc2232c12400a2de994b6e9ba86b56?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/1c434a6ddacc2232c12400a2de994b6e9ba86b56?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 1,
               type: 'track',
@@ -6123,12 +4299,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'ipmAqInBTM6gwTjlIQrxtg',
-              share_url:
-                'https://open.spotify.com/track/1JucQJXvQLH6qRJX0VGfYh?si=ipmAqInBTM6gwTjlIQrxtg',
-              uri: 'spotify:track:1JucQJXvQLH6qRJX0VGfYh',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -6207,7 +4377,7 @@ export const mocks: {
               name: 'Allergic to Gravity',
               popularity: 0,
               preview_url:
-                'https://p.scdn.co/mp3-preview/a04e53a09037a87babf3e1c73c5c3982832d6e9c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/a04e53a09037a87babf3e1c73c5c3982832d6e9c?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 2,
               type: 'track',
@@ -6231,12 +4401,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'AnID9F2CSx21kxm1RaAHzg',
-              share_url:
-                'https://open.spotify.com/track/2CVV8PtUYYsux8XOzWkCP0?si=AnID9F2CSx21kxm1RaAHzg',
-              uri: 'spotify:track:2CVV8PtUYYsux8XOzWkCP0',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -6685,7 +4849,7 @@ export const mocks: {
               name: 'Subterranean Homesick Alien',
               popularity: 64,
               preview_url:
-                'https://p.scdn.co/mp3-preview/2a861d7fed872857bbb10c889e56960b40f08ea9?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/2a861d7fed872857bbb10c889e56960b40f08ea9?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 3,
               type: 'track',
@@ -6709,12 +4873,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'eMXjpSzjR0mFDCpntg2DFw',
-              share_url:
-                'https://open.spotify.com/track/2CzXAeABCmbEB52ZziuMsH?si=eMXjpSzjR0mFDCpntg2DFw',
-              uri: 'spotify:track:2CzXAeABCmbEB52ZziuMsH',
-            },
             track: {
               album: {
                 album_type: 'single',
@@ -6829,9 +4987,9 @@ export const mocks: {
               id: '2CzXAeABCmbEB52ZziuMsH',
               is_local: false,
               name: 'Seeing Stars',
-              popularity: 58,
+              popularity: 57,
               preview_url:
-                'https://p.scdn.co/mp3-preview/089e2d7b610646d18aa7f6383e3c023893488e51?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/089e2d7b610646d18aa7f6383e3c023893488e51?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 1,
               type: 'track',
@@ -6855,12 +5013,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'SDXZhw2ES1ilNRR-WQCDUg',
-              share_url:
-                'https://open.spotify.com/track/2EoOZnxNgtmZaD8uUmz2nD?si=SDXZhw2ES1ilNRR-WQCDUg',
-              uri: 'spotify:track:2EoOZnxNgtmZaD8uUmz2nD',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -7309,7 +5461,7 @@ export const mocks: {
               name: 'Black Hole Sun',
               popularity: 79,
               preview_url:
-                'https://p.scdn.co/mp3-preview/a784f804a7d9d93c369347eae4872945e5cb9398?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/a784f804a7d9d93c369347eae4872945e5cb9398?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 7,
               type: 'track',
@@ -7333,12 +5485,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'sdbkTgQqRUCgxo70yriGbA',
-              share_url:
-                'https://open.spotify.com/track/2mEhT8wY4VE72wWhLQnGew?si=sdbkTgQqRUCgxo70yriGbA',
-              uri: 'spotify:track:2mEhT8wY4VE72wWhLQnGew',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -7773,7 +5919,7 @@ export const mocks: {
               name: 'Lazerray',
               popularity: 45,
               preview_url:
-                'https://p.scdn.co/mp3-preview/2b8d355d69147ae1a1685598fdfd50bd4ab08d15?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/2b8d355d69147ae1a1685598fdfd50bd4ab08d15?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 10,
               type: 'track',
@@ -7797,12 +5943,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'r62pL6JIQPalOVOjtSpSaw',
-              share_url:
-                'https://open.spotify.com/track/2NeSirLM2VHQW4upn0nMfB?si=r62pL6JIQPalOVOjtSpSaw',
-              uri: 'spotify:track:2NeSirLM2VHQW4upn0nMfB',
-            },
             track: {
               album: {
                 album_type: 'single',
@@ -8251,7 +6391,7 @@ export const mocks: {
               name: 'Starry Night - Edit',
               popularity: 75,
               preview_url:
-                'https://p.scdn.co/mp3-preview/d0147bc31c242e3fd0d6b2b2b665abbac0583ecc?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/d0147bc31c242e3fd0d6b2b2b665abbac0583ecc?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 2,
               type: 'track',
@@ -8275,12 +6415,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: '5XtEpcOMQSS8N6DrbUcqAw',
-              share_url:
-                'https://open.spotify.com/track/2TjdnqlpwOjhijHCwHCP2d?si=5XtEpcOMQSS8N6DrbUcqAw',
-              uri: 'spotify:track:2TjdnqlpwOjhijHCwHCP2d',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -8619,7 +6753,7 @@ export const mocks: {
               name: 'The Great Gig in the Sky',
               popularity: 74,
               preview_url:
-                'https://p.scdn.co/mp3-preview/a12c96145fa9ce6b6cf35b36f2655d582c58fd6f?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/a12c96145fa9ce6b6cf35b36f2655d582c58fd6f?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 5,
               type: 'track',
@@ -8643,12 +6777,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'zsP7RbMJQUmO7BS0vUW0lg',
-              share_url:
-                'https://open.spotify.com/track/2x5Frs6ts14U4MSLrQQlXg?si=zsP7RbMJQUmO7BS0vUW0lg',
-              uri: 'spotify:track:2x5Frs6ts14U4MSLrQQlXg',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -9097,7 +7225,7 @@ export const mocks: {
               name: 'Why iii Love The Moon.',
               popularity: 60,
               preview_url:
-                'https://p.scdn.co/mp3-preview/5477d5d56a7f376fed8553e902666dbfb135e25a?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/5477d5d56a7f376fed8553e902666dbfb135e25a?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 9,
               type: 'track',
@@ -9121,12 +7249,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: '9mlzY9tjRSmHlruM5KXXlA',
-              share_url:
-                'https://open.spotify.com/track/3skn2lauGk7Dx6bVIt5DVj?si=9mlzY9tjRSmHlruM5KXXlA',
-              uri: 'spotify:track:3skn2lauGk7Dx6bVIt5DVj',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -9575,7 +7697,7 @@ export const mocks: {
               name: 'Starlight',
               popularity: 76,
               preview_url:
-                'https://p.scdn.co/mp3-preview/f4dc0eed34079ebc130dbd81826c88006978f30e?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/f4dc0eed34079ebc130dbd81826c88006978f30e?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 2,
               type: 'track',
@@ -9599,12 +7721,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'kHliBSAcT4SzKdXW3b2R3A',
-              share_url:
-                'https://open.spotify.com/track/3XyC1bFuMZ66GsZLkuZslB?si=kHliBSAcT4SzKdXW3b2R3A',
-              uri: 'spotify:track:3XyC1bFuMZ66GsZLkuZslB',
-            },
             track: {
               album: {
                 album_type: 'single',
@@ -10049,7 +8165,7 @@ export const mocks: {
               name: 'Dark Star',
               popularity: 19,
               preview_url:
-                'https://p.scdn.co/mp3-preview/6dfc1f250f6404347e8ef6f864387852af53b0b0?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/6dfc1f250f6404347e8ef6f864387852af53b0b0?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 1,
               type: 'track',
@@ -10073,12 +8189,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: '5tQBBvaaRP293oaB9Yqc8g',
-              share_url:
-                'https://open.spotify.com/track/4KROoGIaPaR1pBHPnR3bwC?si=5tQBBvaaRP293oaB9Yqc8g',
-              uri: 'spotify:track:4KROoGIaPaR1pBHPnR3bwC',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -10527,7 +8637,7 @@ export const mocks: {
               name: 'Pink Moon',
               popularity: 71,
               preview_url:
-                'https://p.scdn.co/mp3-preview/1214bef39b6dc307d7550aefb34d99ca95beeb35?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/1214bef39b6dc307d7550aefb34d99ca95beeb35?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 1,
               type: 'track',
@@ -10551,12 +8661,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'K5kRfY7iQVeHmXSi1X75uw',
-              share_url:
-                'https://open.spotify.com/track/4lhhYqzREcts4uOOqWHjRJ?si=K5kRfY7iQVeHmXSi1X75uw',
-              uri: 'spotify:track:4lhhYqzREcts4uOOqWHjRJ',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -11005,7 +9109,7 @@ export const mocks: {
               name: 'Apollo',
               popularity: 59,
               preview_url:
-                'https://p.scdn.co/mp3-preview/42febd8446f28bed7cac2e939f7c8e46b267bb7c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/42febd8446f28bed7cac2e939f7c8e46b267bb7c?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 6,
               type: 'track',
@@ -11029,12 +9133,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'bWE-YFzbSBKlB-AK0okFJQ',
-              share_url:
-                'https://open.spotify.com/track/4uXCp5l9gZzfaeYaFsEva8?si=bWE-YFzbSBKlB-AK0okFJQ',
-              uri: 'spotify:track:4uXCp5l9gZzfaeYaFsEva8',
-            },
             track: {
               album: {
                 album_type: 'single',
@@ -11136,12 +9234,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'BfYVFLEITbmBRRrRzhuqxA',
-              share_url:
-                'https://open.spotify.com/track/4XJgkeu052kEf1AIfXDlHQ?si=BfYVFLEITbmBRRrRzhuqxA',
-              uri: 'spotify:track:4XJgkeu052kEf1AIfXDlHQ',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -11584,7 +9676,7 @@ export const mocks: {
               name: 'Star Girl',
               popularity: 57,
               preview_url:
-                'https://p.scdn.co/mp3-preview/d478968b2522fd073e2ccdb64544d5b9aee27028?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/d478968b2522fd073e2ccdb64544d5b9aee27028?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 2,
               type: 'track',
@@ -11608,12 +9700,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'p9Z54cCrQamKJe6Fhsa-tQ',
-              share_url:
-                'https://open.spotify.com/track/51EMSRpNm9Rg5rGViVCczv?si=p9Z54cCrQamKJe6Fhsa-tQ',
-              uri: 'spotify:track:51EMSRpNm9Rg5rGViVCczv',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -12062,7 +10148,7 @@ export const mocks: {
               name: 'Andromeda',
               popularity: 68,
               preview_url:
-                'https://p.scdn.co/mp3-preview/6026e44361cf28d7bfb3f823b7392eb4b4a3eefb?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/6026e44361cf28d7bfb3f823b7392eb4b4a3eefb?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 2,
               type: 'track',
@@ -12086,12 +10172,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'tv_5zkYyTx2IUvGy9HOOrQ',
-              share_url:
-                'https://open.spotify.com/track/5xYZXIgVAND5sWjN8G0hID?si=tv_5zkYyTx2IUvGy9HOOrQ',
-              uri: 'spotify:track:5xYZXIgVAND5sWjN8G0hID',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -12502,7 +10582,7 @@ export const mocks: {
               name: 'Go!',
               popularity: 50,
               preview_url:
-                'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 8,
               type: 'track',
@@ -12526,12 +10606,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'vLl3Idf7Q-6qn-K_-J30HA',
-              share_url:
-                'https://open.spotify.com/track/69WRV2IAqgEcsvJm7YBTJ7?si=vLl3Idf7Q-6qn-K_-J30HA',
-              uri: 'spotify:track:69WRV2IAqgEcsvJm7YBTJ7',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -12890,7 +10964,7 @@ export const mocks: {
               name: 'Ones Who Love You',
               popularity: 51,
               preview_url:
-                'https://p.scdn.co/mp3-preview/2ab08a4a81bf6cc4692e4f6b7f20999557ae769b?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/2ab08a4a81bf6cc4692e4f6b7f20999557ae769b?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 3,
               type: 'track',
@@ -12914,12 +10988,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'REDKQwW_Q9SqF4YD5Jzhew',
-              share_url:
-                'https://open.spotify.com/track/7azVZvIvANuD4sLlwqs2g2?si=REDKQwW_Q9SqF4YD5Jzhew',
-              uri: 'spotify:track:7azVZvIvANuD4sLlwqs2g2',
-            },
             track: {
               album: {
                 album_type: 'album',
@@ -13340,7 +11408,7 @@ export const mocks: {
               name: 'Starkiller',
               popularity: 54,
               preview_url:
-                'https://p.scdn.co/mp3-preview/9c152c83d89119bc21058b1f107c445a59692645?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+                'https://p.scdn.co/mp3-preview/9c152c83d89119bc21058b1f107c445a59692645?cid=2254dce9797a4e91880c97b856207f8c',
               track: true,
               track_number: 5,
               type: 'track',
@@ -13392,12 +11460,6 @@ export const mocks: {
       },
       primary_color: null,
       public: true,
-      sharing_info: {
-        share_id: 'glmQQIR-QaCsk52szRkfkw',
-        share_url:
-          'https://open.spotify.com/playlist/748GuzX7eACeswGoJt6hOw?si=glmQQIR-QaCsk52szRkfkw',
-        uri: 'spotify:playlist:748GuzX7eACeswGoJt6hOw',
-      },
       snapshot_id: 'NCxhOWVlZTFmMzlhNDM3NzYwYjliZjJhMzUwMjRiNTc4OTI5MTA0Njdm',
       tracks: {
         href: 'https://api.spotify.com/v1/playlists/748GuzX7eACeswGoJt6hOw/tracks?offset=0&limit=100&locale=*',
@@ -13416,12 +11478,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'CEiLBuOOQquAqb9aB-RfRg',
-              share_url:
-                'https://open.spotify.com/episode/1Wq3HgaoISjc9ZUmXdbaSK?si=CEiLBuOOQquAqb9aB-RfRg',
-              uri: 'spotify:episode:1Wq3HgaoISjc9ZUmXdbaSK',
-            },
             track: {
               album: {
                 album_type: 'compilation',
@@ -13820,12 +11876,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'uZ1RQE5rQfS2e-qqU-WGWg',
-              share_url:
-                'https://open.spotify.com/episode/53GQ1LSSLptukYmHW96UQe?si=uZ1RQE5rQfS2e-qqU-WGWg',
-              uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
-            },
             track: {
               album: {
                 album_type: 'compilation',
@@ -14252,12 +12302,6 @@ export const mocks: {
       },
       primary_color: null,
       public: true,
-      sharing_info: {
-        share_id: '9wCFj4s9QV6brIX7m9VUwA',
-        share_url:
-          'https://open.spotify.com/playlist/6AYofvO5tp5PnDYNAee45O?si=9wCFj4s9QV6brIX7m9VUwA',
-        uri: 'spotify:playlist:6AYofvO5tp5PnDYNAee45O',
-      },
       snapshot_id: 'NCwxM2JlMWRjMzBhNjI0MzMxMzIyZWYzMWQ1NmM5ODVmZGIzMGQ0OTcz',
       tracks: {
         href: 'https://api.spotify.com/v1/playlists/6AYofvO5tp5PnDYNAee45O/tracks?offset=0&limit=100&locale=*',
@@ -14276,12 +12320,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'Vr_nAu0nTpemK6tx9RA5tA',
-              share_url:
-                'https://open.spotify.com/episode/5zOi1QrfEldKskg9MnW7tQ?si=Vr_nAu0nTpemK6tx9RA5tA',
-              uri: 'spotify:episode:5zOi1QrfEldKskg9MnW7tQ',
-            },
             track: {
               album: {
                 album_type: 'compilation',
@@ -14680,12 +12718,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'FhEBGoezQB2Rh1-p2VO_DQ',
-              share_url:
-                'https://open.spotify.com/episode/2nuhXq3YEQAI8BCDN6Dzex?si=FhEBGoezQB2Rh1-p2VO_DQ',
-              uri: 'spotify:episode:2nuhXq3YEQAI8BCDN6Dzex',
-            },
             track: {
               album: {
                 album_type: 'compilation',
@@ -15112,12 +13144,6 @@ export const mocks: {
       },
       primary_color: null,
       public: true,
-      sharing_info: {
-        share_id: 'KpRbRUkjTzGHF3aY8Jn7ug',
-        share_url:
-          'https://open.spotify.com/playlist/4qP1j7LvQSAfNxs9iRei0W?si=KpRbRUkjTzGHF3aY8Jn7ug',
-        uri: 'spotify:playlist:4qP1j7LvQSAfNxs9iRei0W',
-      },
       snapshot_id: 'NCw2NGYwYWU0YmM4NWQ1YTViODAxZDBkYjAyYTQ5ZDMzMTMzM2UyNTE1',
       tracks: {
         href: 'https://api.spotify.com/v1/playlists/4qP1j7LvQSAfNxs9iRei0W/tracks?offset=0&limit=100&locale=*',
@@ -15136,12 +13162,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'gjfcOpbFS9yCL8kvVym_mg',
-              share_url:
-                'https://open.spotify.com/episode/2Mmay1mmdUm9X6bjQVV6PE?si=gjfcOpbFS9yCL8kvVym_mg',
-              uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
-            },
             track: {
               album: {
                 album_type: 'compilation',
@@ -15540,12 +13560,6 @@ export const mocks: {
             },
             is_local: false,
             primary_color: null,
-            sharing_info: {
-              share_id: 'hz7aXv-IQF2e9MCvf6Nfzw',
-              share_url:
-                'https://open.spotify.com/episode/3PeTcQOTOTpWoz6zYxZ3qP?si=hz7aXv-IQF2e9MCvf6Nfzw',
-              uri: 'spotify:episode:3PeTcQOTOTpWoz6zYxZ3qP',
-            },
             track: {
               album: {
                 album_type: 'compilation',
@@ -16385,7 +14399,7 @@ export const mocks: {
       name: 'Space Oddity',
       popularity: 40,
       preview_url:
-        'https://p.scdn.co/mp3-preview/2d779ce5c4c274e231eae77bff99918a2bc01ac5?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/2d779ce5c4c274e231eae77bff99918a2bc01ac5?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 12,
       type: 'track',
       uri: 'spotify:track:5kBAk4dSQX4aXbTqjaPvF6',
@@ -16833,7 +14847,7 @@ export const mocks: {
       name: 'Space Jam',
       popularity: 60,
       preview_url:
-        'https://p.scdn.co/mp3-preview/b8712ea9e6d4b75c720a3ee2adaf0a54783cb632?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/b8712ea9e6d4b75c720a3ee2adaf0a54783cb632?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 3,
       type: 'track',
       uri: 'spotify:track:683hRieVmYdAhVA1DkjSAk',
@@ -17279,7 +15293,7 @@ export const mocks: {
       name: 'Starman',
       popularity: 45,
       preview_url:
-        'https://p.scdn.co/mp3-preview/5257065df3cf6c6b2bc0eb83423c80fcdac72d4c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/5257065df3cf6c6b2bc0eb83423c80fcdac72d4c?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 3,
       type: 'track',
       uri: 'spotify:track:1bcoI2VWqABMDhwoZHf5dp',
@@ -17357,7 +15371,7 @@ export const mocks: {
       name: 'Allergic to Gravity',
       popularity: 0,
       preview_url:
-        'https://p.scdn.co/mp3-preview/a04e53a09037a87babf3e1c73c5c3982832d6e9c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/a04e53a09037a87babf3e1c73c5c3982832d6e9c?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 2,
       type: 'track',
       uri: 'spotify:track:1JucQJXvQLH6qRJX0VGfYh',
@@ -17805,7 +15819,7 @@ export const mocks: {
       name: 'Subterranean Homesick Alien',
       popularity: 64,
       preview_url:
-        'https://p.scdn.co/mp3-preview/2a861d7fed872857bbb10c889e56960b40f08ea9?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/2a861d7fed872857bbb10c889e56960b40f08ea9?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 3,
       type: 'track',
       uri: 'spotify:track:2CVV8PtUYYsux8XOzWkCP0',
@@ -17919,9 +15933,9 @@ export const mocks: {
       id: '2CzXAeABCmbEB52ZziuMsH',
       is_local: false,
       name: 'Seeing Stars',
-      popularity: 58,
+      popularity: 57,
       preview_url:
-        'https://p.scdn.co/mp3-preview/089e2d7b610646d18aa7f6383e3c023893488e51?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/089e2d7b610646d18aa7f6383e3c023893488e51?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:2CzXAeABCmbEB52ZziuMsH',
@@ -18369,7 +16383,7 @@ export const mocks: {
       name: 'Black Hole Sun',
       popularity: 79,
       preview_url:
-        'https://p.scdn.co/mp3-preview/a784f804a7d9d93c369347eae4872945e5cb9398?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/a784f804a7d9d93c369347eae4872945e5cb9398?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 7,
       type: 'track',
       uri: 'spotify:track:2EoOZnxNgtmZaD8uUmz2nD',
@@ -18803,7 +16817,7 @@ export const mocks: {
       name: 'Lazerray',
       popularity: 45,
       preview_url:
-        'https://p.scdn.co/mp3-preview/2b8d355d69147ae1a1685598fdfd50bd4ab08d15?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/2b8d355d69147ae1a1685598fdfd50bd4ab08d15?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 10,
       type: 'track',
       uri: 'spotify:track:2mEhT8wY4VE72wWhLQnGew',
@@ -19251,7 +17265,7 @@ export const mocks: {
       name: 'Starry Night - Edit',
       popularity: 75,
       preview_url:
-        'https://p.scdn.co/mp3-preview/d0147bc31c242e3fd0d6b2b2b665abbac0583ecc?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/d0147bc31c242e3fd0d6b2b2b665abbac0583ecc?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 2,
       type: 'track',
       uri: 'spotify:track:2NeSirLM2VHQW4upn0nMfB',
@@ -19589,7 +17603,7 @@ export const mocks: {
       name: 'The Great Gig in the Sky',
       popularity: 74,
       preview_url:
-        'https://p.scdn.co/mp3-preview/a12c96145fa9ce6b6cf35b36f2655d582c58fd6f?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/a12c96145fa9ce6b6cf35b36f2655d582c58fd6f?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 5,
       type: 'track',
       uri: 'spotify:track:2TjdnqlpwOjhijHCwHCP2d',
@@ -20037,7 +18051,7 @@ export const mocks: {
       name: 'Why iii Love The Moon.',
       popularity: 60,
       preview_url:
-        'https://p.scdn.co/mp3-preview/5477d5d56a7f376fed8553e902666dbfb135e25a?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/5477d5d56a7f376fed8553e902666dbfb135e25a?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 9,
       type: 'track',
       uri: 'spotify:track:2x5Frs6ts14U4MSLrQQlXg',
@@ -20485,7 +18499,7 @@ export const mocks: {
       name: 'Starlight',
       popularity: 76,
       preview_url:
-        'https://p.scdn.co/mp3-preview/f4dc0eed34079ebc130dbd81826c88006978f30e?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/f4dc0eed34079ebc130dbd81826c88006978f30e?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 2,
       type: 'track',
       uri: 'spotify:track:3skn2lauGk7Dx6bVIt5DVj',
@@ -20929,7 +18943,7 @@ export const mocks: {
       name: 'Dark Star',
       popularity: 19,
       preview_url:
-        'https://p.scdn.co/mp3-preview/6dfc1f250f6404347e8ef6f864387852af53b0b0?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/6dfc1f250f6404347e8ef6f864387852af53b0b0?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:3XyC1bFuMZ66GsZLkuZslB',
@@ -21377,7 +19391,7 @@ export const mocks: {
       name: 'Pink Moon',
       popularity: 71,
       preview_url:
-        'https://p.scdn.co/mp3-preview/1214bef39b6dc307d7550aefb34d99ca95beeb35?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/1214bef39b6dc307d7550aefb34d99ca95beeb35?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:4KROoGIaPaR1pBHPnR3bwC',
@@ -21825,7 +19839,7 @@ export const mocks: {
       name: 'Apollo',
       popularity: 59,
       preview_url:
-        'https://p.scdn.co/mp3-preview/42febd8446f28bed7cac2e939f7c8e46b267bb7c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/42febd8446f28bed7cac2e939f7c8e46b267bb7c?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 6,
       type: 'track',
       uri: 'spotify:track:4lhhYqzREcts4uOOqWHjRJ',
@@ -22344,7 +20358,7 @@ export const mocks: {
       name: 'Star Girl',
       popularity: 57,
       preview_url:
-        'https://p.scdn.co/mp3-preview/d478968b2522fd073e2ccdb64544d5b9aee27028?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/d478968b2522fd073e2ccdb64544d5b9aee27028?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 2,
       type: 'track',
       uri: 'spotify:track:4XJgkeu052kEf1AIfXDlHQ',
@@ -22792,7 +20806,7 @@ export const mocks: {
       name: 'Andromeda',
       popularity: 68,
       preview_url:
-        'https://p.scdn.co/mp3-preview/6026e44361cf28d7bfb3f823b7392eb4b4a3eefb?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/6026e44361cf28d7bfb3f823b7392eb4b4a3eefb?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 2,
       type: 'track',
       uri: 'spotify:track:51EMSRpNm9Rg5rGViVCczv',
@@ -23202,7 +21216,7 @@ export const mocks: {
       name: 'Go!',
       popularity: 50,
       preview_url:
-        'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 8,
       type: 'track',
       uri: 'spotify:track:5xYZXIgVAND5sWjN8G0hID',
@@ -23560,7 +21574,7 @@ export const mocks: {
       name: 'Ones Who Love You',
       popularity: 51,
       preview_url:
-        'https://p.scdn.co/mp3-preview/2ab08a4a81bf6cc4692e4f6b7f20999557ae769b?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/2ab08a4a81bf6cc4692e4f6b7f20999557ae769b?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 3,
       type: 'track',
       uri: 'spotify:track:69WRV2IAqgEcsvJm7YBTJ7',
@@ -23980,7 +21994,7 @@ export const mocks: {
       name: 'Starkiller',
       popularity: 54,
       preview_url:
-        'https://p.scdn.co/mp3-preview/9c152c83d89119bc21058b1f107c445a59692645?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/9c152c83d89119bc21058b1f107c445a59692645?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 5,
       type: 'track',
       uri: 'spotify:track:7azVZvIvANuD4sLlwqs2g2',
@@ -24428,7 +22442,7 @@ export const mocks: {
       name: 'Day One (Interstellar Theme)',
       popularity: 70,
       preview_url:
-        'https://p.scdn.co/mp3-preview/6633d359c78b728568527226197ed891a652efff?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/6633d359c78b728568527226197ed891a652efff?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 4,
       type: 'track',
       uri: 'spotify:track:4WmB04GBqS4xPMYN9dHgBw',
@@ -24876,7 +22890,7 @@ export const mocks: {
       name: 'Mars',
       popularity: 42,
       preview_url:
-        'https://p.scdn.co/mp3-preview/9d890f79948e33da6571def1f599e05d4706683b?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/9d890f79948e33da6571def1f599e05d4706683b?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:44CgM5My2vfkSv1KAQuEfk',
@@ -25324,7 +23338,7 @@ export const mocks: {
       name: 'Arcadia',
       popularity: 25,
       preview_url:
-        'https://p.scdn.co/mp3-preview/a0001b90a51d885b9356dc825cae02da0f899d4a?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/a0001b90a51d885b9356dc825cae02da0f899d4a?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:6JMwx1TL7XwOeiI6WUY7ud',
@@ -25782,7 +23796,7 @@ export const mocks: {
       name: 'Fly Me To The Moon',
       popularity: 65,
       preview_url:
-        'https://p.scdn.co/mp3-preview/25baad56b868edd3e2d4f2e62f2bdde5db5d35a2?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/25baad56b868edd3e2d4f2e62f2bdde5db5d35a2?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 17,
       type: 'track',
       uri: 'spotify:track:2dR5WkrpwylTuT3jRWNufa',
@@ -26230,7 +24244,7 @@ export const mocks: {
       name: 'Contact',
       popularity: 54,
       preview_url:
-        'https://p.scdn.co/mp3-preview/623b53b537f0e52123bdd735cb3434064cbf02cc?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/623b53b537f0e52123bdd735cb3434064cbf02cc?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 13,
       type: 'track',
       uri: 'spotify:track:2KHRENHQzTIQ001nlP9Gdc',
@@ -26568,7 +24582,7 @@ export const mocks: {
       name: 'Interstellar Overdrive',
       popularity: 44,
       preview_url:
-        'https://p.scdn.co/mp3-preview/050b63e3ed4f93f8f13766323af0d3c592028f7a?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/050b63e3ed4f93f8f13766323af0d3c592028f7a?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 7,
       type: 'track',
       uri: 'spotify:track:3xyTufSSGLP3oZnomceAVW',
@@ -26746,7 +24760,7 @@ export const mocks: {
       name: 'Your Hand in Mine',
       popularity: 46,
       preview_url:
-        'https://p.scdn.co/mp3-preview/7f64a5f83f58a66cb7b2892b2442929f1d730133?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/7f64a5f83f58a66cb7b2892b2442929f1d730133?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 5,
       type: 'track',
       uri: 'spotify:track:4mZofk9oND0AA4sJfzTH0R',
@@ -27180,9 +25194,9 @@ export const mocks: {
       id: '3lG9eYlhnipGfvAR4ZkBk7',
       is_local: false,
       name: 'Zaris',
-      popularity: 37,
+      popularity: 36,
       preview_url:
-        'https://p.scdn.co/mp3-preview/a48929d7fab3e1a025fdb73a9e41706b29b0e0a0?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/a48929d7fab3e1a025fdb73a9e41706b29b0e0a0?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:3lG9eYlhnipGfvAR4ZkBk7',
@@ -27592,7 +25606,7 @@ export const mocks: {
       name: 'The Race For Space',
       popularity: 34,
       preview_url:
-        'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:3982V8R7oW3xyV8zASbCGG',
@@ -28002,7 +26016,7 @@ export const mocks: {
       name: 'Sputnik',
       popularity: 38,
       preview_url:
-        'https://p.scdn.co/mp3-preview/f88f7df964974222d5f02ce255d5ad5abfd00ab4?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/f88f7df964974222d5f02ce255d5ad5abfd00ab4?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 2,
       type: 'track',
       uri: 'spotify:track:4EhQrGzqi8k24qWIJuG5CH',
@@ -28412,7 +26426,7 @@ export const mocks: {
       name: 'Gagarin',
       popularity: 41,
       preview_url:
-        'https://p.scdn.co/mp3-preview/d07e163d50e1cd061f63d8613155458240dcbf8c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/d07e163d50e1cd061f63d8613155458240dcbf8c?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 3,
       type: 'track',
       uri: 'spotify:track:4IaRxPHdzLJ78tm7lxg9M8',
@@ -28822,7 +26836,7 @@ export const mocks: {
       name: 'Fire in the Cockpit',
       popularity: 29,
       preview_url:
-        'https://p.scdn.co/mp3-preview/1c9fee92d83b86fd0ca2c597efb40658eb569eee?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/1c9fee92d83b86fd0ca2c597efb40658eb569eee?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 4,
       type: 'track',
       uri: 'spotify:track:6SONXH9dJQgDY9vCjdkZfK',
@@ -29232,7 +27246,7 @@ export const mocks: {
       name: 'E.V.A.',
       popularity: 35,
       preview_url:
-        'https://p.scdn.co/mp3-preview/cdbf77294ddaf3d13d7f4423e7d1024522398e91?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/cdbf77294ddaf3d13d7f4423e7d1024522398e91?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 5,
       type: 'track',
       uri: 'spotify:track:52KMWPHDL84oo2Ncj3O6RX',
@@ -29642,7 +27656,7 @@ export const mocks: {
       name: 'The Other Side',
       popularity: 37,
       preview_url:
-        'https://p.scdn.co/mp3-preview/77768b7834f18acc98071b64ec97ce07c338850e?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/77768b7834f18acc98071b64ec97ce07c338850e?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 6,
       type: 'track',
       uri: 'spotify:track:3jjMyq44OIjNgmpXLhpw7W',
@@ -30062,7 +28076,7 @@ export const mocks: {
       name: 'Valentina',
       popularity: 31,
       preview_url:
-        'https://p.scdn.co/mp3-preview/12bedf34e3e8d44dfa25859bffb45c4a24d4153c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/12bedf34e3e8d44dfa25859bffb45c4a24d4153c?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 7,
       type: 'track',
       uri: 'spotify:track:5Um9ghqMlKALp9AcRMIk7B',
@@ -30472,7 +28486,7 @@ export const mocks: {
       name: 'Tomorrow',
       popularity: 30,
       preview_url:
-        'https://p.scdn.co/mp3-preview/680fe2546c59ce42833fa2cd7d812e5084102fd1?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/680fe2546c59ce42833fa2cd7d812e5084102fd1?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 9,
       type: 'track',
       uri: 'spotify:track:5ERrJuNLnmHj525ooOKyqJ',
@@ -30550,10 +28564,88 @@ export const mocks: {
       name: 'The Race For Space',
       popularity: 11,
       preview_url:
-        'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/b76b3dadd3aa6db012a7d32b2877d099ffdd5ad6?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 1,
       type: 'track',
       uri: 'spotify:track:1FqK4gHPyrnwo2kQLOuw6J',
+    },
+    '7wC8NjlDkefVfNRO34Yb1W': {
+      album: {
+        album_type: 'album',
+        artists: [
+          {
+            external_urls: {
+              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+            },
+            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+            id: '6VsiDFMZJlJ053P1uO4A6h',
+            name: 'Public Service Broadcasting',
+            type: 'artist',
+            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+          },
+        ],
+        available_markets: ['AU'],
+        external_urls: {
+          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
+        },
+        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
+        id: '4ZaAM16hw3xpp680FJahJJ',
+        images: [
+          {
+            height: 640,
+            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
+            width: 640,
+          },
+          {
+            height: 300,
+            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
+            width: 300,
+          },
+          {
+            height: 64,
+            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
+            width: 64,
+          },
+        ],
+        name: 'The Race For Space',
+        release_date: '2015-02-27',
+        release_date_precision: 'day',
+        total_tracks: 9,
+        type: 'album',
+        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
+      },
+      artists: [
+        {
+          external_urls: {
+            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+          },
+          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+          id: '6VsiDFMZJlJ053P1uO4A6h',
+          name: 'Public Service Broadcasting',
+          type: 'artist',
+          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+        },
+      ],
+      available_markets: ['AU'],
+      disc_number: 1,
+      duration_ms: 181621,
+      explicit: false,
+      external_ids: {
+        isrc: 'GBSZF1400169',
+      },
+      external_urls: {
+        spotify: 'https://open.spotify.com/track/7wC8NjlDkefVfNRO34Yb1W',
+      },
+      href: 'https://api.spotify.com/v1/tracks/7wC8NjlDkefVfNRO34Yb1W',
+      id: '7wC8NjlDkefVfNRO34Yb1W',
+      is_local: false,
+      name: 'Fire In The Cockpit',
+      popularity: 7,
+      preview_url:
+        'https://p.scdn.co/mp3-preview/1c9fee92d83b86fd0ca2c597efb40658eb569eee?cid=2254dce9797a4e91880c97b856207f8c',
+      track_number: 4,
+      type: 'track',
+      uri: 'spotify:track:7wC8NjlDkefVfNRO34Yb1W',
     },
     '7voASF1yQMRlAwNJS3pemX': {
       album: {
@@ -30628,7 +28720,7 @@ export const mocks: {
       name: 'Gagarin',
       popularity: 18,
       preview_url:
-        'https://p.scdn.co/mp3-preview/d07e163d50e1cd061f63d8613155458240dcbf8c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/d07e163d50e1cd061f63d8613155458240dcbf8c?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 3,
       type: 'track',
       uri: 'spotify:track:7voASF1yQMRlAwNJS3pemX',
@@ -30706,166 +28798,10 @@ export const mocks: {
       name: 'Sputnik',
       popularity: 16,
       preview_url:
-        'https://p.scdn.co/mp3-preview/f88f7df964974222d5f02ce255d5ad5abfd00ab4?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/f88f7df964974222d5f02ce255d5ad5abfd00ab4?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 2,
       type: 'track',
       uri: 'spotify:track:1VxR4vZ2wpdBYvQrJatMrx',
-    },
-    '0X8ewj5V8wVpCUmCjdLeqw': {
-      album: {
-        album_type: 'album',
-        artists: [
-          {
-            external_urls: {
-              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
-            },
-            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
-            id: '6VsiDFMZJlJ053P1uO4A6h',
-            name: 'Public Service Broadcasting',
-            type: 'artist',
-            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
-          },
-        ],
-        available_markets: ['AU'],
-        external_urls: {
-          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
-        },
-        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
-        id: '4ZaAM16hw3xpp680FJahJJ',
-        images: [
-          {
-            height: 640,
-            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
-            width: 640,
-          },
-          {
-            height: 300,
-            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
-            width: 300,
-          },
-          {
-            height: 64,
-            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
-            width: 64,
-          },
-        ],
-        name: 'The Race For Space',
-        release_date: '2015-02-27',
-        release_date_precision: 'day',
-        total_tracks: 9,
-        type: 'album',
-        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
-      },
-      artists: [
-        {
-          external_urls: {
-            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
-          },
-          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
-          id: '6VsiDFMZJlJ053P1uO4A6h',
-          name: 'Public Service Broadcasting',
-          type: 'artist',
-          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
-        },
-      ],
-      available_markets: ['AU'],
-      disc_number: 1,
-      duration_ms: 255606,
-      explicit: false,
-      external_ids: {
-        isrc: 'GBSZF1400170',
-      },
-      external_urls: {
-        spotify: 'https://open.spotify.com/track/0X8ewj5V8wVpCUmCjdLeqw',
-      },
-      href: 'https://api.spotify.com/v1/tracks/0X8ewj5V8wVpCUmCjdLeqw',
-      id: '0X8ewj5V8wVpCUmCjdLeqw',
-      is_local: false,
-      name: 'E.V.A.',
-      popularity: 11,
-      preview_url:
-        'https://p.scdn.co/mp3-preview/cdbf77294ddaf3d13d7f4423e7d1024522398e91?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
-      track_number: 5,
-      type: 'track',
-      uri: 'spotify:track:0X8ewj5V8wVpCUmCjdLeqw',
-    },
-    '7wC8NjlDkefVfNRO34Yb1W': {
-      album: {
-        album_type: 'album',
-        artists: [
-          {
-            external_urls: {
-              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
-            },
-            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
-            id: '6VsiDFMZJlJ053P1uO4A6h',
-            name: 'Public Service Broadcasting',
-            type: 'artist',
-            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
-          },
-        ],
-        available_markets: ['AU'],
-        external_urls: {
-          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
-        },
-        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
-        id: '4ZaAM16hw3xpp680FJahJJ',
-        images: [
-          {
-            height: 640,
-            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
-            width: 640,
-          },
-          {
-            height: 300,
-            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
-            width: 300,
-          },
-          {
-            height: 64,
-            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
-            width: 64,
-          },
-        ],
-        name: 'The Race For Space',
-        release_date: '2015-02-27',
-        release_date_precision: 'day',
-        total_tracks: 9,
-        type: 'album',
-        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
-      },
-      artists: [
-        {
-          external_urls: {
-            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
-          },
-          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
-          id: '6VsiDFMZJlJ053P1uO4A6h',
-          name: 'Public Service Broadcasting',
-          type: 'artist',
-          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
-        },
-      ],
-      available_markets: ['AU'],
-      disc_number: 1,
-      duration_ms: 181621,
-      explicit: false,
-      external_ids: {
-        isrc: 'GBSZF1400169',
-      },
-      external_urls: {
-        spotify: 'https://open.spotify.com/track/7wC8NjlDkefVfNRO34Yb1W',
-      },
-      href: 'https://api.spotify.com/v1/tracks/7wC8NjlDkefVfNRO34Yb1W',
-      id: '7wC8NjlDkefVfNRO34Yb1W',
-      is_local: false,
-      name: 'Fire In The Cockpit',
-      popularity: 7,
-      preview_url:
-        'https://p.scdn.co/mp3-preview/1c9fee92d83b86fd0ca2c597efb40658eb569eee?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
-      track_number: 4,
-      type: 'track',
-      uri: 'spotify:track:7wC8NjlDkefVfNRO34Yb1W',
     },
     '6FttZyUJKD3aSZaKkEv7gK': {
       album: {
@@ -30938,90 +28874,12 @@ export const mocks: {
       id: '6FttZyUJKD3aSZaKkEv7gK',
       is_local: false,
       name: 'Go!',
-      popularity: 29,
+      popularity: 28,
       preview_url:
-        'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/e486847ed1fb5c7d7bcff27efdab04d65a6a3ac1?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 8,
       type: 'track',
       uri: 'spotify:track:6FttZyUJKD3aSZaKkEv7gK',
-    },
-    '5sKihjG4Uveox2Tc5JzFPc': {
-      album: {
-        album_type: 'album',
-        artists: [
-          {
-            external_urls: {
-              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
-            },
-            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
-            id: '6VsiDFMZJlJ053P1uO4A6h',
-            name: 'Public Service Broadcasting',
-            type: 'artist',
-            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
-          },
-        ],
-        available_markets: ['AU'],
-        external_urls: {
-          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
-        },
-        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
-        id: '4ZaAM16hw3xpp680FJahJJ',
-        images: [
-          {
-            height: 640,
-            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
-            width: 640,
-          },
-          {
-            height: 300,
-            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
-            width: 300,
-          },
-          {
-            height: 64,
-            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
-            width: 64,
-          },
-        ],
-        name: 'The Race For Space',
-        release_date: '2015-02-27',
-        release_date_precision: 'day',
-        total_tracks: 9,
-        type: 'album',
-        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
-      },
-      artists: [
-        {
-          external_urls: {
-            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
-          },
-          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
-          id: '6VsiDFMZJlJ053P1uO4A6h',
-          name: 'Public Service Broadcasting',
-          type: 'artist',
-          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
-        },
-      ],
-      available_markets: ['AU'],
-      disc_number: 1,
-      duration_ms: 379931,
-      explicit: false,
-      external_ids: {
-        isrc: 'GBSZF1400171',
-      },
-      external_urls: {
-        spotify: 'https://open.spotify.com/track/5sKihjG4Uveox2Tc5JzFPc',
-      },
-      href: 'https://api.spotify.com/v1/tracks/5sKihjG4Uveox2Tc5JzFPc',
-      id: '5sKihjG4Uveox2Tc5JzFPc',
-      is_local: false,
-      name: 'The Other Side',
-      popularity: 14,
-      preview_url:
-        'https://p.scdn.co/mp3-preview/77768b7834f18acc98071b64ec97ce07c338850e?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
-      track_number: 6,
-      type: 'track',
-      uri: 'spotify:track:5sKihjG4Uveox2Tc5JzFPc',
     },
     '5jR9aQAJLduNhbTl4nuyfz': {
       album: {
@@ -31096,10 +28954,166 @@ export const mocks: {
       name: 'Valentina',
       popularity: 8,
       preview_url:
-        'https://p.scdn.co/mp3-preview/12bedf34e3e8d44dfa25859bffb45c4a24d4153c?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/12bedf34e3e8d44dfa25859bffb45c4a24d4153c?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 7,
       type: 'track',
       uri: 'spotify:track:5jR9aQAJLduNhbTl4nuyfz',
+    },
+    '0X8ewj5V8wVpCUmCjdLeqw': {
+      album: {
+        album_type: 'album',
+        artists: [
+          {
+            external_urls: {
+              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+            },
+            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+            id: '6VsiDFMZJlJ053P1uO4A6h',
+            name: 'Public Service Broadcasting',
+            type: 'artist',
+            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+          },
+        ],
+        available_markets: ['AU'],
+        external_urls: {
+          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
+        },
+        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
+        id: '4ZaAM16hw3xpp680FJahJJ',
+        images: [
+          {
+            height: 640,
+            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
+            width: 640,
+          },
+          {
+            height: 300,
+            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
+            width: 300,
+          },
+          {
+            height: 64,
+            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
+            width: 64,
+          },
+        ],
+        name: 'The Race For Space',
+        release_date: '2015-02-27',
+        release_date_precision: 'day',
+        total_tracks: 9,
+        type: 'album',
+        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
+      },
+      artists: [
+        {
+          external_urls: {
+            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+          },
+          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+          id: '6VsiDFMZJlJ053P1uO4A6h',
+          name: 'Public Service Broadcasting',
+          type: 'artist',
+          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+        },
+      ],
+      available_markets: ['AU'],
+      disc_number: 1,
+      duration_ms: 255606,
+      explicit: false,
+      external_ids: {
+        isrc: 'GBSZF1400170',
+      },
+      external_urls: {
+        spotify: 'https://open.spotify.com/track/0X8ewj5V8wVpCUmCjdLeqw',
+      },
+      href: 'https://api.spotify.com/v1/tracks/0X8ewj5V8wVpCUmCjdLeqw',
+      id: '0X8ewj5V8wVpCUmCjdLeqw',
+      is_local: false,
+      name: 'E.V.A.',
+      popularity: 11,
+      preview_url:
+        'https://p.scdn.co/mp3-preview/cdbf77294ddaf3d13d7f4423e7d1024522398e91?cid=2254dce9797a4e91880c97b856207f8c',
+      track_number: 5,
+      type: 'track',
+      uri: 'spotify:track:0X8ewj5V8wVpCUmCjdLeqw',
+    },
+    '5sKihjG4Uveox2Tc5JzFPc': {
+      album: {
+        album_type: 'album',
+        artists: [
+          {
+            external_urls: {
+              spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+            },
+            href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+            id: '6VsiDFMZJlJ053P1uO4A6h',
+            name: 'Public Service Broadcasting',
+            type: 'artist',
+            uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+          },
+        ],
+        available_markets: ['AU'],
+        external_urls: {
+          spotify: 'https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ',
+        },
+        href: 'https://api.spotify.com/v1/albums/4ZaAM16hw3xpp680FJahJJ',
+        id: '4ZaAM16hw3xpp680FJahJJ',
+        images: [
+          {
+            height: 640,
+            url: 'https://i.scdn.co/image/ab67616d0000b273dbbe0be2843f52d933ee4a84',
+            width: 640,
+          },
+          {
+            height: 300,
+            url: 'https://i.scdn.co/image/ab67616d00001e02dbbe0be2843f52d933ee4a84',
+            width: 300,
+          },
+          {
+            height: 64,
+            url: 'https://i.scdn.co/image/ab67616d00004851dbbe0be2843f52d933ee4a84',
+            width: 64,
+          },
+        ],
+        name: 'The Race For Space',
+        release_date: '2015-02-27',
+        release_date_precision: 'day',
+        total_tracks: 9,
+        type: 'album',
+        uri: 'spotify:album:4ZaAM16hw3xpp680FJahJJ',
+      },
+      artists: [
+        {
+          external_urls: {
+            spotify: 'https://open.spotify.com/artist/6VsiDFMZJlJ053P1uO4A6h',
+          },
+          href: 'https://api.spotify.com/v1/artists/6VsiDFMZJlJ053P1uO4A6h',
+          id: '6VsiDFMZJlJ053P1uO4A6h',
+          name: 'Public Service Broadcasting',
+          type: 'artist',
+          uri: 'spotify:artist:6VsiDFMZJlJ053P1uO4A6h',
+        },
+      ],
+      available_markets: ['AU'],
+      disc_number: 1,
+      duration_ms: 379931,
+      explicit: false,
+      external_ids: {
+        isrc: 'GBSZF1400171',
+      },
+      external_urls: {
+        spotify: 'https://open.spotify.com/track/5sKihjG4Uveox2Tc5JzFPc',
+      },
+      href: 'https://api.spotify.com/v1/tracks/5sKihjG4Uveox2Tc5JzFPc',
+      id: '5sKihjG4Uveox2Tc5JzFPc',
+      is_local: false,
+      name: 'The Other Side',
+      popularity: 14,
+      preview_url:
+        'https://p.scdn.co/mp3-preview/77768b7834f18acc98071b64ec97ce07c338850e?cid=2254dce9797a4e91880c97b856207f8c',
+      track_number: 6,
+      type: 'track',
+      uri: 'spotify:track:5sKihjG4Uveox2Tc5JzFPc',
     },
     '3grjVTs1SI2XYGHI4A27ic': {
       album: {
@@ -31174,7 +29188,7 @@ export const mocks: {
       name: 'Tomorrow',
       popularity: 9,
       preview_url:
-        'https://p.scdn.co/mp3-preview/680fe2546c59ce42833fa2cd7d812e5084102fd1?cid=d8a5ed958d274c2e8ee717e6a4b0971d',
+        'https://p.scdn.co/mp3-preview/680fe2546c59ce42833fa2cd7d812e5084102fd1?cid=2254dce9797a4e91880c97b856207f8c',
       track_number: 9,
       type: 'track',
       uri: 'spotify:track:3grjVTs1SI2XYGHI4A27ic',
@@ -31465,7 +29479,6 @@ export const mocks: {
           {
             audio_preview_url:
               'https://p.scdn.co/mp3-preview/84e2c21a8ea52ef54ba45eff08216d5cb0fd0c62',
-            content_type: 'PODCAST_EPISODE',
             description:
               'Jerel Miller joins Jeff Auriemma to talk about Apollo Client (web). Originally streamed live on July 25, 2023, on the Apollo Discord.  Links:   Apollo Client Suspense docs  Spotify showcase  Apollo Client 3.8 release notes  @nonreactive blog post   Apollo Feature Requests repo  Topics:    React suspense   React lazy and code splitting   useSuspenseQuery   useBackgroundQuery & useReadQuery   Apollo Spotify showcase   Apollo Client 3.8   Document transforms ',
             duration_ms: 3203053,
@@ -31496,7 +29509,6 @@ export const mocks: {
               },
             ],
             is_externally_hosted: false,
-            is_paywall_content: false,
             is_playable: true,
             language: 'en',
             languages: ['en'],
@@ -31505,7 +29517,7 @@ export const mocks: {
             release_date_precision: 'day',
             resume_point: {
               fully_played: false,
-              resume_position_ms: 0,
+              resume_position_ms: 4000,
             },
             type: 'episode',
             uri: 'spotify:episode:53GQ1LSSLptukYmHW96UQe',
@@ -31513,7 +29525,6 @@ export const mocks: {
           {
             audio_preview_url:
               'https://p.scdn.co/mp3-preview/d76b7268d3f56141b9cf4209f5c83917b829ea9c',
-            content_type: 'PODCAST_EPISODE',
             description:
               'Benoit Lubek joins Jeff Auriemma to talk about Apollo Kotlin. Originally streamed in the Apollo Discord on July 3, 2023.  Links:   JetBrains Plugin Announcement  JetBrains Plugin GitHub Issues   Apollo Kotlin Slack   4.0 Error handling issue   Apollo Kotlin tutorial   Benoit’s website   Topics:    Android Studio and IntelliJ IDEA Plugin   Apollo Kotlin 4.0   Jetpack Compose   Gradle Enterprise   @defer   Google I/O 2023 ',
             duration_ms: 2728298,
@@ -31544,7 +29555,6 @@ export const mocks: {
               },
             ],
             is_externally_hosted: false,
-            is_paywall_content: false,
             is_playable: true,
             language: 'en',
             languages: ['en'],
@@ -31561,7 +29571,6 @@ export const mocks: {
           {
             audio_preview_url:
               'https://p.scdn.co/mp3-preview/5973b17ac1192a3467d8a4b3beaeab0e3bb91b0e',
-            content_type: 'PODCAST_EPISODE',
             description:
               "Calvin Cestari and Jeff Auriemma discuss all the latest news for Apollo iOS—the GraphQL client for Swift. Originally streamed live in the Apollo Discord on 2023-06-16.  Links:   Full Transcript  Apollo iOS   WWDC '23 Megathread  Topics:    Defer directive   Directives refresher   Apollo iOS 1.2   New codegen configuration option   Migration guide and breaking changes   Initializers and test mocks   Raw JSON vs models   Custom scalars   WWDC   Apple Vision Pro   Supporting Mac, Apple Watch, and more ",
             duration_ms: 2781379,
@@ -31592,7 +29601,6 @@ export const mocks: {
               },
             ],
             is_externally_hosted: false,
-            is_paywall_content: false,
             is_playable: true,
             language: 'en',
             languages: ['en'],
@@ -31609,7 +29617,6 @@ export const mocks: {
           {
             audio_preview_url:
               'https://p.scdn.co/mp3-preview/afef211a0ad43d67abcfe75b9a292bba96af031a',
-            content_type: 'PODCAST_EPISODE',
             description:
               'Lenz Weber-Tronic and Jeff Auriemma discuss Apollo Client, React Server Components, and more! Originally streamed live in the Apollo Discord on 2023-05-30.  Links:   Full Transcript  Apollo Client   React Server Components   Apollo Client Next.js  Topics:    Caching in Apollo Client   Cache Metrics   React Server Components   Apollo Client 3.8   How to contact us   Apollo Client and React Native ',
             duration_ms: 3202844,
@@ -31640,7 +29647,6 @@ export const mocks: {
               },
             ],
             is_externally_hosted: false,
-            is_paywall_content: false,
             is_playable: true,
             language: 'en',
             languages: ['en'],
@@ -31657,7 +29663,6 @@ export const mocks: {
           {
             audio_preview_url:
               'https://p.scdn.co/mp3-preview/6311283c57a1504cbe569b78650e481fe285feab',
-            content_type: 'PODCAST_EPISODE',
             description:
               'Martin Bonnin and Jeff Auriemma discuss all the latest news for Apollo Kotlin. Originally streamed live in the Apollo Discord on 2023-05-10.  Links:   Full Transcript  Apollo Kotlin  Confetti  Topics:   Normalized Cache  Jetpack compose  Confetti   Optimistic updates   Java Support   WASM ',
             duration_ms: 2923554,
@@ -31688,7 +29693,6 @@ export const mocks: {
               },
             ],
             is_externally_hosted: false,
-            is_paywall_content: false,
             is_playable: true,
             language: 'en',
             languages: ['en'],
@@ -31705,7 +29709,6 @@ export const mocks: {
           {
             audio_preview_url:
               'https://p.scdn.co/mp3-preview/184c59a19e2bc34f37e5d703788f883567410e39',
-            content_type: 'PODCAST_EPISODE',
             description:
               "Anthony Miller and Jeff Auriemma discuss Apollo iOS in our first-ever office hours. Originally live streamed in ⁠Apollo's Discord⁠ on 2023-04-20.  Topics:   Migrating to 1.0  What will 2.0 be like?   Generating models   Community feedback   Codable protocol   GraphQL Nullable   @exported   @defer   Scalars   Links:    Full Transcript     Apollo iOS ",
             duration_ms: 3511785,
@@ -31736,7 +29739,6 @@ export const mocks: {
               },
             ],
             is_externally_hosted: false,
-            is_paywall_content: false,
             is_playable: true,
             language: 'en',
             languages: ['en'],
@@ -31745,7 +29747,7 @@ export const mocks: {
             release_date_precision: 'day',
             resume_point: {
               fully_played: false,
-              resume_position_ms: 6000,
+              resume_position_ms: 0,
             },
             type: 'episode',
             uri: 'spotify:episode:2Mmay1mmdUm9X6bjQVV6PE',
@@ -31806,9 +29808,6 @@ export const mocks: {
       followers: {
         href: null,
         total: 0,
-      },
-      policies: {
-        opt_in_trial_premium_only_market: false,
       },
     },
   },
