@@ -97,7 +97,7 @@ export namespace Spotify {
       href: string;
       id: string;
       name: string;
-      type: 'artist' | 'show';
+      type: 'artist';
       uri: string;
     }
 
