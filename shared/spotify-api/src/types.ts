@@ -153,7 +153,6 @@ export namespace Spotify {
       product: RestrictScope<string, 'user-read-private'>;
       type: 'user';
       uri: string;
-      policies: object;
     }
 
     export interface Cursors {
@@ -186,7 +185,6 @@ export namespace Spotify {
 
     export interface Episode {
       audio_preview_url: string | null;
-      content_type: 'PODCAST_EPISODE';
       description: string;
       duration_ms: number;
       explicit: boolean;
@@ -196,8 +194,12 @@ export namespace Spotify {
       id: string;
       images: Image[];
       is_externally_hosted: boolean;
-      is_paywall_content: boolean;
       is_playable: boolean;
+      /**
+       * The language used in the episode, identified by a {@link https://en.wikipedia.org/wiki/ISO_639 | ISO 639} code.
+       *
+       * @deprecated This field is deprecated and might be removed in the future. Please use the `languages` field instead.
+       */
       language: string;
       languages: string[];
       name: string;
@@ -211,7 +213,6 @@ export namespace Spotify {
 
     export interface EpisodeSimplified {
       audio_preview_url: string | null;
-      content_type: 'PODCAST_EPISODE';
       description: string;
       duration_ms: number;
       explicit: boolean;
@@ -221,8 +222,12 @@ export namespace Spotify {
       id: string;
       images: Image[];
       is_externally_hosted: boolean;
-      is_paywall_content: boolean;
       is_playable: boolean;
+      /**
+       * The language used in the episode, identified by a {@link https://en.wikipedia.org/wiki/ISO_639 | ISO 639} code.
+       *
+       * @deprecated This field is deprecated and might be removed in the future. Please use the `languages` field instead.
+       */
       language: string;
       languages: string[];
       name: string;
@@ -321,7 +326,6 @@ export namespace Spotify {
       owner: UserSimplified;
       primary_color: string | null;
       public: boolean | null;
-      sharing_info: object;
       snapshot_id: string;
       tracks: Paginated<PlaylistTrack>;
       type: 'playlist';
@@ -358,7 +362,7 @@ export namespace Spotify {
       available_markets: CountryCode[];
       disc_number: number;
       duration_ms: number;
-      episode: false;
+      episode: boolean;
       explicit: boolean;
       external_ids: ExternalId;
       external_urls: ExternalUrl;
@@ -371,7 +375,7 @@ export namespace Spotify {
       popularity: number;
       preview_url: string | null;
       restrictions?: Restrictions;
-      track: true;
+      track: boolean;
       track_number: number;
       type: 'track';
       uri: string;
@@ -432,7 +436,6 @@ export namespace Spotify {
       added_by: UserSimplified;
       is_local: boolean;
       primary_color: string | null;
-      sharing_info: object;
       track: PlaylistItem;
       video_thumbnail: {
         url: string | null;
@@ -520,7 +523,6 @@ export namespace Spotify {
       available_markets: CountryCode[];
       copyrights: Copyright[];
       description: string;
-      episodes: Paginated<EpisodeSimplified>;
       explicit: boolean;
       external_urls: ExternalUrl;
       href: string;
@@ -617,7 +619,6 @@ export namespace Spotify {
       images: Image[] | null;
       type: 'user';
       uri: string;
-      policies: object;
     }
 
     export interface UserSimplified {
