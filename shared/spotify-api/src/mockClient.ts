@@ -373,7 +373,6 @@ export class MockSpotifyClient implements SpotifyDataSource {
       uri: 'https://discord.gg/graphos',
       product: 'free',
       type: 'user',
-      policies: {},
     };
   }
 
