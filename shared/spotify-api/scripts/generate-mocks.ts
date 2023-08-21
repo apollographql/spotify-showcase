@@ -174,7 +174,7 @@ async function getEpisode(id: string) {
   return tap(
     (store.episodes[id] ||= await get('/episodes/:id', { id })),
     async (episode) => {
-      episode.show = await getShow(episode.show.id);
+      await getShow(episode.show.id);
     }
   );
 }
