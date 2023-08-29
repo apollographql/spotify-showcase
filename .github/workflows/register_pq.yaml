@@ -1,0 +1,27 @@
+name: Register Persisted Queries
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+      - '.github/workflows/register_pq.yaml'
+      - 'persisted-query-manifest.config.ts'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  publish_persisted_queries:
+    name: Publish Playback schema to GraphOS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rover
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/latest | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+      - name: Publish Operations Manifest
+        run: rover persisted-queries publish my-graph@my-variant --manifest ./persisted-query-manifest.json
+        env:
+          APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+          APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
+          APOLLO_GRAPH_REF: ${{ secrets.APOLLO_GRAPH_REF }}
