@@ -2,6 +2,6 @@ import { FeaturedPlaylistConnectionResolvers } from '../__generated__/resolvers-
 import { prop } from './helpers';
 
 export const FeaturedPlaylistConnection: FeaturedPlaylistConnectionResolvers = {
-  edges: (featuredPlaylists) => featuredPlaylists.playlists.items,
+  edges: (featuredPlaylists) => featuredPlaylists?.playlists?.items ?? [],
   pageInfo: prop('playlists'),
 };
