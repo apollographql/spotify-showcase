@@ -20,7 +20,7 @@ jobs:
           curl -sSL https://rover.apollo.dev/nix/latest | sh
           echo "$HOME/.rover/bin" >> $GITHUB_PATH
       - name: Publish Operations Manifest
-        run: rover persisted-queries publish my-graph@my-variant --manifest ./persisted-query-manifest.json
+        run: rover persisted-queries publish $APOLLO_GRAPH_REF --manifest ./client/src/apollo/persisted-query-manifest.json
         env:
           APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
           APOLLO_VCS_COMMIT: ${{ github.event.pull_request.head.sha }}
