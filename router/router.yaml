@@ -29,7 +29,7 @@ homepage:
   enabled: false
 include_subgraph_errors:
   all: true
-limits:
+preview_operation_limits:
   parser_max_tokens: 15000 # This is the default value.
   parser_max_recursion: 4096 # This is the default value.
   max_depth: 20 # Must be 15 or larger to support standard introspection query
@@ -42,11 +42,11 @@ apq:
     cache:
       in_memory:
         limit: 512 # This is the default value
-preview_persisted_queries:
-  enabled: true
-  log_unknown: true
+# preview_persisted_queries:
+#   enabled: true
+#   log_unknown: true
 subscription:
-  enabled: true
+  # enabled: true
   mode:
     preview_callback:
       public_url: https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
