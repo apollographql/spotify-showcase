@@ -46,7 +46,6 @@ apq:
 #   enabled: true
 #   log_unknown: true
 subscription:
-  enabled: true
   mode:
     preview_callback:
       public_url: https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
