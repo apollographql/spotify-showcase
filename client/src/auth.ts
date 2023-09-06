@@ -21,7 +21,6 @@ export const readToken = (tokenType: TokenType = 'access') => {
     // TODO: mock localStorage
     return 'abc';
   } catch (e) {
-    console.log(e);
     return null;
   }
 };
