@@ -69,7 +69,7 @@ const httpAuthLink = setContext(async ({ context }) => {
 });
 
 const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_SERVER_HOST,
+  uri: import.meta.env.VITE_SERVER_HOST || 'http://localhost:4000/',
 });
 
 export default new ApolloClient({

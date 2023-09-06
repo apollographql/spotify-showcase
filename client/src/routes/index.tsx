@@ -18,8 +18,7 @@ import Skeleton from '../components/Skeleton';
 import Suspense from '../components/Suspense';
 
 export const RouteComponent = () => {
-  // const isLoggedIn = useIsLoggedIn();
-  const isLoggedIn = true;
+  const isLoggedIn = useIsLoggedIn();
 
   return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };
