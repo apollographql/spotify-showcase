@@ -1,15 +1,18 @@
 import { rest, graphql } from 'msw';
 import {
+  Action,
   CurrentUserQuery,
   CurrentUserQueryVariables,
   IndexRouteQuery,
   IndexRouteQueryVariables,
   LikeControlQuery,
   LikeControlQueryVariables,
+  PlaybackContextType,
   PlaybackStateSubscriberQuery,
   PlaybackStateSubscriberQueryVariables,
   PlaybarQuery,
   PlaybarQueryVariables,
+  RepeatMode,
   SidebarQuery,
   SidebarQueryVariables,
 } from '../types/api';
@@ -81,16 +84,16 @@ export const handlers = [
           player: {
             playbackState: {
               isPlaying: true,
-              repeatState: 'OFF',
+              repeatState: RepeatMode.Off,
               shuffleState: false,
               actions: {
-                disallows: ['RESUMING'],
+                disallows: [Action.Resuming],
                 __typename: 'Actions',
               },
               context: {
                 uri: 'spotify:playlist:3LFIBdP7eZXJKqf3guepZ1',
                 __typename: 'PlaybackContext',
-                type: 'PLAYLIST',
+                type: PlaybackContextType.Playlist,
               },
               device: {
                 id: 'ec18c375183551a52cdf9b7a40ea4afa1443f2aa',
