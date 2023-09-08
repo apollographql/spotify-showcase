@@ -53,7 +53,7 @@ subscription:
   mode:
     preview_callback:
       public_url: http://router:4000 # https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
-      listen: 0:0:0:0:4000 # The IP address and port the router will listen on for subscription callbacks
+      listen: 0.0.0.0:4000 # The IP address and port the router will listen on for subscription callbacks
       path: /callback # The path of the router's callback endpoint
       subgraphs: # The list of subgraphs that use the HTTP callback protocol
         - playback
@@ -64,5 +64,5 @@ rhai:
 #   experimental.expose_query_plan: true
 
 override_subgraph_url:
-  playback: http://playback:4002
-  spotify: http://spotify:4002
+  playback: http://playback:4002/graphql
+  spotify: http://spotify:4001

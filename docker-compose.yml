@@ -31,7 +31,7 @@ services:
     build:
       # we use context . because we need access to the shared directory
       context: .
-      dockerfile: subgraphs/playback/Dockerfile
+      dockerfile: subgraphs/spotify/Dockerfile
     # we don't need to use the ports directive since only the router needs to talk to subgraphs
     expose:
-      - 4002
+      - 4001
