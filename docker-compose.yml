@@ -1,0 +1,37 @@
+# Running instructions:
+# put your apollo key and graph ref in a `.env` file in the root folder EG:
+# APOLLO_GRAPH_REF="YOUR_GRAPH_REF@YOUR_VARIANT"
+# APOLLO_KEY="YOUR_APOLLO_KEY"
+#
+# run `docker-compose --env-file .env up -d`
+#
+# run the frontend:
+# `npm i && npm run start`
+version: '3.9'
+services:
+  router:
+    environment:
+      APOLLO_KEY: ${APOLLO_KEY}
+      APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
+    build: router
+    ports:
+      - 4000:4000
+    depends_on:
+      - playback
+      - spotify
+  playback:
+    build:
+      # we use context . because we need access to the shared directory
+      context: .
+      dockerfile: subgraphs/playback/Dockerfile
+    # we don't need to use the ports directive since only the router needs to talk to subgraphs
+    expose:
+      - 4002
+  spotify:
+    build:
+      # we use context . because we need access to the shared directory
+      context: .
+      dockerfile: subgraphs/playback/Dockerfile
+    # we don't need to use the ports directive since only the router needs to talk to subgraphs
+    expose:
+      - 4002
