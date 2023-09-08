@@ -1,0 +1,27 @@
+version: '3'
+services:
+  spotify:
+    container_name: spotify
+    build:
+      context: .
+      dockerfile: ./subgraphs/spotify/Dockerfile
+    image: subgraph-spotify
+    ports:
+      - '4001:4001'
+  playback:
+    container_name: playback
+    build:
+      context: .
+      dockerfile: ./subgraphs/playback/Dockerfile
+    image: subgraph-playback
+    ports:
+      - '4002:4002'
+  router:
+    container_name: router
+    build: ./router
+    env_file: ./router/.env
+    image: showcase-router
+    depends_on:
+      - playback
+    ports:
+      - '4000:4000'

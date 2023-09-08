@@ -52,3 +52,8 @@ subscription:
       path: /callback # The path of the router's callback endpoint
       subgraphs: # The list of subgraphs that use the HTTP callback protocol
         - playback
+rhai:
+  scripts: ./rhai
+  main: main.rhai
+plugins:
+  experimental.expose_query_plan: true

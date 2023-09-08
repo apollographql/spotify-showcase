@@ -46,15 +46,19 @@ apq:
 #   enabled: true
 #   log_unknown: true
 subscription:
+  # mode:
+  #   passthrough:
+  #     all:
+  #       path: /ws
   mode:
     preview_callback:
-      public_url: https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
-      listen: 0.0.0.0:${env.PORT:-4000} # The IP address and port the router will listen on for subscription callbacks
+      public_url: http://router:4000 # https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
+      listen: 0:0:0:0:${env.PORT:-4000} # The IP address and port the router will listen on for subscription callbacks
       path: /callback # The path of the router's callback endpoint
       subgraphs: # The list of subgraphs that use the HTTP callback protocol
         - playback
-rhai:
-  scripts: ./rhai
-  main: main.rhai
-plugins:
-  experimental.expose_query_plan: true
+# rhai:
+#   scripts: ./rhai
+#   main: main.rhai
+# plugins:
+#   experimental.expose_query_plan: true
