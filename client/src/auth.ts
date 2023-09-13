@@ -17,9 +17,9 @@ const TOKEN_TO_STORAGE_KEYS = {
 export const readToken = (tokenType: TokenType = 'access') => {
   try {
     // console.log(localStorage.getItem(TOKEN_TO_STORAGE_KEYS[tokenType]));
-    // return localStorage.getItem(TOKEN_TO_STORAGE_KEYS[tokenType]);
+    return localStorage.getItem(TOKEN_TO_STORAGE_KEYS[tokenType]);
     // TODO: mock localStorage
-    return 'abc';
+    // return 'abc';
   } catch (e) {
     return null;
   }
