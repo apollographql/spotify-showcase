@@ -2,20 +2,22 @@ FROM node:20
 
 WORKDIR /app
 
-# We copy then entire monorepo because we have the 'shared' folder for our subgraphs
-COPY . .
+# We copy the 'shared' folder
+COPY shared shared
 
-# Remove unnecessary folders from WORKDIR
-RUN rm -rf ./client
-RUN rm -rf ./scripts
-RUN rm -rf ./router
-RUN rm -rf ./docs
-RUN rm -rf ./subgraphs/spotify
+RUN mkdir -p subgraphs/playback/
+
+# We copy the relevant files for our subgraph
+COPY subgraphs/playback/package.json subgraphs/playback/schema.graphql subgraphs/playback/tsconfig.json subgraphs/playback/
+COPY subgraphs/playback/src subgraphs/playback/src/
+COPY package.json package-lock.json tsconfig.json ./
 
 # This runs the npm install on the root so workspaces work
 RUN npm install
+
+WORKDIR /app/subgraphs/playback
 RUN npm run build
 
-EXPOSE ${PORT:-4002}
+EXPOSE 4002
 
-CMD ["node", "subgraphs/playback/dist/index.js"]
+CMD ["node", "dist/index.js"]
