@@ -1,6 +1,6 @@
-FROM ghcr.io/apollographql/router:v1.23.0
+FROM ghcr.io/apollographql/router:v1.29.1
 
-COPY router-docker.yaml /dist/router.yaml
+COPY router.yaml /dist/router.yaml
 COPY rhai /dist/rhai
 
 COPY ./entrypoint.sh ./entrypoint.sh

@@ -13,6 +13,8 @@ services:
     environment:
       APOLLO_KEY: ${APOLLO_KEY}
       APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
+      CALLBACK_URL: ${CALLBACK_URL}
+      WAIT: true
     build: router
     ports:
       - 4000:4000
