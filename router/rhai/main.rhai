@@ -29,7 +29,7 @@ fn log_response(service_name, response) {
 }
 
 fn add_auth_header(request) {
-    if !request.context["auth_header"].is_empty() {
+    if "auth_header" in request.context && !request.context["auth_header"].is_empty() {
         request.subgraph.headers["authorization"] = request.context["auth_header"];
     }
     return request;
