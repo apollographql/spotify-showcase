@@ -10,6 +10,10 @@
   ],
   "scripts": {
     "codegen": "rover graph fetch Spotify-tb7du2@prod-external | prettier --parser graphql > ./client/schema.graphql && graphql-codegen",
+    "docker:build:spotify": "docker build -t subgraph-spotify -f ./subgraphs/spotify/Dockerfile .",
+    "docker:build:playback": "docker build -t subgraph-playback -f ./subgraphs/playback/Dockerfile .",
+    "docker:build:router": "docker build -t showcase-router -f ./router/Dockerfile ./router",
+    "docker:run":"docker-compose --env-file=./.env up --build",
     "format": "prettier . --write",
     "lint": "concurrently \"npm:lint:*\"",
     "lint:format": "prettier . --check",

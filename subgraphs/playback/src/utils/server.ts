@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer, ApolloServerPlugin } from '@apollo/server';
@@ -22,12 +22,17 @@ import { GraphQLError } from 'graphql';
 import { MockSpotifyClient, SpotifyClient } from 'spotify-api';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
+import { resolve } from 'path';
 
 export const app = express();
 export const httpServer = http.createServer(app);
 
+const schemaPath = existsSync('schema.graphql')
+  ? 'schema.graphql'
+  : resolve('subgraphs', 'playback', 'schema.graphql');
+
 const typeDefs = gql(
-  readFileSync('schema.graphql', {
+  readFileSync(schemaPath, {
     encoding: 'utf-8',
   })
 );
@@ -151,7 +156,12 @@ const sentryPlugin: ApolloServerPlugin<ContextValue> = {
 export const callbackApolloServer = new ApolloServer<ContextValue>({
   schema,
   introspection: true,
-  plugins: [ApolloServerPluginSubscriptionCallback({ logger }), sentryPlugin],
+  plugins: [
+    ApolloServerPluginSubscriptionCallback({
+      logger,
+    }),
+    sentryPlugin,
+  ],
 });
 export const wsApolloServer = new ApolloServer<ContextValue>({
   schema,

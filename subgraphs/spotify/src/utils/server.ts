@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import gql from 'graphql-tag';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer } from '@apollo/server';
@@ -10,9 +10,14 @@ import { resolvers } from '../resolvers';
 import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
+import { resolve } from 'path';
+
+const schemaPath = existsSync('schema.graphql')
+  ? 'schema.graphql'
+  : resolve('subgraphs', 'spotify', 'schema.graphql');
 
 const typeDefs = gql(
-  readFileSync('schema.graphql', {
+  readFileSync(schemaPath, {
     encoding: 'utf-8',
   })
 );
