@@ -54,7 +54,7 @@ type Query {
   """
   Information about the current logged-in user.
   """
-  me: CurrentUser @authenticated
+  me: CurrentUser
 
   "Spotify catalog information for an album."
   album(id: ID!): Album
