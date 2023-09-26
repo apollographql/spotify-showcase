@@ -46,14 +46,14 @@ apq:
 #         limit: 512 # This is the default value
 #####################
 # Enable to use persisted queries. You must set the env var
-# `APOLLO_ROVER_DEV_ROUTER_VERSION=1.25.0-alpha.0` for this to work.
 #####################
-preview_persisted_queries:
-  enabled: true
-  safelist:
-    enabled: true
-    require_id: false
+#preview_persisted_queries:
+#  enabled: true
+#  safelist:
+#    enabled: true
+#    require_id: false
   # log_unknown: true
+
 #####################
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.
 #####################
@@ -97,3 +97,18 @@ subscription:
 # override_subgraph_url:
 #   playback: http://127.0.0.1:4002/graphql
 #   spotify: http://127.0.0.1:4001
+
+#######################
+# Uncomment this to enable authorization directives and the dependent coprocessor
+#######################
+
+#authorization:
+#  preview_directives:
+#    enabled: true
+#coprocessor:
+#  timeout: 5s
+#  url: http://coprocessor:4100/
+#  router:
+#    request:
+#      headers: true
+#      context: true
