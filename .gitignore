@@ -19,6 +19,7 @@ node_modules
 .env.production.local
 .env
 server/.env
+.idea/
 
 npm-debug.log*
 yarn-debug.log*
