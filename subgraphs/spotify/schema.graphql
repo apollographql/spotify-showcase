@@ -780,7 +780,7 @@ type CurrentUser {
   """
   Information about the user's current playback state
   """
-  player: Player!
+  player: Player
 
   """
   Playlists owned or followed by the current Spotify user.
