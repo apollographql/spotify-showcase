@@ -20,7 +20,7 @@ extend schema
     import: ["@key", "@shareable", "@tag"]
   )
 
-directive @authenticated on FIELD_DEFINITION | OBJECT
+directive @authenticated on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
 directive @requiresScopes(scopes: [[String!]!]!) on
   FIELD_DEFINITION
   | OBJECT
