@@ -1,12 +1,16 @@
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
   @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/authenticated/v0.1", for: SECURITY)
+  @link(url: "https://specs.apollo.dev/requiresScopes/v0.1", for: SECURITY)
   @link(url: "https://specs.apollo.dev/tag/v0.3")
 {
   query: Query
   mutation: Mutation
   subscription: Subscription
 }
+
+directive @authenticated on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
 
 directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
 
@@ -21,6 +25,8 @@ directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boole
 directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
 
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
+
+directive @requiresScopes(scopes: [requiresScopes__Scope!]!) on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
 
 directive @synthetics(
   """The synthetic timeout configured for the field."""
@@ -457,7 +463,7 @@ type CurrentUser
   user: User! @deprecated(reason: "Use the profile field instead which provides richer current user information.")
 
   """Information about the user's current playback state"""
-  player: Player!
+  player: Player @authenticated
 
   """Playlists owned or followed by the current Spotify user."""
   playlists(
@@ -992,7 +998,7 @@ type Mutation
   transferPlayback(input: TransferPlaybackInput!): TransferPlaybackPayload @join__field(graph: PLAYBACK)
 
   """Add an item to the end of the user's current playback queue."""
-  addItemToPlaybackQueue(input: AddItemToPlaybackQueueInput!): AddItemToPlaybackQueuePayload @join__field(graph: SPOTIFY)
+  addItemToPlaybackQueue(input: AddItemToPlaybackQueueInput!): AddItemToPlaybackQueuePayload @join__field(graph: SPOTIFY) @requiresScopes(scopes: [["spotify:premium", "country:US"], ["spotify:premium", "apollo:employee"]])
 
   """Add one or more items to a user's playlist."""
   addItemsToPlaylist(input: AddItemsToPlaylistInput!): AddItemsToPlaylistPayload @join__field(graph: SPOTIFY)
@@ -1993,6 +1999,8 @@ enum RepeatMode
   OFF @join__enumValue(graph: PLAYBACK) @join__enumValue(graph: SPOTIFY)
   TRACK @join__enumValue(graph: PLAYBACK) @join__enumValue(graph: SPOTIFY)
 }
+
+scalar requiresScopes__Scope
 
 input ResetFieldConfigInput
   @join__type(graph: SPOTIFY)
