@@ -39,7 +39,7 @@
     "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "express": "^4.18.2",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "graphql-tag": "latest",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",

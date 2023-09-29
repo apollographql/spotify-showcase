@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import graphql from '@rollup/plugin-graphql';
 
 export default defineConfig(async () => {
   const mdx = await import('@mdx-js/rollup');
@@ -11,7 +12,9 @@ export default defineConfig(async () => {
       open: true,
       port: process.env.PORT ?? 3000,
     },
+    dedupe: ['graphql'],
     plugins: [
+      graphql(),
       mdx.default({
         remarkPlugins: [
           remarkFrontmatter.default,
