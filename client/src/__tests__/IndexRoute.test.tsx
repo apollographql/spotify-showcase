@@ -7,7 +7,7 @@ import client from '../apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('IndexRoute', () => {
-  test('allows user to log in', async () => {
+  test('renders', async () => {
     render(
       <ApolloProvider client={client}>
         <Suspense fallback={<IndexRoute.LoadingState />}>
@@ -18,6 +18,8 @@ describe('IndexRoute', () => {
       </ApolloProvider>
     );
 
-    expect(await screen.findByText(/afternoon acoustic/i)).toBeInTheDocument();
+    expect(await screen.findByText(/afternoon delight/i)).toBeInTheDocument();
+    expect(await screen.findByText(/this is my playlist/i)).toBeInTheDocument();
+    expect(await screen.findByText(/description/i)).toBeInTheDocument();
   });
 });

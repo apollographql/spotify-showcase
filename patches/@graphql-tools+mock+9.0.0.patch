@@ -1,0 +1,10 @@
+diff --git a/node_modules/@graphql-tools/mock/esm/addMocksToSchema.js b/node_modules/@graphql-tools/mock/esm/addMocksToSchema.js
+index 7eaa359..7b4f9a8 100644
+--- a/node_modules/@graphql-tools/mock/esm/addMocksToSchema.js
++++ b/node_modules/@graphql-tools/mock/esm/addMocksToSchema.js
+@@ -1,4 +1,4 @@
+-import { defaultFieldResolver, isUnionType, GraphQLUnionType, GraphQLInterfaceType, isSchema, } from 'graphql';
++import { defaultFieldResolver, isUnionType, GraphQLUnionType, GraphQLInterfaceType, isSchema, } from 'graphql/index.mjs';
+ import { mapSchema, MapperKind } from '@graphql-tools/utils';
+ import { addResolversToSchema } from '@graphql-tools/schema';
+ import { isRef } from './types.js';

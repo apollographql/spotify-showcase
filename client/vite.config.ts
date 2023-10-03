@@ -12,7 +12,6 @@ export default defineConfig(async () => {
       open: true,
       port: process.env.PORT ?? 3000,
     },
-    dedupe: ['graphql'],
     plugins: [
       graphql(),
       mdx.default({
@@ -45,6 +44,14 @@ export default defineConfig(async () => {
       globals: true,
       environment: 'jsdom',
       setupFiles: ['./setupTests.ts'],
+      // solves CJS/ESM dual package hazard issue with graphql
+      // whereby some imports resolve with CJS version and some the ESM version
+      // see: https://github.com/vitejs/vite/issues/7879#issuecomment-1349079757
+      server: {
+        deps: {
+          fallbackCJS: true,
+        },
+      }
     },
   };
 });

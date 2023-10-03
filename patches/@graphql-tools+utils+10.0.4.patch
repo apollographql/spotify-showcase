@@ -1,0 +1,30 @@
+diff --git a/node_modules/@graphql-tools/utils/esm/getObjectTypeFromTypeMap.js b/node_modules/@graphql-tools/utils/esm/getObjectTypeFromTypeMap.js
+index ed471fc..4b8a1ed 100644
+--- a/node_modules/@graphql-tools/utils/esm/getObjectTypeFromTypeMap.js
++++ b/node_modules/@graphql-tools/utils/esm/getObjectTypeFromTypeMap.js
+@@ -1,4 +1,4 @@
+-import { isObjectType } from 'graphql';
++import { isObjectType } from 'graphql/index.mjs';
+ export function getObjectTypeFromTypeMap(typeMap, type) {
+     if (type) {
+         const maybeObjectType = typeMap[type.name];
+diff --git a/node_modules/@graphql-tools/utils/esm/mapSchema.js b/node_modules/@graphql-tools/utils/esm/mapSchema.js
+index f39f92e..fbdd810 100644
+--- a/node_modules/@graphql-tools/utils/esm/mapSchema.js
++++ b/node_modules/@graphql-tools/utils/esm/mapSchema.js
+@@ -1,4 +1,4 @@
+-import { GraphQLEnumType, GraphQLInputObjectType, GraphQLInterfaceType, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema, isEnumType, isInputObjectType, isInterfaceType, isLeafType, isListType, isNamedType, isNonNullType, isObjectType, isScalarType, isUnionType, Kind, } from 'graphql';
++import { GraphQLEnumType, GraphQLInputObjectType, GraphQLInterfaceType, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema, isEnumType, isInputObjectType, isInterfaceType, isLeafType, isListType, isNamedType, isNonNullType, isObjectType, isScalarType, isUnionType, Kind, } from 'graphql/index.mjs';
+ import { getObjectTypeFromTypeMap } from './getObjectTypeFromTypeMap.js';
+ import { MapperKind, } from './Interfaces.js';
+ import { rewireTypes } from './rewire.js';
+diff --git a/node_modules/@graphql-tools/utils/esm/rewire.js b/node_modules/@graphql-tools/utils/esm/rewire.js
+index 55891ab..bce644c 100644
+--- a/node_modules/@graphql-tools/utils/esm/rewire.js
++++ b/node_modules/@graphql-tools/utils/esm/rewire.js
+@@ -1,4 +1,4 @@
+-import { GraphQLDirective, GraphQLEnumType, GraphQLInputObjectType, GraphQLInterfaceType, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLScalarType, GraphQLUnionType, isEnumType, isInputObjectType, isInterfaceType, isListType, isNamedType, isNonNullType, isObjectType, isScalarType, isSpecifiedDirective, isSpecifiedScalarType, isUnionType, } from 'graphql';
++import { GraphQLDirective, GraphQLEnumType, GraphQLInputObjectType, GraphQLInterfaceType, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLScalarType, GraphQLUnionType, isEnumType, isInputObjectType, isInterfaceType, isListType, isNamedType, isNonNullType, isObjectType, isScalarType, isSpecifiedDirective, isSpecifiedScalarType, isUnionType, } from 'graphql/index.mjs';
+ import { getBuiltInForStub, isNamedStub } from './stub.js';
+ export function rewireTypes(originalTypeMap, directives) {
+     const referenceTypeMap = Object.create(null);

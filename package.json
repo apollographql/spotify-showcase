@@ -26,7 +26,8 @@
     "start:client": "npm run start -w client",
     "start:spotify": "npm run start -w spotify-subgraph",
     "start:playback": "npm run start -w playback-subgraph",
-    "start:router": "rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml"
+    "start:router": "rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml",
+    "postinstall": "patch-package"
   },
   "repository": {
     "type": "git",
@@ -51,6 +52,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "graphql": "^16.8.1",
+    "patch-package": "^8.0.0",
     "prettier": "^3.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"

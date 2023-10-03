@@ -1,0 +1,40 @@
+diff --git a/node_modules/@graphql-tools/schema/esm/addResolversToSchema.js b/node_modules/@graphql-tools/schema/esm/addResolversToSchema.js
+index a8792e0..9cdb235 100644
+--- a/node_modules/@graphql-tools/schema/esm/addResolversToSchema.js
++++ b/node_modules/@graphql-tools/schema/esm/addResolversToSchema.js
+@@ -1,4 +1,4 @@
+-import { GraphQLEnumType, GraphQLScalarType, GraphQLUnionType, GraphQLInterfaceType, GraphQLObjectType, isSpecifiedScalarType, isScalarType, isEnumType, isUnionType, isInterfaceType, isObjectType, } from 'graphql';
++import { GraphQLEnumType, GraphQLScalarType, GraphQLUnionType, GraphQLInterfaceType, GraphQLObjectType, isSpecifiedScalarType, isScalarType, isEnumType, isUnionType, isInterfaceType, isObjectType, } from 'graphql/index.mjs';
+ import { mapSchema, MapperKind, forEachDefaultValue, serializeInputValue, healSchema, parseInputValue, forEachField, } from '@graphql-tools/utils';
+ import { checkForResolveTypeResolver } from './checkForResolveTypeResolver.js';
+ import { extendResolversFromInterfaces } from './extendResolversFromInterfaces.js';
+diff --git a/node_modules/@graphql-tools/schema/esm/assertResolversPresent.js b/node_modules/@graphql-tools/schema/esm/assertResolversPresent.js
+index 9a72897..c2ffd96 100644
+--- a/node_modules/@graphql-tools/schema/esm/assertResolversPresent.js
++++ b/node_modules/@graphql-tools/schema/esm/assertResolversPresent.js
+@@ -1,4 +1,4 @@
+-import { getNamedType, isScalarType } from 'graphql';
++import { getNamedType, isScalarType } from 'graphql/index.mjs';
+ import { forEachField } from '@graphql-tools/utils';
+ export function assertResolversPresent(schema, resolverValidationOptions = {}) {
+     const { requireResolversForArgs, requireResolversForNonScalar, requireResolversForAllFields } = resolverValidationOptions;
+diff --git a/node_modules/@graphql-tools/schema/esm/chainResolvers.js b/node_modules/@graphql-tools/schema/esm/chainResolvers.js
+index 6e5b948..c1b112a 100644
+--- a/node_modules/@graphql-tools/schema/esm/chainResolvers.js
++++ b/node_modules/@graphql-tools/schema/esm/chainResolvers.js
+@@ -1,4 +1,4 @@
+-import { defaultFieldResolver } from 'graphql';
++import { defaultFieldResolver } from 'graphql/index.mjs';
+ export function chainResolvers(resolvers) {
+     return (root, args, ctx, info) => resolvers.reduce((prev, curResolver) => {
+         if (curResolver != null) {
+diff --git a/node_modules/@graphql-tools/schema/esm/makeExecutableSchema.js b/node_modules/@graphql-tools/schema/esm/makeExecutableSchema.js
+index a5727d3..7546521 100644
+--- a/node_modules/@graphql-tools/schema/esm/makeExecutableSchema.js
++++ b/node_modules/@graphql-tools/schema/esm/makeExecutableSchema.js
+@@ -1,4 +1,4 @@
+-import { buildASTSchema, buildSchema, isSchema } from 'graphql';
++import { buildASTSchema, buildSchema, isSchema } from 'graphql/index.mjs';
+ import { asArray } from '@graphql-tools/utils';
+ import { addResolversToSchema } from './addResolversToSchema.js';
+ import { assertResolversPresent } from './assertResolversPresent.js';
