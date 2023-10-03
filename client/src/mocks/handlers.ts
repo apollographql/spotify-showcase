@@ -1,7 +1,7 @@
-import { rest, graphql } from 'msw';
-import { graphql as graphqlRequest, buildSchema } from 'graphql';
+import { rest } from 'msw';
+import { buildSchema } from 'graphql';
 import { addMocksToSchema, createMockStore } from '@graphql-tools/mock';
-import { SchemaLink } from '@apollo/client/link/schema';
+import { SchemaLink } from '@apollo/client/link/schema/index.js';
 import SpotifySchema from '../../schema.graphql';
 
 const mocks = {
@@ -29,14 +29,12 @@ const schema = buildSchema(SpotifySchema?.loc?.source.body || '');
 
 const store = createMockStore({ schema, mocks });
 
-const executableSchema = addMocksToSchema({
-  schema,
-  store,
-  resolvers,
-});
-
 export const ExecutableSchemaLink = new SchemaLink({
-  schema: executableSchema,
+  schema: addMocksToSchema({
+    schema,
+    store,
+    resolvers,
+  }),
 });
 
 export const handlers = [
@@ -49,22 +47,4 @@ export const handlers = [
       })
     );
   }),
-
-  // graphql.operation(async (req, res, ctx) => {
-  //   const { query } = await req.json();
-
-  //   const executableSchema = addMocksToSchema({
-  //     schema,
-  //     store,
-  //     resolvers,
-  //   });
-
-  //   const payload = await graphqlRequest({
-  //     schema: executableSchema,
-  //     source: query,
-  //     variableValues: req.variables,
-  //   });
-
-  //   return res(ctx.data(payload.data || {}), ctx.errors(payload.errors));
-  // }),
 ];
