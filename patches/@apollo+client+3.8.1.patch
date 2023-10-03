@@ -1,0 +1,11 @@
+diff --git a/node_modules/@apollo/client/link/schema/index.js b/node_modules/@apollo/client/link/schema/index.js
+index ac71af8..91f3b37 100644
+--- a/node_modules/@apollo/client/link/schema/index.js
++++ b/node_modules/@apollo/client/link/schema/index.js
+@@ -1,5 +1,5 @@
+ import { __extends } from "tslib";
+-import { validate, execute } from 'graphql';
++import { validate, execute } from 'graphql/index.mjs';
+ import { ApolloLink } from '../core/index.js';
+ import { Observable } from '../../utilities/index.js';
+ var SchemaLink = (function (_super) {

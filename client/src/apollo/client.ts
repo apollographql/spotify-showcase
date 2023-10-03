@@ -17,6 +17,7 @@ import introspection from './introspection.json';
 import libraryContains from '../fieldPolicies/libraryContains';
 import offsetConnectionPagination from '../fieldPolicies/offsetConnectionPagination';
 import cursorConnectionPagination from '../fieldPolicies/cursorConnectionPagination';
+import { ExecutableSchemaLink } from '../mocks/handlers';
 import { getAccessToken } from '../auth';
 import { version } from '../../package.json';
 import { persistedQueryModeVar } from '../vars';
@@ -68,9 +69,13 @@ const httpAuthLink = setContext(async ({ context }) => {
   };
 });
 
-const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_SERVER_HOST,
-});
+const httpLink = split(
+  () => process.env.NODE_ENV === 'test',
+  ExecutableSchemaLink,
+  createHttpLink({
+    uri: import.meta.env.VITE_SERVER_HOST || 'http://localhost:4000/',
+  })
+);
 
 export default new ApolloClient({
   link: from([httpAuthLink, persistedQueries, httpLink]),

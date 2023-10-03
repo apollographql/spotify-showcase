@@ -64,6 +64,7 @@ const PlaylistTileGrid = ({
   queryRef: QueryReference<IndexRouteQuery>;
 }) => {
   const { data } = useReadQuery(queryRef);
+  // console.log(data.featuredPlaylists.edges);
   return (
     <div className={containerStyles}>
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
