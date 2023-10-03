@@ -1,6 +1,7 @@
 import { rest, graphql } from 'msw';
 import { graphql as graphqlRequest, buildSchema } from 'graphql';
 import { addMocksToSchema, createMockStore } from '@graphql-tools/mock';
+import { SchemaLink } from '@apollo/client/link/schema';
 import SpotifySchema from '../../schema.graphql';
 
 const mocks = {
@@ -26,7 +27,17 @@ export const resolvers = {
 
 const schema = buildSchema(SpotifySchema?.loc?.source.body || '');
 
-export const store = createMockStore({ schema, mocks });
+const store = createMockStore({ schema, mocks });
+
+const executableSchema = addMocksToSchema({
+  schema,
+  store,
+  resolvers,
+});
+
+export const ExecutableSchemaLink = new SchemaLink({
+  schema: executableSchema,
+});
 
 export const handlers = [
   rest.post('https://accounts.spotify.com/api/token', (req, res, ctx) => {
@@ -39,21 +50,21 @@ export const handlers = [
     );
   }),
 
-  graphql.operation(async (req, res, ctx) => {
-    const { query } = await req.json();
+  // graphql.operation(async (req, res, ctx) => {
+  //   const { query } = await req.json();
 
-    const executableSchema = addMocksToSchema({
-      schema,
-      store,
-      resolvers,
-    });
+  //   const executableSchema = addMocksToSchema({
+  //     schema,
+  //     store,
+  //     resolvers,
+  //   });
 
-    const payload = await graphqlRequest({
-      schema: executableSchema,
-      source: query,
-      variableValues: req.variables,
-    });
+  //   const payload = await graphqlRequest({
+  //     schema: executableSchema,
+  //     source: query,
+  //     variableValues: req.variables,
+  //   });
 
-    return res(ctx.data(payload.data || {}), ctx.errors(payload.errors));
-  }),
+  //   return res(ctx.data(payload.data || {}), ctx.errors(payload.errors));
+  // }),
 ];

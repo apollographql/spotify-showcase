@@ -51,7 +51,7 @@ export default defineConfig(async () => {
         deps: {
           fallbackCJS: true,
         },
-      }
+      },
     },
   };
 });

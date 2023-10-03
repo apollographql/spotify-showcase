@@ -1,0 +1,90 @@
+diff --git a/node_modules/@graphql-tools/delegate/esm/checkResultAndHandleErrors.js b/node_modules/@graphql-tools/delegate/esm/checkResultAndHandleErrors.js
+index e48ca21..8c9bbf1 100644
+--- a/node_modules/@graphql-tools/delegate/esm/checkResultAndHandleErrors.js
++++ b/node_modules/@graphql-tools/delegate/esm/checkResultAndHandleErrors.js
+@@ -1,4 +1,4 @@
+-import { responsePathAsArray, locatedError } from 'graphql';
++import { responsePathAsArray, locatedError } from 'graphql/index.mjs';
+ import { getResponseKeyFromInfo, relocatedError } from '@graphql-tools/utils';
+ import { resolveExternalValue } from './resolveExternalValue.js';
+ export function checkResultAndHandleErrors(
+diff --git a/node_modules/@graphql-tools/delegate/esm/createRequest.js b/node_modules/@graphql-tools/delegate/esm/createRequest.js
+index 4ac0e9c..23d3c2f 100644
+--- a/node_modules/@graphql-tools/delegate/esm/createRequest.js
++++ b/node_modules/@graphql-tools/delegate/esm/createRequest.js
+@@ -1,4 +1,4 @@
+-import { Kind, typeFromAST, } from 'graphql';
++import { Kind, typeFromAST, } from 'graphql/index.mjs';
+ import { createVariableNameGenerator, serializeInputValue, updateArgument, } from '@graphql-tools/utils';
+ export function getDelegatingOperation(parentType, schema) {
+     if (parentType === schema.getMutationType()) {
+diff --git a/node_modules/@graphql-tools/delegate/esm/defaultMergedResolver.js b/node_modules/@graphql-tools/delegate/esm/defaultMergedResolver.js
+index 62d56e3..20ed3eb 100644
+--- a/node_modules/@graphql-tools/delegate/esm/defaultMergedResolver.js
++++ b/node_modules/@graphql-tools/delegate/esm/defaultMergedResolver.js
+@@ -1,4 +1,4 @@
+-import { defaultFieldResolver } from 'graphql';
++import { defaultFieldResolver } from 'graphql/index.mjs';
+ import { getResponseKeyFromInfo } from '@graphql-tools/utils';
+ import { resolveExternalValue } from './resolveExternalValue.js';
+ import { getSubschema, getUnpathedErrors, isExternalObject } from './mergeFields.js';
+diff --git a/node_modules/@graphql-tools/delegate/esm/delegateToSchema.js b/node_modules/@graphql-tools/delegate/esm/delegateToSchema.js
+index 7a2fb1e..0c9a053 100644
+--- a/node_modules/@graphql-tools/delegate/esm/delegateToSchema.js
++++ b/node_modules/@graphql-tools/delegate/esm/delegateToSchema.js
+@@ -1,4 +1,4 @@
+-import { validate, } from 'graphql';
++import { validate, } from 'graphql/index.mjs';
+ import { ValueOrPromise } from 'value-or-promise';
+ import { getBatchingExecutor } from '@graphql-tools/batch-execute';
+ import { mapAsyncIterator, isAsyncIterable, getDefinedRootType, memoize1, getOperationASTFromRequest, } from '@graphql-tools/utils';
+diff --git a/node_modules/@graphql-tools/delegate/esm/finalizeGatewayRequest.js b/node_modules/@graphql-tools/delegate/esm/finalizeGatewayRequest.js
+index b20e3dd..454da29 100644
+--- a/node_modules/@graphql-tools/delegate/esm/finalizeGatewayRequest.js
++++ b/node_modules/@graphql-tools/delegate/esm/finalizeGatewayRequest.js
+@@ -1,4 +1,4 @@
+-import { getNamedType, isAbstractType, isInterfaceType, isObjectType, Kind, TypeInfo, TypeNameMetaFieldDef, versionInfo as graphqlVersionInfo, visit, visitWithTypeInfo, } from 'graphql';
++import { getNamedType, isAbstractType, isInterfaceType, isObjectType, Kind, TypeInfo, TypeNameMetaFieldDef, versionInfo as graphqlVersionInfo, visit, visitWithTypeInfo, } from 'graphql/index.mjs';
+ import { getDefinedRootType, serializeInputValue, updateArgument, createVariableNameGenerator, implementsAbstractType, inspect, } from '@graphql-tools/utils';
+ import { getDocumentMetadata } from './getDocumentMetadata.js';
+ function finalizeGatewayDocument(targetSchema, fragments, operations) {
+diff --git a/node_modules/@graphql-tools/delegate/esm/getDocumentMetadata.js b/node_modules/@graphql-tools/delegate/esm/getDocumentMetadata.js
+index fb84a1f..c7f1b77 100644
+--- a/node_modules/@graphql-tools/delegate/esm/getDocumentMetadata.js
++++ b/node_modules/@graphql-tools/delegate/esm/getDocumentMetadata.js
+@@ -1,4 +1,4 @@
+-import { Kind } from 'graphql';
++import { Kind } from 'graphql/index.mjs';
+ export function getDocumentMetadata(document) {
+     const operations = [];
+     const fragments = [];
+diff --git a/node_modules/@graphql-tools/delegate/esm/mergeFields.js b/node_modules/@graphql-tools/delegate/esm/mergeFields.js
+index c1678d3..ab1c900 100644
+--- a/node_modules/@graphql-tools/delegate/esm/mergeFields.js
++++ b/node_modules/@graphql-tools/delegate/esm/mergeFields.js
+@@ -1,4 +1,4 @@
+-import { responsePathAsArray, GraphQLError, locatedError, } from 'graphql';
++import { responsePathAsArray, GraphQLError, locatedError, } from 'graphql/index.mjs';
+ import { collectFields, memoize1, relocatedError } from '@graphql-tools/utils';
+ import { FIELD_SUBSCHEMA_MAP_SYMBOL, OBJECT_SUBSCHEMA_SYMBOL, UNPATHED_ERRORS_SYMBOL } from './symbols.js';
+ import { ValueOrPromise } from 'value-or-promise';
+diff --git a/node_modules/@graphql-tools/delegate/esm/prepareGatewayDocument.js b/node_modules/@graphql-tools/delegate/esm/prepareGatewayDocument.js
+index 4a6dcd0..9ce1657 100644
+--- a/node_modules/@graphql-tools/delegate/esm/prepareGatewayDocument.js
++++ b/node_modules/@graphql-tools/delegate/esm/prepareGatewayDocument.js
+@@ -1,4 +1,4 @@
+-import { Kind, TypeInfo, getNamedType, isAbstractType, isInterfaceType, visit, visitWithTypeInfo, isCompositeType, } from 'graphql';
++import { Kind, TypeInfo, getNamedType, isAbstractType, isInterfaceType, visit, visitWithTypeInfo, isCompositeType, } from 'graphql/index.mjs';
+ import { implementsAbstractType, getRootTypeNames, memoize2 } from '@graphql-tools/utils';
+ import { getDocumentMetadata } from './getDocumentMetadata.js';
+ export function prepareGatewayDocument(originalDocument, transformedSchema, returnType, infoSchema) {
+diff --git a/node_modules/@graphql-tools/delegate/esm/resolveExternalValue.js b/node_modules/@graphql-tools/delegate/esm/resolveExternalValue.js
+index 64be167..e15daf4 100644
+--- a/node_modules/@graphql-tools/delegate/esm/resolveExternalValue.js
++++ b/node_modules/@graphql-tools/delegate/esm/resolveExternalValue.js
+@@ -1,4 +1,4 @@
+-import { getNullableType, isCompositeType, isListType, isAbstractType, locatedError, } from 'graphql';
++import { getNullableType, isCompositeType, isListType, isAbstractType, locatedError, } from 'graphql/index.mjs';
+ import { annotateExternalObject, isExternalObject, mergeFields } from './mergeFields.js';
+ export function resolveExternalValue(result, unpathedErrors, subschema, context, info, returnType = getReturnType(info), skipTypeMerging) {
+     const type = getNullableType(returnType);

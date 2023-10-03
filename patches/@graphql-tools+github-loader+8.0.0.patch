@@ -1,0 +1,12 @@
+diff --git a/node_modules/@graphql-tools/github-loader/esm/index.js b/node_modules/@graphql-tools/github-loader/esm/index.js
+index a7b845f..27caf00 100644
+--- a/node_modules/@graphql-tools/github-loader/esm/index.js
++++ b/node_modules/@graphql-tools/github-loader/esm/index.js
+@@ -1,6 +1,6 @@
+ import { parseGraphQLSDL, parseGraphQLJSON } from '@graphql-tools/utils';
+ import { gqlPluckFromCodeStringSync } from '@graphql-tools/graphql-tag-pluck';
+-import { parse } from 'graphql';
++import { parse } from 'graphql/index.mjs';
+ import syncFetch from '@ardatan/sync-fetch';
+ import { fetch as asyncFetch } from '@whatwg-node/fetch';
+ import { ValueOrPromise } from 'value-or-promise';

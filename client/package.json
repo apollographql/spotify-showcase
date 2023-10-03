@@ -50,7 +50,7 @@
     "build": "tsc && vite build",
     "serve": "serve dist -s -n -L -p $PORT",
     "lint:types": "tsc --noEmit -p ./tsconfig.json",
-    "test": "vitest"
+    "test": "NODE_ENV=test vitest"
   },
   "browserslist": {
     "production": [

@@ -1,0 +1,110 @@
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/directives.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/directives.js
+index 4dba07f..5f3491e 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/directives.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/directives.js
+@@ -1,4 +1,4 @@
+-import { print } from 'graphql';
++import { print } from 'graphql/index.mjs';
+ import { isSome } from '@graphql-tools/utils';
+ function directiveAlreadyExists(directivesArr, otherDirective) {
+     return !!directivesArr.find(directive => directive.name.value === otherDirective.name.value);
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/enum.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/enum.js
+index 146ad84..1297474 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/enum.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/enum.js
+@@ -1,4 +1,4 @@
+-import { Kind } from 'graphql';
++import { Kind } from 'graphql/index.mjs';
+ import { mergeDirectives } from './directives.js';
+ import { mergeEnumValues } from './enum-values.js';
+ export function mergeEnum(e1, e2, config, directives) {
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/input-type.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/input-type.js
+index 1708cc0..967069f 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/input-type.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/input-type.js
+@@ -1,4 +1,4 @@
+-import { Kind, } from 'graphql';
++import { Kind, } from 'graphql/index.mjs';
+ import { mergeFields } from './fields.js';
+ import { mergeDirectives } from './directives.js';
+ export function mergeInputType(node, existingNode, config, directives) {
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/interface.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/interface.js
+index 073fde9..511d65a 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/interface.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/interface.js
+@@ -1,4 +1,4 @@
+-import { Kind } from 'graphql';
++import { Kind } from 'graphql/index.mjs';
+ import { mergeFields } from './fields.js';
+ import { mergeDirectives } from './directives.js';
+ import { mergeNamedTypeArray } from './merge-named-type-array.js';
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-nodes.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-nodes.js
+index cd6f999..ec95948 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-nodes.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-nodes.js
+@@ -1,4 +1,4 @@
+-import { Kind } from 'graphql';
++import { Kind } from 'graphql/index.mjs';
+ import { mergeType } from './type.js';
+ import { mergeEnum } from './enum.js';
+ import { mergeScalar } from './scalar.js';
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-typedefs.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-typedefs.js
+index 9429529..c96c70c 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-typedefs.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/merge-typedefs.js
+@@ -1,4 +1,4 @@
+-import { parse, Kind, isSchema, isDefinitionNode, } from 'graphql';
++import { parse, Kind, isSchema, isDefinitionNode, } from 'graphql/index.mjs';
+ import { defaultStringComparator, isSourceTypes, isStringTypes } from './utils.js';
+ import { mergeGraphQLNodes, schemaDefSymbol } from './merge-nodes.js';
+ import { getDocumentNodeFromSchema, isDocumentNode, resetComments, printWithComments, } from '@graphql-tools/utils';
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/scalar.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/scalar.js
+index 0764921..7f11af5 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/scalar.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/scalar.js
+@@ -1,4 +1,4 @@
+-import { Kind } from 'graphql';
++import { Kind } from 'graphql/index.mjs';
+ import { mergeDirectives } from './directives.js';
+ export function mergeScalar(node, existingNode, config, directives) {
+     if (existingNode) {
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/schema-def.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/schema-def.js
+index d0802d5..eab313d 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/schema-def.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/schema-def.js
+@@ -1,4 +1,4 @@
+-import { Kind, } from 'graphql';
++import { Kind, } from 'graphql/index.mjs';
+ import { mergeDirectives } from './directives.js';
+ export const DEFAULT_OPERATION_TYPE_NAME_MAP = {
+     query: 'Query',
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/type.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/type.js
+index a3ecd71..d824002 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/type.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/type.js
+@@ -1,4 +1,4 @@
+-import { Kind } from 'graphql';
++import { Kind } from 'graphql/index.mjs';
+ import { mergeFields } from './fields.js';
+ import { mergeDirectives } from './directives.js';
+ import { mergeNamedTypeArray } from './merge-named-type-array.js';
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/union.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/union.js
+index ac8600c..976272a 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/union.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/union.js
+@@ -1,4 +1,4 @@
+-import { Kind } from 'graphql';
++import { Kind } from 'graphql/index.mjs';
+ import { mergeDirectives } from './directives.js';
+ import { mergeNamedTypeArray } from './merge-named-type-array.js';
+ export function mergeUnion(first, second, config, directives) {
+diff --git a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/utils.js b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/utils.js
+index 3fb9ca0..9e31f6f 100644
+--- a/node_modules/@graphql-tools/merge/esm/typedefs-mergers/utils.js
++++ b/node_modules/@graphql-tools/merge/esm/typedefs-mergers/utils.js
+@@ -1,4 +1,4 @@
+-import { Source, Kind } from 'graphql';
++import { Source, Kind } from 'graphql/index.mjs';
+ export function isStringTypes(types) {
+     return typeof types === 'string';
+ }

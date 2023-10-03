@@ -1,0 +1,11 @@
+diff --git a/node_modules/@graphql-tools/executor-legacy-ws/esm/index.js b/node_modules/@graphql-tools/executor-legacy-ws/esm/index.js
+index a276001..6409943 100644
+--- a/node_modules/@graphql-tools/executor-legacy-ws/esm/index.js
++++ b/node_modules/@graphql-tools/executor-legacy-ws/esm/index.js
+@@ -1,5 +1,5 @@
+ import { observableToAsyncIterable } from '@graphql-tools/utils';
+-import { print } from 'graphql';
++import { print } from 'graphql/index.mjs';
+ import WebSocket from 'isomorphic-ws';
+ export var LEGACY_WS;
+ (function (LEGACY_WS) {

@@ -1,0 +1,21 @@
+diff --git a/node_modules/@graphql-tools/executor-http/esm/index.js b/node_modules/@graphql-tools/executor-http/esm/index.js
+index 409c09d..2293a3d 100644
+--- a/node_modules/@graphql-tools/executor-http/esm/index.js
++++ b/node_modules/@graphql-tools/executor-http/esm/index.js
+@@ -1,5 +1,5 @@
+ import { createGraphQLError, getOperationASTFromRequest, } from '@graphql-tools/utils';
+-import { print } from 'graphql';
++import { print } from 'graphql/index.mjs';
+ import { isLiveQueryOperationDefinitionNode } from './isLiveQueryOperationDefinitionNode.js';
+ import { prepareGETUrl } from './prepareGETUrl.js';
+ import { ValueOrPromise } from 'value-or-promise';
+diff --git a/node_modules/@graphql-tools/executor-http/esm/prepareGETUrl.js b/node_modules/@graphql-tools/executor-http/esm/prepareGETUrl.js
+index da0ff3a..4ae8d57 100644
+--- a/node_modules/@graphql-tools/executor-http/esm/prepareGETUrl.js
++++ b/node_modules/@graphql-tools/executor-http/esm/prepareGETUrl.js
+@@ -1,4 +1,4 @@
+-import { stripIgnoredCharacters } from 'graphql';
++import { stripIgnoredCharacters } from 'graphql/index.mjs';
+ export function prepareGETUrl({ baseUrl = '', query, variables, operationName, extensions, }) {
+     const dummyHostname = 'https://dummyhostname.com';
+     const validUrl = baseUrl.startsWith('http')

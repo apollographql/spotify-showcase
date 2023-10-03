@@ -1,0 +1,150 @@
+diff --git a/node_modules/@graphql-tools/wrap/esm/introspect.js b/node_modules/@graphql-tools/wrap/esm/introspect.js
+index 88efbbf..2d4ba8c 100644
+--- a/node_modules/@graphql-tools/wrap/esm/introspect.js
++++ b/node_modules/@graphql-tools/wrap/esm/introspect.js
+@@ -1,4 +1,4 @@
+-import { getIntrospectionQuery, buildClientSchema, parse, } from 'graphql';
++import { getIntrospectionQuery, buildClientSchema, parse, } from 'graphql/index.mjs';
+ import { ValueOrPromise } from 'value-or-promise';
+ import { isAsyncIterable, createGraphQLError, inspect, } from '@graphql-tools/utils';
+ function getSchemaFromIntrospection(introspectionResult, options) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/ExtractField.js b/node_modules/@graphql-tools/wrap/esm/transforms/ExtractField.js
+index dbb1254..9bcd777 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/ExtractField.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/ExtractField.js
+@@ -1,4 +1,4 @@
+-import { visit, Kind, BREAK } from 'graphql';
++import { visit, Kind, BREAK } from 'graphql/index.mjs';
+ export default class ExtractField {
+     constructor({ from, to }) {
+         this.from = from;
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/HoistField.js b/node_modules/@graphql-tools/wrap/esm/transforms/HoistField.js
+index 8649e1b..36873c6 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/HoistField.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/HoistField.js
+@@ -1,4 +1,4 @@
+-import { getNullableType, Kind, isListType, getNamedType, GraphQLList, } from 'graphql';
++import { getNullableType, Kind, isListType, getNamedType, GraphQLList, } from 'graphql/index.mjs';
+ import { appendObjectFields, removeObjectFields, relocatedError, } from '@graphql-tools/utils';
+ import { defaultMergedResolver } from '@graphql-tools/delegate';
+ import { defaultCreateProxyingResolver } from '../generateProxyingResolvers.js';
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/MapLeafValues.js b/node_modules/@graphql-tools/wrap/esm/transforms/MapLeafValues.js
+index 7b14f11..1ce0089 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/MapLeafValues.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/MapLeafValues.js
+@@ -1,4 +1,4 @@
+-import { visit, Kind, TypeInfo, visitWithTypeInfo, valueFromAST, isLeafType, astFromValue, valueFromASTUntyped, } from 'graphql';
++import { visit, Kind, TypeInfo, visitWithTypeInfo, valueFromAST, isLeafType, astFromValue, valueFromASTUntyped, } from 'graphql/index.mjs';
+ import { visitResult, transformInputValue, } from '@graphql-tools/utils';
+ export default class MapLeafValues {
+     constructor(inputValueTransformer, outputValueTransformer) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/MoveRootField.js b/node_modules/@graphql-tools/wrap/esm/transforms/MoveRootField.js
+index 3de2d8c..6cdac44 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/MoveRootField.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/MoveRootField.js
+@@ -1,4 +1,4 @@
+-import { GraphQLObjectType, GraphQLSchema, Kind, visit } from 'graphql';
++import { GraphQLObjectType, GraphQLSchema, Kind, visit } from 'graphql/index.mjs';
+ import { MapperKind, getDefinedRootType, getRootTypeMap, mapSchema, } from '@graphql-tools/utils';
+ const defaultRootTypeNames = {
+     query: 'Query',
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/RenameRootTypes.js b/node_modules/@graphql-tools/wrap/esm/transforms/RenameRootTypes.js
+index 0c4ccf9..7bd08f5 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/RenameRootTypes.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/RenameRootTypes.js
+@@ -1,4 +1,4 @@
+-import { visit, Kind } from 'graphql';
++import { visit, Kind } from 'graphql/index.mjs';
+ import { MapperKind, mapSchema, renameType, visitData } from '@graphql-tools/utils';
+ export default class RenameRootTypes {
+     constructor(renamer) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/RenameTypes.js b/node_modules/@graphql-tools/wrap/esm/transforms/RenameTypes.js
+index 8681d7b..7eed149 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/RenameTypes.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/RenameTypes.js
+@@ -1,4 +1,4 @@
+-import { Kind, isScalarType, isSpecifiedScalarType, visit, } from 'graphql';
++import { Kind, isScalarType, isSpecifiedScalarType, visit, } from 'graphql/index.mjs';
+ import { MapperKind, mapSchema, visitData, renameType, } from '@graphql-tools/utils';
+ export default class RenameTypes {
+     constructor(renamer, options) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/TransformCompositeFields.js b/node_modules/@graphql-tools/wrap/esm/transforms/TransformCompositeFields.js
+index 973e6c0..2dea632 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/TransformCompositeFields.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/TransformCompositeFields.js
+@@ -1,4 +1,4 @@
+-import { TypeInfo, visit, visitWithTypeInfo, Kind, } from 'graphql';
++import { TypeInfo, visit, visitWithTypeInfo, Kind, } from 'graphql/index.mjs';
+ import { MapperKind, mapSchema, visitData } from '@graphql-tools/utils';
+ export default class TransformCompositeFields {
+     constructor(fieldTransformer, fieldNodeTransformer, dataTransformer, errorsTransformer) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/TransformInputObjectFields.js b/node_modules/@graphql-tools/wrap/esm/transforms/TransformInputObjectFields.js
+index 975755f..d90d940 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/TransformInputObjectFields.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/TransformInputObjectFields.js
+@@ -1,4 +1,4 @@
+-import { typeFromAST, TypeInfo, visit, visitWithTypeInfo, Kind, isInputType, getNamedType, } from 'graphql';
++import { typeFromAST, TypeInfo, visit, visitWithTypeInfo, Kind, isInputType, getNamedType, } from 'graphql/index.mjs';
+ import { getDefinedRootType, MapperKind, mapSchema, transformInputValue } from '@graphql-tools/utils';
+ export default class TransformInputObjectFields {
+     constructor(inputFieldTransformer, inputFieldNodeTransformer, inputObjectNodeTransformer) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/TransformInterfaceFields.js b/node_modules/@graphql-tools/wrap/esm/transforms/TransformInterfaceFields.js
+index a44acbc..e3fe91f 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/TransformInterfaceFields.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/TransformInterfaceFields.js
+@@ -1,4 +1,4 @@
+-import { isInterfaceType } from 'graphql';
++import { isInterfaceType } from 'graphql/index.mjs';
+ import TransformCompositeFields from './TransformCompositeFields.js';
+ export default class TransformInterfaceFields {
+     constructor(interfaceFieldTransformer, fieldNodeTransformer) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/TransformObjectFields.js b/node_modules/@graphql-tools/wrap/esm/transforms/TransformObjectFields.js
+index 981c065..2ef5512 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/TransformObjectFields.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/TransformObjectFields.js
+@@ -1,4 +1,4 @@
+-import { isObjectType } from 'graphql';
++import { isObjectType } from 'graphql/index.mjs';
+ import TransformCompositeFields from './TransformCompositeFields.js';
+ export default class TransformObjectFields {
+     constructor(objectFieldTransformer, fieldNodeTransformer) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/TransformQuery.js b/node_modules/@graphql-tools/wrap/esm/transforms/TransformQuery.js
+index 76e9da3..1bd581d 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/TransformQuery.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/TransformQuery.js
+@@ -1,4 +1,4 @@
+-import { visit, Kind } from 'graphql';
++import { visit, Kind } from 'graphql/index.mjs';
+ import { relocatedError } from '@graphql-tools/utils';
+ export default class TransformQuery {
+     constructor({ path, queryTransformer, resultTransformer = result => result, errorPathTransformer = errorPath => [...errorPath], fragments = {}, }) {
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/WrapFields.js b/node_modules/@graphql-tools/wrap/esm/transforms/WrapFields.js
+index 7cf94df..e5647a0 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/WrapFields.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/WrapFields.js
+@@ -1,4 +1,4 @@
+-import { Kind, GraphQLNonNull, } from 'graphql';
++import { Kind, GraphQLNonNull, } from 'graphql/index.mjs';
+ import { appendObjectFields, selectObjectFields, modifyObjectFields, relocatedError, } from '@graphql-tools/utils';
+ import { defaultMergedResolver } from '@graphql-tools/delegate';
+ import MapFields from './MapFields.js';
+diff --git a/node_modules/@graphql-tools/wrap/esm/transforms/WrapQuery.js b/node_modules/@graphql-tools/wrap/esm/transforms/WrapQuery.js
+index 605a226..279075c 100644
+--- a/node_modules/@graphql-tools/wrap/esm/transforms/WrapQuery.js
++++ b/node_modules/@graphql-tools/wrap/esm/transforms/WrapQuery.js
+@@ -1,4 +1,4 @@
+-import { visit, Kind } from 'graphql';
++import { visit, Kind } from 'graphql/index.mjs';
+ export default class WrapQuery {
+     constructor(path, wrapper, extractor) {
+         this.path = path;
+diff --git a/node_modules/@graphql-tools/wrap/esm/wrapSchema.js b/node_modules/@graphql-tools/wrap/esm/wrapSchema.js
+index b8bca24..5e6d25c 100644
+--- a/node_modules/@graphql-tools/wrap/esm/wrapSchema.js
++++ b/node_modules/@graphql-tools/wrap/esm/wrapSchema.js
+@@ -1,4 +1,4 @@
+-import { GraphQLObjectType, GraphQLInterfaceType, GraphQLUnionType, } from 'graphql';
++import { GraphQLObjectType, GraphQLInterfaceType, GraphQLUnionType, } from 'graphql/index.mjs';
+ import { MapperKind, mapSchema, memoize1 } from '@graphql-tools/utils';
+ import { defaultMergedResolver, applySchemaTransforms } from '@graphql-tools/delegate';
+ import { generateProxyingResolvers } from './generateProxyingResolvers.js';
