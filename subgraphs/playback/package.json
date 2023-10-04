@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.9.3",
-    "@apollo/subgraph": "^2.4.7",
+    "@apollo/subgraph": "^2.5.5",
     "@graphql-tools/mock": "^9.0.0",
     "@sentry/node": "^7.59.3",
     "@shared/field-synthetics": "*",

@@ -29,11 +29,11 @@ homepage:
   enabled: false
 include_subgraph_errors:
   all: true
-limits:
-  max_depth: 20 # Must be 15 or larger to support standard introspection query
-  max_height: 200
-  max_aliases: 30
-  max_root_fields: 20
+# limits:
+#   max_depth: 20 # Must be 15 or larger to support standard introspection query
+#   max_height: 200
+#   max_aliases: 30
+#   max_root_fields: 20
 
 #####################
 # Automatic persisted queries must be disabled to use persised queries with safelisting
@@ -48,12 +48,12 @@ apq:
 # Enable to use persisted queries. You must set the env var
 # `APOLLO_ROVER_DEV_ROUTER_VERSION=1.25.0-alpha.0` for this to work.
 #####################
-preview_persisted_queries:
-  enabled: true
-  safelist:
-    enabled: true
-    require_id: false
-  # log_unknown: true
+# preview_persisted_queries:
+#   enabled: true
+#   safelist:
+#     enabled: true
+#     require_id: false
+# log_unknown: true
 #####################
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.
 #####################
@@ -68,7 +68,7 @@ preview_persisted_queries:
 # # Uncomment 'preview_callback' to try HTTP callback protocal at the /graphql
 # # https://www.apollographql.com/docs/router/executing-operations/subscription-callback-protocol
 subscription:
-  enabled: true
+  # enabled: true
   mode:
     preview_callback:
       public_url: ${env.CALLBACK_URL} # https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
@@ -79,19 +79,19 @@ subscription:
 #####################
 # Add rhai scripts and query planning for additional logging
 #####################
-# rhai:
-#   scripts: ./rhai
-#   main: main.rhai
-# plugins:
-#   experimental.expose_query_plan: true
+rhai:
+  scripts: ./rhai
+  main: main.rhai
+plugins:
+  experimental.expose_query_plan: true
 
 #####################
 # To run this locally, you can override subgraph urls
 #####################
 # Running locally with Docker Compose
-# override_subgraph_url:
-#   playback: http://playback:4002/graphql
-#   spotify: http://spotify:4001
+override_subgraph_url:
+  playback: http://playback:4002/graphql
+  spotify: http://spotify:4001
 # #
 # Running subgraphs locally
 # override_subgraph_url:
