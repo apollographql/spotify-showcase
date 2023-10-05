@@ -86,9 +86,9 @@ rhai:
 # To run this locally, you can override subgraph urls
 #####################
 # Running locally with Docker Compose
-override_subgraph_url:
-  playback: http://playback:4002/graphql
-  spotify: http://spotify:4001
+# override_subgraph_url:
+#   playback: http://playback:4002/graphql
+#   spotify: http://spotify:4001
 # Running subgraphs locally
 # override_subgraph_url:
 #   playback: http://127.0.0.1:4002/graphql
