@@ -25,6 +25,7 @@
     "build": "npm run build -ws",
     "graphos-demo": "ts-node scripts/demo.ts",
     "generate:mocks": "npm run generate:mocks -w spotify-api",
+    "generate:pq":"generate-persisted-query-manifest",
     "start": "npm run start:client",
     "start:all": "concurrently \"npm:dev -w playback-subgraph\" \"npm:dev -w spotify-subgraph\" \"npm:start:router\"",
     "start:client": "npm run start -w client",
