@@ -91,7 +91,6 @@ fragmentRegistry.register(gql`
   }
 
   fragment TrackPlaybackDetails_track on Track {
-    id
     name
     uri
     album {

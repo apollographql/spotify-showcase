@@ -40,19 +40,16 @@ limits:
 #####################
 apq:
   enabled: false
-#   router:
-#     cache:
-#       in_memory:
-#         limit: 512 # This is the default value
-#####################
-# Enable to use persisted queries. You must set the env var
-#####################
-#preview_persisted_queries:
-#  enabled: true
-#  safelist:
-#    enabled: true
-#    require_id: false
-  # log_unknown: true
+  router:
+    cache:
+      in_memory:
+        limit: 512 # This is the default value
+
+persisted_queries:
+  enabled: true
+  safelist:
+    enabled: true
+    require_id: false
 
 #####################
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.
@@ -79,9 +76,9 @@ subscription:
 #####################
 # Add rhai scripts and query planning for additional logging
 #####################
-# rhai:
-#   scripts: ./rhai
-#   main: main.rhai
+rhai:
+  scripts: ./rhai
+  main: main.rhai
 # plugins:
 #   experimental.expose_query_plan: true
 
@@ -89,10 +86,9 @@ subscription:
 # To run this locally, you can override subgraph urls
 #####################
 # Running locally with Docker Compose
-# override_subgraph_url:
-#   playback: http://playback:4002/graphql
-#   spotify: http://spotify:4001
-# #
+override_subgraph_url:
+  playback: http://playback:4002/graphql
+  spotify: http://spotify:4001
 # Running subgraphs locally
 # override_subgraph_url:
 #   playback: http://127.0.0.1:4002/graphql

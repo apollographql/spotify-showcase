@@ -26,11 +26,11 @@
     "graphos-demo": "ts-node scripts/demo.ts",
     "generate:mocks": "npm run generate:mocks -w spotify-api",
     "start": "npm run start:client",
-    "start:all": "concurrently \"npm:dev -w playback-subgraph\" \"npm:dev -w spotify-subgraph\" \"npm:start:client\" \"npm:start:router\"",
+    "start:all": "concurrently \"npm:dev -w playback-subgraph\" \"npm:dev -w spotify-subgraph\" \"npm:start:router\"",
     "start:client": "npm run start -w client",
     "start:spotify": "npm run start -w spotify-subgraph",
     "start:playback": "npm run start -w playback-subgraph",
-    "start:router": "rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml"
+    "start:router": "./router/router --supergraph=./router/supergraph.graphql --config=./router/router.yaml"
   },
   "repository": {
     "type": "git",
