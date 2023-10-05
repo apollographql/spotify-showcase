@@ -10,6 +10,10 @@
   ],
   "scripts": {
     "codegen": "rover graph fetch Spotify-tb7du2@prod-external | prettier --parser graphql > ./client/schema.graphql && graphql-codegen",
+    "docker:build:spotify": "docker build -t subgraph-spotify -f ./subgraphs/spotify/Dockerfile .",
+    "docker:build:playback": "docker build -t subgraph-playback -f ./subgraphs/playback/Dockerfile .",
+    "docker:build:router": "docker build -t showcase-router -f ./router/Dockerfile ./router",
+    "docker:run":"docker-compose --env-file=./.env up --build",
     "format": "prettier . --write",
     "lint": "concurrently \"npm:lint:*\"",
     "lint:format": "prettier . --check",
@@ -22,11 +26,11 @@
     "graphos-demo": "ts-node scripts/demo.ts",
     "generate:mocks": "npm run generate:mocks -w spotify-api",
     "start": "npm run start:client",
-    "start:all": "concurrently \"npm:dev -w playback-subgraph\" \"npm:dev -w spotify-subgraph\" \"npm:start:client\" \"npm:start:router\"",
+    "start:all": "concurrently \"npm:dev -w playback-subgraph\" \"npm:dev -w spotify-subgraph\" \"npm:start:router\"",
     "start:client": "npm run start -w client",
     "start:spotify": "npm run start -w spotify-subgraph",
     "start:playback": "npm run start -w playback-subgraph",
-    "start:router": "rover dev --supergraph-config=spotify.yaml --router-config=.apollo/router-config.yaml"
+    "start:router": "./router/router --supergraph=./router/supergraph.graphql --config=./router/router.yaml"
   },
   "repository": {
     "type": "git",

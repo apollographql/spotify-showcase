@@ -23,7 +23,6 @@ const EpisodePlaybackDetails = ({ episode }: EpisodePlaybackDetailsProps) => {
 
 fragmentRegistry.register(gql`
   fragment EpisodePlaybackDetails_episode on Episode {
-    id
     name
     show {
       id

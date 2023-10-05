@@ -22,9 +22,6 @@ end
 subgraph "Railway"
   router{"Apollo Router"}
   playbackSubgraph["Playback Subgraph\n(subriptions/mutations)"]
-end
-
-subgraph "Netlify-Function"
   spotifySubgraph["Spotify Subgraph\n(queries)"]
 end
 
@@ -66,7 +63,7 @@ What do you want to do next with this demo app?
 
 ### I want to play around with the public version of the demo
 
-1. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
+2. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
 
 - [Query the graph](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer) _(**Spotify account required**) - OAuth workflow with be initiated from Apollo Explorer to login to our Spotify account to run any operation_
   - Try having your Spotify app playing on your phone or desktop and then run [this mutation](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer?explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4RxighigSwiQAIAFXGAZwTIBtcBPAI1ygGsBZHfI04ADqkSIgA6Ua9Jqw4lBwkWIYs27AMp4UCOUMV6SBKlMYEkAc136AvpZE3hVkFaA)
@@ -74,16 +71,14 @@ What do you want to do next with this demo app?
 
 ### I want to re-create this demo in my GraphOS account
 
-_To be completed_
-
 3. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys)
 4. Run the clone script with the API key
 
 ```sh
-APOLLO_KEY={YOUR_API_KEY} npm run clone
+APOLLO_KEY={YOUR_API_KEY} npm run graphos-demo
 ```
 
-### I want to run this demo locally
+### I want to run the client app locally
 
 3. Install dependencies
 
@@ -91,18 +86,82 @@ APOLLO_KEY={YOUR_API_KEY} npm run clone
 npm install
 ```
 
-4. Start the app
+4. Start the client app
 
 ```sh
 npm start
 ```
 
-- Website - http://localhost:3000
+5. Visit the website at http://localhost:3000
+
+**\*Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change the URL the client application is pointing at by editing the `.env.development` file with `VITE_SERVER_HOST` set to the desired URL (most likely locally in the next steps)
+
+### I want to run the backend locally - using Docker
+
+To run the current backend locally, you will need to start an [Enterprise trial](https://studio.apollographql.com/signup?type=enterprise-trial) to utilize all the GraphOS features. You will need to create this demo (outlined above) in the enterprise trial org using `APOLLO_KEY={YOUR_API_KEY} npm run graphos-demo`.
+
+1. In the graph you re-created this demo in, create a Graph API key in the settings page
+2. Create a `.env` file at the root of this repository and add in the following variables:
+
+```
+APOLLO_GRAPH_REF={YOUR_DEMO_GRAPH_ID}@prod
+APOLLO_KEY={YOUR_GRAPH_API_KEY}
+CALLBACK_URL=http://router:4000
+```
+
+3. Start the router and subgraphs:
+
+```
+npm run docker:run
+```
+
 - Supergraph - http://localhost:4000
+- Spotify Subgraph - http://spotify:4001 (inaccessible in cluster)
+- Playback Subgraph - http://playback:4002 (inaccessible in cluster)
+
+4. If you want to run any queries through Apollo Explorer, you'll need to disable persisted queries. The default mode of this repo uses the registered persisted queries list. You can disable this in the `router/router.yaml` by commenting out the `persisted_queries` configuration and restarting the `docker:run` command.
+
+### I want to run the backend locally
+
+To run the current backend locally, you will need to start an [Enterprise trial](https://studio.apollographql.com/signup?type=enterprise-trial) to utilize all the GraphOS features. You will need to create this demo (outlined above) in the enterprise trial org using `APOLLO_KEY={YOUR_API_KEY} npm run graphos-demo`.
+
+1. In the graph you re-created this demo in, create a Graph API key in the settings page
+2. Create a `.env` file at the root of this repository and add in the following variables:
+
+```
+APOLLO_GRAPH_REF={YOUR_DEMO_GRAPH_ID}@prod
+APOLLO_KEY={YOUR_GRAPH_API_KEY}
+CALLBACK_URL=http://127.0.0.1:4000
+```
+
+3. [Download](https://www.apollographql.com/docs/router/quickstart#1-download-and-extract-the-apollo-router-binary) the latest router binary to the `router` folder
+
+4. Start the subgraphs:
+
+```
+npm run start:spotify && npm run start:playback
+```
+
 - Spotify Subgraph - http://localhost:4001
 - Playback Subgraph - http://localhost:4002
 
-**\*Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change that to point at your local website but the playback state (i.e. playback time) won't refresh properly due to the subscriptions aspect.
+5. In a new terminal, start the router:
+
+```
+APOLLO_KEY={YOUR_DEMO_GRAPH_ID}@prod APOLLO_GRAPH_REF={YOUR_GRAPH_API_KEY} CALLBACK_URL=http://127.0.0.1:4000 npm run start:router
+```
+
+- Supergraph - http://localhost:4000
+
+6. If you want to run any queries through Apollo Explorer, you'll need to disable persisted queries. The default mode of this repo uses the registered persisted queries list. You can disable this in the `router/router.yaml` by commenting out the `persisted_queries` configuration and restarting the `start:all` command.
+
+### Debugging the subgraphs or client locally with VS Code
+
+There are launch configurations for the client project and subgraph projects. You can navigate to the debug tab of VS Code and launch any of the projects. They will default to the following urls:
+
+- Client App - http://localhost:3000
+- Spotify Subgraph - http://localhost:4001
+- Playback Subgraph - http://localhost:4002
 
 #### Subgraph responsibilities
 
