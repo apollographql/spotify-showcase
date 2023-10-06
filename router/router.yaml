@@ -50,6 +50,7 @@ persisted_queries:
   safelist:
     enabled: true
     require_id: false
+
 #####################
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.
 #####################
@@ -92,3 +93,18 @@ rhai:
 # override_subgraph_url:
 #   playback: http://127.0.0.1:4002/graphql
 #   spotify: http://127.0.0.1:4001
+
+#######################
+# Uncomment this to enable authorization directives and the dependent coprocessor
+#######################
+
+#authorization:
+#  preview_directives:
+#    enabled: true
+#coprocessor:
+#  timeout: 5s
+#  url: http://coprocessor:4100/
+#  router:
+#    request:
+#      headers: true
+#      context: true

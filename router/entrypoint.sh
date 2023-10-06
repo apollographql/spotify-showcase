@@ -9,4 +9,4 @@ esac
 
 echo starting router 
 
-./router -c router.yaml
+./router -c router.yaml -s supergraph.graphql --hot-reload

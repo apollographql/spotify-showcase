@@ -20,6 +20,14 @@ extend schema
     import: ["@key", "@shareable", "@tag"]
   )
 
+directive @authenticated on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
+directive @requiresScopes(scopes: [[String!]!]!) on
+  FIELD_DEFINITION
+  | OBJECT
+  | INTERFACE
+  | SCALAR
+  | ENUM
+
 scalar CountryCode
 scalar DateTime
 scalar Timestamp
@@ -43,6 +51,11 @@ directive @synthetics(
 ) on FIELD
 
 type Query {
+  """
+  Information about the current logged-in user.
+  """
+  me: CurrentUser
+
   "Spotify catalog information for an album."
   album(id: ID!): Album
 
@@ -126,11 +139,6 @@ type Query {
     """
     limit: Int
   ): Recommendations
-
-  """
-  Information about the current logged-in user.
-  """
-  me: CurrentUser
 
   """
   Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab).
@@ -772,7 +780,7 @@ type CurrentUser {
   """
   Information about the user's current playback state
   """
-  player: Player!
+  player: Player
 
   """
   Playlists owned or followed by the current Spotify user.
