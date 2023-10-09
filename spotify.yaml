@@ -1,11 +1,13 @@
 subgraphs:
   spotify:
-    routing_url: http://spotify:4001
+    # routing_url: http://spotify:4001
+    routing_url: http://127.0.0.1:4001
     schema:
       file: subgraphs/spotify/schema.graphql
   playback:
-    routing_url: http://playback:4002/ # For subscriptions, uncomment to use WebSockets at /ws route with graphql-ws
-#    routing_url: http://playback:4002/graphql # For subscriptions, uncomment to use HTTP Callback Protocol at /graphql route
+    routing_url: http://127.0.0.1:4001/graphql
+    # routing_url: http://playback:4002/ # For subscriptions, uncomment to use WebSockets at /ws route with graphql-ws
+    #    routing_url: http://playback:4002/graphql # For subscriptions, uncomment to use HTTP Callback Protocol at /graphql route
     schema:
       file: subgraphs/playback/schema.graphql
 operations: {}

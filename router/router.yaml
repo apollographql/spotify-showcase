@@ -47,9 +47,10 @@ apq:
 
 persisted_queries:
   enabled: true
-  safelist:
-    enabled: true
-    require_id: false
+  log_unknown: true
+  # safelist:
+  #   enabled: true
+  #   require_id: false
 
 #####################
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.
@@ -77,11 +78,10 @@ subscription:
 # Add rhai scripts and query planning for additional logging
 #####################
 rhai:
-  scripts: ./rhai
+  scripts: ./router/rhai
   main: main.rhai
-# plugins:
-#   experimental.expose_query_plan: true
-
+plugins:
+  experimental.expose_query_plan: true
 #####################
 # To run this locally, you can override subgraph urls
 #####################
@@ -90,10 +90,9 @@ rhai:
 #   playback: http://playback:4002/graphql
 #   spotify: http://spotify:4001
 # Running subgraphs locally
-# override_subgraph_url:
-#   playback: http://127.0.0.1:4002/graphql
-#   spotify: http://127.0.0.1:4001
-
+override_subgraph_url:
+  playback: http://127.0.0.1:4002/graphql
+  spotify: http://127.0.0.1:4001
 #######################
 # Uncomment this to enable authorization directives and the dependent coprocessor
 #######################
