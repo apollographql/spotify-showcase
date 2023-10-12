@@ -14,6 +14,7 @@ import { Spotify, SpotifyDataSource } from 'spotify-api';
 import path from 'path';
 import { GraphQLError } from 'graphql';
 import { ConditionalKeys } from 'type-fest';
+import DataLoader from 'dataloader';
 
 export type OmitNever<T> = Omit<T, ConditionalKeys<T, never>>;
 
@@ -385,13 +386,16 @@ export class SpotifyClient extends RESTDataSource implements SpotifyDataSource {
     );
   }
 
-  getTrack(
+  private trackLoader = new DataLoader(async (ids) => {
+    const trackList = await this.getTracks({ ids: ids.join(',') });
+    return ids.map((id) => trackList.tracks.find((track) => track.id === id));
+  });
+
+  async getTrack(
     id: string,
     params?: Spotify.Request.QueryParams.GET['/tracks/:id']
   ) {
-    return this._get<Spotify.Response.GET['/tracks/:id']>(`/tracks/${id}`, {
-      params,
-    });
+    return this.trackLoader.load(id);
   }
 
   getTrackAudioFeatures(trackId: string) {
