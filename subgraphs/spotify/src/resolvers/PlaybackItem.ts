@@ -9,7 +9,8 @@ export const PlaybackItem: PlaybackItemResolvers = {
         return 'Track';
     }
   },
-  async __resolveReference(playbackItem, { dataSources }) {
+  async __resolveReference(playbackItem, { dataSources }, info) {
+    (info as any).cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
     // This is strictly for a demo, not a good practice
     const id = playbackItem.id;
     try {

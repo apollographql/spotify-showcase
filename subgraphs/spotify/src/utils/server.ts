@@ -11,6 +11,7 @@ import { ContextValue } from '../types/ContextValue';
 import logger from '../logger';
 import * as Sentry from '@sentry/node';
 import { resolve } from 'path';
+import responseCachePlugin from '@apollo/server-plugin-response-cache';
 
 const schemaPath = existsSync('schema.graphql')
   ? 'schema.graphql'
@@ -35,6 +36,7 @@ export const server = new ApolloServer<ContextValue>({
   introspection: true,
   logger,
   plugins: [
+    responseCachePlugin(),
     {
       async requestDidStart() {
         return {
