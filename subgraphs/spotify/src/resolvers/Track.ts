@@ -36,7 +36,8 @@ export const Track: TrackResolvers = {
     is_playable === undefined ? true : is_playable,
   previewUrl: prop('preview_url'),
   trackNumber: prop('track_number'),
-  __resolveReference: (track, { dataSources }) => {
+  __resolveReference: (track, { dataSources }, info) => {
+    (info as any).cacheControl.setCacheHint({ maxAge: 60, scope: 'PUBLIC' });
     return dataSources.spotify.getTrack(track.id);
   },
 };

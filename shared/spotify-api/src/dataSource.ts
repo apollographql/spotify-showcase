@@ -143,7 +143,7 @@ export interface SpotifyDataSource {
   getTrack(
     id: string,
     params?: Spotify.Request.QueryParams.GET['/tracks/:id']
-  ): Promise<Spotify.Response.GET['/tracks/:id']>;
+  ): Promise<Spotify.Object.Track | undefined>;
   getTrackAudioFeatures(
     trackId: string
   ): Promise<Spotify.Response.GET['/audio-features/:id']>;
