@@ -117,7 +117,7 @@ export const RouteComponent = () => {
         <section>
           <h2>GraphQL Field Configuration</h2>
           <p className="mb-4 text-sm text-muted">
-            Configure sythetic errors and timeouts for a GraphQL field. These
+            Configure synthetic errors and timeouts for a GraphQL field. These
             are cleared each time the server is restarted.
           </p>
           {fieldConfigs.length > 0 ? (
