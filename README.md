@@ -57,13 +57,11 @@ class Apollo apolloBox
 
 ## Getting started
 
-1. Clone this repo
-
 What do you want to do next with this demo app?
 
 ### I want to play around with the public version of the demo
 
-2. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
+1. Visit the [public Apollo Explorer instance](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home) to interact with the graph (No GraphOS account required)
 
 - [Query the graph](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer) _(**Spotify account required**) - OAuth workflow with be initiated from Apollo Explorer to login to our Spotify account to run any operation_
   - Try having your Spotify app playing on your phone or desktop and then run [this mutation](https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/explorer?explorerURLState=N4IgJg9gxgrgtgUwHYBcQC4RxighigSwiQAIAFXGAZwTIBtcBPAI1ygGsBZHfI04ADqkSIgA6Ua9Jqw4lBwkWIYs27AMp4UCOUMV6SBKlMYEkAc136AvpZE3hVkFaA)
@@ -71,89 +69,124 @@ What do you want to do next with this demo app?
 
 ### I want to re-create this demo in my GraphOS account
 
-3. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys)
-4. Run the clone script with the API key
+1. Clone this repo.
+2. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys).
+3. Run the script below using your personal API key.
 
-```sh
-APOLLO_KEY={YOUR_API_KEY} npm run graphos-demo
-```
+   ```sh
+   AUTH={YOUR_API_KEY} npm run graphos-demo
+   ```
+
+   If you have multiple organizations, the script will prompt you to select which organization the graph should be in.
 
 ### I want to run the client app locally
 
-3. Install dependencies
+1. Clone this repo.
+2. From the root of the folder, install the dependencies.
 
-```sh
-npm install
-```
+   ```sh
+   npm install
+   ```
 
-4. Start the client app
+3. From the root of the folder, start the client app.
 
-```sh
-npm start
-```
+   ```sh
+   npm start
+   ```
 
-5. Visit the website at http://localhost:3000
+4. Visit the website at http://localhost:3000.
 
-**\*Note**: We're currently working on subscriptions support with `rover dev` so the app is pointing at the deployed production url when running locally. You can change the URL the client application is pointing at by editing the `.env.development` file with `VITE_SERVER_HOST` set to the desired URL (most likely locally in the next steps)
+By default, the client app is pointing to the _locally-running_ backend URL. Follow the section below for "I want to run the backend locally" (you can choose to use Docker, or not).
+
+Local subscriptions using `rover dev` is currently a work-in-progress, so features that use subscriptions are not functional (such as listening to playback state). You can change the URL the client application is pointing at by editing the `.env.development` file with `VITE_SERVER_HOST` and setting it to the production URL (uncomment the second line).
 
 ### I want to run the backend locally - using Docker
 
-To run the current backend locally, you will need to start an [Enterprise trial](https://studio.apollographql.com/signup?type=enterprise-trial) to utilize all the GraphOS features. You will need to create this demo (outlined above) in the enterprise trial org using `APOLLO_KEY={YOUR_API_KEY} npm run graphos-demo`.
+You will need a GraphOS organization with an Enterprise plan or [Enterprise trial plan](https://studio.apollographql.com/signup?type=enterprise-trial) to utilize all the GraphOS features.
 
-1. In the graph you re-created this demo in, create a Graph API key in the settings page
-2. Create a `.env` file at the root of this repository and add in the following variables:
+1. Follow the steps in the "I want to re-create this demo in my GraphOS account" section above.
+2. Find the newly-created graph in [GraphOS Studio](https://studio.apollographql.com/). Create a [Graph API key](https://www.apollographql.com/docs/graphos/api-keys/#graph-api-keys) from the Settings page, with the default "Graph Admin" permissions.
+3. Create a `.env` file at the root of this repository and add in the following variables:
 
-```
-APOLLO_GRAPH_REF={YOUR_DEMO_GRAPH_ID}@prod
-APOLLO_KEY={YOUR_GRAPH_API_KEY}
-CALLBACK_URL=http://router:4000
-```
+   ```
+   APOLLO_GRAPH_REF={YOUR_DEMO_GRAPH_ID}@main
+   APOLLO_KEY={YOUR_GRAPH_API_KEY}
+   CALLBACK_URL=http://router:4000
+   ```
 
-3. Start the router and subgraphs:
+4. Start the router and subgraphs:
 
-```
-npm run docker:run
-```
+   ```
+   npm run docker:run
+   ```
 
-- Supergraph - http://localhost:4000
-- Spotify Subgraph - http://spotify:4001 (inaccessible in cluster)
-- Playback Subgraph - http://playback:4002 (inaccessible in cluster)
+   - Supergraph - http://localhost:4000
+   - Spotify Subgraph - http://spotify:4001 (inaccessible in cluster)
+   - Playback Subgraph - http://playback:4002 (inaccessible in cluster)
 
-4. If you want to run any queries through Apollo Explorer, you'll need to disable persisted queries. The default mode of this repo uses the registered persisted queries list. You can disable this in the `router/router.yaml` by commenting out the `persisted_queries` configuration and restarting the `docker:run` command.
+5. If you want to run any queries through Apollo Explorer, you'll need to disable persisted queries. You can disable this in `router/router.yaml` by commenting out the `persisted_queries` configuration.
+
+   ```yaml
+   # persisted_queries:
+   #   enabled: true
+   #   safelist:
+   #     enabled: true
+   #     require_id: false
+   ```
+
+   Re-run the `docker:run` command.
 
 ### I want to run the backend locally
 
-To run the current backend locally, you will need to start an [Enterprise trial](https://studio.apollographql.com/signup?type=enterprise-trial) to utilize all the GraphOS features. You will need to create this demo (outlined above) in the enterprise trial org using `APOLLO_KEY={YOUR_API_KEY} npm run graphos-demo`.
+You will need a GraphOS organization with an Enterprise plan or [Enterprise trial plan](https://studio.apollographql.com/signup?type=enterprise-trial) to utilize all the GraphOS features.
 
-1. In the graph you re-created this demo in, create a Graph API key in the settings page
-2. Create a `.env` file at the root of this repository and add in the following variables:
+1. Follow the steps in the "I want to re-create this demo in my GraphOS account" section above.
+2. Find the newly-created graph in [GraphOS Studio](https://studio.apollographql.com/). Create a [Graph API key](https://www.apollographql.com/docs/graphos/api-keys/#graph-api-keys) from the Settings page, with the default "Graph Admin" permissions.
 
-```
-APOLLO_GRAPH_REF={YOUR_DEMO_GRAPH_ID}@prod
-APOLLO_KEY={YOUR_GRAPH_API_KEY}
-CALLBACK_URL=http://127.0.0.1:4000
-```
+3. Create a `.env` file at the root of this repository and add in the following variables:
 
-3. [Download](https://www.apollographql.com/docs/router/quickstart#1-download-and-extract-the-apollo-router-binary) the latest router binary to the `router` folder
+   ```
+   APOLLO_GRAPH_REF={YOUR_DEMO_GRAPH_ID}@main
+   APOLLO_KEY={YOUR_GRAPH_API_KEY}
+   CALLBACK_URL=http://router:4000
+   ```
 
-4. Start the subgraphs:
+4. [Download](https://www.apollographql.com/docs/router/quickstart#1-download-and-extract-the-apollo-router-binary) the latest router binary to the `router` folder.
 
-```
-npm run start:spotify && npm run start:playback
-```
+5. Build and start the subgraphs. In the root of the project, run:
 
-- Spotify Subgraph - http://localhost:4001
-- Playback Subgraph - http://localhost:4002
+   ```
+   npm run build
+   ```
 
-5. In a new terminal, start the router:
+   ```
+   npm run start:spotify && npm run start:playback
+   ```
 
-```
-APOLLO_KEY={YOUR_DEMO_GRAPH_ID}@prod APOLLO_GRAPH_REF={YOUR_GRAPH_API_KEY} CALLBACK_URL=http://127.0.0.1:4000 npm run start:router
-```
+   - Spotify Subgraph - http://localhost:4001
+   - Playback Subgraph - http://localhost:4002
 
-- Supergraph - http://localhost:4000
+   > **Note:** If you make any edits to the subgraph files, you'll need to re-build and restart the subgraphs manually. If you're looking to do local development, you may want to navigate to each subgraph folder and run `npm run dev` instead, which will watch for changes and restart the subgraph automatically.
 
-6. If you want to run any queries through Apollo Explorer, you'll need to disable persisted queries. The default mode of this repo uses the registered persisted queries list. You can disable this in the `router/router.yaml` by commenting out the `persisted_queries` configuration and restarting the `start:all` command.
+6. In a new terminal, start the router:
+
+   ```
+   APOLLO_KEY={YOUR_DEMO_GRAPH_ID}@main APOLLO_GRAPH_REF={YOUR_GRAPH_API_KEY} CALLBACK_URL=http://127.0.0.1:4000 npm run start:router
+   ```
+
+   - Supergraph - http://localhost:4000
+
+7. If you want to run any queries through Apollo Explorer, you'll need to disable persisted queries. You can disable this in `router/router.yaml` by commenting out the `persisted_queries` configuration.
+
+   ```yaml
+   # persisted_queries:
+   #   enabled: true
+   #   safelist:
+   #     enabled: true
+   #     require_id: false
+   ```
+
+   Restart the router to run it with the latest config changes.
 
 ### Debugging the subgraphs or client locally with VS Code
 
