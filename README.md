@@ -69,6 +69,8 @@ What do you want to do next with this demo app?
 
 ### I want to re-create this demo in my GraphOS account
 
+> **Note**: To create graphs, you must have the [Org Administrator or Graph Administrator](https://www.apollographql.com/docs/graphos/org/members#organization-wide-member-roles) role for your GraphOS organization.
+
 1. Clone this repo.
 2. Create a [personal API key](https://www.apollographql.com/docs/graphos/org/account/#personal-api-keys).
 3. Run the script below using your personal API key.
