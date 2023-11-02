@@ -11,5 +11,5 @@
     "moduleResolution": "node",
     "noEmit": true
   },
-  "include": ["scripts/demo.ts"]
+  "include": ["scripts/**/*.ts"]
 }

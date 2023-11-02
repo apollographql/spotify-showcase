@@ -23,7 +23,7 @@
     "lint:types:playback": "npm run lint:types -w playback-subgraph",
     "lint:types:spotify-api": "npm run lint:types -w spotify-api",
     "build": "npm run build -ws",
-    "graphos-demo": "ts-node scripts/demo.ts",
+    "graphos-demo": "ts-node --files scripts/demo.ts",
     "generate:mocks": "npm run generate:mocks -w spotify-api",
     "generate:pq": "generate-persisted-query-manifest",
     "start": "npm run start:client",
