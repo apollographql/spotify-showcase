@@ -391,7 +391,7 @@ async function createNewTrial(userId: string) {
       if (joinToken) {
         console.log('Created trial org and invite link');
         console.log(
-          `Org Admin Invite URL: https://studio.apollographql.com/org/newAccountId/invite/${joinToken}`
+          `Org Admin Invite URL: https://studio.apollographql.com/org/${newAccountId}/invite/${joinToken}`
         );
       }
       return newAccountId;
