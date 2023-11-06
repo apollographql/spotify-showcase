@@ -46,9 +46,9 @@ apq:
         limit: 512 # This is the default value
 
 persisted_queries:
-  enabled: true
+  enabled: false # true
   safelist:
-    enabled: ${env.ENABLE_SAFELIST:-true}
+    enabled: false # ${env.ENABLE_SAFELIST:-true}
     require_id: false
 #####################
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.
