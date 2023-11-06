@@ -60,9 +60,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     actions {
       disallows
     }
-    context {
-      ...TrackPlaybackDetails_context
-    }
     device {
       id
       name
@@ -79,7 +76,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...TrackPlaybackDetails_track
       }
       ... on Episode {
         show {
@@ -122,10 +118,7 @@ const Playbar = () => {
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
           {playbackItem?.__typename === 'Track' ? (
-            <TrackPlaybackDetails
-              context={playbackState?.context ?? null}
-              track={playbackItem}
-            />
+            <TrackPlaybackDetails />
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}

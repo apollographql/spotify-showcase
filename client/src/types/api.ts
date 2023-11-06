@@ -2515,7 +2515,6 @@ export type EpisodeDetailsCell_episode = {
 
 export type EpisodePlaybackDetails_episode = {
   __typename: 'Episode';
-  id: string;
   name: string;
   show: { __typename: 'Show'; id: string; name: string };
 };
@@ -2627,11 +2626,7 @@ export type PlaybackStateFragment = {
   progressMs: number | null;
   timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context: {
-    __typename: 'PlaybackContext';
-    uri: string;
-    type: PlaybackContextType;
-  } | null;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
   device: {
     __typename: 'Device';
     id: string | null;
@@ -2656,20 +2651,11 @@ export type PlaybackStateFragment = {
         __typename: 'Track';
         id: string;
         durationMs: number;
-        name: string;
-        uri: string;
         album: {
           __typename: 'Album';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
       }
     | null;
 };
@@ -2691,11 +2677,7 @@ export type PlaybackStateSubscriberQuery = {
         progressMs: number | null;
         timestamp: number;
         actions: { __typename: 'Actions'; disallows: Array<Action> };
-        context: {
-          __typename: 'PlaybackContext';
-          uri: string;
-          type: PlaybackContextType;
-        } | null;
+        context: { __typename: 'PlaybackContext'; uri: string } | null;
         device: {
           __typename: 'Device';
           id: string | null;
@@ -2720,20 +2702,11 @@ export type PlaybackStateSubscriberQuery = {
               __typename: 'Track';
               id: string;
               durationMs: number;
-              name: string;
-              uri: string;
               album: {
                 __typename: 'Album';
                 id: string;
-                name: string;
                 images: Array<{ __typename: 'Image'; url: string }>;
               };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                uri: string;
-                name: string;
-              }>;
             }
           | null;
       } | null;
@@ -2754,11 +2727,7 @@ export type PlaybackStateSubscriberSubscription = {
     progressMs: number | null;
     timestamp: number;
     actions: { __typename: 'Actions'; disallows: Array<Action> };
-    context: {
-      __typename: 'PlaybackContext';
-      uri: string;
-      type: PlaybackContextType;
-    } | null;
+    context: { __typename: 'PlaybackContext'; uri: string } | null;
     device: {
       __typename: 'Device';
       id: string | null;
@@ -2783,20 +2752,11 @@ export type PlaybackStateSubscriberSubscription = {
           __typename: 'Track';
           id: string;
           durationMs: number;
-          name: string;
-          uri: string;
           album: {
             __typename: 'Album';
             id: string;
-            name: string;
             images: Array<{ __typename: 'Image'; url: string }>;
           };
-          artists: Array<{
-            __typename: 'Artist';
-            id: string;
-            uri: string;
-            name: string;
-          }>;
         }
       | null;
   } | null;
@@ -2827,11 +2787,6 @@ export type Playbar_playbackState = {
   progressMs: number | null;
   timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context: {
-    __typename: 'PlaybackContext';
-    uri: string;
-    type: PlaybackContextType;
-  } | null;
   device: {
     __typename: 'Device';
     id: string | null;
@@ -2856,20 +2811,11 @@ export type Playbar_playbackState = {
         __typename: 'Track';
         id: string;
         durationMs: number;
-        name: string;
-        uri: string;
         album: {
           __typename: 'Album';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
       }
     | null;
 };
@@ -2962,24 +2908,41 @@ export type TrackNumberCell_track = {
   trackNumber: number | null;
 };
 
-export type TrackPlaybackDetails_context = {
-  __typename: 'PlaybackContext';
-  uri: string;
-  type: PlaybackContextType;
-};
+export type TrackPlaybackDetailsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
 
-export type TrackPlaybackDetails_track = {
-  __typename: 'Track';
-  id: string;
-  name: string;
-  uri: string;
-  album: { __typename: 'Album'; id: string; name: string };
-  artists: Array<{
-    __typename: 'Artist';
-    id: string;
-    uri: string;
-    name: string;
-  }>;
+export type TrackPlaybackDetailsQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    player: {
+      __typename: 'Player';
+      playbackState: {
+        __typename: 'PlaybackState';
+        context: {
+          __typename: 'PlaybackContext';
+          uri: string;
+          type: PlaybackContextType;
+        } | null;
+        item:
+          | { __typename: 'Episode' }
+          | {
+              __typename: 'Track';
+              id: string;
+              name: string;
+              uri: string;
+              album: { __typename: 'Album'; id: string; name: string };
+              artists: Array<{
+                __typename: 'Artist';
+                id: string;
+                uri: string;
+                name: string;
+              }>;
+            }
+          | null;
+      } | null;
+    };
+  } | null;
 };
 
 export type TrackTitleCell_playbackState = {

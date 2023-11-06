@@ -1,7 +1,7 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import {
-  TrackPlaybackDetails_context as Context,
-  TrackPlaybackDetails_track as Track,
+  TrackPlaybackDetailsQuery,
+  TrackPlaybackDetailsQueryVariables,
   PlaybackContextType,
 } from '../types/api';
 import ContextMenuAction from './ContextMenuAction';
@@ -10,17 +10,69 @@ import DelimitedList from './DelimitedList';
 import EntityLink from './EntityLink';
 import Flex from './Flex';
 import { parseSpotifyIDFromURI } from '../utils/spotify';
-import { fragmentRegistry } from '../apollo/fragmentRegistry';
+import Skeleton from './Skeleton';
+import LikeButton from './LikeButton';
 
-interface TrackPlaybackDetailsProps {
-  context: Context | null;
-  track: Track;
-}
+const TRACK_PLAYBACK_DETAILS_QUERY: TypedDocumentNode<
+  TrackPlaybackDetailsQuery,
+  TrackPlaybackDetailsQueryVariables
+> = gql`
+  query TrackPlaybackDetailsQuery {
+    me {
+      player {
+        playbackState {
+          context {
+            uri
+            type
+          }
+          item {
+            ... on Track {
+              id
+              name
+              uri
+              album {
+                id
+                name
+              }
+              artists {
+                id
+                uri
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
-const TrackPlaybackDetails = ({
-  context,
-  track,
-}: TrackPlaybackDetailsProps) => {
+const TrackPlaybackDetails = () => {
+  const { data, loading } = useQuery(TRACK_PLAYBACK_DETAILS_QUERY);
+  const context = data?.me?.player.playbackState?.context;
+  const track = data?.me?.player.playbackState?.item;
+
+  if (loading) {
+    return (
+      <div className="flex items-center gap-4">
+        <Skeleton.CoverPhoto size="4rem" />
+        <div className="flex flex-col gap-2">
+          <Skeleton.Text width="4rem" />
+          <Skeleton.Text width="8rem" />
+        </div>
+        <LikeButton disabled liked={false} />
+      </div>
+    );
+  }
+
+  if (!track) {
+    throw new Error('Expected track');
+  }
+
+  if (track?.__typename === 'Episode') {
+    return;
+  }
+
   return (
     <Flex direction="column" gap="0.25rem">
       <ContextMenu
@@ -83,26 +135,5 @@ const TrackPlaybackDetails = ({
     </Flex>
   );
 };
-
-fragmentRegistry.register(gql`
-  fragment TrackPlaybackDetails_context on PlaybackContext {
-    uri
-    type
-  }
-
-  fragment TrackPlaybackDetails_track on Track {
-    name
-    uri
-    album {
-      id
-      name
-    }
-    artists {
-      id
-      uri
-      name
-    }
-  }
-`);
 
 export default TrackPlaybackDetails;
