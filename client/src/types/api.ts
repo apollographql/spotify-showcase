@@ -2607,15 +2607,27 @@ export type NotificationManager_playbackState = {
   device: { __typename: 'Device'; id: string | null };
 };
 
-export type PlaybackItemProgressBar_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  progressMs: number | null;
-  timestamp: number;
-  item:
-    | { __typename: 'Episode'; id: string; durationMs: number }
-    | { __typename: 'Track'; id: string; durationMs: number }
-    | null;
+export type PlaybackItemProgressBarQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type PlaybackItemProgressBarQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    player: {
+      __typename: 'Player';
+      playbackState: {
+        __typename: 'PlaybackState';
+        isPlaying: boolean;
+        progressMs: number | null;
+        timestamp: number;
+        item:
+          | { __typename: 'Episode'; id: string; durationMs: number }
+          | { __typename: 'Track'; id: string; durationMs: number }
+          | null;
+      } | null;
+    };
+  } | null;
 };
 
 export type PlaybackStateFragment = {
@@ -2624,7 +2636,6 @@ export type PlaybackStateFragment = {
   repeatState: RepeatMode;
   shuffleState: boolean;
   progressMs: number | null;
-  timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
   context: { __typename: 'PlaybackContext'; uri: string } | null;
   device: {
@@ -2638,7 +2649,6 @@ export type PlaybackStateFragment = {
     | {
         __typename: 'Episode';
         id: string;
-        durationMs: number;
         name: string;
         show: {
           __typename: 'Show';
@@ -2650,7 +2660,6 @@ export type PlaybackStateFragment = {
     | {
         __typename: 'Track';
         id: string;
-        durationMs: number;
         album: {
           __typename: 'Album';
           id: string;
@@ -2675,7 +2684,6 @@ export type PlaybackStateSubscriberQuery = {
         repeatState: RepeatMode;
         shuffleState: boolean;
         progressMs: number | null;
-        timestamp: number;
         actions: { __typename: 'Actions'; disallows: Array<Action> };
         context: { __typename: 'PlaybackContext'; uri: string } | null;
         device: {
@@ -2689,7 +2697,6 @@ export type PlaybackStateSubscriberQuery = {
           | {
               __typename: 'Episode';
               id: string;
-              durationMs: number;
               name: string;
               show: {
                 __typename: 'Show';
@@ -2701,7 +2708,6 @@ export type PlaybackStateSubscriberQuery = {
           | {
               __typename: 'Track';
               id: string;
-              durationMs: number;
               album: {
                 __typename: 'Album';
                 id: string;
@@ -2725,7 +2731,6 @@ export type PlaybackStateSubscriberSubscription = {
     repeatState: RepeatMode;
     shuffleState: boolean;
     progressMs: number | null;
-    timestamp: number;
     actions: { __typename: 'Actions'; disallows: Array<Action> };
     context: { __typename: 'PlaybackContext'; uri: string } | null;
     device: {
@@ -2739,7 +2744,6 @@ export type PlaybackStateSubscriberSubscription = {
       | {
           __typename: 'Episode';
           id: string;
-          durationMs: number;
           name: string;
           show: {
             __typename: 'Show';
@@ -2751,7 +2755,6 @@ export type PlaybackStateSubscriberSubscription = {
       | {
           __typename: 'Track';
           id: string;
-          durationMs: number;
           album: {
             __typename: 'Album';
             id: string;
@@ -2785,7 +2788,6 @@ export type Playbar_playbackState = {
   repeatState: RepeatMode;
   shuffleState: boolean;
   progressMs: number | null;
-  timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
   device: {
     __typename: 'Device';
@@ -2798,7 +2800,6 @@ export type Playbar_playbackState = {
     | {
         __typename: 'Episode';
         id: string;
-        durationMs: number;
         name: string;
         show: {
           __typename: 'Show';
@@ -2810,7 +2811,6 @@ export type Playbar_playbackState = {
     | {
         __typename: 'Track';
         id: string;
-        durationMs: number;
         album: {
           __typename: 'Album';
           id: string;

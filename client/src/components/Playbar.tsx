@@ -57,6 +57,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     isPlaying
     repeatState
     shuffleState
+    progressMs
     actions {
       disallows
     }
@@ -89,8 +90,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
 
       ...LikeControl_playbackItem
     }
-
-    ...PlaybackItemProgressBar_playbackState
   }
 `;
 
@@ -165,7 +164,7 @@ const Playbar = () => {
               />
             )}
           </Flex>
-          <PlaybackItemProgressBar playbackState={playbackState} />
+          <PlaybackItemProgressBar />
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
           <QueueControlButton />
@@ -231,7 +230,7 @@ export const LoadingState = withHighlight(
               <SkipToNextControl disallowed />
               <RepeatControl disallowed repeatState={RepeatMode.Off} />
             </div>
-            <PlaybackItemProgressBar playbackState={null} />
+            <PlaybackItemProgressBar />
           </div>
           <div className="flex justify-end gap-4 items-center">
             <QueueControlButton />

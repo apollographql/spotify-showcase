@@ -1,19 +1,39 @@
-import { gql } from '@apollo/client';
+import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import Flex from './Flex';
 import ProgressBar from './ProgressBar';
 import Duration from './Duration';
-import { PlaybackItemProgressBar_playbackState as PlaybackState } from '../types/api';
+import {
+  PlaybackItemProgressBarQuery,
+  PlaybackItemProgressBarQueryVariables,
+} from '../types/api';
 import usePlaybackProgress from '../hooks/usePlaybackProgress';
 import useSeekToPositionMutation from '../mutations/useSeekToPositionMutation';
-import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
-interface PlaybackItemProgressBarProps {
-  playbackState: PlaybackState | null | undefined;
-}
+const PLAYBACK_ITEM_PROGRESS_BAR_QUERY: TypedDocumentNode<
+  PlaybackItemProgressBarQuery,
+  PlaybackItemProgressBarQueryVariables
+> = gql`
+  query PlaybackItemProgressBarQuery {
+    me {
+      player {
+        playbackState {
+          isPlaying
+          progressMs
+          timestamp
+          item {
+            id
+            durationMs
+          }
+        }
+      }
+    }
+  }
+`;
 
-const PlaybackItemProgressBar = ({
-  playbackState,
-}: PlaybackItemProgressBarProps) => {
+const PlaybackItemProgressBar = () => {
+  const { data } = useQuery(PLAYBACK_ITEM_PROGRESS_BAR_QUERY);
+
+  const playbackState = data?.me?.player.playbackState;
   const playbackItem = playbackState?.item;
   const durationMs = playbackItem?.durationMs ?? 0;
   const progressMs = usePlaybackProgress(playbackState, { max: durationMs });
@@ -39,17 +59,5 @@ const PlaybackItemProgressBar = ({
     </Flex>
   );
 };
-
-fragmentRegistry.register(gql`
-  fragment PlaybackItemProgressBar_playbackState on PlaybackState {
-    isPlaying
-    progressMs
-    timestamp
-    item {
-      id
-      durationMs
-    }
-  }
-`);
 
 export default PlaybackItemProgressBar;
