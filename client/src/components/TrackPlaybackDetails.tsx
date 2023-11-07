@@ -65,11 +65,7 @@ const TrackPlaybackDetails = () => {
     );
   }
 
-  if (!track) {
-    throw new Error('Expected track');
-  }
-
-  if (track?.__typename === 'Episode') {
+  if (!track || track?.__typename === 'Episode') {
     return;
   }
 
