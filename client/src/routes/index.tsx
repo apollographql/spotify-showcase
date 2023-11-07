@@ -49,7 +49,7 @@ const LoggedIn = () => {
       <PageTitle>Jump back in</PageTitle>
       <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
         {/*
-          TODO: Render a list of saved albums using the AlbumTile component
+          EXERCISE: Render a list of saved albums using the AlbumTile component
         */}
       </TileGrid>
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>

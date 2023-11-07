@@ -13,6 +13,7 @@ import { parseSpotifyIDFromURI } from '../utils/spotify';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 
+// EXERCISE: Convert this to a fragment and add it to the PLAYBACK_STATE_FRAGMENT in Playbar.tsx
 const TRACK_PLAYBACK_DETAILS_QUERY: TypedDocumentNode<
   TrackPlaybackDetailsQuery,
   TrackPlaybackDetailsQueryVariables

@@ -9,7 +9,7 @@ interface Album {
   name: string;
   albumType: AlbumType;
   totalTracks: number;
-  // TODO: We want to add support for this data
+  // EXERCISE: We want to add support for this data
   // releaseDate: { date: string };
   images: Array<{ url: string }>;
 }
@@ -23,7 +23,7 @@ const AlbumTile = ({ album }: AlbumTileProps) => {
     <MediaTile
       coverPhoto={<CoverPhoto image={album.images[0]} />}
       description={[
-        // TODO: We want to show the release date on each album tile
+        // EXERCISE: We want to show the release date on each album tile
         // <span key="releaseDate">{yearOfRelease(album.releaseDate)}</span>,
         <span key="albumType">
           {capitalize(album.albumType.toLowerCase())}
