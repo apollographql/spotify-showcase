@@ -30,6 +30,8 @@ import QueueControlButton from './QueueControlButton';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 import { withHighlight } from './LoadingStateHighlighter';
+import ProgressBar from './ProgressBar';
+import Duration from './Duration';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
@@ -222,7 +224,15 @@ export const LoadingState = withHighlight(
               <SkipToNextControl disallowed />
               <RepeatControl disallowed repeatState={RepeatMode.Off} />
             </div>
-            <PlaybackItemProgressBar />
+            <div className="flex items-center gap-2">
+              <span className="text-muted text-xs tabular-nums">
+                <Duration durationMs={0} />
+              </span>
+              <ProgressBar animate={false} max={0} value={0} width="100%" />
+              <span className="text-muted text-xs tabular-nums">
+                <Duration durationMs={0} />
+              </span>
+            </div>
           </div>
           <div className="flex justify-end gap-4 items-center">
             <QueueControlButton />
