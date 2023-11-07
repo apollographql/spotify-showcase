@@ -1,11 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import {
-  gql,
-  useBackgroundQuery,
-  useReadQuery,
-  TypedDocumentNode,
-} from '@apollo/client';
-import { QueryReference } from '@apollo/client/react/cache/QueryReference';
+import { gql, TypedDocumentNode, useSuspenseQuery } from '@apollo/client';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
@@ -15,7 +9,6 @@ import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
-import Suspense from '../components/Suspense';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -47,25 +40,18 @@ const LoggedIn = () => {
   // this component unsuspends
   const timestamp = startOfHour(new Date()).toISOString();
 
-  const [queryRef] = useBackgroundQuery(INDEX_ROUTE_QUERY, {
+  const { data } = useSuspenseQuery(INDEX_ROUTE_QUERY, {
     variables: { timestamp },
   });
 
   return (
-    <Suspense fallback={<LoadingState />}>
-      <PlaylistTileGrid queryRef={queryRef} />
-    </Suspense>
-  );
-};
-
-const PlaylistTileGrid = ({
-  queryRef,
-}: {
-  queryRef: QueryReference<IndexRouteQuery>;
-}) => {
-  const { data } = useReadQuery(queryRef);
-  return (
     <div className={containerStyles}>
+      <PageTitle>Jump back in</PageTitle>
+      <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
+        {/*
+          TODO: Render a list of saved albums using the AlbumTile component
+        */}
+      </TileGrid>
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
       <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
         {data.featuredPlaylists?.edges.map(({ node }) => (
