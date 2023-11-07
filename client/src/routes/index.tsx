@@ -10,6 +10,14 @@ import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
 
+const POPULAR_ALBUM_IDS = [
+  '64LU4c1nfjz1t4VnGhagcg',
+  '4czdORdCWP9umpbhFXK2fW',
+  '1bBez9PNvkJPW08bU7NYta',
+  '2Cn1d2KgbkAqbZCJ1RzdkA',
+  '1NAmidJlEaVgA3MpcPFYGq',
+];
+
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
 
@@ -52,6 +60,16 @@ const LoggedIn = () => {
           EXERCISE: Render a list of saved albums using the AlbumTile component
         */}
       </TileGrid>
+      <PageTitle>Chart toppers</PageTitle>
+      <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
+        {/*
+          EXERCISE: Add a list of popular albums using the POPULAR_ALBUM_IDS 
+          using the AlbumTile component.
+
+          NOTE: Do this after updating AlbumTile to use fragments
+        */}
+      </TileGrid>
+
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
       <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
         {data.featuredPlaylists?.edges.map(({ node }) => (
