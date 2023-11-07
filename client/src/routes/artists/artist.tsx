@@ -54,9 +54,6 @@ const ARTIST_ROUTE_QUERY = gql`
         name
         albumType
         totalTracks
-        releaseDate {
-          date
-        }
         images {
           url
         }

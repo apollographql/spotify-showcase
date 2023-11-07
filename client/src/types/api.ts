@@ -3395,7 +3395,6 @@ export type ArtistRouteQuery = {
           name: string;
           albumType: AlbumType;
           totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
           images: Array<{ __typename: 'Image'; url: string }>;
         };
       }> | null;
@@ -3410,7 +3409,6 @@ export type ArtistRouteQuery = {
           name: string;
           albumType: AlbumType;
           totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
           images: Array<{ __typename: 'Image'; url: string }>;
         };
       }> | null;
@@ -3425,7 +3423,6 @@ export type ArtistRouteQuery = {
           name: string;
           albumType: AlbumType;
           totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
           images: Array<{ __typename: 'Image'; url: string }>;
         };
       }> | null;
@@ -3463,7 +3460,6 @@ export type ArtistRouteQuery_albums = {
       name: string;
       albumType: AlbumType;
       totalTracks: number;
-      releaseDate: { __typename: 'ReleaseDate'; date: string };
       images: Array<{ __typename: 'Image'; url: string }>;
     };
   }> | null;
@@ -3493,7 +3489,6 @@ export type CollectionAlbumsRouteQuery = {
           name: string;
           albumType: AlbumType;
           totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
           images: Array<{ __typename: 'Image'; url: string }>;
         };
       }>;
