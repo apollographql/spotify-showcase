@@ -9,7 +9,7 @@ import {
 import usePlaybackProgress from '../hooks/usePlaybackProgress';
 import useSeekToPositionMutation from '../mutations/useSeekToPositionMutation';
 
-// EXERCISE: Convert this to a fragment and add it to the PLAYBACK_STATE_FRAGMENT in playbar.tsx
+// EXERCISE: Convert this to a fragment and add it to the PlaybarQuery in playbar.tsx
 const PLAYBACK_ITEM_PROGRESS_BAR_QUERY: TypedDocumentNode<
   PlaybackItemProgressBarQuery,
   PlaybackItemProgressBarQueryVariables

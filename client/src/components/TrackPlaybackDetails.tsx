@@ -12,7 +12,7 @@ import Flex from './Flex';
 import { parseSpotifyIDFromURI } from '../utils/spotify';
 import Skeleton from './Skeleton';
 
-// EXERCISE: Convert this to a fragment and add it to the PLAYBACK_STATE_FRAGMENT in Playbar.tsx
+// EXERCISE: Convert this to a fragment and add it to the PlaybarQuery in playbar.tsx
 const TRACK_PLAYBACK_DETAILS_QUERY: TypedDocumentNode<
   TrackPlaybackDetailsQuery,
   TrackPlaybackDetailsQueryVariables
