@@ -11,7 +11,6 @@ import EntityLink from './EntityLink';
 import Flex from './Flex';
 import { parseSpotifyIDFromURI } from '../utils/spotify';
 import Skeleton from './Skeleton';
-import LikeButton from './LikeButton';
 
 // EXERCISE: Convert this to a fragment and add it to the PLAYBACK_STATE_FRAGMENT in Playbar.tsx
 const TRACK_PLAYBACK_DETAILS_QUERY: TypedDocumentNode<
@@ -55,13 +54,9 @@ const TrackPlaybackDetails = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-4">
-        <Skeleton.CoverPhoto size="4rem" />
-        <div className="flex flex-col gap-2">
-          <Skeleton.Text width="4rem" />
-          <Skeleton.Text width="8rem" />
-        </div>
-        <LikeButton disabled liked={false} />
+      <div className="flex flex-col gap-2">
+        <Skeleton.Text width="4rem" />
+        <Skeleton.Text width="8rem" />
       </div>
     );
   }
