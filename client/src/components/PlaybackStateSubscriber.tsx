@@ -13,6 +13,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
     isPlaying
     repeatState
     shuffleState
+    progressMs
     actions {
       disallows
     }
@@ -44,10 +45,9 @@ const PLAYBACK_STATE_FRAGMENT = gql`
             url
           }
         }
+        ...EpisodePlaybackDetails_episode
       }
     }
-
-    ...Playbar_playbackState
   }
 `;
 

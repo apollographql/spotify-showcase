@@ -2768,46 +2768,45 @@ export type PlaybarQuery = {
         name: string;
         type: string;
       }> | null;
+      playbackState: {
+        __typename: 'PlaybackState';
+        isPlaying: boolean;
+        repeatState: RepeatMode;
+        shuffleState: boolean;
+        progressMs: number | null;
+        actions: { __typename: 'Actions'; disallows: Array<Action> };
+        device: {
+          __typename: 'Device';
+          id: string | null;
+          name: string;
+          type: string;
+          volumePercent: number;
+        };
+        item:
+          | {
+              __typename: 'Episode';
+              id: string;
+              name: string;
+              show: {
+                __typename: 'Show';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+            }
+          | {
+              __typename: 'Track';
+              id: string;
+              album: {
+                __typename: 'Album';
+                id: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+            }
+          | null;
+      } | null;
     };
   } | null;
-};
-
-export type Playbar_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  repeatState: RepeatMode;
-  shuffleState: boolean;
-  progressMs: number | null;
-  actions: { __typename: 'Actions'; disallows: Array<Action> };
-  device: {
-    __typename: 'Device';
-    id: string | null;
-    name: string;
-    type: string;
-    volumePercent: number;
-  };
-  item:
-    | {
-        __typename: 'Episode';
-        id: string;
-        name: string;
-        show: {
-          __typename: 'Show';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }
-    | {
-        __typename: 'Track';
-        id: string;
-        album: {
-          __typename: 'Album';
-          id: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }
-    | null;
 };
 
 export type PlaylistSidebarLink_playbackState = {

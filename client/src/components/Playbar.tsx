@@ -5,7 +5,6 @@ import {
   RepeatMode,
   PlaybarQuery,
   PlaybarQueryVariables,
-  Playbar_playbackState as PlaybackState,
 } from '../types/api';
 import { Volume1 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
@@ -27,9 +26,7 @@ import SkipBackwardControl from './SkipBackwardControl';
 import SkipForwardControl from './SkipForwardControl';
 import VolumeBar from './VolumeBar';
 import useResumePlaybackMutation from '../mutations/useResumePlaybackMutation';
-import usePlaybackState from '../hooks/usePlaybackState';
 import QueueControlButton from './QueueControlButton';
-import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 import { withHighlight } from './LoadingStateHighlighter';
@@ -47,59 +44,54 @@ const PLAYBAR_QUERY: TypedDocumentNode<
           id
           ...DevicePopover_devices
         }
+        playbackState {
+          isPlaying
+          repeatState
+          shuffleState
+          progressMs
+          actions {
+            disallows
+          }
+          device {
+            id
+            name
+            type
+            volumePercent
+          }
+          item {
+            id
+
+            ... on Track {
+              album {
+                id
+                images {
+                  url
+                }
+              }
+            }
+            ... on Episode {
+              show {
+                id
+                images {
+                  url
+                }
+              }
+              ...EpisodePlaybackDetails_episode
+            }
+
+            ...LikeControl_playbackItem
+          }
+        }
       }
     }
   }
 `;
-
-const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
-  fragment Playbar_playbackState on PlaybackState {
-    isPlaying
-    repeatState
-    shuffleState
-    progressMs
-    actions {
-      disallows
-    }
-    device {
-      id
-      name
-      type
-      volumePercent
-    }
-    item {
-      id
-
-      ... on Track {
-        album {
-          id
-          images {
-            url
-          }
-        }
-      }
-      ... on Episode {
-        show {
-          id
-          images {
-            url
-          }
-        }
-        ...EpisodePlaybackDetails_episode
-      }
-
-      ...LikeControl_playbackItem
-    }
-  }
-`;
-
-fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
 
 const Playbar = () => {
   const { data } = useSuspenseQuery(PLAYBAR_QUERY);
   const [resumePlayback] = useResumePlaybackMutation();
-  const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
+  const playbackState = data.me?.player.playbackState;
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
   const devices = data.me?.player.devices ?? [];
