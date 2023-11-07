@@ -20,7 +20,15 @@ const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            ...AlbumTile_album
+            name
+            albumType
+            totalTracks
+            releaseDate {
+              date
+            }
+            images {
+              url
+            }
           }
         }
       }

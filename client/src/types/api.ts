@@ -2361,16 +2361,6 @@ export enum __TypeKind {
   NonNull = 'NON_NULL',
 }
 
-export type AlbumTile_album = {
-  __typename: 'Album';
-  id: string;
-  name: string;
-  albumType: AlbumType;
-  totalTracks: number;
-  releaseDate: { __typename: 'ReleaseDate'; date: string };
-  images: Array<{ __typename: 'Image'; url: string }>;
-};
-
 export type AlbumTrackTitleCell_playbackState = {
   __typename: 'PlaybackState';
   context: { __typename: 'PlaybackContext'; uri: string } | null;

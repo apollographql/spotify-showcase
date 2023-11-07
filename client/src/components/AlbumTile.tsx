@@ -1,29 +1,21 @@
-import { gql } from '@apollo/client';
-import { AlbumTile_album as Album } from '../types/api';
+import { AlbumType } from '../types/api';
 import { capitalize } from '../utils/string';
 import { yearOfRelease } from '../utils/releaseDate';
 import MediaTile from './MediaTile';
 import CoverPhoto from './CoverPhoto';
-import { fragmentRegistry } from '../apollo/fragmentRegistry';
+
+interface Album {
+  id: string;
+  name: string;
+  albumType: AlbumType;
+  totalTracks: number;
+  releaseDate: { date: string };
+  images: Array<{ url: string }>;
+}
 
 interface AlbumTileProps {
   album: Album;
 }
-
-fragmentRegistry.register(gql`
-  fragment AlbumTile_album on Album {
-    id
-    name
-    albumType
-    totalTracks
-    releaseDate {
-      date
-    }
-    images {
-      url
-    }
-  }
-`);
 
 const AlbumTile = ({ album }: AlbumTileProps) => {
   return (
