@@ -21,7 +21,6 @@ const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
           node {
             id
             name
-            albumType
             totalTracks
             images {
               url

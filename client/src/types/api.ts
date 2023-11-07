@@ -3392,7 +3392,6 @@ export type ArtistRouteQuery = {
           __typename: 'Album';
           id: string;
           name: string;
-          albumType: AlbumType;
           totalTracks: number;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
@@ -3406,7 +3405,6 @@ export type ArtistRouteQuery = {
           __typename: 'Album';
           id: string;
           name: string;
-          albumType: AlbumType;
           totalTracks: number;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
@@ -3420,7 +3418,6 @@ export type ArtistRouteQuery = {
           __typename: 'Album';
           id: string;
           name: string;
-          albumType: AlbumType;
           totalTracks: number;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
@@ -3457,7 +3454,6 @@ export type ArtistRouteQuery_albums = {
       __typename: 'Album';
       id: string;
       name: string;
-      albumType: AlbumType;
       totalTracks: number;
       images: Array<{ __typename: 'Image'; url: string }>;
     };
@@ -3486,7 +3482,6 @@ export type CollectionAlbumsRouteQuery = {
           __typename: 'Album';
           id: string;
           name: string;
-          albumType: AlbumType;
           totalTracks: number;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
