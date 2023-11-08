@@ -463,7 +463,7 @@ async function checkApiKey() {
     }
   }
   throw new Error(
-    'You must use a user api key and be an org administrator for your account.'
+    'You must use a personal API key and have an Org Administrator or Graph Administrator role for your organization.'
   );
 }
 
