@@ -2515,7 +2515,6 @@ export type EpisodeDetailsCell_episode = {
 
 export type EpisodePlaybackDetails_episode = {
   __typename: 'Episode';
-  id: string;
   name: string;
   show: { __typename: 'Show'; id: string; name: string };
 };
@@ -2601,6 +2600,14 @@ export type SidebarQuery = {
       }>;
     } | null;
   } | null;
+};
+
+export type PlaylistDetailsQueryVariables = Exact<{
+  playlistId: Scalars['ID']['input'];
+}>;
+
+export type PlaylistDetailsQuery = {
+  playlist: { __typename: 'Playlist'; id: string; name: string } | null;
 };
 
 export type NotificationManager_playbackState = {
@@ -2970,7 +2977,6 @@ export type TrackPlaybackDetails_context = {
 
 export type TrackPlaybackDetails_track = {
   __typename: 'Track';
-  id: string;
   name: string;
   uri: string;
   album: { __typename: 'Album'; id: string; name: string };

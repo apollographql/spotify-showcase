@@ -18,6 +18,7 @@ interface PlaylistSidebarLinkProps {
   coverPhoto: ReactElement<{ size: string }>;
   to: string;
   pinned: boolean;
+  onMouseOver?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
@@ -34,6 +35,7 @@ const PlaylistSidebarLink = ({
   playlist,
   pinned,
   to,
+  onMouseOver,
 }: PlaylistSidebarLinkProps) => {
   const playbackState = usePlaybackState({
     fragment: PLAYBACK_STATE_FRAGMENT,
@@ -58,6 +60,7 @@ const PlaylistSidebarLink = ({
       <li>
         <NavLink
           to={to}
+          onMouseOver={onMouseOver}
           className={({ isActive }) =>
             cx(
               'leading-none transition-colors block py-2 pl-2 pr-4 transition-color duration-200 ease-out hover:no-underline justify-between rounded-md',

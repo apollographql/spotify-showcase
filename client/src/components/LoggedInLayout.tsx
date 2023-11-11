@@ -4,8 +4,18 @@ import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
-import { SidebarQuery, SidebarQueryVariables } from '../types/api';
+import {
+  TypedDocumentNode,
+  gql,
+  useLoadableQuery,
+  useSuspenseQuery,
+} from '@apollo/client';
+import {
+  PlaylistDetailsQuery,
+  PlaylistDetailsQueryVariables,
+  SidebarQuery,
+  SidebarQueryVariables,
+} from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
@@ -92,11 +102,25 @@ const SIDEBAR_QUERY: TypedDocumentNode<
   }
 `;
 
+const PLAYLIST_DETAILS_QUERY: TypedDocumentNode<
+  PlaylistDetailsQuery,
+  PlaylistDetailsQueryVariables
+> = gql`
+  query PlaylistDetailsQuery($playlistId: ID!) {
+    playlist(id: $playlistId) {
+      id
+      name
+    }
+  }
+`;
+
 const Sidebar = () => {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
+
+  const [, loadQuery] = useLoadableQuery(PLAYLIST_DETAILS_QUERY);
 
   const { me } = data;
 
@@ -153,6 +177,7 @@ const Sidebar = () => {
                 playlist={playlist}
                 coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
                 to={`/playlists/${playlist.id}`}
+                onMouseOver={() => loadQuery({ playlistId: playlist.id })}
               />
             ))}
             <OffsetBasedPaginationObserver
