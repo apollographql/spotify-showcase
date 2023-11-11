@@ -177,7 +177,7 @@ const Sidebar = () => {
                 playlist={playlist}
                 coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
                 to={`/playlists/${playlist.id}`}
-                onMouseOver={() => loadQuery({ playlistId: playlist.id })}
+                preloadDetails={() => loadQuery({ playlistId: playlist.id })}
               />
             ))}
             <OffsetBasedPaginationObserver
