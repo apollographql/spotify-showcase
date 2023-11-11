@@ -20,6 +20,7 @@ interface PlaylistSidebarLinkProps {
   to: string;
   pinned: boolean;
   onMouseOver?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  onEdit?: (playlist: Playlist) => void;
   preloadDetails?: (playlist: Playlist) => void;
 }
 
@@ -45,6 +46,7 @@ const PlaylistSidebarLink = ({
   playlist,
   pinned,
   to,
+  onEdit,
   preloadDetails,
 }: PlaylistSidebarLinkProps) => {
   const playbackState = usePlaybackState({
@@ -70,7 +72,10 @@ const PlaylistSidebarLink = ({
           </ContextMenu.SubMenu>
           <ContextMenu.Separator />
           {isOwner && (
-            <ContextMenu.Action onMouseOver={() => preloadDetails?.(playlist)}>
+            <ContextMenu.Action
+              onMouseOver={() => preloadDetails?.(playlist)}
+              onSelect={() => onEdit?.(playlist)}
+            >
               Edit details
             </ContextMenu.Action>
           )}

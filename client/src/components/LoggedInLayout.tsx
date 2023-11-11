@@ -1,13 +1,15 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
 import {
+  QueryReference,
   TypedDocumentNode,
   gql,
   useLoadableQuery,
+  useReadQuery,
   useSuspenseQuery,
 } from '@apollo/client';
 import {
@@ -31,6 +33,7 @@ import CurrentUserMenu, {
 import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
+import Modal from './Modal';
 
 const LoggedInLayout = () => {
   return (
@@ -115,12 +118,15 @@ const PLAYLIST_DETAILS_QUERY: TypedDocumentNode<
 `;
 
 const Sidebar = () => {
+  const [editingPlaylistId, setEditingPlaylistId] = useState<string | null>(
+    null
+  );
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
 
-  const [, loadQuery] = useLoadableQuery(PLAYLIST_DETAILS_QUERY);
+  const [queryRef, loadQuery] = useLoadableQuery(PLAYLIST_DETAILS_QUERY);
 
   const { me } = data;
 
@@ -129,66 +135,94 @@ const Sidebar = () => {
   }
 
   return (
-    <Layout.Sidebar>
-      <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
-        <header className="px-4 py-2">
-          <h2 className="text-muted flex gap-2 items-center py-2 text-base">
-            <Library /> Your Library
-          </h2>
-        </header>
-        <ScrollContainerContext.Provider value={sidebarRef}>
-          <div className="overflow-y-auto flex-1 -mx-1 px-3" ref={sidebarRef}>
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:tracks',
-                name: 'Liked Songs',
-                uri: `spotify:user:${me.user.id}:collection`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/tracks"
-            />
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:episodes',
-                name: 'Your Episodes',
-                uri: `spotify:user:${me.user.id}:collection:your-episodes`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/episodes"
-            />
-            {me.playlists?.edges.map(({ node: playlist }) => (
+    <>
+      <Layout.Sidebar>
+        <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
+          <header className="px-4 py-2">
+            <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+              <Library /> Your Library
+            </h2>
+          </header>
+          <ScrollContainerContext.Provider value={sidebarRef}>
+            <div className="overflow-y-auto flex-1 -mx-1 px-3" ref={sidebarRef}>
               <PlaylistSidebarLink
-                pinned={false}
-                key={playlist.id}
-                playlist={playlist}
-                coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
-                to={`/playlists/${playlist.id}`}
-                preloadDetails={() => loadQuery({ playlistId: playlist.id })}
+                pinned
+                playlist={{
+                  __typename: 'Playlist',
+                  id: 'collection:tracks',
+                  name: 'Liked Songs',
+                  uri: `spotify:user:${me.user.id}:collection`,
+                  owner: {
+                    __typename: 'User',
+                    id: 'spotify',
+                    displayName: 'Spotify',
+                  },
+                }}
+                coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
+                to="/collection/tracks"
               />
-            ))}
-            <OffsetBasedPaginationObserver
-              pageInfo={me.playlists?.pageInfo}
-              fetchMore={fetchMore}
-            />
-          </div>
-        </ScrollContainerContext.Provider>
-      </Layout.Sidebar.Section>
-    </Layout.Sidebar>
+              <PlaylistSidebarLink
+                pinned
+                playlist={{
+                  __typename: 'Playlist',
+                  id: 'collection:episodes',
+                  name: 'Your Episodes',
+                  uri: `spotify:user:${me.user.id}:collection:your-episodes`,
+                  owner: {
+                    __typename: 'User',
+                    id: 'spotify',
+                    displayName: 'Spotify',
+                  },
+                }}
+                coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
+                to="/collection/episodes"
+              />
+              {me.playlists?.edges.map(({ node: playlist }) => (
+                <PlaylistSidebarLink
+                  pinned={false}
+                  key={playlist.id}
+                  playlist={playlist}
+                  coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
+                  to={`/playlists/${playlist.id}`}
+                  onEdit={(playlist) => setEditingPlaylistId(playlist.id)}
+                  preloadDetails={(playlist) =>
+                    loadQuery({ playlistId: playlist.id })
+                  }
+                />
+              ))}
+              <OffsetBasedPaginationObserver
+                pageInfo={me.playlists?.pageInfo}
+                fetchMore={fetchMore}
+              />
+            </div>
+          </ScrollContainerContext.Provider>
+        </Layout.Sidebar.Section>
+      </Layout.Sidebar>
+      <Modal
+        title="Edit playlist"
+        open={editingPlaylistId !== null}
+        onChange={(open) => {
+          if (!open) {
+            setEditingPlaylistId(null);
+          }
+        }}
+      >
+        <Suspense fallback={<div>Loading your playlist</div>}>
+          {queryRef && <EditPlaylistDetailsModal queryRef={queryRef} />}
+        </Suspense>
+      </Modal>
+    </>
   );
+};
+
+const EditPlaylistDetailsModal = ({
+  queryRef,
+}: {
+  queryRef: QueryReference<PlaylistDetailsQuery>;
+}) => {
+  const { data } = useReadQuery(queryRef);
+
+  return <>{data.playlist?.name}</>;
 };
 
 const SidebarLoadingState = () => {
