@@ -126,7 +126,7 @@ const Sidebar = () => {
     variables: { limit: 50 },
   });
 
-  const [queryRef, loadQuery] = useLoadableQuery(PLAYLIST_DETAILS_QUERY);
+  const [loadQuery, queryRef] = useLoadableQuery(PLAYLIST_DETAILS_QUERY);
 
   const { me } = data;
 
