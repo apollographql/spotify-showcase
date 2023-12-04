@@ -1,6 +1,7 @@
 fn supergraph_service(service) {
-    service
-      .map_request(log_payload);
+    /* Uncomment this to make logging SUPER verbose
+    service.map_request(log_payload);
+    */
     service
       .map_request(add_auth_header_to_context);
 };

@@ -9,6 +9,9 @@ directive @contact(
   description: String
 ) on SCHEMA
 
+scalar federation__Policy
+directive @policy(policies: [[federation__Policy!]!]!) on OBJECT | FIELD_DEFINITION | INTERFACE | SCALAR | ENUM
+
 extend schema
   @contact(
     name: "Spotify Subgraph"
@@ -16,8 +19,8 @@ extend schema
     description: "Ask questions in our Discord or [open an issue](https://github.com/apollographql/spotify-showcase/issues)."
   )
   @link(
-    url: "https://specs.apollo.dev/federation/v2.4"
-    import: ["@key", "@shareable", "@tag"]
+    url: "https://specs.apollo.dev/federation/v2.6"
+    import: ["@key", "@shareable", "@tag", "@policy"]
   )
 
 directive @authenticated on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
@@ -54,7 +57,7 @@ type Query {
   """
   Information about the current logged-in user.
   """
-  me: CurrentUser
+  me: CurrentUser @policy(policies: [["authenticated"]])
 
   "Spotify catalog information for an album."
   album(id: ID!): Album
@@ -288,7 +291,7 @@ type Mutation {
   """
   addItemToPlaybackQueue(
     input: AddItemToPlaybackQueueInput!
-  ): AddItemToPlaybackQueuePayload
+  ): AddItemToPlaybackQueuePayload @policy(policies: [["spotify:premium", "country:US"], ["spotify:premium", "apollo:employee"]])
 
   """
   Add one or more items to a user's playlist.

@@ -1,6 +1,7 @@
 schema
   @link(url: "https://specs.apollo.dev/link/v1.0")
   @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
+  @link(url: "https://specs.apollo.dev/policy/v0.1", for: SECURITY)
   @link(url: "https://specs.apollo.dev/tag/v0.3")
 {
   query: Query
@@ -21,6 +22,8 @@ directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boole
 directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
 
 directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
+
+directive @policy(policies: [[policy__Policy!]!]!) on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
 
 directive @synthetics(
   """The synthetic timeout configured for the field."""
@@ -992,7 +995,7 @@ type Mutation
   transferPlayback(input: TransferPlaybackInput!): TransferPlaybackPayload @join__field(graph: PLAYBACK)
 
   """Add an item to the end of the user's current playback queue."""
-  addItemToPlaybackQueue(input: AddItemToPlaybackQueueInput!): AddItemToPlaybackQueuePayload @join__field(graph: SPOTIFY)
+  addItemToPlaybackQueue(input: AddItemToPlaybackQueueInput!): AddItemToPlaybackQueuePayload @join__field(graph: SPOTIFY) @policy(policies: [["spotify:premium", "country:US"], ["spotify:premium", "apollo:employee"]])
 
   """Add one or more items to a user's playlist."""
   addItemsToPlaylist(input: AddItemsToPlaylistInput!): AddItemsToPlaylistPayload @join__field(graph: SPOTIFY)
@@ -1408,12 +1411,14 @@ type PlaylistTrackEdge
   node: PlaylistTrack!
 }
 
+scalar policy__Policy
+
 type Query
   @join__type(graph: PLAYBACK)
   @join__type(graph: SPOTIFY)
 {
   """Information about the current logged-in user."""
-  me: CurrentUser @join__field(graph: SPOTIFY)
+  me: CurrentUser @join__field(graph: SPOTIFY) @policy(policies: [["authenticated"]])
 
   """Spotify catalog information for an album."""
   album(id: ID!): Album @join__field(graph: SPOTIFY)

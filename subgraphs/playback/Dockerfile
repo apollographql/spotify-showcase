@@ -9,11 +9,11 @@ RUN mkdir -p subgraphs/playback/
 
 # We copy the relevant files for our subgraph
 COPY subgraphs/playback/package.json subgraphs/playback/schema.graphql subgraphs/playback/tsconfig.json subgraphs/playback/
-COPY subgraphs/playback/src subgraphs/playback/src/
 COPY package.json package-lock.json tsconfig.json ./
 
 # This runs the npm install on the root so workspaces work
 RUN npm install
+COPY subgraphs/playback/src subgraphs/playback/src/
 
 WORKDIR /app/subgraphs/playback
 RUN npm run build

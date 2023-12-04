@@ -21,7 +21,7 @@ services:
     depends_on:
       - playback
       - spotify
-#      - coprocessor
+      - coprocessor
     volumes:
       - type: bind
         source: ./supergraph.graphql
@@ -43,10 +43,10 @@ services:
     # we don't need to use the ports directive since only the router needs to talk to subgraphs
     expose:
       - 4001
-#  coprocessor:
-#    build:
-#      context: coprocessor
-#    expose:
-#      - 4100
-#    environment:
-#      RUST_LOG: info
+  coprocessor:
+    build:
+      context: coprocessor
+    expose:
+      - 4100
+    environment:
+      RUST_LOG: info

@@ -45,9 +45,9 @@ apq:
       in_memory:
         limit: 512 # This is the default value
 
-persisted_queries:
-  enabled: true
-  log_unknown: true
+#persisted_queries:
+#  enabled: true
+#  log_unknown: true
   # safelist:
   #   enabled: true
   #   require_id: false
@@ -65,20 +65,20 @@ persisted_queries:
 
 # # Uncomment 'preview_callback' to try HTTP callback protocal at the /graphql
 # # https://www.apollographql.com/docs/router/executing-operations/subscription-callback-protocol
-subscription:
-  enabled: true
-  mode:
-    preview_callback:
-      public_url: ${env.CALLBACK_URL} # https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
-      listen: 0.0.0.0:${env.PORT:-4000} # The IP address and port the router will listen on for subscription callbacks
-      path: /callback # The path of the router's callback endpoint
-      subgraphs: # The list of subgraphs that use the HTTP callback protocol
-        - playback
+#subscription:
+#  enabled: true
+#  mode:
+#    preview_callback:
+#      public_url: ${env.CALLBACK_URL} # https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
+#      listen: 0.0.0.0:${env.PORT:-4000} # The IP address and port the router will listen on for subscription callbacks
+#      path: /callback # The path of the router's callback endpoint
+#      subgraphs: # The list of subgraphs that use the HTTP callback protocol
+#        - playback
 #####################
 # Add rhai scripts and query planning for additional logging
 #####################
 rhai:
-  scripts: ./router/rhai
+  scripts: ./rhai
   main: main.rhai
 plugins:
   experimental.expose_query_plan: true
@@ -86,24 +86,21 @@ plugins:
 # To run this locally, you can override subgraph urls
 #####################
 # Running locally with Docker Compose
-# override_subgraph_url:
-#   playback: http://playback:4002/graphql
-#   spotify: http://spotify:4001
-# Running subgraphs locally
 override_subgraph_url:
-  playback: http://127.0.0.1:4002/graphql
-  spotify: http://127.0.0.1:4001
+ playback: http://playback:4002/graphql
+ spotify: http://spotify:4001
+# Running subgraphs locally
+#override_subgraph_url:
+#  playback: http://127.0.0.1:4002/graphql
+#  spotify: http://127.0.0.1:4001
 #######################
 # Uncomment this to enable authorization directives and the dependent coprocessor
 #######################
 
-#authorization:
-#  preview_directives:
-#    enabled: true
-#coprocessor:
-#  timeout: 5s
-#  url: http://coprocessor:4100/
-#  router:
-#    request:
-#      headers: true
-#      context: true
+coprocessor:
+  timeout: 5s
+  url: http://coprocessor:4100/
+  supergraph:
+    request:
+      headers: true
+      context: true

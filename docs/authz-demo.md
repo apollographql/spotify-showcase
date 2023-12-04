@@ -86,6 +86,61 @@ type Mutation @requiresScopes(scopes: [["spotify:premium"]]) {
 
 Note that this applies cross-subgraph—so the `Mutation` type in the `playback` subgraph suddenly also requires `spotify:premium`!
 
+## Policies
+
+Let's take a step back and consider what's happening. We're not using JWTs, so to use `@authenticated` or `@requiresScopes`, we need to add claims to the request context using a coprocessor. This happens in the `RouterService`, _before_ the router considers which fields to query. That means our coprocessor needs to call out to Spotify's API for _every request_ to get _all_ the required info, even if the request doesn't access any restricted fields. How inefficient! If we add a warning to the coprocessor, we can see that Spotify's API is even hit for introspection, what a waste!
+
+Luckily, there's a more advanced trick we can use: `@policy`. This directive defines policies that should be checked only when fields which require them are queried.
+
+Let's replace the `@authenticated` directive with with `@policy(policies: [["authenticated"]])`:
+
+```graphql
+# subgraphs/spotify/schema.graphql
+extend schema
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.6"
+    import: ["@key", "@shareable", "@tag", "@policy"]
+  )
+
+# ...
+
+type Query {
+  me: CurrentUser! @policy(policies: [["authenticated"]])
+}
+```
+
+And the `@requiresScopes` directive with `@policy(policies: [["premium", "country:US"], ["premium", "apollo:employee"]])`:
+
+```graphql
+# subgraphs/spotify/schema.graphql
+type Mutation {
+    addItemToPlaybackQueue(
+        input: AddItemToPlaybackQueueInput!
+    ): AddItemToPlaybackQueuePayload @policy(policies: [["premium", "country:US"], ["premium", "apollo:employee"]])
+}
+```
+
+We also need to change our coprocessor to operate at the "supergraph" stage:
+
+```yaml
+# router/router.yaml
+coprocessor:
+  timeout: 5s
+  url: http://coprocessor:4100/
+  supergraph:
+    request:
+      headers: true
+      context: true
+```
+
+Our coprocessor is already set up to handle policies in this stage, so we don't need to change anything else.
+Once we recompose and start back up the supergraph,
+we should see that the coprocessor only calls out to Spotify's API when necessary.
+
+In this demo the cost of processing _all_ the policies is about the same as processing _one_ of them,
+but in the real world,
+you could optimize database queries based on only what was requested to make this much more efficient.
+
 [authz docs]: https://www.apollographql.com/docs/router/configuration/authorization
 [jwt docs]: https://www.apollographql.com/docs/router/configuration/authn-jwt
 [coprocessor docs]: https://www.apollographql.com/docs/router/customizations/coprocessor#adding-authorization-claims-via-coprocessor
