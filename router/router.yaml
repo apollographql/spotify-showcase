@@ -99,7 +99,7 @@ override_subgraph_url:
 
 coprocessor:
   timeout: 5s
-  url: http://coprocessor:4100/
+  url: http://localhost:4100/
   supergraph:
     request:
       headers: true

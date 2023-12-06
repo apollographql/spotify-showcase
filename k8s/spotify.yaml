@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spotify
+spec:
+  selector:
+    app: spotify
+  ports:
+    - protocol: TCP
+      port: 4001
+      targetPort: 4001
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: spotify
+  labels:
+      app: spotify
+spec:
+  containers:
+    - name: spotify
+      image: spotify:latest
+      imagePullPolicy: Never
+      ports:
+          - containerPort: 4001

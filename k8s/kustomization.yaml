@@ -1,0 +1,8 @@
+resources:
+  - playback.yaml
+  - router.yaml
+  - spotify.yaml
+configMapGenerator:
+  - name: supergraph-schema
+    files:
+      - supergraph.graphql

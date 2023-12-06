@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: playback
+spec:
+  selector:
+    app: playback
+  ports:
+    - protocol: TCP
+      port: 4002
+      targetPort: 4002
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: playback
+  labels:
+    app: playback
+spec:
+  containers:
+    - name: playback
+      image: playback:latest
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 4002
