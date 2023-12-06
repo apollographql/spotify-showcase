@@ -48,7 +48,7 @@ apq:
 persisted_queries:
   enabled: true
   safelist:
-    enabled: true
+    enabled: ${env.ENABLE_SAFELIST:-true}
     require_id: false
 #####################
 # You must have an enterprise account or enterprise trial to run the Apollo Router locally.

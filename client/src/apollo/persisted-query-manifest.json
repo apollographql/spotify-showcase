@@ -105,10 +105,28 @@
       "body": "query LimitedIntrospectionQuery {\n  __schema {\n    types {\n      name\n      kind\n      fields {\n        name\n        description\n        type {\n          ...TypeRef\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment TypeRef on __Type {\n  kind\n  name\n  ofType {\n    kind\n    name\n    ofType {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                __typename\n              }\n              __typename\n            }\n            __typename\n          }\n          __typename\n        }\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}"
     },
     {
+      "id": "dd2427f61c07628dfd0b615d020ed629c73ea033f0135523ce70c74278de7caw",
+      "name": "MyPlaylists",
+      "type": "query",
+      "body": "query MyPlaylists($offset: Int, $limit: Int) {\n  me {\n    playlists(offset: $offset, limit: $limit) {\n      pageInfo {\n        offset\n        limit\n        hasNextPage\n      }\n      edges {\n        node {\n          id\n          name\n          uri\n        }\n      }\n    }\n  }\n}"
+    },
+    {
+      "id": "1f04fe624180856e5c5d6188cb4ca1ec7259577a6ec24718c684204b0377305w",
+      "name": "PausePlayback",
+      "type": "mutation",
+      "body": "mutation PausePlayback {\n  pausePlayback {\n    playbackState {\n      isPlaying\n    }\n  }\n}"
+    },
+    {
       "id": "b073017a2ae714b4e03a73715c54acc075a05f957d11c73b45d070f7b8da7ca6",
       "name": "PausePlaybackMutation",
       "type": "mutation",
       "body": "mutation PausePlaybackMutation {\n  pausePlayback {\n    playbackState {\n      isPlaying\n      __typename\n    }\n    __typename\n  }\n}"
+    },
+    {
+      "id": "a7a50f69855a0f7f39fedd4a71b74d4d9700834d5da0e0c85ff4e9105b88584w",
+      "name": "PlaybackState",
+      "type": "subscription",
+      "body": "subscription PlaybackState {\n  playbackStateChanged {\n    isPlaying\n    progressMs\n    item {\n      name\n    }\n  }\n}"
     },
     {
       "id": "e2e4ad99df466c48c797370a85ee8c9e135291bc867666983c68b87724134b50",
@@ -163,6 +181,12 @@
       "name": "ResetFieldConfigMutation",
       "type": "mutation",
       "body": "mutation ResetFieldConfigMutation($input: ResetFieldConfigInput!) {\n  resetFieldConfig(input: $input) {\n    fieldConfig {\n      schemaField {\n        fieldName\n        typename\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+    },
+    {
+      "id": "3301c3a402814794a3f8468b26f614c2f8126bde93db6e357dcdf1967d66c94w",
+      "name": "ResumePlayback",
+      "type": "mutation",
+      "body": "mutation ResumePlayback {\n  resumePlayback {\n    playbackState {\n      isPlaying\n    }\n  }\n}"
     },
     {
       "id": "fab6638073746f5fa8e889127cf6142fec27b492917d5c588bfe7264c4a15ae6",

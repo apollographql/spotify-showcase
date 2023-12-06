@@ -27,7 +27,7 @@ const didBecomeUnauthenticated = (error: unknown) => {
     return (
       error.networkError instanceof AuthorizationError ||
       error.graphQLErrors.some(
-        (error) => error.extensions.code === 'UNAUTHENTICATED'
+        (error) => error.extensions?.code === 'UNAUTHENTICATED'
       )
     );
   }
