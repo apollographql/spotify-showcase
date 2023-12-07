@@ -112,10 +112,11 @@ const routes = createRoutesFromElements(
         <Route
           path="playlists/:playlistId"
           element={
-            // <Suspense fallback={<PlaylistRoute.LoadingState />}>
-            <PlaylistRoute.RouteComponent />
-            // </Suspense>
+            <Suspense fallback={<PlaylistRoute.LoadingState />}>
+              <PlaylistRoute.RouteComponent />
+            </Suspense>
           }
+          loader={PlaylistRoute.loader}
         />
         <Route
           path="shows/:showId"
