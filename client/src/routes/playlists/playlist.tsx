@@ -116,7 +116,7 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
   if (!params.playlistId) {
     throw new Error('Something went wrong');
   }
-  const [queryRef] = preloadQuery(PLAYLIST_QUERY, {
+  const queryRef = preloadQuery(PLAYLIST_QUERY, {
     variables: { id: params.playlistId },
   });
 

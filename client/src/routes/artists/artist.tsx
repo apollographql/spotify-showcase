@@ -85,7 +85,7 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
     throw new Response('', { status: 404, statusText: 'Artist not found' });
   }
 
-  const [queryRef] = preloadQuery(ARTIST_ROUTE_QUERY, {
+  const queryRef = preloadQuery(ARTIST_ROUTE_QUERY, {
     variables: { artistId },
   });
 
