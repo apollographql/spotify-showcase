@@ -1,6 +1,5 @@
 import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
 import {
-  QueryReference,
   TypedDocumentNode,
   gql,
   usePreloadedQueryHandlers,
@@ -112,7 +111,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-export const loader = ({ params }: LoaderFunctionArgs) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!params.playlistId) {
     throw new Error('Something went wrong');
   }
@@ -120,11 +119,13 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
     variables: { id: params.playlistId },
   });
 
-  return { queryRef };
+  await queryRef.toPromise();
+
+  return queryRef;
 };
 
 export const RouteComponent = () => {
-  const { queryRef } = useLoaderData() as ReturnType<typeof loader>;
+  const queryRef = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const { data } = useReadQuery(queryRef);
   const { fetchMore } = usePreloadedQueryHandlers(queryRef);
   const playlist = data.playlist;
