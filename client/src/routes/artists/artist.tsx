@@ -1,11 +1,6 @@
-import {
-  TypedDocumentNode,
-  gql,
-  useReadQuery,
-  useSuspenseQuery,
-} from '@apollo/client';
+import { TypedDocumentNode, gql, useReadQuery } from '@apollo/client';
 import cx from 'classnames';
-import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
