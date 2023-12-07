@@ -6,7 +6,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@apollo/client": "0.0.0-pr-11412-20231207210525",
+    "@apollo/client": "0.0.0-pr-11412-20231207232628",
     "@apollo/persisted-query-lists": "^1.0.0",
     "@radix-ui/react-context-menu": "^2.1.3",
     "@radix-ui/react-dialog": "^1.0.3",
