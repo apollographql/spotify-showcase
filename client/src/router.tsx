@@ -100,6 +100,7 @@ const routes = createRoutesFromElements(
               <ArtistRoute.RouteComponent />
             </Suspense>
           }
+          loader={ArtistRoute.loader}
         />
         <Route
           path="episodes/:episodeId"
