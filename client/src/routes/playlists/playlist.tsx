@@ -1,11 +1,10 @@
-import { LoaderFunction, useLoaderData, useParams } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
 import {
   QueryReference,
   TypedDocumentNode,
   gql,
   usePreloadedQueryHandlers,
   useReadQuery,
-  useSuspenseQuery,
 } from '@apollo/client';
 import {
   PlaylistQuery,
@@ -113,7 +112,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-export const loader: LoaderFunction = ({ params }) => {
+export const loader = ({ params }: LoaderFunctionArgs) => {
   if (!params.playlistId) {
     throw new Error('Something went wrong');
   }
@@ -125,9 +124,7 @@ export const loader: LoaderFunction = ({ params }) => {
 };
 
 export const RouteComponent = () => {
-  const { queryRef } = useLoaderData() as {
-    queryRef: QueryReference<PlaylistQuery, PlaylistQueryVariables>;
-  };
+  const { queryRef } = useLoaderData() as ReturnType<typeof loader>;
   const { data } = useReadQuery(queryRef);
   const { fetchMore } = usePreloadedQueryHandlers(queryRef);
   const playlist = data.playlist;
