@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ApolloProvider } from '@apollo/client';
+import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from 'react-router-dom';
@@ -8,6 +9,11 @@ import router from './router';
 import client from './apollo/client';
 import './reset.css';
 import './index.css';
+
+if (import.meta.env.DEV) {
+  loadDevMessages();
+  loadErrorMessages();
+}
 
 console.log(
   '%c📝 The Apollo Client maintainers want your feedback! Please take our survey 💜\n🔗 https://o0urpu09l9p.typeform.com/to/SrKsN0nv',
