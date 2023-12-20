@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 import { ArtistTile_artist as Artist } from '../types/api';
-import CoverPhoto from './CoverPhoto';
 import MediaTile from './MediaTile';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
@@ -21,18 +20,17 @@ fragmentRegistry.register(gql`
 
 const ArtistTile = ({ artist, animateIn }: ArtistTileProps) => {
   return (
-    <MediaTile
-      coverPhoto={
-        <CoverPhoto
-          animateIn={animateIn}
-          shape="circle"
-          image={artist.images[0]}
-        />
-      }
-      description="Artist"
-      title={artist.name}
-      to={`/artists/${artist.id}`}
-    />
+    <MediaTile to={`/artists/${artist.id}`}>
+      <MediaTile.CoverPhoto
+        image={artist.images[0]}
+        shape="circle"
+        animateIn={animateIn}
+      />
+      <div className="flex flex-col">
+        <MediaTile.Title>{artist.name}</MediaTile.Title>
+        <MediaTile.Details>Artist</MediaTile.Details>
+      </div>
+    </MediaTile>
   );
 };
 
