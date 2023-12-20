@@ -5,8 +5,8 @@ type MediaTileCoverPhotoProps = Pick<
   'image' | 'shape' | 'animateIn'
 >;
 
-const MediaTileCoverPhoto = ({ image }: MediaTileCoverPhotoProps) => {
-  return <CoverPhoto image={image} className="shadow-md" />;
+const MediaTileCoverPhoto = (props: MediaTileCoverPhotoProps) => {
+  return <CoverPhoto {...props} className="shadow-md" />;
 };
 
 export default MediaTileCoverPhoto;
