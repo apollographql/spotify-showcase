@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
-import DelimitedList from '../DelimitedList';
 
 import MediaTileCoverPhoto from './CoverPhoto';
 import MediaTileDetails from './Details';
