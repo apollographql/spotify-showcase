@@ -1,44 +1,28 @@
-import { ReactElement, ReactNode, cloneElement } from 'react';
+import { ReactNode } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
-import cx from 'classnames';
 import DelimitedList from '../DelimitedList';
 
+import MediaTileCoverPhoto from './CoverPhoto';
+import MediaTileDetails from './Details';
+import MediaTileTitle from './Title';
+
 interface MediaTileProps extends LinkProps {
-  coverPhoto: ReactElement<{ className: string }>;
-  title: string;
-  description: ReactNode;
+  children?: ReactNode;
 }
 
-const MediaTile = ({
-  coverPhoto,
-  description,
-  title,
-  ...props
-}: MediaTileProps) => {
+const MediaTile = ({ children, ...props }: MediaTileProps) => {
   return (
     <Link
       {...props}
       className="flex flex-col gap-4 bg-surface-low-contrast transition-colors duration-200 ease-out p-4 rounded hover:bg-surface-low-contrast-hover hover:no-underline"
     >
-      {cloneElement(coverPhoto, {
-        className: cx('shadow-md', coverPhoto.props.className),
-      })}
-      <div className="flex flex-col">
-        <span
-          className="whitespace-nowrap text-ellipsis overflow-hidden font-bold"
-          title={title}
-        >
-          {title}
-        </span>
-        <DelimitedList
-          className="text-muted text-sm line-clamp-2"
-          delimiter=" · "
-        >
-          {description}
-        </DelimitedList>
-      </div>
+      {children}
     </Link>
   );
 };
+
+MediaTile.CoverPhoto = MediaTileCoverPhoto;
+MediaTile.Details = MediaTileDetails;
+MediaTile.Title = MediaTileTitle;
 
 export default MediaTile;
