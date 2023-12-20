@@ -1,8 +1,9 @@
 import CoverPhoto, { CoverPhotoProps } from '../CoverPhoto';
 
-interface MediaTileCoverPhotoProps {
-  image: CoverPhotoProps['image'];
-}
+type MediaTileCoverPhotoProps = Pick<
+  CoverPhotoProps,
+  'image' | 'shape' | 'animateIn'
+>;
 
 const MediaTileCoverPhoto = ({ image }: MediaTileCoverPhotoProps) => {
   return <CoverPhoto image={image} className="shadow-md" />;
