@@ -2,7 +2,7 @@ import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
 import {
   TypedDocumentNode,
   gql,
-  usePreloadedQueryHandlers,
+  useQueryRefHandlers,
   useReadQuery,
 } from '@apollo/client';
 import {
@@ -115,19 +115,16 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!params.playlistId) {
     throw new Error('Something went wrong');
   }
-  const queryRef = preloadQuery(PLAYLIST_QUERY, {
+
+  return preloadQuery(PLAYLIST_QUERY, {
     variables: { id: params.playlistId },
   });
-
-  await queryRef.toPromise();
-
-  return queryRef;
 };
 
 export const RouteComponent = () => {
   const queryRef = useLoaderData() as Awaited<ReturnType<typeof loader>>;
   const { data } = useReadQuery(queryRef);
-  const { fetchMore } = usePreloadedQueryHandlers(queryRef);
+  const { fetchMore } = useQueryRefHandlers(queryRef);
   const playlist = data.playlist;
 
   if (!playlist) {
