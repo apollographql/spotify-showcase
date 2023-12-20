@@ -31,8 +31,8 @@ const AlbumTile = ({ album }: AlbumTileProps) => {
       <div className="flex flex-col">
         <MediaTile.Title>{album.name}</MediaTile.Title>
         <MediaTile.Details>
-          <span>{yearOfRelease(album.releaseDate)}</span>,
-          <span>{capitalize(album.albumType.toLowerCase())}</span>,
+          <span>{yearOfRelease(album.releaseDate)}</span>
+          <span>{capitalize(album.albumType.toLowerCase())}</span>
         </MediaTile.Details>
       </div>
     </MediaTile>
