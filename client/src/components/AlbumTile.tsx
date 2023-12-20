@@ -3,7 +3,6 @@ import { AlbumTile_album as Album } from '../types/api';
 import { capitalize } from '../utils/string';
 import { yearOfRelease } from '../utils/releaseDate';
 import MediaTile from './MediaTile';
-import CoverPhoto from './CoverPhoto';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface AlbumTileProps {
@@ -27,17 +26,16 @@ fragmentRegistry.register(gql`
 
 const AlbumTile = ({ album }: AlbumTileProps) => {
   return (
-    <MediaTile
-      coverPhoto={<CoverPhoto image={album.images[0]} />}
-      description={[
-        <span key="releaseDate">{yearOfRelease(album.releaseDate)}</span>,
-        <span key="albumType">
-          {capitalize(album.albumType.toLowerCase())}
-        </span>,
-      ]}
-      title={album.name}
-      to={`/albums/${album.id}`}
-    />
+    <MediaTile to={`/albums/${album.id}`}>
+      <MediaTile.CoverPhoto image={album.images[0]} />
+      <div className="flex flex-col">
+        <MediaTile.Title>{album.name}</MediaTile.Title>
+        <MediaTile.Details>
+          <span>{yearOfRelease(album.releaseDate)}</span>,
+          <span>{capitalize(album.albumType.toLowerCase())}</span>,
+        </MediaTile.Details>
+      </div>
+    </MediaTile>
   );
 };
 
