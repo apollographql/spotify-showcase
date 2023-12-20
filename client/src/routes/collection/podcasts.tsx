@@ -82,13 +82,13 @@ export const RouteComponent = () => {
       <TileGrid gap="1.5rem" minTileWidth="200px">
         <YourEpisodesTile connection={episodes} className="col-span-2" />
         {edges.map(({ node }) => (
-          <MediaTile
-            key={node.id}
-            coverPhoto={<CoverPhoto image={node.images[0]} />}
-            title={node.name}
-            description={node.publisher}
-            to={`/shows/${node.id}`}
-          />
+          <MediaTile key={node.id} to={`/shows/${node.id}`}>
+            <MediaTile.CoverPhoto image={node.images[0]} />
+            <div className="flex flex-col">
+              <MediaTile.Title>{node.name}</MediaTile.Title>
+              <MediaTile.Details>{node.publisher}</MediaTile.Details>
+            </div>
+          </MediaTile>
         ))}
       </TileGrid>
       <OffsetBasedPaginationObserver
