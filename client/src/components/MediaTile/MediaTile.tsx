@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode, cloneElement } from 'react';
 import { Link, LinkProps } from 'react-router-dom';
 import cx from 'classnames';
-import DelimitedList from './DelimitedList';
+import DelimitedList from '../DelimitedList';
 
 interface MediaTileProps extends LinkProps {
   coverPhoto: ReactElement<{ className: string }>;
