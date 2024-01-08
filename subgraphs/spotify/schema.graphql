@@ -9,9 +9,6 @@ directive @contact(
   description: String
 ) on SCHEMA
 
-scalar federation__Policy
-directive @policy(policies: [[federation__Policy!]!]!) on OBJECT | FIELD_DEFINITION | INTERFACE | SCALAR | ENUM
-
 extend schema
   @contact(
     name: "Spotify Subgraph"
@@ -20,7 +17,7 @@ extend schema
   )
   @link(
     url: "https://specs.apollo.dev/federation/v2.6"
-    import: ["@key", "@shareable", "@tag", "@policy"]
+    import: ["@key", "@shareable", "@tag", "@policy", "@requiresScopes"]
   )
 
 directive @authenticated on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
@@ -30,6 +27,8 @@ directive @requiresScopes(scopes: [[String!]!]!) on
   | INTERFACE
   | SCALAR
   | ENUM
+scalar federation__Policy
+directive @policy(policies: [[federation__Policy!]!]!) on OBJECT | FIELD_DEFINITION | INTERFACE | SCALAR | ENUM
 
 scalar CountryCode
 scalar DateTime
@@ -291,7 +290,7 @@ type Mutation {
   """
   addItemToPlaybackQueue(
     input: AddItemToPlaybackQueueInput!
-  ): AddItemToPlaybackQueuePayload @policy(policies: [["spotify:premium", "country:US"], ["spotify:premium", "apollo:employee"]])
+  ): AddItemToPlaybackQueuePayload @requiresScopes(scopes: [["spotify:premium", "country:US"], ["spotify:premium", "apollo:employee"]])
 
   """
   Add one or more items to a user's playlist.
