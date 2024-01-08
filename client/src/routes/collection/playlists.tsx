@@ -109,20 +109,21 @@ export const RouteComponent = () => {
           className="col-span-2"
           currentUser={currentUser}
         />
-        <MediaTile
-          to="/collection/episodes"
-          title="Your Episodes"
-          description={`${episodePageInfo.total} episodes`}
-          coverPhoto={
-            <GradientIcon
-              backgroundColor="#056952"
-              lucideIcon={Bookmark}
-              className="w-full rounded"
-              iconSize="50%"
-              fill="var(--color--theme)"
-            />
-          }
-        />
+        <MediaTile to="/collection/episodes">
+          <GradientIcon
+            backgroundColor="#056952"
+            lucideIcon={Bookmark}
+            className="w-full rounded"
+            iconSize="50%"
+            fill="var(--color--theme)"
+          />
+          <div className="flex flex-col">
+            <MediaTile.Title>Your Episodes</MediaTile.Title>
+            <MediaTile.Details>
+              <span>{episodePageInfo.total} episodes</span>
+            </MediaTile.Details>
+          </div>
+        </MediaTile>
         {playlists.map((playlist) => (
           <PlaylistTile key={playlist.id} playlist={playlist} />
         ))}

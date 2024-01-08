@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import { PlaylistTile_playlist as Playlist } from '../types/api';
 import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
-import CoverPhoto from './CoverPhoto';
 import MediaTile from './MediaTile';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
@@ -37,16 +36,17 @@ const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
         </>
       }
     >
-      <MediaTile
-        coverPhoto={<CoverPhoto image={playlist.images[0]} />}
-        description={
-          <span
-            dangerouslySetInnerHTML={{ __html: playlist.description ?? '' }}
-          />
-        }
-        title={playlist.name}
-        to={`/playlists/${playlist.id}`}
-      />
+      <MediaTile to={`/playlists/${playlist.id}`}>
+        <MediaTile.CoverPhoto image={playlist.images[0]} />
+        <div className="flex flex-col">
+          <MediaTile.Title>{playlist.name}</MediaTile.Title>
+          <MediaTile.Details>
+            <span
+              dangerouslySetInnerHTML={{ __html: playlist.description ?? '' }}
+            />
+          </MediaTile.Details>
+        </div>
+      </MediaTile>
     </ContextMenu>
   );
 };

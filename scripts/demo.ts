@@ -2,18 +2,20 @@ import 'dotenv/config';
 import { v4 } from 'uuid';
 import { resolve } from 'path';
 import { prompt } from 'inquirer';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { DocumentNode, print } from 'graphql';
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const graphVariant = 'main';
+const contractVariantName = 'public';
 const ROUTER_CONFIG = (graphId: string) =>
   `cors:\n  allow_any_origin: true\nheaders:\n  subgraphs:\n    spotify:\n      request:\n        - propagate:\n            matching: "authorization"\n        - insert:\n            name: "x-graphos-id"\n            value: "${graphId}"\n    playback:\n      request:\n        - propagate:\n            matching: "authorization"\n        - insert:\n            name: "x-graphos-id"\n            value: "${graphId}"`;
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: 'https://graphql.api.apollographql.com/api/graphql',
   headers: {
-    'x-api-key': process.env.AUTH ?? '',
+    'x-api-key': process.env.APOLLO_KEY ?? process.env.AUTH ?? '',
     'apollographql-client-name': 'spotify-demo-script',
     'apollographql-client-version': '1',
   },
@@ -34,6 +36,27 @@ const ME_CHECK = gql`
           }
           permission
         }
+      }
+    }
+  }
+`;
+const NEW_ENT_TRIAL = gql`
+  mutation Mutation(
+    $newAccountId: ID!
+    $organizationName: String
+    $planId: String
+    $role: UserPermission!
+  ) {
+    newAccount(
+      id: $newAccountId
+      organizationName: $organizationName
+      planId: $planId
+    ) {
+      id
+    }
+    account(id: $newAccountId) {
+      createStaticInvitation(role: $role) {
+        joinToken
       }
     }
   }
@@ -134,14 +157,14 @@ const ADD_OPERATION_TO_COLLECTION = gql`
 `;
 const UPDATE_EXPLORER_URL = gql`
   mutation UpdateURL(
-    $name: String!
+    $variantName: String!
     $graphId: ID!
     $url: String
     $subscriptionUrl: String
     $sharedHeaders: String
   ) {
     graph(id: $graphId) {
-      variant(name: $name) {
+      variant(name: $variantName) {
         updateURL(url: $url) {
           url
         }
@@ -236,75 +259,30 @@ async function createOperationCollection(graphId: string) {
       },
     })
     .then((r) => r.data);
+
+  const operations = [];
+  const opCollectionsPath = resolve(__dirname, 'operation-collection');
+  const collectionDir = readdirSync(opCollectionsPath);
+
+  for (let i = 0; i < collectionDir.length; i++) {
+    const fileName = collectionDir[i];
+    const opPath = resolve(__dirname, 'operation-collection', fileName);
+    const { query } = await import(opPath);
+    const body = print(query as DocumentNode);
+    operations.push({
+      name: fileName.split('.')[0],
+      document: {
+        body,
+      },
+    });
+  }
+
   return await client
     .mutate({
       mutation: ADD_OPERATION_TO_COLLECTION,
       variables: {
         operationCollectionId: createOperationCollection.id,
-        operations: [
-          {
-            name: 'MyPlaylists',
-            document: {
-              body: `query MyPlaylists($offset: Int, $limit: Int) {
-    me {
-      playlists(offset: $offset, limit: $limit) {
-        pageInfo {
-          offset
-          limit
-          hasNextPage
-        }
-        edges {
-          node {
-            id
-            name
-            uri
-          }
-        }
-      }
-    }
-  }`,
-            },
-          },
-          {
-            name: 'PlaybackState',
-            document: {
-              body: `subscription PlaybackState {
-    playbackStateChanged {
-      isPlaying
-      progressMs
-      item {
-        name
-      }
-    }
-  }
-  `,
-            },
-          },
-          {
-            name: 'PausePlayback',
-            document: {
-              body: `mutation PausePlayback {
-    pausePlayback {
-      playbackState {
-        isPlaying
-      }
-    }
-  }`,
-            },
-          },
-          {
-            name: 'ResumePlayback',
-            document: {
-              body: `mutation ResumePlayback {
-    resumePlayback {
-      playbackState {
-        isPlaying
-      }
-    }
-  }`,
-            },
-          },
-        ],
+        operations,
       },
     })
     .then((r) => r.data);
@@ -352,18 +330,76 @@ function createSubgraph(subgraph: any) {
   });
 }
 
-function updateExplorerUrl(graphId: string) {
+async function updateExplorerUrl(graphId: string) {
   const apolloHostedRouter = 'https://showcase-router.apollographql.com';
-  return client.mutate({
+  const apolloHostedRouterNoSafelist =
+    'https://spotify-showcase-production.up.railway.app';
+
+  //Update main variant
+  const variables = {
+    graphId,
+    variantName: graphVariant,
+    url: apolloHostedRouter,
+    subscriptionUrl: apolloHostedRouter,
+    sharedHeaders: `{"x-graphos-id": "${graphId}"}`,
+  };
+
+  await client.mutate({
     mutation: UPDATE_EXPLORER_URL,
-    variables: {
-      graphId,
-      name: graphVariant,
-      url: apolloHostedRouter,
-      subscriptionUrl: apolloHostedRouter,
-      sharedHeaders: `{"x-graphos-id": "${graphId}"}`,
-    },
+    variables,
   });
+
+  //Update contract variant
+  variables.variantName = contractVariantName;
+  variables.url = apolloHostedRouterNoSafelist;
+  variables.subscriptionUrl = apolloHostedRouterNoSafelist;
+
+  await client.mutate({
+    mutation: UPDATE_EXPLORER_URL,
+    variables,
+  });
+}
+
+async function createNewTrial(userId: string) {
+  const answer: any = await prompt([
+    {
+      type: 'input',
+      name: 'theme',
+      message: 'What would you like to  name the organization?',
+    },
+  ]);
+  if (answer.theme) {
+    const organizationName = answer.theme;
+    const newAccountId = `${organizationName}-${userId}`.replaceAll(
+      /[^A-Z0-9]/gi,
+      '-'
+    );
+
+    const response = await client.mutate({
+      mutation: NEW_ENT_TRIAL,
+      variables: {
+        newAccountId,
+        organizationName,
+        planId: 'sub-engine-ent-trial',
+        role: 'ORG_ADMIN',
+      },
+    });
+
+    if (response.data) {
+      const joinToken =
+        response.data.account?.createStaticInvitation?.joinToken;
+      if (joinToken) {
+        console.log('Created trial org and invite link');
+        console.log(
+          `Org Admin Invite URL: https://studio.apollographql.com/org/${newAccountId}/invite/${joinToken}`
+        );
+      }
+      return newAccountId;
+    } else {
+      response.errors?.forEach((e) => console.log(e.message));
+      throw new Error('Unable to create new enterprise trial');
+    }
+  } else throw new Error('You must provide a name for the account');
 }
 
 async function checkApiKey() {
@@ -402,26 +438,32 @@ async function checkApiKey() {
         name: 'theme',
         message:
           'We found multiple accounts, which one do you want to create in?',
-        choices: Object.keys(accounts),
+        choices: ['Add to new Enterprise Trial'].concat(Object.keys(accounts)),
       },
     ]);
-    const { account } = data.me.memberships.find(
-      (a: any) => a.account.id == accounts[answer.theme]
-    );
-    if (answer.theme) {
-      selectedAccount = {
-        id: account.id,
-        isEnterprise: account.currentPlan.tier
-          .toLowerCase()
-          .includes('enterprise')
-          ? true
-          : false,
-      };
-      return selectedAccount;
+    if (answer.theme == 'Add to new Enterprise Trial') {
+      const id = await createNewTrial(data.me?.id);
+
+      return { id, isEnterprise: true };
+    } else {
+      const { account } = data.me.memberships.find(
+        (a: any) => a.account.id == accounts[answer.theme]
+      );
+      if (answer.theme) {
+        selectedAccount = {
+          id: account.id,
+          isEnterprise: account.currentPlan.tier
+            .toLowerCase()
+            .includes('enterprise')
+            ? true
+            : false,
+        };
+        return selectedAccount;
+      }
     }
   }
   throw new Error(
-    'You must use a user api key and be an org administrator for your account.'
+    'You must use a personal API key and have an Org Administrator or Graph Administrator role for your organization.'
   );
 }
 
@@ -453,7 +495,7 @@ function createContract(graphId: string) {
   return client.mutate({
     mutation: CREATE_CONTRACT,
     variables: {
-      contractVariantName: 'public',
+      contractVariantName,
       graphId,
       filterConfig: {
         exclude: ['internal'],
@@ -510,6 +552,7 @@ async function createDemo() {
     },
   ];
 
+  console.log('Setting up Spotify Demo Graph');
   await createSubgraph(subgraphs[0]);
   // We provide 1s between subgraph publishes to avoid race conditions
   // in updating the graph
@@ -537,8 +580,8 @@ async function createDemo() {
   await updateLinterConfig(graphId);
 
   if (isEnterprise) {
-    await updateExplorerUrl(graphId);
     await createContract(graphId);
+    await updateExplorerUrl(graphId);
   } else {
     await updateClourRouterConfig(graphId);
   }

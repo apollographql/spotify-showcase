@@ -11,7 +11,10 @@
       "skipFiles": ["<node_internals>/**"],
       "cwd": "${workspaceFolder}/subgraphs/playback",
       "program": "${workspaceFolder}/subgraphs/playback/src/index.ts",
-      "outFiles": ["${workspaceFolder}/subgraphs/playback/dist/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/subgraphs/playback/dist/**/*.js",
+        "${workspaceFolder}/shared/spotify-api/dist/**/*.js"
+      ],
       "preLaunchTask": "tsc: build - subgraphs/playback/tsconfig.json"
     },
     {
@@ -21,7 +24,10 @@
       "skipFiles": ["<node_internals>/**"],
       "cwd": "${workspaceFolder}/subgraphs/spotify",
       "program": "${workspaceFolder}/subgraphs/spotify/src/index.ts",
-      "outFiles": ["${workspaceFolder}/subgraphs/spotify/dist/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/subgraphs/spotify/dist/**/*.js",
+        "${workspaceFolder}/shared/spotify-api/dist/**/*.js"
+      ],
       "preLaunchTask": "tsc: build - subgraphs/spotify/tsconfig.json"
     },
     {
