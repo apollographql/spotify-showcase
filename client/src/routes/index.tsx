@@ -5,7 +5,7 @@ import {
   useReadQuery,
   TypedDocumentNode,
 } from '@apollo/client';
-import { QueryReference } from '@apollo/client/react/cache/QueryReference';
+import { QueryReference } from '@apollo/client';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
