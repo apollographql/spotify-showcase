@@ -3,6 +3,7 @@ import {
   InMemoryCache,
   ApolloLink,
   createHttpLink,
+  createQueryPreloader,
   from,
   split,
 } from '@apollo/client';
@@ -72,7 +73,7 @@ const httpLink = createHttpLink({
   uri: import.meta.env.VITE_SERVER_HOST,
 });
 
-export default new ApolloClient({
+const client = new ApolloClient({
   link: from([httpAuthLink, persistedQueries, httpLink]),
   connectToDevTools: true,
   name: 'Spotify Showcase Website',
@@ -170,3 +171,7 @@ export default new ApolloClient({
     },
   }),
 });
+
+export const preloadQuery = createQueryPreloader(client);
+
+export default client;

@@ -1,6 +1,6 @@
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useReadQuery } from '@apollo/client';
 import cx from 'classnames';
-import { useParams } from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
@@ -9,10 +9,14 @@ import ArtistTopTracks from '../../components/ArtistTopTracks';
 import Page from '../../components/Page';
 import Skeleton from '../../components/Skeleton';
 import TileGrid from '../../components/TileGrid';
+import { preloadQuery } from '../../apollo/client';
 
 type Album = NonNullable<Get<ArtistRouteQuery, 'artist.albums.edges[0].node'>>;
 
-const ARTIST_ROUTE_QUERY = gql`
+const ARTIST_ROUTE_QUERY: TypedDocumentNode<
+  ArtistRouteQuery,
+  ArtistRouteQueryVariables
+> = gql`
   query ArtistRouteQuery($artistId: ID!) {
     artist(id: $artistId) {
       id
@@ -74,15 +78,21 @@ const classNames = {
   section: 'flex flex-col gap-2',
 };
 
-export const RouteComponent = () => {
-  const { artistId } = useParams() as { artistId: string };
+export const loader = ({ params }: LoaderFunctionArgs) => {
+  const { artistId } = params;
 
-  const { data } = useSuspenseQuery<
-    ArtistRouteQuery,
-    ArtistRouteQueryVariables
-  >(ARTIST_ROUTE_QUERY, {
+  if (!artistId) {
+    throw new Response('', { status: 404 });
+  }
+
+  return preloadQuery(ARTIST_ROUTE_QUERY, {
     variables: { artistId },
-  });
+  }).toPromise();
+};
+
+export const RouteComponent = () => {
+  const queryRef = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const { data } = useReadQuery(queryRef);
 
   const artist = data.artist;
 

@@ -1,5 +1,5 @@
 import { ReactNode, useRef } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
@@ -21,8 +21,11 @@ import CurrentUserMenu, {
 import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
+import cx from 'classnames';
 
 const LoggedInLayout = () => {
+  const navigation = useNavigation();
+
   return (
     <Suspense fallback={<LoadingState />}>
       <Container>
@@ -30,7 +33,14 @@ const LoggedInLayout = () => {
         <Main>
           <Header />
           <Suspense fallback={<StandardLoadingState />}>
-            <Outlet />
+            <div
+              className={cx({
+                'opacity-30 transition-opacity duration-100':
+                  navigation.state === 'loading',
+              })}
+            >
+              <Outlet />
+            </div>
           </Suspense>
         </Main>
         <Playbar />

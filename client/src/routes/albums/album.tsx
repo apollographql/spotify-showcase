@@ -1,5 +1,10 @@
-import { gql, useSuspenseQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import {
+  TypedDocumentNode,
+  gql,
+  useReadQuery,
+  useSuspenseQuery,
+} from '@apollo/client';
+import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
 import {
   AlbumRouteQuery,
   AlbumRouteQueryVariables,
@@ -22,8 +27,12 @@ import useSavedTracksContains from '../../hooks/useSavedTracksContains';
 import LikeButton from '../../components/LikeButton';
 import useSaveAlbumsMutation from '../../mutations/useSaveAlbumsMutation';
 import useRemoveSavedAlbumsMutation from '../../mutations/useRemoveSavedAlbumsMutation';
+import { preloadQuery } from '../../apollo/client';
 
-const ALBUM_ROUTE_QUERY = gql`
+const ALBUM_ROUTE_QUERY: TypedDocumentNode<
+  AlbumRouteQuery,
+  AlbumRouteQueryVariables
+> = gql`
   query AlbumRouteQuery($albumId: ID!) {
     me {
       albumsContains(ids: [$albumId])
@@ -65,12 +74,21 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
+export const loader = ({ params }: LoaderFunctionArgs) => {
+  const { albumId } = params;
+
+  if (!albumId) {
+    throw new Response('', { status: 404 });
+  }
+
+  return preloadQuery(ALBUM_ROUTE_QUERY, {
+    variables: { albumId },
+  }).toPromise();
+};
+
 export const RouteComponent = () => {
-  const { albumId } = useParams() as { albumId: 'string' };
-  const { data } = useSuspenseQuery<AlbumRouteQuery, AlbumRouteQueryVariables>(
-    ALBUM_ROUTE_QUERY,
-    { variables: { albumId } }
-  );
+  const queryRef = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const { data } = useReadQuery(queryRef);
 
   const [resumePlayback] = useResumePlaybackMutation();
   const [saveAlbums] = useSaveAlbumsMutation();

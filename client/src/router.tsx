@@ -87,6 +87,7 @@ const routes = createRoutesFromElements(
         />
         <Route
           path="albums/:albumId"
+          loader={AlbumRoute.loader}
           element={
             <Suspense fallback={<AlbumRoute.LoadingState />}>
               <AlbumRoute.RouteComponent />
@@ -95,6 +96,7 @@ const routes = createRoutesFromElements(
         />
         <Route
           path="artists/:artistId"
+          loader={ArtistRoute.loader}
           element={
             <Suspense fallback={<ArtistRoute.LoadingState />}>
               <ArtistRoute.RouteComponent />
