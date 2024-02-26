@@ -33,6 +33,7 @@ import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 import { withHighlight } from './LoadingStateHighlighter';
+import SongQuiz from './SongQuiz';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
@@ -122,10 +123,13 @@ const Playbar = () => {
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
           {playbackItem?.__typename === 'Track' ? (
-            <TrackPlaybackDetails
-              context={playbackState?.context ?? null}
-              track={playbackItem}
-            />
+            <>
+              <TrackPlaybackDetails
+                context={playbackState?.context ?? null}
+                track={playbackItem}
+              />
+              <SongQuiz id={playbackItem.id} />
+            </>
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}
