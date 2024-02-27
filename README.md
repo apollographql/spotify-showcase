@@ -162,7 +162,13 @@ You will need a GraphOS organization with an Enterprise plan or [Enterprise tria
    ```
 
    ```
-   npm run start:spotify && npm run start:playback
+   npm run start:spotify
+   ```
+
+   and in another terminal:
+
+   ```
+   npm run start:playback
    ```
 
    - Spotify Subgraph - http://localhost:4001
