@@ -20,6 +20,7 @@ import CurrentUserMenu, {
 } from './CurrentUserMenu';
 import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
+import NowPlayingSidebar from './NowPlayingSidebar';
 import { withHighlight } from './LoadingStateHighlighter';
 import cx from 'classnames';
 
@@ -32,16 +33,21 @@ const LoggedInLayout = () => {
         <Sidebar />
         <Main>
           <Header />
-          <Suspense fallback={<StandardLoadingState />}>
-            <div
-              className={cx({
-                'opacity-30 transition-opacity duration-100':
-                  navigation.state === 'loading',
-              })}
-            >
-              <Outlet />
+          <div className="grid grid-cols-[1fr,minmax(250px,_300px)]">
+            <Suspense fallback={<StandardLoadingState />}>
+              <div
+                className={cx('flex-1', {
+                  'opacity-30 transition-opacity duration-100':
+                    navigation.state === 'loading',
+                })}
+              >
+                <Outlet />
+              </div>
+            </Suspense>
+            <div className="flex-0 basis-[240px] shrink-0 pt-[80px]">
+              <NowPlayingSidebar />
             </div>
-          </Suspense>
+          </div>
         </Main>
         <Playbar />
       </Container>
