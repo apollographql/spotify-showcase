@@ -4,10 +4,8 @@ import { X, Pizza } from 'lucide-react';
 import {
   QueryReference,
   gql,
-  useBackgroundQuery,
   useLoadableQuery,
   useReadQuery,
-  useSuspenseQuery,
 } from '@apollo/client';
 import { Suspense, useState } from 'react';
 import cx from 'classnames';
@@ -16,8 +14,8 @@ import cx from 'classnames';
 //   CurrentUserQuery,
 //   CurrentUserQueryVariables
 // >
-const SONG_QUIZ_QUERY = gql`
-  query SongQuiz($trackId: ID!) {
+const QUIZ_QUERY = gql`
+  query TrackQuiz($trackId: ID!) {
     track(id: $trackId) {
       quiz {
         question
@@ -31,8 +29,8 @@ const SONG_QUIZ_QUERY = gql`
   }
 `;
 
-const SongQuiz = ({ id }: { id: string }) => {
-  const [loadQuiz, queryRef] = useLoadableQuery(SONG_QUIZ_QUERY);
+const TrackQuiz = ({ id }: { id: string }) => {
+  const [loadQuiz, queryRef] = useLoadableQuery(QUIZ_QUERY);
 
   return (
     <QuizDialog id={id} queryRef={queryRef}>
@@ -47,7 +45,7 @@ const SongQuiz = ({ id }: { id: string }) => {
   );
 };
 
-export default SongQuiz;
+export default TrackQuiz;
 
 const QuizDialog = ({
   id,
