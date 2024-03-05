@@ -2515,7 +2515,6 @@ export type EpisodeDetailsCell_episode = {
 
 export type EpisodePlaybackDetails_episode = {
   __typename: 'Episode';
-  id: string;
   name: string;
   show: { __typename: 'Show'; id: string; name: string };
 };
@@ -2880,6 +2879,11 @@ export type PlaylistSidebarLink_playbackState = {
   context: { __typename: 'PlaybackContext'; uri: string } | null;
 };
 
+export type PlaylistSidebarLink_currentUser = {
+  __typename: 'CurrentUser';
+  profile: { __typename: 'CurrentUserProfile'; id: string };
+};
+
 export type PlaylistSidebarLink_playlist = {
   __typename: 'Playlist';
   id: string;
@@ -2970,7 +2974,6 @@ export type TrackPlaybackDetails_context = {
 
 export type TrackPlaybackDetails_track = {
   __typename: 'Track';
-  id: string;
   name: string;
   uri: string;
   album: { __typename: 'Album'; id: string; name: string };
