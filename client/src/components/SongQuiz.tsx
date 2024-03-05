@@ -1,7 +1,14 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import Button from './Button';
 import { X, Pizza } from 'lucide-react';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import {
+  QueryReference,
+  gql,
+  useBackgroundQuery,
+  useLoadableQuery,
+  useReadQuery,
+  useSuspenseQuery,
+} from '@apollo/client';
 import { Suspense, useState } from 'react';
 import cx from 'classnames';
 
@@ -25,9 +32,17 @@ const SONG_QUIZ_QUERY = gql`
 `;
 
 const SongQuiz = ({ id }: { id: string }) => {
+  const [loadQuiz, queryRef] = useLoadableQuery(SONG_QUIZ_QUERY);
+
   return (
-    <QuizDialog id={id}>
-      <Pizza size="1.2rem" className="cursor-pointer hover:stroke-green" />
+    <QuizDialog id={id} queryRef={queryRef}>
+      <Pizza
+        size="1.2rem"
+        className="cursor-pointer hover:stroke-green"
+        onMouseEnter={() => {
+          loadQuiz({ trackId: id });
+        }}
+      />
     </QuizDialog>
   );
 };
@@ -37,7 +52,11 @@ export default SongQuiz;
 const QuizDialog = ({
   id,
   children,
-}: React.PropsWithChildren<{ id: string }>) => {
+  queryRef,
+}: React.PropsWithChildren<{
+  id: string;
+  queryRef: QueryReference<any> | null;
+}>) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
@@ -55,7 +74,7 @@ const QuizDialog = ({
           </Dialog.Close>
           <div className="text-white px-4">
             <Suspense fallback={<p>Loading...</p>}>
-              <QuizContent id={id} />
+              {queryRef && <QuizContent id={id} queryRef={queryRef} />}
             </Suspense>
           </div>
         </Dialog.Content>
@@ -64,13 +83,17 @@ const QuizDialog = ({
   );
 };
 
-const QuizContent = ({ id }: { id: string }) => {
+const QuizContent = ({
+  queryRef,
+}: {
+  id: string;
+
+  queryRef: QueryReference<any>;
+}) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
-  const { data } = useSuspenseQuery(SONG_QUIZ_QUERY, {
-    variables: { trackId: id },
-  });
+  const { data } = useReadQuery(queryRef);
 
   // @ts-ignore - I should run codegen
   const quiz = data?.track?.quiz as any;
