@@ -1,33 +1,23 @@
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
-import { CurrentUserQuery, CurrentUserQueryVariables } from '../types/api';
+import { gql } from '@apollo/client';
+import { CurrentUserMenu_profile as Profile } from '../types/api';
 import DropdownMenu from './DropdownMenu';
 import Avatar from './Avatar';
 import Skeleton from './Skeleton';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
-const CURRENT_USER_QUERY: TypedDocumentNode<
-  CurrentUserQuery,
-  CurrentUserQueryVariables
-> = gql`
-  query CurrentUserQuery {
-    me {
-      profile {
-        id
-        displayName
-        ...Avatar_profile
-      }
-    }
+interface CurrentUserMenuProps {
+  profile: Profile;
+}
+
+fragmentRegistry.register(gql`
+  fragment CurrentUserMenu_profile on CurrentUserProfile {
+    id
+    displayName
+    ...Avatar_profile
   }
-`;
+`);
 
-const CurrentUserMenu = () => {
-  const { data } = useSuspenseQuery(CURRENT_USER_QUERY);
-
-  if (!data.me) {
-    throw new Error('You must be logged in');
-  }
-
-  const { profile } = data.me;
-
+const CurrentUserMenu = ({ profile }: CurrentUserMenuProps) => {
   const exploreSchemaUrl =
     process.env.NODE_ENV == 'production'
       ? 'https://studio.apollographql.com/public/spotify-ev3of9/variant/prod/home'

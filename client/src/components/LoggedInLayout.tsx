@@ -10,7 +10,11 @@ import {
   useLoadableQuery,
   useSuspenseQuery,
 } from '@apollo/client';
-import { SidebarQuery, SidebarQueryVariables } from '../types/api';
+import {
+  LoggedInLayoutQuery,
+  SidebarQuery,
+  SidebarQueryVariables,
+} from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
@@ -29,39 +33,49 @@ import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
 import cx from 'classnames';
 
+const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
+  query LoggedInLayoutQuery {
+    me {
+      profile {
+        id
+        ...CurrentUserMenu_profile
+      }
+    }
+  }
+`;
+
 const LoggedInLayout = () => {
   const navigation = useNavigation();
+  const { data } = useSuspenseQuery(LOGGED_IN_LAYOUT_QUERY);
+
+  if (!data.me) {
+    throw new Response('Must be logged in', { status: 401 });
+  }
+
+  const { me } = data;
 
   return (
-    <Suspense fallback={<LoadingState />}>
-      <Container>
-        <Sidebar />
-        <Main>
-          <Header />
-          <Suspense fallback={<StandardLoadingState />}>
-            <div
-              className={cx({
-                'opacity-30 transition-opacity duration-100':
-                  navigation.state === 'loading',
-              })}
-            >
-              <Outlet />
-            </div>
-          </Suspense>
-        </Main>
-        <Playbar />
-      </Container>
-    </Suspense>
-  );
-};
-
-const Header = () => {
-  return (
-    <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
-      <div className="flex gap-4 items-center pointer-events-auto">
-        <CurrentUserMenu />
-      </div>
-    </header>
+    <Container>
+      <Sidebar />
+      <Main>
+        <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
+          <div className="flex gap-4 items-center pointer-events-auto">
+            <CurrentUserMenu profile={me.profile} />
+          </div>
+        </header>
+        <Suspense fallback={<StandardLoadingState />}>
+          <div
+            className={cx({
+              'opacity-30 transition-opacity duration-100':
+                navigation.state === 'loading',
+            })}
+          >
+            <Outlet />
+          </div>
+        </Suspense>
+      </Main>
+      <Playbar />
+    </Container>
   );
 };
 

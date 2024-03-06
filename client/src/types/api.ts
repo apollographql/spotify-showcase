@@ -2473,18 +2473,11 @@ export type AddToPlaylistQuery = {
   } | null;
 };
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
-
-export type CurrentUserQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: {
-      __typename: 'CurrentUserProfile';
-      id: string;
-      displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }> | null;
-    };
-  } | null;
+export type CurrentUserMenu_profile = {
+  __typename: 'CurrentUserProfile';
+  id: string;
+  displayName: string | null;
+  images: Array<{ __typename: 'Image'; url: string }> | null;
 };
 
 export type DevicePopover_playbackState = {
@@ -2569,6 +2562,20 @@ export type LikedSongsTile_connection = {
       artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
     };
   }>;
+};
+
+export type LoggedInLayoutQueryVariables = Exact<{ [key: string]: never }>;
+
+export type LoggedInLayoutQuery = {
+  me: {
+    __typename: 'CurrentUser';
+    profile: {
+      __typename: 'CurrentUserProfile';
+      id: string;
+      displayName: string | null;
+      images: Array<{ __typename: 'Image'; url: string }> | null;
+    };
+  } | null;
 };
 
 export type SidebarQueryVariables = Exact<{
