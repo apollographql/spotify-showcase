@@ -2873,6 +2873,14 @@ export type Playbar_playbackState = {
     | null;
 };
 
+export type PlaylistDetailsModalQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+export type PlaylistDetailsModalQuery = {
+  playlist: { __typename: 'Playlist'; id: string; name: string } | null;
+};
+
 export type PlaylistSidebarLink_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
