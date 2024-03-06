@@ -1,10 +1,15 @@
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import { Outlet, useNavigation } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import {
+  TypedDocumentNode,
+  gql,
+  useLoadableQuery,
+  useSuspenseQuery,
+} from '@apollo/client';
 import { SidebarQuery, SidebarQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
@@ -13,6 +18,9 @@ import { thumbnail } from '../utils/image';
 import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
 import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
+import PlaylistDetailsModal, {
+  PLAYLIST_DETAILS_MODAL_QUERY,
+} from './PlaylistDetailsModal';
 import { randomBetween, range } from '../utils/common';
 import Skeleton from './Skeleton';
 import CurrentUserMenu, {
@@ -103,10 +111,17 @@ const SIDEBAR_QUERY: TypedDocumentNode<
 `;
 
 const Sidebar = () => {
+  const [isPlaylistDetailsModalOpen, setIsPlaylistDetailsModalOpen] =
+    useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
+
+  const [preloadPlaylistDetails, queryRef] = useLoadableQuery(
+    PLAYLIST_DETAILS_MODAL_QUERY,
+    { fetchPolicy: 'network-only' }
+  );
 
   const { me } = data;
 
@@ -163,6 +178,10 @@ const Sidebar = () => {
                 playlist={playlist}
                 coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
                 to={`/playlists/${playlist.id}`}
+                onMouseOverEdit={(playlist) =>
+                  preloadPlaylistDetails({ id: playlist.id })
+                }
+                onClickEdit={() => setIsPlaylistDetailsModalOpen(true)}
               />
             ))}
             <OffsetBasedPaginationObserver
@@ -172,6 +191,11 @@ const Sidebar = () => {
           </div>
         </ScrollContainerContext.Provider>
       </Layout.Sidebar.Section>
+      <PlaylistDetailsModal
+        queryRef={queryRef}
+        open={isPlaylistDetailsModalOpen}
+        onChange={(open) => setIsPlaylistDetailsModalOpen(open)}
+      />
     </Layout.Sidebar>
   );
 };

@@ -26,7 +26,7 @@ const Modal = ({ children, open, onChange, title }: ModalProps) => {
               </button>
             </Dialog.Close>
           </header>
-          <div className="p-6 pt-0 flex-1">{children}</div>
+          <div className="flex flex-col p-6 pt-0 flex-1">{children}</div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

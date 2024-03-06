@@ -1,11 +1,12 @@
 import { ReactElement, cloneElement } from 'react';
-import { gql, TypedDocumentNode } from '@apollo/client';
+import { gql, TypedDocumentNode, useFragment } from '@apollo/client';
 import { Volume2, Pin } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import ContextMenu from './ContextMenu';
 import {
   PlaylistSidebarLink_playlist as Playlist,
   PlaylistSidebarLink_playbackState as PlaybackState,
+  PlaylistSidebarLink_currentUser,
 } from '../types/api';
 import cx from 'classnames';
 import ContextMenuAction from './ContextMenuAction';
@@ -18,6 +19,8 @@ interface PlaylistSidebarLinkProps {
   coverPhoto: ReactElement<{ size: string }>;
   to: string;
   pinned: boolean;
+  onClickEdit?: (playlist: Playlist) => void;
+  onMouseOverEdit?: (playlist: Playlist) => void;
 }
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
@@ -29,17 +32,33 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
   }
 `;
 
+const CURRENT_USER_FRAGMENT: TypedDocumentNode<PlaylistSidebarLink_currentUser> = gql`
+  fragment PlaylistSidebarLink_currentUser on CurrentUser {
+    profile {
+      id
+    }
+  }
+`;
+
 const PlaylistSidebarLink = ({
   coverPhoto,
   playlist,
   pinned,
   to,
+  onClickEdit,
+  onMouseOverEdit,
 }: PlaylistSidebarLinkProps) => {
   const playbackState = usePlaybackState({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
+  const { data } = useFragment({
+    fragment: CURRENT_USER_FRAGMENT,
+    from: { __typename: 'CurrentUser' },
+  });
+
   const isCurrentContext = playlist.uri === playbackState?.context?.uri;
+  const isOwner = playlist.owner.id === data.profile?.id;
 
   return (
     <ContextMenu
@@ -51,6 +70,14 @@ const PlaylistSidebarLink = ({
             Share
           </ContextMenu.SubMenu>
           <ContextMenu.Separator />
+          {isOwner && (
+            <ContextMenu.Action
+              onMouseOver={() => onMouseOverEdit?.(playlist)}
+              onSelect={() => onClickEdit?.(playlist)}
+            >
+              Edit details
+            </ContextMenu.Action>
+          )}
           <ContextMenuAction.OpenDesktopApp uri={playlist.uri} />
         </>
       }

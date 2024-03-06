@@ -1,0 +1,4 @@
+schema:
+  - ./client/schema.graphql
+  - ./client/src/apollo/localSchema.graphql
+documents: ./client/src/**/*.{ts,tsx}
