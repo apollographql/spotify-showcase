@@ -67,7 +67,8 @@ const LoggedInLayout = () => {
         currentUserId={me.profile.id}
         onLoadMore={fetchMore}
       />
-      <Main>
+      <Layout.Main>
+        <PlaybackStateSubscriber />
         <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
           <div className="flex gap-4 items-center pointer-events-auto">
             <CurrentUserMenu profile={me.profile} />
@@ -83,22 +84,9 @@ const LoggedInLayout = () => {
             <Outlet />
           </div>
         </Suspense>
-      </Main>
+      </Layout.Main>
       <Playbar player={me.player} />
     </Container>
-  );
-};
-
-interface MainProps {
-  children: ReactNode;
-}
-
-const Main = ({ children }: MainProps) => {
-  return (
-    <Layout.Main>
-      <PlaybackStateSubscriber />
-      {children}
-    </Layout.Main>
   );
 };
 
