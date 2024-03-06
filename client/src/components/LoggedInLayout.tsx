@@ -32,6 +32,7 @@ const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
 
 export function loader() {
   // Demo! Let's move query loading to this function
+  return null;
 }
 
 const LoggedInLayout = () => {

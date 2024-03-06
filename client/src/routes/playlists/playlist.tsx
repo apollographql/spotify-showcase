@@ -109,6 +109,7 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
   const { playlistId } = params as { playlistId: string };
 
   // Demo! Let's move the query loading here
+  return null;
 };
 
 export const RouteComponent = () => {
