@@ -1,5 +1,10 @@
-import { useParams } from 'react-router-dom';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
+import {
+  TypedDocumentNode,
+  gql,
+  useQueryRefHandlers,
+  useReadQuery,
+} from '@apollo/client';
 import {
   PlaylistQuery,
   PlaylistQueryVariables,
@@ -28,8 +33,12 @@ import TrackLikeButtonCell from '../../components/TrackLikeButtonCell';
 import Duration from '../../components/Duration';
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
+import { preloadQuery } from '../../apollo/client';
 
-const PLAYLIST_QUERY = gql`
+const PLAYLIST_QUERY: TypedDocumentNode<
+  PlaylistQuery,
+  PlaylistQueryVariables
+> = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
     me {
       profile {
@@ -102,12 +111,20 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
+export const loader = ({ params }: LoaderFunctionArgs) => {
+  const { playlistId } = params;
+
+  if (!playlistId) {
+    throw new Error('Could not find playlist');
+  }
+
+  return preloadQuery(PLAYLIST_QUERY, { variables: { id: playlistId } });
+};
+
 export const RouteComponent = () => {
-  const { playlistId } = useParams() as { playlistId: 'string' };
-  const { data, fetchMore } = useSuspenseQuery<
-    PlaylistQuery,
-    PlaylistQueryVariables
-  >(PLAYLIST_QUERY, { variables: { id: playlistId } });
+  const queryRef = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const { data } = useReadQuery(queryRef);
+  const { fetchMore } = useQueryRefHandlers(queryRef);
   const playlist = data.playlist;
 
   if (!playlist) {

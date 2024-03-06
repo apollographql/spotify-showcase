@@ -49,7 +49,7 @@ const routes = createRoutesFromElements(
       loader={LoggedOutRoute.loader}
       element={<LoggedOutRoute.RouteComponent />}
     />
-    <Route element={<RootRoute.RouteComponent />}>
+    <Route loader={RootRoute.loader} element={<RootRoute.RouteComponent />}>
       <Route
         index
         element={
@@ -113,11 +113,8 @@ const routes = createRoutesFromElements(
         />
         <Route
           path="playlists/:playlistId"
-          element={
-            // <Suspense fallback={<PlaylistRoute.LoadingState />}>
-            <PlaylistRoute.RouteComponent />
-            // </Suspense>
-          }
+          loader={PlaylistRoute.loader}
+          element={<PlaylistRoute.RouteComponent />}
         />
         <Route
           path="shows/:showId"

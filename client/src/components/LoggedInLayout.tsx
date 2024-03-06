@@ -1,5 +1,5 @@
 import { ReactNode, useRef } from 'react';
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useLoaderData, useNavigation } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
@@ -8,6 +8,8 @@ import {
   TypedDocumentNode,
   gql,
   useLoadableQuery,
+  useQueryRefHandlers,
+  useReadQuery,
   useSuspenseQuery,
 } from '@apollo/client';
 import { LoggedInLayoutQuery, Sidebar_playlists } from '../types/api';
@@ -31,6 +33,7 @@ import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
 import cx from 'classnames';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
+import { preloadQuery } from '../apollo/client';
 
 const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
   query LoggedInLayoutQuery($limit: Int, $offset: Int) {
@@ -50,9 +53,15 @@ const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
   }
 `;
 
+export function loader() {
+  return preloadQuery(LOGGED_IN_LAYOUT_QUERY);
+}
+
 const LoggedInLayout = () => {
+  const queryRef = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const { data } = useReadQuery(queryRef);
+  const { fetchMore } = useQueryRefHandlers(queryRef);
   const navigation = useNavigation();
-  const { data, fetchMore } = useSuspenseQuery(LOGGED_IN_LAYOUT_QUERY);
 
   if (!data.me) {
     throw new Response('Must be logged in', { status: 401 });
