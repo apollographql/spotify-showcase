@@ -2515,6 +2515,7 @@ export type EpisodeDetailsCell_episode = {
 
 export type EpisodePlaybackDetails_episode = {
   __typename: 'Episode';
+  id: string;
   name: string;
   show: { __typename: 'Show'; id: string; name: string };
 };
@@ -2988,6 +2989,7 @@ export type TrackPlaybackDetails_context = {
 
 export type TrackPlaybackDetails_track = {
   __typename: 'Track';
+  id: string;
   name: string;
   uri: string;
   album: { __typename: 'Album'; id: string; name: string };
