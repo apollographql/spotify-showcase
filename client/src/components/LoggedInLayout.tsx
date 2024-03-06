@@ -118,7 +118,7 @@ const Sidebar = () => {
     variables: { limit: 50 },
   });
 
-  const [preloadPlaylistDetails, queryRef, { reset }] = useLoadableQuery(
+  const [preloadPlaylistDetails, queryRef] = useLoadableQuery(
     PLAYLIST_DETAILS_MODAL_QUERY,
     { fetchPolicy: 'network-only' }
   );
