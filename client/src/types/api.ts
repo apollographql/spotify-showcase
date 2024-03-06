@@ -2664,27 +2664,6 @@ export type LoggedInLayoutQuery = {
   } | null;
 };
 
-export type Sidebar_playlists = {
-  __typename: 'PlaylistConnection';
-  pageInfo: {
-    __typename: 'PageInfo';
-    offset: number;
-    limit: number;
-    hasNextPage: boolean;
-  };
-  edges: Array<{
-    __typename: 'PlaylistEdge';
-    node: {
-      __typename: 'Playlist';
-      id: string;
-      uri: string;
-      name: string;
-      images: Array<{ __typename: 'Image'; url: string }>;
-      owner: { __typename: 'User'; id: string; displayName: string | null };
-    };
-  }>;
-};
-
 export type NotificationManager_playbackState = {
   __typename: 'PlaybackState';
   device: { __typename: 'Device'; id: string | null };
@@ -3025,6 +3004,27 @@ type PlaylistTitleCell_playlistTrack_Track_ = {
 export type PlaylistTitleCell_playlistTrack =
   | PlaylistTitleCell_playlistTrack_Episode_
   | PlaylistTitleCell_playlistTrack_Track_;
+
+export type Sidebar_playlists = {
+  __typename: 'PlaylistConnection';
+  pageInfo: {
+    __typename: 'PageInfo';
+    offset: number;
+    limit: number;
+    hasNextPage: boolean;
+  };
+  edges: Array<{
+    __typename: 'PlaylistEdge';
+    node: {
+      __typename: 'Playlist';
+      id: string;
+      uri: string;
+      name: string;
+      images: Array<{ __typename: 'Image'; url: string }>;
+      owner: { __typename: 'User'; id: string; displayName: string | null };
+    };
+  }>;
+};
 
 export type TrackNumberCell_playbackState = {
   __typename: 'PlaybackState';
