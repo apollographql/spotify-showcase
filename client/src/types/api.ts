@@ -2878,7 +2878,13 @@ export type PlaylistDetailsModalQueryVariables = Exact<{
 }>;
 
 export type PlaylistDetailsModalQuery = {
-  playlist: { __typename: 'Playlist'; id: string; name: string } | null;
+  playlist: {
+    __typename: 'Playlist';
+    id: string;
+    name: string;
+    description: string | null;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  } | null;
 };
 
 export type PlaylistSidebarLink_playbackState = {
