@@ -13,10 +13,12 @@ interface MultilineTextFieldProps extends ForwardedTextareaProps {
   name: string;
   description?: string;
   size?: 'sm' | 'md';
+  containerClassName?: string;
 }
 
 const MultilineTextField = ({
   className,
+  containerClassName,
   name,
   description,
   label,
@@ -26,7 +28,7 @@ const MultilineTextField = ({
   const [field] = useField({ name });
 
   return (
-    <Field orientation="vertical">
+    <Field className={containerClassName} orientation="vertical">
       {(label || description) && (
         <div className="flex flex-col gap-1">
           {label && <label htmlFor={name}>{label}</label>}

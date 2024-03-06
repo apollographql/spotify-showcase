@@ -35,6 +35,7 @@ type TextFieldValueByType = {
 };
 
 interface BaseTextFieldProps extends ForwardedInputProps {
+  containerClassName?: string;
   label?: string;
   name: string;
   description?: string;
@@ -77,6 +78,7 @@ const parsers: ParsersMap = {
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   const {
     className,
+    containerClassName,
     description,
     label,
     name,
@@ -90,7 +92,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
   const [field, , { setValue }] = useField({ name, type: inputType });
 
   return (
-    <Field orientation={orientation}>
+    <Field className={containerClassName} orientation={orientation}>
       {(label || description) && (
         <div
           className={cx('flex flex-col gap-1', {
