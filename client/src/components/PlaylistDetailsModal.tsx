@@ -9,10 +9,12 @@ import {
   PlaylistDetailsModalQueryVariables,
 } from '../types/api';
 import Modal from './Modal';
-import { Suspense } from 'react';
+import { CSSProperties, Suspense } from 'react';
 import CoverPhoto from './CoverPhoto';
 import Form from './Form';
 import useForm from '../hooks/useForm';
+import { withHighlight } from './LoadingStateHighlighter';
+import Skeleton from './Skeleton';
 
 interface PlaylistDetailsModalProps {
   queryRef: QueryReference<PlaylistDetailsModalQuery> | null;
@@ -43,7 +45,7 @@ const PlaylistDetailsModal = ({
 }: PlaylistDetailsModalProps) => {
   return (
     <Modal open={open} onChange={onChange} title="Edit details">
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<LoadingState />}>
         {queryRef && <PlaylistDetails queryRef={queryRef} />}
       </Suspense>
     </Modal>
@@ -99,5 +101,31 @@ const PlaylistDetails = ({ queryRef }: PlaylistDetailsProps) => {
     </Form>
   );
 };
+
+interface StyleProps extends CSSProperties {
+  '--skeleton-background-color'?: CSSProperties['backgroundColor'];
+}
+
+const LoadingState = withHighlight(
+  () => {
+    return (
+      <div
+        className="flex gap-4"
+        style={
+          {
+            '--skeleton-background-color': '#181818',
+          } as StyleProps
+        }
+      >
+        <Skeleton.CoverPhoto size="50%" />
+        <div className="flex flex-col gap-4 flex-1">
+          <Skeleton.Text width="100%" fontSize="1rem" />
+          <Skeleton.Text width="100%" fontSize="1rem" />
+        </div>
+      </div>
+    );
+  },
+  { shade: '#ff2600' }
+);
 
 export default PlaylistDetailsModal;
