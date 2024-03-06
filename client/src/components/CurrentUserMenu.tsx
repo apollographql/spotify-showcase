@@ -70,4 +70,6 @@ export const LoadingState = () => {
   );
 };
 
+CurrentUserMenu.LoadingState = LoadingState;
+
 export default CurrentUserMenu;
