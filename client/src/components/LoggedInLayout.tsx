@@ -51,7 +51,7 @@ const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
 `;
 
 export function loader() {
-  // DEMO! Let's move query loading to this function
+  // Demo! Let's move query loading to this function
 }
 
 const LoggedInLayout = () => {
@@ -122,10 +122,8 @@ interface SidebarProps {
 const Sidebar = ({ playlists, currentUserId, onLoadMore }: SidebarProps) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const [loadPlaylistDetails, queryRef, { reset }] = useLoadableQuery(
-    PLAYLIST_DETAILS_MODAL_QUERY,
-    { fetchPolicy: 'network-only' }
-  );
+  // Demo! Let's use a hook that allows us to load the query in response to user
+  // interaction
 
   return (
     <Layout.Sidebar>
@@ -176,9 +174,10 @@ const Sidebar = ({ playlists, currentUserId, onLoadMore }: SidebarProps) => {
                 playlist={playlist}
                 coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
                 to={`/playlists/${playlist.id}`}
-                onClickEdit={(playlist) =>
-                  loadPlaylistDetails({ id: playlist.id })
-                }
+                onClickEdit={(playlist) => {
+                  // Demo! Let's load the playlist details when we click the
+                  // edit link
+                }}
               />
             ))}
             <OffsetBasedPaginationObserver
@@ -188,15 +187,7 @@ const Sidebar = ({ playlists, currentUserId, onLoadMore }: SidebarProps) => {
           </div>
         </ScrollContainerContext.Provider>
       </Layout.Sidebar.Section>
-      <PlaylistDetailsModal
-        queryRef={queryRef}
-        open={queryRef !== null}
-        onChange={(open) => {
-          if (!open) {
-            reset();
-          }
-        }}
-      />
+      {/* Demo! Let's add the playlist modal */}
     </Layout.Sidebar>
   );
 };

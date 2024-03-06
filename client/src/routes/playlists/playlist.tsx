@@ -108,7 +108,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 export const loader = ({ params }: LoaderFunctionArgs) => {
   const { playlistId } = params as { playlistId: string };
 
-  // DEMO! Let's move the query loading here
+  // Demo! Let's move the query loading here
 };
 
 export const RouteComponent = () => {

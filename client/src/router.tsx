@@ -49,6 +49,7 @@ const routes = createRoutesFromElements(
       loader={LoggedOutRoute.loader}
       element={<LoggedOutRoute.RouteComponent />}
     />
+    {/* Demo! Here is where we load our logged in layout */}
     <Route loader={RootRoute.loader} element={<RootRoute.RouteComponent />}>
       <Route
         index
@@ -113,8 +114,7 @@ const routes = createRoutesFromElements(
         />
         <Route
           path="playlists/:playlistId"
-          // DEMO! Let's tell React Router about our loader function
-          // loader={PlaylistRoute.loader}
+          // Demo! Let's tell React Router about our loader function
           element={<PlaylistRoute.RouteComponent />}
         />
         <Route
