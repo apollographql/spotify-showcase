@@ -51,7 +51,7 @@ const PLAYLIST_QUERY: TypedDocumentNode<
         id
         displayName
       }
-      tracks(offset: $offset) {
+      tracks(offset: $offset, limit: 25) {
         edges {
           addedAt
           node {
