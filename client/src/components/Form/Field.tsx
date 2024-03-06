@@ -14,7 +14,7 @@ const Field = ({
 }: FieldProps) => {
   return (
     <div
-      className={cx('flex flex-1 gap-2', className, {
+      className={cx('flex gap-2', className, {
         'flex-col': orientation === 'vertical',
         'items-center justify-between': orientation === 'horizontal',
       })}
