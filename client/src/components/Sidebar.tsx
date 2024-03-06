@@ -53,45 +53,11 @@ const Sidebar = ({ playlists, currentUserId, onLoadMore }: SidebarProps) => {
   return (
     <Layout.Sidebar>
       <Layout.Sidebar.Section className="flex-1 overflow-hidden flex flex-col pb-0">
-        <header className="px-4 py-2">
-          <h2 className="text-muted flex gap-2 items-center py-2 text-base">
-            <Library /> Your Library
-          </h2>
-        </header>
+        <Header />
         <ScrollContainerContext.Provider value={sidebarRef}>
           <div className="overflow-y-auto flex-1 -mx-1 px-3" ref={sidebarRef}>
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:tracks',
-                name: 'Liked Songs',
-                uri: `spotify:user:${currentUserId}:collection`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/tracks"
-            />
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:episodes',
-                name: 'Your Episodes',
-                uri: `spotify:user:${currentUserId}:collection:your-episodes`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/episodes"
-            />
+            <LikedSongsLink currentUserId={currentUserId} />
+            <EpisodesLink currentUserId={currentUserId} />
             {playlists?.edges.map(({ node: playlist }) => (
               <PlaylistSidebarLink
                 pinned={false}
@@ -152,6 +118,57 @@ const LoadingState = () => {
   );
 };
 
+const Header = () => {
+  return (
+    <header className="px-4 py-2">
+      <h2 className="text-muted flex gap-2 items-center py-2 text-base">
+        <Library /> Your Library
+      </h2>
+    </header>
+  );
+};
+
+const LikedSongsLink = ({ currentUserId }: { currentUserId: string }) => {
+  return (
+    <PlaylistSidebarLink
+      pinned
+      playlist={{
+        __typename: 'Playlist',
+        id: 'collection:tracks',
+        name: 'Liked Songs',
+        uri: `spotify:user:${currentUserId}:collection`,
+        owner: {
+          __typename: 'User',
+          id: 'spotify',
+          displayName: 'Spotify',
+        },
+      }}
+      coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
+      to="/collection/tracks"
+    />
+  );
+};
+
+const EpisodesLink = ({ currentUserId }: { currentUserId: string }) => {
+  return (
+    <PlaylistSidebarLink
+      pinned
+      playlist={{
+        __typename: 'Playlist',
+        id: 'collection:episodes',
+        name: 'Your Episodes',
+        uri: `spotify:user:${currentUserId}:collection:your-episodes`,
+        owner: {
+          __typename: 'User',
+          id: 'spotify',
+          displayName: 'Spotify',
+        },
+      }}
+      coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
+      to="/collection/episodes"
+    />
+  );
+};
 Sidebar.LoadingState = LoadingState;
 
 export default Sidebar;
