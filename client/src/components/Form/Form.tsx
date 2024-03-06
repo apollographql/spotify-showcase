@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { FormikContext, FormikProps, FormikValues } from 'formik';
+import MultilineTextField from './MultilineTextField';
 import Select from './Select';
 import TextField from './TextField';
 
@@ -27,6 +28,7 @@ function Form<TValues extends FormikValues>({
   );
 }
 
+Form.MultilineTextField = MultilineTextField;
 Form.Select = Select;
 Form.TextField = TextField;
 
