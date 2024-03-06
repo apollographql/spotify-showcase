@@ -43,6 +43,9 @@ const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
         @connection(key: "rootPlaylists") {
         ...Sidebar_playlists
       }
+      player {
+        ...Playbar_player
+      }
     }
   }
 `;
@@ -81,7 +84,7 @@ const LoggedInLayout = () => {
           </div>
         </Suspense>
       </Main>
-      <Playbar />
+      <Playbar player={me.player} />
     </Container>
   );
 };

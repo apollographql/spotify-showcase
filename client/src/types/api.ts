@@ -2598,6 +2598,15 @@ export type LoggedInLayoutQuery = {
         };
       }>;
     } | null;
+    player: {
+      __typename: 'Player';
+      devices: Array<{
+        __typename: 'Device';
+        id: string | null;
+        name: string;
+        type: string;
+      }> | null;
+    };
   } | null;
 };
 
@@ -2821,21 +2830,14 @@ export type PlaybackStateSubscriberSubscription = {
   } | null;
 };
 
-export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
-
-export type PlaybarQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    player: {
-      __typename: 'Player';
-      devices: Array<{
-        __typename: 'Device';
-        id: string | null;
-        name: string;
-        type: string;
-      }> | null;
-    };
-  } | null;
+export type Playbar_player = {
+  __typename: 'Player';
+  devices: Array<{
+    __typename: 'Device';
+    id: string | null;
+    name: string;
+    type: string;
+  }> | null;
 };
 
 export type Playbar_playbackState = {

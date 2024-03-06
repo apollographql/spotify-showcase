@@ -1,11 +1,10 @@
 import cx from 'classnames';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
 import {
   Action,
   RepeatMode,
-  PlaybarQuery,
-  PlaybarQueryVariables,
   Playbar_playbackState as PlaybackState,
+  Playbar_player as Player,
 } from '../types/api';
 import { Volume1 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
@@ -36,21 +35,14 @@ import { withHighlight } from './LoadingStateHighlighter';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
-const PLAYBAR_QUERY: TypedDocumentNode<
-  PlaybarQuery,
-  PlaybarQueryVariables
-> = gql`
-  query PlaybarQuery {
-    me {
-      player {
-        devices {
-          id
-          ...DevicePopover_devices
-        }
-      }
+fragmentRegistry.register(gql`
+  fragment Playbar_player on Player {
+    devices {
+      id
+      ...DevicePopover_devices
     }
   }
-`;
+`);
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
   fragment Playbar_playbackState on PlaybackState {
@@ -100,14 +92,17 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
 
 fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
 
-const Playbar = () => {
-  const { data } = useSuspenseQuery(PLAYBAR_QUERY);
+interface PlaybarProps {
+  player: Player;
+}
+
+const Playbar = ({ player }: PlaybarProps) => {
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
-  const devices = data.me?.player.devices ?? [];
+  const devices = player.devices ?? [];
   const disallows = playbackState?.actions.disallows ?? [];
   const coverPhoto =
     playbackItem?.__typename === 'Track'
