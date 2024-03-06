@@ -10,16 +10,14 @@ import {
   useLoadableQuery,
   useSuspenseQuery,
 } from '@apollo/client';
-import {
-  LoggedInLayoutQuery,
-  SidebarQuery,
-  SidebarQueryVariables,
-} from '../types/api';
+import { LoggedInLayoutQuery, Sidebar_playlists } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import { thumbnail } from '../utils/image';
-import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
+import OffsetBasedPaginationObserver, {
+  OffsetBasedPaginationObserverProps,
+} from './OffsetBasedPaginationObserver';
 import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
 import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import PlaylistDetailsModal, {
@@ -32,13 +30,18 @@ import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
 import cx from 'classnames';
+import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
-  query LoggedInLayoutQuery {
+  query LoggedInLayoutQuery($limit: Int, $offset: Int) {
     me {
       profile {
         id
         ...CurrentUserMenu_profile
+      }
+      playlists(limit: $limit, offset: $offset)
+        @connection(key: "rootPlaylists") {
+        ...Sidebar_playlists
       }
     }
   }
@@ -46,7 +49,7 @@ const LOGGED_IN_LAYOUT_QUERY: TypedDocumentNode<LoggedInLayoutQuery> = gql`
 
 const LoggedInLayout = () => {
   const navigation = useNavigation();
-  const { data } = useSuspenseQuery(LOGGED_IN_LAYOUT_QUERY);
+  const { data, fetchMore } = useSuspenseQuery(LOGGED_IN_LAYOUT_QUERY);
 
   if (!data.me) {
     throw new Response('Must be logged in', { status: 401 });
@@ -56,7 +59,11 @@ const LoggedInLayout = () => {
 
   return (
     <Container>
-      <Sidebar />
+      <Sidebar
+        playlists={me.playlists}
+        currentUserId={me.profile.id}
+        onLoadMore={fetchMore}
+      />
       <Main>
         <header className="flex items-center justify-end text-primary bg-transparent pt-[var(--main-content--padding)] px-[var(--main-content--padding)] absolute top-0 w-full pointer-events-none flex-shrink-0 z-10">
           <div className="flex gap-4 items-center pointer-events-auto">
@@ -92,52 +99,38 @@ const Main = ({ children }: MainProps) => {
   );
 };
 
-const SIDEBAR_QUERY: TypedDocumentNode<
-  SidebarQuery,
-  SidebarQueryVariables
-> = gql`
-  query SidebarQuery($offset: Int, $limit: Int) {
-    me {
-      user {
+fragmentRegistry.register(gql`
+  fragment Sidebar_playlists on PlaylistConnection {
+    pageInfo {
+      offset
+      limit
+      hasNextPage
+    }
+    edges {
+      node {
         id
-      }
-      playlists(offset: $offset, limit: $limit)
-        @connection(key: "rootPlaylists") {
-        pageInfo {
-          offset
-          limit
-          hasNextPage
+        images {
+          url
         }
-        edges {
-          node {
-            id
-            images {
-              url
-            }
-            ...PlaylistSidebarLink_playlist
-          }
-        }
+        ...PlaylistSidebarLink_playlist
       }
     }
   }
-`;
+`);
 
-const Sidebar = () => {
+interface SidebarProps {
+  playlists: Sidebar_playlists | null;
+  currentUserId: string;
+  onLoadMore: OffsetBasedPaginationObserverProps['fetchMore'];
+}
+
+const Sidebar = ({ playlists, currentUserId, onLoadMore }: SidebarProps) => {
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
-    variables: { limit: 50 },
-  });
 
   const [loadPlaylistDetails, queryRef, { reset }] = useLoadableQuery(
     PLAYLIST_DETAILS_MODAL_QUERY,
     { fetchPolicy: 'network-only' }
   );
-
-  const { me } = data;
-
-  if (!me) {
-    throw new Error('Must be logged in');
-  }
 
   return (
     <Layout.Sidebar>
@@ -155,7 +148,7 @@ const Sidebar = () => {
                 __typename: 'Playlist',
                 id: 'collection:tracks',
                 name: 'Liked Songs',
-                uri: `spotify:user:${me.user.id}:collection`,
+                uri: `spotify:user:${currentUserId}:collection`,
                 owner: {
                   __typename: 'User',
                   id: 'spotify',
@@ -171,7 +164,7 @@ const Sidebar = () => {
                 __typename: 'Playlist',
                 id: 'collection:episodes',
                 name: 'Your Episodes',
-                uri: `spotify:user:${me.user.id}:collection:your-episodes`,
+                uri: `spotify:user:${currentUserId}:collection:your-episodes`,
                 owner: {
                   __typename: 'User',
                   id: 'spotify',
@@ -181,7 +174,7 @@ const Sidebar = () => {
               coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
               to="/collection/episodes"
             />
-            {me.playlists?.edges.map(({ node: playlist }) => (
+            {playlists?.edges.map(({ node: playlist }) => (
               <PlaylistSidebarLink
                 pinned={false}
                 key={playlist.id}
@@ -194,8 +187,8 @@ const Sidebar = () => {
               />
             ))}
             <OffsetBasedPaginationObserver
-              pageInfo={me.playlists?.pageInfo}
-              fetchMore={fetchMore}
+              pageInfo={playlists?.pageInfo}
+              fetchMore={onLoadMore}
             />
           </div>
         </ScrollContainerContext.Provider>
