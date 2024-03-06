@@ -50,19 +50,19 @@ const useSavedTracksContains = (ids: string[]) => {
   // We rely on the useFragment above to actually return the results for us.
   // This means we can ignore the result returned from this query and the
   // queries loaded in useEffect.
-  useBackgroundQuery(SAVED_TRACKS_CONTAINS_QUERY, {
-    errorPolicy: 'ignore',
-    variables: { ids: ids.slice(0, INITIAL_BATCH_COUNT) },
-  });
+  // useBackgroundQuery(SAVED_TRACKS_CONTAINS_QUERY, {
+  //   errorPolicy: 'ignore',
+  //   variables: { ids: ids.slice(0, INITIAL_BATCH_COUNT) },
+  // });
 
   useEffect(() => {
     // We've already loaded the first 50 in the useSuspenseQuery above, so we
     // only need to load the rest
-    const batches = chunk(ids.slice(INITIAL_BATCH_COUNT), MAX_ALLOWED_IDS);
-
-    batches.forEach((ids) => {
-      client.query({ query: SAVED_TRACKS_CONTAINS_QUERY, variables: { ids } });
-    });
+    // const batches = chunk(ids.slice(INITIAL_BATCH_COUNT), MAX_ALLOWED_IDS);
+    //
+    // batches.forEach((ids) => {
+    //   client.query({ query: SAVED_TRACKS_CONTAINS_QUERY, variables: { ids } });
+    // });
   }, [client, ids]);
 
   const { complete, data } = useFragment({

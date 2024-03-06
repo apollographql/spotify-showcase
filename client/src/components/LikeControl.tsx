@@ -33,32 +33,34 @@ fragmentRegistry.register(gql`
 `);
 
 const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
-  const deferredId = useDeferredValue(playbackItem?.id);
+  // const deferredId = useDeferredValue(playbackItem?.id);
 
-  const { data } = useSuspenseQuery<
-    LikeControlQuery,
-    LikeControlQueryVariables
-  >(LIKE_CONTROL_QUERY, {
-    errorPolicy: 'ignore',
-    variables: {
-      ids: [deferredId].filter(Boolean),
-    },
-  });
+  // const { data } = useSuspenseQuery<
+  //   LikeControlQuery,
+  //   LikeControlQueryVariables
+  // >(LIKE_CONTROL_QUERY, {
+  //   errorPolicy: 'ignore',
+  //   variables: {
+  //     ids: [deferredId].filter(Boolean),
+  //   },
+  // });
 
   const [saveTracks] = useSaveTracksMutation();
   const [removeTracks] = useRemoveTracksMutation();
 
-  if (!data?.me) {
-    throw new Response('You must be logged in', { status: 401 });
-  }
+  // if (!data?.me) {
+  //   throw new Response('You must be logged in', { status: 401 });
+  // }
 
-  const {
-    me: { episodesContains, tracksContains },
-  } = data;
+  // const {
+  //   me: { episodesContains, tracksContains },
+  // } = data;
 
-  const isLiked = Boolean(
-    episodesContains?.some(Boolean) || tracksContains?.some(Boolean)
-  );
+  // const isLiked = Boolean(
+  //   episodesContains?.some(Boolean) || tracksContains?.some(Boolean)
+  // );
+
+  const isLiked = false;
 
   return (
     <LikeButton
