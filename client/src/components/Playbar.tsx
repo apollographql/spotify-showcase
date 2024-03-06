@@ -35,15 +35,6 @@ import { withHighlight } from './LoadingStateHighlighter';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
-fragmentRegistry.register(gql`
-  fragment Playbar_player on Player {
-    devices {
-      id
-      ...DevicePopover_devices
-    }
-  }
-`);
-
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
   fragment Playbar_playbackState on PlaybackState {
     isPlaying
@@ -89,6 +80,18 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     ...PlaybackItemProgressBar_playbackState
   }
 `;
+
+fragmentRegistry.register(gql`
+  fragment Playbar_player on Player {
+    devices {
+      id
+      ...DevicePopover_devices
+    }
+    playbackState {
+      ...Playbar_playbackState
+    }
+  }
+`);
 
 fragmentRegistry.register(PLAYBACK_STATE_FRAGMENT);
 

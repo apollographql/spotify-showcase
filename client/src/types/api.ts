@@ -2606,6 +2606,60 @@ export type LoggedInLayoutQuery = {
         name: string;
         type: string;
       }> | null;
+      playbackState: {
+        __typename: 'PlaybackState';
+        isPlaying: boolean;
+        repeatState: RepeatMode;
+        shuffleState: boolean;
+        progressMs: number | null;
+        timestamp: number;
+        actions: { __typename: 'Actions'; disallows: Array<Action> };
+        context: {
+          __typename: 'PlaybackContext';
+          uri: string;
+          type: PlaybackContextType;
+        } | null;
+        device: {
+          __typename: 'Device';
+          id: string | null;
+          name: string;
+          type: string;
+          volumePercent: number;
+        };
+        item:
+          | {
+              __typename: 'Episode';
+              id: string;
+              durationMs: number;
+              name: string;
+              show: {
+                __typename: 'Show';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+            }
+          | {
+              __typename: 'Track';
+              id: string;
+              durationMs: number;
+              name: string;
+              uri: string;
+              album: {
+                __typename: 'Album';
+                id: string;
+                name: string;
+                images: Array<{ __typename: 'Image'; url: string }>;
+              };
+              artists: Array<{
+                __typename: 'Artist';
+                id: string;
+                uri: string;
+                name: string;
+              }>;
+            }
+          | null;
+      } | null;
     };
   } | null;
 };
@@ -2830,16 +2884,6 @@ export type PlaybackStateSubscriberSubscription = {
   } | null;
 };
 
-export type Playbar_player = {
-  __typename: 'Player';
-  devices: Array<{
-    __typename: 'Device';
-    id: string | null;
-    name: string;
-    type: string;
-  }> | null;
-};
-
 export type Playbar_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
@@ -2893,6 +2937,70 @@ export type Playbar_playbackState = {
         }>;
       }
     | null;
+};
+
+export type Playbar_player = {
+  __typename: 'Player';
+  devices: Array<{
+    __typename: 'Device';
+    id: string | null;
+    name: string;
+    type: string;
+  }> | null;
+  playbackState: {
+    __typename: 'PlaybackState';
+    isPlaying: boolean;
+    repeatState: RepeatMode;
+    shuffleState: boolean;
+    progressMs: number | null;
+    timestamp: number;
+    actions: { __typename: 'Actions'; disallows: Array<Action> };
+    context: {
+      __typename: 'PlaybackContext';
+      uri: string;
+      type: PlaybackContextType;
+    } | null;
+    device: {
+      __typename: 'Device';
+      id: string | null;
+      name: string;
+      type: string;
+      volumePercent: number;
+    };
+    item:
+      | {
+          __typename: 'Episode';
+          id: string;
+          durationMs: number;
+          name: string;
+          show: {
+            __typename: 'Show';
+            id: string;
+            name: string;
+            images: Array<{ __typename: 'Image'; url: string }>;
+          };
+        }
+      | {
+          __typename: 'Track';
+          id: string;
+          durationMs: number;
+          name: string;
+          uri: string;
+          album: {
+            __typename: 'Album';
+            id: string;
+            name: string;
+            images: Array<{ __typename: 'Image'; url: string }>;
+          };
+          artists: Array<{
+            __typename: 'Artist';
+            id: string;
+            uri: string;
+            name: string;
+          }>;
+        }
+      | null;
+  } | null;
 };
 
 export type PlaylistDetailsModalQueryVariables = Exact<{
