@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from 'react';
+import { ReactNode, useRef } from 'react';
 import { Outlet, useNavigation } from 'react-router-dom';
 import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
@@ -111,14 +111,12 @@ const SIDEBAR_QUERY: TypedDocumentNode<
 `;
 
 const Sidebar = () => {
-  const [isPlaylistDetailsModalOpen, setIsPlaylistDetailsModalOpen] =
-    useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { data, fetchMore } = useSuspenseQuery(SIDEBAR_QUERY, {
     variables: { limit: 50 },
   });
 
-  const [preloadPlaylistDetails, queryRef] = useLoadableQuery(
+  const [loadPlaylistDetails, queryRef, { reset }] = useLoadableQuery(
     PLAYLIST_DETAILS_MODAL_QUERY,
     { fetchPolicy: 'network-only' }
   );
@@ -178,10 +176,9 @@ const Sidebar = () => {
                 playlist={playlist}
                 coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
                 to={`/playlists/${playlist.id}`}
-                onMouseOverEdit={(playlist) =>
-                  preloadPlaylistDetails({ id: playlist.id })
+                onClickEdit={(playlist) =>
+                  loadPlaylistDetails({ id: playlist.id })
                 }
-                onClickEdit={() => setIsPlaylistDetailsModalOpen(true)}
               />
             ))}
             <OffsetBasedPaginationObserver
@@ -193,8 +190,12 @@ const Sidebar = () => {
       </Layout.Sidebar.Section>
       <PlaylistDetailsModal
         queryRef={queryRef}
-        open={isPlaylistDetailsModalOpen}
-        onChange={(open) => setIsPlaylistDetailsModalOpen(open)}
+        open={queryRef !== null}
+        onChange={(open) => {
+          if (!open) {
+            reset();
+          }
+        }}
       />
     </Layout.Sidebar>
   );
