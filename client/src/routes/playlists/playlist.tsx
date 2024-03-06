@@ -1,10 +1,5 @@
-import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
-import {
-  TypedDocumentNode,
-  gql,
-  useQueryRefHandlers,
-  useReadQuery,
-} from '@apollo/client';
+import { LoaderFunctionArgs, useParams } from 'react-router-dom';
+import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import {
   PlaylistQuery,
   PlaylistQueryVariables,
@@ -33,7 +28,6 @@ import TrackLikeButtonCell from '../../components/TrackLikeButtonCell';
 import Duration from '../../components/Duration';
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
-import { preloadQuery } from '../../apollo/client';
 
 const PLAYLIST_QUERY: TypedDocumentNode<
   PlaylistQuery,
@@ -112,19 +106,16 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 `;
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
-  const { playlistId } = params;
+  const { playlistId } = params as { playlistId: string };
 
-  if (!playlistId) {
-    throw new Error('Could not find playlist');
-  }
-
-  return preloadQuery(PLAYLIST_QUERY, { variables: { id: playlistId } });
+  // DEMO! Let's move the query loading here
 };
 
 export const RouteComponent = () => {
-  const queryRef = useLoaderData() as Awaited<ReturnType<typeof loader>>;
-  const { data } = useReadQuery(queryRef);
-  const { fetchMore } = useQueryRefHandlers(queryRef);
+  const { playlistId } = useParams() as { playlistId: string };
+  const { data, fetchMore } = useSuspenseQuery(PLAYLIST_QUERY, {
+    variables: { id: playlistId },
+  });
   const playlist = data.playlist;
 
   if (!playlist) {

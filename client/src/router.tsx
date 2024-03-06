@@ -113,7 +113,8 @@ const routes = createRoutesFromElements(
         />
         <Route
           path="playlists/:playlistId"
-          loader={PlaylistRoute.loader}
+          // DEMO! Let's tell React Router about our loader function
+          // loader={PlaylistRoute.loader}
           element={<PlaylistRoute.RouteComponent />}
         />
         <Route
