@@ -54,7 +54,7 @@ const PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION = gql`
 `;
 
 const PlaybackStateSubscriber = () => {
-  useSubscription(PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION);
+  // useSubscription(PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION);
 
   return null;
 };
