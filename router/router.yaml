@@ -22,9 +22,9 @@ supergraph:
   introspection: true
   listen: 0.0.0.0:${env.PORT:-4000}
   query_planning:
-    experimental_cache:
+    cache:
       in_memory:
-        limit: 512 #This is the default value
+        limit: 512 # This is the default value
 homepage:
   enabled: false
 include_subgraph_errors:
@@ -44,7 +44,6 @@ apq:
     cache:
       in_memory:
         limit: 512 # This is the default value
-
 persisted_queries:
   enabled: true
   safelist:
@@ -66,7 +65,7 @@ persisted_queries:
 subscription:
   enabled: true
   mode:
-    preview_callback:
+    callback:
       public_url: ${env.CALLBACK_URL} # https://spotify-showcase-production-d157.up.railway.app/callback # The router's public URL
       listen: 0.0.0.0:${env.PORT:-4000} # The IP address and port the router will listen on for subscription callbacks
       path: /callback # The path of the router's callback endpoint
