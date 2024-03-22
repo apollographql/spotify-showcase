@@ -38,6 +38,7 @@ export const handlers = [
       refresh_token: 'bar',
     });
   }),
+
   graphql.operation(async ({ query, variables, operationName }) => {
     const document = gql(query);
 
