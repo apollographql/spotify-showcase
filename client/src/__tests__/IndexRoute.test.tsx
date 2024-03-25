@@ -22,13 +22,13 @@ const render = (client: ApolloClient<NormalizedCacheObject>) =>
     </ApolloProvider>
   );
 
-describe('IndexRoute', () => {
-  beforeEach(() => {
-    // since all our tests now use our production Apollo Client instance
-    // we need to reset the client cache before each test
-    return client.cache.reset();
-  });
+beforeEach(() => {
+  // since all our tests now use our production Apollo Client instance
+  // we need to reset the client cache before each test
+  return client.cache.reset();
+});
 
+describe('IndexRoute', () => {
   test('renders', async () => {
     render(client);
 
@@ -36,6 +36,7 @@ describe('IndexRoute', () => {
     expect(await screen.findByText(/this is my playlist/i)).toBeInTheDocument();
     expect(await screen.findByText(/description/i)).toBeInTheDocument();
   });
+
   test('allows resolvers to be updated via schemaProxy', async () => {
     schemaProxy.addResolvers({
       FeaturedPlaylistConnection: {
@@ -46,7 +47,19 @@ describe('IndexRoute', () => {
 
     render(client);
 
+    // TODO: why is the previous value rendered first?
+    expect(await screen.findByText(/afternoon delight/i)).toBeInTheDocument();
     // the resolver has been updated
     expect(await screen.findByText(/purple seahorse/i)).toBeInTheDocument();
+  });
+
+  test('reset method works', async () => {
+    schemaProxy.reset();
+
+    render(client);
+
+    // TODO: why is the previous value rendered first?
+    expect(await screen.findByText(/purple seahorse/i)).toBeInTheDocument();
+    expect(await screen.findByText(/afternoon delight/i)).toBeInTheDocument();
   });
 });

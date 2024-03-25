@@ -1,11 +1,13 @@
 import { graphql, http, HttpResponse } from 'msw';
 import { execute } from 'graphql';
 import { gql } from '@apollo/client';
-import { createMockSchema, proxiedSchema } from '@apollo/client/testing';
+// import { createMockSchema, proxiedSchema } from '@apollo/client/testing';
+import { createMockSchema } from '@apollo/client/testing';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import SpotifySchema from '../../schema.graphql';
+import { proxiedSchema } from './schemaProxy';
 
-const resolvers = {
+export const resolvers = {
   FeaturedPlaylistConnection: {
     message: () => 'Afternoon delight',
     edges: () => [{}],
