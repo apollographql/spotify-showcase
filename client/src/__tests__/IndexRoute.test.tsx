@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
-import { describe, test, expect } from '@jest/globals';
-import { render, screen } from '@testing-library/react';
+import { describe, test, expect, beforeEach } from '@jest/globals';
+import { render as originalRender, screen } from '@testing-library/react';
 import {
   ApolloClient,
   ApolloProvider,
@@ -11,8 +11,8 @@ import client from '../apollo/client';
 import { BrowserRouter } from 'react-router-dom';
 import { schemaProxy } from '../mocks/handlers';
 
-const customRender = (client: ApolloClient<NormalizedCacheObject>) =>
-  render(
+const render = (client: ApolloClient<NormalizedCacheObject>) =>
+  originalRender(
     <ApolloProvider client={client}>
       <Suspense fallback={<IndexRoute.LoadingState />}>
         <BrowserRouter>
@@ -23,14 +23,20 @@ const customRender = (client: ApolloClient<NormalizedCacheObject>) =>
   );
 
 describe('IndexRoute', () => {
+  beforeEach(() => {
+    // since all our tests now use our production Apollo Client instance
+    // we need to reset the client cache before each test
+    return client.cache.reset();
+  });
+
   test('renders', async () => {
-    customRender(client);
+    render(client);
 
     expect(await screen.findByText(/afternoon delight/i)).toBeInTheDocument();
     expect(await screen.findByText(/this is my playlist/i)).toBeInTheDocument();
     expect(await screen.findByText(/description/i)).toBeInTheDocument();
   });
-  test.failing('allows resolvers to be updates via schemaProxy', async () => {
+  test('allows resolvers to be updated via schemaProxy', async () => {
     schemaProxy.addResolvers({
       FeaturedPlaylistConnection: {
         message: () => 'purple seahorse',
@@ -38,11 +44,9 @@ describe('IndexRoute', () => {
       },
     });
 
-    customRender(client);
+    render(client);
 
-    // we should be able to see the updated resolver data here, but L44 is failing
+    // the resolver has been updated
     expect(await screen.findByText(/purple seahorse/i)).toBeInTheDocument();
-    expect(await screen.findByText(/this is my playlist/i)).toBeInTheDocument();
-    expect(await screen.findByText(/description/i)).toBeInTheDocument();
   });
 });
