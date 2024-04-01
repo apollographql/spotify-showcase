@@ -321,7 +321,7 @@ export namespace Spotify {
       followers: Followers;
       href: string;
       id: string;
-      images: Image[];
+      images: Image[] | null;
       name: string;
       owner: UserSimplified;
       primary_color: string | null;
@@ -338,7 +338,7 @@ export namespace Spotify {
       external_urls: ExternalUrl;
       href: string;
       id: string;
-      images: Image[];
+      images: Image[] | null;
       name: string;
       owner: User;
       primary_color: string | null;

@@ -1484,7 +1484,7 @@ type Playlist @key(fields: "id") {
   **Note**: If returned, the source URL for the image (`url`) is temporary and
   will expire in less than a day.
   """
-  images: [Image!]!
+  images: [Image!]
 
   """
   The name of the playlist.

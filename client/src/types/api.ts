@@ -986,7 +986,7 @@ export type Playlist = {
    * **Note**: If returned, the source URL for the image (`url`) is temporary and
    * will expire in less than a day.
    */
-  images: Array<Image>;
+  images: Maybe<Array<Image>>;
   /** The name of the playlist. */
   name: Scalars['String']['output'];
   /** The user who owns the playlist. */
@@ -2595,7 +2595,7 @@ export type SidebarQuery = {
           id: string;
           uri: string;
           name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
+          images: Array<{ __typename: 'Image'; url: string }> | null;
           owner: { __typename: 'User'; id: string; displayName: string | null };
         };
       }>;
@@ -2884,7 +2884,7 @@ export type PlaylistDetailsModalQuery = {
     id: string;
     name: string;
     description: string | null;
-    images: Array<{ __typename: 'Image'; url: string }>;
+    images: Array<{ __typename: 'Image'; url: string }> | null;
   } | null;
 };
 
@@ -2913,7 +2913,7 @@ export type PlaylistTile_playlist = {
   name: string;
   description: string | null;
   uri: string;
-  images: Array<{ __typename: 'Image'; url: string }>;
+  images: Array<{ __typename: 'Image'; url: string }> | null;
 };
 
 export type PlaylistTitleCell_playbackState = {
@@ -3635,7 +3635,7 @@ export type CollectionPlaylistsRouteQuery = {
           name: string;
           description: string | null;
           uri: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
+          images: Array<{ __typename: 'Image'; url: string }> | null;
         };
       }>;
     } | null;
@@ -3666,7 +3666,7 @@ export type CollectionPlaylistsRoutePaginatedQuery = {
           name: string;
           description: string | null;
           uri: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
+          images: Array<{ __typename: 'Image'; url: string }> | null;
         };
       }>;
     } | null;
@@ -3851,7 +3851,7 @@ export type IndexRouteQuery = {
         name: string;
         description: string | null;
         uri: string;
-        images: Array<{ __typename: 'Image'; url: string }>;
+        images: Array<{ __typename: 'Image'; url: string }> | null;
       };
     }>;
   } | null;
@@ -3876,7 +3876,7 @@ export type PlaylistQuery = {
       __typename: 'Image';
       url: string;
       vibrantColor: string | null;
-    }>;
+    }> | null;
     owner: { __typename: 'User'; id: string; displayName: string | null };
     tracks: {
       __typename: 'PlaylistTrackConnection';
