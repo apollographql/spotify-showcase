@@ -8,6 +8,7 @@ import {
 } from '../../types/api';
 import OffsetBasedPaginationObserver from '../../components/OffsetBasedPaginationObserver';
 
+// EXERCISE
 const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
   query CollectionAlbumsRouteQuery($offset: Int, $limit: Int) {
     me {
@@ -20,7 +21,11 @@ const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            ...AlbumTile_album
+            name
+            totalTracks
+            images {
+              url
+            }
           }
         }
       }

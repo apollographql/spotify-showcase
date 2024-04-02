@@ -25,6 +25,7 @@ export const RouteComponent = () => {
   return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };
 
+// EXERCISE
 const INDEX_ROUTE_QUERY: TypedDocumentNode<
   IndexRouteQuery,
   IndexRouteQueryVariables
@@ -33,11 +34,7 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
     albums(ids: $albumIds) {
       id
       name
-      albumType
       totalTracks
-      releaseDate {
-        date
-      }
       images {
         url
       }

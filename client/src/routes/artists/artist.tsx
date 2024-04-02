@@ -13,6 +13,7 @@ import { preloadQuery } from '../../apollo/client';
 
 type Album = NonNullable<Get<ArtistRouteQuery, 'artist.albums.edges[0].node'>>;
 
+// EXERCISE
 const ARTIST_ROUTE_QUERY: TypedDocumentNode<
   ArtistRouteQuery,
   ArtistRouteQueryVariables
@@ -55,8 +56,11 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
     edges {
       node {
         id
-
-        ...AlbumTile_album
+        name
+        totalTracks
+        images {
+          url
+        }
       }
     }
   }
