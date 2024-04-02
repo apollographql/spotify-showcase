@@ -1,19 +1,19 @@
-import { capitalize } from '../utils/string';
-import { yearOfRelease } from '../utils/releaseDate';
+// import { capitalize } from '../utils/string';
+// import { yearOfRelease } from '../utils/releaseDate';
 import MediaTile from './MediaTile';
 import { TypedDocumentNode, gql, useQuery } from '@apollo/client';
 import { AlbumTileQuery, AlbumTileQueryVariables } from '../types/api';
 import Skeleton from './Skeleton/Skeleton';
 
 // EXERCISE: Allow for album as props
-interface Album {
-  // id: string;
-  // name: string;
-  // images: Array<{ url: string }>;
-  // EXERCISE: We want to add support for this data
-  // releaseDate: { date: string };
-  // albumType: string
-}
+// interface Album {
+//   // id: string;
+//   // name: string;
+//   // images: Array<{ url: string }>;
+//   // EXERCISE: We want to add support for this data
+//   // releaseDate: { date: string };
+//   // albumType: string
+// }
 
 interface AlbumTileProps {
   // EXERCISE: Allow for album as props
