@@ -66,7 +66,7 @@ const LoggedIn = () => {
         ))}
       </TileGrid>
 
-      <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
+      <PageTitle className="mt-12">{data.featuredPlaylists?.message}</PageTitle>
       <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
         {data.featuredPlaylists?.edges.map(({ node }) => (
           <PlaylistTile key={node.id} playlist={node} />
