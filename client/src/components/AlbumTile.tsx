@@ -47,7 +47,7 @@ const AlbumTile = ({ albumId }: AlbumTileProps) => {
   }
 
   if (error) {
-    return null;
+    throw new Error('Could not fetch album');
   }
 
   const album = data!.album!;
