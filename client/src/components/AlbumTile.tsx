@@ -56,11 +56,25 @@ const AlbumTile = ({ albumId }: AlbumTileProps) => {
     <MediaTile to={`/albums/${album.id}`}>
       <MediaTile.CoverPhoto image={album.images[0]} />
       <div className="flex flex-col">
-        <MediaTile.Title>{album.name}</MediaTile.Title>
-        <MediaTile.Details>{/* EXERCISE */}</MediaTile.Details>
+        <AlbumTileDetails album={album} />
       </div>
     </MediaTile>
   );
 };
+
+interface AlbumDetailsProps {
+  album: {
+    name: string;
+  };
+}
+
+function AlbumTileDetails({ album }: AlbumDetailsProps) {
+  return (
+    <>
+      <MediaTile.Title>{album.name}</MediaTile.Title>
+      <MediaTile.Details>{/* EXERCISE */}</MediaTile.Details>
+    </>
+  );
+}
 
 export default AlbumTile;
