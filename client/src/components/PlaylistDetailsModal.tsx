@@ -80,7 +80,7 @@ const PlaylistDetails = ({ queryRef }: PlaylistDetailsProps) => {
     <Form form={form} className="flex gap-4">
       <CoverPhoto
         animateIn
-        image={playlist.images[0]}
+        image={(playlist.images ?? [])[0]}
         className="row-span-2 flex-1"
       />
       <div className="flex flex-col gap-4 flex-1">

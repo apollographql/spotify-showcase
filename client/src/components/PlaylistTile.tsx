@@ -37,7 +37,7 @@ const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
       }
     >
       <MediaTile to={`/playlists/${playlist.id}`}>
-        <MediaTile.CoverPhoto image={playlist.images[0]} />
+        <MediaTile.CoverPhoto image={(playlist.images ?? [])[0]} />
         <div className="flex flex-col">
           <MediaTile.Title>{playlist.name}</MediaTile.Title>
           <MediaTile.Details>
