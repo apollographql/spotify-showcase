@@ -176,7 +176,9 @@ const Sidebar = () => {
                 pinned={false}
                 key={playlist.id}
                 playlist={playlist}
-                coverPhoto={<CoverPhoto image={thumbnail(playlist.images)} />}
+                coverPhoto={
+                  <CoverPhoto image={thumbnail(playlist.images ?? [])} />
+                }
                 to={`/playlists/${playlist.id}`}
                 onMouseOverEdit={(playlist) =>
                   preloadPlaylistDetails({ id: playlist.id })
