@@ -56,9 +56,12 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
     edges {
       node {
         id
+        ...AlbumTile_album
       }
     }
   }
+
+  ${AlbumTile.fragments.album}
 `;
 
 const getAlbums = (albumConnection: Get<ArtistRouteQuery, 'artist.albums'>) => {
@@ -153,7 +156,7 @@ const AlbumSection = ({ albums, title }: AlbumSectionProps) => {
       <h2>{title}</h2>
       <TileGrid gap="1rem" minTileWidth="200px">
         {albums.map((album) => (
-          <AlbumTile key={album.id} albumId={album.id} />
+          <AlbumTile key={album.id} album={album} />
         ))}
       </TileGrid>
     </section>

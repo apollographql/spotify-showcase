@@ -2361,17 +2361,20 @@ export enum __TypeKind {
   NonNull = 'NON_NULL',
 }
 
-export type AlbumTileQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
+export type AlbumTileDetails_album = {
+  __typename: 'Album';
+  name: string;
+  albumType: AlbumType;
+  releaseDate: { __typename: 'ReleaseDate'; date: string };
+};
 
-export type AlbumTileQuery = {
-  album: {
-    __typename: 'Album';
-    id: string;
-    name: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  } | null;
+export type AlbumTile_album = {
+  __typename: 'Album';
+  id: string;
+  name: string;
+  albumType: AlbumType;
+  images: Array<{ __typename: 'Image'; url: string }>;
+  releaseDate: { __typename: 'ReleaseDate'; date: string };
 };
 
 export type AlbumTrackTitleCell_playbackState = {
@@ -3458,21 +3461,42 @@ export type ArtistRouteQuery = {
       __typename: 'ArtistAlbumsConnection';
       edges: Array<{
         __typename: 'ArtistAlbumEdge';
-        node: { __typename: 'Album'; id: string };
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          images: Array<{ __typename: 'Image'; url: string }>;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+        };
       }> | null;
     } | null;
     singles: {
       __typename: 'ArtistAlbumsConnection';
       edges: Array<{
         __typename: 'ArtistAlbumEdge';
-        node: { __typename: 'Album'; id: string };
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          images: Array<{ __typename: 'Image'; url: string }>;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+        };
       }> | null;
     } | null;
     appearsOn: {
       __typename: 'ArtistAlbumsConnection';
       edges: Array<{
         __typename: 'ArtistAlbumEdge';
-        node: { __typename: 'Album'; id: string };
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          images: Array<{ __typename: 'Image'; url: string }>;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+        };
       }> | null;
     } | null;
     followers: { __typename: 'Followers'; total: number };
@@ -3502,7 +3526,14 @@ export type ArtistRouteQuery_albums = {
   __typename: 'ArtistAlbumsConnection';
   edges: Array<{
     __typename: 'ArtistAlbumEdge';
-    node: { __typename: 'Album'; id: string };
+    node: {
+      __typename: 'Album';
+      id: string;
+      name: string;
+      albumType: AlbumType;
+      images: Array<{ __typename: 'Image'; url: string }>;
+      releaseDate: { __typename: 'ReleaseDate'; date: string };
+    };
   }> | null;
 };
 
@@ -3524,7 +3555,14 @@ export type CollectionAlbumsRouteQuery = {
       };
       edges: Array<{
         __typename: 'SavedAlbumEdge';
-        node: { __typename: 'Album'; id: string };
+        node: {
+          __typename: 'Album';
+          id: string;
+          name: string;
+          albumType: AlbumType;
+          images: Array<{ __typename: 'Image'; url: string }>;
+          releaseDate: { __typename: 'ReleaseDate'; date: string };
+        };
       }>;
     } | null;
   } | null;
@@ -3804,7 +3842,14 @@ export type IndexRouteQueryVariables = Exact<{
 }>;
 
 export type IndexRouteQuery = {
-  albums: Array<{ __typename: 'Album'; id: string }> | null;
+  albums: Array<{
+    __typename: 'Album';
+    id: string;
+    name: string;
+    albumType: AlbumType;
+    images: Array<{ __typename: 'Image'; url: string }>;
+    releaseDate: { __typename: 'ReleaseDate'; date: string };
+  }> | null;
   featuredPlaylists: {
     __typename: 'FeaturedPlaylistConnection';
     message: string;
