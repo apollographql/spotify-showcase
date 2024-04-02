@@ -2361,6 +2361,19 @@ export enum __TypeKind {
   NonNull = 'NON_NULL',
 }
 
+export type AlbumTileQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+export type AlbumTileQuery = {
+  album: {
+    __typename: 'Album';
+    id: string;
+    name: string;
+    images: Array<{ __typename: 'Image'; url: string }>;
+  } | null;
+};
+
 export type AlbumTrackTitleCell_playbackState = {
   __typename: 'PlaybackState';
   context: { __typename: 'PlaybackContext'; uri: string } | null;
@@ -3445,39 +3458,21 @@ export type ArtistRouteQuery = {
       __typename: 'ArtistAlbumsConnection';
       edges: Array<{
         __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          totalTracks: number;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
+        node: { __typename: 'Album'; id: string };
       }> | null;
     } | null;
     singles: {
       __typename: 'ArtistAlbumsConnection';
       edges: Array<{
         __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          totalTracks: number;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
+        node: { __typename: 'Album'; id: string };
       }> | null;
     } | null;
     appearsOn: {
       __typename: 'ArtistAlbumsConnection';
       edges: Array<{
         __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          totalTracks: number;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
+        node: { __typename: 'Album'; id: string };
       }> | null;
     } | null;
     followers: { __typename: 'Followers'; total: number };
@@ -3507,13 +3502,7 @@ export type ArtistRouteQuery_albums = {
   __typename: 'ArtistAlbumsConnection';
   edges: Array<{
     __typename: 'ArtistAlbumEdge';
-    node: {
-      __typename: 'Album';
-      id: string;
-      name: string;
-      totalTracks: number;
-      images: Array<{ __typename: 'Image'; url: string }>;
-    };
+    node: { __typename: 'Album'; id: string };
   }> | null;
 };
 
@@ -3535,13 +3524,7 @@ export type CollectionAlbumsRouteQuery = {
       };
       edges: Array<{
         __typename: 'SavedAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          totalTracks: number;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
+        node: { __typename: 'Album'; id: string };
       }>;
     } | null;
   } | null;
@@ -3821,13 +3804,7 @@ export type IndexRouteQueryVariables = Exact<{
 }>;
 
 export type IndexRouteQuery = {
-  albums: Array<{
-    __typename: 'Album';
-    id: string;
-    name: string;
-    totalTracks: number;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  }> | null;
+  albums: Array<{ __typename: 'Album'; id: string }> | null;
   featuredPlaylists: {
     __typename: 'FeaturedPlaylistConnection';
     message: string;

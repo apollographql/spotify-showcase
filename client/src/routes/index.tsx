@@ -33,11 +33,6 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
   query IndexRouteQuery($timestamp: DateTime, $albumIds: [ID!]!) {
     albums(ids: $albumIds) {
       id
-      name
-      totalTracks
-      images {
-        url
-      }
     }
     featuredPlaylists(timestamp: $timestamp) {
       message
@@ -67,7 +62,7 @@ const LoggedIn = () => {
       <PageTitle>Chart toppers</PageTitle>
       <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
         {data.albums?.map((album) => (
-          <AlbumTile key={album.id} album={album} />
+          <AlbumTile key={album.id} albumId={album.id} />
         ))}
       </TileGrid>
 

@@ -21,11 +21,6 @@ const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            name
-            totalTracks
-            images {
-              url
-            }
           }
         }
       }
@@ -53,7 +48,7 @@ export const RouteComponent = () => {
       <h1 className="mb-0 text-2xl">Albums</h1>
       <TileGrid gap="1rem" minTileWidth="200px">
         {albums.map((album) => (
-          <AlbumTile key={album.id} album={album} />
+          <AlbumTile key={album.id} albumId={album.id} />
         ))}
       </TileGrid>
       <OffsetBasedPaginationObserver
