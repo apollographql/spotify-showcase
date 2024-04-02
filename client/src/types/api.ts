@@ -3837,9 +3837,19 @@ export type EpisodeRouteQuery = {
 
 export type IndexRouteQueryVariables = Exact<{
   timestamp?: InputMaybe<Scalars['DateTime']['input']>;
+  albumIds: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
 
 export type IndexRouteQuery = {
+  albums: Array<{
+    __typename: 'Album';
+    id: string;
+    name: string;
+    albumType: AlbumType;
+    totalTracks: number;
+    releaseDate: { __typename: 'ReleaseDate'; date: string };
+    images: Array<{ __typename: 'Image'; url: string }>;
+  }> | null;
   featuredPlaylists: {
     __typename: 'FeaturedPlaylistConnection';
     message: string;

@@ -1,11 +1,5 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import {
-  gql,
-  useBackgroundQuery,
-  useReadQuery,
-  TypedDocumentNode,
-} from '@apollo/client';
-import { QueryReference } from '@apollo/client';
+import { gql, TypedDocumentNode, useSuspenseQuery } from '@apollo/client';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
@@ -15,7 +9,15 @@ import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
 import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
-import Suspense from '../components/Suspense';
+import AlbumTile from '../components/AlbumTile';
+
+const POPULAR_ALBUM_IDS = [
+  '64LU4c1nfjz1t4VnGhagcg',
+  '4czdORdCWP9umpbhFXK2fW',
+  '1bBez9PNvkJPW08bU7NYta',
+  '2Cn1d2KgbkAqbZCJ1RzdkA',
+  '1NAmidJlEaVgA3MpcPFYGq',
+];
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -27,7 +29,19 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
   IndexRouteQuery,
   IndexRouteQueryVariables
 > = gql`
-  query IndexRouteQuery($timestamp: DateTime) {
+  query IndexRouteQuery($timestamp: DateTime, $albumIds: [ID!]!) {
+    albums(ids: $albumIds) {
+      id
+      name
+      albumType
+      totalTracks
+      releaseDate {
+        date
+      }
+      images {
+        url
+      }
+    }
     featuredPlaylists(timestamp: $timestamp) {
       message
       edges {
@@ -47,25 +61,19 @@ const LoggedIn = () => {
   // this component unsuspends
   const timestamp = startOfHour(new Date()).toISOString();
 
-  const [queryRef] = useBackgroundQuery(INDEX_ROUTE_QUERY, {
-    variables: { timestamp },
+  const { data } = useSuspenseQuery(INDEX_ROUTE_QUERY, {
+    variables: { timestamp, albumIds: POPULAR_ALBUM_IDS },
   });
 
   return (
-    <Suspense fallback={<LoadingState />}>
-      <PlaylistTileGrid queryRef={queryRef} />
-    </Suspense>
-  );
-};
-
-const PlaylistTileGrid = ({
-  queryRef,
-}: {
-  queryRef: QueryReference<IndexRouteQuery>;
-}) => {
-  const { data } = useReadQuery(queryRef);
-  return (
     <div className={containerStyles}>
+      <PageTitle>Chart toppers</PageTitle>
+      <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
+        {data.albums?.map((album) => (
+          <AlbumTile key={album.id} album={album} />
+        ))}
+      </TileGrid>
+
       <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
       <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
         {data.featuredPlaylists?.edges.map(({ node }) => (
