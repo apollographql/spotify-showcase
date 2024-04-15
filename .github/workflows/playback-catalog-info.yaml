@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - backstage-catalog-info
     paths:
       - 'subgraphs/playback/schema.graphql'
   # Allows you to run this workflow manually from the Actions tab
@@ -19,3 +20,13 @@ jobs:
           check-latest: true
       - run: npm install
       - run: npm run catalog:playback
+      - name: Commit files
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add --all
+          git commit -m "Update catalog-info.yaml" -a
+          git push -u origin $GITHUB_REF 
+          SHA=$(git rev-parse HEAD)
+          echo "::set-output name=commitid::$SHA"

@@ -9,6 +9,8 @@
     "./subgraphs/*"
   ],
   "scripts": {
+    "catalog:playback":"ts-node ./scripts/catalog-info.ts playback",
+    "catalog:spotify":"ts-node ./scripts/catalog-info.ts spotify",
     "codegen": "rover graph fetch Spotify-tb7du2@prod-external | prettier --parser graphql > ./client/schema.graphql && graphql-codegen",
     "docker:build:spotify": "docker build -t subgraph-spotify -f ./subgraphs/spotify/Dockerfile .",
     "docker:build:playback": "docker build -t subgraph-playback -f ./subgraphs/playback/Dockerfile .",
