@@ -15,6 +15,53 @@ spec:
     - Track
     - Show
   definition: |
+    # ⚠️ This definition must be created dynamically. The union
+    #   must include every object type in the schema that uses
+    #   the @key directive (i.e., all federated entities).
+    union _Entity = Album | Artist | CurrentUserProfile | Episode | UserProfile | PlaybackItem | Playlist | Show | Track | User
+
+    scalar _Any
+    scalar FieldSet
+    scalar link__Import
+    scalar federation__Scope
+    scalar federation__Policy
+
+    enum link__Purpose {
+      """
+      `SECURITY` features provide metadata necessary to securely resolve fields.
+      """
+      SECURITY
+
+      """
+      `EXECUTION` features provide metadata necessary for operation execution.
+      """
+      EXECUTION
+    }
+
+    type _Service {
+      sdl: String!
+    }
+
+    extend type Query {
+      _entities(representations: [_Any!]!): [_Entity]!
+      _service: _Service!
+    }
+
+    directive @external on FIELD_DEFINITION | OBJECT
+    directive @requires(fields: FieldSet!) on FIELD_DEFINITION
+    directive @provides(fields: FieldSet!) on FIELD_DEFINITION
+    directive @key(fields: FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
+    directive @link(url: String!, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
+    directive @shareable repeatable on OBJECT | FIELD_DEFINITION
+    directive @inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+    directive @tag(name: String!) repeatable on FIELD_DEFINITION | INTERFACE | OBJECT | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+    directive @override(from: String!) on FIELD_DEFINITION
+    directive @composeDirective(name: String!) repeatable on SCHEMA
+    directive @interfaceObject on OBJECT
+    directive @authenticated on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
+    directive @requiresScopes(scopes: [[federation__Scope!]!]!) on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
+    directive @policy(policies: [[federation__Policy!]!]!) on FIELD_DEFINITION | OBJECT | INTERFACE | SCALAR | ENUM
+
     # @contact isn't being printed to the generated-schema.graphql file
     # See https://github.com/apollographql/federation/issues/1847
     directive @contact(
