@@ -10,6 +10,10 @@ spec:
   type: graphql
   lifecycle: production
   owner: devrel
+  providesApis:
+    - Album
+    - Track
+    - Show
   definition: |
     # @contact isn't being printed to the generated-schema.graphql file
     # See https://github.com/apollographql/federation/issues/1847
