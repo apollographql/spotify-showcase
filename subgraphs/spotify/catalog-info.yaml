@@ -10,9 +10,6 @@ spec:
   type: graphql
   lifecycle: production
   owner: devrel
-  system: spotify-service
-  providesApis:
-    - sample-service
   definition: >-
     directive @contact(
       """Contact title of the subgraph owner"""
