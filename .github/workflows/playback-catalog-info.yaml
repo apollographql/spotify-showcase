@@ -1,0 +1,21 @@
+name: Publish updated catalog info for schema
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'subgraphs/playback/schema.graphql'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  publish_playback_schema:
+    name: Update Catalog Info
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          check-latest: true
+      - run: npm install
+      - run: npm run catalog:playback
