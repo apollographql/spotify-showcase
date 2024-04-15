@@ -10,7 +10,7 @@ spec:
   type: graphql
   lifecycle: production
   owner: devrel
-  definition: |
+  definition: >-
     directive @contact(
       """Contact title of the subgraph owner"""
       name: String!
@@ -21,6 +21,7 @@ spec:
       """Other relevant notes can be included here; supports markdown links"""
       description: String
     ) on SCHEMA
+
 
     directive @synthetics(
       """The synthetic timeout configured for the field."""
@@ -33,37 +34,62 @@ spec:
       enabled: Boolean = true
     ) on FIELD
 
-    directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
 
-    directive @key(fields: federation__FieldSet!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
+    directive @link(url: String, as: String, for: link__Purpose, import:
+    [link__Import]) repeatable on SCHEMA
 
-    directive @federation__requires(fields: federation__FieldSet!) on FIELD_DEFINITION
 
-    directive @federation__provides(fields: federation__FieldSet!) on FIELD_DEFINITION
+    directive @key(fields: federation__FieldSet!, resolvable: Boolean = true)
+    repeatable on OBJECT | INTERFACE
+
+
+    directive @federation__requires(fields: federation__FieldSet!) on
+    FIELD_DEFINITION
+
+
+    directive @federation__provides(fields: federation__FieldSet!) on
+    FIELD_DEFINITION
+
 
     directive @federation__external(reason: String) on OBJECT | FIELD_DEFINITION
 
-    directive @tag(name: String!) repeatable on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION | SCHEMA
+
+    directive @tag(name: String!) repeatable on FIELD_DEFINITION | OBJECT |
+    INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE |
+    INPUT_OBJECT | INPUT_FIELD_DEFINITION | SCHEMA
+
 
     directive @federation__extends on OBJECT | INTERFACE
 
+
     directive @shareable repeatable on OBJECT | FIELD_DEFINITION
 
-    directive @federation__inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+
+    directive @federation__inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE
+    | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT |
+    INPUT_FIELD_DEFINITION
+
 
     directive @federation__override(from: String!) on FIELD_DEFINITION
 
+
     directive @federation__composeDirective(name: String) repeatable on SCHEMA
+
 
     directive @federation__interfaceObject on OBJECT
 
+
     scalar CountryCode
+
 
     scalar DateTime
 
+
     scalar Timestamp
 
+
     scalar ErrorRate
+
 
     type Query {
       """Spotify catalog information for an album."""
@@ -290,6 +316,7 @@ spec:
       _service: _Service!
     }
 
+
     type Mutation {
       """Add an item to the end of the user's current playback queue."""
       addItemToPlaybackQueue(input: AddItemToPlaybackQueueInput!): AddItemToPlaybackQueuePayload
@@ -339,6 +366,7 @@ spec:
       saveTracks(input: SaveTracksInput!): SaveTracksPayload
     }
 
+
     enum Action {
       INTERRUPTING_PLAYBACK
       PAUSING
@@ -352,9 +380,11 @@ spec:
       TRANSFERRING_PLAYBACK
     }
 
+
     type Actions {
       disallows: [Action!]!
     }
+
 
     input AddItemToPlaybackQueueInput {
       """
@@ -369,9 +399,11 @@ spec:
       deviceId: ID
     }
 
+
     type AddItemToPlaybackQueuePayload {
       playbackQueue: PlaybackQueue
     }
+
 
     input AddItemsToPlaylistInput {
       """
@@ -397,12 +429,15 @@ spec:
       position: Int
     }
 
+
     type AddItemsToPlaylistPayload {
       """The playlist that contains the newly added items"""
       playlist: Playlist
     }
 
+
     """Spotify catalog information for an album."""
+
     type Album {
       """The type of the album."""
       albumType: AlbumType!
@@ -468,12 +503,14 @@ spec:
       uri: String!
     }
 
+
     enum AlbumGroup {
       ALBUM
       SINGLE
       APPEARS_ON
       COMPILATION
     }
+
 
     type AlbumTrackConnection {
       """The set of tracks."""
@@ -483,10 +520,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type AlbumTrackEdge {
       """The track on the album"""
       node: Track!
     }
+
 
     enum AlbumType {
       ALBUM
@@ -494,7 +533,9 @@ spec:
       COMPILATION
     }
 
+
     """Spotify catalog information for an artist."""
+
     type Artist {
       """Spotify catalog information about an artist's albums."""
       albums(
@@ -567,6 +608,7 @@ spec:
       uri: String!
     }
 
+
     type ArtistAlbumsConnection {
       """A list of albums that belong to the artist."""
       edges: [ArtistAlbumEdge!]
@@ -577,10 +619,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type ArtistAlbumEdge {
       """Spotify catalog information for the album."""
       node: Album!
     }
+
 
     type Contains {
       """
@@ -608,6 +652,7 @@ spec:
       tracks: [Boolean!]
     }
 
+
     type Copyright {
       """The copyright text for this content."""
       text: String!
@@ -619,6 +664,7 @@ spec:
       type: CopyrightType
     }
 
+
     enum CopyrightType {
       """The copyright"""
       C
@@ -626,6 +672,7 @@ spec:
       """The sound recording (performance) copyright."""
       P
     }
+
 
     type CurrentlyPlaying {
       """
@@ -649,6 +696,7 @@ spec:
       """Unix Millisecond Timestamp when data was fetched."""
       timestamp: Timestamp!
     }
+
 
     type CurrentUser {
       """
@@ -829,6 +877,7 @@ spec:
       ): [Boolean!]
     }
 
+
     type CurrentUserProfile implements UserProfile {
       """
       The country of the user, as set in the user's account profile. An ISO 3166-1
@@ -877,6 +926,7 @@ spec:
       uri: String!
     }
 
+
     type Developer {
       """
       A list of configured GraphQL fields. Only fields that have non-zero timeouts
@@ -884,6 +934,7 @@ spec:
       """
       fieldConfigs: [FieldConfig!]!
     }
+
 
     type Device {
       """The device ID"""
@@ -919,7 +970,9 @@ spec:
       volumePercent: Int!
     }
 
+
     """Spotify catalog information for an episode."""
+
     type Episode implements PlaylistTrack & PlaybackItem {
       """
       The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode.
@@ -985,6 +1038,7 @@ spec:
       uri: String!
     }
 
+
     type ExplicitContentSettings {
       """When `true`, indicates that explicit content should not be played."""
       filterEnabled: Boolean!
@@ -996,6 +1050,7 @@ spec:
       filterLocked: Boolean!
     }
 
+
     type ExternalUrl {
       """
       The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -1003,6 +1058,7 @@ spec:
       """
       spotify: String
     }
+
 
     type FeaturedPlaylistConnection {
       message: String!
@@ -1017,9 +1073,11 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type FeaturedPlaylistEdge {
       node: Playlist!
     }
+
 
     type FieldConfig {
       """The schema field that includes this config"""
@@ -1032,6 +1090,7 @@ spec:
       errorRate: ErrorRate!
     }
 
+
     type FollowedArtistsConnection {
       """The list of followed artists."""
       edges: [FollowedArtistEdge!]!
@@ -1040,15 +1099,18 @@ spec:
       pageInfo: PageInfoCursorBased!
     }
 
+
     type FollowedArtistEdge {
       """The followed artist"""
       node: Artist!
     }
 
+
     input ResetFieldConfigInput {
       """The field that will be reset to its default values"""
       field: FieldInput!
     }
+
 
     input FieldInput {
       """
@@ -1060,6 +1122,7 @@ spec:
       """
       schemaField: SchemaFieldInput
     }
+
 
     input FieldConfigInput {
       """
@@ -1078,10 +1141,12 @@ spec:
       errorRate: ErrorRate
     }
 
+
     type Followers {
       """The total number of followers."""
       total: Int!
     }
+
 
     type Image {
       """The source URL of the image."""
@@ -1094,6 +1159,7 @@ spec:
       width: Int
     }
 
+
     type NewReleasesConnection {
       """The list of new releases"""
       edges: [NewReleaseEdge!]!
@@ -1102,10 +1168,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type NewReleaseEdge {
       """The newly released album"""
       node: Album!
     }
+
 
     type PageInfo {
       """Whether there is a next page of items."""
@@ -1125,6 +1193,7 @@ spec:
       """The total number of items returned for the page."""
       total: Int!
     }
+
 
     type PageInfoCursorBased {
       """
@@ -1147,6 +1216,7 @@ spec:
       total: Int!
     }
 
+
     type Cursors {
       """The cursor to use as key to find the next page of items."""
       after: String
@@ -1154,6 +1224,7 @@ spec:
       """The ursor to use as key to find the previous page of items."""
       before: String
     }
+
 
     type PlaybackContext {
       """A link to the Web API endpoint providing full details of the track."""
@@ -1172,6 +1243,7 @@ spec:
       uri: String!
     }
 
+
     enum PlaybackContextType {
       ALBUM
       ARTIST
@@ -1185,6 +1257,7 @@ spec:
       TRACK
       USER
     }
+
 
     interface UserProfile {
       """
@@ -1210,6 +1283,7 @@ spec:
       """
       uri: String!
     }
+
 
     interface PlaybackItem {
       """The duration for the playback item in milliseconds."""
@@ -1239,10 +1313,12 @@ spec:
       uri: String!
     }
 
+
     type PlaybackQueue {
       currentlyPlaying: PlaybackItem
       queue: [PlaybackItem!]!
     }
+
 
     type PlaybackState {
       """
@@ -1275,6 +1351,7 @@ spec:
       """Unix Millisecond Timestamp when data was fetched."""
       timestamp: Timestamp!
     }
+
 
     type Player {
       """
@@ -1320,7 +1397,9 @@ spec:
       ): RecentlyPlayedConnection
     }
 
+
     """Information about a playlist owned by a Spotify user"""
+
     type Playlist {
       """
       The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -1384,7 +1463,9 @@ spec:
       uri: String!
     }
 
+
     """A paged set of playlists"""
+
     type PlaylistConnection {
       """The set of playlists."""
       edges: [PlaylistEdge!]!
@@ -1393,12 +1474,15 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type PlaylistEdge {
       """The playlist"""
       node: Playlist!
     }
 
+
     """A paged set of tracks for a playlist"""
+
     type PlaylistTrackConnection {
       """Pagination information for the tracks belonging to a playlist"""
       edges: [PlaylistTrackEdge!]!
@@ -1406,6 +1490,7 @@ spec:
       """Pagination information for the tracks belonging to a playlist"""
       pageInfo: PageInfo!
     }
+
 
     type PlaylistTrackEdge {
       """The date and time the track was added to the playlist"""
@@ -1417,6 +1502,7 @@ spec:
       """The playlist track"""
       node: PlaylistTrack!
     }
+
 
     interface PlaylistTrack {
       """The playlist track length in milliseconds."""
@@ -1443,10 +1529,12 @@ spec:
       uri: String!
     }
 
+
     type RecentlyPlayedConnection {
       """The list of recently played items."""
       edges: [RecentlyPlayedEdge!]!
     }
+
 
     type RecentlyPlayedEdge {
       """The date and time the track was played at."""
@@ -1459,7 +1547,9 @@ spec:
       context: PlaybackContext
     }
 
+
     """Information about recommendations for the current user"""
+
     type Recommendations {
       """
       An array of recommendation [seed objects](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject).
@@ -1473,11 +1563,13 @@ spec:
       tracks: [Track!]!
     }
 
+
     input RecommendationAcousticnessInput {
       min: Float
       max: Float
       target: Float
     }
+
 
     input RecommendationDanceabilityInput {
       min: Float
@@ -1485,11 +1577,13 @@ spec:
       target: Float
     }
 
+
     input RecommendationDurationMsInput {
       min: Int
       max: Int
       target: Int
     }
+
 
     input RecommendationEnergyInput {
       min: Float
@@ -1497,11 +1591,13 @@ spec:
       target: Float
     }
 
+
     input RecommendationInstrumentalnessInput {
       min: Float
       max: Float
       target: Float
     }
+
 
     input RecommendationKeyInput {
       min: Int
@@ -1509,11 +1605,13 @@ spec:
       target: Int
     }
 
+
     input RecommendationLivenessInput {
       min: Float
       max: Float
       target: Float
     }
+
 
     input RecommendationLoudnessInput {
       min: Float
@@ -1521,11 +1619,13 @@ spec:
       target: Float
     }
 
+
     input RecommendationModeInput {
       min: Int
       max: Int
       target: Int
     }
+
 
     input RecommendationPopularityInput {
       min: Float
@@ -1533,11 +1633,13 @@ spec:
       target: Float
     }
 
+
     input RecommendationSpeechinessInput {
       min: Float
       max: Float
       target: Float
     }
+
 
     input RecommendationTempoInput {
       min: Float
@@ -1545,11 +1647,13 @@ spec:
       target: Float
     }
 
+
     input RecommendationTimeSignatureInput {
       min: Int
       max: Int
       target: Int
     }
+
 
     input RecommendationValenceInput {
       min: Float
@@ -1557,9 +1661,14 @@ spec:
       target: Float
     }
 
+
     """
-    Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject).
+
+    Information about a recommendation [seed
+    object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject).
+
     """
+
     type RecommendationSeed {
       """
       The id used to select this seed. This will be the same as the string used in
@@ -1593,12 +1702,15 @@ spec:
       type: RecommendationSeedType!
     }
 
+
     """Available entity types for recommendation seeds."""
+
     enum RecommendationSeedType {
       ARTIST
       TRACK
       GENRE
     }
+
 
     type ReleaseDate {
       """
@@ -1611,11 +1723,13 @@ spec:
       precision: ReleaseDatePrecision!
     }
 
+
     enum ReleaseDatePrecision {
       YEAR
       MONTH
       DAY
     }
+
 
     enum RepeatMode {
       CONTEXT
@@ -1623,7 +1737,9 @@ spec:
       TRACK
     }
 
+
     """Spotify catalog information for a show."""
+
     type Show {
       """A description of the show."""
       description(format: TextFormat = PLAIN): String!
@@ -1690,6 +1806,7 @@ spec:
       uri: String!
     }
 
+
     type ShowEpisodesConnection {
       """A list of episodes for the show."""
       edges: [ShowEpisodeEdge!]!
@@ -1698,17 +1815,21 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type ShowEpisodeEdge {
       """The episode"""
       node: Episode!
     }
+
 
     enum TextFormat {
       PLAIN
       HTML
     }
 
+
     """Spotify catalog information for a track."""
+
     type Track implements PlaylistTrack & PlaybackItem {
       """
       The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
@@ -1794,6 +1915,7 @@ spec:
       uri: String!
     }
 
+
     type TrackAudioFeatures {
       """
       A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
@@ -1873,6 +1995,7 @@ spec:
       valence: Float!
     }
 
+
     type TrackExternalIds {
       """
       [International Standard Recording Code](http://en.wikipedia.org/wiki/International_Standard_Recording_Code)
@@ -1890,7 +2013,9 @@ spec:
       upc: String
     }
 
+
     """Public profile information about a Spotify user."""
+
     type User implements UserProfile {
       """
       The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user.
@@ -1919,6 +2044,7 @@ spec:
       uri: String!
     }
 
+
     input RecommendationSeedInput {
       """
       A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for seed artists. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
@@ -1944,10 +2070,12 @@ spec:
       seedTracks: [ID!]
     }
 
+
     type ResetFieldConfigPayload {
       """The updated field config"""
       fieldConfig: FieldConfig
     }
+
 
     type ResumePoint {
       """Whether or not the episode has been fully played by the user."""
@@ -1957,6 +2085,7 @@ spec:
       resumePositionMs: Int!
     }
 
+
     type SavedAlbumsConnection {
       """The list of saved albums."""
       edges: [SavedAlbumEdge!]!
@@ -1964,6 +2093,7 @@ spec:
       """Pagination information for the set of playlists"""
       pageInfo: PageInfo!
     }
+
 
     type SavedAlbumEdge {
       """The date the album was saved."""
@@ -1973,6 +2103,7 @@ spec:
       node: Album!
     }
 
+
     type SavedEpisodesConnection {
       """The list of saved episodes."""
       edges: [SavedEpisodeEdge!]!
@@ -1981,6 +2112,7 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SavedEpisodeEdge {
       """The date the episode was saved."""
       addedAt: DateTime!
@@ -1988,6 +2120,7 @@ spec:
       """The saved episode."""
       node: Episode!
     }
+
 
     type SavedShowsConnection {
       """A list of saved shows."""
@@ -1999,6 +2132,7 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SavedShowEdge {
       """The date the show was saved."""
       addedAt: DateTime!
@@ -2006,6 +2140,7 @@ spec:
       """The show"""
       node: Show!
     }
+
 
     type SavedTracksConnection {
       """A list of saved tracks."""
@@ -2016,6 +2151,7 @@ spec:
       """
       pageInfo: PageInfo!
     }
+
 
     input RemoveItemFromPlaylistInput {
       """
@@ -2039,9 +2175,11 @@ spec:
       tracks: [RemoveItemFromPlaylistTrackInput!]!
     }
 
+
     input RemoveItemFromPlaylistTrackInput {
       uri: String!
     }
+
 
     type RemoveItemFromPlaylistPayload {
       """A snapshot ID for the playlist"""
@@ -2051,6 +2189,7 @@ spec:
       playlist: Playlist
     }
 
+
     input RemoveSavedAlbumsInput {
       """
       A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
@@ -2059,10 +2198,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type RemoveSavedAlbumsPayload {
       """The albums that were removed from the Spotify user's library."""
       removedAlbums: [Album!]
     }
+
 
     input RemoveSavedEpisodesInput {
       """
@@ -2072,10 +2213,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type RemoveSavedEpisodesPayload {
       """The episodes that were removed from the Spotify user's library."""
       removedEpisodes: [Episode!]
     }
+
 
     input RemoveSavedShowsInput {
       """
@@ -2085,10 +2228,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type RemoveSavedShowsPayload {
       """The shows that were removed from the Spotify user's library."""
       removedShows: [Show!]
     }
+
 
     input RemoveSavedTracksInput {
       """
@@ -2098,10 +2243,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type RemoveSavedTracksPayload {
       """The tracks that were removed from the Spotify user's library."""
       removedTracks: [Track!]
     }
+
 
     input SaveAlbumsInput {
       """
@@ -2111,10 +2258,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type SaveAlbumsPayload {
       """The albums that were saved to the Spotify user's library"""
       savedAlbums: [Album!]
     }
+
 
     input SaveEpisodesInput {
       """
@@ -2124,10 +2273,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type SaveEpisodesPayload {
       """The episodes that were saved to the Spotify user's library"""
       savedEpisodes: [Episode!]
     }
+
 
     input SaveShowsInput {
       """
@@ -2137,10 +2288,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type SaveShowsPayload {
       """The shows that were saved to the Spotify user's library"""
       savedShows: [Show!]
     }
+
 
     input SaveTracksInput {
       """
@@ -2150,10 +2303,12 @@ spec:
       ids: [ID!]!
     }
 
+
     type SaveTracksPayload {
       """The tracks that were saved to the Spotify user's library"""
       savedTracks: [Track!]
     }
+
 
     type SavedTrackEdge {
       """The date the track was saved."""
@@ -2163,6 +2318,7 @@ spec:
       node: Track!
     }
 
+
     type SchemaField {
       """The parent type name in the schema (ex: `User`)"""
       typename: String!
@@ -2170,6 +2326,7 @@ spec:
       """The name of the field in the type (ex: `firstName`)"""
       fieldName: String!
     }
+
 
     input SchemaFieldInput {
       """The parent type name in the schema (ex: `User`)"""
@@ -2179,9 +2336,11 @@ spec:
       fieldName: String!
     }
 
+
     enum SearchExternalValue {
       AUDIO
     }
+
 
     enum SearchType {
       ALBUM
@@ -2191,6 +2350,7 @@ spec:
       TRACK
       SHOW
     }
+
 
     type SearchResults {
       """
@@ -2224,6 +2384,7 @@ spec:
       tracks: SearchTracksConnection
     }
 
+
     type SearchAlbumsConnection {
       """The list of albums returned from the search"""
       edges: [SearchAlbumEdge!]!
@@ -2232,10 +2393,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SearchAlbumEdge {
       """The album returned from the search"""
       node: Album!
     }
+
 
     type SearchArtistsConnection {
       """The list of artists returned from the search"""
@@ -2245,10 +2408,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SearchArtistEdge {
       """The artist returned from the search"""
       node: Artist!
     }
+
 
     type SearchEpisodesConnection {
       """The list of episodes returned from the search"""
@@ -2258,10 +2423,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SearchEpisodeEdge {
       """The episode returned from the search"""
       node: Episode!
     }
+
 
     type SearchPlaylistsConnection {
       """The list of playlists returned from the search"""
@@ -2271,10 +2438,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SearchPlaylistEdge {
       """The playlist returned from the search"""
       node: Playlist!
     }
+
 
     type SearchTracksConnection {
       """The list of tracks returned from the search"""
@@ -2284,10 +2453,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SearchTrackEdge {
       """The track returned in the search"""
       node: Track!
     }
+
 
     type SearchShowsConnection {
       """The list of shows returned from the search"""
@@ -2297,16 +2468,19 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type SearchShowEdge {
       """The show returned from the search"""
       node: Show!
     }
+
 
     enum TimeRange {
       LONG_TERM
       MEDIUM_TERM
       SHORT_TERM
     }
+
 
     type TopArtistsConnection {
       """The list of top tracks."""
@@ -2316,10 +2490,12 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type TopArtistEdge {
       """The artist."""
       node: Artist!
     }
+
 
     type TopTracksConnection {
       """The list of top tracks."""
@@ -2329,20 +2505,24 @@ spec:
       pageInfo: PageInfo!
     }
 
+
     type TopTrackEdge {
       """The track."""
       node: Track!
     }
+
 
     input UpdateFieldConfigInput {
       config: FieldConfigInput!
       field: FieldInput!
     }
 
+
     type UpdateFieldConfigPayload {
       """The updated field config"""
       fieldConfig: FieldConfig
     }
+
 
     enum link__Purpose {
       """
@@ -2356,14 +2536,20 @@ spec:
       EXECUTION
     }
 
+
     scalar link__Import
+
 
     scalar federation__FieldSet
 
+
     scalar _Any
+
 
     type _Service {
       sdl: String
     }
 
-    union _Entity = Album | Artist | CurrentUserProfile | Episode | Playlist | Show | Track | User
+
+    union _Entity = Album | Artist | CurrentUserProfile | Episode | Playlist |
+    Show | Track | User
