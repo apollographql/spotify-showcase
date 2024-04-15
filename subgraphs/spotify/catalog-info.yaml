@@ -2,7 +2,8 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: spotify-subgraph
-  description: The subgraph for query functionality of the Spotify REST APIs
+  description: >-
+    The subgraph for query functionality of the Spotify REST APIs
   tags:
     - subgraph
   links:
