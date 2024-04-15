@@ -4,8 +4,7 @@ metadata:
   name: spotify-subgraph
   description: The subgraph for query functionality of the Spotify REST APIs
   tags:
-    "subgraph"
-    "graphql"
+    - subgraph
   links:
     - url: https://spotify-subgraph-production.up.railway.app/
       title: Production Endpoint
