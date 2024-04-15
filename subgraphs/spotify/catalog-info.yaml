@@ -1,4 +1,22 @@
 apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  title: spotify-service
+  name: spotify-service
+  description: Spotify REST API things which are good for demoing.
+spec:
+  owner: devrel
+  domain: spotify
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: spotify
+  description: Spotify REST API GET functionality.
+spec:
+  owner: devrel
+---
+apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: spotify-subgraph
@@ -6,10 +24,15 @@ metadata:
   links:
     - url: https://spotify-subgraph-production.up.railway.app/
       title: Production Endpoint
+relations: 
+  type: 
 spec:
   type: graphql
   lifecycle: production
   owner: devrel
+  system: spotify-service
+  providesApis:
+    - sample-service
   definition: >-
     directive @contact(
       """Contact title of the subgraph owner"""
