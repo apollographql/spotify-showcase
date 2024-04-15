@@ -9,7 +9,7 @@ metadata:
 spec:
   type: graphql
   lifecycle: production
-  owner: devrel
+  owner: group:api
   definition: >-
     directive @contact(
       """Contact title of the subgraph owner"""
