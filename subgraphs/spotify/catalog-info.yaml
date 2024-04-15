@@ -10,6 +10,7 @@ spec:
   type: graphql
   lifecycle: production
   owner: group:api
+  system: supergraph
   definition: >-
     directive @contact(
       """Contact title of the subgraph owner"""
