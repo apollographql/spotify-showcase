@@ -9,6 +9,7 @@ directive @contact(
   description: String
 ) on SCHEMA
 
+
 extend schema
   @contact(
     name: "Playback Subscription Subgraph"
