@@ -5,13 +5,16 @@ metadata:
   description: >-
     The subgraph for mutation and subscription functionality of the Spotify REST
     APIs
+  tags:
+    - subgraph
   links:
     - url: https://playback-subscription-subgraph-production.up.railway.app/graphql
       title: Production Endpoint
 spec:
   type: graphql
   lifecycle: production
-  owner: devrel
+  owner: group:api
+  system: supergraph
   definition: >-
     directive @contact(
       """Contact title of the subgraph owner"""
