@@ -47,7 +47,7 @@ const useSavedTracksContains = (ids: string[]) => {
   // set of results above the fold and (hopefully) have the rest of the items
   // fully loaded once the user scrolls down the page.
   //
-  // We rely on the useFragment above to actually return the results for us.
+  // We rely on the useFragment below to actually return the results for us.
   // This means we can ignore the result returned from this query and the
   // queries loaded in useEffect.
   useBackgroundQuery(SAVED_TRACKS_CONTAINS_QUERY, {
