@@ -45,6 +45,7 @@
   "homepage": "https://github.com/apollographql/spotify-showcase#readme",
   "devDependencies": {
     "@apollo/rover": "^0.17.1",
+    "@graphql-codegen/near-operation-file-preset": "^3.0.0",
     "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@types/inquirer": "^8.2.6",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
