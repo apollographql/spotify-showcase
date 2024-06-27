@@ -33,63 +33,63 @@ const SETTINGS_QUERY = gql`
   }
 `;
 
-const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
-  LimitedIntrospectionQuery,
-  never
-> = gql`
-  query LimitedIntrospectionQuery {
-    __schema {
-      types {
-        name
-        kind
-        fields {
-          name
-          description
-          type {
-            ...TypeRef
-          }
-        }
-      }
-    }
-  }
-
-  # eslint-disable-next-line @graphql-eslint/naming-convention
-  fragment TypeRef on __Type {
-    kind
-    name
-    ofType {
-      kind
-      name
-      ofType {
-        kind
-        name
-        ofType {
-          kind
-          name
-          ofType {
-            kind
-            name
-            ofType {
-              kind
-              name
-              ofType {
-                kind
-                name
-                ofType {
-                  kind
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+// const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
+//   LimitedIntrospectionQuery,
+//   never
+// > = gql`
+//   query LimitedIntrospectionQuery {
+//     __schema {
+//       types {
+//         name
+//         kind
+//         fields {
+//           name
+//           description
+//           type {
+//             ...TypeRef
+//           }
+//         }
+//       }
+//     }
+//   }
+//
+//   # eslint-disable-next-line @graphql-eslint/naming-convention
+//   fragment TypeRef on __Type {
+//     kind
+//     name
+//     ofType {
+//       kind
+//       name
+//       ofType {
+//         kind
+//         name
+//         ofType {
+//           kind
+//           name
+//           ofType {
+//             kind
+//             name
+//             ofType {
+//               kind
+//               name
+//               ofType {
+//                 kind
+//                 name
+//                 ofType {
+//                   kind
+//                   name
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
 
 export const RouteComponent = () => {
-  const [queryRef] = useBackgroundQuery(LIMITED_INTROSPECTION_QUERY, {
+  const [queryRef] = useBackgroundQuery(gql``, {
     fetchPolicy: 'no-cache',
   });
   const { data } = useSuspenseQuery<SettingsQuery, SettingsQueryVariables>(
