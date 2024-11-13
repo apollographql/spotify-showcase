@@ -2369,7 +2369,7 @@ export type AlbumTile_album = {
   totalTracks: number;
   releaseDate: { __typename: 'ReleaseDate'; date: string };
   images: Array<{ __typename: 'Image'; url: string }>;
-};
+} & { ' $fragmentName'?: 'AlbumTile_album' };
 
 export type AlbumTrackTitleCell_playbackState = {
   __typename: 'PlaybackState';
@@ -2378,9 +2378,11 @@ export type AlbumTrackTitleCell_playbackState = {
     | { __typename: 'Episode'; id: string; uri: string }
     | { __typename: 'Track'; id: string; uri: string }
     | null;
-};
+} & { ' $fragmentName'?: 'AlbumTrackTitleCell_playbackState' };
 
-export type AlbumTrackTitleCell_album = { __typename: 'Album'; uri: string };
+export type AlbumTrackTitleCell_album = { __typename: 'Album'; uri: string } & {
+  ' $fragmentName'?: 'AlbumTrackTitleCell_album';
+};
 
 export type AlbumTrackTitleCell_track = {
   __typename: 'Track';
@@ -2389,9 +2391,9 @@ export type AlbumTrackTitleCell_track = {
   uri: string;
   explicit: boolean;
   artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-};
+} & { ' $fragmentName'?: 'AlbumTrackTitleCell_track' };
 
-export type AlbumTracksTable_album = {
+export type AlbumTracksTable_album = ({
   __typename: 'Album';
   id: string;
   uri: string;
@@ -2405,20 +2407,24 @@ export type AlbumTracksTable_album = {
         uri: string;
         durationMs: number;
         trackNumber: number | null;
-        name: string;
-        explicit: boolean;
-        artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+        artists: Array<{ __typename: 'Artist'; id: string }>;
+      } & {
+        ' $fragmentRefs'?: {
+          AlbumTrackTitleCell_track: AlbumTrackTitleCell_track;
+        };
       };
     }>;
   } | null;
-};
+} & {
+  ' $fragmentRefs'?: { AlbumTrackTitleCell_album: AlbumTrackTitleCell_album };
+}) & { ' $fragmentName'?: 'AlbumTracksTable_album' };
 
 export type ArtistTile_artist = {
   __typename: 'Artist';
   id: string;
   name: string;
   images: Array<{ __typename: 'Image'; url: string }>;
-};
+} & { ' $fragmentName'?: 'ArtistTile_artist' };
 
 export type ArtistTopTracks_tracks = {
   __typename: 'Track';
@@ -2431,19 +2437,19 @@ export type ArtistTopTracks_tracks = {
     id: string;
     images: Array<{ __typename: 'Image'; url: string }>;
   };
-};
+} & { ' $fragmentName'?: 'ArtistTopTracks_tracks' };
 
 type Avatar_profile_CurrentUserProfile_ = {
   __typename: 'CurrentUserProfile';
   id: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
-};
+} & { ' $fragmentName'?: 'Avatar_profile_CurrentUserProfile_' };
 
 type Avatar_profile_User_ = {
   __typename: 'User';
   id: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
-};
+} & { ' $fragmentName'?: 'Avatar_profile_User_' };
 
 export type Avatar_profile =
   | Avatar_profile_CurrentUserProfile_
@@ -2482,7 +2488,10 @@ export type CurrentUserQuery = {
       __typename: 'CurrentUserProfile';
       id: string;
       displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }> | null;
+    } & {
+      ' $fragmentRefs'?: {
+        Avatar_profile_CurrentUserProfile_: Avatar_profile_CurrentUserProfile_;
+      };
     };
   } | null;
 };
@@ -2491,14 +2500,14 @@ export type DevicePopover_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
   device: { __typename: 'Device'; id: string | null };
-};
+} & { ' $fragmentName'?: 'DevicePopover_playbackState' };
 
 export type DevicePopover_devices = {
   __typename: 'Device';
   id: string | null;
   name: string;
   type: string;
-};
+} & { ' $fragmentName'?: 'DevicePopover_devices' };
 
 export type EpisodeDetailsCell_episode = {
   __typename: 'Episode';
@@ -2511,14 +2520,14 @@ export type EpisodeDetailsCell_episode = {
     publisher: string;
     images: Array<{ __typename: 'Image'; url: string }>;
   };
-};
+} & { ' $fragmentName'?: 'EpisodeDetailsCell_episode' };
 
 export type EpisodePlaybackDetails_episode = {
   __typename: 'Episode';
   id: string;
   name: string;
   show: { __typename: 'Show'; id: string; name: string };
-};
+} & { ' $fragmentName'?: 'EpisodePlaybackDetails_episode' };
 
 export type EpisodeRemainingDuration_episode = {
   __typename: 'Episode';
@@ -2529,7 +2538,7 @@ export type EpisodeRemainingDuration_episode = {
     fullyPlayed: boolean;
     resumePositionMs: number;
   };
-};
+} & { ' $fragmentName'?: 'EpisodeRemainingDuration_episode' };
 
 export type LikeControlQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
@@ -2543,9 +2552,14 @@ export type LikeControlQuery = {
   } | null;
 };
 
-type LikeControl_playbackItem_Episode_ = { __typename: 'Episode'; id: string };
+type LikeControl_playbackItem_Episode_ = {
+  __typename: 'Episode';
+  id: string;
+} & { ' $fragmentName'?: 'LikeControl_playbackItem_Episode_' };
 
-type LikeControl_playbackItem_Track_ = { __typename: 'Track'; id: string };
+type LikeControl_playbackItem_Track_ = { __typename: 'Track'; id: string } & {
+  ' $fragmentName'?: 'LikeControl_playbackItem_Track_';
+};
 
 export type LikeControl_playbackItem =
   | LikeControl_playbackItem_Episode_
@@ -2555,7 +2569,7 @@ export type LikedSongsTile_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
   context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+} & { ' $fragmentName'?: 'LikedSongsTile_playbackState' };
 
 export type LikedSongsTile_connection = {
   __typename: 'SavedTracksConnection';
@@ -2569,7 +2583,7 @@ export type LikedSongsTile_connection = {
       artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
     };
   }>;
-};
+} & { ' $fragmentName'?: 'LikedSongsTile_connection' };
 
 export type SidebarQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2593,10 +2607,11 @@ export type SidebarQuery = {
         node: {
           __typename: 'Playlist';
           id: string;
-          uri: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }> | null;
-          owner: { __typename: 'User'; id: string; displayName: string | null };
+        } & {
+          ' $fragmentRefs'?: {
+            PlaylistSidebarLink_playlist: PlaylistSidebarLink_playlist;
+          };
         };
       }>;
     } | null;
@@ -2606,7 +2621,7 @@ export type SidebarQuery = {
 export type NotificationManager_playbackState = {
   __typename: 'PlaybackState';
   device: { __typename: 'Device'; id: string | null };
-};
+} & { ' $fragmentName'?: 'NotificationManager_playbackState' };
 
 export type PlaybackItemProgressBar_playbackState = {
   __typename: 'PlaybackState';
@@ -2617,21 +2632,15 @@ export type PlaybackItemProgressBar_playbackState = {
     | { __typename: 'Episode'; id: string; durationMs: number }
     | { __typename: 'Track'; id: string; durationMs: number }
     | null;
-};
+} & { ' $fragmentName'?: 'PlaybackItemProgressBar_playbackState' };
 
-export type PlaybackStateFragment = {
+export type PlaybackStateFragment = ({
   __typename: 'PlaybackState';
   isPlaying: boolean;
   repeatState: RepeatMode;
   shuffleState: boolean;
-  progressMs: number | null;
-  timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context: {
-    __typename: 'PlaybackContext';
-    uri: string;
-    type: PlaybackContextType;
-  } | null;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
   device: {
     __typename: 'Device';
     id: string | null;
@@ -2643,35 +2652,24 @@ export type PlaybackStateFragment = {
     | {
         __typename: 'Episode';
         id: string;
-        durationMs: number;
-        name: string;
         show: {
           __typename: 'Show';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
       }
     | {
         __typename: 'Track';
         id: string;
-        durationMs: number;
-        name: string;
-        uri: string;
         album: {
           __typename: 'Album';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
       }
     | null;
+} & { ' $fragmentRefs'?: { Playbar_playbackState: Playbar_playbackState } }) & {
+  ' $fragmentName'?: 'PlaybackStateFragment';
 };
 
 export type PlaybackStateSubscriberQueryVariables = Exact<{
@@ -2683,60 +2681,11 @@ export type PlaybackStateSubscriberQuery = {
     __typename: 'CurrentUser';
     player: {
       __typename: 'Player';
-      playbackState: {
-        __typename: 'PlaybackState';
-        isPlaying: boolean;
-        repeatState: RepeatMode;
-        shuffleState: boolean;
-        progressMs: number | null;
-        timestamp: number;
-        actions: { __typename: 'Actions'; disallows: Array<Action> };
-        context: {
-          __typename: 'PlaybackContext';
-          uri: string;
-          type: PlaybackContextType;
-        } | null;
-        device: {
-          __typename: 'Device';
-          id: string | null;
-          name: string;
-          type: string;
-          volumePercent: number;
-        };
-        item:
-          | {
-              __typename: 'Episode';
-              id: string;
-              durationMs: number;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              durationMs: number;
-              name: string;
-              uri: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                uri: string;
-                name: string;
-              }>;
-            }
-          | null;
-      } | null;
+      playbackState:
+        | ({ __typename: 'PlaybackState' } & {
+            ' $fragmentRefs'?: { PlaybackStateFragment: PlaybackStateFragment };
+          })
+        | null;
     };
   } | null;
 };
@@ -2746,60 +2695,11 @@ export type PlaybackStateSubscriberSubscriptionVariables = Exact<{
 }>;
 
 export type PlaybackStateSubscriberSubscription = {
-  playbackStateChanged: {
-    __typename: 'PlaybackState';
-    isPlaying: boolean;
-    repeatState: RepeatMode;
-    shuffleState: boolean;
-    progressMs: number | null;
-    timestamp: number;
-    actions: { __typename: 'Actions'; disallows: Array<Action> };
-    context: {
-      __typename: 'PlaybackContext';
-      uri: string;
-      type: PlaybackContextType;
-    } | null;
-    device: {
-      __typename: 'Device';
-      id: string | null;
-      name: string;
-      type: string;
-      volumePercent: number;
-    };
-    item:
-      | {
-          __typename: 'Episode';
-          id: string;
-          durationMs: number;
-          name: string;
-          show: {
-            __typename: 'Show';
-            id: string;
-            name: string;
-            images: Array<{ __typename: 'Image'; url: string }>;
-          };
-        }
-      | {
-          __typename: 'Track';
-          id: string;
-          durationMs: number;
-          name: string;
-          uri: string;
-          album: {
-            __typename: 'Album';
-            id: string;
-            name: string;
-            images: Array<{ __typename: 'Image'; url: string }>;
-          };
-          artists: Array<{
-            __typename: 'Artist';
-            id: string;
-            uri: string;
-            name: string;
-          }>;
-        }
-      | null;
-  } | null;
+  playbackStateChanged:
+    | ({ __typename: 'PlaybackState' } & {
+        ' $fragmentRefs'?: { PlaybackStateFragment: PlaybackStateFragment };
+      })
+    | null;
 };
 
 export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
@@ -2809,29 +2709,28 @@ export type PlaybarQuery = {
     __typename: 'CurrentUser';
     player: {
       __typename: 'Player';
-      devices: Array<{
-        __typename: 'Device';
-        id: string | null;
-        name: string;
-        type: string;
-      }> | null;
+      devices: Array<
+        { __typename: 'Device'; id: string | null } & {
+          ' $fragmentRefs'?: { DevicePopover_devices: DevicePopover_devices };
+        }
+      > | null;
     };
   } | null;
 };
 
-export type Playbar_playbackState = {
+export type Playbar_playbackState = ({
   __typename: 'PlaybackState';
   isPlaying: boolean;
   repeatState: RepeatMode;
   shuffleState: boolean;
-  progressMs: number | null;
-  timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context: {
-    __typename: 'PlaybackContext';
-    uri: string;
-    type: PlaybackContextType;
-  } | null;
+  context:
+    | ({ __typename: 'PlaybackContext' } & {
+        ' $fragmentRefs'?: {
+          TrackPlaybackDetails_context: TrackPlaybackDetails_context;
+        };
+      })
+    | null;
   device: {
     __typename: 'Device';
     id: string | null;
@@ -2840,39 +2739,40 @@ export type Playbar_playbackState = {
     volumePercent: number;
   };
   item:
-    | {
+    | ({
         __typename: 'Episode';
         id: string;
-        durationMs: number;
-        name: string;
         show: {
           __typename: 'Show';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-      }
-    | {
+      } & {
+        ' $fragmentRefs'?: {
+          EpisodePlaybackDetails_episode: EpisodePlaybackDetails_episode;
+          LikeControl_playbackItem_Episode_: LikeControl_playbackItem_Episode_;
+        };
+      })
+    | ({
         __typename: 'Track';
         id: string;
-        durationMs: number;
-        name: string;
-        uri: string;
         album: {
           __typename: 'Album';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
-      }
+      } & {
+        ' $fragmentRefs'?: {
+          TrackPlaybackDetails_track: TrackPlaybackDetails_track;
+          LikeControl_playbackItem_Track_: LikeControl_playbackItem_Track_;
+        };
+      })
     | null;
-};
+} & {
+  ' $fragmentRefs'?: {
+    PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
+  };
+}) & { ' $fragmentName'?: 'Playbar_playbackState' };
 
 export type PlaylistDetailsModalQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -2892,12 +2792,12 @@ export type PlaylistSidebarLink_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
   context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+} & { ' $fragmentName'?: 'PlaylistSidebarLink_playbackState' };
 
 export type PlaylistSidebarLink_currentUser = {
   __typename: 'CurrentUser';
   profile: { __typename: 'CurrentUserProfile'; id: string };
-};
+} & { ' $fragmentName'?: 'PlaylistSidebarLink_currentUser' };
 
 export type PlaylistSidebarLink_playlist = {
   __typename: 'Playlist';
@@ -2905,7 +2805,7 @@ export type PlaylistSidebarLink_playlist = {
   uri: string;
   name: string;
   owner: { __typename: 'User'; id: string; displayName: string | null };
-};
+} & { ' $fragmentName'?: 'PlaylistSidebarLink_playlist' };
 
 export type PlaylistTile_playlist = {
   __typename: 'Playlist';
@@ -2914,7 +2814,7 @@ export type PlaylistTile_playlist = {
   description: string | null;
   uri: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
-};
+} & { ' $fragmentName'?: 'PlaylistTile_playlist' };
 
 export type PlaylistTitleCell_playbackState = {
   __typename: 'PlaybackState';
@@ -2923,13 +2823,13 @@ export type PlaylistTitleCell_playbackState = {
     | { __typename: 'Episode'; id: string; uri: string }
     | { __typename: 'Track'; id: string; uri: string }
     | null;
-};
+} & { ' $fragmentName'?: 'PlaylistTitleCell_playbackState' };
 
 export type PlaylistTitleCell_playlist = {
   __typename: 'Playlist';
   id: string;
   uri: string;
-};
+} & { ' $fragmentName'?: 'PlaylistTitleCell_playlist' };
 
 type PlaylistTitleCell_playlistTrack_Episode_ = {
   __typename: 'Episode';
@@ -2943,7 +2843,7 @@ type PlaylistTitleCell_playlistTrack_Episode_ = {
     publisher: string;
     images: Array<{ __typename: 'Image'; url: string }>;
   };
-};
+} & { ' $fragmentName'?: 'PlaylistTitleCell_playlistTrack_Episode_' };
 
 type PlaylistTitleCell_playlistTrack_Track_ = {
   __typename: 'Track';
@@ -2958,7 +2858,7 @@ type PlaylistTitleCell_playlistTrack_Track_ = {
     name: string;
     images: Array<{ __typename: 'Image'; url: string }>;
   };
-};
+} & { ' $fragmentName'?: 'PlaylistTitleCell_playlistTrack_Track_' };
 
 export type PlaylistTitleCell_playlistTrack =
   | PlaylistTitleCell_playlistTrack_Episode_
@@ -2972,20 +2872,20 @@ export type TrackNumberCell_playbackState = {
     | { __typename: 'Episode'; id: string; uri: string }
     | { __typename: 'Track'; id: string; uri: string }
     | null;
-};
+} & { ' $fragmentName'?: 'TrackNumberCell_playbackState' };
 
 export type TrackNumberCell_track = {
   __typename: 'Track';
   id: string;
   uri: string;
   trackNumber: number | null;
-};
+} & { ' $fragmentName'?: 'TrackNumberCell_track' };
 
 export type TrackPlaybackDetails_context = {
   __typename: 'PlaybackContext';
   uri: string;
   type: PlaybackContextType;
-};
+} & { ' $fragmentName'?: 'TrackPlaybackDetails_context' };
 
 export type TrackPlaybackDetails_track = {
   __typename: 'Track';
@@ -2999,7 +2899,7 @@ export type TrackPlaybackDetails_track = {
     uri: string;
     name: string;
   }>;
-};
+} & { ' $fragmentName'?: 'TrackPlaybackDetails_track' };
 
 export type TrackTitleCell_playbackState = {
   __typename: 'PlaybackState';
@@ -3008,7 +2908,7 @@ export type TrackTitleCell_playbackState = {
     | { __typename: 'Episode'; id: string; uri: string }
     | { __typename: 'Track'; id: string; uri: string }
     | null;
-};
+} & { ' $fragmentName'?: 'TrackTitleCell_playbackState' };
 
 export type TrackTitleCell_track = {
   __typename: 'Track';
@@ -3022,7 +2922,7 @@ export type TrackTitleCell_track = {
     images: Array<{ __typename: 'Image'; url: string }>;
   };
   artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-};
+} & { ' $fragmentName'?: 'TrackTitleCell_track' };
 
 export type YourEpisodesTile_connection = {
   __typename: 'SavedEpisodesConnection';
@@ -3036,7 +2936,7 @@ export type YourEpisodesTile_connection = {
       show: { __typename: 'Show'; id: string; name: string };
     };
   }>;
-};
+} & { ' $fragmentName'?: 'YourEpisodesTile_connection' };
 
 export type SavedTracksContainsQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
@@ -3052,7 +2952,7 @@ export type SavedTracksContainsQuery = {
 export type SavedTracksContainsFragment = {
   __typename: 'CurrentUser';
   tracksContains: Array<boolean> | null;
-};
+} & { ' $fragmentName'?: 'SavedTracksContainsFragment' };
 
 export type AddToPlaylistMutationVariables = Exact<{
   input: AddItemsToPlaylistInput;
@@ -3116,7 +3016,7 @@ export type RemoveSavedAlbumsMutation = {
 export type RemovedSavedAlbumsMutationFragment = {
   __typename: 'CurrentUser';
   albumsContains: Array<boolean> | null;
-};
+} & { ' $fragmentName'?: 'RemovedSavedAlbumsMutationFragment' };
 
 export type RemoveSavedTracksMutationVariables = Exact<{
   input: RemoveSavedTracksInput;
@@ -3132,7 +3032,7 @@ export type RemoveSavedTracksMutation = {
 export type RemovedSavedTracksMutationFragment = {
   __typename: 'CurrentUser';
   tracksContains: Array<boolean> | null;
-};
+} & { ' $fragmentName'?: 'RemovedSavedTracksMutationFragment' };
 
 export type ResetFieldConfigMutationVariables = Exact<{
   input: ResetFieldConfigInput;
@@ -3178,7 +3078,7 @@ export type UseResumePlaybackStateFragment = {
     uri: string;
     type: PlaybackContextType;
   } | null;
-};
+} & { ' $fragmentName'?: 'UseResumePlaybackStateFragment' };
 
 export type SaveAlbumsMutationVariables = Exact<{
   input: SaveAlbumsInput;
@@ -3194,7 +3094,7 @@ export type SaveAlbumsMutation = {
 export type SaveAlbumsMutationFragment = {
   __typename: 'CurrentUser';
   albumsContains: Array<boolean> | null;
-};
+} & { ' $fragmentName'?: 'SaveAlbumsMutationFragment' };
 
 export type SaveTracksMutationVariables = Exact<{
   input: SaveTracksInput;
@@ -3210,7 +3110,7 @@ export type SaveTracksMutation = {
 export type SaveTracksMutationFragment = {
   __typename: 'CurrentUser';
   tracksContains: Array<boolean> | null;
-};
+} & { ' $fragmentName'?: 'SaveTracksMutationFragment' };
 
 export type SeekToPositionMutationVariables = Exact<{
   positionMs: Scalars['Int']['input'];
@@ -3261,7 +3161,7 @@ export type SetVolumeMutation = {
 export type SetVolumeCacheFragment = {
   __typename: 'PlaybackState';
   device: { __typename: 'Device'; id: string | null; volumePercent: number };
-};
+} & { ' $fragmentName'?: 'SetVolumeCacheFragment' };
 
 export type ShufflePlaybackMutationVariables = Exact<{
   state: Scalars['Boolean']['input'];
@@ -3394,53 +3294,41 @@ export type AlbumRouteQuery = {
     __typename: 'CurrentUser';
     albumsContains: Array<boolean> | null;
   } | null;
-  album: {
-    __typename: 'Album';
-    id: string;
-    albumType: AlbumType;
-    name: string;
-    totalTracks: number;
-    uri: string;
-    artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-    copyrights: Array<{
-      __typename: 'Copyright';
-      text: string;
-      type: CopyrightType | null;
-    }>;
-    images: Array<{
-      __typename: 'Image';
-      url: string;
-      vibrantColor: string | null;
-    }>;
-    releaseDate: {
-      __typename: 'ReleaseDate';
-      date: string;
-      precision: ReleaseDatePrecision;
-    };
-    tracks: {
-      __typename: 'AlbumTrackConnection';
-      edges: Array<{
-        __typename: 'AlbumTrackEdge';
-        node: {
-          __typename: 'Track';
-          id: string;
-          uri: string;
-          durationMs: number;
-          trackNumber: number | null;
-          name: string;
-          explicit: boolean;
-          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+  album:
+    | ({
+        __typename: 'Album';
+        id: string;
+        albumType: AlbumType;
+        name: string;
+        totalTracks: number;
+        uri: string;
+        artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+        copyrights: Array<{
+          __typename: 'Copyright';
+          text: string;
+          type: CopyrightType | null;
+        }>;
+        images: Array<{
+          __typename: 'Image';
+          url: string;
+          vibrantColor: string | null;
+        }>;
+        releaseDate: {
+          __typename: 'ReleaseDate';
+          date: string;
+          precision: ReleaseDatePrecision;
         };
-      }>;
-    } | null;
-  } | null;
+      } & {
+        ' $fragmentRefs'?: { AlbumTracksTable_album: AlbumTracksTable_album };
+      })
+    | null;
 };
 
 export type AlbumRoutePlaybackStateFragment = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
   context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+} & { ' $fragmentName'?: 'AlbumRoutePlaybackStateFragment' };
 
 export type ArtistRouteQueryVariables = Exact<{
   artistId: Scalars['ID']['input'];
@@ -3451,71 +3339,39 @@ export type ArtistRouteQuery = {
     __typename: 'Artist';
     id: string;
     name: string;
-    albums: {
-      __typename: 'ArtistAlbumsConnection';
-      edges: Array<{
-        __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }> | null;
-    } | null;
-    singles: {
-      __typename: 'ArtistAlbumsConnection';
-      edges: Array<{
-        __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }> | null;
-    } | null;
-    appearsOn: {
-      __typename: 'ArtistAlbumsConnection';
-      edges: Array<{
-        __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }> | null;
-    } | null;
+    albums:
+      | ({ __typename: 'ArtistAlbumsConnection' } & {
+          ' $fragmentRefs'?: {
+            ArtistRouteQuery_albums: ArtistRouteQuery_albums;
+          };
+        })
+      | null;
+    singles:
+      | ({ __typename: 'ArtistAlbumsConnection' } & {
+          ' $fragmentRefs'?: {
+            ArtistRouteQuery_albums: ArtistRouteQuery_albums;
+          };
+        })
+      | null;
+    appearsOn:
+      | ({ __typename: 'ArtistAlbumsConnection' } & {
+          ' $fragmentRefs'?: {
+            ArtistRouteQuery_albums: ArtistRouteQuery_albums;
+          };
+        })
+      | null;
     followers: { __typename: 'Followers'; total: number };
     images: Array<{ __typename: 'Image'; url: string }>;
-    relatedArtists: Array<{
-      __typename: 'Artist';
-      id: string;
-      name: string;
-      images: Array<{ __typename: 'Image'; url: string }>;
-    }>;
-    topTracks: Array<{
-      __typename: 'Track';
-      id: string;
-      durationMs: number;
-      explicit: boolean;
-      name: string;
-      album: {
-        __typename: 'Album';
-        id: string;
-        images: Array<{ __typename: 'Image'; url: string }>;
-      };
-    }>;
+    relatedArtists: Array<
+      { __typename: 'Artist'; id: string } & {
+        ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist };
+      }
+    >;
+    topTracks: Array<
+      { __typename: 'Track'; id: string } & {
+        ' $fragmentRefs'?: { ArtistTopTracks_tracks: ArtistTopTracks_tracks };
+      }
+    >;
   } | null;
 };
 
@@ -3523,17 +3379,11 @@ export type ArtistRouteQuery_albums = {
   __typename: 'ArtistAlbumsConnection';
   edges: Array<{
     __typename: 'ArtistAlbumEdge';
-    node: {
-      __typename: 'Album';
-      id: string;
-      name: string;
-      albumType: AlbumType;
-      totalTracks: number;
-      releaseDate: { __typename: 'ReleaseDate'; date: string };
-      images: Array<{ __typename: 'Image'; url: string }>;
+    node: { __typename: 'Album'; id: string } & {
+      ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album };
     };
   }> | null;
-};
+} & { ' $fragmentName'?: 'ArtistRouteQuery_albums' };
 
 export type CollectionAlbumsRouteQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -3553,14 +3403,8 @@ export type CollectionAlbumsRouteQuery = {
       };
       edges: Array<{
         __typename: 'SavedAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
+        node: { __typename: 'Album'; id: string } & {
+          ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album };
         };
       }>;
     } | null;
@@ -3582,11 +3426,8 @@ export type CollectionArtistsRouteQuery = {
       };
       edges: Array<{
         __typename: 'FollowedArtistEdge';
-        node: {
-          __typename: 'Artist';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
+        node: { __typename: 'Artist'; id: string } & {
+          ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist };
         };
       }>;
     } | null;
@@ -3606,19 +3447,29 @@ export type CollectionPlaylistsRouteQuery = {
       __typename: 'SavedEpisodesConnection';
       pageInfo: { __typename: 'PageInfo'; total: number };
     } | null;
-    tracks: {
-      __typename: 'SavedTracksConnection';
-      pageInfo: { __typename: 'PageInfo'; total: number };
-      edges: Array<{
-        __typename: 'SavedTrackEdge';
-        node: {
-          __typename: 'Track';
-          id: string;
-          name: string;
-          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-        };
-      }>;
-    } | null;
+    tracks:
+      | ({
+          __typename: 'SavedTracksConnection';
+          pageInfo: { __typename: 'PageInfo'; total: number };
+          edges: Array<{
+            __typename: 'SavedTrackEdge';
+            node: {
+              __typename: 'Track';
+              id: string;
+              name: string;
+              artists: Array<{
+                __typename: 'Artist';
+                id: string;
+                name: string;
+              }>;
+            };
+          }>;
+        } & {
+          ' $fragmentRefs'?: {
+            LikedSongsTile_connection: LikedSongsTile_connection;
+          };
+        })
+      | null;
     playlists: {
       __typename: 'PlaylistConnection';
       pageInfo: {
@@ -3629,13 +3480,8 @@ export type CollectionPlaylistsRouteQuery = {
       };
       edges: Array<{
         __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          name: string;
-          description: string | null;
-          uri: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
+        node: { __typename: 'Playlist'; id: string } & {
+          ' $fragmentRefs'?: { PlaylistTile_playlist: PlaylistTile_playlist };
         };
       }>;
     } | null;
@@ -3660,13 +3506,8 @@ export type CollectionPlaylistsRoutePaginatedQuery = {
       };
       edges: Array<{
         __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          name: string;
-          description: string | null;
-          uri: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
+        node: { __typename: 'Playlist'; id: string } & {
+          ' $fragmentRefs'?: { PlaylistTile_playlist: PlaylistTile_playlist };
         };
       }>;
     } | null;
@@ -3681,19 +3522,13 @@ export type CollectionPodcastsRouteQueryVariables = Exact<{
 export type CollectionPodcastsRouteQuery = {
   me: {
     __typename: 'CurrentUser';
-    episodes: {
-      __typename: 'SavedEpisodesConnection';
-      pageInfo: { __typename: 'PageInfo'; total: number };
-      edges: Array<{
-        __typename: 'SavedEpisodeEdge';
-        node: {
-          __typename: 'Episode';
-          id: string;
-          name: string;
-          show: { __typename: 'Show'; id: string; name: string };
-        };
-      }>;
-    } | null;
+    episodes:
+      | ({ __typename: 'SavedEpisodesConnection' } & {
+          ' $fragmentRefs'?: {
+            YourEpisodesTile_connection: YourEpisodesTile_connection;
+          };
+        })
+      | null;
     shows: {
       __typename: 'SavedShowsConnection';
       pageInfo: {
@@ -3776,15 +3611,12 @@ export type CollectionTracksRouteQuery = {
           id: string;
           name: string;
           durationMs: number;
-          uri: string;
-          trackNumber: number | null;
-          explicit: boolean;
-          album: {
-            __typename: 'Album';
-            id: string;
-            images: Array<{ __typename: 'Image'; url: string }>;
+          album: { __typename: 'Album'; id: string };
+        } & {
+          ' $fragmentRefs'?: {
+            TrackNumberCell_track: TrackNumberCell_track;
+            TrackTitleCell_track: TrackTitleCell_track;
           };
-          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
         };
       }>;
     } | null;
@@ -3795,44 +3627,44 @@ export type CollectionTracksRoutePlaylistStateFragment = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
   context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+} & { ' $fragmentName'?: 'CollectionTracksRoutePlaylistStateFragment' };
 
 export type CurrentUserFragment = {
   __typename: 'CurrentUser';
   tracksContains: Array<boolean> | null;
-};
+} & { ' $fragmentName'?: 'CurrentUserFragment' };
 
 export type EpisodeRouteQueryVariables = Exact<{
   episodeId: Scalars['ID']['input'];
 }>;
 
 export type EpisodeRouteQuery = {
-  episode: {
-    __typename: 'Episode';
-    id: string;
-    name: string;
-    durationMs: number;
-    releaseDate: {
-      __typename: 'ReleaseDate';
-      date: string;
-      precision: ReleaseDatePrecision;
-    };
-    show: {
-      __typename: 'Show';
-      id: string;
-      name: string;
-      images: Array<{
-        __typename: 'Image';
-        url: string;
-        vibrantColor: string | null;
-      }>;
-    };
-    resumePoint: {
-      __typename: 'ResumePoint';
-      fullyPlayed: boolean;
-      resumePositionMs: number;
-    };
-  } | null;
+  episode:
+    | ({
+        __typename: 'Episode';
+        id: string;
+        name: string;
+        releaseDate: {
+          __typename: 'ReleaseDate';
+          date: string;
+          precision: ReleaseDatePrecision;
+        };
+        show: {
+          __typename: 'Show';
+          id: string;
+          name: string;
+          images: Array<{
+            __typename: 'Image';
+            url: string;
+            vibrantColor: string | null;
+          }>;
+        };
+      } & {
+        ' $fragmentRefs'?: {
+          EpisodeRemainingDuration_episode: EpisodeRemainingDuration_episode;
+        };
+      })
+    | null;
 };
 
 export type IndexRouteQueryVariables = Exact<{
@@ -3845,13 +3677,8 @@ export type IndexRouteQuery = {
     message: string;
     edges: Array<{
       __typename: 'FeaturedPlaylistEdge';
-      node: {
-        __typename: 'Playlist';
-        id: string;
-        name: string;
-        description: string | null;
-        uri: string;
-        images: Array<{ __typename: 'Image'; url: string }> | null;
+      node: { __typename: 'Playlist'; id: string } & {
+        ' $fragmentRefs'?: { PlaylistTile_playlist: PlaylistTile_playlist };
       };
     }>;
   } | null;
@@ -3867,80 +3694,76 @@ export type PlaylistQuery = {
     __typename: 'CurrentUser';
     profile: { __typename: 'CurrentUserProfile'; id: string };
   } | null;
-  playlist: {
-    __typename: 'Playlist';
-    id: string;
-    name: string;
-    uri: string;
-    images: Array<{
-      __typename: 'Image';
-      url: string;
-      vibrantColor: string | null;
-    }> | null;
-    owner: { __typename: 'User'; id: string; displayName: string | null };
-    tracks: {
-      __typename: 'PlaylistTrackConnection';
-      edges: Array<{
-        __typename: 'PlaylistTrackEdge';
-        addedAt: string | null;
-        node:
-          | {
-              __typename: 'Episode';
-              id: string;
-              name: string;
-              durationMs: number;
-              uri: string;
-              explicit: boolean;
-              releaseDate: {
-                __typename: 'ReleaseDate';
-                date: string;
-                precision: ReleaseDatePrecision;
-              };
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              name: string;
-              durationMs: number;
-              uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
-            };
-      }>;
-      pageInfo: {
-        __typename: 'PageInfo';
-        hasNextPage: boolean;
-        offset: number;
-        limit: number;
-        total: number;
-      };
-    };
-  } | null;
+  playlist:
+    | ({
+        __typename: 'Playlist';
+        id: string;
+        name: string;
+        uri: string;
+        images: Array<{
+          __typename: 'Image';
+          url: string;
+          vibrantColor: string | null;
+        }> | null;
+        owner: { __typename: 'User'; id: string; displayName: string | null };
+        tracks: {
+          __typename: 'PlaylistTrackConnection';
+          edges: Array<{
+            __typename: 'PlaylistTrackEdge';
+            addedAt: string | null;
+            node:
+              | ({
+                  __typename: 'Episode';
+                  id: string;
+                  name: string;
+                  durationMs: number;
+                  uri: string;
+                  releaseDate: {
+                    __typename: 'ReleaseDate';
+                    date: string;
+                    precision: ReleaseDatePrecision;
+                  };
+                  show: { __typename: 'Show'; id: string; name: string };
+                } & {
+                  ' $fragmentRefs'?: {
+                    PlaylistTitleCell_playlistTrack_Episode_: PlaylistTitleCell_playlistTrack_Episode_;
+                  };
+                })
+              | ({
+                  __typename: 'Track';
+                  id: string;
+                  name: string;
+                  durationMs: number;
+                  uri: string;
+                  album: { __typename: 'Album'; id: string; name: string };
+                } & {
+                  ' $fragmentRefs'?: {
+                    TrackNumberCell_track: TrackNumberCell_track;
+                    PlaylistTitleCell_playlistTrack_Track_: PlaylistTitleCell_playlistTrack_Track_;
+                  };
+                });
+          }>;
+          pageInfo: {
+            __typename: 'PageInfo';
+            hasNextPage: boolean;
+            offset: number;
+            limit: number;
+            total: number;
+          };
+        };
+      } & {
+        ' $fragmentRefs'?: {
+          PlaylistTitleCell_playlist: PlaylistTitleCell_playlist;
+        };
+      })
+    | null;
 };
 
 export type PlaylistRoutePlaybackStateFragment = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
   context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+} & { ' $fragmentName'?: 'PlaylistRoutePlaybackStateFragment' };
 
 export type QueueRouteQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -3952,116 +3775,56 @@ export type QueueRouteQuery = {
       playbackQueue: {
         __typename: 'PlaybackQueue';
         currentlyPlaying:
-          | {
-              __typename: 'Episode';
-              id: string;
-              durationMs: number;
-              uri: string;
-              explicit: boolean;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
+          | ({ __typename: 'Episode' } & {
+              ' $fragmentRefs'?: {
+                QueueRoute_playbackItem_Episode_: QueueRoute_playbackItem_Episode_;
               };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              durationMs: number;
-              uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              name: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
+            })
+          | ({ __typename: 'Track' } & {
+              ' $fragmentRefs'?: {
+                QueueRoute_playbackItem_Track_: QueueRoute_playbackItem_Track_;
               };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
-            }
+            })
           | null;
         queue: Array<
-          | {
-              __typename: 'Episode';
-              id: string;
-              durationMs: number;
-              uri: string;
-              explicit: boolean;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
+          | ({ __typename: 'Episode' } & {
+              ' $fragmentRefs'?: {
+                QueueRoute_playbackItem_Episode_: QueueRoute_playbackItem_Episode_;
               };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              durationMs: number;
-              uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              name: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
+            })
+          | ({ __typename: 'Track' } & {
+              ' $fragmentRefs'?: {
+                QueueRoute_playbackItem_Track_: QueueRoute_playbackItem_Track_;
               };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
-            }
+            })
         >;
       } | null;
     };
   } | null;
 };
 
-type QueueRoute_playbackItem_Episode_ = {
+type QueueRoute_playbackItem_Episode_ = ({
   __typename: 'Episode';
   id: string;
   durationMs: number;
   uri: string;
-  explicit: boolean;
-  name: string;
-  show: {
-    __typename: 'Show';
-    id: string;
-    name: string;
-    publisher: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-};
+  show: { __typename: 'Show'; id: string; name: string };
+} & {
+  ' $fragmentRefs'?: { EpisodeDetailsCell_episode: EpisodeDetailsCell_episode };
+}) & { ' $fragmentName'?: 'QueueRoute_playbackItem_Episode_' };
 
-type QueueRoute_playbackItem_Track_ = {
+type QueueRoute_playbackItem_Track_ = ({
   __typename: 'Track';
   id: string;
   durationMs: number;
   uri: string;
-  trackNumber: number | null;
-  explicit: boolean;
-  name: string;
-  album: {
-    __typename: 'Album';
-    id: string;
-    name: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
+  album: { __typename: 'Album'; id: string; name: string };
+} & {
+  ' $fragmentRefs'?: {
+    TrackNumberCell_track: TrackNumberCell_track;
+    TrackTitleCell_track: TrackTitleCell_track;
   };
-  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-};
+}) & { ' $fragmentName'?: 'QueueRoute_playbackItem_Track_' };
 
 export type QueueRoute_playbackItem =
   | QueueRoute_playbackItem_Episode_
@@ -4075,7 +3838,7 @@ export type QueueRoute_playbackState = {
     | { __typename: 'Episode'; id: string }
     | { __typename: 'Track'; id: string }
     | null;
-};
+} & { ' $fragmentName'?: 'QueueRoute_playbackState' };
 
 export type SearchRouteQueryVariables = Exact<{
   q: Scalars['String']['input'];
@@ -4089,11 +3852,8 @@ export type SearchRouteQuery = {
       __typename: 'SearchArtistsConnection';
       edges: Array<{
         __typename: 'SearchArtistEdge';
-        node: {
-          __typename: 'Artist';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
+        node: { __typename: 'Artist'; id: string } & {
+          ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist };
         };
       }>;
     } | null;
@@ -4133,45 +3893,8 @@ export type LimitedIntrospectionQuery = {
         __typename: '__Field';
         name: string;
         description: string | null;
-        type: {
-          __typename: '__Type';
-          kind: __TypeKind;
-          name: string | null;
-          ofType: {
-            __typename: '__Type';
-            kind: __TypeKind;
-            name: string | null;
-            ofType: {
-              __typename: '__Type';
-              kind: __TypeKind;
-              name: string | null;
-              ofType: {
-                __typename: '__Type';
-                kind: __TypeKind;
-                name: string | null;
-                ofType: {
-                  __typename: '__Type';
-                  kind: __TypeKind;
-                  name: string | null;
-                  ofType: {
-                    __typename: '__Type';
-                    kind: __TypeKind;
-                    name: string | null;
-                    ofType: {
-                      __typename: '__Type';
-                      kind: __TypeKind;
-                      name: string | null;
-                      ofType: {
-                        __typename: '__Type';
-                        kind: __TypeKind;
-                        name: string | null;
-                      } | null;
-                    } | null;
-                  } | null;
-                } | null;
-              } | null;
-            } | null;
-          } | null;
+        type: { __typename: '__Type' } & {
+          ' $fragmentRefs'?: { TypeRef: TypeRef };
         };
       }> | null;
     }>;
@@ -4217,7 +3940,7 @@ export type TypeRef = {
       } | null;
     } | null;
   } | null;
-};
+} & { ' $fragmentName'?: 'TypeRef' };
 
 export type ShowRouteQueryVariables = Exact<{
   showId: Scalars['ID']['input'];
@@ -4245,10 +3968,9 @@ export type ShowRouteQuery = {
             date: string;
             precision: ReleaseDatePrecision;
           };
-          resumePoint: {
-            __typename: 'ResumePoint';
-            fullyPlayed: boolean;
-            resumePositionMs: number;
+        } & {
+          ' $fragmentRefs'?: {
+            EpisodeRemainingDuration_episode: EpisodeRemainingDuration_episode;
           };
         };
       }>;
@@ -4268,7 +3990,7 @@ export type ShowRoute_playbackState = {
     | { __typename: 'Episode'; id: string; uri: string }
     | { __typename: 'Track'; id: string; uri: string }
     | null;
-};
+} & { ' $fragmentName'?: 'ShowRoute_playbackState' };
 
 export type TrackRouteQueryVariables = Exact<{
   trackId: Scalars['ID']['input'];
@@ -4285,46 +4007,27 @@ export type TrackRouteQuery = {
       id: string;
       albumType: AlbumType;
       name: string;
-      uri: string;
       images: Array<{
         __typename: 'Image';
         url: string;
         vibrantColor: string | null;
       }>;
-      tracks: {
-        __typename: 'AlbumTrackConnection';
-        edges: Array<{
-          __typename: 'AlbumTrackEdge';
-          node: {
-            __typename: 'Track';
-            id: string;
-            uri: string;
-            durationMs: number;
-            trackNumber: number | null;
-            name: string;
-            explicit: boolean;
-            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-          };
-        }>;
-      } | null;
+    } & {
+      ' $fragmentRefs'?: { AlbumTracksTable_album: AlbumTracksTable_album };
     };
-    artists: Array<{
-      __typename: 'Artist';
-      id: string;
-      name: string;
-      topTracks: Array<{
-        __typename: 'Track';
+    artists: Array<
+      {
+        __typename: 'Artist';
         id: string;
-        durationMs: number;
-        explicit: boolean;
         name: string;
-        album: {
-          __typename: 'Album';
-          id: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }>;
-      images: Array<{ __typename: 'Image'; url: string }>;
-    }>;
+        topTracks: Array<
+          { __typename: 'Track'; id: string } & {
+            ' $fragmentRefs'?: {
+              ArtistTopTracks_tracks: ArtistTopTracks_tracks;
+            };
+          }
+        >;
+      } & { ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist } }
+    >;
   } | null;
 };

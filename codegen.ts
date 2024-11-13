@@ -377,6 +377,10 @@ const config: CodegenConfig = {
         namingConvention: {
           typeNames: 'keep',
         },
+        inlineFragmentTypes: 'mask',
+        customDirectives: {
+          apolloUnmask: true,
+        },
       },
       plugins: ['typescript', 'typescript-operations'],
     },
