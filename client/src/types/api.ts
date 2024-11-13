@@ -2439,21 +2439,21 @@ export type ArtistTopTracks_tracks = {
   };
 } & { ' $fragmentName'?: 'ArtistTopTracks_tracks' };
 
-type Avatar_profile_CurrentUserProfile_ = {
+type Avatar_profile_CurrentUserProfile = {
   __typename: 'CurrentUserProfile';
   id: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
-} & { ' $fragmentName'?: 'Avatar_profile_CurrentUserProfile_' };
+} & { ' $fragmentName'?: 'Avatar_profile_CurrentUserProfile' };
 
-type Avatar_profile_User_ = {
+type Avatar_profile_User = {
   __typename: 'User';
   id: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
-} & { ' $fragmentName'?: 'Avatar_profile_User_' };
+} & { ' $fragmentName'?: 'Avatar_profile_User' };
 
 export type Avatar_profile =
-  | Avatar_profile_CurrentUserProfile_
-  | Avatar_profile_User_;
+  | Avatar_profile_CurrentUserProfile
+  | Avatar_profile_User;
 
 export type AddToPlaylistQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2490,7 +2490,7 @@ export type CurrentUserQuery = {
       displayName: string | null;
     } & {
       ' $fragmentRefs'?: {
-        Avatar_profile_CurrentUserProfile_: Avatar_profile_CurrentUserProfile_;
+        Avatar_profile_CurrentUserProfile: Avatar_profile_CurrentUserProfile;
       };
     };
   } | null;
@@ -2552,18 +2552,18 @@ export type LikeControlQuery = {
   } | null;
 };
 
-type LikeControl_playbackItem_Episode_ = {
+type LikeControl_playbackItem_Episode = {
   __typename: 'Episode';
   id: string;
-} & { ' $fragmentName'?: 'LikeControl_playbackItem_Episode_' };
+} & { ' $fragmentName'?: 'LikeControl_playbackItem_Episode' };
 
-type LikeControl_playbackItem_Track_ = { __typename: 'Track'; id: string } & {
-  ' $fragmentName'?: 'LikeControl_playbackItem_Track_';
+type LikeControl_playbackItem_Track = { __typename: 'Track'; id: string } & {
+  ' $fragmentName'?: 'LikeControl_playbackItem_Track';
 };
 
 export type LikeControl_playbackItem =
-  | LikeControl_playbackItem_Episode_
-  | LikeControl_playbackItem_Track_;
+  | LikeControl_playbackItem_Episode
+  | LikeControl_playbackItem_Track;
 
 export type LikedSongsTile_playbackState = {
   __typename: 'PlaybackState';
@@ -2750,7 +2750,7 @@ export type Playbar_playbackState = ({
       } & {
         ' $fragmentRefs'?: {
           EpisodePlaybackDetails_episode: EpisodePlaybackDetails_episode;
-          LikeControl_playbackItem_Episode_: LikeControl_playbackItem_Episode_;
+          LikeControl_playbackItem_Episode: LikeControl_playbackItem_Episode;
         };
       })
     | ({
@@ -2764,7 +2764,7 @@ export type Playbar_playbackState = ({
       } & {
         ' $fragmentRefs'?: {
           TrackPlaybackDetails_track: TrackPlaybackDetails_track;
-          LikeControl_playbackItem_Track_: LikeControl_playbackItem_Track_;
+          LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
         };
       })
     | null;
@@ -2831,7 +2831,7 @@ export type PlaylistTitleCell_playlist = {
   uri: string;
 } & { ' $fragmentName'?: 'PlaylistTitleCell_playlist' };
 
-type PlaylistTitleCell_playlistTrack_Episode_ = {
+type PlaylistTitleCell_playlistTrack_Episode = {
   __typename: 'Episode';
   explicit: boolean;
   id: string;
@@ -2843,9 +2843,9 @@ type PlaylistTitleCell_playlistTrack_Episode_ = {
     publisher: string;
     images: Array<{ __typename: 'Image'; url: string }>;
   };
-} & { ' $fragmentName'?: 'PlaylistTitleCell_playlistTrack_Episode_' };
+} & { ' $fragmentName'?: 'PlaylistTitleCell_playlistTrack_Episode' };
 
-type PlaylistTitleCell_playlistTrack_Track_ = {
+type PlaylistTitleCell_playlistTrack_Track = {
   __typename: 'Track';
   explicit: boolean;
   id: string;
@@ -2858,11 +2858,11 @@ type PlaylistTitleCell_playlistTrack_Track_ = {
     name: string;
     images: Array<{ __typename: 'Image'; url: string }>;
   };
-} & { ' $fragmentName'?: 'PlaylistTitleCell_playlistTrack_Track_' };
+} & { ' $fragmentName'?: 'PlaylistTitleCell_playlistTrack_Track' };
 
 export type PlaylistTitleCell_playlistTrack =
-  | PlaylistTitleCell_playlistTrack_Episode_
-  | PlaylistTitleCell_playlistTrack_Track_;
+  | PlaylistTitleCell_playlistTrack_Episode
+  | PlaylistTitleCell_playlistTrack_Track;
 
 export type TrackNumberCell_playbackState = {
   __typename: 'PlaybackState';
@@ -3726,7 +3726,7 @@ export type PlaylistQuery = {
                   show: { __typename: 'Show'; id: string; name: string };
                 } & {
                   ' $fragmentRefs'?: {
-                    PlaylistTitleCell_playlistTrack_Episode_: PlaylistTitleCell_playlistTrack_Episode_;
+                    PlaylistTitleCell_playlistTrack_Episode: PlaylistTitleCell_playlistTrack_Episode;
                   };
                 })
               | ({
@@ -3739,7 +3739,7 @@ export type PlaylistQuery = {
                 } & {
                   ' $fragmentRefs'?: {
                     TrackNumberCell_track: TrackNumberCell_track;
-                    PlaylistTitleCell_playlistTrack_Track_: PlaylistTitleCell_playlistTrack_Track_;
+                    PlaylistTitleCell_playlistTrack_Track: PlaylistTitleCell_playlistTrack_Track;
                   };
                 });
           }>;
@@ -3777,24 +3777,24 @@ export type QueueRouteQuery = {
         currentlyPlaying:
           | ({ __typename: 'Episode' } & {
               ' $fragmentRefs'?: {
-                QueueRoute_playbackItem_Episode_: QueueRoute_playbackItem_Episode_;
+                QueueRoute_playbackItem_Episode: QueueRoute_playbackItem_Episode;
               };
             })
           | ({ __typename: 'Track' } & {
               ' $fragmentRefs'?: {
-                QueueRoute_playbackItem_Track_: QueueRoute_playbackItem_Track_;
+                QueueRoute_playbackItem_Track: QueueRoute_playbackItem_Track;
               };
             })
           | null;
         queue: Array<
           | ({ __typename: 'Episode' } & {
               ' $fragmentRefs'?: {
-                QueueRoute_playbackItem_Episode_: QueueRoute_playbackItem_Episode_;
+                QueueRoute_playbackItem_Episode: QueueRoute_playbackItem_Episode;
               };
             })
           | ({ __typename: 'Track' } & {
               ' $fragmentRefs'?: {
-                QueueRoute_playbackItem_Track_: QueueRoute_playbackItem_Track_;
+                QueueRoute_playbackItem_Track: QueueRoute_playbackItem_Track;
               };
             })
         >;
@@ -3803,7 +3803,7 @@ export type QueueRouteQuery = {
   } | null;
 };
 
-type QueueRoute_playbackItem_Episode_ = ({
+type QueueRoute_playbackItem_Episode = ({
   __typename: 'Episode';
   id: string;
   durationMs: number;
@@ -3811,9 +3811,9 @@ type QueueRoute_playbackItem_Episode_ = ({
   show: { __typename: 'Show'; id: string; name: string };
 } & {
   ' $fragmentRefs'?: { EpisodeDetailsCell_episode: EpisodeDetailsCell_episode };
-}) & { ' $fragmentName'?: 'QueueRoute_playbackItem_Episode_' };
+}) & { ' $fragmentName'?: 'QueueRoute_playbackItem_Episode' };
 
-type QueueRoute_playbackItem_Track_ = ({
+type QueueRoute_playbackItem_Track = ({
   __typename: 'Track';
   id: string;
   durationMs: number;
@@ -3824,11 +3824,11 @@ type QueueRoute_playbackItem_Track_ = ({
     TrackNumberCell_track: TrackNumberCell_track;
     TrackTitleCell_track: TrackTitleCell_track;
   };
-}) & { ' $fragmentName'?: 'QueueRoute_playbackItem_Track_' };
+}) & { ' $fragmentName'?: 'QueueRoute_playbackItem_Track' };
 
 export type QueueRoute_playbackItem =
-  | QueueRoute_playbackItem_Episode_
-  | QueueRoute_playbackItem_Track_;
+  | QueueRoute_playbackItem_Episode
+  | QueueRoute_playbackItem_Track;
 
 export type QueueRoute_playbackState = {
   __typename: 'PlaybackState';
