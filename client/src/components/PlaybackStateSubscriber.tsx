@@ -89,7 +89,7 @@ const PlaybackStateSubscriber = () => {
         if (
           error instanceof ApolloError &&
           error.graphQLErrors.some(
-            (error) => error.extensions.code === 'UNAUTHENTICATED'
+            (error) => error.extensions?.code === 'UNAUTHENTICATED'
           )
         ) {
           navigate('/logged-out');
