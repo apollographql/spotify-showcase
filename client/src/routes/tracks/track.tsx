@@ -27,17 +27,17 @@ const TRACK_ROUTE_QUERY = gql`
           vibrantColor(format: RGB, alpha: 0.9) @client
         }
 
-        ...AlbumTracksTable_album
+        ...AlbumTracksTable_album @unmask(mode: "migrate")
       }
       artists {
         id
         name
         topTracks {
           id
-          ...ArtistTopTracks_tracks
+          ...ArtistTopTracks_tracks @unmask(mode: "migrate")
         }
 
-        ...ArtistTile_artist
+        ...ArtistTile_artist @unmask(mode: "migrate")
       }
     }
   }

@@ -63,7 +63,7 @@ const PLAYLIST_QUERY = gql`
                 name
               }
 
-              ...TrackNumberCell_track
+              ...TrackNumberCell_track @unmask(mode: "migrate")
             }
 
             ... on Episode {
@@ -77,7 +77,7 @@ const PLAYLIST_QUERY = gql`
               }
             }
 
-            ...PlaylistTitleCell_playlistTrack
+            ...PlaylistTitleCell_playlistTrack @unmask(mode: "migrate")
           }
         }
         pageInfo {
@@ -88,7 +88,7 @@ const PLAYLIST_QUERY = gql`
         }
       }
 
-      ...PlaylistTitleCell_playlist
+      ...PlaylistTitleCell_playlist @unmask(mode: "migrate")
     }
   }
 `;

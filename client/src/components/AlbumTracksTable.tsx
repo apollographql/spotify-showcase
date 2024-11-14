@@ -40,12 +40,12 @@ fragmentRegistry.register(gql`
             id
           }
 
-          ...AlbumTrackTitleCell_track
+          ...AlbumTrackTitleCell_track @unmask(mode: "migrate")
         }
       }
     }
 
-    ...AlbumTrackTitleCell_album
+    ...AlbumTrackTitleCell_album @unmask(mode: "migrate")
   }
 `);
 

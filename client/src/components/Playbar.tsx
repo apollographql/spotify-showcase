@@ -45,7 +45,7 @@ const PLAYBAR_QUERY: TypedDocumentNode<
       player {
         devices {
           id
-          ...DevicePopover_devices
+          ...DevicePopover_devices @unmask(mode: "migrate")
         }
       }
     }
@@ -61,7 +61,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
       disallows
     }
     context {
-      ...TrackPlaybackDetails_context
+      ...TrackPlaybackDetails_context @unmask(mode: "migrate")
     }
     device {
       id
@@ -79,7 +79,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...TrackPlaybackDetails_track
+        ...TrackPlaybackDetails_track @unmask(mode: "migrate")
       }
       ... on Episode {
         show {
@@ -88,13 +88,13 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...EpisodePlaybackDetails_episode
+        ...EpisodePlaybackDetails_episode @unmask(mode: "migrate")
       }
 
-      ...LikeControl_playbackItem
+      ...LikeControl_playbackItem @unmask(mode: "migrate")
     }
 
-    ...PlaybackItemProgressBar_playbackState
+    ...PlaybackItemProgressBar_playbackState @unmask(mode: "migrate")
   }
 `;
 

@@ -43,10 +43,10 @@ const QUEUE_ROUTE_QUERY = gql`
       player {
         playbackQueue {
           currentlyPlaying {
-            ...QueueRoute_playbackItem
+            ...QueueRoute_playbackItem @unmask(mode: "migrate")
           }
           queue {
-            ...QueueRoute_playbackItem
+            ...QueueRoute_playbackItem @unmask(mode: "migrate")
           }
         }
       }
@@ -62,15 +62,15 @@ const QUEUE_ROUTE_QUERY = gql`
         id
         name
       }
-      ...TrackNumberCell_track
-      ...TrackTitleCell_track
+      ...TrackNumberCell_track @unmask(mode: "migrate")
+      ...TrackTitleCell_track @unmask(mode: "migrate")
     }
     ... on Episode {
       show {
         id
         name
       }
-      ...EpisodeDetailsCell_episode
+      ...EpisodeDetailsCell_episode @unmask(mode: "migrate")
     }
   }
 `;

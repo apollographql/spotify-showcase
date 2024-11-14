@@ -22,15 +22,15 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       id
       name
       albums(includeGroups: [ALBUM]) {
-        ...ArtistRouteQuery_albums
+        ...ArtistRouteQuery_albums @unmask(mode: "migrate")
       }
 
       singles: albums(includeGroups: [SINGLE]) {
-        ...ArtistRouteQuery_albums
+        ...ArtistRouteQuery_albums @unmask(mode: "migrate")
       }
 
       appearsOn: albums(includeGroups: [APPEARS_ON]) {
-        ...ArtistRouteQuery_albums
+        ...ArtistRouteQuery_albums @unmask(mode: "migrate")
       }
 
       followers {
@@ -41,12 +41,12 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       }
       relatedArtists {
         id
-        ...ArtistTile_artist
+        ...ArtistTile_artist @unmask(mode: "migrate")
       }
       topTracks {
         id
 
-        ...ArtistTopTracks_tracks
+        ...ArtistTopTracks_tracks @unmask(mode: "migrate")
       }
     }
   }
@@ -56,7 +56,7 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       node {
         id
 
-        ...AlbumTile_album
+        ...AlbumTile_album @unmask(mode: "migrate")
       }
     }
   }

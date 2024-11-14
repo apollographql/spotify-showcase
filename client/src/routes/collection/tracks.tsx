@@ -58,8 +58,8 @@ const COLLECTION_TRACKS_ROUTE_QUERY = gql`
               id
             }
 
-            ...TrackNumberCell_track
-            ...TrackTitleCell_track
+            ...TrackNumberCell_track @unmask(mode: "migrate")
+            ...TrackTitleCell_track @unmask(mode: "migrate")
           }
         }
       }

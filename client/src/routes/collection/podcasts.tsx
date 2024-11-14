@@ -17,7 +17,7 @@ const COLLECTION_PODCASTS_ROUTE_QUERY: TypedDocumentNode<
   query CollectionPodcastsRouteQuery($limit: Int, $offset: Int) {
     me {
       episodes(limit: 10) {
-        ...YourEpisodesTile_connection
+        ...YourEpisodesTile_connection @unmask(mode: "migrate")
       }
       shows(offset: $offset, limit: $limit) {
         pageInfo {

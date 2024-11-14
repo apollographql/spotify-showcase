@@ -60,7 +60,7 @@ const ALBUM_ROUTE_QUERY: TypedDocumentNode<
         precision
       }
 
-      ...AlbumTracksTable_album
+      ...AlbumTracksTable_album @unmask(mode: "migrate")
     }
   }
 `;

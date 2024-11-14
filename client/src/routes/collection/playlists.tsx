@@ -40,7 +40,7 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
             }
           }
         }
-        ...LikedSongsTile_connection
+        ...LikedSongsTile_connection @unmask(mode: "migrate")
       }
       playlists(offset: $offset, limit: $limit)
         @connection(key: "collectionPlaylists") {
@@ -52,7 +52,7 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            ...PlaylistTile_playlist
+            ...PlaylistTile_playlist @unmask(mode: "migrate")
           }
         }
       }
@@ -73,7 +73,7 @@ const PAGINATED_QUERY = gql`
         edges {
           node {
             id
-            ...PlaylistTile_playlist
+            ...PlaylistTile_playlist @unmask(mode: "migrate")
           }
         }
       }

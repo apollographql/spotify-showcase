@@ -27,7 +27,7 @@ const EPISODE_ROUTE_QUERY = gql`
         }
       }
 
-      ...EpisodeRemainingDuration_episode
+      ...EpisodeRemainingDuration_episode @unmask(mode: "migrate")
     }
   }
 `;
