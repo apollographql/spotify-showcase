@@ -5,11 +5,8 @@ import {
   useFragment,
 } from '@apollo/client';
 import {
-  TrackPlaybackDetails_context as Context,
-  TrackPlaybackDetails_track as Track,
   PlaybackContextType,
-  TrackPlaybackDetails_context,
-  TrackPlaybackDetails_track,
+  TrackPlaybackDetails_playbackState,
 } from '../types/api';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
@@ -20,32 +17,58 @@ import { parseSpotifyIDFromURI } from '../utils/spotify';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface TrackPlaybackDetailsProps {
-  context: Context | null;
-  track: FragmentType<Track>;
+  playbackState: FragmentType<TrackPlaybackDetails_playbackState>;
 }
 
-const TrackPlaybackDetails = ({
-  context,
-  track,
-}: TrackPlaybackDetailsProps) => {
-  const { data: trackData, complete } = useFragment({
-    fragment: TrackPlaybackDetailsTrackFragment,
-    from: track,
+const TrackPlaybackDetailsFragment: TypedDocumentNode<TrackPlaybackDetails_playbackState> = gql`
+  fragment TrackPlaybackDetails_playbackState on PlaybackState {
+    context {
+      uri
+      type
+    }
+    item {
+      id
+      ... on Track {
+        id
+        name
+        uri
+        album {
+          id
+          name
+        }
+        artists {
+          id
+          uri
+          name
+        }
+      }
+    }
+  }
+`;
+
+fragmentRegistry.register(TrackPlaybackDetailsFragment);
+
+const TrackPlaybackDetails = ({ playbackState }: TrackPlaybackDetailsProps) => {
+  const { data, complete } = useFragment({
+    fragment: TrackPlaybackDetailsFragment,
+    from: playbackState,
   });
 
-  if (!complete) {
+  if (!complete || data.item?.__typename !== 'Track') {
     return null;
   }
+
+  const { context, item: track } = data;
 
   return (
     <Flex direction="column" gap="0.25rem">
       <ContextMenu
         content={
           <>
-            <ContextMenuAction.AddToQueue uri={trackData.uri} />
+            <ContextMenuAction.AddToQueue uri={track.uri} />
             <ContextMenu.Separator />
-            <ContextMenuAction.LinkToArtist artists={trackData.artists} />
-            <ContextMenu.Link to={`/albums/${trackData.album.id}`}>
+            <ContextMenuAction.LinkToArtist artists={track.artists} />
+            <ContextMenu.Link to={`/albums/${track.album.id}`}>
               Go to album
             </ContextMenu.Link>
             <ContextMenu.Separator />
@@ -53,29 +76,27 @@ const TrackPlaybackDetails = ({
               <>
                 <ContextMenuAction.RemoveFromPlaylist
                   playlistId={parseSpotifyIDFromURI(context.uri)}
-                  uri={trackData.uri}
+                  uri={track.uri}
                 />
                 <ContextMenu.Separator />
               </>
             )}
             <ContextMenu.SubMenu
-              content={
-                <ContextMenuAction.CopyLinkToEntity entity={trackData} />
-              }
+              content={<ContextMenuAction.CopyLinkToEntity entity={track} />}
             >
               Share
             </ContextMenu.SubMenu>
             <ContextMenu.Separator />
-            <ContextMenuAction.OpenDesktopApp uri={trackData.uri} />
+            <ContextMenuAction.OpenDesktopApp uri={track.uri} />
           </>
         }
       >
-        <EntityLink className="text-sm" entity={trackData.album}>
-          {trackData.name}
+        <EntityLink className="text-sm" entity={track.album}>
+          {track.name}
         </EntityLink>
       </ContextMenu>
       <DelimitedList className="text-muted text-xs" delimiter=", ">
-        {trackData.artists.map((artist) => (
+        {track.artists.map((artist) => (
           <ContextMenu
             key={artist.id}
             content={
@@ -101,34 +122,5 @@ const TrackPlaybackDetails = ({
     </Flex>
   );
 };
-
-const TrackPlaybackDetailsContextFragment: TypedDocumentNode<TrackPlaybackDetails_context> = gql`
-  fragment TrackPlaybackDetails_context on PlaybackContext {
-    uri
-    type
-  }
-`;
-
-const TrackPlaybackDetailsTrackFragment: TypedDocumentNode<TrackPlaybackDetails_track> = gql`
-  fragment TrackPlaybackDetails_track on Track {
-    id
-    name
-    uri
-    album {
-      id
-      name
-    }
-    artists {
-      id
-      uri
-      name
-    }
-  }
-`;
-
-fragmentRegistry.register(
-  TrackPlaybackDetailsContextFragment,
-  TrackPlaybackDetailsTrackFragment
-);
 
 export default TrackPlaybackDetails;

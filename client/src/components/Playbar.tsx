@@ -57,9 +57,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     actions {
       disallows
     }
-    context {
-      ...TrackPlaybackDetails_context @unmask(mode: "migrate")
-    }
     device {
       id
       name
@@ -76,7 +73,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...TrackPlaybackDetails_track
       }
       ... on Episode {
         show {
@@ -92,6 +88,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     }
 
     ...PlaybackItemProgressBar_playbackState
+    ...TrackPlaybackDetails_playbackState
   }
 `;
 
@@ -119,11 +116,8 @@ const Playbar = () => {
       <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-4 px-6">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
-          {playbackItem?.__typename === 'Track' ? (
-            <TrackPlaybackDetails
-              context={playbackState?.context ?? null}
-              track={playbackItem}
-            />
+          {playbackState && playbackItem?.__typename === 'Track' ? (
+            <TrackPlaybackDetails playbackState={playbackState} />
           ) : playbackItem?.__typename === 'Episode' ? (
             <EpisodePlaybackDetails episode={playbackItem} />
           ) : null}

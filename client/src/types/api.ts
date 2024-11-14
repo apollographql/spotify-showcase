@@ -2648,17 +2648,7 @@ export type PlaybackStateFragment = ({
   repeatState: RepeatMode;
   shuffleState: boolean;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context:
-    | ({
-        __typename: 'PlaybackContext';
-        uri: string;
-        type: PlaybackContextType;
-      } & {
-        ' $fragmentRefs'?: {
-          TrackPlaybackDetails_context: TrackPlaybackDetails_context;
-        };
-      })
-    | null;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
   device: {
     __typename: 'Device';
     id: string | null;
@@ -2693,7 +2683,6 @@ export type PlaybackStateFragment = ({
         };
       } & {
         ' $fragmentRefs'?: {
-          TrackPlaybackDetails_track: TrackPlaybackDetails_track;
           LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
         };
       })
@@ -2702,6 +2691,7 @@ export type PlaybackStateFragment = ({
   ' $fragmentRefs'?: {
     Playbar_playbackState: Playbar_playbackState;
     PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
+    TrackPlaybackDetails_playbackState: TrackPlaybackDetails_playbackState;
   };
 }) & { ' $fragmentName'?: 'PlaybackStateFragment' };
 
@@ -2721,17 +2711,7 @@ export type PlaybackStateSubscriberQuery = {
             repeatState: RepeatMode;
             shuffleState: boolean;
             actions: { __typename: 'Actions'; disallows: Array<Action> };
-            context:
-              | ({
-                  __typename: 'PlaybackContext';
-                  uri: string;
-                  type: PlaybackContextType;
-                } & {
-                  ' $fragmentRefs'?: {
-                    TrackPlaybackDetails_context: TrackPlaybackDetails_context;
-                  };
-                })
-              | null;
+            context: { __typename: 'PlaybackContext'; uri: string } | null;
             device: {
               __typename: 'Device';
               id: string | null;
@@ -2766,7 +2746,6 @@ export type PlaybackStateSubscriberQuery = {
                   };
                 } & {
                   ' $fragmentRefs'?: {
-                    TrackPlaybackDetails_track: TrackPlaybackDetails_track;
                     LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
                   };
                 })
@@ -2776,6 +2755,7 @@ export type PlaybackStateSubscriberQuery = {
               PlaybackStateFragment: PlaybackStateFragment;
               Playbar_playbackState: Playbar_playbackState;
               PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
+              TrackPlaybackDetails_playbackState: TrackPlaybackDetails_playbackState;
             };
           })
         | null;
@@ -2795,17 +2775,7 @@ export type PlaybackStateSubscriberSubscription = {
         repeatState: RepeatMode;
         shuffleState: boolean;
         actions: { __typename: 'Actions'; disallows: Array<Action> };
-        context:
-          | ({
-              __typename: 'PlaybackContext';
-              uri: string;
-              type: PlaybackContextType;
-            } & {
-              ' $fragmentRefs'?: {
-                TrackPlaybackDetails_context: TrackPlaybackDetails_context;
-              };
-            })
-          | null;
+        context: { __typename: 'PlaybackContext'; uri: string } | null;
         device: {
           __typename: 'Device';
           id: string | null;
@@ -2840,7 +2810,6 @@ export type PlaybackStateSubscriberSubscription = {
               };
             } & {
               ' $fragmentRefs'?: {
-                TrackPlaybackDetails_track: TrackPlaybackDetails_track;
                 LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
               };
             })
@@ -2850,6 +2819,7 @@ export type PlaybackStateSubscriberSubscription = {
           PlaybackStateFragment: PlaybackStateFragment;
           Playbar_playbackState: Playbar_playbackState;
           PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
+          TrackPlaybackDetails_playbackState: TrackPlaybackDetails_playbackState;
         };
       })
     | null;
@@ -2872,17 +2842,6 @@ export type Playbar_playbackState = ({
   repeatState: RepeatMode;
   shuffleState: boolean;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context:
-    | ({
-        __typename: 'PlaybackContext';
-        uri: string;
-        type: PlaybackContextType;
-      } & {
-        ' $fragmentRefs'?: {
-          TrackPlaybackDetails_context: TrackPlaybackDetails_context;
-        };
-      })
-    | null;
   device: {
     __typename: 'Device';
     id: string | null;
@@ -2917,7 +2876,6 @@ export type Playbar_playbackState = ({
         };
       } & {
         ' $fragmentRefs'?: {
-          TrackPlaybackDetails_track: TrackPlaybackDetails_track;
           LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
         };
       })
@@ -2925,6 +2883,7 @@ export type Playbar_playbackState = ({
 } & {
   ' $fragmentRefs'?: {
     PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
+    TrackPlaybackDetails_playbackState: TrackPlaybackDetails_playbackState;
   };
 }) & { ' $fragmentName'?: 'Playbar_playbackState' };
 
@@ -3035,25 +2994,30 @@ export type TrackNumberCell_track = {
   trackNumber: number | null;
 } & { ' $fragmentName'?: 'TrackNumberCell_track' };
 
-export type TrackPlaybackDetails_context = {
-  __typename: 'PlaybackContext';
-  uri: string;
-  type: PlaybackContextType;
-} & { ' $fragmentName'?: 'TrackPlaybackDetails_context' };
-
-export type TrackPlaybackDetails_track = {
-  __typename: 'Track';
-  id: string;
-  name: string;
-  uri: string;
-  album: { __typename: 'Album'; id: string; name: string };
-  artists: Array<{
-    __typename: 'Artist';
-    id: string;
+export type TrackPlaybackDetails_playbackState = {
+  __typename: 'PlaybackState';
+  context: {
+    __typename: 'PlaybackContext';
     uri: string;
-    name: string;
-  }>;
-} & { ' $fragmentName'?: 'TrackPlaybackDetails_track' };
+    type: PlaybackContextType;
+  } | null;
+  item:
+    | { __typename: 'Episode'; id: string }
+    | {
+        __typename: 'Track';
+        id: string;
+        name: string;
+        uri: string;
+        album: { __typename: 'Album'; id: string; name: string };
+        artists: Array<{
+          __typename: 'Artist';
+          id: string;
+          uri: string;
+          name: string;
+        }>;
+      }
+    | null;
+} & { ' $fragmentName'?: 'TrackPlaybackDetails_playbackState' };
 
 export type TrackTitleCell_playbackState = {
   __typename: 'PlaybackState';
