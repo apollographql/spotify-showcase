@@ -1,7 +1,12 @@
 import { ReactNode } from 'react';
-import { gql } from '@apollo/client';
 import {
-  DevicePopover_devices as Device,
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
+import {
+  DevicePopover_player,
   DevicePopover_playbackState as PlaybackState,
 } from '../types/api';
 import Popover from './Popover';
@@ -12,7 +17,7 @@ import useTransferPlaybackMutation from '../mutations/useTransferPlaybackMutatio
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface DevicePopoverProps {
-  devices: Device[];
+  player: FragmentType<DevicePopover_player>;
   children: ReactNode;
 }
 
@@ -25,25 +30,37 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-fragmentRegistry.register(gql`
-  fragment DevicePopover_devices on Device {
-    id
-    name
-    type
+const DevicePopoverFragment: TypedDocumentNode<DevicePopover_player> = gql`
+  fragment DevicePopover_player on Player {
+    devices {
+      id
+      name
+      type
+    }
   }
-`);
+`;
 
-const DevicePopover = ({ devices, children }: DevicePopoverProps) => {
+fragmentRegistry.register(DevicePopoverFragment);
+
+const DevicePopover = ({ children, player }: DevicePopoverProps) => {
   const [transferPlayback] = useTransferPlaybackMutation();
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
-  const currentDevice = devices.find(
+  const { data, complete } = useFragment({
+    fragment: DevicePopoverFragment,
+    from: player,
+  });
+
+  if (!complete) {
+    return null;
+  }
+
+  const currentDevice = data.devices?.find(
     (device) => device.id === playbackState?.device.id
   );
-  const availableDevices = devices.filter(
-    (device) => device.id !== currentDevice?.id
-  );
+  const availableDevices =
+    data.devices?.filter((device) => device.id !== currentDevice?.id) ?? [];
 
   return (
     <Popover

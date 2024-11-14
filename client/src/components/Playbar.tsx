@@ -43,10 +43,7 @@ const PLAYBAR_QUERY: TypedDocumentNode<
   query PlaybarQuery {
     me {
       player {
-        devices {
-          id
-          ...DevicePopover_devices @unmask(mode: "migrate")
-        }
+        ...DevicePopover_player
       }
     }
   }
@@ -105,6 +102,7 @@ const Playbar = () => {
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
+  const player = data.me?.player;
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
   const devices = data.me?.player.devices ?? [];
@@ -176,13 +174,15 @@ const Playbar = () => {
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
           <QueueControlButton />
-          <DevicePopover devices={devices}>
-            <PlaybarControlButton
-              disallowed={devices.length === 0}
-              icon={<DeviceIcon device={device} strokeWidth={1.5} />}
-              tooltip="Connect to a device"
-            />
-          </DevicePopover>
+          {player && (
+            <DevicePopover player={player}>
+              <PlaybarControlButton
+                disallowed={devices.length === 0}
+                icon={<DeviceIcon device={device} strokeWidth={1.5} />}
+                tooltip="Connect to a device"
+              />
+            </DevicePopover>
+          )}
           <Flex gap="0.25rem" alignItems="center">
             <MuteControl
               disallowed={!device}

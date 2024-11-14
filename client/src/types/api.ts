@@ -2490,7 +2490,6 @@ export type CurrentUserQuery = {
       __typename: 'CurrentUserProfile';
       id: string;
       displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }> | null;
     } & {
       ' $fragmentRefs'?: {
         Avatar_profile_CurrentUserProfile: Avatar_profile_CurrentUserProfile;
@@ -2505,12 +2504,15 @@ export type DevicePopover_playbackState = {
   device: { __typename: 'Device'; id: string | null };
 } & { ' $fragmentName'?: 'DevicePopover_playbackState' };
 
-export type DevicePopover_devices = {
-  __typename: 'Device';
-  id: string | null;
-  name: string;
-  type: string;
-} & { ' $fragmentName'?: 'DevicePopover_devices' };
+export type DevicePopover_player = {
+  __typename: 'Player';
+  devices: Array<{
+    __typename: 'Device';
+    id: string | null;
+    name: string;
+    type: string;
+  }> | null;
+} & { ' $fragmentName'?: 'DevicePopover_player' };
 
 export type EpisodeDetailsCell_episode = {
   __typename: 'Episode';
@@ -2897,18 +2899,8 @@ export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
 export type PlaybarQuery = {
   me: {
     __typename: 'CurrentUser';
-    player: {
-      __typename: 'Player';
-      devices: Array<
-        {
-          __typename: 'Device';
-          id: string | null;
-          name: string;
-          type: string;
-        } & {
-          ' $fragmentRefs'?: { DevicePopover_devices: DevicePopover_devices };
-        }
-      > | null;
+    player: { __typename: 'Player' } & {
+      ' $fragmentRefs'?: { DevicePopover_player: DevicePopover_player };
     };
   } | null;
 };
@@ -4029,14 +4021,7 @@ export type IndexRouteQuery = {
     message: string;
     edges: Array<{
       __typename: 'FeaturedPlaylistEdge';
-      node: {
-        __typename: 'Playlist';
-        id: string;
-        name: string;
-        description: string | null;
-        uri: string;
-        images: Array<{ __typename: 'Image'; url: string }> | null;
-      } & {
+      node: { __typename: 'Playlist'; id: string } & {
         ' $fragmentRefs'?: { PlaylistTile_playlist: PlaylistTile_playlist };
       };
     }>;
