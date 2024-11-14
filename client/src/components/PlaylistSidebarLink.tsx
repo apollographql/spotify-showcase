@@ -1,12 +1,17 @@
 import { ReactElement, cloneElement } from 'react';
-import { gql, TypedDocumentNode, useFragment } from '@apollo/client';
+import {
+  FragmentType,
+  gql,
+  TypedDocumentNode,
+  useFragment,
+} from '@apollo/client';
 import { Volume2, Pin } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import ContextMenu from './ContextMenu';
 import {
-  PlaylistSidebarLink_playlist as Playlist,
   PlaylistSidebarLink_playbackState as PlaybackState,
   PlaylistSidebarLink_currentUser,
+  PlaylistSidebarLink_playlist,
 } from '../types/api';
 import cx from 'classnames';
 import ContextMenuAction from './ContextMenuAction';
@@ -15,12 +20,12 @@ import usePlaybackState from '../hooks/usePlaybackState';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaylistSidebarLinkProps {
-  playlist: Playlist;
+  playlist: FragmentType<PlaylistSidebarLink_playlist>;
   coverPhoto: ReactElement<{ size: string }>;
   to: string;
   pinned: boolean;
-  onClickEdit?: (playlist: Playlist) => void;
-  onMouseOverEdit?: (playlist: Playlist) => void;
+  onClickEdit?: (playlist: PlaylistSidebarLink_playlist) => void;
+  onMouseOverEdit?: (playlist: PlaylistSidebarLink_playlist) => void;
 }
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
@@ -40,6 +45,20 @@ const CURRENT_USER_FRAGMENT: TypedDocumentNode<PlaylistSidebarLink_currentUser> 
   }
 `;
 
+const PlaylistSidebarLinkFragment: TypedDocumentNode<PlaylistSidebarLink_playlist> = gql`
+  fragment PlaylistSidebarLink_playlist on Playlist {
+    id
+    uri
+    name
+    owner {
+      id
+      displayName
+    }
+  }
+`;
+
+fragmentRegistry.register(PlaylistSidebarLinkFragment);
+
 const PlaylistSidebarLink = ({
   coverPhoto,
   playlist,
@@ -52,33 +71,42 @@ const PlaylistSidebarLink = ({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
-  const { data } = useFragment({
+  const { data: currentUser } = useFragment({
     fragment: CURRENT_USER_FRAGMENT,
     from: { __typename: 'CurrentUser' },
   });
 
-  const isCurrentContext = playlist.uri === playbackState?.context?.uri;
-  const isOwner = playlist.owner.id === data.profile?.id;
+  const { data, complete } = useFragment({
+    fragment: PlaylistSidebarLinkFragment,
+    from: playlist,
+  });
+
+  if (!complete) {
+    return null;
+  }
+
+  const isCurrentContext = data.uri === playbackState?.context?.uri;
+  const isOwner = data.owner.id === currentUser.profile?.id;
 
   return (
     <ContextMenu
       content={
         <>
           <ContextMenu.SubMenu
-            content={<ContextMenuAction.CopyLinkToEntity entity={playlist} />}
+            content={<ContextMenuAction.CopyLinkToEntity entity={data} />}
           >
             Share
           </ContextMenu.SubMenu>
           <ContextMenu.Separator />
           {isOwner && (
             <ContextMenu.Action
-              onMouseOver={() => onMouseOverEdit?.(playlist)}
-              onSelect={() => onClickEdit?.(playlist)}
+              onMouseOver={() => onMouseOverEdit?.(data)}
+              onSelect={() => onClickEdit?.(data)}
             >
               Edit details
             </ContextMenu.Action>
           )}
-          <ContextMenuAction.OpenDesktopApp uri={playlist.uri} />
+          <ContextMenuAction.OpenDesktopApp uri={data.uri} />
         </>
       }
     >
@@ -103,7 +131,7 @@ const PlaylistSidebarLink = ({
                   { 'text-theme-light': isCurrentContext }
                 )}
               >
-                {playlist.name}
+                {data.name}
               </div>
               <div className="flex gap-2 items-center">
                 {pinned && (
@@ -116,7 +144,7 @@ const PlaylistSidebarLink = ({
                 )}
                 <DelimitedList delimiter=" · " className="text-muted text-sm">
                   <span>Playlist</span>
-                  <span>{playlist.owner.displayName}</span>
+                  <span>{data.owner.displayName}</span>
                 </DelimitedList>
               </div>
             </div>
@@ -129,17 +157,5 @@ const PlaylistSidebarLink = ({
     </ContextMenu>
   );
 };
-
-fragmentRegistry.register(gql`
-  fragment PlaylistSidebarLink_playlist on Playlist {
-    id
-    uri
-    name
-    owner {
-      id
-      displayName
-    }
-  }
-`);
 
 export default PlaylistSidebarLink;

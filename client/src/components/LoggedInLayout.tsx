@@ -102,7 +102,7 @@ const SIDEBAR_QUERY: TypedDocumentNode<
             images {
               url
             }
-            ...PlaylistSidebarLink_playlist @unmask(mode: "migrate")
+            ...PlaylistSidebarLink_playlist
           }
         }
       }

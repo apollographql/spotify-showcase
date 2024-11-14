@@ -2612,10 +2612,7 @@ export type SidebarQuery = {
         node: {
           __typename: 'Playlist';
           id: string;
-          uri: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }> | null;
-          owner: { __typename: 'User'; id: string; displayName: string | null };
         } & {
           ' $fragmentRefs'?: {
             PlaylistSidebarLink_playlist: PlaylistSidebarLink_playlist;
