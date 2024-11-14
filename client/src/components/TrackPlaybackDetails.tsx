@@ -1,8 +1,15 @@
-import { gql } from '@apollo/client';
+import {
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
 import {
   TrackPlaybackDetails_context as Context,
   TrackPlaybackDetails_track as Track,
   PlaybackContextType,
+  TrackPlaybackDetails_context,
+  TrackPlaybackDetails_track,
 } from '../types/api';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
@@ -14,22 +21,31 @@ import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface TrackPlaybackDetailsProps {
   context: Context | null;
-  track: Track;
+  track: FragmentType<Track>;
 }
 
 const TrackPlaybackDetails = ({
   context,
   track,
 }: TrackPlaybackDetailsProps) => {
+  const { data: trackData, complete } = useFragment({
+    fragment: TrackPlaybackDetailsTrackFragment,
+    from: track,
+  });
+
+  if (!complete) {
+    return null;
+  }
+
   return (
     <Flex direction="column" gap="0.25rem">
       <ContextMenu
         content={
           <>
-            <ContextMenuAction.AddToQueue uri={track.uri} />
+            <ContextMenuAction.AddToQueue uri={trackData.uri} />
             <ContextMenu.Separator />
-            <ContextMenuAction.LinkToArtist artists={track.artists} />
-            <ContextMenu.Link to={`/albums/${track.album.id}`}>
+            <ContextMenuAction.LinkToArtist artists={trackData.artists} />
+            <ContextMenu.Link to={`/albums/${trackData.album.id}`}>
               Go to album
             </ContextMenu.Link>
             <ContextMenu.Separator />
@@ -37,27 +53,29 @@ const TrackPlaybackDetails = ({
               <>
                 <ContextMenuAction.RemoveFromPlaylist
                   playlistId={parseSpotifyIDFromURI(context.uri)}
-                  uri={track.uri}
+                  uri={trackData.uri}
                 />
                 <ContextMenu.Separator />
               </>
             )}
             <ContextMenu.SubMenu
-              content={<ContextMenuAction.CopyLinkToEntity entity={track} />}
+              content={
+                <ContextMenuAction.CopyLinkToEntity entity={trackData} />
+              }
             >
               Share
             </ContextMenu.SubMenu>
             <ContextMenu.Separator />
-            <ContextMenuAction.OpenDesktopApp uri={track.uri} />
+            <ContextMenuAction.OpenDesktopApp uri={trackData.uri} />
           </>
         }
       >
-        <EntityLink className="text-sm" entity={track.album}>
-          {track.name}
+        <EntityLink className="text-sm" entity={trackData.album}>
+          {trackData.name}
         </EntityLink>
       </ContextMenu>
       <DelimitedList className="text-muted text-xs" delimiter=", ">
-        {track.artists.map((artist) => (
+        {trackData.artists.map((artist) => (
           <ContextMenu
             key={artist.id}
             content={
@@ -84,12 +102,14 @@ const TrackPlaybackDetails = ({
   );
 };
 
-fragmentRegistry.register(gql`
+const TrackPlaybackDetailsContextFragment: TypedDocumentNode<TrackPlaybackDetails_context> = gql`
   fragment TrackPlaybackDetails_context on PlaybackContext {
     uri
     type
   }
+`;
 
+const TrackPlaybackDetailsTrackFragment: TypedDocumentNode<TrackPlaybackDetails_track> = gql`
   fragment TrackPlaybackDetails_track on Track {
     id
     name
@@ -104,6 +124,11 @@ fragmentRegistry.register(gql`
       name
     }
   }
-`);
+`;
+
+fragmentRegistry.register(
+  TrackPlaybackDetailsContextFragment,
+  TrackPlaybackDetailsTrackFragment
+);
 
 export default TrackPlaybackDetails;

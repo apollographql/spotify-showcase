@@ -2647,8 +2647,6 @@ export type PlaybackStateFragment = ({
   isPlaying: boolean;
   repeatState: RepeatMode;
   shuffleState: boolean;
-  progressMs: number | null;
-  timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
   context:
     | ({
@@ -2672,7 +2670,6 @@ export type PlaybackStateFragment = ({
     | ({
         __typename: 'Episode';
         id: string;
-        durationMs: number;
         name: string;
         show: {
           __typename: 'Show';
@@ -2689,21 +2686,11 @@ export type PlaybackStateFragment = ({
     | ({
         __typename: 'Track';
         id: string;
-        durationMs: number;
-        name: string;
-        uri: string;
         album: {
           __typename: 'Album';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
       } & {
         ' $fragmentRefs'?: {
           TrackPlaybackDetails_track: TrackPlaybackDetails_track;
@@ -2733,8 +2720,6 @@ export type PlaybackStateSubscriberQuery = {
             isPlaying: boolean;
             repeatState: RepeatMode;
             shuffleState: boolean;
-            progressMs: number | null;
-            timestamp: number;
             actions: { __typename: 'Actions'; disallows: Array<Action> };
             context:
               | ({
@@ -2758,7 +2743,6 @@ export type PlaybackStateSubscriberQuery = {
               | ({
                   __typename: 'Episode';
                   id: string;
-                  durationMs: number;
                   name: string;
                   show: {
                     __typename: 'Show';
@@ -2775,21 +2759,11 @@ export type PlaybackStateSubscriberQuery = {
               | ({
                   __typename: 'Track';
                   id: string;
-                  durationMs: number;
-                  name: string;
-                  uri: string;
                   album: {
                     __typename: 'Album';
                     id: string;
-                    name: string;
                     images: Array<{ __typename: 'Image'; url: string }>;
                   };
-                  artists: Array<{
-                    __typename: 'Artist';
-                    id: string;
-                    uri: string;
-                    name: string;
-                  }>;
                 } & {
                   ' $fragmentRefs'?: {
                     TrackPlaybackDetails_track: TrackPlaybackDetails_track;
@@ -2820,8 +2794,6 @@ export type PlaybackStateSubscriberSubscription = {
         isPlaying: boolean;
         repeatState: RepeatMode;
         shuffleState: boolean;
-        progressMs: number | null;
-        timestamp: number;
         actions: { __typename: 'Actions'; disallows: Array<Action> };
         context:
           | ({
@@ -2845,7 +2817,6 @@ export type PlaybackStateSubscriberSubscription = {
           | ({
               __typename: 'Episode';
               id: string;
-              durationMs: number;
               name: string;
               show: {
                 __typename: 'Show';
@@ -2862,21 +2833,11 @@ export type PlaybackStateSubscriberSubscription = {
           | ({
               __typename: 'Track';
               id: string;
-              durationMs: number;
-              name: string;
-              uri: string;
               album: {
                 __typename: 'Album';
                 id: string;
-                name: string;
                 images: Array<{ __typename: 'Image'; url: string }>;
               };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                uri: string;
-                name: string;
-              }>;
             } & {
               ' $fragmentRefs'?: {
                 TrackPlaybackDetails_track: TrackPlaybackDetails_track;
@@ -2910,8 +2871,6 @@ export type Playbar_playbackState = ({
   isPlaying: boolean;
   repeatState: RepeatMode;
   shuffleState: boolean;
-  progressMs: number | null;
-  timestamp: number;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
   context:
     | ({
@@ -2935,7 +2894,6 @@ export type Playbar_playbackState = ({
     | ({
         __typename: 'Episode';
         id: string;
-        durationMs: number;
         name: string;
         show: {
           __typename: 'Show';
@@ -2952,21 +2910,11 @@ export type Playbar_playbackState = ({
     | ({
         __typename: 'Track';
         id: string;
-        durationMs: number;
-        name: string;
-        uri: string;
         album: {
           __typename: 'Album';
           id: string;
-          name: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
       } & {
         ' $fragmentRefs'?: {
           TrackPlaybackDetails_track: TrackPlaybackDetails_track;

@@ -76,7 +76,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...TrackPlaybackDetails_track @unmask(mode: "migrate")
+        ...TrackPlaybackDetails_track
       }
       ... on Episode {
         show {
