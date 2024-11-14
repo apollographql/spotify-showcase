@@ -33,7 +33,7 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
       edges {
         node {
           id
-          ...PlaylistTile_playlist @unmask(mode: "migrate")
+          ...PlaylistTile_playlist
         }
       }
     }
