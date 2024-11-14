@@ -56,7 +56,7 @@ const PLAYBACK_STATE_SUBSCRIBER_QUERY = gql`
     me {
       player {
         playbackState {
-          ...PlaybackStateFragment @unmask
+          ...PlaybackStateFragment @unmask(mode: "migrate")
         }
       }
     }
@@ -68,7 +68,7 @@ const PLAYBACK_STATE_SUBSCRIBER_QUERY = gql`
 const PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION = gql`
   subscription PlaybackStateSubscriberSubscription {
     playbackStateChanged {
-      ...PlaybackStateFragment @unmask
+      ...PlaybackStateFragment @unmask(mode: "migrate")
     }
   }
 
