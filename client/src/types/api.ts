@@ -2568,6 +2568,12 @@ export type LikedSongsTile_connection = {
   }>;
 } & { ' $fragmentName'?: 'LikedSongsTile_connection' };
 
+export type LikedTracksSidebarLink_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+} & { ' $fragmentName'?: 'LikedTracksSidebarLink_playbackState' };
+
 export type SidebarQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
