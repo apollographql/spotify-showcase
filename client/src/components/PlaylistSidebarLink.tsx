@@ -1,11 +1,10 @@
-import { ReactElement, cloneElement } from 'react';
 import {
   FragmentType,
   gql,
   TypedDocumentNode,
   useFragment,
 } from '@apollo/client';
-import { Volume2, Pin } from 'lucide-react';
+import { Volume2 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import ContextMenu from './ContextMenu';
 import {
@@ -18,14 +17,13 @@ import ContextMenuAction from './ContextMenuAction';
 import DelimitedList from './DelimitedList';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
+import CoverPhoto from './CoverPhoto';
+import { thumbnail } from '../utils/image';
 
 interface PlaylistSidebarLinkProps {
   playlist: FragmentType<PlaylistSidebarLink_playlist>;
-  coverPhoto: ReactElement<{ size: string }>;
-  to: string;
-  pinned: boolean;
-  onClickEdit?: (playlist: PlaylistSidebarLink_playlist) => void;
-  onMouseOverEdit?: (playlist: PlaylistSidebarLink_playlist) => void;
+  onClickEdit?: () => void;
+  onMouseOverEdit?: () => void;
 }
 
 const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState> = gql`
@@ -50,6 +48,9 @@ const PlaylistSidebarLinkFragment: TypedDocumentNode<PlaylistSidebarLink_playlis
     id
     uri
     name
+    images {
+      url
+    }
     owner {
       id
       displayName
@@ -60,10 +61,7 @@ const PlaylistSidebarLinkFragment: TypedDocumentNode<PlaylistSidebarLink_playlis
 fragmentRegistry.register(PlaylistSidebarLinkFragment);
 
 const PlaylistSidebarLink = ({
-  coverPhoto,
   playlist,
-  pinned,
-  to,
   onClickEdit,
   onMouseOverEdit,
 }: PlaylistSidebarLinkProps) => {
@@ -100,8 +98,8 @@ const PlaylistSidebarLink = ({
           <ContextMenu.Separator />
           {isOwner && (
             <ContextMenu.Action
-              onMouseOver={() => onMouseOverEdit?.(data)}
-              onSelect={() => onClickEdit?.(data)}
+              onMouseOver={() => onMouseOverEdit?.()}
+              onSelect={() => onClickEdit?.()}
             >
               Edit details
             </ContextMenu.Action>
@@ -112,7 +110,7 @@ const PlaylistSidebarLink = ({
     >
       <li>
         <NavLink
-          to={to}
+          to={`/playlists/${data.id}`}
           className={({ isActive }) =>
             cx(
               'leading-none transition-colors block py-2 pl-2 pr-4 transition-color duration-200 ease-out hover:no-underline justify-between rounded-md',
@@ -123,7 +121,7 @@ const PlaylistSidebarLink = ({
           }
         >
           <div className="flex gap-3 items-center">
-            {cloneElement(coverPhoto, { size: '3rem' })}
+            <CoverPhoto image={thumbnail(data.images ?? [])} size="3rem" />
             <div className="flex flex-col justify-around flex-1 self-stretch text-ellipsis whitespace-nowrap overflow-hidden">
               <div
                 className={cx(
@@ -134,14 +132,6 @@ const PlaylistSidebarLink = ({
                 {data.name}
               </div>
               <div className="flex gap-2 items-center">
-                {pinned && (
-                  <Pin
-                    fill="currentColor"
-                    size="1rem"
-                    strokeWidth={1}
-                    className="text-theme-light rotate-45"
-                  />
-                )}
                 <DelimitedList delimiter=" · " className="text-muted text-sm">
                   <span>Playlist</span>
                   <span>{data.owner.displayName}</span>

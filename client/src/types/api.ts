@@ -2593,11 +2593,7 @@ export type SidebarQuery = {
       };
       edges: Array<{
         __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
-        } & {
+        node: { __typename: 'Playlist'; id: string } & {
           ' $fragmentRefs'?: {
             PlaylistSidebarLink_playlist: PlaylistSidebarLink_playlist;
           };
@@ -2809,6 +2805,7 @@ export type PlaylistSidebarLink_playlist = {
   id: string;
   uri: string;
   name: string;
+  images: Array<{ __typename: 'Image'; url: string }> | null;
   owner: { __typename: 'User'; id: string; displayName: string | null };
 } & { ' $fragmentName'?: 'PlaylistSidebarLink_playlist' };
 

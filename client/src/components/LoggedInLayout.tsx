@@ -13,11 +13,7 @@ import {
 import { SidebarQuery, SidebarQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
-import CoverPhoto from './CoverPhoto';
-import { thumbnail } from '../utils/image';
 import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
-import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
-import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import PlaylistDetailsModal, {
   PLAYLIST_DETAILS_MODAL_QUERY,
 } from './PlaylistDetailsModal';
@@ -101,9 +97,6 @@ const SIDEBAR_QUERY: TypedDocumentNode<
         edges {
           node {
             id
-            images {
-              url
-            }
             ...PlaylistSidebarLink_playlist
           }
         }
@@ -145,14 +138,9 @@ const Sidebar = () => {
             <SavedEpisodesSidebarLink />
             {me.playlists?.edges.map(({ node: playlist }) => (
               <PlaylistSidebarLink
-                pinned={false}
                 key={playlist.id}
                 playlist={playlist}
-                coverPhoto={
-                  <CoverPhoto image={thumbnail(playlist.images ?? [])} />
-                }
-                to={`/playlists/${playlist.id}`}
-                onMouseOverEdit={(playlist) =>
+                onMouseOverEdit={() =>
                   preloadPlaylistDetails({ id: playlist.id })
                 }
                 onClickEdit={() => setIsPlaylistDetailsModalOpen(true)}
