@@ -42,6 +42,9 @@ const PLAYBAR_QUERY: TypedDocumentNode<
   query PlaybarQuery {
     me {
       player {
+        devices {
+          id
+        }
         ...DevicePopover_player
       }
     }
@@ -64,7 +67,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     }
     item {
       id
-
       ... on Track {
         album {
           id

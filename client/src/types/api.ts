@@ -2846,9 +2846,10 @@ export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
 export type PlaybarQuery = {
   me: {
     __typename: 'CurrentUser';
-    player: { __typename: 'Player' } & {
-      ' $fragmentRefs'?: { DevicePopover_player: DevicePopover_player };
-    };
+    player: {
+      __typename: 'Player';
+      devices: Array<{ __typename: 'Device'; id: string | null }> | null;
+    } & { ' $fragmentRefs'?: { DevicePopover_player: DevicePopover_player } };
   } | null;
 };
 
