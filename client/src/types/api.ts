@@ -2824,12 +2824,6 @@ export type PlaylistTitleCell_playbackState = {
     | null;
 } & { ' $fragmentName'?: 'PlaylistTitleCell_playbackState' };
 
-export type PlaylistTitleCell_playlist = {
-  __typename: 'Playlist';
-  id: string;
-  uri: string;
-} & { ' $fragmentName'?: 'PlaylistTitleCell_playlist' };
-
 type PlaylistTitleCell_playlistTrack_Episode = {
   __typename: 'Episode';
   explicit: boolean;
@@ -3753,87 +3747,63 @@ export type PlaylistQuery = {
     __typename: 'CurrentUser';
     profile: { __typename: 'CurrentUserProfile'; id: string };
   } | null;
-  playlist:
-    | ({
-        __typename: 'Playlist';
-        id: string;
-        name: string;
-        uri: string;
-        images: Array<{
-          __typename: 'Image';
-          url: string;
-          vibrantColor: string | null;
-        }> | null;
-        owner: { __typename: 'User'; id: string; displayName: string | null };
-        tracks: {
-          __typename: 'PlaylistTrackConnection';
-          edges: Array<{
-            __typename: 'PlaylistTrackEdge';
-            addedAt: string | null;
-            node:
-              | ({
-                  __typename: 'Episode';
-                  id: string;
-                  name: string;
-                  durationMs: number;
-                  uri: string;
-                  explicit: boolean;
-                  releaseDate: {
-                    __typename: 'ReleaseDate';
-                    date: string;
-                    precision: ReleaseDatePrecision;
-                  };
-                  show: {
-                    __typename: 'Show';
-                    id: string;
-                    name: string;
-                    publisher: string;
-                    images: Array<{ __typename: 'Image'; url: string }>;
-                  };
-                } & {
-                  ' $fragmentRefs'?: {
-                    PlaylistTitleCell_playlistTrack_Episode: PlaylistTitleCell_playlistTrack_Episode;
-                  };
-                })
-              | ({
-                  __typename: 'Track';
-                  id: string;
-                  name: string;
-                  durationMs: number;
-                  uri: string;
-                  explicit: boolean;
-                  album: {
-                    __typename: 'Album';
-                    id: string;
-                    name: string;
-                    images: Array<{ __typename: 'Image'; url: string }>;
-                  };
-                  artists: Array<{
-                    __typename: 'Artist';
-                    id: string;
-                    name: string;
-                  }>;
-                } & {
-                  ' $fragmentRefs'?: {
-                    TrackNumberCell_track: TrackNumberCell_track;
-                    PlaylistTitleCell_playlistTrack_Track: PlaylistTitleCell_playlistTrack_Track;
-                  };
-                });
-          }>;
-          pageInfo: {
-            __typename: 'PageInfo';
-            hasNextPage: boolean;
-            offset: number;
-            limit: number;
-            total: number;
-          };
-        };
-      } & {
-        ' $fragmentRefs'?: {
-          PlaylistTitleCell_playlist: PlaylistTitleCell_playlist;
-        };
-      })
-    | null;
+  playlist: {
+    __typename: 'Playlist';
+    id: string;
+    name: string;
+    uri: string;
+    images: Array<{
+      __typename: 'Image';
+      url: string;
+      vibrantColor: string | null;
+    }> | null;
+    owner: { __typename: 'User'; id: string; displayName: string | null };
+    tracks: {
+      __typename: 'PlaylistTrackConnection';
+      edges: Array<{
+        __typename: 'PlaylistTrackEdge';
+        addedAt: string | null;
+        node:
+          | ({
+              __typename: 'Episode';
+              id: string;
+              name: string;
+              durationMs: number;
+              uri: string;
+              releaseDate: {
+                __typename: 'ReleaseDate';
+                date: string;
+                precision: ReleaseDatePrecision;
+              };
+              show: { __typename: 'Show'; id: string; name: string };
+            } & {
+              ' $fragmentRefs'?: {
+                PlaylistTitleCell_playlistTrack_Episode: PlaylistTitleCell_playlistTrack_Episode;
+              };
+            })
+          | ({
+              __typename: 'Track';
+              id: string;
+              name: string;
+              durationMs: number;
+              uri: string;
+              album: { __typename: 'Album'; id: string; name: string };
+            } & {
+              ' $fragmentRefs'?: {
+                TrackNumberCell_track: TrackNumberCell_track;
+                PlaylistTitleCell_playlistTrack_Track: PlaylistTitleCell_playlistTrack_Track;
+              };
+            });
+      }>;
+      pageInfo: {
+        __typename: 'PageInfo';
+        hasNextPage: boolean;
+        offset: number;
+        limit: number;
+        total: number;
+      };
+    };
+  } | null;
 };
 
 export type PlaylistRoutePlaybackStateFragment = {

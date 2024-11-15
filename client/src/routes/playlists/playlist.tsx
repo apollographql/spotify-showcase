@@ -80,7 +80,7 @@ const PLAYLIST_QUERY: TypedDocumentNode<
               }
             }
 
-            ...PlaylistTitleCell_playlistTrack @unmask(mode: "migrate")
+            ...PlaylistTitleCell_playlistTrack
           }
         }
         pageInfo {
@@ -90,8 +90,6 @@ const PLAYLIST_QUERY: TypedDocumentNode<
           total
         }
       }
-
-      ...PlaylistTitleCell_playlist @unmask(mode: "migrate")
     }
   }
 `;
@@ -400,8 +398,8 @@ const columns = [
 
       return (
         <PlaylistTitleCell
-          playlist={playlist}
           playlistTrack={info.getValue()}
+          playlistUri={playlist.uri}
         />
       );
     },
