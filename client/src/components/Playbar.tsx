@@ -85,7 +85,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
         }
       }
 
-      ...LikeControl_playbackItem @unmask(mode: "migrate")
+      ...LikeControl_playbackItem
     }
 
     ...PlaybackItemProgressBar_playbackState

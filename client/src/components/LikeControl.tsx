@@ -1,4 +1,10 @@
-import { gql, useSuspenseQuery } from '@apollo/client';
+import {
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+  useSuspenseQuery,
+} from '@apollo/client';
 import {
   LikeControlQuery,
   LikeControlQueryVariables,
@@ -12,7 +18,7 @@ import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
-  playbackItem: PlaybackItem | null;
+  playbackItem: FragmentType<PlaybackItem> | null;
   size?: LikeButtonProps['size'];
 }
 
@@ -25,15 +31,22 @@ const LIKE_CONTROL_QUERY = gql`
   }
 `;
 
-fragmentRegistry.register(gql`
+const LikeControlFragment: TypedDocumentNode<PlaybackItem> = gql`
   fragment LikeControl_playbackItem on PlaybackItem {
     __typename
     id
   }
-`);
+`;
+
+fragmentRegistry.register(LikeControlFragment);
 
 const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
-  const deferredId = useDeferredValue(playbackItem?.id);
+  const { data: playbackItemData, complete } = useFragment({
+    fragment: LikeControlFragment,
+    from: playbackItem,
+  });
+
+  const deferredId = useDeferredValue(playbackItemData?.id);
 
   const { data } = useSuspenseQuery<
     LikeControlQuery,
@@ -66,11 +79,11 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
       size={size}
       liked={isLiked}
       onClick={() => {
-        if (!playbackItem) {
+        if (!complete) {
           return;
         }
 
-        const ids = [playbackItem.id];
+        const ids = [playbackItemData.id];
 
         isLiked ? removeTracks({ ids }) : saveTracks({ ids });
       }}
