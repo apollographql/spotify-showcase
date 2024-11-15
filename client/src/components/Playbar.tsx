@@ -13,8 +13,6 @@ import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
 import DevicePopover from './DevicePopover';
 import Flex from './Flex';
-import EpisodePlaybackDetails from './EpisodePlaybackDetails';
-import TrackPlaybackDetails from './TrackPlaybackDetails';
 import MuteControl from './MuteControl';
 import LikeControl from './LikeControl';
 import PlaybarControlButton from './PlaybarControlButton';
@@ -33,6 +31,7 @@ import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 import { withHighlight } from './LoadingStateHighlighter';
+import PlaybackItemDetails from './PlaybackItemDetails';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
@@ -81,14 +80,13 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...EpisodePlaybackDetails_episode @unmask(mode: "migrate")
       }
 
       ...LikeControl_playbackItem @unmask(mode: "migrate")
     }
 
     ...PlaybackItemProgressBar_playbackState
-    ...TrackPlaybackDetails_playbackState
+    ...PlaybackItemDetails_playbackState
   }
 `;
 
@@ -116,11 +114,7 @@ const Playbar = () => {
       <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-4 px-6">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
-          {playbackState && playbackItem?.__typename === 'Track' ? (
-            <TrackPlaybackDetails playbackState={playbackState} />
-          ) : playbackItem?.__typename === 'Episode' ? (
-            <EpisodePlaybackDetails episode={playbackItem} />
-          ) : null}
+          <PlaybackItemDetails playbackState={playbackState} />
           {playbackState && (
             <LikeControl playbackItem={playbackItem} size="1.25rem" />
           )}

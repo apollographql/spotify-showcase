@@ -6,22 +6,21 @@ import {
 } from '@apollo/client';
 import {
   PlaybackContextType,
-  TrackPlaybackDetails_playbackState,
+  PlaybackItemDetails_playbackState,
 } from '../types/api';
-import ContextMenuAction from './ContextMenuAction';
-import ContextMenu from './ContextMenu';
-import DelimitedList from './DelimitedList';
 import EntityLink from './EntityLink';
-import Flex from './Flex';
+import ContextMenu from './ContextMenu';
+import ContextMenuAction from './ContextMenuAction';
 import { parseSpotifyIDFromURI } from '../utils/spotify';
+import DelimitedList from './DelimitedList';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
-interface TrackPlaybackDetailsProps {
-  playbackState: FragmentType<TrackPlaybackDetails_playbackState>;
+interface PlaybackItemDetailsProps {
+  playbackState: FragmentType<PlaybackItemDetails_playbackState> | null;
 }
 
-const TrackPlaybackDetailsFragment: TypedDocumentNode<TrackPlaybackDetails_playbackState> = gql`
-  fragment TrackPlaybackDetails_playbackState on PlaybackState {
+const PlaybackItemDetailsFragment: TypedDocumentNode<PlaybackItemDetails_playbackState> = gql`
+  fragment PlaybackItemDetails_playbackState on PlaybackState {
     context {
       uri
       type
@@ -42,33 +41,56 @@ const TrackPlaybackDetailsFragment: TypedDocumentNode<TrackPlaybackDetails_playb
           name
         }
       }
+      ... on Episode {
+        name
+        show {
+          id
+          name
+          images {
+            url
+          }
+        }
+      }
     }
   }
 `;
 
-fragmentRegistry.register(TrackPlaybackDetailsFragment);
+fragmentRegistry.register(PlaybackItemDetailsFragment);
 
-const TrackPlaybackDetails = ({ playbackState }: TrackPlaybackDetailsProps) => {
+const PlaybackItemDetails = ({ playbackState }: PlaybackItemDetailsProps) => {
   const { data, complete } = useFragment({
-    fragment: TrackPlaybackDetailsFragment,
+    fragment: PlaybackItemDetailsFragment,
     from: playbackState,
   });
 
-  if (!complete || data.item?.__typename !== 'Track') {
+  if (!complete || !data.item) {
     return null;
   }
 
-  const { context, item: track } = data;
+  const { context, item } = data;
+
+  if (item.__typename === 'Episode') {
+    return (
+      <div className="flex flex-col gap-1">
+        <EntityLink className="text-sm" entity={item}>
+          {item.name}
+        </EntityLink>
+        <EntityLink className="text-xs text-muted" entity={item.show}>
+          {item.show.name}
+        </EntityLink>
+      </div>
+    );
+  }
 
   return (
-    <Flex direction="column" gap="0.25rem">
+    <div className="flex flex-col gap-1">
       <ContextMenu
         content={
           <>
-            <ContextMenuAction.AddToQueue uri={track.uri} />
+            <ContextMenuAction.AddToQueue uri={item.uri} />
             <ContextMenu.Separator />
-            <ContextMenuAction.LinkToArtist artists={track.artists} />
-            <ContextMenu.Link to={`/albums/${track.album.id}`}>
+            <ContextMenuAction.LinkToArtist artists={item.artists} />
+            <ContextMenu.Link to={`/albums/${item.album.id}`}>
               Go to album
             </ContextMenu.Link>
             <ContextMenu.Separator />
@@ -76,27 +98,27 @@ const TrackPlaybackDetails = ({ playbackState }: TrackPlaybackDetailsProps) => {
               <>
                 <ContextMenuAction.RemoveFromPlaylist
                   playlistId={parseSpotifyIDFromURI(context.uri)}
-                  uri={track.uri}
+                  uri={item.uri}
                 />
                 <ContextMenu.Separator />
               </>
             )}
             <ContextMenu.SubMenu
-              content={<ContextMenuAction.CopyLinkToEntity entity={track} />}
+              content={<ContextMenuAction.CopyLinkToEntity entity={item} />}
             >
               Share
             </ContextMenu.SubMenu>
             <ContextMenu.Separator />
-            <ContextMenuAction.OpenDesktopApp uri={track.uri} />
+            <ContextMenuAction.OpenDesktopApp uri={item.uri} />
           </>
         }
       >
-        <EntityLink className="text-sm" entity={track.album}>
-          {track.name}
+        <EntityLink className="text-sm" entity={item.album}>
+          {item.name}
         </EntityLink>
       </ContextMenu>
       <DelimitedList className="text-muted text-xs" delimiter=", ">
-        {track.artists.map((artist) => (
+        {item.artists.map((artist) => (
           <ContextMenu
             key={artist.id}
             content={
@@ -119,8 +141,8 @@ const TrackPlaybackDetails = ({ playbackState }: TrackPlaybackDetailsProps) => {
           </ContextMenu>
         ))}
       </DelimitedList>
-    </Flex>
+    </div>
   );
 };
 
-export default TrackPlaybackDetails;
+export default PlaybackItemDetails;
