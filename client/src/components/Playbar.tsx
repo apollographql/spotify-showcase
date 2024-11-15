@@ -84,8 +84,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
           }
         }
       }
-
-      ...LikeControl_playbackItem
     }
 
     ...PlaybackItemProgressBar_playbackState
@@ -119,7 +117,7 @@ const Playbar = () => {
           <CoverPhoto size="4rem" image={coverPhoto} />
           <PlaybackItemDetails playbackState={playbackState} />
           {playbackState && (
-            <LikeControl playbackItem={playbackItem} size="1.25rem" />
+            <LikeControl playbackItemId={playbackItem?.id} size="1.25rem" />
           )}
         </Flex>
         <Flex direction="column" gap="0.5rem">

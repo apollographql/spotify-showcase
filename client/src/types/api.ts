@@ -2550,19 +2550,6 @@ export type LikeControlQuery = {
   } | null;
 };
 
-type LikeControl_playbackItem_Episode = {
-  __typename: 'Episode';
-  id: string;
-} & { ' $fragmentName'?: 'LikeControl_playbackItem_Episode' };
-
-type LikeControl_playbackItem_Track = { __typename: 'Track'; id: string } & {
-  ' $fragmentName'?: 'LikeControl_playbackItem_Track';
-};
-
-export type LikeControl_playbackItem =
-  | LikeControl_playbackItem_Episode
-  | LikeControl_playbackItem_Track;
-
 export type LikedSongsTile_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
@@ -2683,7 +2670,7 @@ export type PlaybackStateFragment = ({
     volumePercent: number;
   };
   item:
-    | ({
+    | {
         __typename: 'Episode';
         id: string;
         show: {
@@ -2691,12 +2678,8 @@ export type PlaybackStateFragment = ({
           id: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-      } & {
-        ' $fragmentRefs'?: {
-          LikeControl_playbackItem_Episode: LikeControl_playbackItem_Episode;
-        };
-      })
-    | ({
+      }
+    | {
         __typename: 'Track';
         id: string;
         album: {
@@ -2704,11 +2687,7 @@ export type PlaybackStateFragment = ({
           id: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-      } & {
-        ' $fragmentRefs'?: {
-          LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
-        };
-      })
+      }
     | null;
 } & {
   ' $fragmentRefs'?: {
@@ -2744,7 +2723,7 @@ export type PlaybackStateSubscriberQuery = {
               volumePercent: number;
             };
             item:
-              | ({
+              | {
                   __typename: 'Episode';
                   id: string;
                   show: {
@@ -2752,12 +2731,8 @@ export type PlaybackStateSubscriberQuery = {
                     id: string;
                     images: Array<{ __typename: 'Image'; url: string }>;
                   };
-                } & {
-                  ' $fragmentRefs'?: {
-                    LikeControl_playbackItem_Episode: LikeControl_playbackItem_Episode;
-                  };
-                })
-              | ({
+                }
+              | {
                   __typename: 'Track';
                   id: string;
                   album: {
@@ -2765,11 +2740,7 @@ export type PlaybackStateSubscriberQuery = {
                     id: string;
                     images: Array<{ __typename: 'Image'; url: string }>;
                   };
-                } & {
-                  ' $fragmentRefs'?: {
-                    LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
-                  };
-                })
+                }
               | null;
           } & {
             ' $fragmentRefs'?: {
@@ -2806,7 +2777,7 @@ export type PlaybackStateSubscriberSubscription = {
           volumePercent: number;
         };
         item:
-          | ({
+          | {
               __typename: 'Episode';
               id: string;
               show: {
@@ -2814,12 +2785,8 @@ export type PlaybackStateSubscriberSubscription = {
                 id: string;
                 images: Array<{ __typename: 'Image'; url: string }>;
               };
-            } & {
-              ' $fragmentRefs'?: {
-                LikeControl_playbackItem_Episode: LikeControl_playbackItem_Episode;
-              };
-            })
-          | ({
+            }
+          | {
               __typename: 'Track';
               id: string;
               album: {
@@ -2827,11 +2794,7 @@ export type PlaybackStateSubscriberSubscription = {
                 id: string;
                 images: Array<{ __typename: 'Image'; url: string }>;
               };
-            } & {
-              ' $fragmentRefs'?: {
-                LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
-              };
-            })
+            }
           | null;
       } & {
         ' $fragmentRefs'?: {
@@ -2871,7 +2834,7 @@ export type Playbar_playbackState = ({
     volumePercent: number;
   };
   item:
-    | ({
+    | {
         __typename: 'Episode';
         id: string;
         show: {
@@ -2879,12 +2842,8 @@ export type Playbar_playbackState = ({
           id: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-      } & {
-        ' $fragmentRefs'?: {
-          LikeControl_playbackItem_Episode: LikeControl_playbackItem_Episode;
-        };
-      })
-    | ({
+      }
+    | {
         __typename: 'Track';
         id: string;
         album: {
@@ -2892,11 +2851,7 @@ export type Playbar_playbackState = ({
           id: string;
           images: Array<{ __typename: 'Image'; url: string }>;
         };
-      } & {
-        ' $fragmentRefs'?: {
-          LikeControl_playbackItem_Track: LikeControl_playbackItem_Track;
-        };
-      })
+      }
     | null;
 } & {
   ' $fragmentRefs'?: {

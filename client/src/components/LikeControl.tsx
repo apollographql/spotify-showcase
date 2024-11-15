@@ -1,24 +1,13 @@
-import {
-  FragmentType,
-  TypedDocumentNode,
-  gql,
-  useFragment,
-  useSuspenseQuery,
-} from '@apollo/client';
-import {
-  LikeControlQuery,
-  LikeControlQueryVariables,
-  LikeControl_playbackItem as PlaybackItem,
-} from '../types/api';
+import { gql, useSuspenseQuery } from '@apollo/client';
+import { LikeControlQuery, LikeControlQueryVariables } from '../types/api';
 import LikeButton, { LikeButtonProps } from './LikeButton';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
 import { useDeferredValue } from 'react';
-import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
-  playbackItem: FragmentType<PlaybackItem> | null;
+  playbackItemId: string | undefined;
   size?: LikeButtonProps['size'];
 }
 
@@ -31,22 +20,8 @@ const LIKE_CONTROL_QUERY = gql`
   }
 `;
 
-const LikeControlFragment: TypedDocumentNode<PlaybackItem> = gql`
-  fragment LikeControl_playbackItem on PlaybackItem {
-    __typename
-    id
-  }
-`;
-
-fragmentRegistry.register(LikeControlFragment);
-
-const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
-  const { data: playbackItemData, complete } = useFragment({
-    fragment: LikeControlFragment,
-    from: playbackItem,
-  });
-
-  const deferredId = useDeferredValue(playbackItemData?.id);
+const LikeControl = ({ className, playbackItemId, size }: LikeControlProps) => {
+  const deferredId = useDeferredValue(playbackItemId);
 
   const { data } = useSuspenseQuery<
     LikeControlQuery,
@@ -79,11 +54,11 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
       size={size}
       liked={isLiked}
       onClick={() => {
-        if (!complete) {
+        if (!playbackItemId) {
           return;
         }
 
-        const ids = [playbackItemData.id];
+        const ids = [playbackItemId];
 
         isLiked ? removeTracks({ ids }) : saveTracks({ ids });
       }}
