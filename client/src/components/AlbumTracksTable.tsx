@@ -47,6 +47,7 @@ const AlbumTracksTableFragment: TypedDocumentNode<Album> = gql`
           }
 
           ...AlbumTrackTitleCell_track
+          ...TrackNumberCell_track
         }
       }
     }

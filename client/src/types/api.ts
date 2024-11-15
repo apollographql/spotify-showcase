@@ -2411,6 +2411,7 @@ export type AlbumTracksTable_album = ({
       } & {
         ' $fragmentRefs'?: {
           AlbumTrackTitleCell_track: AlbumTrackTitleCell_track;
+          TrackNumberCell_track: TrackNumberCell_track;
         };
       };
     }>;
