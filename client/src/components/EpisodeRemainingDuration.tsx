@@ -1,4 +1,9 @@
-import { gql } from '@apollo/client';
+import {
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
 import { EpisodeRemainingDuration_episode as Episode } from '../types/api';
 import { Check } from 'lucide-react';
 import Duration from './Duration';
@@ -7,10 +12,10 @@ import ProgressBar from './ProgressBar';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface EpisodeRemainingDurationProps {
-  episode: Episode;
+  episode: FragmentType<Episode>;
 }
 
-fragmentRegistry.register(gql`
+const EpisodeRemainingDurationFragment: TypedDocumentNode<Episode> = gql`
   fragment EpisodeRemainingDuration_episode on Episode {
     id
     durationMs
@@ -19,12 +24,23 @@ fragmentRegistry.register(gql`
       resumePositionMs
     }
   }
-`);
+`;
+
+fragmentRegistry.register(EpisodeRemainingDurationFragment);
 
 const EpisodeRemainingDuration = ({
   episode,
 }: EpisodeRemainingDurationProps) => {
-  const { resumePoint, durationMs } = episode;
+  const { data, complete } = useFragment({
+    fragment: EpisodeRemainingDurationFragment,
+    from: episode,
+  });
+
+  if (!complete) {
+    return null;
+  }
+
+  const { resumePoint, durationMs } = data;
 
   if (resumePoint.fullyPlayed) {
     return (
@@ -42,13 +58,13 @@ const EpisodeRemainingDuration = ({
       <Flex inline alignItems="center" gap="0.5rem">
         <span>
           <Duration
-            durationMs={episode.durationMs - resumePoint.resumePositionMs}
+            durationMs={data.durationMs - resumePoint.resumePositionMs}
             format={Duration.FORMAT.LONG}
           />{' '}
           left
         </span>
         <ProgressBar
-          max={episode.durationMs}
+          max={data.durationMs}
           value={resumePoint.resumePositionMs}
           width="100px"
         />

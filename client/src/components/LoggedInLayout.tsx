@@ -13,11 +13,7 @@ import {
 import { SidebarQuery, SidebarQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';
-import CoverPhoto from './CoverPhoto';
-import { thumbnail } from '../utils/image';
 import OffsetBasedPaginationObserver from './OffsetBasedPaginationObserver';
-import LikedSongsPlaylistCoverPhoto from './LikedSongsPlaylistCoverPhoto';
-import YourEpisodesPlaylistCoverPhoto from './YourEpisodesPlaylistCoverPhoto';
 import PlaylistDetailsModal, {
   PLAYLIST_DETAILS_MODAL_QUERY,
 } from './PlaylistDetailsModal';
@@ -30,6 +26,8 @@ import Suspense from './Suspense';
 import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
 import cx from 'classnames';
+import LikedTracksSidebarLink from './LikedTracksSidebarLink';
+import SavedEpisodesSidebarLink from './SavedEpisodesSidebarLink';
 
 const LoggedInLayout = () => {
   const navigation = useNavigation();
@@ -99,9 +97,6 @@ const SIDEBAR_QUERY: TypedDocumentNode<
         edges {
           node {
             id
-            images {
-              url
-            }
             ...PlaylistSidebarLink_playlist
           }
         }
@@ -139,48 +134,13 @@ const Sidebar = () => {
         </header>
         <ScrollContainerContext.Provider value={sidebarRef}>
           <div className="overflow-y-auto flex-1 -mx-1 px-3" ref={sidebarRef}>
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:tracks',
-                name: 'Liked Songs',
-                uri: `spotify:user:${me.user.id}:collection`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<LikedSongsPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/tracks"
-            />
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:episodes',
-                name: 'Your Episodes',
-                uri: `spotify:user:${me.user.id}:collection:your-episodes`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/episodes"
-            />
+            <LikedTracksSidebarLink />
+            <SavedEpisodesSidebarLink />
             {me.playlists?.edges.map(({ node: playlist }) => (
               <PlaylistSidebarLink
-                pinned={false}
                 key={playlist.id}
                 playlist={playlist}
-                coverPhoto={
-                  <CoverPhoto image={thumbnail(playlist.images ?? [])} />
-                }
-                to={`/playlists/${playlist.id}`}
-                onMouseOverEdit={(playlist) =>
+                onMouseOverEdit={() =>
                   preloadPlaylistDetails({ id: playlist.id })
                 }
                 onClickEdit={() => setIsPlaylistDetailsModalOpen(true)}

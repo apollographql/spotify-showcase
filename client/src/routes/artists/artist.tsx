@@ -5,7 +5,7 @@ import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
 import ArtistTile from '../../components/ArtistTile';
-import ArtistTopTracks from '../../components/ArtistTopTracks';
+import ArtistTopTrack from '../../components/ArtistTopTrack';
 import Page from '../../components/Page';
 import Skeleton from '../../components/Skeleton';
 import TileGrid from '../../components/TileGrid';
@@ -22,15 +22,15 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       id
       name
       albums(includeGroups: [ALBUM]) {
-        ...ArtistRouteQuery_albums
+        ...ArtistRouteQuery_albums @unmask
       }
 
       singles: albums(includeGroups: [SINGLE]) {
-        ...ArtistRouteQuery_albums
+        ...ArtistRouteQuery_albums @unmask
       }
 
       appearsOn: albums(includeGroups: [APPEARS_ON]) {
-        ...ArtistRouteQuery_albums
+        ...ArtistRouteQuery_albums @unmask
       }
 
       followers {
@@ -45,7 +45,6 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       }
       topTracks {
         id
-
         ...ArtistTopTracks_tracks
       }
     }
@@ -55,7 +54,6 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
     edges {
       node {
         id
-
         ...AlbumTile_album
       }
     }
@@ -116,7 +114,15 @@ export const RouteComponent = () => {
       <Page.Content gap="2rem">
         <section className={classNames.section}>
           <h2>Popular</h2>
-          <ArtistTopTracks className="max-w-[60%]" tracks={artist.topTracks} />
+          <div className="max-w-[60%]">
+            {artist.topTracks.slice(0, 5).map((track, idx) => (
+              <ArtistTopTrack
+                key={track.id}
+                track={track}
+                trackNumber={idx + 1}
+              />
+            ))}
+          </div>
         </section>
 
         <AlbumSection title="Albums" albums={getAlbums(artist.albums)} />

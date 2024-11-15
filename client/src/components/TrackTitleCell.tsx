@@ -1,7 +1,12 @@
-import { gql } from '@apollo/client';
 import {
-  TrackTitleCell_track as Track,
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
+import {
   TrackTitleCell_playbackState as PlaybackState,
+  TrackTitleCell_track,
 } from '../types/api';
 import cx from 'classnames';
 import CoverPhoto from './CoverPhoto';
@@ -19,7 +24,7 @@ interface Context {
 
 interface TrackTitleCellProps {
   context: Context | null;
-  track: Track;
+  track: FragmentType<TrackTitleCell_track>;
 }
 
 const PLAYBACK_STATE_FRAGMENT = gql`
@@ -34,7 +39,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-fragmentRegistry.register(gql`
+const TrackTitleCellFragment: TypedDocumentNode<TrackTitleCell_track> = gql`
   fragment TrackTitleCell_track on Track {
     id
     explicit
@@ -51,20 +56,31 @@ fragmentRegistry.register(gql`
       name
     }
   }
-`);
+`;
+
+fragmentRegistry.register(TrackTitleCellFragment);
 
 const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
+  const { data, complete } = useFragment({
+    fragment: TrackTitleCellFragment,
+    from: track,
+  });
+
+  if (!complete) {
+    return null;
+  }
+
   const isPlayingInContext =
     context != null && playbackState?.context?.uri === context.uri;
-  const isCurrentTrack = track.uri === playbackState?.item?.uri;
+  const isCurrentTrack = data.uri === playbackState?.item?.uri;
 
   return (
     <Flex gap="0.5rem">
-      <CoverPhoto image={thumbnail(track.album.images)} size="2.5rem" />
+      <CoverPhoto image={thumbnail(data.album.images)} size="2.5rem" />
       <Flex direction="column">
         <span
           className={cx(
@@ -74,12 +90,12 @@ const TrackTitleCell = ({ context, track }: TrackTitleCellProps) => {
               : 'text-primary'
           )}
         >
-          {track.name}
+          {data.name}
         </span>
         <Flex gap="0.5rem" alignItems="center">
-          {track.explicit && <ExplicitBadge />}
+          {data.explicit && <ExplicitBadge />}
           <CommaSeparatedList>
-            {track.artists.map((artist) => (
+            {data.artists.map((artist) => (
               <EntityLink
                 className="text-muted transition-colors duration-150 hover:text-primary"
                 key={artist.id}

@@ -2,7 +2,7 @@ import { gql, useSuspenseQuery } from '@apollo/client';
 import { TrackRouteQuery, TrackRouteQueryVariables } from '../../types/api';
 import { useParams } from 'react-router-dom';
 import AlbumTracksTable from '../../components/AlbumTracksTable';
-import ArtistTopTracks from '../../components/ArtistTopTracks';
+import ArtistTopTrack from '../../components/ArtistTopTrack';
 import ArtistTile from '../../components/ArtistTile';
 import CoverPhoto from '../../components/CoverPhoto';
 import EntityLink from '../../components/EntityLink';
@@ -25,6 +25,13 @@ const TRACK_ROUTE_QUERY = gql`
         images {
           url
           vibrantColor(format: RGB, alpha: 0.9) @client
+        }
+        tracks {
+          edges {
+            node {
+              id
+            }
+          }
         }
 
         ...AlbumTracksTable_album
@@ -85,7 +92,15 @@ export const RouteComponent = () => {
         </TileGrid>
         <Flex as="section" direction="column" gap="0.5rem">
           <h2>Popular Tracks by {primaryArtist.name}</h2>
-          <ArtistTopTracks tracks={primaryArtist.topTracks} />
+          <div>
+            {primaryArtist.topTracks.slice(0, 5).map((track, idx) => (
+              <ArtistTopTrack
+                key={track.id}
+                track={track}
+                trackNumber={idx + 1}
+              />
+            ))}
+          </div>
         </Flex>
         <Flex as="section" direction="column" gap="0.5rem">
           <Flex gap="1rem" alignItems="center">

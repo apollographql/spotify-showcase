@@ -1,7 +1,14 @@
 import { useEffect } from 'react';
-import { ApolloError, gql, useSuspenseQuery } from '@apollo/client';
+import {
+  ApolloError,
+  TypedDocumentNode,
+  Unmasked,
+  gql,
+  useSuspenseQuery,
+} from '@apollo/client';
 import {
   PlaybackStateSubscriberQuery,
+  PlaybackStateSubscriberQueryVariables,
   PlaybackStateSubscriberSubscription,
 } from '../types/api';
 import merge from 'deepmerge';
@@ -51,7 +58,10 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-const PLAYBACK_STATE_SUBSCRIBER_QUERY = gql`
+const PLAYBACK_STATE_SUBSCRIBER_QUERY: TypedDocumentNode<
+  PlaybackStateSubscriberQuery,
+  PlaybackStateSubscriberQueryVariables
+> = gql`
   query PlaybackStateSubscriberQuery {
     me {
       player {
@@ -76,9 +86,7 @@ const PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION = gql`
 `;
 
 const PlaybackStateSubscriber = () => {
-  const { subscribeToMore } = useSuspenseQuery<PlaybackStateSubscriberQuery>(
-    PLAYBACK_STATE_SUBSCRIBER_QUERY
-  );
+  const { subscribeToMore } = useSuspenseQuery(PLAYBACK_STATE_SUBSCRIBER_QUERY);
 
   const navigate = useNavigate();
 
@@ -89,7 +97,7 @@ const PlaybackStateSubscriber = () => {
         if (
           error instanceof ApolloError &&
           error.graphQLErrors.some(
-            (error) => error.extensions.code === 'UNAUTHENTICATED'
+            (error) => error.extensions?.code === 'UNAUTHENTICATED'
           )
         ) {
           navigate('/logged-out');

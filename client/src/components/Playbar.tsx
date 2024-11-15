@@ -13,8 +13,6 @@ import PlayButton from './PlayButton';
 import DeviceIcon from './DeviceIcon';
 import DevicePopover from './DevicePopover';
 import Flex from './Flex';
-import EpisodePlaybackDetails from './EpisodePlaybackDetails';
-import TrackPlaybackDetails from './TrackPlaybackDetails';
 import MuteControl from './MuteControl';
 import LikeControl from './LikeControl';
 import PlaybarControlButton from './PlaybarControlButton';
@@ -33,6 +31,7 @@ import { fragmentRegistry } from '../apollo/fragmentRegistry';
 import Skeleton from './Skeleton';
 import LikeButton from './LikeButton';
 import { withHighlight } from './LoadingStateHighlighter';
+import PlaybackItemDetails from './PlaybackItemDetails';
 
 const EPISODE_SKIP_FORWARD_AMOUNT = 15_000;
 
@@ -45,8 +44,8 @@ const PLAYBAR_QUERY: TypedDocumentNode<
       player {
         devices {
           id
-          ...DevicePopover_devices
         }
+        ...DevicePopover_player
       }
     }
   }
@@ -57,11 +56,9 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     isPlaying
     repeatState
     shuffleState
+    progressMs
     actions {
       disallows
-    }
-    context {
-      ...TrackPlaybackDetails_context
     }
     device {
       id
@@ -71,7 +68,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     }
     item {
       id
-
       ... on Track {
         album {
           id
@@ -79,7 +75,6 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...TrackPlaybackDetails_track
       }
       ... on Episode {
         show {
@@ -88,13 +83,11 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
             url
           }
         }
-        ...EpisodePlaybackDetails_episode
       }
-
-      ...LikeControl_playbackItem
     }
 
     ...PlaybackItemProgressBar_playbackState
+    ...PlaybackItemDetails_playbackState
   }
 `;
 
@@ -105,6 +98,7 @@ const Playbar = () => {
   const [resumePlayback] = useResumePlaybackMutation();
   const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
+  const player = data.me?.player;
   const playbackItem = playbackState?.item ?? null;
   const device = playbackState?.device;
   const devices = data.me?.player.devices ?? [];
@@ -121,16 +115,9 @@ const Playbar = () => {
       <div className="items-center grid grid-cols-[30%_1fr_30%] text-primary py-4 px-6">
         <Flex gap="1rem" alignItems="center">
           <CoverPhoto size="4rem" image={coverPhoto} />
-          {playbackItem?.__typename === 'Track' ? (
-            <TrackPlaybackDetails
-              context={playbackState?.context ?? null}
-              track={playbackItem}
-            />
-          ) : playbackItem?.__typename === 'Episode' ? (
-            <EpisodePlaybackDetails episode={playbackItem} />
-          ) : null}
+          <PlaybackItemDetails playbackState={playbackState} />
           {playbackState && (
-            <LikeControl playbackItem={playbackItem} size="1.25rem" />
+            <LikeControl playbackItemId={playbackItem?.id} size="1.25rem" />
           )}
         </Flex>
         <Flex direction="column" gap="0.5rem">
@@ -176,13 +163,15 @@ const Playbar = () => {
         </Flex>
         <Flex justifyContent="end" gap="1rem" alignItems="center">
           <QueueControlButton />
-          <DevicePopover devices={devices}>
-            <PlaybarControlButton
-              disallowed={devices.length === 0}
-              icon={<DeviceIcon device={device} strokeWidth={1.5} />}
-              tooltip="Connect to a device"
-            />
-          </DevicePopover>
+          {player && (
+            <DevicePopover player={player}>
+              <PlaybarControlButton
+                disallowed={devices.length === 0}
+                icon={<DeviceIcon device={device} strokeWidth={1.5} />}
+                tooltip="Connect to a device"
+              />
+            </DevicePopover>
+          )}
           <Flex gap="0.25rem" alignItems="center">
             <MuteControl
               disallowed={!device}

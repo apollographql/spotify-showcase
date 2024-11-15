@@ -1,18 +1,13 @@
 import { gql, useSuspenseQuery } from '@apollo/client';
-import {
-  LikeControlQuery,
-  LikeControlQueryVariables,
-  LikeControl_playbackItem as PlaybackItem,
-} from '../types/api';
+import { LikeControlQuery, LikeControlQueryVariables } from '../types/api';
 import LikeButton, { LikeButtonProps } from './LikeButton';
 import useSaveTracksMutation from '../mutations/useSaveTracksMutation';
 import useRemoveTracksMutation from '../mutations/useRemoveSavedTracksMutation';
 import { useDeferredValue } from 'react';
-import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface LikeControlProps {
   className?: LikeButtonProps['className'];
-  playbackItem: PlaybackItem | null;
+  playbackItemId: string | undefined;
   size?: LikeButtonProps['size'];
 }
 
@@ -25,15 +20,8 @@ const LIKE_CONTROL_QUERY = gql`
   }
 `;
 
-fragmentRegistry.register(gql`
-  fragment LikeControl_playbackItem on PlaybackItem {
-    __typename
-    id
-  }
-`);
-
-const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
-  const deferredId = useDeferredValue(playbackItem?.id);
+const LikeControl = ({ className, playbackItemId, size }: LikeControlProps) => {
+  const deferredId = useDeferredValue(playbackItemId);
 
   const { data } = useSuspenseQuery<
     LikeControlQuery,
@@ -66,11 +54,11 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
       size={size}
       liked={isLiked}
       onClick={() => {
-        if (!playbackItem) {
+        if (!playbackItemId) {
           return;
         }
 
-        const ids = [playbackItem.id];
+        const ids = [playbackItemId];
 
         isLiked ? removeTracks({ ids }) : saveTracks({ ids });
       }}

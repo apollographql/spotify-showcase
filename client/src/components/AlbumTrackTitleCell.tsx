@@ -1,7 +1,14 @@
-import { gql } from '@apollo/client';
+import {
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
 import usePlaybackState from '../hooks/usePlaybackState';
 import {
   AlbumTrackTitleCell_album as Album,
+  AlbumTrackTitleCell_album,
+  AlbumTrackTitleCell_track,
   AlbumTrackTitleCell_playbackState as PlaybackState,
   AlbumTrackTitleCell_track as Track,
 } from '../types/api';
@@ -12,8 +19,8 @@ import Flex from './Flex';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface AlbumTrackTitleCellProps {
-  album: Album;
-  track: Track;
+  album: FragmentType<Album>;
+  track: FragmentType<Track>;
 }
 
 const PLAYBACK_STATE_FRAGMENT = gql`
@@ -28,11 +35,13 @@ const PLAYBACK_STATE_FRAGMENT = gql`
   }
 `;
 
-fragmentRegistry.register(gql`
+const AlbumTrackTitleCellAlbumFragment: TypedDocumentNode<AlbumTrackTitleCell_album> = gql`
   fragment AlbumTrackTitleCell_album on Album {
     uri
   }
+`;
 
+const AlbumTrackTitleCellTrackFragment: TypedDocumentNode<AlbumTrackTitleCell_track> = gql`
   fragment AlbumTrackTitleCell_track on Track {
     id
     name
@@ -43,15 +52,33 @@ fragmentRegistry.register(gql`
       name
     }
   }
-`);
+`;
+
+fragmentRegistry.register(
+  AlbumTrackTitleCellAlbumFragment,
+  AlbumTrackTitleCellTrackFragment
+);
 
 const AlbumTrackTitleCell = ({ album, track }: AlbumTrackTitleCellProps) => {
+  const { data: albumData, complete: albumComplete } = useFragment({
+    fragment: AlbumTrackTitleCellAlbumFragment,
+    from: album,
+  });
+  const { data: trackData, complete: trackComplete } = useFragment({
+    fragment: AlbumTrackTitleCellTrackFragment,
+    from: track,
+  });
+
   const playbackState = usePlaybackState<PlaybackState>({
     fragment: PLAYBACK_STATE_FRAGMENT,
   });
 
-  const isPlayingInAlbum = playbackState?.context?.uri === album.uri;
-  const isCurrentTrack = track.uri === playbackState?.item?.uri;
+  if (!trackComplete || !albumComplete) {
+    return null;
+  }
+
+  const isPlayingInAlbum = playbackState?.context?.uri === albumData.uri;
+  const isCurrentTrack = trackData.uri === playbackState?.item?.uri;
 
   return (
     <Flex direction="column" gap="0.5">
@@ -59,12 +86,12 @@ const AlbumTrackTitleCell = ({ album, track }: AlbumTrackTitleCellProps) => {
         className="text-base"
         color={isCurrentTrack && isPlayingInAlbum ? 'themeLight' : 'primary'}
       >
-        {track.name}
+        {trackData.name}
       </span>
       <Flex gap="0.5rem" alignItems="center">
-        {track.explicit && <ExplicitBadge />}
+        {trackData.explicit && <ExplicitBadge />}
         <CommaSeparatedList>
-          {track.artists.map((artist) => (
+          {trackData.artists.map((artist) => (
             <EntityLink
               className="text-muted transition-colors duration-[0.15s] hover:text-primary"
               key={artist.id}

@@ -8,7 +8,6 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { Get } from 'type-fest';
 import Page from '../components/Page';
 import Table from '../components/Table';
-import TrackNumberCell from '../components/TrackNumberCell';
 import TrackPositionCell from '../components/TrackPositionCell';
 import TrackTitleCell from '../components/TrackTitleCell';
 import usePlaybackState from '../hooks/usePlaybackState';
@@ -43,10 +42,10 @@ const QUEUE_ROUTE_QUERY = gql`
       player {
         playbackQueue {
           currentlyPlaying {
-            ...QueueRoute_playbackItem
+            ...QueueRoute_playbackItem @unmask
           }
           queue {
-            ...QueueRoute_playbackItem
+            ...QueueRoute_playbackItem @unmask
           }
         }
       }

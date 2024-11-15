@@ -1,15 +1,20 @@
-import { gql } from '@apollo/client';
-import { PlaylistTile_playlist as Playlist } from '../types/api';
+import {
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
+import { PlaylistTile_playlist } from '../types/api';
 import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
 import MediaTile from './MediaTile';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaylistTileProps {
-  playlist: Playlist;
+  playlist: FragmentType<PlaylistTile_playlist>;
 }
 
-fragmentRegistry.register(gql`
+const PlaylistTileFragment: TypedDocumentNode<PlaylistTile_playlist> = gql`
   fragment PlaylistTile_playlist on Playlist {
     id
     name
@@ -19,30 +24,41 @@ fragmentRegistry.register(gql`
       url
     }
   }
-`);
+`;
+
+fragmentRegistry.register(PlaylistTileFragment);
 
 const PlaylistTile = ({ playlist }: PlaylistTileProps) => {
+  const { data, complete } = useFragment({
+    fragment: PlaylistTileFragment,
+    from: playlist,
+  });
+
+  if (!complete) {
+    return null;
+  }
+
   return (
     <ContextMenu
       content={
         <>
           <ContextMenu.SubMenu
-            content={<ContextMenuAction.CopyLinkToEntity entity={playlist} />}
+            content={<ContextMenuAction.CopyLinkToEntity entity={data} />}
           >
             Share
           </ContextMenu.SubMenu>
           <ContextMenu.Separator />
-          <ContextMenuAction.OpenDesktopApp uri={playlist.uri} />
+          <ContextMenuAction.OpenDesktopApp uri={data.uri} />
         </>
       }
     >
-      <MediaTile to={`/playlists/${playlist.id}`}>
-        <MediaTile.CoverPhoto image={(playlist.images ?? [])[0]} />
+      <MediaTile to={`/playlists/${data.id}`}>
+        <MediaTile.CoverPhoto image={(data.images ?? [])[0]} />
         <div className="flex flex-col">
-          <MediaTile.Title>{playlist.name}</MediaTile.Title>
+          <MediaTile.Title>{data.name}</MediaTile.Title>
           <MediaTile.Details>
             <span
-              dangerouslySetInnerHTML={{ __html: playlist.description ?? '' }}
+              dangerouslySetInnerHTML={{ __html: data.description ?? '' }}
             />
           </MediaTile.Details>
         </div>

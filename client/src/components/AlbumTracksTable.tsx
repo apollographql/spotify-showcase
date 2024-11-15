@@ -1,4 +1,9 @@
-import { gql } from '@apollo/client';
+import {
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock } from 'lucide-react';
 import { Get } from 'type-fest';
@@ -17,7 +22,7 @@ import { fragmentRegistry } from '../apollo/fragmentRegistry';
 type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
 
 interface AlbumTracksTableProps {
-  album: Album;
+  album: FragmentType<Album>;
   tracksContains: Map<string, boolean>;
 }
 
@@ -25,7 +30,7 @@ interface AlbumTracksTableMeta {
   tracksContains: Map<string, boolean>;
 }
 
-fragmentRegistry.register(gql`
+const AlbumTracksTableFragment: TypedDocumentNode<Album> = gql`
   fragment AlbumTracksTable_album on Album {
     id
     uri
@@ -35,76 +40,90 @@ fragmentRegistry.register(gql`
           id
           uri
           durationMs
-          trackNumber
           artists {
             id
+            name
           }
 
           ...AlbumTrackTitleCell_track
+          ...TrackNumberCell_track
         }
       }
     }
 
     ...AlbumTrackTitleCell_album
   }
-`);
+`;
+
+fragmentRegistry.register(AlbumTracksTableFragment);
 
 const columnHelper = createColumnHelper<Track>();
 
 const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
+  const { data, complete } = useFragment({
+    fragment: AlbumTracksTableFragment,
+    from: album,
+  });
   const [resumePlayback] = useResumePlaybackMutation();
 
   const columns = useMemo(
-    () => [
-      columnHelper.accessor((track) => track, {
-        header: '#',
-        meta: { shrink: true },
-        cell: (info) => {
-          return (
-            <TrackNumberCell
-              context={album}
-              track={info.getValue()}
-              position={info.row.index}
-            />
-          );
-        },
-      }),
-      columnHelper.display({
-        id: 'title',
-        header: 'Title',
-        cell: (info) => {
-          return (
-            <AlbumTrackTitleCell album={album} track={info.row.original} />
-          );
-        },
-      }),
-      columnHelper.display({
-        id: 'liked',
-        header: '',
-        cell: (info) => {
-          const { tracksContains } = info.table.options
-            .meta as unknown as AlbumTracksTableMeta;
+    () =>
+      complete
+        ? [
+            columnHelper.accessor((track) => track, {
+              header: '#',
+              meta: { shrink: true },
+              cell: (info) => {
+                return (
+                  <TrackNumberCell
+                    context={data}
+                    track={info.getValue()}
+                    position={info.row.index}
+                  />
+                );
+              },
+            }),
+            columnHelper.display({
+              id: 'title',
+              header: 'Title',
+              cell: (info) => {
+                return (
+                  <AlbumTrackTitleCell album={data} track={info.row.original} />
+                );
+              },
+            }),
+            columnHelper.display({
+              id: 'liked',
+              header: '',
+              cell: (info) => {
+                const { tracksContains } = info.table.options
+                  .meta as unknown as AlbumTracksTableMeta;
 
-          const track = info.row.original;
-          const liked = tracksContains.get(track.id) ?? false;
+                const track = info.row.original;
+                const liked = tracksContains.get(track.id) ?? false;
 
-          return <TrackLikeButtonCell liked={liked} track={track} />;
-        },
-        meta: {
-          shrink: true,
-        },
-      }),
-      columnHelper.accessor('durationMs', {
-        header: () => <Clock size="1rem" />,
-        cell: (info) => <Duration durationMs={info.getValue()} />,
-        meta: {
-          headerAlign: 'right',
-          shrink: true,
-        },
-      }),
-    ],
-    [album]
+                return <TrackLikeButtonCell liked={liked} track={track} />;
+              },
+              meta: {
+                shrink: true,
+              },
+            }),
+            columnHelper.accessor('durationMs', {
+              header: () => <Clock size="1rem" />,
+              cell: (info) => <Duration durationMs={info.getValue()} />,
+              meta: {
+                headerAlign: 'right',
+                shrink: true,
+              },
+            }),
+          ]
+        : [],
+    [data, complete]
   );
+
+  if (!complete) {
+    return null;
+  }
 
   return (
     <Table
@@ -112,13 +131,13 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
       enableMultiSelect
       enableRangeSelect
       columns={columns}
-      data={album.tracks?.edges.map((edge) => edge.node) ?? []}
+      data={data.tracks?.edges.map((edge) => edge.node) ?? []}
       meta={{ tracksContains }}
       onDoubleClickRow={(row) => {
         const track = row.original;
 
         resumePlayback({
-          contextUri: album.uri,
+          contextUri: data.uri,
           offset: { uri: track.uri },
         });
       }}
@@ -165,7 +184,7 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
               Share
             </ContextMenu.SubMenu>
             <ContextMenu.Separator />
-            <ContextMenuAction.OpenDesktopApp uri={track.uri} context={album} />
+            <ContextMenuAction.OpenDesktopApp uri={track.uri} context={data} />
           </>
         );
       }}

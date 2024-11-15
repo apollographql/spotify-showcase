@@ -40,7 +40,7 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
             }
           }
         }
-        ...LikedSongsTile_connection
+        ...LikedSongsTile_connection @unmask(mode: "migrate")
       }
       playlists(offset: $offset, limit: $limit)
         @connection(key: "collectionPlaylists") {

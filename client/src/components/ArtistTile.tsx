@@ -1,14 +1,19 @@
-import { gql } from '@apollo/client';
-import { ArtistTile_artist as Artist } from '../types/api';
+import {
+  FragmentType,
+  TypedDocumentNode,
+  gql,
+  useFragment,
+} from '@apollo/client';
+import { ArtistTile_artist as Artist, ArtistTile_artist } from '../types/api';
 import MediaTile from './MediaTile';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface ArtistTileProps {
-  artist: Artist;
+  artist: FragmentType<Artist>;
   animateIn?: boolean;
 }
 
-fragmentRegistry.register(gql`
+const ArtistTileFragment: TypedDocumentNode<ArtistTile_artist> = gql`
   fragment ArtistTile_artist on Artist {
     id
     name
@@ -16,18 +21,29 @@ fragmentRegistry.register(gql`
       url
     }
   }
-`);
+`;
+
+fragmentRegistry.register(ArtistTileFragment);
 
 const ArtistTile = ({ artist, animateIn }: ArtistTileProps) => {
+  const { data, complete } = useFragment({
+    fragment: ArtistTileFragment,
+    from: artist,
+  });
+
+  if (!complete) {
+    return null;
+  }
+
   return (
-    <MediaTile to={`/artists/${artist.id}`}>
+    <MediaTile to={`/artists/${data.id}`}>
       <MediaTile.CoverPhoto
-        image={artist.images[0]}
+        image={data.images[0]}
         shape="circle"
         animateIn={animateIn}
       />
       <div className="flex flex-col">
-        <MediaTile.Title>{artist.name}</MediaTile.Title>
+        <MediaTile.Title>{data.name}</MediaTile.Title>
         <MediaTile.Details>Artist</MediaTile.Details>
       </div>
     </MediaTile>

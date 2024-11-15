@@ -43,7 +43,6 @@ const routes = createRoutesFromElements(
       errorElement={<RootErrorBoundary />}
       loader={OAuthRoute.loader}
     />
-    ,
     <Route
       path="logged-out"
       loader={LoggedOutRoute.loader}
