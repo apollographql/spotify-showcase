@@ -3501,14 +3501,7 @@ export type CollectionPlaylistsRouteQuery = {
       };
       edges: Array<{
         __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          name: string;
-          description: string | null;
-          uri: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
-        } & {
+        node: { __typename: 'Playlist'; id: string } & {
           ' $fragmentRefs'?: { PlaylistTile_playlist: PlaylistTile_playlist };
         };
       }>;
@@ -3534,14 +3527,7 @@ export type CollectionPlaylistsRoutePaginatedQuery = {
       };
       edges: Array<{
         __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          name: string;
-          description: string | null;
-          uri: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
-        } & {
+        node: { __typename: 'Playlist'; id: string } & {
           ' $fragmentRefs'?: { PlaylistTile_playlist: PlaylistTile_playlist };
         };
       }>;

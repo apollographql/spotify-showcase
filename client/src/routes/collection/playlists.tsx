@@ -52,7 +52,7 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            ...PlaylistTile_playlist @unmask(mode: "migrate")
+            ...PlaylistTile_playlist
           }
         }
       }
@@ -73,7 +73,7 @@ const PAGINATED_QUERY = gql`
         edges {
           node {
             id
-            ...PlaylistTile_playlist @unmask(mode: "migrate")
+            ...PlaylistTile_playlist
           }
         }
       }
