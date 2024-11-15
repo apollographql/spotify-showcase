@@ -56,7 +56,7 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       node {
         id
 
-        ...AlbumTile_album @unmask(mode: "migrate")
+        ...AlbumTile_album
       }
     }
   }

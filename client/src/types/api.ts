@@ -3330,15 +3330,9 @@ export type ArtistRouteQuery = {
           __typename: 'ArtistAlbumsConnection';
           edges: Array<{
             __typename: 'ArtistAlbumEdge';
-            node: {
-              __typename: 'Album';
-              id: string;
-              name: string;
-              albumType: AlbumType;
-              totalTracks: number;
-              releaseDate: { __typename: 'ReleaseDate'; date: string };
-              images: Array<{ __typename: 'Image'; url: string }>;
-            } & { ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album } };
+            node: { __typename: 'Album'; id: string } & {
+              ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album };
+            };
           }> | null;
         } & {
           ' $fragmentRefs'?: {
@@ -3351,15 +3345,9 @@ export type ArtistRouteQuery = {
           __typename: 'ArtistAlbumsConnection';
           edges: Array<{
             __typename: 'ArtistAlbumEdge';
-            node: {
-              __typename: 'Album';
-              id: string;
-              name: string;
-              albumType: AlbumType;
-              totalTracks: number;
-              releaseDate: { __typename: 'ReleaseDate'; date: string };
-              images: Array<{ __typename: 'Image'; url: string }>;
-            } & { ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album } };
+            node: { __typename: 'Album'; id: string } & {
+              ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album };
+            };
           }> | null;
         } & {
           ' $fragmentRefs'?: {
@@ -3372,15 +3360,9 @@ export type ArtistRouteQuery = {
           __typename: 'ArtistAlbumsConnection';
           edges: Array<{
             __typename: 'ArtistAlbumEdge';
-            node: {
-              __typename: 'Album';
-              id: string;
-              name: string;
-              albumType: AlbumType;
-              totalTracks: number;
-              releaseDate: { __typename: 'ReleaseDate'; date: string };
-              images: Array<{ __typename: 'Image'; url: string }>;
-            } & { ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album } };
+            node: { __typename: 'Album'; id: string } & {
+              ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album };
+            };
           }> | null;
         } & {
           ' $fragmentRefs'?: {
@@ -3421,15 +3403,9 @@ export type ArtistRouteQuery_albums = {
   __typename: 'ArtistAlbumsConnection';
   edges: Array<{
     __typename: 'ArtistAlbumEdge';
-    node: {
-      __typename: 'Album';
-      id: string;
-      name: string;
-      albumType: AlbumType;
-      totalTracks: number;
-      releaseDate: { __typename: 'ReleaseDate'; date: string };
-      images: Array<{ __typename: 'Image'; url: string }>;
-    } & { ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album } };
+    node: { __typename: 'Album'; id: string } & {
+      ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album };
+    };
   }> | null;
 } & { ' $fragmentName'?: 'ArtistRouteQuery_albums' };
 
