@@ -22,15 +22,15 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       id
       name
       albums(includeGroups: [ALBUM]) {
-        ...ArtistRouteQuery_albums @unmask(mode: "migrate")
+        ...ArtistRouteQuery_albums @unmask
       }
 
       singles: albums(includeGroups: [SINGLE]) {
-        ...ArtistRouteQuery_albums @unmask(mode: "migrate")
+        ...ArtistRouteQuery_albums @unmask
       }
 
       appearsOn: albums(includeGroups: [APPEARS_ON]) {
-        ...ArtistRouteQuery_albums @unmask(mode: "migrate")
+        ...ArtistRouteQuery_albums @unmask
       }
 
       followers {
@@ -55,7 +55,6 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
     edges {
       node {
         id
-
         ...AlbumTile_album
       }
     }
