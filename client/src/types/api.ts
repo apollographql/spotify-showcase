@@ -3801,7 +3801,6 @@ export type PlaylistQuery = {
                   name: string;
                   durationMs: number;
                   uri: string;
-                  trackNumber: number | null;
                   explicit: boolean;
                   album: {
                     __typename: 'Album';

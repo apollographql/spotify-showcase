@@ -66,7 +66,7 @@ const PLAYLIST_QUERY: TypedDocumentNode<
                 name
               }
 
-              ...TrackNumberCell_track @unmask(mode: "migrate")
+              ...TrackNumberCell_track
             }
 
             ... on Episode {
