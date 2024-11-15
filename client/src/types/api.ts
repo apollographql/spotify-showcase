@@ -4189,7 +4189,6 @@ export type TrackRouteQuery = {
       id: string;
       albumType: AlbumType;
       name: string;
-      uri: string;
       images: Array<{
         __typename: 'Image';
         url: string;
@@ -4199,25 +4198,11 @@ export type TrackRouteQuery = {
         __typename: 'AlbumTrackConnection';
         edges: Array<{
           __typename: 'AlbumTrackEdge';
-          node: {
-            __typename: 'Track';
-            id: string;
-            uri: string;
-            durationMs: number;
-            trackNumber: number | null;
-            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-          } & {
-            ' $fragmentRefs'?: {
-              AlbumTrackTitleCell_track: AlbumTrackTitleCell_track;
-            };
-          };
+          node: { __typename: 'Track'; id: string };
         }>;
       } | null;
     } & {
-      ' $fragmentRefs'?: {
-        AlbumTracksTable_album: AlbumTracksTable_album;
-        AlbumTrackTitleCell_album: AlbumTrackTitleCell_album;
-      };
+      ' $fragmentRefs'?: { AlbumTracksTable_album: AlbumTracksTable_album };
     };
     artists: Array<
       {
@@ -4231,7 +4216,6 @@ export type TrackRouteQuery = {
             };
           }
         >;
-        images: Array<{ __typename: 'Image'; url: string }>;
       } & { ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist } }
     >;
   } | null;
