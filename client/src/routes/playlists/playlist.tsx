@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
 import {
   PlaylistQuery,
   PlaylistQueryVariables,
@@ -29,7 +29,10 @@ import Duration from '../../components/Duration';
 import ContextMenuAction from '../../components/ContextMenuAction';
 import ContextMenu from '../../components/ContextMenu';
 
-const PLAYLIST_QUERY = gql`
+const PLAYLIST_QUERY: TypedDocumentNode<
+  PlaylistQuery,
+  PlaylistQueryVariables
+> = gql`
   query PlaylistQuery($id: ID!, $offset: Int) {
     me {
       profile {
@@ -93,7 +96,7 @@ const PLAYLIST_QUERY = gql`
   }
 `;
 
-const PLAYBACK_STATE_FRAGMENT = gql`
+const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaylistRoutePlaybackStateFragment> = gql`
   fragment PlaylistRoutePlaybackStateFragment on PlaybackState {
     isPlaying
     context {
@@ -104,10 +107,9 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 
 export const RouteComponent = () => {
   const { playlistId } = useParams() as { playlistId: 'string' };
-  const { data, fetchMore } = useSuspenseQuery<
-    PlaylistQuery,
-    PlaylistQueryVariables
-  >(PLAYLIST_QUERY, { variables: { id: playlistId } });
+  const { data, fetchMore } = useSuspenseQuery(PLAYLIST_QUERY, {
+    variables: { id: playlistId },
+  });
   const playlist = data.playlist;
 
   if (!playlist) {
@@ -128,9 +130,7 @@ export const RouteComponent = () => {
 
   const [resumePlayback] = useResumePlaybackMutation();
 
-  const playbackState = usePlaybackState<PlaylistRoutePlaybackStateFragment>({
-    fragment: PLAYBACK_STATE_FRAGMENT,
-  });
+  const playbackState = usePlaybackState({ fragment: PLAYBACK_STATE_FRAGMENT });
 
   const { tracks } = playlist;
   const images = playlist.images ?? [];
