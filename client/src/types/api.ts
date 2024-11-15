@@ -3664,7 +3664,9 @@ export type CollectionTracksRouteQuery = {
           id: string;
           name: string;
           durationMs: number;
+          uri: string;
           album: { __typename: 'Album'; id: string };
+          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
         } & {
           ' $fragmentRefs'?: {
             TrackNumberCell_track: TrackNumberCell_track;
