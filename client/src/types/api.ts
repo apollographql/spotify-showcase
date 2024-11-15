@@ -3303,31 +3303,11 @@ export type AlbumRouteQuery = {
           __typename: 'AlbumTrackConnection';
           edges: Array<{
             __typename: 'AlbumTrackEdge';
-            node: {
-              __typename: 'Track';
-              id: string;
-              uri: string;
-              durationMs: number;
-              trackNumber: number | null;
-              name: string;
-              explicit: boolean;
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
-            } & {
-              ' $fragmentRefs'?: {
-                AlbumTrackTitleCell_track: AlbumTrackTitleCell_track;
-              };
-            };
+            node: { __typename: 'Track'; id: string };
           }>;
         } | null;
       } & {
-        ' $fragmentRefs'?: {
-          AlbumTracksTable_album: AlbumTracksTable_album;
-          AlbumTrackTitleCell_album: AlbumTrackTitleCell_album;
-        };
+        ' $fragmentRefs'?: { AlbumTracksTable_album: AlbumTracksTable_album };
       })
     | null;
 };

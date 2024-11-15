@@ -54,8 +54,15 @@ const ALBUM_ROUTE_QUERY: TypedDocumentNode<
         date
         precision
       }
+      tracks {
+        edges {
+          node {
+            id
+          }
+        }
+      }
 
-      ...AlbumTracksTable_album @unmask(mode: "migrate")
+      ...AlbumTracksTable_album
     }
   }
 `;
