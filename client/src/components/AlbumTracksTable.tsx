@@ -43,14 +43,15 @@ const AlbumTracksTableFragment: TypedDocumentNode<Album> = gql`
           trackNumber
           artists {
             id
+            name
           }
 
-          ...AlbumTrackTitleCell_track @unmask(mode: "migrate")
+          ...AlbumTrackTitleCell_track
         }
       }
     }
 
-    ...AlbumTrackTitleCell_album @unmask(mode: "migrate")
+    ...AlbumTrackTitleCell_album
   }
 `;
 
@@ -117,7 +118,7 @@ const AlbumTracksTable = ({ album, tracksContains }: AlbumTracksTableProps) => {
             }),
           ]
         : [],
-    [data]
+    [data, complete]
   );
 
   if (!complete) {

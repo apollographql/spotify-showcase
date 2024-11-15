@@ -2407,8 +2407,6 @@ export type AlbumTracksTable_album = ({
         uri: string;
         durationMs: number;
         trackNumber: number | null;
-        name: string;
-        explicit: boolean;
         artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
       } & {
         ' $fragmentRefs'?: {
@@ -4275,8 +4273,6 @@ export type TrackRouteQuery = {
             uri: string;
             durationMs: number;
             trackNumber: number | null;
-            name: string;
-            explicit: boolean;
             artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
           } & {
             ' $fragmentRefs'?: {
