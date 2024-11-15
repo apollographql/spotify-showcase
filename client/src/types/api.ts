@@ -3699,7 +3699,6 @@ export type EpisodeRouteQuery = {
         __typename: 'Episode';
         id: string;
         name: string;
-        durationMs: number;
         releaseDate: {
           __typename: 'ReleaseDate';
           date: string;
@@ -3714,11 +3713,6 @@ export type EpisodeRouteQuery = {
             url: string;
             vibrantColor: string | null;
           }>;
-        };
-        resumePoint: {
-          __typename: 'ResumePoint';
-          fullyPlayed: boolean;
-          resumePositionMs: number;
         };
       } & {
         ' $fragmentRefs'?: {
