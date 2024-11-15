@@ -41,7 +41,7 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       }
       relatedArtists {
         id
-        ...ArtistTile_artist @unmask(mode: "migrate")
+        ...ArtistTile_artist
       }
       topTracks {
         id

@@ -3373,12 +3373,9 @@ export type ArtistRouteQuery = {
     followers: { __typename: 'Followers'; total: number };
     images: Array<{ __typename: 'Image'; url: string }>;
     relatedArtists: Array<
-      {
-        __typename: 'Artist';
-        id: string;
-        name: string;
-        images: Array<{ __typename: 'Image'; url: string }>;
-      } & { ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist } }
+      { __typename: 'Artist'; id: string } & {
+        ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist };
+      }
     >;
     topTracks: Array<
       {
