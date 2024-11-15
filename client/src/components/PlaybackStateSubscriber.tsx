@@ -1,7 +1,14 @@
 import { useEffect } from 'react';
-import { ApolloError, gql, useSuspenseQuery } from '@apollo/client';
+import {
+  ApolloError,
+  TypedDocumentNode,
+  Unmasked,
+  gql,
+  useSuspenseQuery,
+} from '@apollo/client';
 import {
   PlaybackStateSubscriberQuery,
+  PlaybackStateSubscriberQueryVariables,
   PlaybackStateSubscriberSubscription,
 } from '../types/api';
 import merge from 'deepmerge';
@@ -47,16 +54,19 @@ const PLAYBACK_STATE_FRAGMENT = gql`
       }
     }
 
-    ...Playbar_playbackState @unmask(mode: "migrate")
+    ...Playbar_playbackState
   }
 `;
 
-const PLAYBACK_STATE_SUBSCRIBER_QUERY = gql`
+const PLAYBACK_STATE_SUBSCRIBER_QUERY: TypedDocumentNode<
+  PlaybackStateSubscriberQuery,
+  PlaybackStateSubscriberQueryVariables
+> = gql`
   query PlaybackStateSubscriberQuery {
     me {
       player {
         playbackState {
-          ...PlaybackStateFragment @unmask(mode: "migrate")
+          ...PlaybackStateFragment
         }
       }
     }
@@ -68,7 +78,7 @@ const PLAYBACK_STATE_SUBSCRIBER_QUERY = gql`
 const PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION = gql`
   subscription PlaybackStateSubscriberSubscription {
     playbackStateChanged {
-      ...PlaybackStateFragment @unmask(mode: "migrate")
+      ...PlaybackStateFragment
     }
   }
 
@@ -76,9 +86,7 @@ const PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION = gql`
 `;
 
 const PlaybackStateSubscriber = () => {
-  const { subscribeToMore } = useSuspenseQuery<PlaybackStateSubscriberQuery>(
-    PLAYBACK_STATE_SUBSCRIBER_QUERY
-  );
+  const { subscribeToMore } = useSuspenseQuery(PLAYBACK_STATE_SUBSCRIBER_QUERY);
 
   const navigate = useNavigate();
 

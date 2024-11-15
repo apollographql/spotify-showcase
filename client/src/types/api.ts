@@ -2659,7 +2659,6 @@ export type PlaybackStateFragment = ({
   isPlaying: boolean;
   repeatState: RepeatMode;
   shuffleState: boolean;
-  progressMs: number | null;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
   context: { __typename: 'PlaybackContext'; uri: string } | null;
   device: {
@@ -2689,13 +2688,9 @@ export type PlaybackStateFragment = ({
         };
       }
     | null;
-} & {
-  ' $fragmentRefs'?: {
-    Playbar_playbackState: Playbar_playbackState;
-    PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
-    PlaybackItemDetails_playbackState: PlaybackItemDetails_playbackState;
-  };
-}) & { ' $fragmentName'?: 'PlaybackStateFragment' };
+} & { ' $fragmentRefs'?: { Playbar_playbackState: Playbar_playbackState } }) & {
+  ' $fragmentName'?: 'PlaybackStateFragment';
+};
 
 export type PlaybackStateSubscriberQueryVariables = Exact<{
   [key: string]: never;
@@ -2707,48 +2702,8 @@ export type PlaybackStateSubscriberQuery = {
     player: {
       __typename: 'Player';
       playbackState:
-        | ({
-            __typename: 'PlaybackState';
-            isPlaying: boolean;
-            repeatState: RepeatMode;
-            shuffleState: boolean;
-            progressMs: number | null;
-            actions: { __typename: 'Actions'; disallows: Array<Action> };
-            context: { __typename: 'PlaybackContext'; uri: string } | null;
-            device: {
-              __typename: 'Device';
-              id: string | null;
-              name: string;
-              type: string;
-              volumePercent: number;
-            };
-            item:
-              | {
-                  __typename: 'Episode';
-                  id: string;
-                  show: {
-                    __typename: 'Show';
-                    id: string;
-                    images: Array<{ __typename: 'Image'; url: string }>;
-                  };
-                }
-              | {
-                  __typename: 'Track';
-                  id: string;
-                  album: {
-                    __typename: 'Album';
-                    id: string;
-                    images: Array<{ __typename: 'Image'; url: string }>;
-                  };
-                }
-              | null;
-          } & {
-            ' $fragmentRefs'?: {
-              PlaybackStateFragment: PlaybackStateFragment;
-              Playbar_playbackState: Playbar_playbackState;
-              PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
-              PlaybackItemDetails_playbackState: PlaybackItemDetails_playbackState;
-            };
+        | ({ __typename: 'PlaybackState' } & {
+            ' $fragmentRefs'?: { PlaybackStateFragment: PlaybackStateFragment };
           })
         | null;
     };
@@ -2761,48 +2716,8 @@ export type PlaybackStateSubscriberSubscriptionVariables = Exact<{
 
 export type PlaybackStateSubscriberSubscription = {
   playbackStateChanged:
-    | ({
-        __typename: 'PlaybackState';
-        isPlaying: boolean;
-        repeatState: RepeatMode;
-        shuffleState: boolean;
-        progressMs: number | null;
-        actions: { __typename: 'Actions'; disallows: Array<Action> };
-        context: { __typename: 'PlaybackContext'; uri: string } | null;
-        device: {
-          __typename: 'Device';
-          id: string | null;
-          name: string;
-          type: string;
-          volumePercent: number;
-        };
-        item:
-          | {
-              __typename: 'Episode';
-              id: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | null;
-      } & {
-        ' $fragmentRefs'?: {
-          PlaybackStateFragment: PlaybackStateFragment;
-          Playbar_playbackState: Playbar_playbackState;
-          PlaybackItemProgressBar_playbackState: PlaybackItemProgressBar_playbackState;
-          PlaybackItemDetails_playbackState: PlaybackItemDetails_playbackState;
-        };
+    | ({ __typename: 'PlaybackState' } & {
+        ' $fragmentRefs'?: { PlaybackStateFragment: PlaybackStateFragment };
       })
     | null;
 };
