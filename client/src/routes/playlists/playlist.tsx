@@ -65,6 +65,9 @@ const PLAYLIST_QUERY: TypedDocumentNode<
                 id
                 name
               }
+              artists {
+                id
+              }
 
               ...TrackNumberCell_track
             }

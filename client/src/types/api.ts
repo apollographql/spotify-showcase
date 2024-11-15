@@ -3788,6 +3788,7 @@ export type PlaylistQuery = {
               durationMs: number;
               uri: string;
               album: { __typename: 'Album'; id: string; name: string };
+              artists: Array<{ __typename: 'Artist'; id: string }>;
             } & {
               ' $fragmentRefs'?: {
                 TrackNumberCell_track: TrackNumberCell_track;
