@@ -3836,15 +3836,7 @@ export type QueueRouteQuery = {
               id: string;
               durationMs: number;
               uri: string;
-              explicit: boolean;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
+              show: { __typename: 'Show'; id: string; name: string };
             } & {
               ' $fragmentRefs'?: {
                 QueueRoute_playbackItem_Episode: QueueRoute_playbackItem_Episode;
@@ -3856,20 +3848,7 @@ export type QueueRouteQuery = {
               id: string;
               durationMs: number;
               uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              name: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
+              album: { __typename: 'Album'; id: string; name: string };
             } & {
               ' $fragmentRefs'?: {
                 QueueRoute_playbackItem_Track: QueueRoute_playbackItem_Track;
@@ -3884,15 +3863,7 @@ export type QueueRouteQuery = {
               id: string;
               durationMs: number;
               uri: string;
-              explicit: boolean;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
+              show: { __typename: 'Show'; id: string; name: string };
             } & {
               ' $fragmentRefs'?: {
                 QueueRoute_playbackItem_Episode: QueueRoute_playbackItem_Episode;
@@ -3904,20 +3875,7 @@ export type QueueRouteQuery = {
               id: string;
               durationMs: number;
               uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              name: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
+              album: { __typename: 'Album'; id: string; name: string };
             } & {
               ' $fragmentRefs'?: {
                 QueueRoute_playbackItem_Track: QueueRoute_playbackItem_Track;
@@ -3936,15 +3894,7 @@ type QueueRoute_playbackItem_Episode = ({
   id: string;
   durationMs: number;
   uri: string;
-  explicit: boolean;
-  name: string;
-  show: {
-    __typename: 'Show';
-    id: string;
-    name: string;
-    publisher: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
+  show: { __typename: 'Show'; id: string; name: string };
 } & {
   ' $fragmentRefs'?: { EpisodeDetailsCell_episode: EpisodeDetailsCell_episode };
 }) & { ' $fragmentName'?: 'QueueRoute_playbackItem_Episode' };
@@ -3954,16 +3904,7 @@ type QueueRoute_playbackItem_Track = ({
   id: string;
   durationMs: number;
   uri: string;
-  trackNumber: number | null;
-  explicit: boolean;
-  name: string;
-  album: {
-    __typename: 'Album';
-    id: string;
-    name: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
+  album: { __typename: 'Album'; id: string; name: string };
 } & {
   ' $fragmentRefs'?: {
     TrackNumberCell_track: TrackNumberCell_track;
