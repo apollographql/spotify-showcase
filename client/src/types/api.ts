@@ -4094,11 +4094,6 @@ export type ShowRouteQuery = {
             date: string;
             precision: ReleaseDatePrecision;
           };
-          resumePoint: {
-            __typename: 'ResumePoint';
-            fullyPlayed: boolean;
-            resumePositionMs: number;
-          };
         } & {
           ' $fragmentRefs'?: {
             EpisodeRemainingDuration_episode: EpisodeRemainingDuration_episode;

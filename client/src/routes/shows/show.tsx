@@ -35,7 +35,7 @@ const SHOW_ROUTE_QUERY = gql`
               precision
             }
 
-            ...EpisodeRemainingDuration_episode @unmask(mode: "migrate")
+            ...EpisodeRemainingDuration_episode
           }
         }
       }
