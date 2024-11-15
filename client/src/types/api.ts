@@ -2672,6 +2672,7 @@ export type PlaybackStateFragment = ({
   isPlaying: boolean;
   repeatState: RepeatMode;
   shuffleState: boolean;
+  progressMs: number | null;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
   context: { __typename: 'PlaybackContext'; uri: string } | null;
   device: {
@@ -2732,6 +2733,7 @@ export type PlaybackStateSubscriberQuery = {
             isPlaying: boolean;
             repeatState: RepeatMode;
             shuffleState: boolean;
+            progressMs: number | null;
             actions: { __typename: 'Actions'; disallows: Array<Action> };
             context: { __typename: 'PlaybackContext'; uri: string } | null;
             device: {
@@ -2793,6 +2795,7 @@ export type PlaybackStateSubscriberSubscription = {
         isPlaying: boolean;
         repeatState: RepeatMode;
         shuffleState: boolean;
+        progressMs: number | null;
         actions: { __typename: 'Actions'; disallows: Array<Action> };
         context: { __typename: 'PlaybackContext'; uri: string } | null;
         device: {
@@ -2858,6 +2861,7 @@ export type Playbar_playbackState = ({
   isPlaying: boolean;
   repeatState: RepeatMode;
   shuffleState: boolean;
+  progressMs: number | null;
   actions: { __typename: 'Actions'; disallows: Array<Action> };
   device: {
     __typename: 'Device';

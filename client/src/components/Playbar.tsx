@@ -56,6 +56,7 @@ const PLAYBACK_STATE_FRAGMENT: TypedDocumentNode<PlaybackState, never> = gql`
     isPlaying
     repeatState
     shuffleState
+    progressMs
     actions {
       disallows
     }
