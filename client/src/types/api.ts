@@ -2911,6 +2911,11 @@ export type YourEpisodesTile_connection = {
   }>;
 } & { ' $fragmentName'?: 'YourEpisodesTile_connection' };
 
+export type useCurrentUserIdFragment = {
+  __typename: 'CurrentUser';
+  profile: { __typename: 'CurrentUserProfile'; id: string };
+} & { ' $fragmentName'?: 'useCurrentUserIdFragment' };
+
 export type SavedTracksContainsQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
