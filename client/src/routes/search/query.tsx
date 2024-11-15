@@ -17,7 +17,7 @@ const SEARCH_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            ...ArtistTile_artist @unmask(mode: "migrate")
+            ...ArtistTile_artist
           }
         }
       }
