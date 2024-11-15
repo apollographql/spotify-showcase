@@ -20,7 +20,7 @@ const COLLECTION_ALBUMS_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            ...AlbumTile_album @unmask(mode: "migrate")
+            ...AlbumTile_album
           }
         }
       }

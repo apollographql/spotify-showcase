@@ -3421,15 +3421,9 @@ export type CollectionAlbumsRouteQuery = {
       };
       edges: Array<{
         __typename: 'SavedAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        } & { ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album } };
+        node: { __typename: 'Album'; id: string } & {
+          ' $fragmentRefs'?: { AlbumTile_album: AlbumTile_album };
+        };
       }>;
     } | null;
   } | null;
