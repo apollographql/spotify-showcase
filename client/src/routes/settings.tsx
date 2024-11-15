@@ -46,7 +46,7 @@ const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
           name
           description
           type {
-            ...TypeRef @unmask(mode: "migrate")
+            ...TypeRef @unmask
           }
         }
       }
