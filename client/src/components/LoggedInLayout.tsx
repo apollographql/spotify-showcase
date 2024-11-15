@@ -31,6 +31,7 @@ import StandardLoadingState from './StandardLoadingState';
 import { withHighlight } from './LoadingStateHighlighter';
 import cx from 'classnames';
 import LikedTracksSidebarLink from './LikedTracksSidebarLink';
+import SavedEpisodesSidebarLink from './SavedEpisodesSidebarLink';
 
 const LoggedInLayout = () => {
   const navigation = useNavigation();
@@ -141,22 +142,7 @@ const Sidebar = () => {
         <ScrollContainerContext.Provider value={sidebarRef}>
           <div className="overflow-y-auto flex-1 -mx-1 px-3" ref={sidebarRef}>
             <LikedTracksSidebarLink />
-            <PlaylistSidebarLink
-              pinned
-              playlist={{
-                __typename: 'Playlist',
-                id: 'collection:episodes',
-                name: 'Your Episodes',
-                uri: `spotify:user:${me.user.id}:collection:your-episodes`,
-                owner: {
-                  __typename: 'User',
-                  id: 'spotify',
-                  displayName: 'Spotify',
-                },
-              }}
-              coverPhoto={<YourEpisodesPlaylistCoverPhoto iconSize="1rem" />}
-              to="/collection/episodes"
-            />
+            <SavedEpisodesSidebarLink />
             {me.playlists?.edges.map(({ node: playlist }) => (
               <PlaylistSidebarLink
                 pinned={false}

@@ -2863,6 +2863,12 @@ export type PlaylistTitleCell_playlistTrack =
   | PlaylistTitleCell_playlistTrack_Episode
   | PlaylistTitleCell_playlistTrack_Track;
 
+export type SavedEpisodesSidebarLink_playbackState = {
+  __typename: 'PlaybackState';
+  isPlaying: boolean;
+  context: { __typename: 'PlaybackContext'; uri: string } | null;
+} & { ' $fragmentName'?: 'SavedEpisodesSidebarLink_playbackState' };
+
 export type TrackNumberCell_playbackState = {
   __typename: 'PlaybackState';
   isPlaying: boolean;
