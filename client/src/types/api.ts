@@ -2406,7 +2406,6 @@ export type AlbumTracksTable_album = ({
         id: string;
         uri: string;
         durationMs: number;
-        trackNumber: number | null;
         artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
       } & {
         ' $fragmentRefs'?: {

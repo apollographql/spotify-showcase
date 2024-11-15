@@ -40,7 +40,6 @@ const AlbumTracksTableFragment: TypedDocumentNode<Album> = gql`
           id
           uri
           durationMs
-          trackNumber
           artists {
             id
             name
