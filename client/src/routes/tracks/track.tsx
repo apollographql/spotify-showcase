@@ -34,7 +34,7 @@ const TRACK_ROUTE_QUERY = gql`
         name
         topTracks {
           id
-          ...ArtistTopTracks_tracks @unmask(mode: "migrate")
+          ...ArtistTopTracks_tracks
         }
 
         ...ArtistTile_artist @unmask(mode: "migrate")
@@ -85,7 +85,15 @@ export const RouteComponent = () => {
         </TileGrid>
         <Flex as="section" direction="column" gap="0.5rem">
           <h2>Popular Tracks by {primaryArtist.name}</h2>
-          <ArtistTopTrack tracks={primaryArtist.topTracks} />
+          <div>
+            {primaryArtist.topTracks.slice(0, 5).map((track, idx) => (
+              <ArtistTopTrack
+                key={track.id}
+                track={track}
+                trackNumber={idx + 1}
+              />
+            ))}
+          </div>
         </Flex>
         <Flex as="section" direction="column" gap="0.5rem">
           <Flex gap="1rem" alignItems="center">

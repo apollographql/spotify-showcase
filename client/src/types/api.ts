@@ -4225,18 +4225,7 @@ export type TrackRouteQuery = {
         id: string;
         name: string;
         topTracks: Array<
-          {
-            __typename: 'Track';
-            id: string;
-            durationMs: number;
-            explicit: boolean;
-            name: string;
-            album: {
-              __typename: 'Album';
-              id: string;
-              images: Array<{ __typename: 'Image'; url: string }>;
-            };
-          } & {
+          { __typename: 'Track'; id: string } & {
             ' $fragmentRefs'?: {
               ArtistTopTracks_tracks: ArtistTopTracks_tracks;
             };
