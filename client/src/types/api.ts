@@ -3444,12 +3444,9 @@ export type CollectionArtistsRouteQuery = {
       };
       edges: Array<{
         __typename: 'FollowedArtistEdge';
-        node: {
-          __typename: 'Artist';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        } & { ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist } };
+        node: { __typename: 'Artist'; id: string } & {
+          ' $fragmentRefs'?: { ArtistTile_artist: ArtistTile_artist };
+        };
       }>;
     } | null;
   } | null;
