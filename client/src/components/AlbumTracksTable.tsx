@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Clock } from 'lucide-react';
 import { Get } from 'type-fest';
-import { AlbumTracksTable_album as Album } from '../types/api';
+import { AlbumTracksTable_album } from '../types/api';
 import AlbumTrackTitleCell from './AlbumTrackTitleCell';
 import ContextMenu from './ContextMenu';
 import ContextMenuAction from './ContextMenuAction';
@@ -14,10 +14,10 @@ import { useMemo } from 'react';
 import TrackLikeButtonCell from './TrackLikeButtonCell';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
-type Track = NonNullable<Get<Album, 'tracks.edges[0].node'>>;
+type Track = NonNullable<Get<AlbumTracksTable_album, 'tracks.edges[0].node'>>;
 
 interface AlbumTracksTableProps {
-  album: Album;
+  album: AlbumTracksTable_album;
   tracksContains: Map<string, boolean>;
 }
 
