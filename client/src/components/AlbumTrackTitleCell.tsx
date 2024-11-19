@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import usePlaybackState from '../hooks/usePlaybackState';
 import {
-  AlbumTrackTitleCell_album as Album,
+  AlbumTrackTitleCell_album,
   AlbumTrackTitleCell_playbackState as PlaybackState,
   AlbumTrackTitleCell_track as Track,
 } from '../types/api';
@@ -12,7 +12,7 @@ import Flex from './Flex';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface AlbumTrackTitleCellProps {
-  album: Album;
+  album: AlbumTrackTitleCell_album;
   track: Track;
 }
 
