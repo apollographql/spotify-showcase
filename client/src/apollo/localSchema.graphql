@@ -1,3 +1,5 @@
+directive @unmask(mode: String) on FRAGMENT_SPREAD
+
 extend type Image {
   vibrantColor(format: ColorFormat!, alpha: Float): String
 }
