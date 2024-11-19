@@ -374,6 +374,10 @@ const config: CodegenConfig = {
           ID: 'string',
           Timestamp: 'number',
         },
+        inlineFragmentTypes: 'mask',
+        customDirectives: {
+          apolloUnmask: true,
+        },
         namingConvention: {
           typeNames: 'keep',
         },
