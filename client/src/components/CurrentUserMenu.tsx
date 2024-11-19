@@ -13,7 +13,7 @@ const CURRENT_USER_QUERY: TypedDocumentNode<
       profile {
         id
         displayName
-        ...Avatar_profile
+        ...Avatar_profile @unmask(mode: "migrate")
       }
     }
   }

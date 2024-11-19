@@ -56,16 +56,13 @@ const PLAYLIST_QUERY = gql`
             name
             durationMs
             uri
-
             ... on Track {
               album {
                 id
                 name
               }
-
-              ...TrackNumberCell_track
+              ...TrackNumberCell_track @unmask(mode: "migrate")
             }
-
             ... on Episode {
               releaseDate {
                 date
@@ -76,8 +73,7 @@ const PLAYLIST_QUERY = gql`
                 name
               }
             }
-
-            ...PlaylistTitleCell_playlistTrack
+            ...PlaylistTitleCell_playlistTrack @unmask(mode: "migrate")
           }
         }
         pageInfo {
@@ -87,8 +83,7 @@ const PLAYLIST_QUERY = gql`
           total
         }
       }
-
-      ...PlaylistTitleCell_playlist
+      ...PlaylistTitleCell_playlist @unmask(mode: "migrate")
     }
   }
 `;

@@ -40,10 +40,9 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
             }
           }
         }
-        ...LikedSongsTile_connection
+        ...LikedSongsTile_connection @unmask(mode: "migrate")
       }
-      playlists(offset: $offset, limit: $limit)
-        @connection(key: "collectionPlaylists") {
+      playlists(offset: $offset, limit: $limit) @connection(key: "collectionPlaylists") {
         pageInfo {
           offset
           limit
@@ -52,7 +51,7 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
         edges {
           node {
             id
-            ...PlaylistTile_playlist
+            ...PlaylistTile_playlist @unmask(mode: "migrate")
           }
         }
       }
@@ -63,8 +62,7 @@ const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
 const PAGINATED_QUERY = gql`
   query CollectionPlaylistsRoutePaginatedQuery($offset: Int, $limit: Int) {
     me {
-      playlists(offset: $offset, limit: $limit)
-        @connection(key: "collectionPlaylists") {
+      playlists(offset: $offset, limit: $limit) @connection(key: "collectionPlaylists") {
         pageInfo {
           offset
           limit
@@ -73,7 +71,7 @@ const PAGINATED_QUERY = gql`
         edges {
           node {
             id
-            ...PlaylistTile_playlist
+            ...PlaylistTile_playlist @unmask(mode: "migrate")
           }
         }
       }

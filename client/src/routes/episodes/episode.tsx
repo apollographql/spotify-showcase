@@ -26,8 +26,7 @@ const EPISODE_ROUTE_QUERY = gql`
           vibrantColor(format: RGB, alpha: 0.9) @client
         }
       }
-
-      ...EpisodeRemainingDuration_episode
+      ...EpisodeRemainingDuration_episode @unmask(mode: "migrate")
     }
   }
 `;

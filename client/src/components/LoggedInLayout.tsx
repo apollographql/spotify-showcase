@@ -89,8 +89,7 @@ const SIDEBAR_QUERY: TypedDocumentNode<
       user {
         id
       }
-      playlists(offset: $offset, limit: $limit)
-        @connection(key: "rootPlaylists") {
+      playlists(offset: $offset, limit: $limit) @connection(key: "rootPlaylists") {
         pageInfo {
           offset
           limit
@@ -102,7 +101,7 @@ const SIDEBAR_QUERY: TypedDocumentNode<
             images {
               url
             }
-            ...PlaylistSidebarLink_playlist
+            ...PlaylistSidebarLink_playlist @unmask(mode: "migrate")
           }
         }
       }
