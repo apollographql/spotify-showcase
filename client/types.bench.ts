@@ -1,3 +1,5 @@
+// to use this just call `./node_modules/.bin/tsx client/types.bench.ts` from the root
+
 import { bench } from '@ark/attest';
 import type { Unmasked } from '@apollo/client';
 import type {

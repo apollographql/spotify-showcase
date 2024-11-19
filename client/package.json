@@ -50,8 +50,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "serve": "serve dist -s -n -L -p $PORT",
-    "lint:types": "tsc --noEmit -p ./tsconfig.json",
-    "typebench": "tsx types.bench.ts"
+    "lint:types": "tsc --noEmit -p ./tsconfig.json"
   },
   "browserslist": {
     "production": [
