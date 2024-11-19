@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql, Unmasked } from '@apollo/client';
 import Flex from './Flex';
 import ProgressBar from './ProgressBar';
 import Duration from './Duration';
@@ -8,7 +8,7 @@ import useSeekToPositionMutation from '../mutations/useSeekToPositionMutation';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface PlaybackItemProgressBarProps {
-  playbackState: PlaybackState | null | undefined;
+  playbackState: Unmasked<PlaybackState> | null | undefined;
 }
 
 const PlaybackItemProgressBar = ({

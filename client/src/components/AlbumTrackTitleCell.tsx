@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql, Unmasked } from '@apollo/client';
 import usePlaybackState from '../hooks/usePlaybackState';
 import {
   AlbumTrackTitleCell_album,
@@ -12,7 +12,7 @@ import Flex from './Flex';
 import { fragmentRegistry } from '../apollo/fragmentRegistry';
 
 interface AlbumTrackTitleCellProps {
-  album: AlbumTrackTitleCell_album;
+  album: Unmasked<AlbumTrackTitleCell_album>;
   track: Track;
 }
 
