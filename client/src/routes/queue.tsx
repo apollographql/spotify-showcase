@@ -52,7 +52,7 @@ const QUEUE_ROUTE_QUERY = gql`
       }
     }
   }
-  
+
   fragment QueueRoute_playbackItem on PlaybackItem {
     id
     durationMs

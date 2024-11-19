@@ -89,7 +89,8 @@ const SIDEBAR_QUERY: TypedDocumentNode<
       user {
         id
       }
-      playlists(offset: $offset, limit: $limit) @connection(key: "rootPlaylists") {
+      playlists(offset: $offset, limit: $limit)
+        @connection(key: "rootPlaylists") {
         pageInfo {
           offset
           limit

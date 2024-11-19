@@ -46,7 +46,7 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       }
     }
   }
-  
+
   fragment ArtistRouteQuery_albums on ArtistAlbumsConnection {
     edges {
       node {
