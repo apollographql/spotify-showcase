@@ -2,6 +2,6 @@ import '@apollo/client';
 
 declare module '@apollo/client' {
   export interface DataMasking {
-    enabled: false;
+    enabled: true;
   }
 }

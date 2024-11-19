@@ -74,6 +74,7 @@ const httpLink = createHttpLink({
 });
 
 const client = new ApolloClient({
+  dataMasking: true,
   link: from([httpAuthLink, persistedQueries, httpLink]),
   connectToDevTools: true,
   name: 'Spotify Showcase Website',
