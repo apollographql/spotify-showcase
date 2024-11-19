@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 // to use this just call `./node_modules/.bin/tsx client/types.bench.ts` from the root
 
-import { bench } from '@ark/attest';
+import { attest, bench } from '@ark/attest';
 import type { Unmasked } from '@apollo/client';
 import type {
   SidebarQuery,
@@ -21,6 +24,9 @@ bench('AlternativeUnmasked<SidebarQuery>', () => {
   return {} as AlternativeUnmasked<SidebarQuery>;
 }).types([31, 'instantiations']);
 
+attest<Unmasked<SidebarQuery>>({} as AlternativeUnmasked<SidebarQuery>);
+attest<AlternativeUnmasked<SidebarQuery>>({} as Unmasked<SidebarQuery>);
+
 bench('Unmasked<AlbumRouteQuery>', () => {
   return {} as Unmasked<AlbumRouteQuery>;
 }).types([117, 'instantiations']);
@@ -28,6 +34,18 @@ bench('Unmasked<AlbumRouteQuery>', () => {
 bench('AlternativeUnmasked<AlbumRouteQuery>', () => {
   return {} as AlternativeUnmasked<AlbumRouteQuery>;
 }).types([34, 'instantiations']);
+
+type Id<T> = { [K in keyof T]: Id<T[K]> } & {};
+
+const a = ({} as Unmasked<AlbumRouteQuery['album']>).tracks?.edges[0]!;
+const b = ({} as AlternativeUnmasked<AlbumRouteQuery['album']>).tracks[0]
+  ?.edges[0]!;
+
+type A = Id<typeof a>;
+type B = Id<typeof b>;
+
+attest<A>({} as B);
+attest<B>({} as A);
 
 bench('Unmasked<ArtistRouteQuery>', () => {
   return {} as Unmasked<ArtistRouteQuery>;
@@ -37,6 +55,9 @@ bench('AlternativeUnmasked<ArtistRouteQuery>', () => {
   return {} as AlternativeUnmasked<ArtistRouteQuery>;
 }).types([31, 'instantiations']);
 
+attest<Unmasked<ArtistRouteQuery>>({} as AlternativeUnmasked<ArtistRouteQuery>);
+attest<AlternativeUnmasked<ArtistRouteQuery>>({} as Unmasked<ArtistRouteQuery>);
+
 bench('Unmasked<CollectionPlaylistsRouteQuery>', () => {
   return {} as Unmasked<CollectionPlaylistsRouteQuery>;
 }).types([111, 'instantiations']);
@@ -44,6 +65,13 @@ bench('Unmasked<CollectionPlaylistsRouteQuery>', () => {
 bench('AlternativeUnmasked<CollectionPlaylistsRouteQuery>', () => {
   return {} as AlternativeUnmasked<CollectionPlaylistsRouteQuery>;
 }).types([31, 'instantiations']);
+
+attest<Unmasked<CollectionPlaylistsRouteQuery>>(
+  {} as AlternativeUnmasked<CollectionPlaylistsRouteQuery>
+);
+attest<AlternativeUnmasked<CollectionPlaylistsRouteQuery>>(
+  {} as Unmasked<CollectionPlaylistsRouteQuery>
+);
 
 bench('Unmasked<CollectionTracksRouteQuery>', () => {
   return {} as Unmasked<CollectionTracksRouteQuery>;
@@ -53,6 +81,13 @@ bench('AlternativeUnmasked<CollectionTracksRouteQuery>', () => {
   return {} as AlternativeUnmasked<CollectionTracksRouteQuery>;
 }).types([31, 'instantiations']);
 
+attest<Unmasked<CollectionTracksRouteQuery>>(
+  {} as AlternativeUnmasked<CollectionTracksRouteQuery>
+);
+attest<AlternativeUnmasked<CollectionTracksRouteQuery>>(
+  {} as Unmasked<CollectionTracksRouteQuery>
+);
+
 bench('Unmasked<PlaylistQuery>', () => {
   return {} as Unmasked<PlaylistQuery>;
 }).types([117, 'instantiations']);
@@ -60,6 +95,9 @@ bench('Unmasked<PlaylistQuery>', () => {
 bench('AlternativeUnmasked<PlaylistQuery>', () => {
   return {} as AlternativeUnmasked<PlaylistQuery>;
 }).types([34, 'instantiations']);
+
+attest<Unmasked<PlaylistQuery>>({} as AlternativeUnmasked<PlaylistQuery>);
+attest<AlternativeUnmasked<PlaylistQuery>>({} as Unmasked<PlaylistQuery>);
 
 bench('Unmasked<QueueRouteQuery>', () => {
   return {} as Unmasked<QueueRouteQuery>;
@@ -69,6 +107,9 @@ bench('AlternativeUnmasked<QueueRouteQuery>', () => {
   return {} as AlternativeUnmasked<QueueRouteQuery>;
 }).types([31, 'instantiations']);
 
+attest<Unmasked<QueueRouteQuery>>({} as AlternativeUnmasked<QueueRouteQuery>);
+attest<AlternativeUnmasked<QueueRouteQuery>>({} as Unmasked<QueueRouteQuery>);
+
 bench('Unmasked<LimitedIntrospectionQuery>', () => {
   return {} as Unmasked<LimitedIntrospectionQuery>;
 }).types([111, 'instantiations']);
@@ -76,6 +117,13 @@ bench('Unmasked<LimitedIntrospectionQuery>', () => {
 bench('AlternativeUnmasked<LimitedIntrospectionQuery>', () => {
   return {} as AlternativeUnmasked<LimitedIntrospectionQuery>;
 }).types([31, 'instantiations']);
+
+attest<Unmasked<LimitedIntrospectionQuery>>(
+  {} as AlternativeUnmasked<LimitedIntrospectionQuery>
+);
+attest<AlternativeUnmasked<LimitedIntrospectionQuery>>(
+  {} as Unmasked<LimitedIntrospectionQuery>
+);
 
 export type UnwrapFragmentRefs<TData> =
   // Leave TData alone if it is Record<string, any> and not a specific shape
