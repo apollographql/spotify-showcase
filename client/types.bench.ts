@@ -177,24 +177,291 @@ type Entries<V> = V extends object
     : never
   : never;
 
-type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
-  k: infer I extends U
-) => void
-  ? I
-  : never;
+type IsArray<T> = T extends Array<any> ? true : false;
+type ArrValues<Arr> = Arr extends Array<infer Val> ? Val : never;
+type MergeObjectUnions<U> =
+  IsArray<U> extends true
+    ? Array<MergeObjectUnions<ArrValues<U>>>
+    : (U extends object ? (k: U) => void : never) extends (
+          k: infer I extends U
+        ) => void
+      ? I
+      : U;
 
 type Recombine<
   Entries extends { key: PropertyKey; value: [any]; optional: boolean },
 > = {
-  [P in (Entries & { optional: false })['key']]: UnionToIntersection<
+  [P in (Entries & { optional: false })['key']]: MergeObjectUnions<
     (Entries & { key: P; optional: false })['value']
   >[0];
 } & {
   [P in (Entries & { optional: true })['key']]?:
-    | UnionToIntersection<(Entries & { key: P; optional: true })['value']>[0]
+    | MergeObjectUnions<(Entries & { key: P; optional: true })['value']>[0]
     | undefined;
 };
 
 export type AlternativeUnmasked<TData> = TData extends object
   ? UnwrapFragmentRefs<RemoveMaskedMarker<TData>>
   : TData;
+
+function unmasked<T>(): Unmasked<T> {
+  return {} as any;
+}
+
+import { expectTypeOf } from 'expect-type';
+
+bench('type tests', () => {
+  // Unmasked maps primitive values to themselves
+  expectTypeOf(unmasked<number>()).toEqualTypeOf<number>();
+  expectTypeOf(unmasked<string>()).toEqualTypeOf<string>();
+  expectTypeOf(unmasked<boolean>()).toEqualTypeOf<boolean>();
+  // @ts-expect-error we don't really need this to work
+  expectTypeOf(unmasked<undefined>()).toEqualTypeOf<undefined>();
+  // @ts-expect-error we don't really need this to work
+  expectTypeOf(unmasked<null>()).toEqualTypeOf<null>();
+  expectTypeOf(unmasked<{}>()).toEqualTypeOf<{}>();
+
+  // normal selection without fragments
+  expectTypeOf(unmasked<{ __typename: 'Track'; id: number }>()).toEqualTypeOf<{
+    __typename: 'Track';
+    id: number;
+  }>();
+
+  // optional property
+  expectTypeOf(
+    unmasked<{
+      __typename: 'Track';
+      id: number;
+      name?: string;
+    }>()
+  ).toEqualTypeOf<{
+    __typename: 'Track';
+    id: number;
+    name?: string;
+  }>();
+
+  // nullable property
+  expectTypeOf(
+    unmasked<{
+      __typename: 'Track';
+      id: number;
+      name: null;
+    }>()
+  ).toEqualTypeOf<{
+    __typename: 'Track';
+    id: number;
+    name: null;
+  }>();
+
+  // optional nullable property
+  expectTypeOf(
+    unmasked<{
+      __typename: 'Track';
+      id: number;
+      name?: null;
+    }>()
+  ).toEqualTypeOf<{
+    __typename: 'Track';
+    id: number;
+    name?: null;
+  }>();
+
+  // with a fragment
+  expectTypeOf(
+    unmasked<{
+      __typename: 'Track';
+      id: number;
+      ' $fragmentRefs'?: {
+        Test: {
+          name: string;
+        };
+      };
+    }>()
+  ).toEqualTypeOf<{
+    __typename: 'Track';
+    id: number;
+    name: string;
+  }>();
+
+  {
+    // with a fragment on a subtype
+    expectTypeOf(
+      unmasked<
+        | {
+            __typename: 'Track';
+            id: number;
+            ' $fragmentRefs'?: {
+              Fragment__Track: {
+                ' $fragmentName'?: 'Fragment__Track';
+                __typename: 'Track';
+                name: string;
+              };
+            };
+          }
+        | {
+            __typename: 'Album';
+            id: number;
+          }
+      >()
+    ).branded.toEqualTypeOf<
+      | {
+          __typename: 'Track';
+          id: number;
+          name: string;
+        }
+      | {
+          __typename: 'Album';
+          id: number;
+        }
+    >();
+  }
+
+  {
+    // with one fragment per subtype
+    expectTypeOf(
+      unmasked<
+        | {
+            __typename: 'Track';
+            id: number;
+            ' $fragmentRefs'?: {
+              Fragment__Track: {
+                ' $fragmentName'?: 'Fragment__Track';
+                __typename: 'Track';
+                name: string;
+              };
+            };
+          }
+        | {
+            __typename: 'Album';
+            id: number;
+            ' $fragmentRefs'?: {
+              Fragment__Album: {
+                ' $fragmentName'?: 'Fragment__Album';
+                __typename: 'Album';
+                release: number;
+              };
+            };
+          }
+      >()
+    ).branded.toEqualTypeOf<
+      | {
+          __typename: 'Track';
+          id: number;
+          name: string;
+        }
+      | {
+          __typename: 'Album';
+          id: number;
+          release: number;
+        }
+    >();
+  }
+
+  {
+    // with one two fragments on the same subtype, different selection
+    expectTypeOf(
+      unmasked<
+        | {
+            __typename: 'Track';
+            id: number;
+            ' $fragmentRefs'?: {
+              Fragment__Track: {
+                ' $fragmentName'?: 'Fragment__Track';
+                __typename: 'Track';
+                name: string;
+              };
+              Fragment__TrackDetails: {
+                ' $fragmentName'?: 'Fragment__TrackDetails';
+                __typename: 'Track';
+                length: number;
+              };
+            };
+          }
+        | {
+            __typename: 'Album';
+            id: number;
+          }
+      >()
+    ).branded.toEqualTypeOf<
+      | {
+          __typename: 'Track';
+          id: number;
+          name: string;
+          length: number;
+        }
+      | {
+          __typename: 'Album';
+          id: number;
+        }
+    >();
+  }
+
+  {
+    // selection in array
+    expectTypeOf(
+      unmasked<{
+        __typename: 'Track';
+        id: number;
+        artists: Array<{
+          __typename: 'Artist';
+          id: number;
+          ' $fragmentRefs'?: {
+            Fragment__Artist: {
+              ' $fragmentName'?: 'Fragment__Artist';
+              __typename: 'Artist';
+              birthdate: string;
+            };
+          };
+        }>;
+      }>()
+    ).branded.toEqualTypeOf<{
+      __typename: 'Track';
+      id: number;
+      artists: Array<{
+        __typename: 'Artist';
+        id: number;
+        birthdate: string;
+      }>;
+    }>();
+  }
+
+  {
+    // overlapping array from parent fragment
+    expectTypeOf(
+      unmasked<{
+        __typename: 'Track';
+        id: number;
+        artists: Array<{
+          __typename: 'Artist';
+          id: number;
+          ' $fragmentRefs'?: {
+            Fragment__Artist: {
+              ' $fragmentName'?: 'Fragment__Artist';
+              __typename: 'Artist';
+              birthdate: string;
+            };
+          };
+        }>;
+        ' $fragmentRefs'?: {
+          Fragment__Track: {
+            ' $fragmentName'?: 'Fragment__Track';
+            __typename: 'Track';
+            artists: Array<{
+              __typename: 'Artist';
+              lastname: string;
+            }>;
+          };
+        };
+      }>()
+    ).branded.toEqualTypeOf<{
+      __typename: 'Track';
+      id: number;
+      artists: Array<{
+        __typename: 'Artist';
+        id: number;
+        birthdate: string;
+        lastname: string;
+      }>;
+    }>();
+  }
+});
