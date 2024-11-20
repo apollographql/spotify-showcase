@@ -24,8 +24,10 @@ bench('AlternativeUnmasked<SidebarQuery>', () => {
   return {} as AlternativeUnmasked<SidebarQuery>;
 }).types([31, 'instantiations']);
 
-attest<Unmasked<SidebarQuery>>({} as AlternativeUnmasked<SidebarQuery>);
-attest<AlternativeUnmasked<SidebarQuery>>({} as Unmasked<SidebarQuery>);
+bench('SidebarQuery equality', () => {
+  attest<Unmasked<SidebarQuery>>({} as AlternativeUnmasked<SidebarQuery>);
+  attest<AlternativeUnmasked<SidebarQuery>>({} as Unmasked<SidebarQuery>);
+});
 
 bench('Unmasked<AlbumRouteQuery>', () => {
   return {} as Unmasked<AlbumRouteQuery>;
@@ -35,17 +37,19 @@ bench('AlternativeUnmasked<AlbumRouteQuery>', () => {
   return {} as AlternativeUnmasked<AlbumRouteQuery>;
 }).types([34, 'instantiations']);
 
-type Id<T> = { [K in keyof T]: Id<T[K]> } & {};
+bench('SidebarQuery equality', () => {
+  type Id<T> = { [K in keyof T]: Id<T[K]> } & {};
 
-const a = ({} as Unmasked<AlbumRouteQuery['album']>).tracks?.edges[0]!;
-const b = ({} as AlternativeUnmasked<AlbumRouteQuery['album']>).tracks[0]
-  ?.edges[0]!;
+  const a = ({} as Unmasked<AlbumRouteQuery['album']>).tracks?.edges[0]!;
+  const b = ({} as AlternativeUnmasked<AlbumRouteQuery['album']>).tracks[0]
+    ?.edges[0]!;
 
-type A = Id<typeof a>;
-type B = Id<typeof b>;
+  type A = Id<typeof a>;
+  type B = Id<typeof b>;
 
-attest<A>({} as B);
-attest<B>({} as A);
+  attest<A>({} as B);
+  attest<B>({} as A);
+});
 
 bench('Unmasked<ArtistRouteQuery>', () => {
   return {} as Unmasked<ArtistRouteQuery>;
@@ -55,8 +59,14 @@ bench('AlternativeUnmasked<ArtistRouteQuery>', () => {
   return {} as AlternativeUnmasked<ArtistRouteQuery>;
 }).types([31, 'instantiations']);
 
-attest<Unmasked<ArtistRouteQuery>>({} as AlternativeUnmasked<ArtistRouteQuery>);
-attest<AlternativeUnmasked<ArtistRouteQuery>>({} as Unmasked<ArtistRouteQuery>);
+bench('ArtistRouteQuery equality', () => {
+  attest<Unmasked<ArtistRouteQuery>>(
+    {} as AlternativeUnmasked<ArtistRouteQuery>
+  );
+  attest<AlternativeUnmasked<ArtistRouteQuery>>(
+    {} as Unmasked<ArtistRouteQuery>
+  );
+});
 
 bench('Unmasked<CollectionPlaylistsRouteQuery>', () => {
   return {} as Unmasked<CollectionPlaylistsRouteQuery>;
@@ -66,12 +76,14 @@ bench('AlternativeUnmasked<CollectionPlaylistsRouteQuery>', () => {
   return {} as AlternativeUnmasked<CollectionPlaylistsRouteQuery>;
 }).types([31, 'instantiations']);
 
-attest<Unmasked<CollectionPlaylistsRouteQuery>>(
-  {} as AlternativeUnmasked<CollectionPlaylistsRouteQuery>
-);
-attest<AlternativeUnmasked<CollectionPlaylistsRouteQuery>>(
-  {} as Unmasked<CollectionPlaylistsRouteQuery>
-);
+bench('CollectionPlaylistsRouteQuery equality', () => {
+  attest<Unmasked<CollectionPlaylistsRouteQuery>>(
+    {} as AlternativeUnmasked<CollectionPlaylistsRouteQuery>
+  );
+  attest<AlternativeUnmasked<CollectionPlaylistsRouteQuery>>(
+    {} as Unmasked<CollectionPlaylistsRouteQuery>
+  );
+});
 
 bench('Unmasked<CollectionTracksRouteQuery>', () => {
   return {} as Unmasked<CollectionTracksRouteQuery>;
@@ -81,12 +93,14 @@ bench('AlternativeUnmasked<CollectionTracksRouteQuery>', () => {
   return {} as AlternativeUnmasked<CollectionTracksRouteQuery>;
 }).types([31, 'instantiations']);
 
-attest<Unmasked<CollectionTracksRouteQuery>>(
-  {} as AlternativeUnmasked<CollectionTracksRouteQuery>
-);
-attest<AlternativeUnmasked<CollectionTracksRouteQuery>>(
-  {} as Unmasked<CollectionTracksRouteQuery>
-);
+bench('CollectionTracksRouteQuery equality', () => {
+  attest<Unmasked<CollectionTracksRouteQuery>>(
+    {} as AlternativeUnmasked<CollectionTracksRouteQuery>
+  );
+  attest<AlternativeUnmasked<CollectionTracksRouteQuery>>(
+    {} as Unmasked<CollectionTracksRouteQuery>
+  );
+});
 
 bench('Unmasked<PlaylistQuery>', () => {
   return {} as Unmasked<PlaylistQuery>;
@@ -96,8 +110,10 @@ bench('AlternativeUnmasked<PlaylistQuery>', () => {
   return {} as AlternativeUnmasked<PlaylistQuery>;
 }).types([34, 'instantiations']);
 
-attest<Unmasked<PlaylistQuery>>({} as AlternativeUnmasked<PlaylistQuery>);
-attest<AlternativeUnmasked<PlaylistQuery>>({} as Unmasked<PlaylistQuery>);
+bench('PlaylistQuery equality', () => {
+  attest<Unmasked<PlaylistQuery>>({} as AlternativeUnmasked<PlaylistQuery>);
+  attest<AlternativeUnmasked<PlaylistQuery>>({} as Unmasked<PlaylistQuery>);
+});
 
 bench('Unmasked<QueueRouteQuery>', () => {
   return {} as Unmasked<QueueRouteQuery>;
@@ -107,8 +123,10 @@ bench('AlternativeUnmasked<QueueRouteQuery>', () => {
   return {} as AlternativeUnmasked<QueueRouteQuery>;
 }).types([31, 'instantiations']);
 
-attest<Unmasked<QueueRouteQuery>>({} as AlternativeUnmasked<QueueRouteQuery>);
-attest<AlternativeUnmasked<QueueRouteQuery>>({} as Unmasked<QueueRouteQuery>);
+bench('QueueRouteQuery equality', () => {
+  attest<Unmasked<QueueRouteQuery>>({} as AlternativeUnmasked<QueueRouteQuery>);
+  attest<AlternativeUnmasked<QueueRouteQuery>>({} as Unmasked<QueueRouteQuery>);
+});
 
 bench('Unmasked<LimitedIntrospectionQuery>', () => {
   return {} as Unmasked<LimitedIntrospectionQuery>;
@@ -118,12 +136,14 @@ bench('AlternativeUnmasked<LimitedIntrospectionQuery>', () => {
   return {} as AlternativeUnmasked<LimitedIntrospectionQuery>;
 }).types([31, 'instantiations']);
 
-attest<Unmasked<LimitedIntrospectionQuery>>(
-  {} as AlternativeUnmasked<LimitedIntrospectionQuery>
-);
-attest<AlternativeUnmasked<LimitedIntrospectionQuery>>(
-  {} as Unmasked<LimitedIntrospectionQuery>
-);
+bench('LimitedIntrospectionQuery equality', () => {
+  attest<Unmasked<LimitedIntrospectionQuery>>(
+    {} as AlternativeUnmasked<LimitedIntrospectionQuery>
+  );
+  attest<AlternativeUnmasked<LimitedIntrospectionQuery>>(
+    {} as Unmasked<LimitedIntrospectionQuery>
+  );
+});
 
 export type UnwrapFragmentRefs<TData> =
   // Leave TData alone if it is Record<string, any> and not a specific shape
