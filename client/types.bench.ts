@@ -168,17 +168,31 @@ type KeyTuples<V> = V extends object
         ? KeyTuples<Values<V[K]>>
         : K extends ' $fragmentName'
           ? never
-          : [K, V[K], {} extends Pick<V, K> ? true : false]
+          : [K, [V[K]], {} extends Pick<V, K> ? true : false]
       : never
     : never
   : never;
 
+type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I extends U
+) => void
+  ? I
+  : never;
+
 type Combine<
-  Tuple extends [key: string | number | symbol, value: any, optional: boolean],
+  Tuple extends [
+    key: string | number | symbol,
+    value: [any],
+    optional: boolean,
+  ],
 > = {
-  [P in Tuple as P[2] extends true ? P[0] : never]?: P[1];
+  [P in (Tuple & { 2: false })[0]]: UnionToIntersection<
+    (Tuple & { 0: P; 2: false })[1]
+  >[0];
 } & {
-  [P in Tuple as P[2] extends false ? P[0] : never]: P[1];
+  [P in (Tuple & { 2: true })[0]]?:
+    | UnionToIntersection<(Tuple & { 0: P; 2: true })[1]>[0]
+    | undefined;
 };
 
 export type AlternativeUnmasked<TData> = TData extends object
