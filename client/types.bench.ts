@@ -150,7 +150,7 @@ export type UnwrapFragmentRefs<TData> =
   string extends keyof NonNullable<TData>
     ? TData
     : TData extends { ' $fragmentRefs'?: object | null }
-      ? Combine<KeyTuples<TData>> extends infer Flattened
+      ? Recombine<Entries<TData>> extends infer Flattened
         ? { [K in keyof Flattened]: UnwrapFragmentRefs<Flattened[K]> }
         : never
       : TData extends object
@@ -161,14 +161,18 @@ export type RemoveMaskedMarker<T> = Omit<T, '__masked'>;
 
 type Values<T> = T extends object ? T[keyof T] : never;
 
-type KeyTuples<V> = V extends object
+type Entries<V> = V extends object
   ? keyof V extends infer K
     ? K extends keyof V
       ? K extends ' $fragmentRefs'
-        ? KeyTuples<Values<V[K]>>
+        ? Entries<Values<V[K]>>
         : K extends ' $fragmentName'
           ? never
-          : [K, [V[K]], {} extends Pick<V, K> ? true : false]
+          : {
+              key: K;
+              value: [V[K]];
+              optional: {} extends Pick<V, K> ? true : false;
+            }
       : never
     : never
   : never;
@@ -179,15 +183,15 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   ? I
   : never;
 
-type Combine<
-  Tuple extends [key: PropertyKey, value: [any], optional: boolean],
+type Recombine<
+  Entries extends { key: PropertyKey; value: [any]; optional: boolean },
 > = {
-  [P in (Tuple & { 2: false })[0]]: UnionToIntersection<
-    (Tuple & { 0: P; 2: false })[1]
+  [P in (Entries & { optional: false })['key']]: UnionToIntersection<
+    (Entries & { key: P; optional: false })['value']
   >[0];
 } & {
-  [P in (Tuple & { 2: true })[0]]?:
-    | UnionToIntersection<(Tuple & { 0: P; 2: true })[1]>[0]
+  [P in (Entries & { optional: true })['key']]?:
+    | UnionToIntersection<(Entries & { key: P; optional: true })['value']>[0]
     | undefined;
 };
 
