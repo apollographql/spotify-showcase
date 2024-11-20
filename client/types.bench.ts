@@ -180,11 +180,7 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
   : never;
 
 type Combine<
-  Tuple extends [
-    key: string | number | symbol,
-    value: [any],
-    optional: boolean,
-  ],
+  Tuple extends [key: PropertyKey, value: [any], optional: boolean],
 > = {
   [P in (Tuple & { 2: false })[0]]: UnionToIntersection<
     (Tuple & { 0: P; 2: false })[1]
