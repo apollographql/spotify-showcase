@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "typeRoots": ["./node_modules/@types", "./src/@types"],
-    "types": ["vite/client", "mdx"],
+    "typeRoots": ["./src/@types", "../node_modules/@types"],
+    "types": ["vite/client", "mdx", "jest"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
