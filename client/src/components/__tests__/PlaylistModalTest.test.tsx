@@ -3,14 +3,15 @@ import {
   ApolloClient,
   InMemoryCache,
   createQueryPreloader,
+  useBackgroundQuery,
 } from '@apollo/client';
 import { render, screen, waitFor } from '@testing-library/react';
-import { MockLink } from '@apollo/client/testing';
+import { MockLink, MockedProvider } from '@apollo/client/testing';
 import PlaylistDetailsModal, {
   PLAYLIST_DETAILS_MODAL_QUERY,
 } from '../PlaylistDetailsModal';
 
-test('suspends with loading state', async () => {
+test('works with preloadQuery', async () => {
   const client = new ApolloClient({
     cache: new InMemoryCache(),
     link: new MockLink([
@@ -48,6 +49,56 @@ test('suspends with loading state', async () => {
       queryRef={queryRef}
     />
   );
+
+  expect(screen.getByTestId('playlist-modal-skeleton')).toBeDefined();
+
+  await waitFor(() => {
+    expect(screen.getByLabelText('Name')).toHaveValue('Test');
+  });
+});
+
+test('works with useBackgroundQuery', async () => {
+  const mocks = [
+    {
+      request: {
+        query: PLAYLIST_DETAILS_MODAL_QUERY,
+        variables: { id: '1' },
+      },
+      result: {
+        data: {
+          playlist: {
+            id: '1',
+            name: 'Test',
+            description: 'Test Playlist',
+            images: [],
+          },
+        },
+      },
+      delay: 50,
+    },
+  ];
+
+  function App() {
+    const [queryRef] = useBackgroundQuery(PLAYLIST_DETAILS_MODAL_QUERY, {
+      variables: { id: '1' },
+    });
+
+    return (
+      <PlaylistDetailsModal
+        open
+        onChange={() => {
+          // do nothing
+        }}
+        queryRef={queryRef}
+      />
+    );
+  }
+
+  render(<App />, {
+    wrapper: ({ children }) => (
+      <MockedProvider mocks={mocks}>{children}</MockedProvider>
+    ),
+  });
 
   expect(screen.getByTestId('playlist-modal-skeleton')).toBeDefined();
 
