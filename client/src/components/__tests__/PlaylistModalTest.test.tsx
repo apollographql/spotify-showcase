@@ -1,5 +1,6 @@
 import {
   ApolloClient,
+  ApolloProvider,
   InMemoryCache,
   createQueryPreloader,
   useBackgroundQuery,
@@ -22,6 +23,7 @@ test('works with preloadQuery', async () => {
         result: {
           data: {
             playlist: {
+              __typename: 'Playlist',
               id: '1',
               name: 'Test',
               description: 'Test Playlist',
@@ -66,6 +68,7 @@ test('works with useBackgroundQuery', async () => {
       result: {
         data: {
           playlist: {
+            __typename: 'Playlist',
             id: '1',
             name: 'Test',
             description: 'Test Playlist',
@@ -104,4 +107,49 @@ test('works with useBackgroundQuery', async () => {
   await waitFor(() => {
     expect(screen.getByLabelText('Name')).toHaveValue('Test');
   });
+});
+
+test('with preloaded value', async () => {
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+  });
+
+  client.writeQuery({
+    query: PLAYLIST_DETAILS_MODAL_QUERY,
+    variables: { id: '1' },
+    data: {
+      playlist: {
+        __typename: 'Playlist',
+        id: '1',
+        name: 'Test',
+        description: 'Test Playlist',
+        images: [],
+      },
+    },
+  });
+
+  function App() {
+    const [queryRef] = useBackgroundQuery(PLAYLIST_DETAILS_MODAL_QUERY, {
+      variables: { id: '1' },
+    });
+
+    return (
+      <PlaylistDetailsModal
+        open
+        onChange={() => {
+          // do nothing
+        }}
+        queryRef={queryRef}
+      />
+    );
+  }
+
+  render(<App />, {
+    wrapper: ({ children }) => (
+      <ApolloProvider client={client}>{children}</ApolloProvider>
+    ),
+  });
+
+  expect(screen.queryByTestId('playlist-modal-skeleton')).toBeNull();
+  expect(screen.getByLabelText('Name')).toHaveValue('Test');
 });
