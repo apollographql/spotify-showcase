@@ -70,17 +70,20 @@
     "@types/mdx": "^2.0.3",
     "@types/node": "^20.4.5",
     "@types/prismjs": "^1.26.0",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/browser": "^2.1.8",
     "autoprefixer": "^10.4.13",
     "babel-plugin-prismjs": "^2.1.0",
+    "playwright": "^1.49.1",
     "postcss": "^8.4.21",
     "remark-frontmatter": "^4.0.1",
     "remark-mdx-frontmatter": "^2.1.1",
     "tailwindcss": "^3.2.7",
     "type-fest": "^3.6.1",
     "typescript": "^5.1.6",
-    "vite": "^4.4.4",
-    "vitest": "^2.1.8"
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8",
+    "vitest-browser-react": "^0.0.4"
   },
   "volta": {
     "node": "18.16.1"
