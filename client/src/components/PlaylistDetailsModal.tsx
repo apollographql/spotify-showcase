@@ -116,6 +116,7 @@ const LoadingState = withHighlight(
             '--skeleton-background-color': '#181818',
           } as StyleProps
         }
+        data-testid="playlist-modal-skeleton"
       >
         <Skeleton.CoverPhoto size="50%" />
         <div className="flex flex-col gap-4 flex-1">
