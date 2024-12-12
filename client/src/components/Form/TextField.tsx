@@ -110,6 +110,7 @@ const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, ref) => {
       <input
         {...field}
         {...omit(rest, 'scale')}
+        id={name}
         ref={ref}
         type={inputType}
         value={field.value ?? ''}
