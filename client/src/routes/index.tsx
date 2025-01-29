@@ -63,6 +63,7 @@ const PlaylistTileGrid = ({
 }: {
   queryRef: QueryReference<IndexRouteQuery>;
 }) => {
+  return (<div></div>);
   const { data } = useReadQuery(queryRef);
   return (
     <div className={containerStyles}>
