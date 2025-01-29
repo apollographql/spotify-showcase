@@ -1,0 +1,14 @@
+{
+  "terminal.integrated.profiles.osx": {
+    "graphos": {
+      "path": "zsh",
+      "args": ["-l"],
+      "env": { 
+        "APOLLO_KEY": "",
+        "APOLLO_GRAPH_REF": "Spotify-tb7du2@connectors",
+        "APOLLO_ROVER_DEV_ROUTER_VERSION": "2.0.0-preview.4"
+      }
+    }
+  },
+  "terminal.integrated.defaultProfile.osx": "graphos"
+}

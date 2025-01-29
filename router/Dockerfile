@@ -1,4 +1,4 @@
-FROM ghcr.io/apollographql/router:v1.40.1
+FROM ghcr.io/apollographql/router:v2.0.0-preview.4
 COPY router.yaml /dist/router.yaml
 COPY rhai /dist/rhai
 

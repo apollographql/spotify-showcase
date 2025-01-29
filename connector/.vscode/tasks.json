@@ -1,0 +1,10 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "rover dev",
+        "command": "rover", // Could be any other shell command
+        "args": ["dev", "--supergraph-config","supergraph.yaml"],
+        "type": "shell",
+        "problemMatcher": [],
+    }]
+}

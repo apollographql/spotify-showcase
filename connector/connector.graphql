@@ -1,0 +1,219 @@
+extend schema
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.10"
+    import: ["@key", "@requires", "@override", "@shareable"]
+  )
+  @link(
+    url: "https://specs.apollo.dev/connect/v0.1"
+    import: ["@source", "@connect"]
+  )
+  @source(
+    name: "spotify"
+    http: {
+      baseURL: "https://api.spotify.com/v1/"
+      headers: [{ name: "Authorization", from: "Authorization" }]
+    }
+  )
+
+type Album @key(fields: "id") {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the album.
+  """
+  id: ID!
+
+  """
+  The type of the album.
+  """
+  albumType: AlbumType!
+
+  """
+  The artists of the album.
+  """
+  artists: [Artist!]!
+
+  """
+  The copyrights for the album.
+  """
+  copyrights: [Copyright!]!
+
+  """
+  Known external URLs for this album.
+  """
+  externalUrls: ExternalUrl!
+
+  """
+  Genres for the album.
+  """
+  genres: [String!]!
+
+  """
+  A link to the Web API endpoint providing full details of the album.
+  """
+  href: String!
+
+  """
+  The cover art for the album in various sizes, widest first.
+  """
+  images: [Image!]!
+
+  """
+  The label the album was released under.
+  """
+  label: String
+
+  """
+  The name of the album. In case of an album takedown, the value may be an empty
+  string.
+  """
+  name: String!
+
+  """
+  The number of tracks in the album.
+  """
+  totalTracks: Int!
+}
+
+type Artist @key(fields: "id", resolvable: false) {
+  id: ID!
+}
+
+type Query {
+  album(id: ID!): Album
+    @override(from: "spotify")
+    @connect(
+      source: "spotify"
+      http: { GET: "/albums/{$args.id}" }
+      selection: """
+      id
+      albumType: album_type->match(
+          ["album", "ALBUM"],
+          ["single", "SINGLE"],
+          ["compilation", "COMPILATION"],
+        )
+      artists {
+        id
+      }
+      copyrights {
+        text
+        type
+      }
+      externalUrls: {spotify: external_urls}
+      genres
+      href
+      images {
+        url
+        height
+        width
+      }
+      label
+      name
+      totalTracks: total_tracks
+      """
+      entity: true
+    )
+  # artist(id: ID!): Artist
+  #   @override(from: "spotify")
+  #   @connect(
+  #     source: "spotify"
+  #     http: { GET: "/artists/{$args.id}" }
+  #     selection: """
+  #       id
+  #     """
+  #     entity: true
+  #   )
+}
+
+enum ReleaseDatePrecision {
+  YEAR
+  MONTH
+  DAY
+}
+
+type Copyright @shareable {
+  """
+  The copyright text for this content.
+  """
+  text: String!
+
+  """
+  The type of copyright: `C` = the copyright, `P` = the sound recording
+  (performance) copyright.
+  """
+  type: CopyrightType
+}
+
+enum CopyrightType {
+  """
+  The copyright
+  """
+  C
+
+  """
+  The sound recording (performance) copyright.
+  """
+  P
+}
+
+enum AlbumType {
+  ALBUM
+  SINGLE
+  COMPILATION
+}
+
+type ExternalUrl @shareable {
+  """
+  The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the object.
+  """
+  spotify: String
+}
+
+type Image @shareable {
+  """
+  The source URL of the image.
+  """
+  url: String!
+
+  """
+  The image height in pixels.
+  """
+  height: Int
+
+  """
+  The image width in pixels.
+  """
+  width: Int
+}
+
+# type AlbumTrackConnection {
+#   """The set of tracks."""
+#   edges: [AlbumTrackEdge!]!
+
+#   """Pagination information for the set of tracks."""
+#   pageInfo: PageInfo!
+# }
+
+# type AlbumTrackEdge {
+#   """The track on the album"""
+#   node: Track!
+# }
+
+# type PageInfo {
+#   """Whether there is a next page of items."""
+#   hasNextPage: Boolean!
+
+#   """Whether there is a previous page of items."""
+#   hasPreviousPage: Boolean!
+
+#   """
+#   The maximum number of items in the response (as set in the query or default)
+#   """
+#   limit: Int!
+
+#   """The offset of the items returned (as set in the query or default)"""
+#   offset: Int!
+
+#   """The total number of items returned for the page."""
+#   total: Int!
+# }

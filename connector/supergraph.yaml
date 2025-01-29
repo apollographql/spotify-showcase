@@ -1,0 +1,14 @@
+federation_version: =2.10.0-preview.4
+subgraphs:
+  connector:
+    routing_url: http://connector
+    schema:
+      file: connector.graphql
+  spotify:
+    routing_url: https://showcase-spotify.apollographql.com/
+    schema:
+      file: spotify.graphql
+  playback:
+    routing_url: https://showcase-playback.apollographql.com/
+    schema:
+      file: playback.graphql
