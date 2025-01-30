@@ -141,7 +141,7 @@ type Mutation {
   transferPlayback(input: TransferPlaybackInput!): TransferPlaybackPayload
 }
 
-type SetRepeatModeResponse {
+type SetRepeatModeResponse @shareable {
   "The updated state of playback after setting a repeat mode."
   playbackState: PlaybackState
 }
@@ -161,7 +161,7 @@ input ShufflePlaybackContextInput {
   deviceId: ID
 }
 
-type ShufflePlaybackResponse {
+type ShufflePlaybackResponse @shareable {
   "The state of playback after shuffling playback."
   playbackState: PlaybackState
 }
@@ -174,7 +174,7 @@ input SkipToNextContextInput {
   deviceId: ID
 }
 
-type SkipToNextResponse {
+type SkipToNextResponse @shareable {
   "The updated state of playback after skipping to next."
   playbackState: PlaybackState
 }
@@ -241,11 +241,11 @@ input PausePlaybackContextInput {
   deviceId: String
 }
 
-type PausePlaybackResponse {
+type PausePlaybackResponse @shareable {
   """
   The updated playback state
   """
-  playbackState: PlaybackState
+  playbackState: PlaybackState @shareable
 }
 
 input ResumePlaybackInput {
@@ -289,7 +289,7 @@ input ResumePlaybackOffsetInput {
   uri: String
 }
 
-type ResumePlaybackPayload {
+type ResumePlaybackPayload @shareable {
   playbackState: PlaybackState
 }
 
@@ -349,35 +349,36 @@ type Device @shareable {
   volumePercent: Int!
 }
 type PlaybackState @shareable {
-  """
-  Allows to update the user interface based on which playback actions are
-  available within the current context.
-  """
-  actions: Actions!
+  # # """
+  # # Allows to update the user interface based on which playback actions are
+  # # available within the current context.
+  # # # TODO: help with mapping key-value to enum
+  # # """
+  # # actions: Actions!
 
-  "A context object."
-  context: PlaybackContext
+  # "A context object."
+  # context: PlaybackContext
 
-  "The device that is currently active."
-  device: Device!
+  # "The device that is currently active."
+  # device: Device!
 
   "If something is currently playing, return `true`."
   isPlaying: Boolean!
 
-  "The currently playing track or episode"
-  item: PlaybackItem
+  # # "The currently playing track or episode"
+  # # item: PlaybackItem
 
-  "Progress into the currently playing track or episode. Can be `null`"
-  progressMs: Int
+  # "Progress into the currently playing track or episode. Can be `null`"
+  # progressMs: Int
 
-  "off, track, context"
-  repeatState: RepeatMode!
+  # "off, track, context"
+  # repeatState: RepeatMode!
 
-  "If shuffle is on or off."
-  shuffleState: Boolean!
+  # "If shuffle is on or off."
+  # shuffleState: Boolean!
 
-  "Unix Millisecond Timestamp when data was fetched."
-  timestamp: Timestamp!
+  # "Unix Millisecond Timestamp when data was fetched."
+  # timestamp: Timestamp!
 }
 
 type PlaybackContext @shareable {

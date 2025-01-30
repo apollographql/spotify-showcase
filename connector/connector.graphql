@@ -1,7 +1,7 @@
 extend schema
   @link(
     url: "https://specs.apollo.dev/federation/v2.10"
-    import: ["@key", "@requires", "@override", "@shareable"]
+    import: ["@key", "@requires", "@override", "@shareable", "@interfaceObject"]
   )
   @link(
     url: "https://specs.apollo.dev/connect/v0.1"
@@ -15,7 +15,7 @@ extend schema
     }
   )
 
-type Album @key(fields: "id") {
+type Album @key(fields: "id") @shareable {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
   for the album.
@@ -122,12 +122,204 @@ type Query {
   #     """
   #     entity: true
   #   )
+
 }
 
-enum ReleaseDatePrecision {
-  YEAR
-  MONTH
-  DAY
+type Mutation {
+  
+  """
+  Start a new context or resume current playback on the user's active device.
+  """
+  resumePlayback(input: ResumePlaybackInput): ResumePlaybackPayload
+    @override(from: "playback")
+    @connect(
+      source: "spotify"
+      http: { 
+        PUT: "me/player/play?device_id={$args.input.deviceId}"
+        body: """
+          $args.input {
+            context_uri: contextUri
+            uris
+            offset {
+               position
+               uri
+            }
+            position_ms: positionMs
+          }
+        """
+      }
+      selection: """
+        playbackState: { 
+          isPlaying: $(false)
+        }
+      """
+    )
+    # @connect(
+    #   source: "spotify"
+    #   http: { GET: "/me/player" }
+    #   selection: """
+    #     playbackState: {
+    #       progressMs: progress_ms
+    #       timestamp
+    #       # TODO mapping object keys to array
+    #       # actions: {
+    #       #   disallows 
+    #       # }
+    #       context {
+    #         href
+    #         externalUrls: external_urls {
+    #           spotify
+    #         }
+    #         uri
+    #         type: type->match(
+    #           ["album", "ALBUM"],
+    #           ["artist", "ARTIST"],
+    #           ["audio_features", "AUDIO_FEATURES"],
+    #           ["collection", "COLLECTION"],
+    #           ["collection_your_episodes", "COLLECTION_YOUR_EPISODES"],
+    #           ["episode", "EPISODE"],
+    #           ["genre", "GENRE"],
+    #           ["playlist", "PLAYLIST"],
+    #           ["show", "SHOW"],
+    #           ["track", "TRACK"],
+    #           ["user", "USER"],
+    #         )
+    #       }
+    #       # TODO: interface object 
+    #       # item {
+    #       #   id
+    #       # }
+    #       device {
+    #         id
+    #         isActive: is_active
+    #         isPrivateSession: is_private_session
+    #         isRestricted: is_restricted
+    #         name
+    #         type
+    #         volumePercent: volume_percent
+    #       }
+    #       repeatState: repeat_state->match(
+    #         ["context", "CONTEXT"],
+    #         ["off", "OFF"],
+    #         ["track", "TRACK"],
+    #       )
+    #       shuffleState: shuffle_state
+    #     }
+    #   """
+    # )
+}
+
+
+input ResumePlaybackOffsetInput {
+  """
+  Non-negative, zero-based value that corresponds to the numeric position in the
+  album or playlist
+  """
+  position: Int
+
+  """
+  Spotify URI of the item in the album or playlist
+  """
+  uri: String
+}
+
+type ResumePlaybackPayload @shareable {
+  playbackState: PlaybackState
+}
+
+input ResumePlaybackInput {
+  """
+  Spotify URI of the context to play. Valid contexts are albums, artists &
+  playlists.
+  """
+  contextUri: String
+
+  """
+  The id of the device this command is targeting. If not supplied, the user's
+  currently active device is the target.
+  """
+  deviceId: ID
+
+  """
+  Indicates from where in the context playback should start. Only available when
+  contextUri corresponds to an album or playlist object.
+  """
+  offset: ResumePlaybackOffsetInput
+
+  "Indicates the position where playback should occur in milliseconds."
+  positionMs: Int
+
+  """
+  An array of the Spotify track URIs to play.
+  """
+  uris: [String!]
+}
+
+
+
+
+enum PlaybackContextType {
+  ALBUM
+  ARTIST
+  AUDIO_FEATURES
+  COLLECTION
+  COLLECTION_YOUR_EPISODES
+  EPISODE
+  GENRE
+  PLAYLIST
+  SHOW
+  TRACK
+  USER
+}
+
+type PlaybackState @shareable {
+  # # """
+  # # Allows to update the user interface based on which playback actions are
+  # # available within the current context.
+  # # # TODO: help with mapping key-value to enum
+  # # """
+  # # actions: Actions!
+
+  # "A context object."
+  # context: PlaybackContext
+
+  # "The device that is currently active."
+  # device: Device!
+
+  "If something is currently playing, return `true`."
+  isPlaying: Boolean!
+
+  # # "The currently playing track or episode"
+  # # item: PlaybackItem
+
+  # "Progress into the currently playing track or episode. Can be `null`"
+  # progressMs: Int
+
+  # "off, track, context"
+  # repeatState: RepeatMode!
+
+  # "If shuffle is on or off."
+  # shuffleState: Boolean!
+
+  # "Unix Millisecond Timestamp when data was fetched."
+  # timestamp: Timestamp!
+}
+
+# type Actions @shareable {
+#   disallows: [Action!]!
+# }
+
+enum Action {
+  INTERRUPTING_PLAYBACK
+  PAUSING
+  RESUMING
+  SEEKING
+  SKIPPING_NEXT
+  SKIPPING_PREV
+  TOGGLING_REPEAT_CONTEXT
+  TOGGLING_SHUFFLE
+  TOGGLING_REPEAT_TRACK
+  TRANSFERRING_PLAYBACK
 }
 
 type Copyright @shareable {
@@ -159,6 +351,12 @@ enum AlbumType {
   ALBUM
   SINGLE
   COMPILATION
+}
+
+enum RepeatMode {
+  CONTEXT
+  OFF
+  TRACK
 }
 
 type ExternalUrl @shareable {
@@ -216,4 +414,14 @@ type Image @shareable {
 
 #   """The total number of items returned for the page."""
 #   total: Int!
+# }
+
+scalar Timestamp
+
+# type PlaybackItem @key(fields: "id") @interfaceObject {
+#   """
+#   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+#   for the playback item.
+#   """
+#   id: ID!
 # }

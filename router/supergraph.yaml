@@ -1,0 +1,14 @@
+federation_version: =2.10.0-preview.4
+subgraphs:
+  playback:
+    routing_url: ws://localhost:4002
+    schema:
+      file: ../subgraphs/playback/schema.graphql
+  spotify:
+    routing_url: http://localhost:4001
+    schema:
+      file: ../subgraphs/spotify/schema.graphql
+  spotify_connector:
+    routing_url: http://spotify
+    schema:
+      file: ../subgraphs/connector.graphql

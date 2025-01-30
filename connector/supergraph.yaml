@@ -5,10 +5,10 @@ subgraphs:
     schema:
       file: connector.graphql
   spotify:
-    routing_url: https://showcase-spotify.apollographql.com/
+    routing_url: localhost:4001
     schema:
-      file: spotify.graphql
+      file: ../subgraphs/spotify/schema.graphql
   playback:
-    routing_url: https://showcase-playback.apollographql.com/
+    routing_url: localhost:4002
     schema:
-      file: playback.graphql
+      file: ../subgraphs/playback/schema.graphql

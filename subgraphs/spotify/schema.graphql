@@ -415,7 +415,7 @@ type AddItemsToPlaylistPayload {
 }
 
 "Spotify catalog information for an album."
-type Album @key(fields: "id") {
+type Album @key(fields: "id") @shareable {
   "The type of the album."
   albumType: AlbumType!
 
@@ -650,7 +650,7 @@ type Contains {
   tracks: [Boolean!]
 }
 
-type Copyright {
+type Copyright @shareable {
   "The copyright text for this content."
   text: String!
 
@@ -1194,7 +1194,7 @@ type Followers {
   total: Int!
 }
 
-type Image {
+type Image @shareable {
   """
   The source URL of the image.
   """
@@ -1378,35 +1378,36 @@ type PlaybackQueue {
 }
 
 type PlaybackState @shareable {
-  """
-  Allows to update the user interface based on which playback actions are
-  available within the current context.
-  """
-  actions: Actions!
+  # # """
+  # # Allows to update the user interface based on which playback actions are
+  # # available within the current context.
+  # # # TODO: help with mapping key-value to enum
+  # # """
+  # # actions: Actions!
 
-  "A context object."
-  context: PlaybackContext
+  # "A context object."
+  # context: PlaybackContext
 
-  "The device that is currently active."
-  device: Device!
+  # "The device that is currently active."
+  # device: Device!
 
   "If something is currently playing, return `true`."
   isPlaying: Boolean!
 
-  "The currently playing track or episode"
-  item: PlaybackItem
+  # # "The currently playing track or episode"
+  # # item: PlaybackItem
 
-  "Progress into the currently playing track or episode. Can be `null`"
-  progressMs: Int
+  # "Progress into the currently playing track or episode. Can be `null`"
+  # progressMs: Int
 
-  "off, track, context"
-  repeatState: RepeatMode!
+  # "off, track, context"
+  # repeatState: RepeatMode!
 
-  "If shuffle is on or off."
-  shuffleState: Boolean!
+  # "If shuffle is on or off."
+  # shuffleState: Boolean!
 
-  "Unix Millisecond Timestamp when data was fetched."
-  timestamp: Timestamp!
+  # "Unix Millisecond Timestamp when data was fetched."
+  # timestamp: Timestamp!
 }
 
 type Player {
