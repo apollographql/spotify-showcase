@@ -15,6 +15,213 @@ extend schema
     }
   )
 
+scalar Timestamp
+scalar DateTime
+scalar CountryCode
+
+type Query {
+  album(id: ID!): Album
+    @override(from: "spotify")
+    @connect(
+      source: "spotify"
+      http: { GET: "/albums/{$args.id}" }
+      selection: """
+      id
+      albumType: album_type->match(
+          ["album", "ALBUM"],
+          ["single", "SINGLE"],
+          ["compilation", "COMPILATION"],
+        )
+      artists {
+        id
+      }
+      copyrights {
+        text
+        type
+      }
+      externalUrls: external_urls {
+        spotify: spotify
+      }
+      genres
+      href
+      images {
+        url
+        height
+        width
+      }
+      label
+      name
+      totalTracks: total_tracks
+      releaseDate: {
+        date: release_date
+        precision: release_date_precision->match(
+          ["day", "DAY"],
+          ["month", "MONTH"],
+          ["year", "YEAR"],
+        )
+      }
+      uri
+      """
+      entity: true
+    )
+  artist(id: ID!): Artist
+    @override(from: "spotify")
+    @connect(
+      source: "spotify"
+      http: { GET: "/artists/{$args.id}" }
+      selection: """
+      id
+      externalUrls: external_urls {
+        spotify: spotify
+      }
+      followers {
+        total
+      }
+      genres
+      href
+      id
+      images {
+        url
+        height
+        width
+      }
+      name
+      popularity
+      uri
+      """
+      entity: true
+    )
+
+  """
+  Information about the current logged-in user.
+  """
+  me: CurrentUser
+    @override(from: "spotify")
+    @connect(
+      source: "spotify"
+      http: { GET: "/me" }
+      selection: """
+      profile: {
+        country
+        displayName: display_name
+        email
+        explicitContent: explicit_content {
+          filterEnabled: filter_enabled
+          filterLocked: filter_locked
+        }
+        followers {
+          total
+        }
+        href
+        images {
+          url
+          height
+          width
+        }
+        uri
+        product
+        id
+      }
+      """
+    )
+}
+
+type Mutation {
+  """
+  Start a new context or resume current playback on the user's active device.
+  """
+  resumePlayback(input: ResumePlaybackInput): ResumePlaybackPayload
+    @override(from: "playback")
+    @connect(
+      source: "spotify"
+      http: {
+        PUT: "me/player/play?device_id={$args.input.deviceId}"
+        body: """
+        $args.input {
+          context_uri: contextUri
+          uris
+          offset {
+             position
+             uri
+          }
+          position_ms: positionMs
+        }
+        """
+      }
+      selection: """
+      playbackState: {
+        isPlaying: $(false)
+      }
+      """
+    )
+  # @connect(
+  #   source: "spotify"
+  #   http: { GET: "/me/player" }
+  #   selection: """
+  #     playbackState: {
+  #       progressMs: progress_ms
+  #       timestamp
+  #       # TODO mapping object keys to array
+  #       # actions: {
+  #       #   disallows
+  #       # }
+  #       context {
+  #         href
+  #         externalUrls: external_urls {
+  #           spotify
+  #         }
+  #         uri
+  #         type: type->match(
+  #           ["album", "ALBUM"],
+  #           ["artist", "ARTIST"],
+  #           ["audio_features", "AUDIO_FEATURES"],
+  #           ["collection", "COLLECTION"],
+  #           ["collection_your_episodes", "COLLECTION_YOUR_EPISODES"],
+  #           ["episode", "EPISODE"],
+  #           ["genre", "GENRE"],
+  #           ["playlist", "PLAYLIST"],
+  #           ["show", "SHOW"],
+  #           ["track", "TRACK"],
+  #           ["user", "USER"],
+  #         )
+  #       }
+  #       # TODO: interface object
+  #       # item {
+  #       #   id
+  #       # }
+  #       device {
+  #         id
+  #         isActive: is_active
+  #         isPrivateSession: is_private_session
+  #         isRestricted: is_restricted
+  #         name
+  #         type
+  #         volumePercent: volume_percent
+  #       }
+  #       repeatState: repeat_state->match(
+  #         ["context", "CONTEXT"],
+  #         ["off", "OFF"],
+  #         ["track", "TRACK"],
+  #       )
+  #       shuffleState: shuffle_state
+  #     }
+  #   """
+  # )
+}
+
+enum Action {
+  INTERRUPTING_PLAYBACK
+  PAUSING
+  RESUMING
+  SEEKING
+  SKIPPING_NEXT
+  SKIPPING_PREV
+  TOGGLING_REPEAT_CONTEXT
+  TOGGLING_SHUFFLE
+  TOGGLING_REPEAT_TRACK
+  TRANSFERRING_PLAYBACK
+}
+
 type Album @key(fields: "id") @shareable {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -72,191 +279,509 @@ type Album @key(fields: "id") @shareable {
   The number of tracks in the album.
   """
   totalTracks: Int!
+  """
+  The date the album was first released.
+  """
+  releaseDate: ReleaseDate!
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the album.
+  """
+  uri: String!
 }
 
-type Artist @key(fields: "id", resolvable: false) {
+enum AlbumType {
+  ALBUM
+  SINGLE
+  COMPILATION
+}
+
+"""
+Spotify catalog information for an artist.
+"""
+type Artist @key(fields: "id", resolvable: false) @shareable {
+  # """
+  # Spotify catalog information about an artist's albums.
+  # """
+  # albums(
+  #   """
+  #   Used to filter the response. If not supplied, all album types will be
+  #   returned.
+  #   """
+  #   includeGroups: [AlbumGroup!]
+
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
+
+  #   """
+  #   The index of the first item to return. Default: 0 (the first item). Use
+  #   with `limit` to get the next set of items.
+  #   """
+  #   offset: Int
+  # ): ArtistAlbumsConnection
+
+  """
+  Known external URLs for this artist.
+  """
+  externalUrls: ExternalUrl!
+
+  """
+  Information about the followers of the artist.
+  """
+  followers: Followers!
+
+  """
+  A list of the genres the artist is associated with. If not yet classified, the
+  array is empty.
+  """
+  genres: [String!]!
+
+  """
+  A link to the Web API endpoint providing full details of the artist.
+  """
+  href: String!
+
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the artist.
+  """
   id: ID!
+
+  """
+  Images of the artist in various sizes, widest first.
+  """
+  images: [Image!]!
+
+  """
+  The name of the artist.
+  """
+  name: String!
+
+  """
+  The popularity of the artist. The value will be between 0 and 100, with 100
+  being the most popular. The artist's popularity is calculated from the
+  popularity of all the artist's tracks.
+  """
+  popularity: Int!
+
+  # """
+  # Spotify catalog information about artists similar to a given artist.
+  # Similarity is based on analysis of the Spotify community's
+  # [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
+  # """
+  # relatedArtists: [Artist!]!
+
+  # """
+  # Spotify catalog information about an artist's top tracks.
+  # """
+  # topTracks: [Track!]!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the artist.
+  """
+  uri: String!
 }
 
-type Query {
-  album(id: ID!): Album
+type Copyright @shareable {
+  """
+  The copyright text for this content.
+  """
+  text: String!
+
+  """
+  The type of copyright: `C` = the copyright, `P` = the sound recording
+  (performance) copyright.
+  """
+  type: CopyrightType
+}
+
+enum CopyrightType {
+  """
+  The copyright
+  """
+  C
+
+  """
+  The sound recording (performance) copyright.
+  """
+  P
+}
+
+type CurrentlyPlaying @shareable {
+  # """
+  # Allows to update the user interface based on which playback actions are
+  # available within the current context.
+  # """
+  # actions: Actions!
+
+  "A context object."
+  context: PlaybackContext
+
+  "If something is currently playing, return `true`."
+  isPlaying: Boolean!
+
+  # "The currently playing track or episode"
+  # item: PlaybackItem
+
+  "Progress into the currently playing track or episode. Can be `null`"
+  progressMs: Int
+
+  "Unix Millisecond Timestamp when data was fetched."
+  timestamp: Timestamp!
+}
+
+type CurrentUser @shareable {
+  """
+  Get detailed profile information about the current user (including the current user's username).
+  """
+  profile: CurrentUserProfile!
+
+  tracks(
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
+
+    """
+    The index of the first track to return. Default: 0 (the first object).
+
+    Use with `limit` to get the next set of tracks.
+    """
+    offset: Int
+  ): SavedTracksConnection
     @override(from: "spotify")
     @connect(
       source: "spotify"
-      http: { GET: "/albums/{$args.id}" }
+      http: {
+        GET: "/me/tracks?limit={$args.limit}&offset={$args.offset}&_={$this.profile.id}"
+      }
       selection: """
-      id
-      albumType: album_type->match(
-          ["album", "ALBUM"],
-          ["single", "SINGLE"],
-          ["compilation", "COMPILATION"],
-        )
-      artists {
-        id
+      pageInfo: {
+        hasNextPage: next->match([null, false], [@, true])
+        hasPreviousPage: previous->match([null, false], [@, true])
+        limit
+        offset
+        total
       }
-      copyrights {
-        text
-        type
+      edges: $.items {
+        addedAt: added_at
+        node: $.track {
+          id
+          discNumber: disc_number
+          durationMs: duration_ms
+          explicit
+          href
+          isLocal: is_local
+          isPlayable: is_playable
+          name
+          popularity
+          previewUrl: preview_url
+          trackNumber: track_number
+          uri
+          album: $.album {
+            id
+            uri
+            releaseDate: {
+              date: release_date
+              precision: release_date_precision->match(
+                ["day", "DAY"],
+                ["month", "MONTH"],
+                ["year", "YEAR"],
+              )
+            }
+            albumType: album_type->match(
+                ["album", "ALBUM"],
+                ["single", "SINGLE"],
+                ["compilation", "COMPILATION"],
+              )
+            artists {
+              id
+            }
+            copyrights {
+              text
+              type
+            }
+            externalUrls: {spotify: external_urls}
+            genres
+            href
+            images {
+              url
+              height
+              width
+            }
+            label: $("Unknown")
+            name
+            totalTracks: total_tracks
+          }
+        }
+
       }
-      externalUrls: {spotify: external_urls}
-      genres
-      href
-      images {
-        url
-        height
-        width
-      }
-      label
-      name
-      totalTracks: total_tracks
       """
-      entity: true
     )
-  # artist(id: ID!): Artist
-  #   @override(from: "spotify")
-  #   @connect(
-  #     source: "spotify"
-  #     http: { GET: "/artists/{$args.id}" }
-  #     selection: """
-  #       id
-  #     """
-  #     entity: true
-  #   )
 
-}
-
-type Mutation {
-  
   """
-  Start a new context or resume current playback on the user's active device.
+  Information about the user's current playback state
   """
-  resumePlayback(input: ResumePlaybackInput): ResumePlaybackPayload
-    @override(from: "playback")
+  player: Player!
+    @override(from: "spotify")
     @connect(
       source: "spotify"
-      http: { 
-        PUT: "me/player/play?device_id={$args.input.deviceId}"
-        body: """
-          $args.input {
-            context_uri: contextUri
-            uris
-            offset {
-               position
-               uri
-            }
-            position_ms: positionMs
-          }
-        """
-      }
+      http: { GET: "/me/player?_={$this.profile.id}" }
       selection: """
-        playbackState: { 
-          isPlaying: $(false)
+      playbackState: {
+        isPlaying: is_playing
+      }
+      currentlyPlaying: {
+        isPlaying: is_playing
+        progressMs: progress_ms
+        timestamp
+        context {
+          href
+          type
+          externalUrls: external_urls {
+            spotify
+          }
+          uri
+          type: type->match(
+            ["album", "ALBUM"],
+            ["artist", "ARTIST"],
+            ["audio_features", "AUDIO_FEATURES"],
+            ["collection", "COLLECTION"],
+            ["collection_your_episodes", "COLLECTION_YOUR_EPISODES"],
+            ["episode", "EPISODE"],
+            ["genre", "GENRE"],
+            ["playlist", "PLAYLIST"],
+            ["show", "SHOW"],
+            ["track", "TRACK"],
+            ["user", "USER"],
+          )
         }
+      }
       """
     )
-    # @connect(
-    #   source: "spotify"
-    #   http: { GET: "/me/player" }
-    #   selection: """
-    #     playbackState: {
-    #       progressMs: progress_ms
-    #       timestamp
-    #       # TODO mapping object keys to array
-    #       # actions: {
-    #       #   disallows 
-    #       # }
-    #       context {
-    #         href
-    #         externalUrls: external_urls {
-    #           spotify
-    #         }
-    #         uri
-    #         type: type->match(
-    #           ["album", "ALBUM"],
-    #           ["artist", "ARTIST"],
-    #           ["audio_features", "AUDIO_FEATURES"],
-    #           ["collection", "COLLECTION"],
-    #           ["collection_your_episodes", "COLLECTION_YOUR_EPISODES"],
-    #           ["episode", "EPISODE"],
-    #           ["genre", "GENRE"],
-    #           ["playlist", "PLAYLIST"],
-    #           ["show", "SHOW"],
-    #           ["track", "TRACK"],
-    #           ["user", "USER"],
-    #         )
-    #       }
-    #       # TODO: interface object 
-    #       # item {
-    #       #   id
-    #       # }
-    #       device {
-    #         id
-    #         isActive: is_active
-    #         isPrivateSession: is_private_session
-    #         isRestricted: is_restricted
-    #         name
-    #         type
-    #         volumePercent: volume_percent
-    #       }
-    #       repeatState: repeat_state->match(
-    #         ["context", "CONTEXT"],
-    #         ["off", "OFF"],
-    #         ["track", "TRACK"],
-    #       )
-    #       shuffleState: shuffle_state
-    #     }
-    #   """
-    # )
 }
 
+type CurrentUserProfile @shareable {
+  """
+  The country of the user, as set in the user's account profile. An ISO 3166-1
+  alpha-2 country code.
+  """
+  country: CountryCode
 
-input ResumePlaybackOffsetInput {
   """
-  Non-negative, zero-based value that corresponds to the numeric position in the
-  album or playlist
+  The name displayed on the user's profile. `null` if not available.
   """
-  position: Int
+  displayName: String
 
   """
-  Spotify URI of the item in the album or playlist
+  The user's email address, as entered by the user when creating their account.
+  _**Important!** This email address is unverified; there is no proof that it
+  actually belongs to the user._
   """
-  uri: String
+  email: String!
+
+  """
+  The user's explicit content settings.
+  """
+  explicitContent: ExplicitContentSettings!
+
+  """
+  Information about the followers of the user.
+  """
+  followers: Followers!
+
+  """
+  A link to the Web API endpoint for this user.
+  """
+  href: String!
+
+  """
+  The [Spotify user ID](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
+  for the user.
+  """
+  id: ID!
+
+  """
+  The user's profile image.
+  """
+  images: [Image!]
+
+  """
+  The user's Spotify subscription level: "premium", "free", etc. (The
+  subscription level "open" can be considered the same as "free".)
+  """
+  product: String!
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
+  for the user.
+  """
+  uri: String!
 }
 
-type ResumePlaybackPayload @shareable {
+type Device @shareable {
+  "The device ID"
+  id: ID
+
+  "If this device is the currently active device."
+  isActive: Boolean!
+
+  "If this device is currently in a private session."
+  isPrivateSession: Boolean!
+
+  """
+  Whether controlling this device is restricted. At present if this is "true",
+  then no Web API commands will be accepted by this device.
+  """
+  isRestricted: Boolean!
+
+  """
+  A human-readable name for the device. Some devices have a name that the user
+  can configure (e.g. "Loudest speaker") and some devices have a generic name
+  associated with the manufacturer or device model.
+  """
+  name: String!
+
+  """
+  Device type, such as "computer", "smartphone" or "speaker".
+  """
+  type: String!
+
+  """
+  The current volume in percent.
+
+  >= 0    <= 100
+  """
+  volumePercent: Int!
+}
+
+type ExplicitContentSettings @shareable {
+  """
+  When `true`, indicates that explicit content should not be played.
+  """
+  filterEnabled: Boolean!
+
+  """
+  When `true`, indicates that the explicit content setting is locked and can't
+  be changed by the user.
+  """
+  filterLocked: Boolean!
+}
+
+type ExternalUrl @shareable {
+  """
+  The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the object.
+  """
+  spotify: String
+}
+
+type Followers @shareable {
+  "The total number of followers."
+  total: Int!
+}
+
+type Image @shareable {
+  """
+  The source URL of the image.
+  """
+  url: String!
+
+  """
+  The image height in pixels.
+  """
+  height: Int
+
+  """
+  The image width in pixels.
+  """
+  width: Int
+}
+
+type Player @shareable {
+  "Information about the object currently being played on the user's Spotify account."
+  currentlyPlaying: CurrentlyPlaying
+
+  "Information about a user's available devices."
+  devices: [Device!]
+    @connect(
+      source: "spotify"
+      http: { GET: "/me/player/devices?_={$this.currentlyPlaying.progressMs}" }
+      selection: """
+      $.devices {
+        id: id
+        isActive: is_active
+        isPrivateSession: is_private_session
+        isRestricted: is_restricted
+        name: name
+        type: type
+        volumePercent: volume_percent
+      }
+      """
+    )
+
+  # """
+  # Get the list of objects that make up the user's queue.
+  # """
+  # playbackQueue: PlaybackQueue
+
+  """
+  Information about the user's current playback state, including track or
+  episode, progress, and active device.
+  """
   playbackState: PlaybackState
+
+  # """
+  # Get tracks from the current user's recently played tracks. **Note**: Currently
+  # doesn't support podcast episodes.
+  # """
+  # recentlyPlayed(
+  #   """
+  #   A Unix timestamp in milliseconds. Returns all items after (but not
+  #   including) this cursor position. If after is specified, before must not be
+  #   specified.
+  #   """
+  #   after: Int
+
+  #   """
+  #   A Unix timestamp in milliseconds. Returns all items before (but not
+  #   including) this cursor position. If before is specified, after must not be
+  #   specified.
+  #   """
+  #   before: Int
+
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
+  # ): RecentlyPlayedConnection
 }
 
-input ResumePlaybackInput {
+type PlaybackContext @shareable {
   """
-  Spotify URI of the context to play. Valid contexts are albums, artists &
-  playlists.
+  A link to the Web API endpoint providing full details of the track.
   """
-  contextUri: String
+  href: String!
 
   """
-  The id of the device this command is targeting. If not supplied, the user's
-  currently active device is the target.
+  The object type, e.g. "artist", "playlist", "album", "show".
   """
-  deviceId: ID
+  type: PlaybackContextType!
 
   """
-  Indicates from where in the context playback should start. Only available when
-  contextUri corresponds to an album or playlist object.
+  External URLs for this context.
   """
-  offset: ResumePlaybackOffsetInput
-
-  "Indicates the position where playback should occur in milliseconds."
-  positionMs: Int
+  externalUrls: ExternalUrl!
 
   """
-  An array of the Spotify track URIs to play.
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the context.
   """
-  uris: [String!]
+  uri: String!
 }
-
-
-
 
 enum PlaybackContextType {
   ALBUM
@@ -305,52 +830,68 @@ type PlaybackState @shareable {
   # timestamp: Timestamp!
 }
 
-# type Actions @shareable {
-#   disallows: [Action!]!
-# }
+type PageInfo @shareable {
+  "Whether there is a next page of items."
+  hasNextPage: Boolean!
 
-enum Action {
-  INTERRUPTING_PLAYBACK
-  PAUSING
-  RESUMING
-  SEEKING
-  SKIPPING_NEXT
-  SKIPPING_PREV
-  TOGGLING_REPEAT_CONTEXT
-  TOGGLING_SHUFFLE
-  TOGGLING_REPEAT_TRACK
-  TRANSFERRING_PLAYBACK
+  "Whether there is a previous page of items."
+  hasPreviousPage: Boolean!
+
+  """
+  The maximum number of items in the response (as set in the query or default)
+  """
+  limit: Int!
+
+  "The offset of the items returned (as set in the query or default)"
+  offset: Int!
+
+  "The total number of items returned for the page."
+  total: Int!
 }
 
-type Copyright @shareable {
+input ResumePlaybackOffsetInput {
   """
-  The copyright text for this content.
+  Non-negative, zero-based value that corresponds to the numeric position in the
+  album or playlist
   """
-  text: String!
+  position: Int
 
   """
-  The type of copyright: `C` = the copyright, `P` = the sound recording
-  (performance) copyright.
+  Spotify URI of the item in the album or playlist
   """
-  type: CopyrightType
+  uri: String
 }
 
-enum CopyrightType {
-  """
-  The copyright
-  """
-  C
-
-  """
-  The sound recording (performance) copyright.
-  """
-  P
+type ResumePlaybackPayload @shareable {
+  playbackState: PlaybackState
 }
 
-enum AlbumType {
-  ALBUM
-  SINGLE
-  COMPILATION
+input ResumePlaybackInput {
+  """
+  Spotify URI of the context to play. Valid contexts are albums, artists &
+  playlists.
+  """
+  contextUri: String
+
+  """
+  The id of the device this command is targeting. If not supplied, the user's
+  currently active device is the target.
+  """
+  deviceId: ID
+
+  """
+  Indicates from where in the context playback should start. Only available when
+  contextUri corresponds to an album or playlist object.
+  """
+  offset: ResumePlaybackOffsetInput
+
+  "Indicates the position where playback should occur in milliseconds."
+  positionMs: Int
+
+  """
+  An array of the Spotify track URIs to play.
+  """
+  uris: [String!]
 }
 
 enum RepeatMode {
@@ -359,69 +900,142 @@ enum RepeatMode {
   TRACK
 }
 
-type ExternalUrl @shareable {
+type ReleaseDate @shareable {
   """
-  The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-  for the object.
+  The date the item was first released, for example `1981-12-15`. Depending on
+  the precision, it might be shown as `1981-12`, or `1981-12-15`.
   """
-  spotify: String
+  date: String!
+
+  """
+  The precision with which the `date` value is known.
+  """
+  precision: ReleaseDatePrecision!
 }
 
-type Image @shareable {
-  """
-  The source URL of the image.
-  """
-  url: String!
-
-  """
-  The image height in pixels.
-  """
-  height: Int
-
-  """
-  The image width in pixels.
-  """
-  width: Int
+enum ReleaseDatePrecision {
+  YEAR
+  MONTH
+  DAY
 }
 
-# type AlbumTrackConnection {
-#   """The set of tracks."""
-#   edges: [AlbumTrackEdge!]!
+type SavedTracksConnection @shareable {
+  """
+  A list of saved tracks.
+  """
+  edges: [SavedTrackEdge!]!
 
-#   """Pagination information for the set of tracks."""
-#   pageInfo: PageInfo!
-# }
+  """
+  "Pagination information for the set of playlists"
+  """
+  pageInfo: PageInfo!
+}
 
-# type AlbumTrackEdge {
-#   """The track on the album"""
-#   node: Track!
-# }
+type SavedTrackEdge @shareable {
+  "The date the track was saved."
+  addedAt: DateTime!
 
-# type PageInfo {
-#   """Whether there is a next page of items."""
-#   hasNextPage: Boolean!
+  "The track"
+  node: Track!
+}
 
-#   """Whether there is a previous page of items."""
-#   hasPreviousPage: Boolean!
+"Spotify catalog information for a track."
+type # type Track @key(fields: "id") @shareable{
+Track @shareable {
+  """
+  The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
+  """
+  id: ID!
 
-#   """
-#   The maximum number of items in the response (as set in the query or default)
-#   """
-#   limit: Int!
+  """
+  The album on which the track appears.
+  """
+  album: Album!
 
-#   """The offset of the items returned (as set in the query or default)"""
-#   offset: Int!
+  # "The artists who performed the track."
+  # artists: [Artist!]!
 
-#   """The total number of items returned for the page."""
-#   total: Int!
-# }
+  # """
+  # The track's audio feature information
+  # """
+  # audioFeatures: TrackAudioFeatures
 
-scalar Timestamp
+  """
+  The disc number (usually `1` unless the album consists of more than one disc).
+  """
+  discNumber: Int!
 
-# type PlaybackItem @key(fields: "id") @interfaceObject {
-#   """
-#   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-#   for the playback item.
-#   """
-#   id: ID!
-# }
+  "The track length in milliseconds"
+  durationMs: Int! @shareable
+
+  """
+  Whether or not the track has explicit lyrics (`true` = yes it does;
+  `false` = no it does not OR unknown)
+  """
+  explicit: Boolean!
+
+  # """
+  # Known external IDs for the track.
+  # """
+  # externalIds: TrackExternalIds
+
+  # "Known external URLs for this track."
+  # externalUrls: ExternalUrl! @shareable
+
+  """
+  A link to the Web API endpoint providing full details of the track.
+  """
+  href: String! @shareable
+
+  """
+  Whether or not the track is from a local file.
+  """
+  isLocal: Boolean!
+
+  """
+  Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
+  is applied. If `true`, the track is playable in the given market.
+  Otherwise `false`.
+  """
+  isPlayable: Boolean!
+
+  """
+  The name of the track
+  """
+  name: String! @shareable
+
+  """
+  The popularity of the track. The value will be between 0 and 100, with 100
+  being the most popular.
+
+  The popularity of a track is a value between 0 and 100, with 100 being the
+  most popular. The popularity is calculated by algorithm and is based, in the
+  most part, on the total number of plays the track has had and how recent those
+  plays are.
+
+  Generally speaking, songs that are being played a lot now will have a higher
+  popularity than songs that were played a lot in the past. Duplicate tracks
+  (e.g. the same track from a single and an album) are rated independently.
+  Artist and album popularity is derived mathematically from track popularity.
+  Note: the popularity value may lag actual popularity by a few days: the value
+  is not updated in real time.
+  """
+  popularity: Int!
+
+  """
+  A link to a 30 second preview (MP3 format) of the track. Can be `null`
+  """
+  previewUrl: String
+
+  """
+  The number of the track. If an album has several discs, the track number is
+  the number on the specified disc.
+  """
+  trackNumber: Int
+
+  """
+  The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  for the track.
+  """
+  uri: String! @shareable
+}

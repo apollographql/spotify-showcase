@@ -521,28 +521,28 @@ enum AlbumType {
 """
 Spotify catalog information for an artist.
 """
-type Artist @key(fields: "id") {
-  """
-  Spotify catalog information about an artist's albums.
-  """
-  albums(
-    """
-    Used to filter the response. If not supplied, all album types will be
-    returned.
-    """
-    includeGroups: [AlbumGroup!]
+type Artist @key(fields: "id") @shareable {
+  # """
+  # Spotify catalog information about an artist's albums.
+  # """
+  # albums(
+  #   """
+  #   Used to filter the response. If not supplied, all album types will be
+  #   returned.
+  #   """
+  #   includeGroups: [AlbumGroup!]
 
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
 
-    """
-    The index of the first item to return. Default: 0 (the first item). Use
-    with `limit` to get the next set of items.
-    """
-    offset: Int
-  ): ArtistAlbumsConnection
+  #   """
+  #   The index of the first item to return. Default: 0 (the first item). Use
+  #   with `limit` to get the next set of items.
+  #   """
+  #   offset: Int
+  # ): ArtistAlbumsConnection
 
   """
   Known external URLs for this artist.
@@ -588,12 +588,12 @@ type Artist @key(fields: "id") {
   """
   popularity: Int!
 
-  """
-  Spotify catalog information about artists similar to a given artist.
-  Similarity is based on analysis of the Spotify community's
-  [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
-  """
-  relatedArtists: [Artist!]!
+  # """
+  # Spotify catalog information about artists similar to a given artist.
+  # Similarity is based on analysis of the Spotify community's
+  # [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
+  # """
+  # relatedArtists: [Artist!]!
 
   """
   Spotify catalog information about an artist's top tracks.
@@ -669,12 +669,12 @@ enum CopyrightType {
   P
 }
 
-type CurrentlyPlaying {
-  """
-  Allows to update the user interface based on which playback actions are
-  available within the current context.
-  """
-  actions: Actions!
+type CurrentlyPlaying @shareable {
+  # """
+  # Allows to update the user interface based on which playback actions are
+  # available within the current context.
+  # """
+  # actions: Actions!
 
   "A context object."
   context: PlaybackContext
@@ -682,8 +682,8 @@ type CurrentlyPlaying {
   "If something is currently playing, return `true`."
   isPlaying: Boolean!
 
-  "The currently playing track or episode"
-  item: PlaybackItem
+  # "The currently playing track or episode"
+  # item: PlaybackItem
 
   "Progress into the currently playing track or episode. Can be `null`"
   progressMs: Int
@@ -691,177 +691,176 @@ type CurrentlyPlaying {
   "Unix Millisecond Timestamp when data was fetched."
   timestamp: Timestamp!
 }
+type CurrentUser @shareable {
+  # """
+  # Get a list of the albums saved in the current Spotify user's 'Your Music'
+  # library.
+  # """
+  # albums(
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
 
-type CurrentUser {
-  """
-  Get a list of the albums saved in the current Spotify user's 'Your Music'
-  library.
-  """
-  albums(
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
+  #   """
+  #   The index of the first item to return. Default: 0 (the first item). Use with
+  #   limit to get the next set of items.
+  #   """
+  #   offset: Int
+  # ): SavedAlbumsConnection
 
-    """
-    The index of the first item to return. Default: 0 (the first item). Use with
-    limit to get the next set of items.
-    """
-    offset: Int
-  ): SavedAlbumsConnection
+  # """
+  # Check if one or more albums is already saved in the current Spotify user's
+  # 'Your Music' library.
+  # """
+  # albumsContains(
+  #   """
+  #   A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  #   for the albums. Maximum: 20 IDs.
+  #   """
+  #   ids: [ID!]!
+  # ): [Boolean!]
 
-  """
-  Check if one or more albums is already saved in the current Spotify user's
-  'Your Music' library.
-  """
-  albumsContains(
-    """
-    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the albums. Maximum: 20 IDs.
-    """
-    ids: [ID!]!
-  ): [Boolean!]
+  # episodes(
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
 
-  episodes(
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
+  #   """
+  #   The index of the first item to return. Default: 0 (the first item). Use with `limit` to get the next set of items.
+  #   """
+  #   offset: Int
+  # ): SavedEpisodesConnection
 
-    """
-    The index of the first item to return. Default: 0 (the first item). Use with `limit` to get the next set of items.
-    """
-    offset: Int
-  ): SavedEpisodesConnection
+  # """
+  # Check if one or more episodes is already saved in the current Spotify user's
+  # 'Your Episodes' library.
+  # """
+  # episodesContains(
+  #   """
+  #   A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  #   for the episodes. Maximum: 50 IDs.
+  #   """
+  #   ids: [ID!]!
+  # ): [Boolean!]
 
-  """
-  Check if one or more episodes is already saved in the current Spotify user's
-  'Your Episodes' library.
-  """
-  episodesContains(
-    """
-    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the episodes. Maximum: 50 IDs.
-    """
-    ids: [ID!]!
-  ): [Boolean!]
+  # """
+  # Get the current user's followed artists.
+  # """
+  # followedArtists(
+  #   """
+  #   The last artist ID retrieved from the previous request.
+  #   """
+  #   after: String
 
-  """
-  Get the current user's followed artists.
-  """
-  followedArtists(
-    """
-    The last artist ID retrieved from the previous request.
-    """
-    after: String
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
+  # ): FollowedArtistsConnection
 
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
-  ): FollowedArtistsConnection
-
-  """
-  Detailed profile information about the current user.
-  """
-  user: User!
-    @deprecated(
-      reason: "Use the profile field instead which provides richer current user information."
-    )
+  # """
+  # Detailed profile information about the current user.
+  # """
+  # user: User!
+  #   @deprecated(
+  #     reason: "Use the profile field instead which provides richer current user information."
+  #   )
 
   """
   Information about the user's current playback state
   """
   player: Player!
 
-  """
-  Playlists owned or followed by the current Spotify user.
-  """
-  playlists(
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
+  # """
+  # Playlists owned or followed by the current Spotify user.
+  # """
+  # playlists(
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
 
-    """
-    The index of the first playlist to return. Default: 0 (the first object).
+  #   """
+  #   The index of the first playlist to return. Default: 0 (the first object).
 
-    Use with `limit` to get the next set of playlists.
-    """
-    offset: Int
-  ): PlaylistConnection
+  #   Use with `limit` to get the next set of playlists.
+  #   """
+  #   offset: Int
+  # ): PlaylistConnection
 
   """
   Get detailed profile information about the current user (including the current user's username).
   """
   profile: CurrentUserProfile!
 
-  """
-  Get a list of the albums saved in the current Spotify user's 'Your Music' library.
-  """
-  shows(
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
+  # """
+  # Get a list of the albums saved in the current Spotify user's 'Your Music' library.
+  # """
+  # shows(
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
 
-    """
-    The index of the first item to return. Default: 0 (the first item). Use with `limit` to get the next set of items.
-    """
-    offset: Int
-  ): SavedShowsConnection
+  #   """
+  #   The index of the first item to return. Default: 0 (the first item). Use with `limit` to get the next set of items.
+  #   """
+  #   offset: Int
+  # ): SavedShowsConnection
 
-  """
-  Check if one or more shows is already saved in the current Spotify user's
-  library.
-  """
-  showsContains(
-    """
-    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the shows. Maximum: 50 IDs.
-    """
-    ids: [ID!]!
-  ): [Boolean!]
+  # """
+  # Check if one or more shows is already saved in the current Spotify user's
+  # library.
+  # """
+  # showsContains(
+  #   """
+  #   A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  #   for the shows. Maximum: 50 IDs.
+  #   """
+  #   ids: [ID!]!
+  # ): [Boolean!]
 
-  """
-  Get the current user's top artists based on calculated affinity.
-  """
-  topArtists(
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
+  # """
+  # Get the current user's top artists based on calculated affinity.
+  # """
+  # topArtists(
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
 
-    """
-    The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
-    """
-    offset: Int
+  #   """
+  #   The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
+  #   """
+  #   offset: Int
 
-    """
-    Over what time frame the affinities are computed. Valid values: `LONG_TERM` (calculated from several years of data and including all new data as it becomes available), `MEDIUM_TERM` (approximately last 6 months), `SHORT_TERM` (approximately last 4 weeks). Default: `MEDIUM_TERM`
-    """
-    timeRange: TimeRange
-  ): TopArtistsConnection
+  #   """
+  #   Over what time frame the affinities are computed. Valid values: `LONG_TERM` (calculated from several years of data and including all new data as it becomes available), `MEDIUM_TERM` (approximately last 6 months), `SHORT_TERM` (approximately last 4 weeks). Default: `MEDIUM_TERM`
+  #   """
+  #   timeRange: TimeRange
+  # ): TopArtistsConnection
 
-  """
-  Get the current user's top tracks based on calculated affinity.
-  """
-  topTracks(
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
+  # """
+  # Get the current user's top tracks based on calculated affinity.
+  # """
+  # topTracks(
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
 
-    """
-    The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
-    """
-    offset: Int
+  #   """
+  #   The index of the first item to return. Default: 0 (the first item). Use with limit to get the next set of items.
+  #   """
+  #   offset: Int
 
-    """
-    Over what time frame the affinities are computed. Valid values: `LONG_TERM` (calculated from several years of data and including all new data as it becomes available), `MEDIUM_TERM` (approximately last 6 months), `SHORT_TERM` (approximately last 4 weeks). Default: `MEDIUM_TERM`
-    """
-    timeRange: TimeRange
-  ): TopTracksConnection
+  #   """
+  #   Over what time frame the affinities are computed. Valid values: `LONG_TERM` (calculated from several years of data and including all new data as it becomes available), `MEDIUM_TERM` (approximately last 6 months), `SHORT_TERM` (approximately last 4 weeks). Default: `MEDIUM_TERM`
+  #   """
+  #   timeRange: TimeRange
+  # ): TopTracksConnection
 
   tracks(
     """
@@ -877,20 +876,21 @@ type CurrentUser {
     offset: Int
   ): SavedTracksConnection
 
-  """
-  Check if one or more tracks is already saved in the current Spotify user's
-  'Your Music' library.
-  """
-  tracksContains(
-    """
-    A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the tracks. Maximum: 50 IDs.
-    """
-    ids: [ID!]!
-  ): [Boolean!]
+  # """
+  # Check if one or more tracks is already saved in the current Spotify user's
+  # 'Your Music' library.
+  # """
+  # tracksContains(
+  #   """
+  #   A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+  #   for the tracks. Maximum: 50 IDs.
+  #   """
+  #   ids: [ID!]!
+  # ): [Boolean!]
 }
 
-type CurrentUserProfile implements UserProfile @key(fields: "id") {
+# # type CurrentUserProfile implements UserProfile @key(fields: "id") {
+type CurrentUserProfile @shareable {
   """
   The country of the user, as set in the user's account profile. An ISO 3166-1
   alpha-2 country code.
@@ -1072,7 +1072,7 @@ type Episode implements PlaylistTrack & PlaybackItem @key(fields: "id") {
   uri: String! @shareable
 }
 
-type ExplicitContentSettings {
+type ExplicitContentSettings @shareable {
   """
   When `true`, indicates that explicit content should not be played.
   """
@@ -1189,7 +1189,7 @@ input FieldConfigInput {
   errorRate: ErrorRate
 }
 
-type Followers {
+type Followers @shareable {
   "The total number of followers."
   total: Int!
 }
@@ -1224,7 +1224,7 @@ type NewReleaseEdge {
   node: Album!
 }
 
-type PageInfo {
+type PageInfo @shareable {
   "Whether there is a next page of items."
   hasNextPage: Boolean!
 
@@ -1410,17 +1410,17 @@ type PlaybackState @shareable {
   # timestamp: Timestamp!
 }
 
-type Player {
+type Player @shareable {
   "Information about the object currently being played on the user's Spotify account."
   currentlyPlaying: CurrentlyPlaying
 
-  "Information about a user's available devices."
-  devices: [Device!]
+  # "Information about a user's available devices."
+  # devices: [Device!]
 
-  """
-  Get the list of objects that make up the user's queue.
-  """
-  playbackQueue: PlaybackQueue
+  # """
+  # Get the list of objects that make up the user's queue.
+  # """
+  # playbackQueue: PlaybackQueue
 
   """
   Information about the user's current playback state, including track or
@@ -1428,30 +1428,30 @@ type Player {
   """
   playbackState: PlaybackState
 
-  """
-  Get tracks from the current user's recently played tracks. **Note**: Currently
-  doesn't support podcast episodes.
-  """
-  recentlyPlayed(
-    """
-    A Unix timestamp in milliseconds. Returns all items after (but not
-    including) this cursor position. If after is specified, before must not be
-    specified.
-    """
-    after: Int
+  # """
+  # Get tracks from the current user's recently played tracks. **Note**: Currently
+  # doesn't support podcast episodes.
+  # """
+  # recentlyPlayed(
+  #   """
+  #   A Unix timestamp in milliseconds. Returns all items after (but not
+  #   including) this cursor position. If after is specified, before must not be
+  #   specified.
+  #   """
+  #   after: Int
 
-    """
-    A Unix timestamp in milliseconds. Returns all items before (but not
-    including) this cursor position. If before is specified, after must not be
-    specified.
-    """
-    before: Int
+  #   """
+  #   A Unix timestamp in milliseconds. Returns all items before (but not
+  #   including) this cursor position. If before is specified, after must not be
+  #   specified.
+  #   """
+  #   before: Int
 
-    """
-    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-    """
-    limit: Int
-  ): RecentlyPlayedConnection
+  #   """
+  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+  #   """
+  #   limit: Int
+  # ): RecentlyPlayedConnection
 }
 
 "Information about a playlist owned by a Spotify user"
@@ -1748,7 +1748,7 @@ enum RecommendationSeedType {
   GENRE
 }
 
-type ReleaseDate {
+type ReleaseDate @shareable {
   """
   The date the item was first released, for example `1981-12-15`. Depending on
   the precision, it might be shown as `1981-12`, or `1981-12-15`.
@@ -1875,7 +1875,8 @@ enum TextFormat {
 }
 
 "Spotify catalog information for a track."
-type Track implements PlaylistTrack & PlaybackItem @key(fields: "id") {
+type Track @key(fields: "id") @shareable {
+# type Track @shareable {
   """
   The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track.
   """
@@ -1886,13 +1887,13 @@ type Track implements PlaylistTrack & PlaybackItem @key(fields: "id") {
   """
   album: Album!
 
-  "The artists who performed the track."
-  artists: [Artist!]!
+  # "The artists who performed the track."
+  # artists: [Artist!]!
 
-  """
-  The track's audio feature information
-  """
-  audioFeatures: TrackAudioFeatures
+  # """
+  # The track's audio feature information
+  # """
+  # audioFeatures: TrackAudioFeatures
 
   """
   The disc number (usually `1` unless the album consists of more than one disc).
@@ -1908,13 +1909,13 @@ type Track implements PlaylistTrack & PlaybackItem @key(fields: "id") {
   """
   explicit: Boolean!
 
-  """
-  Known external IDs for the track.
-  """
-  externalIds: TrackExternalIds
+  # """
+  # Known external IDs for the track.
+  # """
+  # externalIds: TrackExternalIds
 
-  "Known external URLs for this track."
-  externalUrls: ExternalUrl! @shareable
+  # "Known external URLs for this track."
+  # externalUrls: ExternalUrl! @shareable
 
   """
   A link to the Web API endpoint providing full details of the track.
@@ -2215,7 +2216,7 @@ type SavedShowEdge {
   node: Show!
 }
 
-type SavedTracksConnection {
+type SavedTracksConnection @shareable {
   """
   A list of saved tracks.
   """
@@ -2377,7 +2378,7 @@ type SaveTracksPayload {
   savedTracks: [Track!]
 }
 
-type SavedTrackEdge {
+type SavedTrackEdge @shareable {
   "The date the track was saved."
   addedAt: DateTime!
 
