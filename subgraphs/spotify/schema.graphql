@@ -419,8 +419,8 @@ type Album @key(fields: "id") @shareable {
   "The type of the album."
   albumType: AlbumType!
 
-  "The artists of the album."
-  artists: [Artist!]!
+  # "The artists of the album."
+  # artists: [Artist!]!
 
   "The copyrights for the album."
   copyrights: [Copyright!]!
@@ -522,27 +522,27 @@ enum AlbumType {
 Spotify catalog information for an artist.
 """
 type Artist @key(fields: "id") @shareable {
-  # """
-  # Spotify catalog information about an artist's albums.
-  # """
-  # albums(
-  #   """
-  #   Used to filter the response. If not supplied, all album types will be
-  #   returned.
-  #   """
-  #   includeGroups: [AlbumGroup!]
+  """
+  Spotify catalog information about an artist's albums.
+  """
+  albums(
+    """
+    Used to filter the response. If not supplied, all album types will be
+    returned.
+    """
+    includeGroups: [AlbumGroup!]
 
-  #   """
-  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-  #   """
-  #   limit: Int
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
 
-  #   """
-  #   The index of the first item to return. Default: 0 (the first item). Use
-  #   with `limit` to get the next set of items.
-  #   """
-  #   offset: Int
-  # ): ArtistAlbumsConnection
+    """
+    The index of the first item to return. Default: 0 (the first item). Use
+    with `limit` to get the next set of items.
+    """
+    offset: Int
+  ): ArtistAlbumsConnection
 
   """
   Known external URLs for this artist.
@@ -607,7 +607,7 @@ type Artist @key(fields: "id") @shareable {
   uri: String!
 }
 
-type ArtistAlbumsConnection {
+type ArtistAlbumsConnection @shareable {
   """
   A list of albums that belong to the artist.
   """
@@ -619,7 +619,7 @@ type ArtistAlbumsConnection {
   pageInfo: PageInfo!
 }
 
-type ArtistAlbumEdge {
+type ArtistAlbumEdge @shareable {
   "Spotify catalog information for the album."
   node: Album!
 }

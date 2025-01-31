@@ -32,9 +32,6 @@ type Query {
           ["single", "SINGLE"],
           ["compilation", "COMPILATION"],
         )
-      artists {
-        id
-      }
       copyrights {
         text
         type
@@ -234,10 +231,10 @@ type Album @key(fields: "id") @shareable {
   """
   albumType: AlbumType!
 
-  """
-  The artists of the album.
-  """
-  artists: [Artist!]!
+  # """
+  # The artists of the album.
+  # """
+  # artists: [Artist!]!
 
   """
   The copyrights for the album.
@@ -296,31 +293,90 @@ enum AlbumType {
   COMPILATION
 }
 
+enum AlbumGroup {
+  ALBUM
+  SINGLE
+  APPEARS_ON
+  COMPILATION
+}
+
+
 """
 Spotify catalog information for an artist.
 """
 type Artist @key(fields: "id", resolvable: false) @shareable {
-  # """
-  # Spotify catalog information about an artist's albums.
-  # """
-  # albums(
-  #   """
-  #   Used to filter the response. If not supplied, all album types will be
-  #   returned.
-  #   """
-  #   includeGroups: [AlbumGroup!]
+  """
+  Spotify catalog information about an artist's albums.
+  """
+  albums(
+    """
+    Used to filter the response. If not supplied, all album types will be
+    returned.
+    """
+    includeGroups: [AlbumGroup!]
 
-  #   """
-  #   The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
-  #   """
-  #   limit: Int
+    """
+    The maximum number of items to return. Default: 20. Minimum: 1. Maximum: 50.
+    """
+    limit: Int
 
-  #   """
-  #   The index of the first item to return. Default: 0 (the first item). Use
-  #   with `limit` to get the next set of items.
-  #   """
-  #   offset: Int
-  # ): ArtistAlbumsConnection
+    """
+    The index of the first item to return. Default: 0 (the first item). Use
+    with `limit` to get the next set of items.
+    """
+    offset: Int
+  ): ArtistAlbumsConnection
+    @override(from: "spotify")
+    @connect(
+      source: "spotify"
+      http: { GET: "/artists/{$this.id}/albums?limit={$args.limit}&offset={$args.offset}" }
+      selection: """
+      pageInfo: {
+        hasNextPage: next->match([null, false], [@, true])
+        hasPreviousPage: previous->match([null, false], [@, true])
+        limit
+        offset
+        total
+      }
+      edges: $.items {
+        node: {
+          id
+          albumType: album_type->match(
+              ["album", "ALBUM"],
+              ["single", "SINGLE"],
+              ["compilation", "COMPILATION"],
+            )
+          copyrights {
+            text
+            type
+          }
+          externalUrls: external_urls {
+            spotify: spotify
+          }
+          genres
+          href
+          images {
+            url
+            height
+            width
+          }
+          label
+          name
+          totalTracks: total_tracks
+          releaseDate: {
+            date: release_date
+            precision: release_date_precision->match(
+              ["day", "DAY"],
+              ["month", "MONTH"],
+              ["year", "YEAR"],
+            )
+          }
+          uri
+        }
+      }
+      """
+    )
+
 
   """
   Known external URLs for this artist.
@@ -383,6 +439,23 @@ type Artist @key(fields: "id", resolvable: false) @shareable {
   for the artist.
   """
   uri: String!
+}
+
+type ArtistAlbumsConnection @shareable {
+  """
+  A list of albums that belong to the artist.
+  """
+  edges: [ArtistAlbumEdge!]
+
+  """
+  "Pagination information for the set of albums"
+  """
+  pageInfo: PageInfo!
+}
+
+type ArtistAlbumEdge @shareable {
+  "Spotify catalog information for the album."
+  node: Album!
 }
 
 type Copyright @shareable {
@@ -497,9 +570,6 @@ type CurrentUser @shareable {
                 ["single", "SINGLE"],
                 ["compilation", "COMPILATION"],
               )
-            artists {
-              id
-            }
             copyrights {
               text
               type
