@@ -60,8 +60,7 @@ const useUpdateFieldConfigMutation = () => {
 
                 return exists
                   ? existing
-                  : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                    ([...existing, toReference(fieldConfig)!] as Reference[]);
+                  : ([...existing, toReference(fieldConfig)!] as Reference[]);
               },
             },
           });

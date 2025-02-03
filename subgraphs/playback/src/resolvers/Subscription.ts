@@ -23,6 +23,7 @@ export const Subscription: SubscriptionResolvers = {
 
       return payload.data.playbackStateChanged;
     },
+    // eslint-disable-next-line @typescript-eslint/require-await
     subscribe: async (_, __, { dataSources }, info) => {
       const source$ = createPlaybackStateObservable(dataSources.spotify).pipe(
         map((playbackState) => {

@@ -144,8 +144,8 @@ async function getPlaylist(id: string) {
 async function getAlbum(id: string) {
   return tap(
     (store.albums[id] ||= await get('/albums/:id', { id })),
-    async (album) => {
-      await Promise.all([
+    (album) => {
+      void Promise.all([
         ...album.artists.map((artist) => getArtist(artist.id)),
         ...album.tracks.items.map((track) => getTrack(track.id)),
       ]);
@@ -164,8 +164,8 @@ async function getUser(id: string) {
 async function getTrack(id: string) {
   return tap(
     (store.tracks[id] ||= await get('/tracks/:id', { id })),
-    async (track) => {
-      await Promise.all(track.artists.map((artist) => getArtist(artist.id)));
+    (track) => {
+      void Promise.all(track.artists.map((artist) => getArtist(artist.id)));
     }
   );
 }
@@ -173,8 +173,8 @@ async function getTrack(id: string) {
 async function getEpisode(id: string) {
   return tap(
     (store.episodes[id] ||= await get('/episodes/:id', { id })),
-    async (episode) => {
-      await getShow(episode.show.id);
+    (episode) => {
+      void getShow(episode.show.id);
     }
   );
 }
@@ -221,10 +221,10 @@ function tap<T>(value: T, fn: (value: T) => void) {
 
 async function format(code: string, options?: prettier.Options) {
   const configFile = await prettier.resolveConfigFile();
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
   const formatOptions = await prettier.resolveConfig(configFile!);
 
   return prettier.format(code, { ...options, ...formatOptions });
 }
 
-main();
+void main();

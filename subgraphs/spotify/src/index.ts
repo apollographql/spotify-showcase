@@ -56,6 +56,7 @@ Sentry.init({
   ],
 });
 
+// eslint-disable-next-line @typescript-eslint/require-await
 export const contextFunction = async ({ req }) => {
   const defaultCountryCode = readEnv('DEFAULT_COUNTRY_CODE', {
     defaultValue: 'US',
@@ -122,4 +123,4 @@ async function main() {
   console.log(`🚀 GraphQL endpoint ready at http://localhost:${port}`);
 }
 
-main();
+void main();

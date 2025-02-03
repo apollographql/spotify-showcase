@@ -33,14 +33,14 @@ const useOffsetBasedPaginationObserver = (
       root: scrollContainer || defaultScrollContainer || null,
       rootMargin: `0px 0px ${threshold} 0px`,
     },
-    async ([{ isIntersecting }]) => {
+    ([{ isIntersecting }]) => {
       if (isIntersecting && pageInfo?.hasNextPage && !isLoadingRef.current) {
         const { offset, limit } = pageInfo;
 
         startTransition(() => {
           isLoadingRef.current = true;
 
-          fetchMore({ variables: { offset: offset + limit } }).then(() => {
+          void fetchMore({ variables: { offset: offset + limit } }).then(() => {
             isLoadingRef.current = false;
           });
         });

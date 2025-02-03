@@ -68,6 +68,7 @@ async function main() {
   await callbackApolloServer.start();
   await wsApolloServer.start();
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   const context = async ({ req }) => {
     checkRouterSecret(req.headers['router-authorization'] as string);
     const token = req.get('authorization');
@@ -124,4 +125,4 @@ async function main() {
   console.log(`🚀 Subscription endpoint ready at ws://localhost:${port}`);
 }
 
-main();
+void main();

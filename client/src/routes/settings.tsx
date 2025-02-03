@@ -131,7 +131,7 @@ export const RouteComponent = () => {
                     ].join('.')}
                     fieldConfig={config}
                     onSubmit={(values, { schemaField }) => {
-                      return updateFieldConfig({
+                      void updateFieldConfig({
                         field: {
                           schemaField: {
                             fieldName: schemaField.fieldName,

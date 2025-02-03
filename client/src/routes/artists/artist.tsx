@@ -82,6 +82,7 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
   const { artistId } = params;
 
   if (!artistId) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw new Response('', { status: 404 });
   }
 

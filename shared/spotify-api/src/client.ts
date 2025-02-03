@@ -587,6 +587,7 @@ export class SpotifyClient extends RESTDataSource implements SpotifyDataSource {
     return url.toString();
   }
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   override async errorFromResponse({
     response,
     parsedBody,

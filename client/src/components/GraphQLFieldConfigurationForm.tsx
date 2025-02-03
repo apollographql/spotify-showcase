@@ -69,10 +69,8 @@ const validationSchema: ValidationSchema<FormState> = {
 export const typename = (type: SchemaSubType): string => {
   switch (type.kind) {
     case __TypeKind.NonNull:
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return typename(type.ofType!);
     case __TypeKind.List:
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return `${typename(type.ofType!)}[]`;
     default:
       return type.name ?? '';

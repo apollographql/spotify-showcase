@@ -38,8 +38,10 @@ export const server = new ApolloServer<ContextValue>({
   plugins: [
     responseCachePlugin(),
     {
+      // eslint-disable-next-line @typescript-eslint/require-await
       async requestDidStart() {
         return {
+          // eslint-disable-next-line @typescript-eslint/require-await
           async didEncounterErrors(ctx) {
             for (const err of ctx.errors) {
               if (err.extensions?.code == 'GRAPHQL_VALIDATION_FAILED')

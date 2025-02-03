@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import { GraphQLError } from 'graphql';
 import { Spotify } from './types';
 import { SpotifyDataSource } from './dataSource';
