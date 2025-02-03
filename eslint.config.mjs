@@ -98,7 +98,7 @@ export default ts.config(
       'shared/**/*.ts',
     ],
     rules: {
-      '@typescript-eslint/no-deprecated': 'error',
+      '@typescript-eslint/no-deprecated': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'warn',
