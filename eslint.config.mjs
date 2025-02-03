@@ -35,6 +35,9 @@ export default ts.config(
       },
     },
     settings: {
+      react: {
+        version: 'detect',
+      },
       linkComponents: ['Hyperlink', { name: 'Link', linkAttribute: 'to' }],
     },
     rules: {
