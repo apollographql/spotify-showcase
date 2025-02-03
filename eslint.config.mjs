@@ -7,7 +7,12 @@ import ts from 'typescript-eslint';
 
 export default ts.config(
   {
-    ignores: ['**/dist', '**/__generated__'],
+    ignores: [
+      '**/dist',
+      '**/__generated__',
+      'codegen.ts',
+      '**/*.config.{js,mjs,ts}',
+    ],
   },
   js.configs.recommended,
   ts.configs.recommendedTypeChecked,
