@@ -27,26 +27,18 @@ export default ts.config(
   {
     files: ['client/src/**/*.{ts,tsx}'],
     processor: graphql.processor,
+    extends: [
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
+    ],
     languageOptions: {
       parserOptions: {
         tsconfigRootDir: 'client/tsconfig.json',
-      },
-    },
-  },
-  {
-    files: ['subgraphs/spotify/**/*.{ts,tsx}'],
-    languageOptions: {
-      parserOptions: {
-        tsconfigRootDir: 'subgraphs/spotify/tsconfig.json',
       },
       globals: {
         ...globals.browser,
       },
     },
-    extends: [
-      react.configs.flat.recommended,
-      react.configs.flat['jsx-runtime'],
-    ],
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -59,7 +51,21 @@ export default ts.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      '@typescript-eslint/no-floating-promises': 'warn',
+      '@typescript-eslint/no-misused-promises': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
       'react/display-name': 'off',
+    },
+  },
+  {
+    files: ['subgraphs/spotify/**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: 'subgraphs/spotify/tsconfig.json',
+      },
     },
   },
   {
