@@ -2380,7 +2380,11 @@ export type AlbumTrackTitleCell_playbackState = {
     | null;
 };
 
-export type AlbumTrackTitleCell_album = { __typename: 'Album'; uri: string };
+export type AlbumTrackTitleCell_album = {
+  __typename: 'Album';
+  id: string;
+  uri: string;
+};
 
 export type AlbumTrackTitleCell_track = {
   __typename: 'Track';
