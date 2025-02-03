@@ -20,20 +20,6 @@ export default ts.config(
     },
   },
   {
-    files: [
-      'codegen.ts',
-      '**/*.config.{ts,js,mjs}',
-      'scripts/**/*.ts',
-      'client/src/**/*.graphql',
-    ],
-    extends: [ts.configs.disableTypeChecked],
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-  },
-  {
     files: ['client/src/**/*.{ts,tsx}'],
     processor: graphql.processor,
     languageOptions: {
@@ -106,7 +92,10 @@ export default ts.config(
   {
     files: ['client/src/**/*.graphql'],
     ignores: ['client/src/apollo/localSchema.graphql'],
-    extends: [graphql.configs['flat/operations-recommended']],
+    extends: [
+      graphql.configs['flat/operations-recommended'],
+      ts.configs.disableTypeChecked,
+    ],
     languageOptions: {
       parser: graphql.parser,
     },
