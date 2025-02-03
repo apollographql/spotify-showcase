@@ -2,3 +2,7 @@ schema:
   - ./client/schema.graphql
   - ./client/src/apollo/localSchema.graphql
 documents: ./client/src/**/*.{ts,tsx}
+extensions:
+  languageService:
+    # Use graphql-eslint to validate schemas instead
+    enableValidation: false
