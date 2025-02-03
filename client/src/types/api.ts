@@ -202,6 +202,7 @@ export type Artist = {
    * Spotify catalog information about artists similar to a given artist.
    * Similarity is based on analysis of the Spotify community's
    * [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
+   * @deprecated This endpoint no longer exists in the Spotify API
    */
   relatedArtists: Array<Artist>;
   /** Spotify catalog information about an artist's top tracks. */
@@ -1086,11 +1087,13 @@ export type Query = {
   /**
    * A list of Spotify featured playlists (shown, for example, on a Spotify
    * player's 'Browse' tab).
+   * @deprecated This endpoint no longer exists in the Spotify API
    */
   featuredPlaylists: Maybe<FeaturedPlaylistConnection>;
   /**
    * A list of available genres seed parameter values for
    * [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
+   * @deprecated This endpoint no longer exists in the Spotify API
    */
   genres: Array<Scalars['String']['output']>;
   /** Information about the current logged-in user. */
@@ -1109,6 +1112,7 @@ export type Query = {
    *
    * For artists and tracks that are very new or obscure there might not be enough
    * data to generate a list of tracks.
+   * @deprecated This endpoint no longer exists in the Spotify API
    */
   recommendations: Maybe<Recommendations>;
   /**
@@ -1131,7 +1135,10 @@ export type Query = {
   track: Maybe<Track>;
   /** Get Spotify catalog information for multiple tracks based on their Spotify IDs. */
   tracks: Maybe<Array<Track>>;
-  /** Get audio features for multiple tracks based on their Spotify IDs. */
+  /**
+   * Get audio features for multiple tracks based on their Spotify IDs.
+   * @deprecated This endpoint no longer exists in the Spotify API
+   */
   tracksAudioFeatures: Array<TrackAudioFeatures>;
 };
 
@@ -1999,7 +2006,10 @@ export type Track = PlaybackItem &
     album: Album;
     /** The artists who performed the track. */
     artists: Array<Artist>;
-    /** The track's audio feature information */
+    /**
+     * The track's audio feature information
+     * @deprecated This endpoint no longer exists in the Spotify API
+     */
     audioFeatures: Maybe<TrackAudioFeatures>;
     /** The disc number (usually `1` unless the album consists of more than one disc). */
     discNumber: Scalars['Int']['output'];

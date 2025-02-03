@@ -278,6 +278,7 @@ type Artist {
   [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
   """
   relatedArtists: [Artist!]!
+    @deprecated(reason: "This endpoint no longer exists in the Spotify API")
 
   """
   Spotify catalog information about an artist's top tracks.
@@ -1579,6 +1580,7 @@ type Query {
   [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
   """
   genres: [String!]!
+    @deprecated(reason: "This endpoint no longer exists in the Spotify API")
 
   """
   Recommendations for the current user.
@@ -1620,6 +1622,7 @@ type Query {
     """
     limit: Int
   ): Recommendations
+    @deprecated(reason: "This endpoint no longer exists in the Spotify API")
 
   """
   Information about the current logged-in user.
@@ -1676,6 +1679,7 @@ type Query {
     """
     timestamp: DateTime
   ): FeaturedPlaylistConnection
+    @deprecated(reason: "This endpoint no longer exists in the Spotify API")
 
   """
   Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks that match a keyword string.
@@ -1764,6 +1768,7 @@ type Query {
     """
     ids: [ID!]!
   ): [TrackAudioFeatures!]!
+    @deprecated(reason: "This endpoint no longer exists in the Spotify API")
 }
 
 type RecentlyPlayedConnection {
@@ -2768,6 +2773,7 @@ type Track implements PlaylistTrack & PlaybackItem {
   The track's audio feature information
   """
   audioFeatures: TrackAudioFeatures
+    @deprecated(reason: "This endpoint no longer exists in the Spotify API")
 
   """
   The disc number (usually `1` unless the album consists of more than one disc).
