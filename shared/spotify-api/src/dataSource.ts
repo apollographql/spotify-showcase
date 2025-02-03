@@ -46,6 +46,7 @@ export interface SpotifyDataSource {
     id: string,
     params?: Spotify.Request.QueryParams.GET['/artists/:id/albums']
   ): Promise<Spotify.Response.GET['/artists/:id/albums']>;
+  /** @deprecated */
   getArtistRelatedArtists(
     artistId: string
   ): Promise<Spotify.Response.GET['/artists/:id/related-artists']>;
@@ -76,6 +77,7 @@ export interface SpotifyDataSource {
     params?: Spotify.Request.QueryParams.GET['/me/player/currently-playing']
   ): Promise<Spotify.Response.GET['/me/player/currently-playing'] | null>;
   getDevices(): Promise<Spotify.Response.GET['/me/player/devices']>;
+  /** @deprecated */
   getGenres(): Promise<
     Spotify.Response.GET['/recommendations/available-genre-seeds']
   >;
@@ -89,6 +91,7 @@ export interface SpotifyDataSource {
   getShows(
     params: Spotify.Request.QueryParams.GET['/shows']
   ): Promise<Spotify.Response.GET['/shows']>;
+  /** @deprecated */
   getRecommendations(
     params: Spotify.Request.QueryParams.GET['/recommendations']
   ): Promise<Spotify.Response.GET['/recommendations']>;
@@ -111,6 +114,7 @@ export interface SpotifyDataSource {
   getCurrentUserTracks(
     params?: Spotify.Request.QueryParams.GET['/me/tracks']
   ): Promise<Spotify.Response.GET['/me/tracks']>;
+  /** @deprecated */
   getFeaturedPlaylists(
     params: Spotify.Request.QueryParams.GET['/browse/featured-playlists']
   ): Promise<Spotify.Response.GET['/browse/featured-playlists']>;
@@ -144,12 +148,14 @@ export interface SpotifyDataSource {
     id: string,
     params?: Spotify.Request.QueryParams.GET['/tracks/:id']
   ): Promise<Spotify.Object.Track | undefined>;
+  /** @deprecated */
   getTrackAudioFeatures(
     trackId: string
   ): Promise<Spotify.Response.GET['/audio-features/:id']>;
   getTracks(
     params: Spotify.Request.QueryParams.GET['/tracks']
   ): Promise<Spotify.Response.GET['/tracks']>;
+  /** @deprecated */
   getTracksAudioFeatures(
     params: Spotify.Request.QueryParams.GET['/audio-features']
   ): Promise<Spotify.Response.GET['/audio-features']>;
