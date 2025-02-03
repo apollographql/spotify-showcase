@@ -10,9 +10,23 @@ export default ts.config(
     ignores: ['**/dist', '**/__generated__'],
   },
   js.configs.recommended,
-  ts.configs.recommended,
+  ts.configs.recommendedTypeChecked,
   {
-    files: ['**/*.config.js'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
+    files: [
+      'codegen.ts',
+      '**/*.config.{ts,js,mjs}',
+      'scripts/**/*.ts',
+      'client/src/**/*.graphql',
+    ],
+    extends: [ts.configs.disableTypeChecked],
     languageOptions: {
       globals: {
         ...globals.node,
@@ -21,9 +35,9 @@ export default ts.config(
   },
   {
     files: ['client/src/**/*.{ts,tsx}'],
+    processor: graphql.processor,
     languageOptions: {
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: 'client/tsconfig.json',
       },
     },
@@ -32,16 +46,35 @@ export default ts.config(
     files: ['subgraphs/spotify/**/*.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: 'subgraphs/spotify/tsconfig.json',
       },
+      globals: {
+        ...globals.browser,
+      },
+    },
+    extends: [
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
+    ],
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+      linkComponents: ['Hyperlink', { name: 'Link', linkAttribute: 'to' }],
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react/display-name': 'off',
     },
   },
   {
     files: ['subgraphs/playback/**/*.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: 'subgraphs/playback/tsconfig.json',
       },
     },
@@ -69,36 +102,6 @@ export default ts.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
     },
-  },
-  {
-    files: ['client/src/**/*.{ts,tsx}'],
-    extends: [
-      react.configs.flat.recommended,
-      react.configs.flat['jsx-runtime'],
-    ],
-    plugins: {
-      react,
-      'react-hooks': reactHooks,
-    },
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-    },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-      linkComponents: ['Hyperlink', { name: 'Link', linkAttribute: 'to' }],
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react/display-name': 'off',
-    },
-  },
-  {
-    files: ['client/src/**/*.{ts,tsx}'],
-    processor: graphql.processor,
   },
   {
     files: ['client/src/**/*.graphql'],
