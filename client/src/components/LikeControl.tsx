@@ -49,6 +49,7 @@ const LikeControl = ({ className, playbackItem, size }: LikeControlProps) => {
   const [removeTracks] = useRemoveTracksMutation();
 
   if (!data?.me) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw new Response('You must be logged in', { status: 401 });
   }
 

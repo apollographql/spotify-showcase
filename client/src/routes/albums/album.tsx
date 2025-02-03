@@ -78,6 +78,7 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
   const { albumId } = params;
 
   if (!albumId) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw new Response('', { status: 404 });
   }
 

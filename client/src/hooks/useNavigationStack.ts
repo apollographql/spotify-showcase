@@ -3,6 +3,7 @@ import {
   useNavigate,
   useNavigationType,
   useLocation,
+  NavigationType,
   Location,
 } from 'react-router-dom';
 import useIsMounted from './useIsMounted';
@@ -30,16 +31,16 @@ const useNavigationStack = () => {
     }
 
     switch (navigationType) {
-      case 'POP': {
+      case NavigationType.Pop: {
         setStack((stack) => stack.slice(0, -1));
         setBackStack((stack) => [...stack, previousLocation]);
         break;
       }
-      case 'PUSH':
+      case NavigationType.Push:
         setStack((stack) => [...stack, location]);
         setBackStack([]);
         break;
-      case 'REPLACE':
+      case NavigationType.Replace:
         setStack((stack) => [...stack.slice(0, -1), location]);
         break;
     }

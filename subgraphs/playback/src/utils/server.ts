@@ -61,12 +61,12 @@ const serverCleanup = useServer(
     context: (ctx) => {
       const routerAuthorization =
         (ctx.connectionParams?.['authorization'] as string) ??
-        (ctx.extra.request.headers?.['authorization'] as string) ??
+        ctx.extra.request.headers?.['authorization'] ??
         '';
       checkRouterSecret(routerAuthorization);
       const token =
         (ctx.connectionParams?.['authorization'] as string) ??
-        (ctx.extra.request.headers?.['authorization'] as string);
+        ctx.extra.request.headers?.['authorization'];
 
       const defaultCountryCode =
         (ctx.connectionParams?.['country-code'] as string) ??
@@ -104,8 +104,10 @@ const serverCleanup = useServer(
 );
 
 const sentryPlugin: ApolloServerPlugin<ContextValue> = {
+  // eslint-disable-next-line @typescript-eslint/require-await
   async requestDidStart() {
     return {
+      // eslint-disable-next-line @typescript-eslint/require-await
       async didEncounterErrors(ctx) {
         for (const err of ctx.errors) {
           if (err.extensions?.code == 'GRAPHQL_VALIDATION_FAILED') {
@@ -169,6 +171,7 @@ export const wsApolloServer = new ApolloServer<ContextValue>({
   plugins: [
     ApolloServerPluginDrainHttpServer({ httpServer }),
     {
+      // eslint-disable-next-line @typescript-eslint/require-await
       async serverWillStart() {
         return {
           async drainServer() {

@@ -68,7 +68,7 @@ const EditFieldConfigForm = ({
           min={0}
           step={100}
           onSubmit={() => {
-            form.submitForm();
+            void form.submitForm();
           }}
         />
         <FieldValue
@@ -81,7 +81,7 @@ const EditFieldConfigForm = ({
           max={1}
           min={0}
           onSubmit={() => {
-            form.submitForm();
+            void form.submitForm();
           }}
         />
         <div className="flex flex-1 justify-end">
@@ -90,7 +90,7 @@ const EditFieldConfigForm = ({
             size="xs"
             variant="hollow"
             onClick={() => {
-              resetFieldConfig({
+              void resetFieldConfig({
                 field: {
                   schemaField: {
                     fieldName: schemaField.fieldName,

@@ -15,6 +15,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     !code ||
     !codeVerifier
   ) {
+    // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw new Response('Not authorized', { status: 401 });
   }
 

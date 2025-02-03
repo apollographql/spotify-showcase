@@ -7,32 +7,63 @@ import ts from 'typescript-eslint';
 
 export default ts.config(
   {
-    ignores: ['**/dist', '**/__generated__'],
+    ignores: [
+      '**/dist',
+      '**/__generated__',
+      'codegen.ts',
+      '**/*.config.{js,mjs,ts}',
+    ],
   },
   js.configs.recommended,
-  ts.configs.recommended,
+  ts.configs.recommendedTypeChecked,
   {
-    files: ['**/*.config.js'],
     languageOptions: {
-      globals: {
-        ...globals.node,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
     files: ['client/src/**/*.{ts,tsx}'],
+    processor: graphql.processor,
+    extends: [
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
+    ],
     languageOptions: {
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: 'client/tsconfig.json',
       },
+      globals: {
+        ...globals.browser,
+      },
+    },
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+      linkComponents: ['Hyperlink', { name: 'Link', linkAttribute: 'to' }],
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      '@typescript-eslint/no-floating-promises': 'warn',
+      '@typescript-eslint/no-misused-promises': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
+      'react/display-name': 'off',
     },
   },
   {
     files: ['subgraphs/spotify/**/*.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: 'subgraphs/spotify/tsconfig.json',
       },
     },
@@ -41,7 +72,6 @@ export default ts.config(
     files: ['subgraphs/playback/**/*.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
-        projectService: true,
         tsconfigRootDir: 'subgraphs/playback/tsconfig.json',
       },
     },
@@ -65,45 +95,25 @@ export default ts.config(
       'subgraphs/spotify/src/**/*.ts',
       'subgraphs/playback/src/**/*.ts',
       'scripts/**/*.ts',
+      'shared/**/*.ts',
     ],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
+      '@typescript-eslint/no-unsafe-type-assertion': 'warn',
     },
-  },
-  {
-    files: ['client/src/**/*.{ts,tsx}'],
-    extends: [
-      react.configs.flat.recommended,
-      react.configs.flat['jsx-runtime'],
-    ],
-    plugins: {
-      react,
-      'react-hooks': reactHooks,
-    },
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-    },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-      linkComponents: ['Hyperlink', { name: 'Link', linkAttribute: 'to' }],
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react/display-name': 'off',
-    },
-  },
-  {
-    files: ['client/src/**/*.{ts,tsx}'],
-    processor: graphql.processor,
   },
   {
     files: ['client/src/**/*.graphql'],
     ignores: ['client/src/apollo/localSchema.graphql'],
-    extends: [graphql.configs['flat/operations-recommended']],
+    extends: [
+      graphql.configs['flat/operations-recommended'],
+      ts.configs.disableTypeChecked,
+    ],
     languageOptions: {
       parser: graphql.parser,
     },

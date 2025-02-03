@@ -587,4 +587,4 @@ async function createDemo() {
   }
 }
 
-createDemo();
+void createDemo();
