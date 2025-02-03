@@ -30,6 +30,7 @@ const PLAYBACK_STATE_FRAGMENT = gql`
 
 fragmentRegistry.register(gql`
   fragment AlbumTrackTitleCell_album on Album {
+    id
     uri
   }
 
