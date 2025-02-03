@@ -95,6 +95,7 @@ export default ts.config(
       'subgraphs/spotify/src/**/*.ts',
       'subgraphs/playback/src/**/*.ts',
       'scripts/**/*.ts',
+      'shared/**/*.ts',
     ],
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
