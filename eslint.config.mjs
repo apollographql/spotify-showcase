@@ -21,11 +21,10 @@ export default ts.config(
   },
   {
     files: ['client/src/**/*.{ts,tsx}'],
-    ...react.configs.flat.recommended,
-    ...react.configs.flat['jsx-runtime'],
-  },
-  {
-    files: ['client/src/**/*.{ts,tsx}'],
+    extends: [
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
+    ],
     plugins: {
       react,
       'react-hooks': reactHooks,
@@ -59,17 +58,13 @@ export default ts.config(
   {
     files: ['client/src/**/*.graphql'],
     ignores: ['client/src/apollo/localSchema.graphql'],
+    extends: [graphql.configs['flat/operations-recommended']],
     languageOptions: {
       parser: graphql.parser,
     },
     plugins: {
       '@graphql-eslint': graphql,
     },
-    ...graphql.configs['flat/operations-recommended'],
-  },
-  {
-    files: ['client/src/**/*.graphql'],
-    ignores: ['client/src/apollo/localSchema.graphql'],
     rules: {
       '@graphql-eslint/known-directives': [
         'error',
@@ -88,4 +83,3 @@ export default ts.config(
     },
   }
 );
-
