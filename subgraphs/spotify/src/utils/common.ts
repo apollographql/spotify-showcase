@@ -1,7 +1,7 @@
 export const wait = (ms: number) =>
   new Promise<void>((resolve) => setTimeout(resolve, ms));
 
-export const isPlainObject = (obj: any): obj is object => {
+export const isPlainObject = (obj: unknown): obj is object => {
   return typeof obj === 'object' && !Array.isArray(obj) && obj !== null;
 };
 
@@ -9,7 +9,7 @@ export const maybe = <T>(value: T | null | undefined): T | undefined => {
   return value ?? undefined;
 };
 
-type MaybeDeep<T> = T extends Record<any, any>
+type MaybeDeep<T> = T extends Record<string, unknown>
   ? { [K in keyof T]: Exclude<MaybeDeep<T[K]>, null> }
   : T;
 

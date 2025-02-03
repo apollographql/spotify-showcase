@@ -46,23 +46,24 @@
   "devDependencies": {
     "@apollo/generate-persisted-query-manifest": "^1.0.0",
     "@apollo/rover": "^0.17.1",
+    "@eslint/js": "^9.19.0",
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-resolvers": "^4.0.1",
-    "@graphql-eslint/eslint-plugin": "^3.20.1",
+    "@graphql-eslint/eslint-plugin": "^4.3.0",
     "@types/inquirer": "^8.2.6",
-    "@typescript-eslint/eslint-plugin": "^5.54.1",
-    "@typescript-eslint/parser": "^5.54.1",
     "concurrently": "^8.2.0",
-    "eslint": "^8.35.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^15.14.0",
     "graphql": "^16.7.1",
     "prettier": "^3.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "typescript-eslint": "^8.23.0"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
@@ -78,6 +79,6 @@
     "trailingComma": "es5"
   },
   "engines": {
-    "node": ">=18.0"
+    "node": ">=20.11"
   }
 }

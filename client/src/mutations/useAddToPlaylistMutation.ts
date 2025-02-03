@@ -47,16 +47,13 @@ const useAddToPlaylistMutation = () => {
       return execute({
         variables: { input },
         update: (cache) => {
-          cache.modify({
+          cache.modify<Playlist>({
             id: cache.identify({
               __typename: 'Playlist',
               id: input.playlistId,
             }),
             fields: {
-              tracks: (
-                tracks: Playlist['tracks'],
-                { readField, toReference }
-              ) => {
+              tracks: (tracks, { readField, toReference }) => {
                 const edges =
                   readField<PlaylistTrackEdgeWithNodeRef[]>('edges', tracks) ??
                   [];
@@ -83,6 +80,8 @@ const useAddToPlaylistMutation = () => {
                 return {
                   ...tracks,
                   edges: edges.concat(refs),
+                  // TODO: See if we can fix this type
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 } as any;
               },
             },
