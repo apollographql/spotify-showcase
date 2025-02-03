@@ -614,6 +614,8 @@ export class SpotifyClient extends RESTDataSource implements SpotifyDataSource {
         return 'UNAUTHENTICATED';
       case 403:
         return 'FORBIDDEN';
+      case 404:
+        return 'NOT_FOUND';
       case 400:
         return ApolloServerErrorCode.BAD_USER_INPUT;
       default:
