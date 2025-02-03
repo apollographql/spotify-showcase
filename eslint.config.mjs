@@ -12,11 +12,62 @@ export default ts.config(
   js.configs.recommended,
   ts.configs.recommended,
   {
+    files: ['**/*.config.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
+    files: ['client/src/**/*.{ts,tsx}'],
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: 'client/tsconfig.json',
       },
+    },
+  },
+  {
+    files: ['subgraphs/spotify/**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: 'subgraphs/spotify/tsconfig.json',
+      },
+    },
+  },
+  {
+    files: ['subgraphs/playback/**/*.{ts,tsx}'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: 'subgraphs/playback/tsconfig.json',
+      },
+    },
+  },
+  {
+    rules: {
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        { allowTernary: true },
+      ],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+        },
+      ],
+    },
+  },
+  {
+    files: [
+      'subgraphs/spotify/src/**/*.ts',
+      'subgraphs/playback/src/**/*.ts',
+      'scripts/**/*.ts',
+    ],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
   {
@@ -42,16 +93,7 @@ export default ts.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-    },
-  },
-  {
-    rules: {
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        {
-          argsIgnorePattern: '^_',
-        },
-      ],
+      'react/display-name': 'off',
     },
   },
   {
