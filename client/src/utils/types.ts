@@ -5,7 +5,7 @@ import { Reference } from '@apollo/client';
 
 export type PropsOf<
   TComponent extends
-    | keyof JSX.IntrinsicElements
+    | keyof React.JSX.IntrinsicElements
     | React.JSXElementConstructor<unknown>,
 > = JSX.LibraryManagedAttributes<
   TComponent,
