@@ -3615,7 +3615,7 @@ export type CollectionPlaylistsRouteQueryVariables = Exact<{
 export type CollectionPlaylistsRouteQuery = {
   me: {
     __typename: 'CurrentUser';
-    user: { __typename: 'User'; id: string };
+    profile: { __typename: 'CurrentUserProfile'; id: string };
     episodes: {
       __typename: 'SavedEpisodesConnection';
       pageInfo: { __typename: 'PageInfo'; total: number };
