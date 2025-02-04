@@ -66,7 +66,7 @@ const PlaylistTileGrid = ({
 
   return (
     <div className={containerStyles}>
-      <PageTitle>My playlists</PageTitle>
+      <PageTitle>Saved playlists</PageTitle>
       {playlistEdges.length === 0 ? (
         <Page.EmptyState
           icon={<ListMusic />}
