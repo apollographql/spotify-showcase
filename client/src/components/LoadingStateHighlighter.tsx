@@ -2,6 +2,7 @@ import { Children, ReactNode, isValidElement } from 'react';
 import { useReactiveVar } from '@apollo/client';
 import { highlightSuspenseBoundariesVar } from '../vars';
 import LoadingStateBackdrop from './LoadingStateBackdrop';
+import React from 'react';
 
 interface LoadingStateHighlighterProps {
   children: ReactNode;
@@ -37,7 +38,7 @@ const LoadingStateHighlighter = ({
 };
 
 const isHighlighted = (
-  element: JSX.ElementType
+  element: React.JSX.ElementType
 ): element is HighlightableComponent<unknown> => {
   return typeof element !== 'string' && '__highlight' in element;
 };
