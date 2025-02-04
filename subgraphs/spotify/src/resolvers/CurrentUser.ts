@@ -12,11 +12,17 @@ export const CurrentUser: CurrentUserResolvers = {
   albumsContains: (_, { ids }, { dataSources }) => {
     return dataSources.spotify.checkContainsAlbums(ids.join(','));
   },
-  episodes: (_, { limit, offset }, { dataSources }) => {
-    return dataSources.spotify.getCurrentUserEpisodes({
+  episodes: async (_, { limit, offset }, { dataSources }) => {
+    const paginated = await dataSources.spotify.getCurrentUserEpisodes({
       limit: maybe(limit),
       offset: maybe(offset),
     });
+
+    // TODO: Allow `null` as valid values for all fields.
+    return {
+      ...paginated,
+      items: paginated.items.filter(({ episode }) => episode.id !== null),
+    };
   },
   episodesContains: (_, { ids }, { dataSources }) => {
     return dataSources.spotify.checkContainsEpisodes(ids.join(','));
