@@ -15,7 +15,7 @@ import Skeleton from '../../components/Skeleton';
 const COLLECTION_PLAYLISTS_ROUTE_QUERY = gql`
   query CollectionPlaylistsRouteQuery($offset: Int, $limit: Int) {
     me {
-      user {
+      profile {
         id
       }
       episodes {
@@ -92,7 +92,7 @@ export const RouteComponent = () => {
   }
 
   const {
-    user: currentUser,
+    profile,
     episodes: { pageInfo: episodePageInfo },
     playlists: { pageInfo: playlistPageInfo, edges: playlistEdges },
     tracks,
@@ -107,7 +107,7 @@ export const RouteComponent = () => {
         <LikedSongsTile
           connection={tracks}
           className="col-span-2"
-          currentUser={currentUser}
+          currentUser={profile}
         />
         <MediaTile to="/collection/episodes">
           <GradientIcon

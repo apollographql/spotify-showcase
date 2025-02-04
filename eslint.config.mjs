@@ -51,6 +51,7 @@ export default ts.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      '@typescript-eslint/no-deprecated': 'error',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-misused-promises': 'warn',
       '@typescript-eslint/no-unsafe-assignment': 'warn',
@@ -134,7 +135,7 @@ export default ts.config(
           },
         },
       ],
-      '@graphql-eslint/no-deprecated': 'warn',
+      '@graphql-eslint/no-deprecated': 'error',
       '@graphql-eslint/no-unused-fragments': 'off',
     },
   }

@@ -106,7 +106,7 @@ const LikedSongsTile = ({
             ? undefined
             : { offset: { position: 0 }, contextUri: spotifyURI };
 
-          resumePlayback(input);
+          void resumePlayback(input);
         }}
       />
     </Link>

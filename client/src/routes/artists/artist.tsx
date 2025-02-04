@@ -4,7 +4,6 @@ import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { Get } from 'type-fest';
 import { ArtistRouteQuery, ArtistRouteQueryVariables } from '../../types/api';
 import AlbumTile from '../../components/AlbumTile';
-import ArtistTile from '../../components/ArtistTile';
 import ArtistTopTracks from '../../components/ArtistTopTracks';
 import Page from '../../components/Page';
 import Skeleton from '../../components/Skeleton';
@@ -38,10 +37,6 @@ const ARTIST_ROUTE_QUERY: TypedDocumentNode<
       }
       images {
         url
-      }
-      relatedArtists {
-        id
-        ...ArtistTile_artist
       }
       topTracks {
         id
@@ -126,15 +121,6 @@ export const RouteComponent = () => {
           albums={getAlbums(artist.singles)}
         />
         <AlbumSection title="Appears On" albums={getAlbums(artist.appearsOn)} />
-
-        <section className={classNames.section}>
-          <h2>Fans also like</h2>
-          <TileGrid gap="1rem" minTileWidth="200px">
-            {artist.relatedArtists.map((relatedArtist) => (
-              <ArtistTile key={relatedArtist.id} artist={relatedArtist} />
-            ))}
-          </TileGrid>
-        </section>
       </Page.Content>
     </Page>
   );
