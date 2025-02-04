@@ -3850,24 +3850,26 @@ export type EpisodeRouteQuery = {
 };
 
 export type IndexRouteQueryVariables = Exact<{
-  timestamp?: InputMaybe<Scalars['DateTime']['input']>;
+  limit: Scalars['Int']['input'];
 }>;
 
 export type IndexRouteQuery = {
-  featuredPlaylists: {
-    __typename: 'FeaturedPlaylistConnection';
-    message: string;
-    edges: Array<{
-      __typename: 'FeaturedPlaylistEdge';
-      node: {
-        __typename: 'Playlist';
-        id: string;
-        name: string;
-        description: string | null;
-        uri: string;
-        images: Array<{ __typename: 'Image'; url: string }> | null;
-      };
-    }>;
+  me: {
+    __typename: 'CurrentUser';
+    playlists: {
+      __typename: 'PlaylistConnection';
+      edges: Array<{
+        __typename: 'PlaylistEdge';
+        node: {
+          __typename: 'Playlist';
+          id: string;
+          name: string;
+          description: string | null;
+          uri: string;
+          images: Array<{ __typename: 'Image'; url: string }> | null;
+        };
+      }>;
+    } | null;
   } | null;
 };
 

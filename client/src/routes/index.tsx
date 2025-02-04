@@ -12,10 +12,11 @@ import PlaylistTile from '../components/PlaylistTile';
 import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
-import { startOfHour } from 'date-fns';
 import Flex from '../components/Flex';
 import Skeleton from '../components/Skeleton';
 import Suspense from '../components/Suspense';
+import Page from '../components/Page';
+import { ListMusic } from 'lucide-react';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -27,13 +28,14 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
   IndexRouteQuery,
   IndexRouteQueryVariables
 > = gql`
-  query IndexRouteQuery($timestamp: DateTime) {
-    featuredPlaylists(timestamp: $timestamp) {
-      message
-      edges {
-        node {
-          id
-          ...PlaylistTile_playlist
+  query IndexRouteQuery($limit: Int!) {
+    me {
+      playlists(limit: $limit) {
+        edges {
+          node {
+            id
+            ...PlaylistTile_playlist
+          }
         }
       }
     }
@@ -43,12 +45,8 @@ const INDEX_ROUTE_QUERY: TypedDocumentNode<
 const containerStyles = 'bg-black-base p-[var(--main-content--padding)] flex-1';
 
 const LoggedIn = () => {
-  // Use startOfHour to prevent infinite loop with a brand new date each time
-  // this component unsuspends
-  const timestamp = startOfHour(new Date()).toISOString();
-
   const [queryRef] = useBackgroundQuery(INDEX_ROUTE_QUERY, {
-    variables: { timestamp },
+    variables: { limit: 30 },
   });
 
   return (
@@ -64,14 +62,24 @@ const PlaylistTileGrid = ({
   queryRef: QueryReference<IndexRouteQuery>;
 }) => {
   const { data } = useReadQuery(queryRef);
+  const playlistEdges = data.me?.playlists?.edges ?? [];
+
   return (
     <div className={containerStyles}>
-      <PageTitle>{data.featuredPlaylists?.message}</PageTitle>
-      <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
-        {data.featuredPlaylists?.edges.map(({ node }) => (
-          <PlaylistTile key={node.id} playlist={node} />
-        ))}
-      </TileGrid>
+      <PageTitle>My playlists</PageTitle>
+      {playlistEdges.length === 0 ? (
+        <Page.EmptyState
+          icon={<ListMusic />}
+          title="No playlists added"
+          description="Add some playlists to your account to see them here"
+        />
+      ) : (
+        <TileGrid gap="2.5rem 1rem" minTileWidth="200px">
+          {playlistEdges.map(({ node }) => (
+            <PlaylistTile key={node.id} playlist={node} />
+          ))}
+        </TileGrid>
+      )}
     </div>
   );
 };
