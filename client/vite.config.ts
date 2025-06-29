@@ -12,6 +12,7 @@ export default defineConfig(async (env) => {
     },
     server: {
       open: true,
+      host: '127.0.0.1',
       port: process.env.PORT ?? 3000,
     },
     plugins: [

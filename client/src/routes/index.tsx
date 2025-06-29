@@ -142,7 +142,7 @@ const LoggedOut = () => {
               redirect URI for this app to allow this app to sign in to your
               Spotify account.
             </Paragraph>
-            <CodeBlock>http://localhost:3000/oauth/finalize</CodeBlock>
+            <CodeBlock>http://127.0.0.1:3000/oauth/finalize</CodeBlock>
           </ListItem>
         </OrderedList>
         <Heading level={3}>Configure this application</Heading>
