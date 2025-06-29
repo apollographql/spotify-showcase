@@ -96,7 +96,7 @@ What do you want to do next with this demo app?
    npm start
    ```
 
-4. Visit the website at http://localhost:3000.
+4. Visit the website at http://127.0.0.1:3000.
 
 By default, the client app is pointing to the _locally-running_ backend URL. Follow the section below for "I want to run the backend locally" (you can choose to use Docker, or not).
 
@@ -200,7 +200,7 @@ You will need a GraphOS organization with an Enterprise plan or [Enterprise tria
 
 There are launch configurations for the client project and subgraph projects. You can navigate to the debug tab of VS Code and launch any of the projects. They will default to the following urls:
 
-- Client App - http://localhost:3000
+- Client App - http://127.0.0.1:3000
 - Spotify Subgraph - http://localhost:4001
 - Playback Subgraph - http://localhost:4002
 
