@@ -1,9 +1,5 @@
-import {
-  gql,
-  TypedDocumentNode,
-  useBackgroundQuery,
-  useSuspenseQuery,
-} from '@apollo/client';
+import { gql, TypedDocumentNode } from '@apollo/client';
+import { useSuspenseQuery, useBackgroundQuery } from "@apollo/client/react";
 import {
   LimitedIntrospectionQuery,
   SettingsQuery,

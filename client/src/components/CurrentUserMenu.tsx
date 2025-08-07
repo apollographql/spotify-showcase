@@ -1,4 +1,5 @@
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useSuspenseQuery } from "@apollo/client/react";
 import { CurrentUserQuery, CurrentUserQueryVariables } from '../types/api';
 import DropdownMenu from './DropdownMenu';
 import Avatar from './Avatar';

@@ -1,5 +1,5 @@
 import { Children, ReactNode, isValidElement } from 'react';
-import { useReactiveVar } from '@apollo/client';
+import { useReactiveVar } from "@apollo/client/react";
 import { highlightSuspenseBoundariesVar } from '../vars';
 import LoadingStateBackdrop from './LoadingStateBackdrop';
 import React from 'react';

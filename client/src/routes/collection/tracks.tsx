@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
+import { useSuspenseQuery } from "@apollo/client/react";
 import { Get } from 'type-fest';
 import { createColumnHelper } from '@tanstack/react-table';
 import {
