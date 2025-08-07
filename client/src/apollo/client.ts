@@ -1,14 +1,7 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloLink,
-  createHttpLink,
-  createQueryPreloader,
-  from,
-  split,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloLink, createHttpLink } from '@apollo/client';
+import { createQueryPreloader } from "@apollo/client/react";
 import { setContext } from '@apollo/client/link/context';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
+import { PersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import {
   generatePersistedQueryIdsFromManifest,
   createPersistedQueryManifestVerificationLink,
@@ -44,14 +37,14 @@ const persistedQueryVerificationLink =
     },
   });
 
-const persistedQuerylink = createPersistedQueryLink({
+const persistedQuerylink = new PersistedQueryLink({
   ...generatePersistedQueryIdsFromManifest({ loadManifest }),
   disable: () => false,
 });
 
-const persistedQueries = split(
+const persistedQueries = ApolloLink.split(
   () => persistedQueryModeVar(),
-  from([
+  ApolloLink.from([
     // TODO: Figure out why there is a type mismatch
     persistedQueryVerificationLink as unknown as ApolloLink,
     persistedQuerylink,
@@ -74,7 +67,7 @@ const httpLink = createHttpLink({
 });
 
 const client = new ApolloClient({
-  link: from([httpAuthLink, persistedQueries, httpLink]),
+  link: ApolloLink.from([httpAuthLink, persistedQueries, httpLink]),
   connectToDevTools: true,
   name: 'Spotify Showcase Website',
   resolvers,

@@ -1,5 +1,6 @@
 import cx from 'classnames';
-import { TypedDocumentNode, gql, useSuspenseQuery } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useSuspenseQuery } from "@apollo/client/react";
 import {
   Action,
   RepeatMode,

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from "@apollo/client/react";
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
 import * as Tooltip from '@radix-ui/react-tooltip';
 import reportWebVitals from './reportWebVitals';
