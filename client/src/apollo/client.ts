@@ -7,7 +7,7 @@ import {
 import { Defer20220824Handler } from '@apollo/client/incremental';
 import { LocalState } from '@apollo/client/local-state';
 import { createQueryPreloader } from '@apollo/client/react';
-import { setContext } from '@apollo/client/link/context';
+import { SetContextLink } from '@apollo/client/link/context';
 import { PersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import {
   generatePersistedQueryIdsFromManifest,
@@ -58,7 +58,7 @@ const persistedQueries = ApolloLink.split(
   ])
 );
 
-const httpAuthLink = setContext(async ({ context }) => {
+const httpAuthLink = new SetContextLink(async (context) => {
   const accessToken = await getAccessToken();
 
   return {
