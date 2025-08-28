@@ -347,7 +347,12 @@ const config: CodegenConfig = {
     },
     './client/src/apollo/__generated__/local-resolvers.ts': {
       schema: './client/src/apollo/localSchema.graphql',
-      plugins: ['typescript', 'typescript-resolvers'],
+      plugins: ['typescript', '@apollo/client-graphql-codegen/local-state'],
+      config: {
+        nonOptionalTypename: true,
+        // Required if your local schema extends existing schema types
+        baseTypesPath: '../../types/api',
+      },
     },
     './client/src/types/api.ts': {
       schema: [
