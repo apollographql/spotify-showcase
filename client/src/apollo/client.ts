@@ -64,7 +64,7 @@ const httpAuthLink = new SetContextLink(async (context) => {
 
   return {
     headers: {
-      ...(context?.headers as Record<string, unknown>),
+      ...context.headers,
       authorization: accessToken,
     },
   };
