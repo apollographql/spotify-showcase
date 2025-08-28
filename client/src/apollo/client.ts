@@ -23,6 +23,7 @@ import { version } from '../../package.json';
 import { persistedQueryModeVar } from '../vars';
 import { fragmentRegistry } from './fragmentRegistry';
 import { resolvers } from './resolvers';
+import { Resolvers } from './__generated__/local-resolvers';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 
@@ -171,7 +172,7 @@ const client = new ApolloClient({
     name: 'Spotify Showcase Website',
     version,
   },
-  localState: new LocalState({
+  localState: new LocalState<Resolvers>({
     resolvers,
   }),
   devtools: {

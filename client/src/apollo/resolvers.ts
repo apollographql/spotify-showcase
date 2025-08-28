@@ -1,10 +1,9 @@
-import { Image } from '../types/api';
 import { getVibrantColor } from '../utils/image';
-import { ImageResolvers, ColorFormat } from './__generated__/local-resolvers';
+import { ColorFormat, Resolvers } from './__generated__/local-resolvers';
 import { toRGB } from '../utils/color';
 import { maybe } from '../utils/common';
 
-export const resolvers = {
+export const resolvers: Resolvers = {
   Image: {
     vibrantColor: async (image, { alpha, format }) => {
       if (!image.url) {
@@ -24,5 +23,5 @@ export const resolvers = {
           return toRGB(swatch, maybe(alpha));
       }
     },
-  } satisfies ImageResolvers<never, Image>,
+  },
 };
