@@ -2093,7 +2093,7 @@ export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> =
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Action: null;
+  Action: Action;
   Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
   AddItemToPlaybackQueueInput: AddItemToPlaybackQueueInput;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
@@ -2113,12 +2113,12 @@ export type ResolversTypes = ResolversObject<{
   Album: ResolverTypeWrapper<
     Spotify.Object.Album | Spotify.Object.AlbumSimplified
   >;
-  AlbumGroup: null;
+  AlbumGroup: AlbumGroup;
   AlbumTrackConnection: ResolverTypeWrapper<
     Spotify.Object.Paginated<Spotify.Object.TrackSimplified>
   >;
   AlbumTrackEdge: ResolverTypeWrapper<Spotify.Object.TrackSimplified>;
-  AlbumType: null;
+  AlbumType: AlbumType;
   Artist: ResolverTypeWrapper<Spotify.Object.Artist>;
   ArtistAlbumEdge: ResolverTypeWrapper<Spotify.Object.AlbumSimplified>;
   ArtistAlbumsConnection: ResolverTypeWrapper<
@@ -2161,7 +2161,7 @@ export type ResolversTypes = ResolversObject<{
     Spotify.Object.PaginatedCursorBased<unknown>
   >;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
-  PlaybackContextType: null;
+  PlaybackContextType: PlaybackContextType;
   PlaybackItem: ResolverTypeWrapper<
     Spotify.Object.Episode | Spotify.Object.Track
   >;
@@ -2207,7 +2207,7 @@ export type ResolversTypes = ResolversObject<{
   RecommendationValenceInput: RecommendationValenceInput;
   Recommendations: ResolverTypeWrapper<Spotify.Object.Recommendations>;
   ReleaseDate: ResolverTypeWrapper<Releasable>;
-  ReleaseDatePrecision: null;
+  ReleaseDatePrecision: ReleaseDatePrecision;
   RemoveItemFromPlaylistInput: RemoveItemFromPlaylistInput;
   RemoveItemFromPlaylistPayload: ResolverTypeWrapper<
     Omit<RemoveItemFromPlaylistPayload, 'playlist'> & {
@@ -2239,7 +2239,7 @@ export type ResolversTypes = ResolversObject<{
       removedTracks?: Maybe<Array<ResolversTypes['Track']>>;
     }
   >;
-  RepeatMode: null;
+  RepeatMode: RepeatMode;
   ResetFieldConfigInput: ResetFieldConfigInput;
   ResetFieldConfigPayload: ResolverTypeWrapper<
     Omit<ResetFieldConfigPayload, 'fieldConfig'> & {
@@ -2301,7 +2301,7 @@ export type ResolversTypes = ResolversObject<{
   SearchEpisodesConnection: ResolverTypeWrapper<
     Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>
   >;
-  SearchExternalValue: null;
+  SearchExternalValue: SearchExternalValue;
   SearchPlaylistEdge: ResolverTypeWrapper<Spotify.Object.PlaylistSimplified>;
   SearchPlaylistsConnection: ResolverTypeWrapper<
     Spotify.Object.Paginated<Spotify.Object.PlaylistSimplified>
@@ -2315,7 +2315,7 @@ export type ResolversTypes = ResolversObject<{
   SearchTracksConnection: ResolverTypeWrapper<
     Spotify.Object.Paginated<Spotify.Object.Track>
   >;
-  SearchType: null;
+  SearchType: SearchType;
   Show: ResolverTypeWrapper<
     Spotify.Object.Show | Spotify.Object.ShowSimplified
   >;
@@ -2324,7 +2324,7 @@ export type ResolversTypes = ResolversObject<{
     Spotify.Object.Paginated<Spotify.Object.EpisodeSimplified>
   >;
   TextFormat: TextFormat;
-  TimeRange: null;
+  TimeRange: TimeRange;
   Timestamp: ResolverTypeWrapper<Scalars['Timestamp']['output']>;
   TopArtistEdge: ResolverTypeWrapper<Spotify.Object.Artist>;
   TopArtistsConnection: ResolverTypeWrapper<

@@ -500,7 +500,7 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Action: null;
+  Action: Action;
   Actions: ResolverTypeWrapper<Spotify.Object.Actions>;
   Device: ResolverTypeWrapper<Spotify.Object.Device>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
@@ -517,12 +517,12 @@ export type ResolversTypes = ResolversObject<{
     }
   >;
   PlaybackContext: ResolverTypeWrapper<Spotify.Object.Context>;
-  PlaybackContextType: null;
+  PlaybackContextType: PlaybackContextType;
   PlaybackItem: ResolverTypeWrapper<
     Spotify.Object.Episode | Spotify.Object.Track
   >;
   PlaybackState: ResolverTypeWrapper<Spotify.Object.PlaybackState>;
-  RepeatMode: null;
+  RepeatMode: RepeatMode;
   ResumePlaybackInput: ResumePlaybackInput;
   ResumePlaybackOffsetInput: ResumePlaybackOffsetInput;
   ResumePlaybackPayload: ResolverTypeWrapper<
