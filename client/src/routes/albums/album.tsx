@@ -1,4 +1,5 @@
-import { TypedDocumentNode, gql, useReadQuery } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useReadQuery } from '@apollo/client/react';
 import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
 import {
   AlbumRouteQuery,

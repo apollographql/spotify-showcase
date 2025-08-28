@@ -1,11 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
-import {
-  gql,
-  useBackgroundQuery,
-  useReadQuery,
-  TypedDocumentNode,
-} from '@apollo/client';
-import { QueryReference } from '@apollo/client';
+import { gql, TypedDocumentNode } from '@apollo/client';
+import { useBackgroundQuery, useReadQuery } from '@apollo/client/react';
+import type { QueryRef } from '@apollo/client/react';
 import cx from 'classnames';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
@@ -59,7 +55,7 @@ const LoggedIn = () => {
 const PlaylistTileGrid = ({
   queryRef,
 }: {
-  queryRef: QueryReference<IndexRouteQuery>;
+  queryRef: QueryRef<IndexRouteQuery>;
 }) => {
   const { data } = useReadQuery(queryRef);
   const playlistEdges = data.me?.playlists?.edges ?? [];

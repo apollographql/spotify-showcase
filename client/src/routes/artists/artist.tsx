@@ -1,4 +1,5 @@
-import { TypedDocumentNode, gql, useReadQuery } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useReadQuery } from '@apollo/client/react';
 import cx from 'classnames';
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { Get } from 'type-fest';

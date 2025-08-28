@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import { gql, useMutation, MutationHookOptions } from '@apollo/client';
+import { gql } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import {
   PlaybackContextType,
   ResumePlaybackInput,
@@ -62,7 +63,7 @@ const getContextTypeFromURI = (contextURI: string) => {
 };
 
 type Options = Pick<
-  MutationHookOptions,
+  useMutation.Options,
   'refetchQueries' | 'awaitRefetchQueries'
 >;
 

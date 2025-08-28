@@ -1,10 +1,9 @@
+import { gql, TypedDocumentNode } from '@apollo/client';
 import {
-  gql,
-  TypedDocumentNode,
   useApolloClient,
   useBackgroundQuery,
   useFragment,
-} from '@apollo/client';
+} from '@apollo/client/react';
 import { useEffect } from 'react';
 import {
   SavedTracksContainsFragment,

@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { gql, useSuspenseQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client/react';
 import {
   PlaylistQuery,
   PlaylistQueryVariables,

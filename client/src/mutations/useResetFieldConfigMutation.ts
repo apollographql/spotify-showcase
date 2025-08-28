@@ -1,4 +1,5 @@
-import { gql, Reference, useMutation } from '@apollo/client';
+import { gql, Reference } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import { useCallback } from 'react';
 import {
   ResetFieldConfigInput,

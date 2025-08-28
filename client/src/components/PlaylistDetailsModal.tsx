@@ -1,9 +1,6 @@
-import {
-  QueryReference,
-  TypedDocumentNode,
-  gql,
-  useReadQuery,
-} from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useReadQuery } from '@apollo/client/react';
+import type { QueryRef } from '@apollo/client/react';
 import {
   PlaylistDetailsModalQuery,
   PlaylistDetailsModalQueryVariables,
@@ -17,7 +14,7 @@ import { withHighlight } from './LoadingStateHighlighter';
 import Skeleton from './Skeleton';
 
 interface PlaylistDetailsModalProps {
-  queryRef: QueryReference<PlaylistDetailsModalQuery> | null;
+  queryRef: QueryRef<PlaylistDetailsModalQuery> | null;
   open: boolean;
   onChange: (open: boolean) => void;
 }
@@ -53,7 +50,7 @@ const PlaylistDetailsModal = ({
 };
 
 interface PlaylistDetailsProps {
-  queryRef: QueryReference<PlaylistDetailsModalQuery>;
+  queryRef: QueryRef<PlaylistDetailsModalQuery>;
 }
 
 const PlaylistDetails = ({ queryRef }: PlaylistDetailsProps) => {

@@ -2,13 +2,13 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloLink,
-  createHttpLink,
-  createQueryPreloader,
-  from,
-  split,
+  HttpLink,
 } from '@apollo/client';
+import { Defer20220824Handler } from '@apollo/client/incremental';
+import { LocalState } from '@apollo/client/local-state';
+import { createQueryPreloader } from '@apollo/client/react';
 import { setContext } from '@apollo/client/link/context';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
+import { PersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import {
   generatePersistedQueryIdsFromManifest,
   createPersistedQueryManifestVerificationLink,
@@ -44,14 +44,14 @@ const persistedQueryVerificationLink =
     },
   });
 
-const persistedQuerylink = createPersistedQueryLink({
+const persistedQuerylink = new PersistedQueryLink({
   ...generatePersistedQueryIdsFromManifest({ loadManifest }),
   disable: () => false,
 });
 
-const persistedQueries = split(
+const persistedQueries = ApolloLink.split(
   () => persistedQueryModeVar(),
-  from([
+  ApolloLink.from([
     // TODO: Figure out why there is a type mismatch
     persistedQueryVerificationLink as unknown as ApolloLink,
     persistedQuerylink,
@@ -69,16 +69,12 @@ const httpAuthLink = setContext(async ({ context }) => {
   };
 });
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: import.meta.env.VITE_SERVER_HOST,
 });
 
 const client = new ApolloClient({
-  link: from([httpAuthLink, persistedQueries, httpLink]),
-  connectToDevTools: true,
-  name: 'Spotify Showcase Website',
-  resolvers,
-  version,
+  link: ApolloLink.from([httpAuthLink, persistedQueries, httpLink]),
   cache: new InMemoryCache({
     fragments: fragmentRegistry,
     possibleTypes: introspection.possibleTypes,
@@ -170,8 +166,41 @@ const client = new ApolloClient({
       },
     },
   }),
+  clientAwareness: {
+    name: 'Spotify Showcase Website',
+    version,
+  },
+  localState: new LocalState({
+    resolvers,
+  }),
+  devtools: {
+    enabled: true,
+  },
+  /*
+  Inserted by Apollo Client 3->4 migration codemod.
+  If you are not using the `@defer` directive in your application,
+  you can safely remove this option.
+  */
+  incrementalHandler: new Defer20220824Handler(),
 });
 
 export const preloadQuery = createQueryPreloader(client);
 
 export default client;
+
+/*
+Start: Inserted by Apollo Client 3->4 migration codemod.
+Copy the contents of this block into a `.d.ts` file in your project to enable correct response types in your custom links.
+If you do not use the `@defer` directive in your application, you can safely remove this block.
+*/
+
+import '@apollo/client';
+import { Defer20220824Handler } from '@apollo/client/incremental';
+
+declare module '@apollo/client' {
+  export interface TypeOverrides extends Defer20220824Handler.TypeOverrides {}
+}
+
+/*
+End: Inserted by Apollo Client 3->4 migration codemod.
+*/

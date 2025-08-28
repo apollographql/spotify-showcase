@@ -1,5 +1,6 @@
 import { ReactElement, cloneElement } from 'react';
-import { gql, TypedDocumentNode, useFragment } from '@apollo/client';
+import { gql, TypedDocumentNode } from '@apollo/client';
+import { useFragment } from '@apollo/client/react';
 import { Volume2, Pin } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import ContextMenu from './ContextMenu';

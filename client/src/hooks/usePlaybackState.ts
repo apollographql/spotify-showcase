@@ -1,9 +1,9 @@
 import {
-  useFragment,
   DocumentNode,
   TypedDocumentNode,
   OperationVariables,
 } from '@apollo/client';
+import { useFragment } from '@apollo/client/react';
 import { DefinitionNode, FragmentDefinitionNode, Kind } from 'graphql';
 
 interface Options<TData> {

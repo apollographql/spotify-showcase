@@ -1,6 +1,6 @@
 import Switch from './Switch';
 import { persistedQueryModeVar, highlightSuspenseBoundariesVar } from '../vars';
-import { useReactiveVar } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client/react';
 import SettingsField from './SettingsField';
 
 const AppSettingsForm = () => {
