@@ -31,7 +31,7 @@ const SETTINGS_QUERY = gql`
 
 const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
   LimitedIntrospectionQuery,
-  never
+  Record<string, never>
 > = gql`
   query LimitedIntrospectionQuery {
     __schema {

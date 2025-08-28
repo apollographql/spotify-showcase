@@ -78,9 +78,11 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
     throw new Response('', { status: 404 });
   }
 
-  return preloadQuery(ALBUM_ROUTE_QUERY, {
+  const queryRef = preloadQuery(ALBUM_ROUTE_QUERY, {
     variables: { albumId },
-  }).toPromise();
+  });
+
+  return preloadQuery.toPromise(queryRef);
 };
 
 export const RouteComponent = () => {

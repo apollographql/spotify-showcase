@@ -1,4 +1,3 @@
-import { ApolloError } from '@apollo/client/v4-migration';
 import {
   useRouteError,
   isRouteErrorResponse,
@@ -14,6 +13,7 @@ import ErrorActionLink from './ErrorActionLink';
 import Layout from './Layout';
 import { NOT_IMPLEMENTED_ROUTES } from '../constants';
 import { AuthorizationError } from '../errors';
+import { CombinedGraphQLErrors } from '@apollo/client';
 
 const didBecomeUnauthenticated = (error: unknown) => {
   if (
@@ -23,13 +23,14 @@ const didBecomeUnauthenticated = (error: unknown) => {
     return true;
   }
 
-  if (error instanceof ApolloError) {
-    return (
-      error.networkError instanceof AuthorizationError ||
-      error.graphQLErrors.some(
-        (error) => error.extensions?.code === 'UNAUTHENTICATED'
-      )
+  if (CombinedGraphQLErrors.is(error)) {
+    return error.errors.some(
+      (error) => error.extensions?.code === 'UNAUTHENTICATED'
     );
+  }
+
+  if (error instanceof AuthorizationError) {
+    return true;
   }
 
   return false;
