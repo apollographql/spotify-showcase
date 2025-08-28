@@ -27,6 +27,7 @@ import { resolvers } from './resolvers';
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 
 function loadManifest() {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   if (!persistedQueriesImport) {
     persistedQueriesImport = import(
       './persisted-query-manifest.json'
@@ -63,7 +64,7 @@ const httpAuthLink = new SetContextLink(async (context) => {
 
   return {
     headers: {
-      ...context?.headers,
+      ...(context?.headers as Record<string, unknown>),
       authorization: accessToken,
     },
   };
