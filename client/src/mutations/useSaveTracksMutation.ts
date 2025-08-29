@@ -1,4 +1,5 @@
-import { gql, useMutation, Reference } from '@apollo/client';
+import { gql, Reference } from '@apollo/client';
+import { useMutation } from '@apollo/client/react';
 import {
   SaveTracksMutation,
   SaveTracksMutationVariables,

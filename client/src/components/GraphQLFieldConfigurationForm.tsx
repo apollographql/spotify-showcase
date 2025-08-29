@@ -13,7 +13,8 @@ import {
 } from '../utils/formValidation';
 import useForm from '../hooks/useForm';
 import { LimitedIntrospectionQuery, __TypeKind } from '../types/api';
-import { QueryReference, useReadQuery } from '@apollo/client';
+import { useReadQuery } from '@apollo/client/react';
+import type { QueryRef } from '@apollo/client/react';
 
 type IntrospectionType = NonNullable<
   Get<LimitedIntrospectionQuery, '__schema.types[0]'>
@@ -44,7 +45,7 @@ interface SchemaField {
 interface GraphQLFieldConfigurationFormProps {
   onCancel: () => void;
   onSubmit: (state: SubmittedFormState) => void;
-  introspectionQueryRef: QueryReference<LimitedIntrospectionQuery>;
+  introspectionQueryRef: QueryRef<LimitedIntrospectionQuery>;
   configuredFields: SchemaField[];
 }
 

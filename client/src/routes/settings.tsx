@@ -1,9 +1,5 @@
-import {
-  gql,
-  TypedDocumentNode,
-  useBackgroundQuery,
-  useSuspenseQuery,
-} from '@apollo/client';
+import { gql, TypedDocumentNode } from '@apollo/client';
+import { useBackgroundQuery, useSuspenseQuery } from '@apollo/client/react';
 import {
   LimitedIntrospectionQuery,
   SettingsQuery,
@@ -35,7 +31,7 @@ const SETTINGS_QUERY = gql`
 
 const LIMITED_INTROSPECTION_QUERY: TypedDocumentNode<
   LimitedIntrospectionQuery,
-  never
+  Record<string, never>
 > = gql`
   query LimitedIntrospectionQuery {
     __schema {

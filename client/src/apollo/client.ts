@@ -2,13 +2,13 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloLink,
-  createHttpLink,
-  createQueryPreloader,
-  from,
-  split,
+  HttpLink,
 } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
+import { Defer20220824Handler } from '@apollo/client/incremental';
+import { LocalState } from '@apollo/client/local-state';
+import { createQueryPreloader } from '@apollo/client/react';
+import { SetContextLink } from '@apollo/client/link/context';
+import { PersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import {
   generatePersistedQueryIdsFromManifest,
   createPersistedQueryManifestVerificationLink,
@@ -23,10 +23,12 @@ import { version } from '../../package.json';
 import { persistedQueryModeVar } from '../vars';
 import { fragmentRegistry } from './fragmentRegistry';
 import { resolvers } from './resolvers';
+import { Resolvers } from './__generated__/local-resolvers';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 
 function loadManifest() {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   if (!persistedQueriesImport) {
     persistedQueriesImport = import(
       './persisted-query-manifest.json'
@@ -44,41 +46,37 @@ const persistedQueryVerificationLink =
     },
   });
 
-const persistedQuerylink = createPersistedQueryLink({
+const persistedQuerylink = new PersistedQueryLink({
   ...generatePersistedQueryIdsFromManifest({ loadManifest }),
   disable: () => false,
 });
 
-const persistedQueries = split(
+const persistedQueries = ApolloLink.split(
   () => persistedQueryModeVar(),
-  from([
+  ApolloLink.from([
     // TODO: Figure out why there is a type mismatch
     persistedQueryVerificationLink as unknown as ApolloLink,
     persistedQuerylink,
   ])
 );
 
-const httpAuthLink = setContext(async ({ context }) => {
+const httpAuthLink = new SetContextLink(async (context) => {
   const accessToken = await getAccessToken();
 
   return {
     headers: {
-      ...context?.headers,
+      ...context.headers,
       authorization: accessToken,
     },
   };
 });
 
-const httpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: import.meta.env.VITE_SERVER_HOST,
 });
 
 const client = new ApolloClient({
-  link: from([httpAuthLink, persistedQueries, httpLink]),
-  connectToDevTools: true,
-  name: 'Spotify Showcase Website',
-  resolvers,
-  version,
+  link: ApolloLink.from([httpAuthLink, persistedQueries, httpLink]),
   cache: new InMemoryCache({
     fragments: fragmentRegistry,
     possibleTypes: introspection.possibleTypes,
@@ -170,6 +168,17 @@ const client = new ApolloClient({
       },
     },
   }),
+  clientAwareness: {
+    name: 'Spotify Showcase Website',
+    version,
+  },
+  localState: new LocalState<Resolvers>({
+    resolvers,
+  }),
+  devtools: {
+    enabled: true,
+  },
+  incrementalHandler: new Defer20220824Handler(),
 });
 
 export const preloadQuery = createQueryPreloader(client);

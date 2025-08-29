@@ -1,5 +1,6 @@
 import cx from 'classnames';
-import { gql, useReactiveVar } from '@apollo/client';
+import { gql } from '@apollo/client';
+import { useReactiveVar } from '@apollo/client/react';
 import { notificationVar } from '../vars';
 import Notification from './Notification';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';

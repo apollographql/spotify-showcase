@@ -1,4 +1,5 @@
-import { TypedDocumentNode, gql, useReadQuery } from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useReadQuery } from '@apollo/client/react';
 import { LoaderFunctionArgs, useLoaderData, useParams } from 'react-router-dom';
 import {
   AlbumRouteQuery,
@@ -77,9 +78,11 @@ export const loader = ({ params }: LoaderFunctionArgs) => {
     throw new Response('', { status: 404 });
   }
 
-  return preloadQuery(ALBUM_ROUTE_QUERY, {
+  const queryRef = preloadQuery(ALBUM_ROUTE_QUERY, {
     variables: { albumId },
-  }).toPromise();
+  });
+
+  return preloadQuery.toPromise(queryRef);
 };
 
 export const RouteComponent = () => {

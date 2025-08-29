@@ -4,12 +4,8 @@ import Layout from './Layout';
 import ScrollContainerContext from './ScrollContainerContext';
 import Playbar, { LoadingState as PlaybarLoadingState } from './Playbar';
 import PlaybackStateSubscriber from './PlaybackStateSubscriber';
-import {
-  TypedDocumentNode,
-  gql,
-  useLoadableQuery,
-  useSuspenseQuery,
-} from '@apollo/client';
+import { TypedDocumentNode, gql } from '@apollo/client';
+import { useLoadableQuery, useSuspenseQuery } from '@apollo/client/react';
 import { SidebarQuery, SidebarQueryVariables } from '../types/api';
 import PlaylistSidebarLink from './PlaylistSidebarLink';
 import { Library } from 'lucide-react';

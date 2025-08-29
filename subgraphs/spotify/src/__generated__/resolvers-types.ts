@@ -2080,7 +2080,7 @@ export type DirectiveResolverFn<
 ) => TResult | Promise<TResult>;
 
 /** Mapping of interface types */
-export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> =
+export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> =
   ResolversObject<{
     PlaybackItem:
       | (Spotify.Object.Episode | Spotify.Object.EpisodeSimplified)

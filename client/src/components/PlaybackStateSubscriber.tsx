@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { ApolloError, gql, useSuspenseQuery } from '@apollo/client';
+import { CombinedGraphQLErrors, gql } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client/react';
 import {
   PlaybackStateSubscriberQuery,
   PlaybackStateSubscriberSubscription,
@@ -87,22 +88,27 @@ const PlaybackStateSubscriber = () => {
       document: PLAYBACK_STATE_SUBSCRIBER_SUBSCRIPTION,
       onError: (error) => {
         if (
-          error instanceof ApolloError &&
-          error.graphQLErrors.some(
-            (error) => error.extensions.code === 'UNAUTHENTICATED'
+          CombinedGraphQLErrors.is(error) &&
+          error.errors.some(
+            (error) => error.extensions?.code === 'UNAUTHENTICATED'
           )
         ) {
           navigate('/logged-out');
         }
       },
-      updateQuery: (prev, { subscriptionData }) => {
+      updateQuery: (_, { subscriptionData, previousData, complete }) => {
         const { playbackStateChanged } = subscriptionData.data;
 
-        const playbackState = playbackStateChanged
-          ? merge(prev.me?.player.playbackState ?? {}, playbackStateChanged, {
-              arrayMerge: overwriteMerge,
-            })
-          : null;
+        const playbackState =
+          complete && playbackStateChanged
+            ? merge(
+                previousData?.me?.player?.playbackState ?? {},
+                playbackStateChanged,
+                {
+                  arrayMerge: overwriteMerge,
+                }
+              )
+            : null;
 
         return {
           me: {

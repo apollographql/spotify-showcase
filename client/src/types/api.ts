@@ -2447,21 +2447,21 @@ export type ArtistTopTracks_tracks = {
   };
 };
 
-type Avatar_profile_CurrentUserProfile_ = {
+type Avatar_profile_CurrentUserProfile = {
   __typename: 'CurrentUserProfile';
   id: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
 };
 
-type Avatar_profile_User_ = {
+type Avatar_profile_User = {
   __typename: 'User';
   id: string;
   images: Array<{ __typename: 'Image'; url: string }> | null;
 };
 
 export type Avatar_profile =
-  | Avatar_profile_CurrentUserProfile_
-  | Avatar_profile_User_;
+  | Avatar_profile_CurrentUserProfile
+  | Avatar_profile_User;
 
 export type AddToPlaylistQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2557,13 +2557,13 @@ export type LikeControlQuery = {
   } | null;
 };
 
-type LikeControl_playbackItem_Episode_ = { __typename: 'Episode'; id: string };
+type LikeControl_playbackItem_Episode = { __typename: 'Episode'; id: string };
 
-type LikeControl_playbackItem_Track_ = { __typename: 'Track'; id: string };
+type LikeControl_playbackItem_Track = { __typename: 'Track'; id: string };
 
 export type LikeControl_playbackItem =
-  | LikeControl_playbackItem_Episode_
-  | LikeControl_playbackItem_Track_;
+  | LikeControl_playbackItem_Episode
+  | LikeControl_playbackItem_Track;
 
 export type LikedSongsTile_playbackState = {
   __typename: 'PlaybackState';
@@ -2945,7 +2945,7 @@ export type PlaylistTitleCell_playlist = {
   uri: string;
 };
 
-type PlaylistTitleCell_playlistTrack_Episode_ = {
+type PlaylistTitleCell_playlistTrack_Episode = {
   __typename: 'Episode';
   explicit: boolean;
   id: string;
@@ -2959,7 +2959,7 @@ type PlaylistTitleCell_playlistTrack_Episode_ = {
   };
 };
 
-type PlaylistTitleCell_playlistTrack_Track_ = {
+type PlaylistTitleCell_playlistTrack_Track = {
   __typename: 'Track';
   explicit: boolean;
   id: string;
@@ -2975,8 +2975,8 @@ type PlaylistTitleCell_playlistTrack_Track_ = {
 };
 
 export type PlaylistTitleCell_playlistTrack =
-  | PlaylistTitleCell_playlistTrack_Episode_
-  | PlaylistTitleCell_playlistTrack_Track_;
+  | PlaylistTitleCell_playlistTrack_Episode
+  | PlaylistTitleCell_playlistTrack_Track;
 
 export type TrackNumberCell_playbackState = {
   __typename: 'PlaybackState';
@@ -4040,7 +4040,7 @@ export type QueueRouteQuery = {
   } | null;
 };
 
-type QueueRoute_playbackItem_Episode_ = {
+type QueueRoute_playbackItem_Episode = {
   __typename: 'Episode';
   id: string;
   durationMs: number;
@@ -4056,7 +4056,7 @@ type QueueRoute_playbackItem_Episode_ = {
   };
 };
 
-type QueueRoute_playbackItem_Track_ = {
+type QueueRoute_playbackItem_Track = {
   __typename: 'Track';
   id: string;
   durationMs: number;
@@ -4074,8 +4074,8 @@ type QueueRoute_playbackItem_Track_ = {
 };
 
 export type QueueRoute_playbackItem =
-  | QueueRoute_playbackItem_Episode_
-  | QueueRoute_playbackItem_Track_;
+  | QueueRoute_playbackItem_Episode
+  | QueueRoute_playbackItem_Track;
 
 export type QueueRoute_playbackState = {
   __typename: 'PlaybackState';
