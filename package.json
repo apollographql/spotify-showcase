@@ -55,6 +55,7 @@
     "@graphql-codegen/typescript-resolvers": "4.4.0",
     "@graphql-eslint/eslint-plugin": "^4.3.0",
     "@types/inquirer": "^8.2.6",
+    "@types/node": "^24.9.2",
     "concurrently": "^8.2.0",
     "eslint": "^9.19.0",
     "eslint-plugin-react": "^7.37.4",
@@ -69,10 +70,13 @@
   "dependencies": {
     "@langchain/core": "^1.0.2",
     "@langchain/langgraph": "^1.0.1",
+    "@langchain/openai": "^1.0.0",
     "axios": "^1.13.1",
     "dotenv": "^16.6.1",
     "inquirer": "^8.2.5",
+    "langchain": "^1.0.2",
     "openai": "^6.7.0",
+    "tsx": "^4.20.6",
     "upath": "^2.0.1"
   },
   "prettier": {
