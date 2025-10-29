@@ -1,0 +1,6 @@
+endpoint: http://router:4000
+
+operations:
+  source: local
+  paths:
+    - /operations/searchTracks.graphql

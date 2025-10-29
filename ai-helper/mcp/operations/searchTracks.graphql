@@ -1,0 +1,11 @@
+query Track($q: String!, $type: [SearchType!]!) {
+  search(q: $q, type: $type) {
+    tracks {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
