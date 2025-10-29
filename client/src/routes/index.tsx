@@ -1,18 +1,18 @@
-import { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { gql, TypedDocumentNode } from '@apollo/client';
-import { useBackgroundQuery, useReadQuery } from '@apollo/client/react';
 import type { QueryRef } from '@apollo/client/react';
+import { useBackgroundQuery, useReadQuery } from '@apollo/client/react';
 import cx from 'classnames';
+import { ListMusic } from 'lucide-react';
+import { ComponentPropsWithoutRef, ReactNode } from 'react';
+import Flex from '../components/Flex';
+import Page from '../components/Page';
 import PageTitle from '../components/PageTitle';
 import PlaylistTile from '../components/PlaylistTile';
+import Skeleton from '../components/Skeleton';
+import Suspense from '../components/Suspense';
 import TileGrid from '../components/TileGrid';
 import useIsLoggedIn from '../hooks/useIsLoggedIn';
 import { IndexRouteQuery, IndexRouteQueryVariables } from '../types/api';
-import Flex from '../components/Flex';
-import Skeleton from '../components/Skeleton';
-import Suspense from '../components/Suspense';
-import Page from '../components/Page';
-import { ListMusic } from 'lucide-react';
 
 export const RouteComponent = () => {
   const isLoggedIn = useIsLoggedIn();
@@ -138,7 +138,7 @@ const LoggedOut = () => {
               redirect URI for this app to allow this app to sign in to your
               Spotify account.
             </Paragraph>
-            <CodeBlock>http://localhost:3000/oauth/finalize</CodeBlock>
+            <CodeBlock>http://127.0.0.1:3000/oauth/finalize</CodeBlock>
           </ListItem>
         </OrderedList>
         <Heading level={3}>Configure this application</Heading>

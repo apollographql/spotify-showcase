@@ -46,7 +46,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite --host 127.0.0.1",
     "build": "tsc && vite build",
     "serve": "serve dist -s -n -L -p $PORT",
     "lint:types": "tsc --noEmit -p ./tsconfig.json"

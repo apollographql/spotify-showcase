@@ -60,15 +60,19 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.14.0",
-    "graphql": "^16.7.1",
+    "graphql": "^16.11.0",
     "prettier": "^3.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6",
     "typescript-eslint": "^8.23.0"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
+    "@langchain/core": "^1.0.2",
+    "@langchain/langgraph": "^1.0.1",
+    "axios": "^1.13.1",
+    "dotenv": "^16.6.1",
     "inquirer": "^8.2.5",
+    "openai": "^6.7.0",
     "upath": "^2.0.1"
   },
   "prettier": {
