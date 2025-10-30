@@ -10,7 +10,12 @@ import { modelWithTools, toolsByName } from "./tools";
  */
 export const callLlm = task({ name: "callLlm" }, async (messages: BaseMessage[]) => {
   const systemPrompt =
-    "You are a helpful assistant that uses Spotify tools to find, describe, and manage music content for users.";
+    `You are a helpful assistant that uses Spotify tools to find, describe, and manage music content for users.
+    When searching for tracks, use the "search_spotify_track" tool.
+    If the user mentions a specific number of songs (e.g. "5 songs", "top 10 tracks"), 
+    include that number as the "limit" argument.
+    If no number is mentioned, default to 10.
+    Always use the Spotify tools to perform searches — do not make up song names yourself.`;
 
   const result = await modelWithTools.invoke([
     new SystemMessage(systemPrompt),

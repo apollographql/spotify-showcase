@@ -8,11 +8,16 @@ import model from "./model";
 
 // --- Tool that calls MCP ---
 const searchTrack = tool(
-  async ({ query }) => {
-    console.log(`🎧 Searching for tracks: ${query}`);
+  async ({ query, limit }) => {
+    const finalLimit = limit ?? 10; // default fallback
+     console.log(`🎧 Searching for tracks: "${query}" (limit=${finalLimit})`);
+
     const result = await getMcpClient().callTool({
       name: "Track",
-      arguments: { q: query, type: ["TRACK"] },
+      arguments: { 
+        q: query,
+        limit: finalLimit,
+        type: ["TRACK"] }
     });
     return JSON.stringify(result);
   },
@@ -21,6 +26,7 @@ const searchTrack = tool(
     description: "Searches for Spotify tracks matching a given user query.",
     schema: z.object({
       query: z.string().describe("A search query to find music on Spotify."),
+      limit: z.number().optional().describe("Max number of tracks to return (default 10).")
     }),
   }
 );
