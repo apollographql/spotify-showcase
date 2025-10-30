@@ -1,6 +1,6 @@
 // src/ai-helper/tests/workflowTest.ts
 import "dotenv/config";
-import { workflow } from "../workflow.js";
+import { generatePlaylistWorkflow } from "../api_workflows.js";
 
 async function main() {
   try {
@@ -13,7 +13,7 @@ async function main() {
     console.log("🎧 Prompt:", prompt);
 
     // Run the workflow
-    const result = await workflow(prompt);
+    const result = await generatePlaylistWorkflow.invoke(prompt);
 
     console.log("\n✅ Final Result:\n");
     console.log(result);

@@ -48,7 +48,7 @@ services:
       - ./mcp/operations:/operations
       - ./mcp/config.yaml:/config.yaml
     environment:
-      LOG_LEVEL: debug
+      LOG_LEVEL: error
       APOLLO_KEY: ${APOLLO_KEY}
       APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
     command: ["/config.yaml"]

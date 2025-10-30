@@ -1,41 +1,16 @@
 // Step 1: Define tools and model
 
 import { tool } from "@langchain/core/tools";
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import * as z from "zod";
 //import { getAccessToken } from "../auth";
-import { MCP_ENDPOINT, SPOTIFY_TOKEN } from "./constants";
+import { getMcpClient } from "./client";
 import model from "./model";
-
-const spotifyAccessToken: string = SPOTIFY_TOKEN; //FIXME TEMP
-//await getAccessToken();
-
-// --- MCP Client Setup ---
-const transport = new StreamableHTTPClientTransport(
-  new URL(MCP_ENDPOINT),
-  {
-    requestInit: {
-      headers: {
-        Authorization: spotifyAccessToken,
-      },
-    },
-  }
-);
-
-const mcpClient = new Client({
-  name: "spotify-langgraph-agent",
-  version: "1.0.0",
-});
-
-await mcpClient.connect(transport);
-console.log("✅ Connected to MCP server");
 
 // --- Tool that calls MCP ---
 const searchTrack = tool(
   async ({ query }) => {
     console.log(`🎧 Searching for tracks: ${query}`);
-    const result = await mcpClient.callTool({
+    const result = await getMcpClient().callTool({
       name: "Track",
       arguments: { q: query, type: ["TRACK"] },
     });
