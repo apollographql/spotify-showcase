@@ -105,6 +105,21 @@ export type AddItemsToPlaylistPayload = {
   playlist?: Maybe<Playlist>;
 };
 
+export type CreatePlaylistInput = {
+  /** The name of the new playlist. */
+  name: Scalars['String']['input'];
+  /** An optional description for the playlist. */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the playlist should be public. If omitted, Spotify's default is used. */
+  public?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type CreatePlaylistPayload = {
+  __typename?: 'CreatePlaylistPayload';
+  /** The newly created playlist */
+  playlist?: Maybe<Playlist>;
+};
+
 /** Spotify catalog information for an album. */
 export type Album = {
   __typename?: 'Album';
@@ -681,6 +696,8 @@ export type Mutation = {
    * the timeout and error rate are set to 0.
    */
   updateFieldConfig?: Maybe<UpdateFieldConfigPayload>;
+  /** Create a playlist for the current user. */
+  createPlaylist?: Maybe<CreatePlaylistPayload>;
 };
 
 export type MutationAddItemToPlaybackQueueArgs = {
@@ -717,6 +734,10 @@ export type MutationResetFieldConfigArgs = {
 
 export type MutationSaveAlbumsArgs = {
   input: SaveAlbumsInput;
+};
+
+export type MutationCreatePlaylistArgs = {
+  input: CreatePlaylistInput;
 };
 
 export type MutationSaveEpisodesArgs = {
@@ -2110,6 +2131,10 @@ export type ResolversTypes = ResolversObject<{
       playlist?: Maybe<ResolversTypes['Playlist']>;
     }
   >;
+  CreatePlaylistInput: CreatePlaylistInput;
+  CreatePlaylistPayload: ResolverTypeWrapper<
+    Omit<CreatePlaylistPayload, 'playlist'> & { playlist?: Maybe<ResolversTypes['Playlist']> }
+  >;
   Album: ResolverTypeWrapper<
     Spotify.Object.Album | Spotify.Object.AlbumSimplified
   >;
@@ -3234,6 +3259,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationUpdateFieldConfigArgs, 'input'>
+  >;
+  createPlaylist?: Resolver<
+    Maybe<ResolversTypes['CreatePlaylistPayload']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreatePlaylistArgs, 'input'>
   >;
 }>;
 

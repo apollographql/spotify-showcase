@@ -1,6 +1,6 @@
 import { forwardRef, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Home, Library, Search } from 'lucide-react';
+import { Home, Library, Search, Bot } from 'lucide-react';
 import cx from 'classnames';
 import ApolloLogo from '../ApolloLogo';
 import NavLink from './NavLink';
@@ -25,6 +25,9 @@ const Sidebar = ({ children }: SidebarProps) => {
           </NavLink>
           <NavLink icon={<Library />} to="/collection/playlists">
             Library
+          </NavLink>
+          <NavLink icon={<Bot />} to="/ai-agent">
+            AI Agent
           </NavLink>
         </Section>
         {children}

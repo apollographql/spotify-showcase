@@ -1,4 +1,4 @@
-import { RepeatMode } from '../types/api';
+import { RepeatMode } from '../types/api.schema';
 import PlaybarControlButton from './PlaybarControlButton';
 import RepeatIcon from './RepeatIcon';
 import useSetRepeatModeMutation from '../mutations/useSetRepeatModeMutation';

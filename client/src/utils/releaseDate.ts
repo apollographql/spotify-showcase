@@ -1,4 +1,4 @@
-import { ReleaseDate, ReleaseDatePrecision } from '../types/api';
+import { ReleaseDate, ReleaseDatePrecision } from '../types/api.schema';
 import { parse } from 'date-fns';
 
 export const yearOfRelease = (releaseDate: Pick<ReleaseDate, 'date'>) => {
@@ -7,11 +7,11 @@ export const yearOfRelease = (releaseDate: Pick<ReleaseDate, 'date'>) => {
 
 export const parseReleaseDate = (releaseDate: ReleaseDate) => {
   switch (releaseDate.precision) {
-    case ReleaseDatePrecision.Day:
+  case ReleaseDatePrecision.DAY:
       return parse(releaseDate.date, 'yyyy-MM-dd', new Date());
-    case ReleaseDatePrecision.Month:
+  case ReleaseDatePrecision.MONTH:
       return parse(releaseDate.date, 'yyyy-MM', new Date());
-    case ReleaseDatePrecision.Year:
+  case ReleaseDatePrecision.YEAR:
       return parse(releaseDate.date, 'yyyy', new Date());
   }
 };

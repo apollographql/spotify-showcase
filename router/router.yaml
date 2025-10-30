@@ -38,12 +38,12 @@ limits:
 #####################
 # Automatic persisted queries must be disabled to use persised queries with safelisting
 #####################
-apq:
-  enabled: false
-  router:
-    cache:
-      in_memory:
-        limit: 512 # This is the default value
+# apq:
+#   enabled: false
+#   router:
+#     cache:
+#       in_memory:
+#         limit: 512 # This is the default value
 #persisted_queries:
 #  enabled: true
 #  safelist:
