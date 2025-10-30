@@ -50,6 +50,12 @@ const generatePlaylistWorkflow = entrypoint(
       - id: string (Spotify track ID, or empty if unknown)
       - name: string
       - artist: string
+      Use the following format: {
+        "result:" [
+          { "id": "track_id", "name": "track name", "artist": "artist name" },
+          ...
+        ]
+      }
     `;
     const formatted = await callLlm([...msgs, new HumanMessage(formatPrompt)]);
 

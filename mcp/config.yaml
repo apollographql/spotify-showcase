@@ -4,6 +4,8 @@ operations:
   source: local
   paths:
     - /operations/searchTracks.graphql
+    - /operations/searchAlbums.graphql
+    - /operations/searchArtists.graphql
 
 forward_headers:
   - Authorization

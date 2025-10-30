@@ -1,4 +1,4 @@
-query SearchTracks($q: String!, $type: [SearchType!]!, $limit: Int) {
+query SearchAlbums($q: String!, $type: [SearchType!]!, $limit: Int) {
   search(q: $q, type: $type, limit: $limit) {
     tracks {
       edges {
