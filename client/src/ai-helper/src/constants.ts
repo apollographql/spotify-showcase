@@ -1,0 +1,7 @@
+
+
+const MCP_ENDPOINT = "http://127.0.0.1:8000/mcp"
+const SPOTIFY_TOKEN = "BQCi1-MOAmohsGxs-m9AHfkrhujd6BbYjmeWJifuIJYj1clOeBIHcKovG0dr6an826XHXFuexkvUzyS_gppaX_6gbgv1B9BfWtdJBmtlNWHOubXjqlIfQLdOgO4YgkkWqxWCmLY9SQoDAOFemPIy34-hRFwLOtVAAcwtjEQuc-64We20jLlHOPHw2v3B51f32iT8fPkqdF5MFxKZgya2k8ZB7fyEmzQ6GHEpBm6Sz3K5mT3ZW8gyTerAHsqaB6R0iWUwOrvOgCEy_l1n3lGfQv1nhlkVaxtyUk6_6xB_7TtBNvCu8QZso9vAcrOXjdi_8dUCHHtdwTNTkNY6Kd2sxbTr0OcUOrjfFl3_yfY";
+
+
+export { MCP_ENDPOINT, SPOTIFY_TOKEN };

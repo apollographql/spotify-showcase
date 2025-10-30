@@ -7,14 +7,15 @@
   },
   "dependencies": {
     "@langchain/core": "latest",
-    "@langchain/openai": "latest",
     "@langchain/langgraph": "latest",
-    "zod": "latest",
-    "dotenv": "latest"
+    "@langchain/openai": "latest",
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "dotenv": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
+    "@types/node": "latest",
     "tsx": "latest",
-    "typescript": "latest",
-    "@types/node": "latest"
+    "typescript": "latest"
   }
 }
