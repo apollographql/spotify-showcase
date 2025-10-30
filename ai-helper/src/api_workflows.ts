@@ -40,25 +40,33 @@ const generatePlaylistWorkflow = entrypoint(
       modelResponse = await callLlm(msgs);
     }
 
-    console.log(`\n✅ Finished after ${step} step(s).\n`);
+    console.log(`\n✅ Finished after ${step} tool call(s).\n`);
 
     // 🧠 Ask model to format the result
     const formatPrompt = `
-Format the final output as a valid JSON array of objects.
-Each object must include:
-- id: string (Spotify track ID, or empty if unknown)
-- name: string
-- artist: string
-Return ONLY valid JSON, no commentary.
-`;
+      Format the final output as a valid JSON array of objects.
+      Return ONLY raw JSON without markdown code fences or commentary.
+      Each object must include:
+      - id: string (Spotify track ID, or empty if unknown)
+      - name: string
+      - artist: string
+    `;
     const formatted = await callLlm([...msgs, new HumanMessage(formatPrompt)]);
+
+    console.log("\n🧠 Raw model formatting response:");
+    console.log("Type:", typeof formatted.content);
+    console.log("Content:", formatted.content);
+    console.log("Full object:", JSON.stringify(formatted, null, 2));
 
     let parsed: SuggestedSong[] = [];
     try {
-      const text =
+      let text =
         typeof formatted.content === "string"
           ? formatted.content
           : JSON.stringify(formatted.content);
+
+      // 🧹 remove markdown wrappers (```json ... ```)
+      text = text.replace(/```json|```/g, "").trim();
       parsed = JSON.parse(text);
     } catch (e) {
       console.warn("⚠️ Failed to parse model JSON output:", e);

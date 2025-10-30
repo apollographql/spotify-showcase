@@ -4,6 +4,16 @@ query Track($q: String!, $type: [SearchType!]!) {
       edges {
         node {
           name
+          id
+          durationMs
+          popularity
+          trackNumber
+          album {
+            name
+          }
+          artists {
+            name
+          }
         }
       }
     }
