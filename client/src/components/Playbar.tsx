@@ -2,12 +2,11 @@ import cx from 'classnames';
 import { TypedDocumentNode, gql } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/client/react';
 import {
-  Action,
-  RepeatMode,
   PlaybarQuery,
   PlaybarQueryVariables,
   Playbar_playbackState as PlaybackState,
 } from '../types/api';
+import { Action, RepeatMode } from '../types/api.schema';
 import { Volume1 } from 'lucide-react';
 import CoverPhoto from './CoverPhoto';
 import PlayButton from './PlayButton';

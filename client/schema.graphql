@@ -1000,6 +1000,13 @@ type Mutation {
     context: SetVolumeContextInput
   ): SetVolumeResponse
 
+
+  """
+  Create a playlist for the current user.
+  - input: CreatePlaylistInput (name, description, public)
+  - returns: CreatePlaylistPayload (playlist)
+  """
+  createPlaylist(input: CreatePlaylistInput!): CreatePlaylistPayload
   """
   Toggle shuffle on or off for user’s playback.
   """
@@ -1368,6 +1375,16 @@ type Player {
     """
     limit: Int
   ): RecentlyPlayedConnection
+}
+
+input CreatePlaylistInput {
+  name: String!
+  description: String
+  public: Boolean
+}
+
+type CreatePlaylistPayload {
+  playlist: Playlist
 }
 
 """

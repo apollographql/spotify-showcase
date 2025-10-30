@@ -1,4 +1,4 @@
-import { __TypeKind } from '../types/api';
+import { TypeKind } from '../types/api.schema';
 
 interface SchemaType {
   name: string | null;

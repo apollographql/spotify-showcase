@@ -1,4340 +1,3291 @@
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
-    };
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  CountryCode: { input: string; output: string };
-  DateTime: { input: string; output: string };
-  ErrorRate: { input: number; output: number };
-  Timestamp: { input: number; output: number };
-};
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+const defaultOptions = {} as const;
+export type AlbumTileAlbumFragment = { __typename?: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename?: 'ReleaseDate', date: string }, images: Array<{ __typename?: 'Image', url: string }> };
 
-export enum Action {
-  InterruptingPlayback = 'INTERRUPTING_PLAYBACK',
-  Pausing = 'PAUSING',
-  Resuming = 'RESUMING',
-  Seeking = 'SEEKING',
-  SkippingNext = 'SKIPPING_NEXT',
-  SkippingPrev = 'SKIPPING_PREV',
-  TogglingRepeatContext = 'TOGGLING_REPEAT_CONTEXT',
-  TogglingRepeatTrack = 'TOGGLING_REPEAT_TRACK',
-  TogglingShuffle = 'TOGGLING_SHUFFLE',
-  TransferringPlayback = 'TRANSFERRING_PLAYBACK',
-}
+export type AlbumTrackTitleCellPlaybackStateFragment = { __typename?: 'PlaybackState', context?: { __typename?: 'PlaybackContext', uri: string } | null, item?: { __typename?: 'Episode', id: string, uri: string } | { __typename?: 'Track', id: string, uri: string } | null };
 
-export type Actions = {
-  __typename: 'Actions';
-  disallows: Array<Action>;
-};
+export type AlbumTrackTitleCellAlbumFragment = { __typename?: 'Album', id: string, uri: string };
 
-export type AddItemToPlaybackQueueInput = {
-  /**
-   * The id of the device this command is targeting. If not supplied, the user's
-   * currently active device is the target.
-   */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-  /** The uri of the item to add to the queue. Must be a track or an episode uri. */
-  uri: Scalars['String']['input'];
-};
+export type AlbumTrackTitleCellTrackFragment = { __typename?: 'Track', id: string, name: string, uri: string, explicit: boolean, artists: Array<{ __typename?: 'Artist', id: string, name: string }> };
 
-export type AddItemToPlaybackQueuePayload = {
-  __typename: 'AddItemToPlaybackQueuePayload';
-  playbackQueue: Maybe<PlaybackQueue>;
-};
+export type AlbumTracksTableAlbumFragment = { __typename?: 'Album', id: string, uri: string, tracks?: { __typename?: 'AlbumTrackConnection', edges: Array<{ __typename?: 'AlbumTrackEdge', node: { __typename?: 'Track', id: string, uri: string, durationMs: number, trackNumber?: number | null, name: string, explicit: boolean, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } }> } | null };
 
-export type AddItemsToPlaylistInput = {
-  /**
-   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * of the playlist.
-   */
-  playlistId: Scalars['ID']['input'];
-  /**
-   * The position to insert the items, a zero-based index. For example, to insert
-   * the items in the first position: **position=0**; to insert the items in the
-   * third position: **position=2**. If omitted, the items will be appended to the
-   * playlist. Items are added in the order they are listed in the query string or
-   * request body.
-   */
-  position?: InputMaybe<Scalars['Int']['input']>;
-  /**
-   * A comma-separated list of [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * to add, can be track or episode URIs. A maximum of 100 items can be added in
-   * one request.
-   */
-  uris: Array<Scalars['String']['input']>;
-};
+export type ArtistTileArtistFragment = { __typename?: 'Artist', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> };
 
-export type AddItemsToPlaylistPayload = {
-  __typename: 'AddItemsToPlaylistPayload';
-  /** The playlist that contains the newly added items */
-  playlist: Maybe<Playlist>;
-};
+export type ArtistTopTracksTracksFragment = { __typename?: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename?: 'Album', id: string, images: Array<{ __typename?: 'Image', url: string }> } };
 
-/** Spotify catalog information for an album. */
-export type Album = {
-  __typename: 'Album';
-  /** The type of the album. */
-  albumType: AlbumType;
-  /** The artists of the album. */
-  artists: Array<Artist>;
-  /** The copyrights for the album. */
-  copyrights: Array<Copyright>;
-  /** Known external URLs for this album. */
-  externalUrls: ExternalUrl;
-  /** Genres for the album. */
-  genres: Array<Scalars['String']['output']>;
-  /** A link to the Web API endpoint providing full details of the album. */
-  href: Scalars['String']['output'];
-  /**
-   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the album.
-   */
-  id: Scalars['ID']['output'];
-  /** The cover art for the album in various sizes, widest first. */
-  images: Array<Image>;
-  /** The label the album was released under. */
-  label: Maybe<Scalars['String']['output']>;
-  /**
-   * The name of the album. In case of an album takedown, the value may be an empty
-   * string.
-   */
-  name: Scalars['String']['output'];
-  /** The date the album was first released. */
-  releaseDate: ReleaseDate;
-  /** The number of tracks in the album. */
-  totalTracks: Scalars['Int']['output'];
-  /** The tracks of the album. */
-  tracks: Maybe<AlbumTrackConnection>;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the album.
-   */
-  uri: Scalars['String']['output'];
-};
+type AvatarProfileCurrentUserProfileFragment = { __typename?: 'CurrentUserProfile', id: string, images?: Array<{ __typename?: 'Image', url: string }> | null };
 
-/** Spotify catalog information for an album. */
-export type AlbumtracksArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
+type AvatarProfileUserFragment = { __typename?: 'User', id: string, images?: Array<{ __typename?: 'Image', url: string }> | null };
 
-export enum AlbumGroup {
-  Album = 'ALBUM',
-  AppearsOn = 'APPEARS_ON',
-  Compilation = 'COMPILATION',
-  Single = 'SINGLE',
-}
+export type AvatarProfileFragment = AvatarProfileCurrentUserProfileFragment | AvatarProfileUserFragment;
 
-export type AlbumTrackConnection = {
-  __typename: 'AlbumTrackConnection';
-  /** The set of tracks. */
-  edges: Array<AlbumTrackEdge>;
-  /** Pagination information for the set of tracks. */
-  pageInfo: PageInfo;
-};
-
-export type AlbumTrackEdge = {
-  __typename: 'AlbumTrackEdge';
-  /** The track on the album */
-  node: Track;
-};
-
-export enum AlbumType {
-  Album = 'ALBUM',
-  Compilation = 'COMPILATION',
-  Single = 'SINGLE',
-}
-
-/** Spotify catalog information for an artist. */
-export type Artist = {
-  __typename: 'Artist';
-  /** Spotify catalog information about an artist's albums. */
-  albums: Maybe<ArtistAlbumsConnection>;
-  /** Known external URLs for this artist. */
-  externalUrls: ExternalUrl;
-  /** Information about the followers of the artist. */
-  followers: Followers;
-  /**
-   * A list of the genres the artist is associated with. If not yet classified, the
-   * array is empty.
-   */
-  genres: Array<Scalars['String']['output']>;
-  /** A link to the Web API endpoint providing full details of the artist. */
-  href: Scalars['String']['output'];
-  /**
-   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the artist.
-   */
-  id: Scalars['ID']['output'];
-  /** Images of the artist in various sizes, widest first. */
-  images: Array<Image>;
-  /** The name of the artist. */
-  name: Scalars['String']['output'];
-  /**
-   * The popularity of the artist. The value will be between 0 and 100, with 100
-   * being the most popular. The artist's popularity is calculated from the
-   * popularity of all the artist's tracks.
-   */
-  popularity: Scalars['Int']['output'];
-  /**
-   * Spotify catalog information about artists similar to a given artist.
-   * Similarity is based on analysis of the Spotify community's
-   * [listening history](http://news.spotify.com/se/2010/02/03/related-artists/).
-   * @deprecated This endpoint no longer exists in the Spotify API
-   */
-  relatedArtists: Array<Artist>;
-  /** Spotify catalog information about an artist's top tracks. */
-  topTracks: Array<Track>;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the artist.
-   */
-  uri: Scalars['String']['output'];
-};
-
-/** Spotify catalog information for an artist. */
-export type ArtistalbumsArgs = {
-  includeGroups?: InputMaybe<Array<AlbumGroup>>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type ArtistAlbumEdge = {
-  __typename: 'ArtistAlbumEdge';
-  /** Spotify catalog information for the album. */
-  node: Album;
-};
-
-export type ArtistAlbumsConnection = {
-  __typename: 'ArtistAlbumsConnection';
-  /** A list of albums that belong to the artist. */
-  edges: Maybe<Array<ArtistAlbumEdge>>;
-  /** "Pagination information for the set of albums" */
-  pageInfo: PageInfo;
-};
-
-export enum ColorFormat {
-  Rgb = 'RGB',
-}
-
-export type Contains = {
-  __typename: 'Contains';
-  /**
-   * List of booleans in order of albums requested. `true` means the album is in
-   * the Spotify user's library. This field is `null` if omitted in the request.
-   */
-  albums: Maybe<Array<Scalars['Boolean']['output']>>;
-  /**
-   * List of booleans in order of episodes requested. `true` means the episode is in
-   * the Spotify user's library. This field is `null` if omitted in the request.
-   */
-  episodes: Maybe<Array<Scalars['Boolean']['output']>>;
-  /**
-   * List of booleans in order of shows requested. `true` means the show is in
-   * the Spotify user's library. This field is `null` if omitted in the request.
-   */
-  shows: Maybe<Array<Scalars['Boolean']['output']>>;
-  /**
-   * List of booleans in order of tracks requested. `true` means the track is in
-   * the Spotify user's library. This field is `null` if omitted in the request.
-   */
-  tracks: Maybe<Array<Scalars['Boolean']['output']>>;
-};
-
-export type Copyright = {
-  __typename: 'Copyright';
-  /** The copyright text for this content. */
-  text: Scalars['String']['output'];
-  /**
-   * The type of copyright: `C` = the copyright, `P` = the sound recording
-   * (performance) copyright.
-   */
-  type: Maybe<CopyrightType>;
-};
-
-export enum CopyrightType {
-  /** The copyright */
-  C = 'C',
-  /** The sound recording (performance) copyright. */
-  P = 'P',
-}
-
-export type CurrentUser = {
-  __typename: 'CurrentUser';
-  /**
-   * Get a list of the albums saved in the current Spotify user's 'Your Music'
-   * library.
-   */
-  albums: Maybe<SavedAlbumsConnection>;
-  /**
-   * Check if one or more albums is already saved in the current Spotify user's
-   * 'Your Music' library.
-   */
-  albumsContains: Maybe<Array<Scalars['Boolean']['output']>>;
-  episodes: Maybe<SavedEpisodesConnection>;
-  /**
-   * Check if one or more episodes is already saved in the current Spotify user's
-   * 'Your Episodes' library.
-   */
-  episodesContains: Maybe<Array<Scalars['Boolean']['output']>>;
-  /** Get the current user's followed artists. */
-  followedArtists: Maybe<FollowedArtistsConnection>;
-  /** Information about the user's current playback state */
-  player: Player;
-  /** Playlists owned or followed by the current Spotify user. */
-  playlists: Maybe<PlaylistConnection>;
-  /** Get detailed profile information about the current user (including the current user's username). */
-  profile: CurrentUserProfile;
-  /** Get a list of the albums saved in the current Spotify user's 'Your Music' library. */
-  shows: Maybe<SavedShowsConnection>;
-  /**
-   * Check if one or more shows is already saved in the current Spotify user's
-   * library.
-   */
-  showsContains: Maybe<Array<Scalars['Boolean']['output']>>;
-  /** Get the current user's top artists based on calculated affinity. */
-  topArtists: Maybe<TopArtistsConnection>;
-  /** Get the current user's top tracks based on calculated affinity. */
-  topTracks: Maybe<TopTracksConnection>;
-  tracks: Maybe<SavedTracksConnection>;
-  /**
-   * Check if one or more tracks is already saved in the current Spotify user's
-   * 'Your Music' library.
-   */
-  tracksContains: Maybe<Array<Scalars['Boolean']['output']>>;
-  /**
-   * Detailed profile information about the current user.
-   * @deprecated Use the profile field instead which provides richer current user information.
-   */
-  user: User;
-};
-
-export type CurrentUseralbumsArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CurrentUseralbumsContainsArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type CurrentUserepisodesArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CurrentUserepisodesContainsArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type CurrentUserfollowedArtistsArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CurrentUserplaylistsArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CurrentUsershowsArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CurrentUsershowsContainsArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type CurrentUsertopArtistsArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  timeRange?: InputMaybe<TimeRange>;
-};
-
-export type CurrentUsertopTracksArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  timeRange?: InputMaybe<TimeRange>;
-};
-
-export type CurrentUsertracksArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type CurrentUsertracksContainsArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type CurrentUserProfile = UserProfile & {
-  __typename: 'CurrentUserProfile';
-  /**
-   * The country of the user, as set in the user's account profile. An ISO 3166-1
-   * alpha-2 country code.
-   */
-  country: Maybe<Scalars['CountryCode']['output']>;
-  /** The name displayed on the user's profile. `null` if not available. */
-  displayName: Maybe<Scalars['String']['output']>;
-  /**
-   * The user's email address, as entered by the user when creating their account.
-   * _**Important!** This email address is unverified; there is no proof that it
-   * actually belongs to the user._
-   */
-  email: Scalars['String']['output'];
-  /** The user's explicit content settings. */
-  explicitContent: ExplicitContentSettings;
-  /** Information about the followers of the user. */
-  followers: Followers;
-  /** A link to the Web API endpoint for this user. */
-  href: Scalars['String']['output'];
-  /**
-   * The [Spotify user ID](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
-   * for the user.
-   */
-  id: Scalars['ID']['output'];
-  /** The user's profile image. */
-  images: Maybe<Array<Image>>;
-  /**
-   * The user's Spotify subscription level: "premium", "free", etc. (The
-   * subscription level "open" can be considered the same as "free".)
-   */
-  product: Scalars['String']['output'];
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/concepts/spotify-uris-ids)
-   * for the user.
-   */
-  uri: Scalars['String']['output'];
-};
-
-export type CurrentlyPlaying = {
-  __typename: 'CurrentlyPlaying';
-  /**
-   * Allows to update the user interface based on which playback actions are
-   * available within the current context.
-   */
-  actions: Actions;
-  /** A context object. */
-  context: Maybe<PlaybackContext>;
-  /** If something is currently playing, return `true`. */
-  isPlaying: Scalars['Boolean']['output'];
-  /** The currently playing track or episode */
-  item: Maybe<PlaybackItem>;
-  /** Progress into the currently playing track or episode. Can be `null` */
-  progressMs: Maybe<Scalars['Int']['output']>;
-  /** Unix Millisecond Timestamp when data was fetched. */
-  timestamp: Scalars['Timestamp']['output'];
-};
-
-export type Cursors = {
-  __typename: 'Cursors';
-  /** The cursor to use as key to find the next page of items. */
-  after: Maybe<Scalars['String']['output']>;
-  /** The ursor to use as key to find the previous page of items. */
-  before: Maybe<Scalars['String']['output']>;
-};
-
-export type Developer = {
-  __typename: 'Developer';
-  /**
-   * A list of configured GraphQL fields. Only fields that have non-zero timeouts
-   * and error rates will be listed.
-   */
-  fieldConfigs: Array<FieldConfig>;
-};
-
-export type Device = {
-  __typename: 'Device';
-  /** The device ID */
-  id: Maybe<Scalars['ID']['output']>;
-  /** If this device is the currently active device. */
-  isActive: Scalars['Boolean']['output'];
-  /** If this device is currently in a private session. */
-  isPrivateSession: Scalars['Boolean']['output'];
-  /**
-   * Whether controlling this device is restricted. At present if this is "true",
-   * then no Web API commands will be accepted by this device.
-   */
-  isRestricted: Scalars['Boolean']['output'];
-  /**
-   * A human-readable name for the device. Some devices have a name that the user
-   * can configure (e.g. "Loudest speaker") and some devices have a generic name
-   * associated with the manufacturer or device model.
-   */
-  name: Scalars['String']['output'];
-  /** Device type, such as "computer", "smartphone" or "speaker". */
-  type: Scalars['String']['output'];
-  /**
-   * The current volume in percent.
-   *
-   * >= 0    <= 100
-   */
-  volumePercent: Scalars['Int']['output'];
-};
-
-/** Spotify catalog information for an episode. */
-export type Episode = PlaybackItem &
-  PlaylistTrack & {
-    __typename: 'Episode';
-    /** A URL to a 30 second preview (MP3 format) of the episode. `null` if not available. */
-    audioPreviewUrl: Maybe<Scalars['String']['output']>;
-    /** A description of the episode */
-    description: Scalars['String']['output'];
-    /** The episode length in milliseconds. */
-    durationMs: Scalars['Int']['output'];
-    /**
-     * Whether or not the episode has explicit content (`true` = yes it does;
-     * `false` = no it does not OR unknown).
-     */
-    explicit: Scalars['Boolean']['output'];
-    /** External URLs for this episode. */
-    externalUrls: ExternalUrl;
-    /** A link to the Web API endpoint providing full details of the episode. */
-    href: Scalars['String']['output'];
-    /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the episode. */
-    id: Scalars['ID']['output'];
-    /** The cover art for the episode in various sizes, widest first. */
-    images: Array<Image>;
-    /** `true` if the episode is hosted outside of Spotify's CDN. */
-    isExternallyHosted: Scalars['Boolean']['output'];
-    /** `true` if the episode is playable in the given market. Otherwise `false`. */
-    isPlayable: Scalars['Boolean']['output'];
-    /**
-     * A list of the languages used in the episode, identified by their
-     * [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639) code.
-     */
-    languages: Array<Scalars['String']['output']>;
-    /** The name of the episode. */
-    name: Scalars['String']['output'];
-    /** The date the episode was first released */
-    releaseDate: ReleaseDate;
-    /** The user's most recent position in the episode. */
-    resumePoint: ResumePoint;
-    /** The show containing the episode. */
-    show: Show;
-    /**
-     * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-     * for the episode.
-     */
-    uri: Scalars['String']['output'];
-  };
-
-/** Spotify catalog information for an episode. */
-export type EpisodedescriptionArgs = {
-  format?: InputMaybe<TextFormat>;
-};
-
-export type ExplicitContentSettings = {
-  __typename: 'ExplicitContentSettings';
-  /** When `true`, indicates that explicit content should not be played. */
-  filterEnabled: Scalars['Boolean']['output'];
-  /**
-   * When `true`, indicates that the explicit content setting is locked and can't
-   * be changed by the user.
-   */
-  filterLocked: Scalars['Boolean']['output'];
-};
-
-export type ExternalUrl = {
-  __typename: 'ExternalUrl';
-  /**
-   * The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the object.
-   */
-  spotify: Maybe<Scalars['String']['output']>;
-};
-
-export type FeaturedPlaylistConnection = {
-  __typename: 'FeaturedPlaylistConnection';
-  /**
-   * A list of Spotify featured playlists (shown, for example, on a Spotify player's
-   * 'Browse' tab).
-   */
-  edges: Array<FeaturedPlaylistEdge>;
-  message: Scalars['String']['output'];
-  /** Pagination information for the set of playlists */
-  pageInfo: PageInfo;
-};
-
-export type FeaturedPlaylistEdge = {
-  __typename: 'FeaturedPlaylistEdge';
-  node: Playlist;
-};
-
-export type FieldConfig = {
-  __typename: 'FieldConfig';
-  /** The synthetic error rate configured for the field. */
-  errorRate: Scalars['ErrorRate']['output'];
-  /** The schema field that includes this config */
-  schemaField: SchemaField;
-  /** The synthetic timeout configured for the field. */
-  timeout: Scalars['Int']['output'];
-};
-
-export type FieldConfigInput = {
-  /**
-   * The synthetic error rate configured for a field. This should be a value
-   * between `0` and `1` where `0` means no synthetic errors should be thrown and
-   * `1` means errors should be thrown 100% of the time. Set to `null` to reset the
-   * value back to its default. Omit this field to maintain its value. Defaults to
-   * `0`.
-   */
-  errorRate?: InputMaybe<Scalars['ErrorRate']['input']>;
-  /**
-   * The synthetic timeout configured for a field. Set to `null` to reset the value
-   * back to its default. Omit this field to maintain its value. Defaults to `0`.
-   */
-  timeout?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type FieldInput = {
-  /**
-   * Configure a field by its type in the schema. This will apply the config to all
-   * fields of the given type regardless of where it is queried in the scheam.
-   *
-   * One of `path` or `schema` is required. If both are provided, `schema` will
-   * take precendence as it has broader impact.
-   */
-  schemaField?: InputMaybe<SchemaFieldInput>;
-};
-
-export type FollowedArtistEdge = {
-  __typename: 'FollowedArtistEdge';
-  /** The followed artist */
-  node: Artist;
-};
-
-export type FollowedArtistsConnection = {
-  __typename: 'FollowedArtistsConnection';
-  /** The list of followed artists. */
-  edges: Array<FollowedArtistEdge>;
-  /** Pagination information for the set of followed artists. */
-  pageInfo: PageInfoCursorBased;
-};
-
-export type Followers = {
-  __typename: 'Followers';
-  /** The total number of followers. */
-  total: Scalars['Int']['output'];
-};
-
-export type Image = {
-  __typename: 'Image';
-  /** The image height in pixels. */
-  height: Maybe<Scalars['Int']['output']>;
-  /** The source URL of the image. */
-  url: Scalars['String']['output'];
-  vibrantColor: Maybe<Scalars['String']['output']>;
-  /** The image width in pixels. */
-  width: Maybe<Scalars['Int']['output']>;
-};
-
-export type ImagevibrantColorArgs = {
-  alpha?: InputMaybe<Scalars['Float']['input']>;
-  format: ColorFormat;
-};
-
-export type Mutation = {
-  __typename: 'Mutation';
-  /** Add an item to the end of the user's current playback queue. */
-  addItemToPlaybackQueue: Maybe<AddItemToPlaybackQueuePayload>;
-  /** Add one or more items to a user's playlist. */
-  addItemsToPlaylist: Maybe<AddItemsToPlaylistPayload>;
-  /** Pause playback on the user's account. */
-  pausePlayback: Maybe<PausePlaybackResponse>;
-  /** Remove one or more items from a user's playlist. */
-  removeItemFromPlaylist: Maybe<RemoveItemFromPlaylistPayload>;
-  /** Remove one or more albums from the current user's 'Your Music' library. */
-  removeSavedAlbums: Maybe<RemoveSavedAlbumsPayload>;
-  /** Remove one or more episodes from the current user's library. */
-  removeSavedEpisodes: Maybe<RemoveSavedEpisodesPayload>;
-  /** Delete one or more shows from current Spotify user's library. */
-  removeSavedShows: Maybe<RemoveSavedShowsPayload>;
-  /** Remove one or more tracks from the current user's 'Your Music' library. */
-  removeSavedTracks: Maybe<RemoveSavedTracksPayload>;
-  /** Reset a field's config back to its default values. */
-  resetFieldConfig: Maybe<ResetFieldConfigPayload>;
-  /** Start a new context or resume current playback on the user's active device. */
-  resumePlayback: Maybe<ResumePlaybackPayload>;
-  /** Save one or more albums to the current user's 'Your Music' library. */
-  saveAlbums: Maybe<SaveAlbumsPayload>;
-  /** Save one or more episodes to the current user's library. */
-  saveEpisodes: Maybe<SaveEpisodesPayload>;
-  /** Save one or more shows to current Spotify user's library. */
-  saveShows: Maybe<SaveShowsPayload>;
-  /** Save one or more tracks to the current user's 'Your Music' library. */
-  saveTracks: Maybe<SaveTracksPayload>;
-  /** Seeks to the given position in the user’s currently playing track. */
-  seekToPosition: Maybe<SeekToPositionResponse>;
-  /** Set the repeat mode for the user's playback. */
-  setRepeatMode: Maybe<SetRepeatModeResponse>;
-  /** Set the volume for the user’s current playback device. */
-  setVolume: Maybe<SetVolumeResponse>;
-  /** Toggle shuffle on or off for user’s playback. */
-  shufflePlayback: Maybe<ShufflePlaybackResponse>;
-  /** Skips to next track in the user’s queue. */
-  skipToNext: Maybe<SkipToNextResponse>;
-  /** Skips to previous track in the user’s queue. */
-  skipToPrevious: Maybe<SkipToPreviousResponse>;
-  /** Transfer playback to a new device and determine if it should start playing. */
-  transferPlayback: Maybe<TransferPlaybackPayload>;
-  /**
-   * Update configuration for a field in the schema. Allows tweaks to the
-   * synthetic timeouts and error rates associated with the field. By default, both
-   * the timeout and error rate are set to 0.
-   */
-  updateFieldConfig: Maybe<UpdateFieldConfigPayload>;
-};
-
-export type MutationaddItemToPlaybackQueueArgs = {
-  input: AddItemToPlaybackQueueInput;
-};
-
-export type MutationaddItemsToPlaylistArgs = {
-  input: AddItemsToPlaylistInput;
-};
-
-export type MutationpausePlaybackArgs = {
-  context?: InputMaybe<PausePlaybackContextInput>;
-};
-
-export type MutationremoveItemFromPlaylistArgs = {
-  input: RemoveItemFromPlaylistInput;
-};
-
-export type MutationremoveSavedAlbumsArgs = {
-  input: RemoveSavedAlbumsInput;
-};
-
-export type MutationremoveSavedEpisodesArgs = {
-  input: RemoveSavedEpisodesInput;
-};
-
-export type MutationremoveSavedShowsArgs = {
-  input: RemoveSavedShowsInput;
-};
-
-export type MutationremoveSavedTracksArgs = {
-  input: RemoveSavedTracksInput;
-};
-
-export type MutationresetFieldConfigArgs = {
-  input: ResetFieldConfigInput;
-};
-
-export type MutationresumePlaybackArgs = {
-  input?: InputMaybe<ResumePlaybackInput>;
-};
-
-export type MutationsaveAlbumsArgs = {
-  input: SaveAlbumsInput;
-};
-
-export type MutationsaveEpisodesArgs = {
-  input: SaveEpisodesInput;
-};
-
-export type MutationsaveShowsArgs = {
-  input: SaveShowsInput;
-};
-
-export type MutationsaveTracksArgs = {
-  input: SaveTracksInput;
-};
-
-export type MutationseekToPositionArgs = {
-  context?: InputMaybe<SeekToPositionContextInput>;
-  positionMs: Scalars['Int']['input'];
-};
-
-export type MutationsetRepeatModeArgs = {
-  context?: InputMaybe<SetRepeatModeContextInput>;
-  state: RepeatMode;
-};
-
-export type MutationsetVolumeArgs = {
-  context?: InputMaybe<SetVolumeContextInput>;
-  volumePercent: Scalars['Int']['input'];
-};
-
-export type MutationshufflePlaybackArgs = {
-  context?: InputMaybe<ShufflePlaybackContextInput>;
-  state: Scalars['Boolean']['input'];
-};
-
-export type MutationskipToNextArgs = {
-  context?: InputMaybe<SkipToNextContextInput>;
-};
-
-export type MutationskipToPreviousArgs = {
-  context?: InputMaybe<SkipToPreviousContextInput>;
-};
-
-export type MutationtransferPlaybackArgs = {
-  input: TransferPlaybackInput;
-};
-
-export type MutationupdateFieldConfigArgs = {
-  input: UpdateFieldConfigInput;
-};
-
-export type NewReleaseEdge = {
-  __typename: 'NewReleaseEdge';
-  /** The newly released album */
-  node: Album;
-};
-
-export type NewReleasesConnection = {
-  __typename: 'NewReleasesConnection';
-  /** The list of new releases */
-  edges: Array<NewReleaseEdge>;
-  /** Pagination information for the new releases */
-  pageInfo: PageInfo;
-};
-
-export type PageInfo = {
-  __typename: 'PageInfo';
-  /** Whether there is a next page of items. */
-  hasNextPage: Scalars['Boolean']['output'];
-  /** Whether there is a previous page of items. */
-  hasPreviousPage: Scalars['Boolean']['output'];
-  /** The maximum number of items in the response (as set in the query or default) */
-  limit: Scalars['Int']['output'];
-  /** The offset of the items returned (as set in the query or default) */
-  offset: Scalars['Int']['output'];
-  /** The total number of items returned for the page. */
-  total: Scalars['Int']['output'];
-};
-
-export type PageInfoCursorBased = {
-  __typename: 'PageInfoCursorBased';
-  /** The cursors used to find the next set of items. */
-  cursors: Maybe<Cursors>;
-  /** A link to the Web API endpoint returning the full result of the request. */
-  href: Scalars['String']['output'];
-  /** The maximum number of items in the response (as set in the query or default) */
-  limit: Scalars['Int']['output'];
-  /** URL to the next page of items. (`null` if none) */
-  next: Maybe<Scalars['String']['output']>;
-  /** The total number of items available to return. */
-  total: Scalars['Int']['output'];
-};
-
-export type PausePlaybackContextInput = {
-  /**
-   * The id of the device this command is targeting. If not supplied, the user's
-   * currently active device is the target.
-   */
-  deviceId?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type PausePlaybackResponse = {
-  __typename: 'PausePlaybackResponse';
-  /** The updated playback state */
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type PlaybackContext = {
-  __typename: 'PlaybackContext';
-  /** External URLs for this context. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the track. */
-  href: Scalars['String']['output'];
-  /** The object type, e.g. "artist", "playlist", "album", "show". */
-  type: PlaybackContextType;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the context.
-   */
-  uri: Scalars['String']['output'];
-};
-
-export enum PlaybackContextType {
-  Album = 'ALBUM',
-  Artist = 'ARTIST',
-  AudioFeatures = 'AUDIO_FEATURES',
-  Collection = 'COLLECTION',
-  CollectionYourEpisodes = 'COLLECTION_YOUR_EPISODES',
-  Episode = 'EPISODE',
-  Genre = 'GENRE',
-  Playlist = 'PLAYLIST',
-  Show = 'SHOW',
-  Track = 'TRACK',
-  User = 'USER',
-}
-
-export type PlaybackItem = {
-  /** The duration for the playback item in milliseconds. */
-  durationMs: Scalars['Int']['output'];
-  /** Known external URLs for this playback item. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the playlist item. */
-  href: Scalars['String']['output'];
-  /**
-   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the playback item.
-   */
-  id: Scalars['ID']['output'];
-  /** The name of the playlist item. */
-  name: Scalars['String']['output'];
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the episode.
-   */
-  uri: Scalars['String']['output'];
-};
-
-export type PlaybackQueue = {
-  __typename: 'PlaybackQueue';
-  currentlyPlaying: Maybe<PlaybackItem>;
-  queue: Array<PlaybackItem>;
-};
-
-export type PlaybackState = {
-  __typename: 'PlaybackState';
-  /**
-   * Allows to update the user interface based on which playback actions are
-   * available within the current context.
-   */
-  actions: Actions;
-  /** A context object. */
-  context: Maybe<PlaybackContext>;
-  /** The device that is currently active. */
-  device: Device;
-  /** If something is currently playing, return `true`. */
-  isPlaying: Scalars['Boolean']['output'];
-  /** The currently playing track or episode */
-  item: Maybe<PlaybackItem>;
-  /** Progress into the currently playing track or episode. Can be `null` */
-  progressMs: Maybe<Scalars['Int']['output']>;
-  /** off, track, context */
-  repeatState: RepeatMode;
-  /** If shuffle is on or off. */
-  shuffleState: Scalars['Boolean']['output'];
-  /** Unix Millisecond Timestamp when data was fetched. */
-  timestamp: Scalars['Timestamp']['output'];
-};
-
-export type Player = {
-  __typename: 'Player';
-  /** Information about the object currently being played on the user's Spotify account. */
-  currentlyPlaying: Maybe<CurrentlyPlaying>;
-  /** Information about a user's available devices. */
-  devices: Maybe<Array<Device>>;
-  /** Get the list of objects that make up the user's queue. */
-  playbackQueue: Maybe<PlaybackQueue>;
-  /**
-   * Information about the user's current playback state, including track or
-   * episode, progress, and active device.
-   */
-  playbackState: Maybe<PlaybackState>;
-  /**
-   * Get tracks from the current user's recently played tracks. **Note**: Currently
-   * doesn't support podcast episodes.
-   */
-  recentlyPlayed: Maybe<RecentlyPlayedConnection>;
-};
-
-export type PlayerrecentlyPlayedArgs = {
-  after?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['Int']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Information about a playlist owned by a Spotify user */
-export type Playlist = {
-  __typename: 'Playlist';
-  /** `true` if the owner allows other users to modify the playlist. */
-  collaborative: Scalars['Boolean']['output'];
-  /**
-   * The playlist description. _Only returned for modified, verified playlists,
-   * otherwise `null`_.
-   */
-  description: Maybe<Scalars['String']['output']>;
-  /** Known external URLs for this playlist. */
-  externalUrls: ExternalUrl;
-  /**
-   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the playlist.
-   */
-  id: Scalars['ID']['output'];
-  /**
-   * Images for the playlist. The array may be empty or contain up to three images.
-   * The images are returned by size in descending order.
-   * See [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/).
-   * **Note**: If returned, the source URL for the image (`url`) is temporary and
-   * will expire in less than a day.
-   */
-  images: Maybe<Array<Image>>;
-  /** The name of the playlist. */
-  name: Scalars['String']['output'];
-  /** The user who owns the playlist. */
-  owner: User;
-  /**
-   * The playlist's public/private status: `true` the playlist is public, `false`
-   * the playlist is private, `null` the playlist status is not relevant. For more
-   * about public/private status, see [Working with Playlists](https://developer.spotify.com/documentation/general/guides/working-with-playlists/)
-   */
-  public: Maybe<Scalars['Boolean']['output']>;
-  /** The tracks of the playlist. */
-  tracks: PlaylistTrackConnection;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) *\/
-   * for the playlist.
-   */
-  uri: Scalars['String']['output'];
-};
-
-/** Information about a playlist owned by a Spotify user */
-export type PlaylisttracksArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** A paged set of playlists */
-export type PlaylistConnection = {
-  __typename: 'PlaylistConnection';
-  /** The set of playlists. */
-  edges: Array<PlaylistEdge>;
-  /** Pagination information for the set of playlists */
-  pageInfo: PageInfo;
-};
-
-export type PlaylistEdge = {
-  __typename: 'PlaylistEdge';
-  /** The playlist */
-  node: Playlist;
-};
-
-export type PlaylistTrack = {
-  /** The playlist track length in milliseconds. */
-  durationMs: Scalars['Int']['output'];
-  /** External URLs for this episode. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the episode. */
-  href: Scalars['String']['output'];
-  /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the playlist track. */
-  id: Scalars['ID']['output'];
-  /** The name of the episode. */
-  name: Scalars['String']['output'];
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the playlist track.
-   */
-  uri: Scalars['String']['output'];
-};
-
-/** A paged set of tracks for a playlist */
-export type PlaylistTrackConnection = {
-  __typename: 'PlaylistTrackConnection';
-  /** Pagination information for the tracks belonging to a playlist */
-  edges: Array<PlaylistTrackEdge>;
-  /** Pagination information for the tracks belonging to a playlist */
-  pageInfo: PageInfo;
-};
-
-export type PlaylistTrackEdge = {
-  __typename: 'PlaylistTrackEdge';
-  /** The date and time the track was added to the playlist */
-  addedAt: Maybe<Scalars['DateTime']['output']>;
-  /** The user that added the track to the playlist */
-  addedBy: User;
-  /** The playlist track */
-  node: PlaylistTrack;
-};
-
-export type Query = {
-  __typename: 'Query';
-  /** Spotify catalog information for an album. */
-  album: Maybe<Album>;
-  /** Get Spotify catalog information for multiple albums identified by their Spotify IDs. */
-  albums: Maybe<Array<Album>>;
-  /** Spotify catalog information for an artist. */
-  artist: Maybe<Artist>;
-  /** Get Spotify catalog information for several artists based on their Spotify IDs. */
-  artists: Maybe<Array<Artist>>;
-  /** Get a list of developer-specific settings, such as GraphQL field configuration. */
-  developer: Developer;
-  /**
-   * Get Spotify catalog information for a single episode identified by its unique
-   * Spotify ID.
-   */
-  episode: Maybe<Episode>;
-  /** Get Spotify catalog information for several episodes based on their Spotify IDs. */
-  episodes: Maybe<Array<Episode>>;
-  /**
-   * A list of Spotify featured playlists (shown, for example, on a Spotify
-   * player's 'Browse' tab).
-   * @deprecated This endpoint no longer exists in the Spotify API
-   */
-  featuredPlaylists: Maybe<FeaturedPlaylistConnection>;
-  /**
-   * A list of available genres seed parameter values for
-   * [recommendations](https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations).
-   * @deprecated This endpoint no longer exists in the Spotify API
-   */
-  genres: Array<Scalars['String']['output']>;
-  /** Information about the current logged-in user. */
-  me: Maybe<CurrentUser>;
-  /** Get a list of new album releases featured in Spotify (shown, for example, on a Spotify player’s “Browse” tab). */
-  newReleases: Maybe<NewReleasesConnection>;
-  /** A playlist owned by a Spotify user. */
-  playlist: Maybe<Playlist>;
-  /**
-   * Recommendations for the current user.
-   *
-   * Recommendations are generated based on the available information for a given
-   * seed entity and matched against similar artists and tracks. If there is
-   * sufficient information about the provided seeds, a list of tracks will be
-   * returned together with pool size details.
-   *
-   * For artists and tracks that are very new or obscure there might not be enough
-   * data to generate a list of tracks.
-   * @deprecated This endpoint no longer exists in the Spotify API
-   */
-  recommendations: Maybe<Recommendations>;
-  /**
-   * Get Spotify catalog information about albums, artists, playlists, tracks, shows, episodes or audiobooks that match a keyword string.
-   *
-   * **Note: Audiobooks are only available for the US, UK, Ireland, New Zealand and Australia markets.**
-   */
-  search: Maybe<SearchResults>;
-  /**
-   * Get Spotify catalog information for a single show identified by its unique
-   * Spotify ID.
-   */
-  show: Maybe<Show>;
-  /** Get Spotify catalog information for several shows based on their Spotify IDs. */
-  shows: Maybe<Array<Show>>;
-  /**
-   * Get Spotify catalog information for a single track identified by its unique
-   * Spotify ID.
-   */
-  track: Maybe<Track>;
-  /** Get Spotify catalog information for multiple tracks based on their Spotify IDs. */
-  tracks: Maybe<Array<Track>>;
-  /**
-   * Get audio features for multiple tracks based on their Spotify IDs.
-   * @deprecated This endpoint no longer exists in the Spotify API
-   */
-  tracksAudioFeatures: Array<TrackAudioFeatures>;
-};
-
-export type QueryalbumArgs = {
-  id: Scalars['ID']['input'];
-};
-
-export type QueryalbumsArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type QueryartistArgs = {
-  id: Scalars['ID']['input'];
-};
-
-export type QueryartistsArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type QueryepisodeArgs = {
-  id: Scalars['ID']['input'];
-};
-
-export type QueryepisodesArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type QueryfeaturedPlaylistsArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  timestamp?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type QuerynewReleasesArgs = {
-  country?: InputMaybe<Scalars['CountryCode']['input']>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type QueryplaylistArgs = {
-  id: Scalars['ID']['input'];
-};
-
-export type QueryrecommendationsArgs = {
-  acousticness?: InputMaybe<RecommendationAcousticnessInput>;
-  danceability?: InputMaybe<RecommendationDanceabilityInput>;
-  durationMs?: InputMaybe<RecommendationDurationMsInput>;
-  energy?: InputMaybe<RecommendationEnergyInput>;
-  instrumentalness?: InputMaybe<RecommendationInstrumentalnessInput>;
-  key?: InputMaybe<RecommendationKeyInput>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  liveness?: InputMaybe<RecommendationLivenessInput>;
-  loudness?: InputMaybe<RecommendationLoudnessInput>;
-  mode?: InputMaybe<RecommendationModeInput>;
-  popularity?: InputMaybe<RecommendationPopularityInput>;
-  seeds: RecommendationSeedInput;
-  speechiness?: InputMaybe<RecommendationSpeechinessInput>;
-  tempo?: InputMaybe<RecommendationTempoInput>;
-  timeSignature?: InputMaybe<RecommendationTimeSignatureInput>;
-  valence?: InputMaybe<RecommendationValenceInput>;
-};
-
-export type QuerysearchArgs = {
-  includeExternal?: InputMaybe<SearchExternalValue>;
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  q: Scalars['String']['input'];
-  type: Array<SearchType>;
-};
-
-export type QueryshowArgs = {
-  id: Scalars['ID']['input'];
-};
-
-export type QueryshowsArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type QuerytrackArgs = {
-  id: Scalars['ID']['input'];
-};
-
-export type QuerytracksArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type QuerytracksAudioFeaturesArgs = {
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type RecentlyPlayedConnection = {
-  __typename: 'RecentlyPlayedConnection';
-  /** The list of recently played items. */
-  edges: Array<RecentlyPlayedEdge>;
-};
-
-export type RecentlyPlayedEdge = {
-  __typename: 'RecentlyPlayedEdge';
-  /** The playback context for the track */
-  context: Maybe<PlaybackContext>;
-  /** The item that was recently played. */
-  node: PlaybackItem;
-  /** The date and time the track was played at. */
-  playedAt: Scalars['DateTime']['output'];
-};
-
-export type RecommendationAcousticnessInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationDanceabilityInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationDurationMsInput = {
-  max?: InputMaybe<Scalars['Int']['input']>;
-  min?: InputMaybe<Scalars['Int']['input']>;
-  target?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type RecommendationEnergyInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationInstrumentalnessInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationKeyInput = {
-  max?: InputMaybe<Scalars['Int']['input']>;
-  min?: InputMaybe<Scalars['Int']['input']>;
-  target?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type RecommendationLivenessInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationLoudnessInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationModeInput = {
-  max?: InputMaybe<Scalars['Int']['input']>;
-  min?: InputMaybe<Scalars['Int']['input']>;
-  target?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type RecommendationPopularityInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-/** Information about a recommendation [seed object](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
-export type RecommendationSeed = {
-  __typename: 'RecommendationSeed';
-  /**
-   * The number of tracks available after min_* and max_* filters have been
-   * applied.
-   */
-  afterFilteringSize: Scalars['Int']['output'];
-  /** The number of tracks available after relinking for regional availability. */
-  afterRelinkingSize: Scalars['Int']['output'];
-  /**
-   * A link to the full track or artist data for this seed. For tracks this will
-   * be a link to a [Track Object](https://developer.spotify.com/documentation/web-api/reference/#object-trackobject).
-   * For artists a link to an [Artist Object](https://developer.spotify.com/documentation/web-api/reference/#object-artistobject).
-   * For genre seeds, this value will be `null`.
-   */
-  href: Maybe<Scalars['String']['output']>;
-  /**
-   * The id used to select this seed. This will be the same as the string used in
-   * the `seedArtists`, `seedTracks` or `seedGenres` parameter.
-   */
-  id: Scalars['ID']['output'];
-  /** The number of recommended tracks available for this seed. */
-  initialPoolSize: Scalars['Int']['output'];
-  /** The entity type of this seed. */
-  type: RecommendationSeedType;
-};
-
-export type RecommendationSeedInput = {
-  /**
-   * A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for seed artists. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
-   *
-   * Example value: ["4NHQUGzhtTLFvgF5SZesLK"]
-   */
-  seedArtists?: InputMaybe<Array<Scalars['ID']['input']>>;
-  /**
-   * A list of any genres in the set of available genre seeds. Up to 5 seed values may be provided in any combination of `seedArtists`, `seedTracks` and `seedGenres`.
-   *
-   * Example value: ["classical", "country"]
-   */
-  seedGenres?: InputMaybe<Array<Scalars['String']['input']>>;
-  /**
-   * A list of [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for a seed track. Up to 5 seed values may be provided in any combination of
-   * `seedArtists`, `seedTracks` and `seedGenres`.
-   *
-   * Example value: ["0c6xIDDpzE81m2q797ordA"]
-   */
-  seedTracks?: InputMaybe<Array<Scalars['ID']['input']>>;
-};
-
-/** Available entity types for recommendation seeds. */
-export enum RecommendationSeedType {
-  Artist = 'ARTIST',
-  Genre = 'GENRE',
-  Track = 'TRACK',
-}
-
-export type RecommendationSpeechinessInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationTempoInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type RecommendationTimeSignatureInput = {
-  max?: InputMaybe<Scalars['Int']['input']>;
-  min?: InputMaybe<Scalars['Int']['input']>;
-  target?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type RecommendationValenceInput = {
-  max?: InputMaybe<Scalars['Float']['input']>;
-  min?: InputMaybe<Scalars['Float']['input']>;
-  target?: InputMaybe<Scalars['Float']['input']>;
-};
-
-/** Information about recommendations for the current user */
-export type Recommendations = {
-  __typename: 'Recommendations';
-  /** An array of recommendation [seed objects](https://developer.spotify.com/documentation/web-api/reference/#object-recommendationseedobject). */
-  seeds: Array<RecommendationSeed>;
-  /**
-   * An array of [track object (simplified)](https://developer.spotify.com/documentation/web-api/reference/#object-simplifiedtrackobject)
-   * ordered according to the parameters supplied.
-   */
-  tracks: Array<Track>;
-};
-
-export type ReleaseDate = {
-  __typename: 'ReleaseDate';
-  /**
-   * The date the item was first released, for example `1981-12-15`. Depending on
-   * the precision, it might be shown as `1981-12`, or `1981-12-15`.
-   */
-  date: Scalars['String']['output'];
-  /** The precision with which the `date` value is known. */
-  precision: ReleaseDatePrecision;
-};
-
-export enum ReleaseDatePrecision {
-  Day = 'DAY',
-  Month = 'MONTH',
-  Year = 'YEAR',
-}
-
-export type RemoveItemFromPlaylistInput = {
-  /**
-   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * of the playlist.
-   */
-  playlistId: Scalars['ID']['input'];
-  /**
-   * The playlist's snapshot ID against which you want to make the changes. The API
-   * will validate that the specified items exist and in the specified positions
-   * and make the changes, even if more recent changes have been made to the
-   * playlist.
-   */
-  snapshotId?: InputMaybe<Scalars['ID']['input']>;
-  /**
-   * An array of objects containing [Spotify URIs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * of the tracks or episodes to remove.
-   */
-  tracks: Array<RemoveItemFromPlaylistTrackInput>;
-};
-
-export type RemoveItemFromPlaylistPayload = {
-  __typename: 'RemoveItemFromPlaylistPayload';
-  /** The playlist after the item was removed */
-  playlist: Maybe<Playlist>;
-  /** A snapshot ID for the playlist */
-  snapshotId: Maybe<Scalars['ID']['output']>;
-};
-
-export type RemoveItemFromPlaylistTrackInput = {
-  uri: Scalars['String']['input'];
-};
-
-export type RemoveSavedAlbumsInput = {
-  /**
-   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-   * Maximum 20 IDs.
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type RemoveSavedAlbumsPayload = {
-  __typename: 'RemoveSavedAlbumsPayload';
-  /** The albums that were removed from the Spotify user's library. */
-  removedAlbums: Maybe<Array<Album>>;
-};
-
-export type RemoveSavedEpisodesInput = {
-  /**
-   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-   * Maximum 50 IDs.
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type RemoveSavedEpisodesPayload = {
-  __typename: 'RemoveSavedEpisodesPayload';
-  /** The episodes that were removed from the Spotify user's library. */
-  removedEpisodes: Maybe<Array<Episode>>;
-};
-
-export type RemoveSavedShowsInput = {
-  /**
-   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-   * for the shows. Maximum 50 IDs.
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type RemoveSavedShowsPayload = {
-  __typename: 'RemoveSavedShowsPayload';
-  /** The shows that were removed from the Spotify user's library. */
-  removedShows: Maybe<Array<Show>>;
-};
-
-export type RemoveSavedTracksInput = {
-  /**
-   * A comma-separated list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-   * Maximum 50 IDs.
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type RemoveSavedTracksPayload = {
-  __typename: 'RemoveSavedTracksPayload';
-  /** The tracks that were removed from the Spotify user's library. */
-  removedTracks: Maybe<Array<Track>>;
-};
-
-export enum RepeatMode {
-  Context = 'CONTEXT',
-  Off = 'OFF',
-  Track = 'TRACK',
-}
-
-export type ResetFieldConfigInput = {
-  /** The field that will be reset to its default values */
-  field: FieldInput;
-};
-
-export type ResetFieldConfigPayload = {
-  __typename: 'ResetFieldConfigPayload';
-  /** The updated field config */
-  fieldConfig: Maybe<FieldConfig>;
-};
-
-export type ResumePlaybackInput = {
-  /**
-   * Spotify URI of the context to play. Valid contexts are albums, artists &
-   * playlists.
-   */
-  contextUri?: InputMaybe<Scalars['String']['input']>;
-  /**
-   * The id of the device this command is targeting. If not supplied, the user's
-   * currently active device is the target.
-   */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-  /**
-   * Indicates from where in the context playback should start. Only available when
-   * contextUri corresponds to an album or playlist object.
-   */
-  offset?: InputMaybe<ResumePlaybackOffsetInput>;
-  /** Indicates the position where playback should occur in milliseconds. */
-  positionMs?: InputMaybe<Scalars['Int']['input']>;
-  /** An array of the Spotify track URIs to play. */
-  uris?: InputMaybe<Array<Scalars['String']['input']>>;
-};
-
-export type ResumePlaybackOffsetInput = {
-  /**
-   * Non-negative, zero-based value that corresponds to the numeric position in the
-   * album or playlist
-   */
-  position?: InputMaybe<Scalars['Int']['input']>;
-  /** Spotify URI of the item in the album or playlist */
-  uri?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ResumePlaybackPayload = {
-  __typename: 'ResumePlaybackPayload';
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type ResumePoint = {
-  __typename: 'ResumePoint';
-  /** Whether or not the episode has been fully played by the user. */
-  fullyPlayed: Scalars['Boolean']['output'];
-  /** The user's most recent position in the episode in milliseconds. */
-  resumePositionMs: Scalars['Int']['output'];
-};
-
-export type SaveAlbumsInput = {
-  /**
-   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the albums. Maximum: 20 IDs
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type SaveAlbumsPayload = {
-  __typename: 'SaveAlbumsPayload';
-  /** The albums that were saved to the Spotify user's library */
-  savedAlbums: Maybe<Array<Album>>;
-};
-
-export type SaveEpisodesInput = {
-  /**
-   * An list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-   * Maximum: 50 IDs
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type SaveEpisodesPayload = {
-  __typename: 'SaveEpisodesPayload';
-  /** The episodes that were saved to the Spotify user's library */
-  savedEpisodes: Maybe<Array<Episode>>;
-};
-
-export type SaveShowsInput = {
-  /**
-   * An list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-   * for the shows. Maximum: 50 IDs
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type SaveShowsPayload = {
-  __typename: 'SaveShowsPayload';
-  /** The shows that were saved to the Spotify user's library */
-  savedShows: Maybe<Array<Show>>;
-};
-
-export type SaveTracksInput = {
-  /**
-   * A list of the [Spotify IDs](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids).
-   * Maximum: 50 IDs
-   */
-  ids: Array<Scalars['ID']['input']>;
-};
-
-export type SaveTracksPayload = {
-  __typename: 'SaveTracksPayload';
-  /** The tracks that were saved to the Spotify user's library */
-  savedTracks: Maybe<Array<Track>>;
-};
-
-export type SavedAlbumEdge = {
-  __typename: 'SavedAlbumEdge';
-  /** The date the album was saved. */
-  addedAt: Scalars['DateTime']['output'];
-  /** The album object. */
-  node: Album;
-};
-
-export type SavedAlbumsConnection = {
-  __typename: 'SavedAlbumsConnection';
-  /** The list of saved albums. */
-  edges: Array<SavedAlbumEdge>;
-  /** Pagination information for the set of playlists */
-  pageInfo: PageInfo;
-};
-
-export type SavedEpisodeEdge = {
-  __typename: 'SavedEpisodeEdge';
-  /** The date the episode was saved. */
-  addedAt: Scalars['DateTime']['output'];
-  /** The saved episode. */
-  node: Episode;
-};
-
-export type SavedEpisodesConnection = {
-  __typename: 'SavedEpisodesConnection';
-  /** The list of saved episodes. */
-  edges: Array<SavedEpisodeEdge>;
-  /** Pagination information for the set of episodes */
-  pageInfo: PageInfo;
-};
-
-export type SavedShowEdge = {
-  __typename: 'SavedShowEdge';
-  /** The date the show was saved. */
-  addedAt: Scalars['DateTime']['output'];
-  /** The show */
-  node: Show;
-};
-
-export type SavedShowsConnection = {
-  __typename: 'SavedShowsConnection';
-  /** A list of saved shows. */
-  edges: Array<SavedShowEdge>;
-  /** "Pagination information for the set of saved shows" */
-  pageInfo: PageInfo;
-};
-
-export type SavedTrackEdge = {
-  __typename: 'SavedTrackEdge';
-  /** The date the track was saved. */
-  addedAt: Scalars['DateTime']['output'];
-  /** The track */
-  node: Track;
-};
-
-export type SavedTracksConnection = {
-  __typename: 'SavedTracksConnection';
-  /** A list of saved tracks. */
-  edges: Array<SavedTrackEdge>;
-  /** "Pagination information for the set of playlists" */
-  pageInfo: PageInfo;
-};
-
-export type SchemaField = {
-  __typename: 'SchemaField';
-  /** The name of the field in the type (ex: `firstName`) */
-  fieldName: Scalars['String']['output'];
-  /** The parent type name in the schema (ex: `User`) */
-  typename: Scalars['String']['output'];
-};
-
-export type SchemaFieldInput = {
-  /** The name of the field in the type (ex: `firstName`) */
-  fieldName: Scalars['String']['input'];
-  /** The parent type name in the schema (ex: `User`) */
-  typename: Scalars['String']['input'];
-};
-
-export type SearchAlbumEdge = {
-  __typename: 'SearchAlbumEdge';
-  /** The album returned from the search */
-  node: Album;
-};
-
-export type SearchAlbumsConnection = {
-  __typename: 'SearchAlbumsConnection';
-  /** The list of albums returned from the search */
-  edges: Array<SearchAlbumEdge>;
-  /** Pagination information for albums in a search */
-  pageInfo: PageInfo;
-};
-
-export type SearchArtistEdge = {
-  __typename: 'SearchArtistEdge';
-  /** The artist returned from the search */
-  node: Artist;
-};
-
-export type SearchArtistsConnection = {
-  __typename: 'SearchArtistsConnection';
-  /** The list of artists returned from the search */
-  edges: Array<SearchArtistEdge>;
-  /** Pagination information for artists in a search */
-  pageInfo: PageInfo;
-};
-
-export type SearchEpisodeEdge = {
-  __typename: 'SearchEpisodeEdge';
-  /** The episode returned from the search */
-  node: Episode;
-};
-
-export type SearchEpisodesConnection = {
-  __typename: 'SearchEpisodesConnection';
-  /** The list of episodes returned from the search */
-  edges: Array<SearchEpisodeEdge>;
-  /** Pagination information for episodes in a search */
-  pageInfo: PageInfo;
-};
-
-export enum SearchExternalValue {
-  Audio = 'AUDIO',
-}
-
-export type SearchPlaylistEdge = {
-  __typename: 'SearchPlaylistEdge';
-  /** The playlist returned from the search */
-  node: Playlist;
-};
-
-export type SearchPlaylistsConnection = {
-  __typename: 'SearchPlaylistsConnection';
-  /** The list of playlists returned from the search */
-  edges: Array<SearchPlaylistEdge>;
-  /** Pagination information for playlists in a search */
-  pageInfo: PageInfo;
-};
-
-export type SearchResults = {
-  __typename: 'SearchResults';
-  /** The set of albums returned from the search query. Only available if the search `type` includes `ALBUM`. */
-  albums: Maybe<SearchAlbumsConnection>;
-  /** The set of artists returned from the search query. Only available if the search `type` includes `ARTIST`. */
-  artists: Maybe<SearchArtistsConnection>;
-  /** The set of episodes returned from the search query. Only available if the search `type` includes `EPISODE`. */
-  episodes: Maybe<SearchEpisodesConnection>;
-  /** The set of playlists returned from the search query. Only available if the search `type` includes `PLAYLIST`. */
-  playlists: Maybe<SearchPlaylistsConnection>;
-  /** The set of shows returned from the search query. Only available if the search `type` includes `SHOW`. */
-  shows: Maybe<SearchShowsConnection>;
-  /** The set of tracks returned from the search query. Only available if the search `type` includes `TRACK`. */
-  tracks: Maybe<SearchTracksConnection>;
-};
-
-export type SearchShowEdge = {
-  __typename: 'SearchShowEdge';
-  /** The show returned from the search */
-  node: Show;
-};
-
-export type SearchShowsConnection = {
-  __typename: 'SearchShowsConnection';
-  /** The list of shows returned from the search */
-  edges: Array<SearchShowEdge>;
-  /** Pagination information for shows in a search */
-  pageInfo: PageInfo;
-};
-
-export type SearchTrackEdge = {
-  __typename: 'SearchTrackEdge';
-  /** The track returned in the search */
-  node: Track;
-};
-
-export type SearchTracksConnection = {
-  __typename: 'SearchTracksConnection';
-  /** The list of tracks returned from the search */
-  edges: Array<SearchTrackEdge>;
-  /** Pagination information for tracks in a search */
-  pageInfo: PageInfo;
-};
-
-export enum SearchType {
-  Album = 'ALBUM',
-  Artist = 'ARTIST',
-  Episode = 'EPISODE',
-  Playlist = 'PLAYLIST',
-  Show = 'SHOW',
-  Track = 'TRACK',
-}
-
-export type SeekToPositionContextInput = {
-  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type SeekToPositionResponse = {
-  __typename: 'SeekToPositionResponse';
-  /** The updated state of playback after seeking to a position. */
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type SetRepeatModeContextInput = {
-  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type SetRepeatModeResponse = {
-  __typename: 'SetRepeatModeResponse';
-  /** The updated state of playback after setting a repeat mode. */
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type SetVolumeContextInput = {
-  /** The id of the device this command is targeting. If not supplied, the user's currently active device is the target. */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type SetVolumeResponse = {
-  __typename: 'SetVolumeResponse';
-  /** The state of playback after the volume has been set. */
-  playbackState: Maybe<PlaybackState>;
-};
-
-/** Spotify catalog information for a show. */
-export type Show = {
-  __typename: 'Show';
-  /** A description of the show. */
-  description: Scalars['String']['output'];
-  /** Spotify catalog information about an show’s episodes. */
-  episodes: Maybe<ShowEpisodesConnection>;
-  /**
-   * Whether or not the show has explicit content (`true` = yes it does; `false`
-   * = no it does not OR unknown).
-   */
-  explicit: Scalars['Boolean']['output'];
-  /** External URLs for this show. */
-  externalUrls: ExternalUrl;
-  /** A link to the Web API endpoint providing full details of the show. */
-  href: Scalars['String']['output'];
-  /**
-   * The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for the show.
-   */
-  id: Scalars['ID']['output'];
-  /** The cover art for the show in various sizes, widest first. */
-  images: Array<Image>;
-  /**
-   * `true` if all of the shows episodes are hosted outside of Spotify's CDN. This
-   * field might be `null` in some cases.
-   */
-  isExternallyHosted: Maybe<Scalars['Boolean']['output']>;
-  /** A list of the languages used in the show, identified by their [ISO 639](https://en.wikipedia.org/wiki/ISO_639) code. */
-  languages: Array<Scalars['String']['output']>;
-  /** The media type of the show. */
-  mediaType: Scalars['String']['output'];
-  /** The name of the episode. */
-  name: Scalars['String']['output'];
-  /** The publisher of the show. */
-  publisher: Scalars['String']['output'];
-  /** The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the show. */
-  uri: Scalars['String']['output'];
-};
-
-/** Spotify catalog information for a show. */
-export type ShowdescriptionArgs = {
-  format?: InputMaybe<TextFormat>;
-};
-
-/** Spotify catalog information for a show. */
-export type ShowepisodesArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type ShowEpisodeEdge = {
-  __typename: 'ShowEpisodeEdge';
-  /** The episode */
-  node: Episode;
-};
-
-export type ShowEpisodesConnection = {
-  __typename: 'ShowEpisodesConnection';
-  /** A list of episodes for the show. */
-  edges: Array<ShowEpisodeEdge>;
-  /** Pagination information for the set of episodes */
-  pageInfo: PageInfo;
-};
-
-export type ShufflePlaybackContextInput = {
-  /**
-   * The id of the device this command is targeting. If not supplied, the user's
-   * currently active device is the target.
-   */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type ShufflePlaybackResponse = {
-  __typename: 'ShufflePlaybackResponse';
-  /** The state of playback after shuffling playback. */
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type SkipToNextContextInput = {
-  /**
-   * The id of the device this command is targeting. If not supplied, the user's
-   * currently active device is the target.
-   */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type SkipToNextResponse = {
-  __typename: 'SkipToNextResponse';
-  /** The updated state of playback after skipping to next. */
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type SkipToPreviousContextInput = {
-  /**
-   * The id of the device this command is targeting. If not supplied, the user's
-   * currently active device is the target.
-   */
-  deviceId?: InputMaybe<Scalars['ID']['input']>;
-};
-
-export type SkipToPreviousResponse = {
-  __typename: 'SkipToPreviousResponse';
-  /** The updated state of playback after skipping to previous. */
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type Subscription = {
-  __typename: 'Subscription';
-  playbackStateChanged: Maybe<PlaybackState>;
-};
-
-export enum TextFormat {
-  Html = 'HTML',
-  Plain = 'PLAIN',
-}
-
-export enum TimeRange {
-  LongTerm = 'LONG_TERM',
-  MediumTerm = 'MEDIUM_TERM',
-  ShortTerm = 'SHORT_TERM',
-}
-
-export type TopArtistEdge = {
-  __typename: 'TopArtistEdge';
-  /** The artist. */
-  node: Artist;
-};
-
-export type TopArtistsConnection = {
-  __typename: 'TopArtistsConnection';
-  /** The list of top tracks. */
-  edges: Array<TopArtistEdge>;
-  /** Pagination information for the set of top tracks. */
-  pageInfo: PageInfo;
-};
-
-export type TopTrackEdge = {
-  __typename: 'TopTrackEdge';
-  /** The track. */
-  node: Track;
-};
-
-export type TopTracksConnection = {
-  __typename: 'TopTracksConnection';
-  /** The list of top tracks. */
-  edges: Array<TopTrackEdge>;
-  /** Pagination information for the set of top tracks. */
-  pageInfo: PageInfo;
-};
-
-/** Spotify catalog information for a track. */
-export type Track = PlaybackItem &
-  PlaylistTrack & {
-    __typename: 'Track';
-    /** The album on which the track appears. */
-    album: Album;
-    /** The artists who performed the track. */
-    artists: Array<Artist>;
-    /**
-     * The track's audio feature information
-     * @deprecated This endpoint no longer exists in the Spotify API
-     */
-    audioFeatures: Maybe<TrackAudioFeatures>;
-    /** The disc number (usually `1` unless the album consists of more than one disc). */
-    discNumber: Scalars['Int']['output'];
-    /** The track length in milliseconds */
-    durationMs: Scalars['Int']['output'];
-    /**
-     * Whether or not the track has explicit lyrics (`true` = yes it does;
-     * `false` = no it does not OR unknown)
-     */
-    explicit: Scalars['Boolean']['output'];
-    /** Known external IDs for the track. */
-    externalIds: Maybe<TrackExternalIds>;
-    /** Known external URLs for this track. */
-    externalUrls: ExternalUrl;
-    /** A link to the Web API endpoint providing full details of the track. */
-    href: Scalars['String']['output'];
-    /** The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for the track. */
-    id: Scalars['ID']['output'];
-    /** Whether or not the track is from a local file. */
-    isLocal: Scalars['Boolean']['output'];
-    /**
-     * Part of the response when [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/)
-     * is applied. If `true`, the track is playable in the given market.
-     * Otherwise `false`.
-     */
-    isPlayable: Scalars['Boolean']['output'];
-    /** The name of the track */
-    name: Scalars['String']['output'];
-    /**
-     * The popularity of the track. The value will be between 0 and 100, with 100
-     * being the most popular.
-     *
-     * The popularity of a track is a value between 0 and 100, with 100 being the
-     * most popular. The popularity is calculated by algorithm and is based, in the
-     * most part, on the total number of plays the track has had and how recent those
-     * plays are.
-     *
-     * Generally speaking, songs that are being played a lot now will have a higher
-     * popularity than songs that were played a lot in the past. Duplicate tracks
-     * (e.g. the same track from a single and an album) are rated independently.
-     * Artist and album popularity is derived mathematically from track popularity.
-     * Note: the popularity value may lag actual popularity by a few days: the value
-     * is not updated in real time.
-     */
-    popularity: Scalars['Int']['output'];
-    /** A link to a 30 second preview (MP3 format) of the track. Can be `null` */
-    previewUrl: Maybe<Scalars['String']['output']>;
-    /**
-     * The number of the track. If an album has several discs, the track number is
-     * the number on the specified disc.
-     */
-    trackNumber: Maybe<Scalars['Int']['output']>;
-    /**
-     * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-     * for the track.
-     */
-    uri: Scalars['String']['output'];
-  };
-
-export type TrackAudioFeatures = {
-  __typename: 'TrackAudioFeatures';
-  /** A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic. */
-  acousticness: Scalars['Float']['output'];
-  /** A URL to access the full audio analysis of this track. An access token is required to access this data. */
-  analysisUrl: Scalars['String']['output'];
-  /** Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable. */
-  danceability: Scalars['Float']['output'];
-  /** The duration of the track in milliseconds. */
-  durationMs: Scalars['Int']['output'];
-  /** Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy. */
-  energy: Scalars['Float']['output'];
-  /** The Spotify ID for the track. */
-  id: Scalars['ID']['output'];
-  /** Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0. */
-  instrumentalness: Scalars['Float']['output'];
-  /** The key the track is in. Integers map to pitches using standard [Pitch Class notation](https://en.wikipedia.org/wiki/Pitch_class). E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1. */
-  key: Scalars['Int']['output'];
-  /** Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live. */
-  liveness: Scalars['Float']['output'];
-  /** The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db. */
-  loudness: Scalars['Float']['output'];
-  /** Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0. */
-  mode: Scalars['Int']['output'];
-  /** Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks. */
-  speechiness: Scalars['Float']['output'];
-  /** The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration. */
-  tempo: Scalars['Float']['output'];
-  /** An estimated time signature. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure). The time signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4". */
-  timeSignature: Scalars['Int']['output'];
-  /** A link to the Web API endpoint providing full details of the track. */
-  trackHref: Scalars['String']['output'];
-  /** The Spotify URI for the track. */
-  uri: Scalars['String']['output'];
-  /** A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry). */
-  valence: Scalars['Float']['output'];
-};
-
-export type TrackExternalIds = {
-  __typename: 'TrackExternalIds';
-  /** [International Article Number](http://en.wikipedia.org/wiki/International_Article_Number_%28EAN%29) */
-  ean: Maybe<Scalars['String']['output']>;
-  /** [International Standard Recording Code](http://en.wikipedia.org/wiki/International_Standard_Recording_Code) */
-  isrc: Maybe<Scalars['String']['output']>;
-  /** [Universal Product Code](http://en.wikipedia.org/wiki/Universal_Product_Code) */
-  upc: Maybe<Scalars['String']['output']>;
-};
-
-export type TransferPlaybackInput = {
-  /**
-   * A list containing the ID of the device on which playback should be
-   * started/transferred.
-   */
-  deviceIds: Array<Scalars['ID']['input']>;
-  /**
-   * `true`: ensure playback happens on new device.
-   * `false` or not provided: keep the current playback state.
-   */
-  play?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type TransferPlaybackPayload = {
-  __typename: 'TransferPlaybackPayload';
-  /** The state of playback after transferring devices. */
-  playbackState: Maybe<PlaybackState>;
-};
-
-export type UpdateFieldConfigInput = {
-  config: FieldConfigInput;
-  field: FieldInput;
-};
-
-export type UpdateFieldConfigPayload = {
-  __typename: 'UpdateFieldConfigPayload';
-  /** The updated field config */
-  fieldConfig: Maybe<FieldConfig>;
-};
-
-/** Public profile information about a Spotify user. */
-export type User = UserProfile & {
-  __typename: 'User';
-  /** The name displayed on the user's profile. `null` if not available. */
-  displayName: Maybe<Scalars['String']['output']>;
-  /** Known public external URLs for this user. */
-  externalUrls: ExternalUrl;
-  /** Information about the followers of this user. */
-  followers: Followers;
-  /** A link to the Web API endpoint for this user. */
-  href: Scalars['String']['output'];
-  /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
-  id: Scalars['ID']['output'];
-  /** The user's profile image. */
-  images: Maybe<Array<Image>>;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for this user.
-   */
-  uri: Scalars['String']['output'];
-};
-
-export type UserProfile = {
-  /** The name displayed on the user's profile. `null` if not available. */
-  displayName: Maybe<Scalars['String']['output']>;
-  /** Information about the followers of this user. */
-  followers: Followers;
-  /** A link to the Web API endpoint for this user. */
-  href: Scalars['String']['output'];
-  /** The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids) for this user. */
-  id: Scalars['ID']['output'];
-  /** The user's profile image. */
-  images: Maybe<Array<Image>>;
-  /**
-   * The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-   * for this user.
-   */
-  uri: Scalars['String']['output'];
-};
-
-/**
- * A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
- *
- * In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
- */
-export type __Directive = {
-  __typename: '__Directive';
-  name: Scalars['String']['output'];
-  description: Maybe<Scalars['String']['output']>;
-  isRepeatable: Scalars['Boolean']['output'];
-  locations: Array<__DirectiveLocation>;
-  args: Array<__InputValue>;
-};
-
-/**
- * A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
- *
- * In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
- */
-export type __DirectiveargsArgs = {
-  includeDeprecated?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies. */
-export enum __DirectiveLocation {
-  /** Location adjacent to a query operation. */
-  Query = 'QUERY',
-  /** Location adjacent to a mutation operation. */
-  Mutation = 'MUTATION',
-  /** Location adjacent to a subscription operation. */
-  Subscription = 'SUBSCRIPTION',
-  /** Location adjacent to a field. */
-  Field = 'FIELD',
-  /** Location adjacent to a fragment definition. */
-  FragmentDefinition = 'FRAGMENT_DEFINITION',
-  /** Location adjacent to a fragment spread. */
-  FragmentSpread = 'FRAGMENT_SPREAD',
-  /** Location adjacent to an inline fragment. */
-  InlineFragment = 'INLINE_FRAGMENT',
-  /** Location adjacent to a variable definition. */
-  VariableDefinition = 'VARIABLE_DEFINITION',
-  /** Location adjacent to a schema definition. */
-  Schema = 'SCHEMA',
-  /** Location adjacent to a scalar definition. */
-  Scalar = 'SCALAR',
-  /** Location adjacent to an object type definition. */
-  Object = 'OBJECT',
-  /** Location adjacent to a field definition. */
-  FieldDefinition = 'FIELD_DEFINITION',
-  /** Location adjacent to an argument definition. */
-  ArgumentDefinition = 'ARGUMENT_DEFINITION',
-  /** Location adjacent to an interface definition. */
-  Interface = 'INTERFACE',
-  /** Location adjacent to a union definition. */
-  Union = 'UNION',
-  /** Location adjacent to an enum definition. */
-  Enum = 'ENUM',
-  /** Location adjacent to an enum value definition. */
-  EnumValue = 'ENUM_VALUE',
-  /** Location adjacent to an input object type definition. */
-  InputObject = 'INPUT_OBJECT',
-  /** Location adjacent to an input object field definition. */
-  InputFieldDefinition = 'INPUT_FIELD_DEFINITION',
-}
-
-/** One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string. */
-export type __EnumValue = {
-  __typename: '__EnumValue';
-  name: Scalars['String']['output'];
-  description: Maybe<Scalars['String']['output']>;
-  isDeprecated: Scalars['Boolean']['output'];
-  deprecationReason: Maybe<Scalars['String']['output']>;
-};
-
-/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
-export type __Field = {
-  __typename: '__Field';
-  name: Scalars['String']['output'];
-  description: Maybe<Scalars['String']['output']>;
-  args: Array<__InputValue>;
-  type: __Type;
-  isDeprecated: Scalars['Boolean']['output'];
-  deprecationReason: Maybe<Scalars['String']['output']>;
-};
-
-/** Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type. */
-export type __FieldargsArgs = {
-  includeDeprecated?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value. */
-export type __InputValue = {
-  __typename: '__InputValue';
-  name: Scalars['String']['output'];
-  description: Maybe<Scalars['String']['output']>;
-  type: __Type;
-  /** A GraphQL-formatted string representing the default value for this input value. */
-  defaultValue: Maybe<Scalars['String']['output']>;
-  isDeprecated: Scalars['Boolean']['output'];
-  deprecationReason: Maybe<Scalars['String']['output']>;
-};
-
-/** A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations. */
-export type __Schema = {
-  __typename: '__Schema';
-  description: Maybe<Scalars['String']['output']>;
-  /** A list of all types supported by this server. */
-  types: Array<__Type>;
-  /** The type that query operations will be rooted at. */
-  queryType: __Type;
-  /** If this server supports mutation, the type that mutation operations will be rooted at. */
-  mutationType: Maybe<__Type>;
-  /** If this server support subscription, the type that subscription operations will be rooted at. */
-  subscriptionType: Maybe<__Type>;
-  /** A list of all directives supported by this server. */
-  directives: Array<__Directive>;
-};
-
-/**
- * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
- *
- * Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
- */
-export type __Type = {
-  __typename: '__Type';
-  kind: __TypeKind;
-  name: Maybe<Scalars['String']['output']>;
-  description: Maybe<Scalars['String']['output']>;
-  specifiedByURL: Maybe<Scalars['String']['output']>;
-  fields: Maybe<Array<__Field>>;
-  interfaces: Maybe<Array<__Type>>;
-  possibleTypes: Maybe<Array<__Type>>;
-  enumValues: Maybe<Array<__EnumValue>>;
-  inputFields: Maybe<Array<__InputValue>>;
-  ofType: Maybe<__Type>;
-};
-
-/**
- * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
- *
- * Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
- */
-export type __TypefieldsArgs = {
-  includeDeprecated?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/**
- * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
- *
- * Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
- */
-export type __TypeenumValuesArgs = {
-  includeDeprecated?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/**
- * The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
- *
- * Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name, description and optional `specifiedByURL`, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
- */
-export type __TypeinputFieldsArgs = {
-  includeDeprecated?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** An enum describing what kind of type a given `__Type` is. */
-export enum __TypeKind {
-  /** Indicates this type is a scalar. */
-  Scalar = 'SCALAR',
-  /** Indicates this type is an object. `fields` and `interfaces` are valid fields. */
-  Object = 'OBJECT',
-  /** Indicates this type is an interface. `fields`, `interfaces`, and `possibleTypes` are valid fields. */
-  Interface = 'INTERFACE',
-  /** Indicates this type is a union. `possibleTypes` is a valid field. */
-  Union = 'UNION',
-  /** Indicates this type is an enum. `enumValues` is a valid field. */
-  Enum = 'ENUM',
-  /** Indicates this type is an input object. `inputFields` is a valid field. */
-  InputObject = 'INPUT_OBJECT',
-  /** Indicates this type is a list. `ofType` is a valid field. */
-  List = 'LIST',
-  /** Indicates this type is a non-null. `ofType` is a valid field. */
-  NonNull = 'NON_NULL',
-}
-
-export type AlbumTile_album = {
-  __typename: 'Album';
-  id: string;
-  name: string;
-  albumType: AlbumType;
-  totalTracks: number;
-  releaseDate: { __typename: 'ReleaseDate'; date: string };
-  images: Array<{ __typename: 'Image'; url: string }>;
-};
-
-export type AlbumTrackTitleCell_playbackState = {
-  __typename: 'PlaybackState';
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-  item:
-    | { __typename: 'Episode'; id: string; uri: string }
-    | { __typename: 'Track'; id: string; uri: string }
-    | null;
-};
-
-export type AlbumTrackTitleCell_album = {
-  __typename: 'Album';
-  id: string;
-  uri: string;
-};
-
-export type AlbumTrackTitleCell_track = {
-  __typename: 'Track';
-  id: string;
-  name: string;
-  uri: string;
-  explicit: boolean;
-  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-};
-
-export type AlbumTracksTable_album = {
-  __typename: 'Album';
-  id: string;
-  uri: string;
-  tracks: {
-    __typename: 'AlbumTrackConnection';
-    edges: Array<{
-      __typename: 'AlbumTrackEdge';
-      node: {
-        __typename: 'Track';
-        id: string;
-        uri: string;
-        durationMs: number;
-        trackNumber: number | null;
-        name: string;
-        explicit: boolean;
-        artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-      };
-    }>;
-  } | null;
-};
-
-export type ArtistTile_artist = {
-  __typename: 'Artist';
-  id: string;
-  name: string;
-  images: Array<{ __typename: 'Image'; url: string }>;
-};
-
-export type ArtistTopTracks_tracks = {
-  __typename: 'Track';
-  id: string;
-  durationMs: number;
-  explicit: boolean;
-  name: string;
-  album: {
-    __typename: 'Album';
-    id: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-};
-
-type Avatar_profile_CurrentUserProfile = {
-  __typename: 'CurrentUserProfile';
-  id: string;
-  images: Array<{ __typename: 'Image'; url: string }> | null;
-};
-
-type Avatar_profile_User = {
-  __typename: 'User';
-  id: string;
-  images: Array<{ __typename: 'Image'; url: string }> | null;
-};
-
-export type Avatar_profile =
-  | Avatar_profile_CurrentUserProfile
-  | Avatar_profile_User;
-
-export type AddToPlaylistQueryVariables = Exact<{
+export type AddToPlaylistQueryQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type AddToPlaylistQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    playlists: {
-      __typename: 'PlaylistConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        hasNextPage: boolean;
-        limit: number;
-        offset: number;
-      };
-      edges: Array<{
-        __typename: 'PlaylistEdge';
-        node: { __typename: 'Playlist'; id: string; name: string };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
+export type AddToPlaylistQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', playlists?: { __typename?: 'PlaylistConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, limit: number, offset: number }, edges: Array<{ __typename?: 'PlaylistEdge', node: { __typename?: 'Playlist', id: string, name: string } }> } | null } | null };
 
-export type CurrentUserQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: {
-      __typename: 'CurrentUserProfile';
-      id: string;
-      displayName: string | null;
-      images: Array<{ __typename: 'Image'; url: string }> | null;
-    };
-  } | null;
-};
+export type CurrentUserQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type DevicePopover_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  device: { __typename: 'Device'; id: string | null };
-};
 
-export type DevicePopover_devices = {
-  __typename: 'Device';
-  id: string | null;
-  name: string;
-  type: string;
-};
+export type CurrentUserQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', profile: { __typename?: 'CurrentUserProfile', id: string, displayName?: string | null, images?: Array<{ __typename?: 'Image', url: string }> | null } } | null };
 
-export type EpisodeDetailsCell_episode = {
-  __typename: 'Episode';
-  id: string;
-  explicit: boolean;
-  name: string;
-  show: {
-    __typename: 'Show';
-    id: string;
-    publisher: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-};
+export type DevicePopoverPlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, device: { __typename?: 'Device', id?: string | null } };
 
-export type EpisodePlaybackDetails_episode = {
-  __typename: 'Episode';
-  id: string;
-  name: string;
-  show: { __typename: 'Show'; id: string; name: string };
-};
+export type DevicePopoverDevicesFragment = { __typename?: 'Device', id?: string | null, name: string, type: string };
 
-export type EpisodeRemainingDuration_episode = {
-  __typename: 'Episode';
-  id: string;
-  durationMs: number;
-  resumePoint: {
-    __typename: 'ResumePoint';
-    fullyPlayed: boolean;
-    resumePositionMs: number;
-  };
-};
+export type EpisodeDetailsCellEpisodeFragment = { __typename?: 'Episode', id: string, explicit: boolean, name: string, show: { __typename?: 'Show', id: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } };
 
-export type LikeControlQueryVariables = Exact<{
+export type EpisodePlaybackDetailsEpisodeFragment = { __typename?: 'Episode', id: string, name: string, show: { __typename?: 'Show', id: string, name: string } };
+
+export type EpisodeRemainingDurationEpisodeFragment = { __typename?: 'Episode', id: string, durationMs: number, resumePoint: { __typename?: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } };
+
+export type LikeControlQueryQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
 
-export type LikeControlQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    episodesContains: Array<boolean> | null;
-    tracksContains: Array<boolean> | null;
-  } | null;
-};
 
-type LikeControl_playbackItem_Episode = { __typename: 'Episode'; id: string };
+export type LikeControlQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', episodesContains?: Array<boolean> | null, tracksContains?: Array<boolean> | null } | null };
 
-type LikeControl_playbackItem_Track = { __typename: 'Track'; id: string };
+type LikeControlPlaybackItemEpisodeFragment = { __typename: 'Episode', id: string };
 
-export type LikeControl_playbackItem =
-  | LikeControl_playbackItem_Episode
-  | LikeControl_playbackItem_Track;
+type LikeControlPlaybackItemTrackFragment = { __typename: 'Track', id: string };
 
-export type LikedSongsTile_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+export type LikeControlPlaybackItemFragment = LikeControlPlaybackItemEpisodeFragment | LikeControlPlaybackItemTrackFragment;
 
-export type LikedSongsTile_connection = {
-  __typename: 'SavedTracksConnection';
-  pageInfo: { __typename: 'PageInfo'; total: number };
-  edges: Array<{
-    __typename: 'SavedTrackEdge';
-    node: {
-      __typename: 'Track';
-      id: string;
-      name: string;
-      artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-    };
-  }>;
-};
+export type LikedSongsTilePlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename?: 'PlaybackContext', uri: string } | null };
 
-export type SidebarQueryVariables = Exact<{
+export type LikedSongsTileConnectionFragment = { __typename?: 'SavedTracksConnection', pageInfo: { __typename?: 'PageInfo', total: number }, edges: Array<{ __typename?: 'SavedTrackEdge', node: { __typename?: 'Track', id: string, name: string, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } }> };
+
+export type SidebarQueryQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type SidebarQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: { __typename: 'CurrentUserProfile'; id: string };
-    playlists: {
-      __typename: 'PlaylistConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        offset: number;
-        limit: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          uri: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
-          owner: { __typename: 'User'; id: string; displayName: string | null };
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type NotificationManager_playbackState = {
-  __typename: 'PlaybackState';
-  device: { __typename: 'Device'; id: string | null };
-};
+export type SidebarQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', profile: { __typename?: 'CurrentUserProfile', id: string }, playlists?: { __typename?: 'PlaylistConnection', pageInfo: { __typename?: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename?: 'PlaylistEdge', node: { __typename?: 'Playlist', id: string, uri: string, name: string, images?: Array<{ __typename?: 'Image', url: string }> | null, owner: { __typename?: 'User', id: string, displayName?: string | null } } }> } | null } | null };
 
-export type PlaybackItemProgressBar_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  progressMs: number | null;
-  timestamp: number;
-  item:
-    | { __typename: 'Episode'; id: string; durationMs: number }
-    | { __typename: 'Track'; id: string; durationMs: number }
-    | null;
-};
+export type NotificationManagerPlaybackStateFragment = { __typename?: 'PlaybackState', device: { __typename?: 'Device', id?: string | null } };
 
-export type PlaybackStateFragment = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  repeatState: RepeatMode;
-  shuffleState: boolean;
-  progressMs: number | null;
-  timestamp: number;
-  actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context: {
-    __typename: 'PlaybackContext';
-    uri: string;
-    type: PlaybackContextType;
-  } | null;
-  device: {
-    __typename: 'Device';
-    id: string | null;
-    name: string;
-    type: string;
-    volumePercent: number;
-  };
-  item:
-    | {
-        __typename: 'Episode';
-        id: string;
-        durationMs: number;
-        name: string;
-        show: {
-          __typename: 'Show';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }
-    | {
-        __typename: 'Track';
-        id: string;
-        durationMs: number;
-        name: string;
-        uri: string;
-        album: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
-      }
-    | null;
-};
+export type PlaybackItemProgressBarPlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, progressMs?: number | null, timestamp: any, item?: { __typename?: 'Episode', id: string, durationMs: number } | { __typename?: 'Track', id: string, durationMs: number } | null };
 
-export type PlaybackStateSubscriberQueryVariables = Exact<{
-  [key: string]: never;
-}>;
+export type PlaybackStateFragmentFragment = { __typename?: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs?: number | null, timestamp: any, actions: { __typename?: 'Actions', disallows: Array<Action> }, context?: { __typename?: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename?: 'Device', id?: string | null, name: string, type: string, volumePercent: number }, item?: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename?: 'Show', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, uri: string, name: string }> } | null };
 
-export type PlaybackStateSubscriberQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    player: {
-      __typename: 'Player';
-      playbackState: {
-        __typename: 'PlaybackState';
-        isPlaying: boolean;
-        repeatState: RepeatMode;
-        shuffleState: boolean;
-        progressMs: number | null;
-        timestamp: number;
-        actions: { __typename: 'Actions'; disallows: Array<Action> };
-        context: {
-          __typename: 'PlaybackContext';
-          uri: string;
-          type: PlaybackContextType;
-        } | null;
-        device: {
-          __typename: 'Device';
-          id: string | null;
-          name: string;
-          type: string;
-          volumePercent: number;
-        };
-        item:
-          | {
-              __typename: 'Episode';
-              id: string;
-              durationMs: number;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              durationMs: number;
-              name: string;
-              uri: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                uri: string;
-                name: string;
-              }>;
-            }
-          | null;
-      } | null;
-    };
-  } | null;
-};
+export type PlaybackStateSubscriberQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type PlaybackStateSubscriberSubscriptionVariables = Exact<{
-  [key: string]: never;
-}>;
 
-export type PlaybackStateSubscriberSubscription = {
-  playbackStateChanged: {
-    __typename: 'PlaybackState';
-    isPlaying: boolean;
-    repeatState: RepeatMode;
-    shuffleState: boolean;
-    progressMs: number | null;
-    timestamp: number;
-    actions: { __typename: 'Actions'; disallows: Array<Action> };
-    context: {
-      __typename: 'PlaybackContext';
-      uri: string;
-      type: PlaybackContextType;
-    } | null;
-    device: {
-      __typename: 'Device';
-      id: string | null;
-      name: string;
-      type: string;
-      volumePercent: number;
-    };
-    item:
-      | {
-          __typename: 'Episode';
-          id: string;
-          durationMs: number;
-          name: string;
-          show: {
-            __typename: 'Show';
-            id: string;
-            name: string;
-            images: Array<{ __typename: 'Image'; url: string }>;
-          };
-        }
-      | {
-          __typename: 'Track';
-          id: string;
-          durationMs: number;
-          name: string;
-          uri: string;
-          album: {
-            __typename: 'Album';
-            id: string;
-            name: string;
-            images: Array<{ __typename: 'Image'; url: string }>;
-          };
-          artists: Array<{
-            __typename: 'Artist';
-            id: string;
-            uri: string;
-            name: string;
-          }>;
-        }
-      | null;
-  } | null;
-};
+export type PlaybackStateSubscriberQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', player: { __typename?: 'Player', playbackState?: { __typename?: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs?: number | null, timestamp: any, actions: { __typename?: 'Actions', disallows: Array<Action> }, context?: { __typename?: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename?: 'Device', id?: string | null, name: string, type: string, volumePercent: number }, item?: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename?: 'Show', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, uri: string, name: string }> } | null } | null } } | null };
 
-export type PlaybarQueryVariables = Exact<{ [key: string]: never }>;
+export type PlaybackStateSubscriberSubscriptionSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
-export type PlaybarQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    player: {
-      __typename: 'Player';
-      devices: Array<{
-        __typename: 'Device';
-        id: string | null;
-        name: string;
-        type: string;
-      }> | null;
-    };
-  } | null;
-};
 
-export type Playbar_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  repeatState: RepeatMode;
-  shuffleState: boolean;
-  progressMs: number | null;
-  timestamp: number;
-  actions: { __typename: 'Actions'; disallows: Array<Action> };
-  context: {
-    __typename: 'PlaybackContext';
-    uri: string;
-    type: PlaybackContextType;
-  } | null;
-  device: {
-    __typename: 'Device';
-    id: string | null;
-    name: string;
-    type: string;
-    volumePercent: number;
-  };
-  item:
-    | {
-        __typename: 'Episode';
-        id: string;
-        durationMs: number;
-        name: string;
-        show: {
-          __typename: 'Show';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }
-    | {
-        __typename: 'Track';
-        id: string;
-        durationMs: number;
-        name: string;
-        uri: string;
-        album: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-        artists: Array<{
-          __typename: 'Artist';
-          id: string;
-          uri: string;
-          name: string;
-        }>;
-      }
-    | null;
-};
+export type PlaybackStateSubscriberSubscriptionSubscription = { __typename?: 'Subscription', playbackStateChanged?: { __typename?: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs?: number | null, timestamp: any, actions: { __typename?: 'Actions', disallows: Array<Action> }, context?: { __typename?: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename?: 'Device', id?: string | null, name: string, type: string, volumePercent: number }, item?: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename?: 'Show', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, uri: string, name: string }> } | null } | null };
 
-export type PlaylistDetailsModalQueryVariables = Exact<{
+export type PlaybarQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PlaybarQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', player: { __typename?: 'Player', devices?: Array<{ __typename?: 'Device', id?: string | null, name: string, type: string }> | null } } | null };
+
+export type PlaybarPlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, repeatState: RepeatMode, shuffleState: boolean, progressMs?: number | null, timestamp: any, actions: { __typename?: 'Actions', disallows: Array<Action> }, context?: { __typename?: 'PlaybackContext', uri: string, type: PlaybackContextType } | null, device: { __typename?: 'Device', id?: string | null, name: string, type: string, volumePercent: number }, item?: { __typename: 'Episode', id: string, durationMs: number, name: string, show: { __typename?: 'Show', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename: 'Track', id: string, durationMs: number, name: string, uri: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, uri: string, name: string }> } | null };
+
+export type PlaylistDetailsModalQueryQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
-export type PlaylistDetailsModalQuery = {
-  playlist: {
-    __typename: 'Playlist';
-    id: string;
-    name: string;
-    description: string | null;
-    images: Array<{ __typename: 'Image'; url: string }> | null;
-  } | null;
-};
 
-export type PlaylistSidebarLink_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+export type PlaylistDetailsModalQueryQuery = { __typename?: 'Query', playlist?: { __typename?: 'Playlist', id: string, name: string, description?: string | null, images?: Array<{ __typename?: 'Image', url: string }> | null } | null };
 
-export type PlaylistSidebarLink_currentUser = {
-  __typename: 'CurrentUser';
-  profile: { __typename: 'CurrentUserProfile'; id: string };
-};
+export type PlaylistSidebarLinkPlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename?: 'PlaybackContext', uri: string } | null };
 
-export type PlaylistSidebarLink_playlist = {
-  __typename: 'Playlist';
-  id: string;
-  uri: string;
-  name: string;
-  owner: { __typename: 'User'; id: string; displayName: string | null };
-};
+export type PlaylistSidebarLinkCurrentUserFragment = { __typename?: 'CurrentUser', profile: { __typename?: 'CurrentUserProfile', id: string } };
 
-export type PlaylistTile_playlist = {
-  __typename: 'Playlist';
-  id: string;
-  name: string;
-  description: string | null;
-  uri: string;
-  images: Array<{ __typename: 'Image'; url: string }> | null;
-};
+export type PlaylistSidebarLinkPlaylistFragment = { __typename?: 'Playlist', id: string, uri: string, name: string, owner: { __typename?: 'User', id: string, displayName?: string | null } };
 
-export type PlaylistTitleCell_playbackState = {
-  __typename: 'PlaybackState';
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-  item:
-    | { __typename: 'Episode'; id: string; uri: string }
-    | { __typename: 'Track'; id: string; uri: string }
-    | null;
-};
+export type PlaylistTilePlaylistFragment = { __typename?: 'Playlist', id: string, name: string, description?: string | null, uri: string, images?: Array<{ __typename?: 'Image', url: string }> | null };
 
-export type PlaylistTitleCell_playlist = {
-  __typename: 'Playlist';
-  id: string;
-  uri: string;
-};
+export type PlaylistTitleCellPlaybackStateFragment = { __typename?: 'PlaybackState', context?: { __typename?: 'PlaybackContext', uri: string } | null, item?: { __typename?: 'Episode', id: string, uri: string } | { __typename?: 'Track', id: string, uri: string } | null };
 
-type PlaylistTitleCell_playlistTrack_Episode = {
-  __typename: 'Episode';
-  explicit: boolean;
-  id: string;
-  name: string;
-  uri: string;
-  show: {
-    __typename: 'Show';
-    id: string;
-    publisher: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-};
+export type PlaylistTitleCellPlaylistFragment = { __typename?: 'Playlist', id: string, uri: string };
 
-type PlaylistTitleCell_playlistTrack_Track = {
-  __typename: 'Track';
-  explicit: boolean;
-  id: string;
-  name: string;
-  uri: string;
-  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-  album: {
-    __typename: 'Album';
-    id: string;
-    name: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-};
+type PlaylistTitleCellPlaylistTrackEpisodeFragment = { __typename?: 'Episode', explicit: boolean, id: string, name: string, uri: string, show: { __typename?: 'Show', id: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } };
 
-export type PlaylistTitleCell_playlistTrack =
-  | PlaylistTitleCell_playlistTrack_Episode
-  | PlaylistTitleCell_playlistTrack_Track;
+type PlaylistTitleCellPlaylistTrackTrackFragment = { __typename?: 'Track', explicit: boolean, id: string, name: string, uri: string, artists: Array<{ __typename?: 'Artist', id: string, name: string }>, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } };
 
-export type TrackNumberCell_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-  item:
-    | { __typename: 'Episode'; id: string; uri: string }
-    | { __typename: 'Track'; id: string; uri: string }
-    | null;
-};
+export type PlaylistTitleCellPlaylistTrackFragment = PlaylistTitleCellPlaylistTrackEpisodeFragment | PlaylistTitleCellPlaylistTrackTrackFragment;
 
-export type TrackNumberCell_track = {
-  __typename: 'Track';
-  id: string;
-  uri: string;
-  trackNumber: number | null;
-};
+export type TrackNumberCellPlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename?: 'PlaybackContext', uri: string } | null, item?: { __typename?: 'Episode', id: string, uri: string } | { __typename?: 'Track', id: string, uri: string } | null };
 
-export type TrackPlaybackDetails_context = {
-  __typename: 'PlaybackContext';
-  uri: string;
-  type: PlaybackContextType;
-};
+export type TrackNumberCellTrackFragment = { __typename?: 'Track', id: string, uri: string, trackNumber?: number | null };
 
-export type TrackPlaybackDetails_track = {
-  __typename: 'Track';
-  id: string;
-  name: string;
-  uri: string;
-  album: { __typename: 'Album'; id: string; name: string };
-  artists: Array<{
-    __typename: 'Artist';
-    id: string;
-    uri: string;
-    name: string;
-  }>;
-};
+export type TrackPlaybackDetailsContextFragment = { __typename?: 'PlaybackContext', uri: string, type: PlaybackContextType };
 
-export type TrackTitleCell_playbackState = {
-  __typename: 'PlaybackState';
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-  item:
-    | { __typename: 'Episode'; id: string; uri: string }
-    | { __typename: 'Track'; id: string; uri: string }
-    | null;
-};
+export type TrackPlaybackDetailsTrackFragment = { __typename?: 'Track', id: string, name: string, uri: string, album: { __typename?: 'Album', id: string, name: string }, artists: Array<{ __typename?: 'Artist', id: string, uri: string, name: string }> };
 
-export type TrackTitleCell_track = {
-  __typename: 'Track';
-  id: string;
-  explicit: boolean;
-  name: string;
-  uri: string;
-  album: {
-    __typename: 'Album';
-    id: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-};
+export type TrackTitleCellPlaybackStateFragment = { __typename?: 'PlaybackState', context?: { __typename?: 'PlaybackContext', uri: string } | null, item?: { __typename?: 'Episode', id: string, uri: string } | { __typename?: 'Track', id: string, uri: string } | null };
 
-export type YourEpisodesTile_connection = {
-  __typename: 'SavedEpisodesConnection';
-  pageInfo: { __typename: 'PageInfo'; total: number };
-  edges: Array<{
-    __typename: 'SavedEpisodeEdge';
-    node: {
-      __typename: 'Episode';
-      id: string;
-      name: string;
-      show: { __typename: 'Show'; id: string; name: string };
-    };
-  }>;
-};
+export type TrackTitleCellTrackFragment = { __typename?: 'Track', id: string, explicit: boolean, name: string, uri: string, album: { __typename?: 'Album', id: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> };
 
-export type SavedTracksContainsQueryVariables = Exact<{
+export type YourEpisodesTileConnectionFragment = { __typename?: 'SavedEpisodesConnection', pageInfo: { __typename?: 'PageInfo', total: number }, edges: Array<{ __typename?: 'SavedEpisodeEdge', node: { __typename?: 'Episode', id: string, name: string, show: { __typename?: 'Show', id: string, name: string } } }> };
+
+export type SavedTracksContainsQueryQueryVariables = Exact<{
   ids: Array<Scalars['ID']['input']> | Scalars['ID']['input'];
 }>;
 
-export type SavedTracksContainsQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    tracksContains: Array<boolean> | null;
-  } | null;
-};
 
-export type SavedTracksContainsFragment = {
-  __typename: 'CurrentUser';
-  tracksContains: Array<boolean> | null;
-};
+export type SavedTracksContainsQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', tracksContains?: Array<boolean> | null } | null };
 
-export type AddToPlaylistMutationVariables = Exact<{
+export type SavedTracksContainsFragmentFragment = { __typename?: 'CurrentUser', tracksContains?: Array<boolean> | null };
+
+export type AddToPlaylistMutationMutationVariables = Exact<{
   input: AddItemsToPlaylistInput;
 }>;
 
-export type AddToPlaylistMutation = {
-  addItemsToPlaylist: {
-    __typename: 'AddItemsToPlaylistPayload';
-    playlist: { __typename: 'Playlist'; id: string } | null;
-  } | null;
-};
 
-export type AddToQueueMutationVariables = Exact<{
+export type AddToPlaylistMutationMutation = { __typename?: 'Mutation', addItemsToPlaylist?: { __typename?: 'AddItemsToPlaylistPayload', playlist?: { __typename?: 'Playlist', id: string } | null } | null };
+
+export type AddToQueueMutationMutationVariables = Exact<{
   input: AddItemToPlaybackQueueInput;
 }>;
 
-export type AddToQueueMutation = {
-  addItemToPlaybackQueue: {
-    __typename: 'AddItemToPlaybackQueuePayload';
-    playbackQueue: {
-      __typename: 'PlaybackQueue';
-      currentlyPlaying:
-        | { __typename: 'Episode'; id: string }
-        | { __typename: 'Track'; id: string }
-        | null;
-    } | null;
-  } | null;
-};
 
-export type PausePlaybackMutationVariables = Exact<{ [key: string]: never }>;
+export type AddToQueueMutationMutation = { __typename?: 'Mutation', addItemToPlaybackQueue?: { __typename?: 'AddItemToPlaybackQueuePayload', playbackQueue?: { __typename?: 'PlaybackQueue', currentlyPlaying?: { __typename: 'Episode', id: string } | { __typename: 'Track', id: string } | null } | null } | null };
 
-export type PausePlaybackMutation = {
-  pausePlayback: {
-    __typename: 'PausePlaybackResponse';
-    playbackState: { __typename: 'PlaybackState'; isPlaying: boolean } | null;
-  } | null;
-};
+export type CreatePlaylistMutationVariables = Exact<{
+  input: CreatePlaylistInput;
+}>;
 
-export type RemoveFromPlaylistMutationVariables = Exact<{
+
+export type CreatePlaylistMutation = { __typename?: 'Mutation', createPlaylist?: { __typename?: 'CreatePlaylistPayload', playlist?: { __typename?: 'Playlist', id: string, name: string, description?: string | null, public?: boolean | null } | null } | null };
+
+export type PausePlaybackMutationMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PausePlaybackMutationMutation = { __typename?: 'Mutation', pausePlayback?: { __typename?: 'PausePlaybackResponse', playbackState?: { __typename?: 'PlaybackState', isPlaying: boolean } | null } | null };
+
+export type RemoveFromPlaylistMutationMutationVariables = Exact<{
   input: RemoveItemFromPlaylistInput;
 }>;
 
-export type RemoveFromPlaylistMutation = {
-  removeItemFromPlaylist: {
-    __typename: 'RemoveItemFromPlaylistPayload';
-    playlist: { __typename: 'Playlist'; id: string } | null;
-  } | null;
-};
 
-export type RemoveSavedAlbumsMutationVariables = Exact<{
+export type RemoveFromPlaylistMutationMutation = { __typename?: 'Mutation', removeItemFromPlaylist?: { __typename?: 'RemoveItemFromPlaylistPayload', playlist?: { __typename?: 'Playlist', id: string } | null } | null };
+
+export type RemoveSavedAlbumsMutationMutationVariables = Exact<{
   input: RemoveSavedAlbumsInput;
 }>;
 
-export type RemoveSavedAlbumsMutation = {
-  removeSavedAlbums: {
-    __typename: 'RemoveSavedAlbumsPayload';
-    removedAlbums: Array<{ __typename: 'Album'; id: string }> | null;
-  } | null;
-};
 
-export type RemovedSavedAlbumsMutationFragment = {
-  __typename: 'CurrentUser';
-  albumsContains: Array<boolean> | null;
-};
+export type RemoveSavedAlbumsMutationMutation = { __typename?: 'Mutation', removeSavedAlbums?: { __typename?: 'RemoveSavedAlbumsPayload', removedAlbums?: Array<{ __typename?: 'Album', id: string }> | null } | null };
 
-export type RemoveSavedTracksMutationVariables = Exact<{
+export type RemovedSavedAlbumsMutationFragmentFragment = { __typename?: 'CurrentUser', albumsContains?: Array<boolean> | null };
+
+export type RemoveSavedTracksMutationMutationVariables = Exact<{
   input: RemoveSavedTracksInput;
 }>;
 
-export type RemoveSavedTracksMutation = {
-  removeSavedTracks: {
-    __typename: 'RemoveSavedTracksPayload';
-    removedTracks: Array<{ __typename: 'Track'; id: string }> | null;
-  } | null;
-};
 
-export type RemovedSavedTracksMutationFragment = {
-  __typename: 'CurrentUser';
-  tracksContains: Array<boolean> | null;
-};
+export type RemoveSavedTracksMutationMutation = { __typename?: 'Mutation', removeSavedTracks?: { __typename?: 'RemoveSavedTracksPayload', removedTracks?: Array<{ __typename?: 'Track', id: string }> | null } | null };
 
-export type ResetFieldConfigMutationVariables = Exact<{
+export type RemovedSavedTracksMutationFragmentFragment = { __typename?: 'CurrentUser', tracksContains?: Array<boolean> | null };
+
+export type ResetFieldConfigMutationMutationVariables = Exact<{
   input: ResetFieldConfigInput;
 }>;
 
-export type ResetFieldConfigMutation = {
-  resetFieldConfig: {
-    __typename: 'ResetFieldConfigPayload';
-    fieldConfig: {
-      __typename: 'FieldConfig';
-      schemaField: {
-        __typename: 'SchemaField';
-        fieldName: string;
-        typename: string;
-      };
-    } | null;
-  } | null;
-};
 
-export type ResumePlaybackMutationVariables = Exact<{
+export type ResetFieldConfigMutationMutation = { __typename?: 'Mutation', resetFieldConfig?: { __typename?: 'ResetFieldConfigPayload', fieldConfig?: { __typename?: 'FieldConfig', schemaField: { __typename?: 'SchemaField', fieldName: string, typename: string } } | null } | null };
+
+export type ResumePlaybackMutationMutationVariables = Exact<{
   input?: InputMaybe<ResumePlaybackInput>;
 }>;
 
-export type ResumePlaybackMutation = {
-  resumePlayback: {
-    __typename: 'ResumePlaybackPayload';
-    playbackState: {
-      __typename: 'PlaybackState';
-      isPlaying: boolean;
-      context: {
-        __typename: 'PlaybackContext';
-        uri: string;
-        type: PlaybackContextType;
-      } | null;
-    } | null;
-  } | null;
-};
 
-export type UseResumePlaybackStateFragment = {
-  __typename: 'PlaybackState';
-  context: {
-    __typename: 'PlaybackContext';
-    uri: string;
-    type: PlaybackContextType;
-  } | null;
-};
+export type ResumePlaybackMutationMutation = { __typename?: 'Mutation', resumePlayback?: { __typename?: 'ResumePlaybackPayload', playbackState?: { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename?: 'PlaybackContext', uri: string, type: PlaybackContextType } | null } | null } | null };
 
-export type SaveAlbumsMutationVariables = Exact<{
+export type UseResumePlaybackStateFragmentFragment = { __typename?: 'PlaybackState', context?: { __typename?: 'PlaybackContext', uri: string, type: PlaybackContextType } | null };
+
+export type SaveAlbumsMutationMutationVariables = Exact<{
   input: SaveAlbumsInput;
 }>;
 
-export type SaveAlbumsMutation = {
-  saveAlbums: {
-    __typename: 'SaveAlbumsPayload';
-    savedAlbums: Array<{ __typename: 'Album'; id: string }> | null;
-  } | null;
-};
 
-export type SaveAlbumsMutationFragment = {
-  __typename: 'CurrentUser';
-  albumsContains: Array<boolean> | null;
-};
+export type SaveAlbumsMutationMutation = { __typename?: 'Mutation', saveAlbums?: { __typename?: 'SaveAlbumsPayload', savedAlbums?: Array<{ __typename?: 'Album', id: string }> | null } | null };
 
-export type SaveTracksMutationVariables = Exact<{
+export type SaveAlbumsMutationFragmentFragment = { __typename?: 'CurrentUser', albumsContains?: Array<boolean> | null };
+
+export type SaveTracksMutationMutationVariables = Exact<{
   input: SaveTracksInput;
 }>;
 
-export type SaveTracksMutation = {
-  saveTracks: {
-    __typename: 'SaveTracksPayload';
-    savedTracks: Array<{ __typename: 'Track'; id: string }> | null;
-  } | null;
-};
 
-export type SaveTracksMutationFragment = {
-  __typename: 'CurrentUser';
-  tracksContains: Array<boolean> | null;
-};
+export type SaveTracksMutationMutation = { __typename?: 'Mutation', saveTracks?: { __typename?: 'SaveTracksPayload', savedTracks?: Array<{ __typename?: 'Track', id: string }> | null } | null };
 
-export type SeekToPositionMutationVariables = Exact<{
+export type SaveTracksMutationFragmentFragment = { __typename?: 'CurrentUser', tracksContains?: Array<boolean> | null };
+
+export type SeekToPositionMutationMutationVariables = Exact<{
   positionMs: Scalars['Int']['input'];
 }>;
 
-export type SeekToPositionMutation = {
-  seekToPosition: {
-    __typename: 'SeekToPositionResponse';
-    playbackState: {
-      __typename: 'PlaybackState';
-      progressMs: number | null;
-    } | null;
-  } | null;
-};
 
-export type SetRepeatModeMutationVariables = Exact<{
+export type SeekToPositionMutationMutation = { __typename?: 'Mutation', seekToPosition?: { __typename?: 'SeekToPositionResponse', playbackState?: { __typename?: 'PlaybackState', progressMs?: number | null } | null } | null };
+
+export type SetRepeatModeMutationMutationVariables = Exact<{
   state: RepeatMode;
 }>;
 
-export type SetRepeatModeMutation = {
-  setRepeatMode: {
-    __typename: 'SetRepeatModeResponse';
-    playbackState: {
-      __typename: 'PlaybackState';
-      repeatState: RepeatMode;
-    } | null;
-  } | null;
-};
 
-export type SetVolumeMutationVariables = Exact<{
+export type SetRepeatModeMutationMutation = { __typename?: 'Mutation', setRepeatMode?: { __typename?: 'SetRepeatModeResponse', playbackState?: { __typename?: 'PlaybackState', repeatState: RepeatMode } | null } | null };
+
+export type SetVolumeMutationMutationVariables = Exact<{
   volumePercent: Scalars['Int']['input'];
 }>;
 
-export type SetVolumeMutation = {
-  setVolume: {
-    __typename: 'SetVolumeResponse';
-    playbackState: {
-      __typename: 'PlaybackState';
-      device: {
-        __typename: 'Device';
-        id: string | null;
-        volumePercent: number;
-      };
-    } | null;
-  } | null;
-};
 
-export type SetVolumeCacheFragment = {
-  __typename: 'PlaybackState';
-  device: { __typename: 'Device'; id: string | null; volumePercent: number };
-};
+export type SetVolumeMutationMutation = { __typename?: 'Mutation', setVolume?: { __typename?: 'SetVolumeResponse', playbackState?: { __typename?: 'PlaybackState', device: { __typename?: 'Device', id?: string | null, volumePercent: number } } | null } | null };
 
-export type ShufflePlaybackMutationVariables = Exact<{
+export type SetVolumeCacheFragmentFragment = { __typename?: 'PlaybackState', device: { __typename?: 'Device', id?: string | null, volumePercent: number } };
+
+export type ShufflePlaybackMutationMutationVariables = Exact<{
   state: Scalars['Boolean']['input'];
 }>;
 
-export type ShufflePlaybackMutation = {
-  shufflePlayback: {
-    __typename: 'ShufflePlaybackResponse';
-    playbackState: {
-      __typename: 'PlaybackState';
-      shuffleState: boolean;
-    } | null;
-  } | null;
-};
 
-export type SkipToNextMutationVariables = Exact<{ [key: string]: never }>;
+export type ShufflePlaybackMutationMutation = { __typename?: 'Mutation', shufflePlayback?: { __typename?: 'ShufflePlaybackResponse', playbackState?: { __typename?: 'PlaybackState', shuffleState: boolean } | null } | null };
 
-export type SkipToNextMutation = {
-  skipToNext: {
-    __typename: 'SkipToNextResponse';
-    playbackState: {
-      __typename: 'PlaybackState';
-      progressMs: number | null;
-      item:
-        | {
-            __typename: 'Episode';
-            id: string;
-            name: string;
-            show: {
-              __typename: 'Show';
-              id: string;
-              name: string;
-              images: Array<{ __typename: 'Image'; url: string }>;
-            };
-          }
-        | {
-            __typename: 'Track';
-            id: string;
-            name: string;
-            album: {
-              __typename: 'Album';
-              id: string;
-              name: string;
-              images: Array<{ __typename: 'Image'; url: string }>;
-            };
-            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-          }
-        | null;
-    } | null;
-  } | null;
-};
+export type SkipToNextMutationMutationVariables = Exact<{ [key: string]: never; }>;
 
-export type SkipToPreviousMutationVariables = Exact<{ [key: string]: never }>;
 
-export type SkipToPreviousMutation = {
-  skipToPrevious: {
-    __typename: 'SkipToPreviousResponse';
-    playbackState: {
-      __typename: 'PlaybackState';
-      progressMs: number | null;
-      item:
-        | {
-            __typename: 'Episode';
-            id: string;
-            name: string;
-            show: {
-              __typename: 'Show';
-              id: string;
-              name: string;
-              images: Array<{ __typename: 'Image'; url: string }>;
-            };
-          }
-        | {
-            __typename: 'Track';
-            id: string;
-            name: string;
-            album: {
-              __typename: 'Album';
-              id: string;
-              name: string;
-              images: Array<{ __typename: 'Image'; url: string }>;
-            };
-            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-          }
-        | null;
-    } | null;
-  } | null;
-};
+export type SkipToNextMutationMutation = { __typename?: 'Mutation', skipToNext?: { __typename?: 'SkipToNextResponse', playbackState?: { __typename?: 'PlaybackState', progressMs?: number | null, item?: { __typename: 'Episode', id: string, name: string, show: { __typename?: 'Show', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } | null } | null } | null };
 
-export type TransferPlaybackMutationVariables = Exact<{
+export type SkipToPreviousMutationMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SkipToPreviousMutationMutation = { __typename?: 'Mutation', skipToPrevious?: { __typename?: 'SkipToPreviousResponse', playbackState?: { __typename?: 'PlaybackState', progressMs?: number | null, item?: { __typename: 'Episode', id: string, name: string, show: { __typename?: 'Show', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename: 'Track', id: string, name: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } | null } | null } | null };
+
+export type TransferPlaybackMutationMutationVariables = Exact<{
   input: TransferPlaybackInput;
 }>;
 
-export type TransferPlaybackMutation = {
-  transferPlayback: {
-    __typename: 'TransferPlaybackPayload';
-    playbackState: {
-      __typename: 'PlaybackState';
-      device: { __typename: 'Device'; id: string | null };
-    } | null;
-  } | null;
-};
 
-export type UpdateFieldConfigMutationVariables = Exact<{
+export type TransferPlaybackMutationMutation = { __typename?: 'Mutation', transferPlayback?: { __typename?: 'TransferPlaybackPayload', playbackState?: { __typename?: 'PlaybackState', device: { __typename?: 'Device', id?: string | null } } | null } | null };
+
+export type UpdateFieldConfigMutationMutationVariables = Exact<{
   input: UpdateFieldConfigInput;
 }>;
 
-export type UpdateFieldConfigMutation = {
-  updateFieldConfig: {
-    __typename: 'UpdateFieldConfigPayload';
-    fieldConfig: {
-      __typename: 'FieldConfig';
-      timeout: number;
-      errorRate: number;
-      schemaField: {
-        __typename: 'SchemaField';
-        fieldName: string;
-        typename: string;
-      };
-    } | null;
-  } | null;
-};
 
-export type AlbumRouteQueryVariables = Exact<{
+export type UpdateFieldConfigMutationMutation = { __typename?: 'Mutation', updateFieldConfig?: { __typename?: 'UpdateFieldConfigPayload', fieldConfig?: { __typename?: 'FieldConfig', timeout: number, errorRate: any, schemaField: { __typename?: 'SchemaField', fieldName: string, typename: string } } | null } | null };
+
+export type MyPlaylistsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type MyPlaylistsQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', playlists?: { __typename?: 'PlaylistConnection', edges: Array<{ __typename?: 'PlaylistEdge', node: { __typename?: 'Playlist', id: string, name: string } }> } | null } | null };
+
+export type AlbumRouteQueryQueryVariables = Exact<{
   albumId: Scalars['ID']['input'];
 }>;
 
-export type AlbumRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    albumsContains: Array<boolean> | null;
-  } | null;
-  album: {
-    __typename: 'Album';
-    id: string;
-    albumType: AlbumType;
-    name: string;
-    totalTracks: number;
-    uri: string;
-    artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-    copyrights: Array<{
-      __typename: 'Copyright';
-      text: string;
-      type: CopyrightType | null;
-    }>;
-    images: Array<{
-      __typename: 'Image';
-      url: string;
-      vibrantColor: string | null;
-    }>;
-    releaseDate: {
-      __typename: 'ReleaseDate';
-      date: string;
-      precision: ReleaseDatePrecision;
-    };
-    tracks: {
-      __typename: 'AlbumTrackConnection';
-      edges: Array<{
-        __typename: 'AlbumTrackEdge';
-        node: {
-          __typename: 'Track';
-          id: string;
-          uri: string;
-          durationMs: number;
-          trackNumber: number | null;
-          name: string;
-          explicit: boolean;
-          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type AlbumRoutePlaybackStateFragment = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+export type AlbumRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', albumsContains?: Array<boolean> | null } | null, album?: { __typename?: 'Album', id: string, albumType: AlbumType, name: string, totalTracks: number, uri: string, artists: Array<{ __typename?: 'Artist', id: string, name: string }>, copyrights: Array<{ __typename?: 'Copyright', text: string, type?: CopyrightType | null }>, images: Array<{ __typename?: 'Image', url: string, vibrantColor?: string | null }>, releaseDate: { __typename?: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, tracks?: { __typename?: 'AlbumTrackConnection', edges: Array<{ __typename?: 'AlbumTrackEdge', node: { __typename?: 'Track', id: string, uri: string, durationMs: number, trackNumber?: number | null, name: string, explicit: boolean, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } }> } | null } | null };
 
-export type ArtistRouteQueryVariables = Exact<{
+export type AlbumRoutePlaybackStateFragmentFragment = { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename?: 'PlaybackContext', uri: string } | null };
+
+export type ArtistRouteQueryQueryVariables = Exact<{
   artistId: Scalars['ID']['input'];
 }>;
 
-export type ArtistRouteQuery = {
-  artist: {
-    __typename: 'Artist';
-    id: string;
-    name: string;
-    albums: {
-      __typename: 'ArtistAlbumsConnection';
-      edges: Array<{
-        __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }> | null;
-    } | null;
-    singles: {
-      __typename: 'ArtistAlbumsConnection';
-      edges: Array<{
-        __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }> | null;
-    } | null;
-    appearsOn: {
-      __typename: 'ArtistAlbumsConnection';
-      edges: Array<{
-        __typename: 'ArtistAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }> | null;
-    } | null;
-    followers: { __typename: 'Followers'; total: number };
-    images: Array<{ __typename: 'Image'; url: string }>;
-    topTracks: Array<{
-      __typename: 'Track';
-      id: string;
-      durationMs: number;
-      explicit: boolean;
-      name: string;
-      album: {
-        __typename: 'Album';
-        id: string;
-        images: Array<{ __typename: 'Image'; url: string }>;
-      };
-    }>;
-  } | null;
-};
 
-export type ArtistRouteQuery_albums = {
-  __typename: 'ArtistAlbumsConnection';
-  edges: Array<{
-    __typename: 'ArtistAlbumEdge';
-    node: {
-      __typename: 'Album';
-      id: string;
-      name: string;
-      albumType: AlbumType;
-      totalTracks: number;
-      releaseDate: { __typename: 'ReleaseDate'; date: string };
-      images: Array<{ __typename: 'Image'; url: string }>;
-    };
-  }> | null;
-};
+export type ArtistRouteQueryQuery = { __typename?: 'Query', artist?: { __typename?: 'Artist', id: string, name: string, albums?: { __typename?: 'ArtistAlbumsConnection', edges?: Array<{ __typename?: 'ArtistAlbumEdge', node: { __typename?: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename?: 'ReleaseDate', date: string }, images: Array<{ __typename?: 'Image', url: string }> } }> | null } | null, singles?: { __typename?: 'ArtistAlbumsConnection', edges?: Array<{ __typename?: 'ArtistAlbumEdge', node: { __typename?: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename?: 'ReleaseDate', date: string }, images: Array<{ __typename?: 'Image', url: string }> } }> | null } | null, appearsOn?: { __typename?: 'ArtistAlbumsConnection', edges?: Array<{ __typename?: 'ArtistAlbumEdge', node: { __typename?: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename?: 'ReleaseDate', date: string }, images: Array<{ __typename?: 'Image', url: string }> } }> | null } | null, followers: { __typename?: 'Followers', total: number }, images: Array<{ __typename?: 'Image', url: string }>, topTracks: Array<{ __typename?: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename?: 'Album', id: string, images: Array<{ __typename?: 'Image', url: string }> } }> } | null };
 
-export type CollectionAlbumsRouteQueryVariables = Exact<{
+export type ArtistRouteQueryAlbumsFragment = { __typename?: 'ArtistAlbumsConnection', edges?: Array<{ __typename?: 'ArtistAlbumEdge', node: { __typename?: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename?: 'ReleaseDate', date: string }, images: Array<{ __typename?: 'Image', url: string }> } }> | null };
+
+export type CollectionAlbumsRouteQueryQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type CollectionAlbumsRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    albums: {
-      __typename: 'SavedAlbumsConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        limit: number;
-        offset: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'SavedAlbumEdge';
-        node: {
-          __typename: 'Album';
-          id: string;
-          name: string;
-          albumType: AlbumType;
-          totalTracks: number;
-          releaseDate: { __typename: 'ReleaseDate'; date: string };
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CollectionArtistsRouteQueryVariables = Exact<{
+export type CollectionAlbumsRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', albums?: { __typename?: 'SavedAlbumsConnection', pageInfo: { __typename?: 'PageInfo', limit: number, offset: number, hasNextPage: boolean }, edges: Array<{ __typename?: 'SavedAlbumEdge', node: { __typename?: 'Album', id: string, name: string, albumType: AlbumType, totalTracks: number, releaseDate: { __typename?: 'ReleaseDate', date: string }, images: Array<{ __typename?: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionArtistsRouteQueryQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-export type CollectionArtistsRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    followedArtists: {
-      __typename: 'FollowedArtistsConnection';
-      pageInfo: {
-        __typename: 'PageInfoCursorBased';
-        cursors: { __typename: 'Cursors'; after: string | null } | null;
-      };
-      edges: Array<{
-        __typename: 'FollowedArtistEdge';
-        node: {
-          __typename: 'Artist';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CollectionPlaylistsRouteQueryVariables = Exact<{
+export type CollectionArtistsRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', followedArtists?: { __typename?: 'FollowedArtistsConnection', pageInfo: { __typename?: 'PageInfoCursorBased', cursors?: { __typename?: 'Cursors', after?: string | null } | null }, edges: Array<{ __typename?: 'FollowedArtistEdge', node: { __typename?: 'Artist', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionPlaylistsRouteQueryQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type CollectionPlaylistsRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: { __typename: 'CurrentUserProfile'; id: string };
-    episodes: {
-      __typename: 'SavedEpisodesConnection';
-      pageInfo: { __typename: 'PageInfo'; total: number };
-    } | null;
-    tracks: {
-      __typename: 'SavedTracksConnection';
-      pageInfo: { __typename: 'PageInfo'; total: number };
-      edges: Array<{
-        __typename: 'SavedTrackEdge';
-        node: {
-          __typename: 'Track';
-          id: string;
-          name: string;
-          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-        };
-      }>;
-    } | null;
-    playlists: {
-      __typename: 'PlaylistConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        offset: number;
-        limit: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          name: string;
-          description: string | null;
-          uri: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CollectionPlaylistsRoutePaginatedQueryVariables = Exact<{
+export type CollectionPlaylistsRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', profile: { __typename?: 'CurrentUserProfile', id: string }, episodes?: { __typename?: 'SavedEpisodesConnection', pageInfo: { __typename?: 'PageInfo', total: number } } | null, tracks?: { __typename?: 'SavedTracksConnection', pageInfo: { __typename?: 'PageInfo', total: number }, edges: Array<{ __typename?: 'SavedTrackEdge', node: { __typename?: 'Track', id: string, name: string, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } }> } | null, playlists?: { __typename?: 'PlaylistConnection', pageInfo: { __typename?: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename?: 'PlaylistEdge', node: { __typename?: 'Playlist', id: string, name: string, description?: string | null, uri: string, images?: Array<{ __typename?: 'Image', url: string }> | null } }> } | null } | null };
+
+export type CollectionPlaylistsRoutePaginatedQueryQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type CollectionPlaylistsRoutePaginatedQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    playlists: {
-      __typename: 'PlaylistConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        offset: number;
-        limit: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          name: string;
-          description: string | null;
-          uri: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CollectionPodcastsRouteQueryVariables = Exact<{
+export type CollectionPlaylistsRoutePaginatedQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', playlists?: { __typename?: 'PlaylistConnection', pageInfo: { __typename?: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename?: 'PlaylistEdge', node: { __typename?: 'Playlist', id: string, name: string, description?: string | null, uri: string, images?: Array<{ __typename?: 'Image', url: string }> | null } }> } | null } | null };
+
+export type CollectionPodcastsRouteQueryQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type CollectionPodcastsRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    episodes: {
-      __typename: 'SavedEpisodesConnection';
-      pageInfo: { __typename: 'PageInfo'; total: number };
-      edges: Array<{
-        __typename: 'SavedEpisodeEdge';
-        node: {
-          __typename: 'Episode';
-          id: string;
-          name: string;
-          show: { __typename: 'Show'; id: string; name: string };
-        };
-      }>;
-    } | null;
-    shows: {
-      __typename: 'SavedShowsConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        offset: number;
-        limit: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'SavedShowEdge';
-        node: {
-          __typename: 'Show';
-          id: string;
-          name: string;
-          publisher: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CollectionPodcastsRoutePaginatedQueryVariables = Exact<{
+export type CollectionPodcastsRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', episodes?: { __typename?: 'SavedEpisodesConnection', pageInfo: { __typename?: 'PageInfo', total: number }, edges: Array<{ __typename?: 'SavedEpisodeEdge', node: { __typename?: 'Episode', id: string, name: string, show: { __typename?: 'Show', id: string, name: string } } }> } | null, shows?: { __typename?: 'SavedShowsConnection', pageInfo: { __typename?: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename?: 'SavedShowEdge', node: { __typename?: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionPodcastsRoutePaginatedQueryQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type CollectionPodcastsRoutePaginatedQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    shows: {
-      __typename: 'SavedShowsConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        offset: number;
-        limit: number;
-        hasNextPage: boolean;
-      };
-      edges: Array<{
-        __typename: 'SavedShowEdge';
-        node: {
-          __typename: 'Show';
-          id: string;
-          name: string;
-          publisher: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CollectionTracksRouteQueryVariables = Exact<{
+export type CollectionPodcastsRoutePaginatedQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', shows?: { __typename?: 'SavedShowsConnection', pageInfo: { __typename?: 'PageInfo', offset: number, limit: number, hasNextPage: boolean }, edges: Array<{ __typename?: 'SavedShowEdge', node: { __typename?: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } }> } | null } | null };
+
+export type CollectionTracksRouteQueryQueryVariables = Exact<{
   offset?: InputMaybe<Scalars['Int']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type CollectionTracksRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: {
-      __typename: 'CurrentUserProfile';
-      id: string;
-      displayName: string | null;
-    };
-    tracks: {
-      __typename: 'SavedTracksConnection';
-      pageInfo: {
-        __typename: 'PageInfo';
-        hasNextPage: boolean;
-        offset: number;
-        limit: number;
-        total: number;
-      };
-      edges: Array<{
-        __typename: 'SavedTrackEdge';
-        addedAt: string;
-        node: {
-          __typename: 'Track';
-          id: string;
-          name: string;
-          durationMs: number;
-          uri: string;
-          trackNumber: number | null;
-          explicit: boolean;
-          album: {
-            __typename: 'Album';
-            id: string;
-            images: Array<{ __typename: 'Image'; url: string }>;
-          };
-          artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type CollectionTracksRoutePlaylistStateFragment = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+export type CollectionTracksRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', profile: { __typename?: 'CurrentUserProfile', id: string, displayName?: string | null }, tracks?: { __typename?: 'SavedTracksConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, offset: number, limit: number, total: number }, edges: Array<{ __typename?: 'SavedTrackEdge', addedAt: any, node: { __typename?: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber?: number | null, explicit: boolean, album: { __typename?: 'Album', id: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } }> } | null } | null };
 
-export type CurrentUserFragment = {
-  __typename: 'CurrentUser';
-  tracksContains: Array<boolean> | null;
-};
+export type CollectionTracksRoutePlaylistStateFragmentFragment = { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename?: 'PlaybackContext', uri: string } | null };
 
-export type EpisodeRouteQueryVariables = Exact<{
+export type CurrentUserFragmentFragment = { __typename?: 'CurrentUser', tracksContains?: Array<boolean> | null };
+
+export type EpisodeRouteQueryQueryVariables = Exact<{
   episodeId: Scalars['ID']['input'];
 }>;
 
-export type EpisodeRouteQuery = {
-  episode: {
-    __typename: 'Episode';
-    id: string;
-    name: string;
-    durationMs: number;
-    releaseDate: {
-      __typename: 'ReleaseDate';
-      date: string;
-      precision: ReleaseDatePrecision;
-    };
-    show: {
-      __typename: 'Show';
-      id: string;
-      name: string;
-      images: Array<{
-        __typename: 'Image';
-        url: string;
-        vibrantColor: string | null;
-      }>;
-    };
-    resumePoint: {
-      __typename: 'ResumePoint';
-      fullyPlayed: boolean;
-      resumePositionMs: number;
-    };
-  } | null;
-};
 
-export type IndexRouteQueryVariables = Exact<{
+export type EpisodeRouteQueryQuery = { __typename?: 'Query', episode?: { __typename?: 'Episode', id: string, name: string, durationMs: number, releaseDate: { __typename?: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename?: 'Show', id: string, name: string, images: Array<{ __typename?: 'Image', url: string, vibrantColor?: string | null }> }, resumePoint: { __typename?: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } | null };
+
+export type IndexRouteQueryQueryVariables = Exact<{
   limit: Scalars['Int']['input'];
 }>;
 
-export type IndexRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    playlists: {
-      __typename: 'PlaylistConnection';
-      edges: Array<{
-        __typename: 'PlaylistEdge';
-        node: {
-          __typename: 'Playlist';
-          id: string;
-          name: string;
-          description: string | null;
-          uri: string;
-          images: Array<{ __typename: 'Image'; url: string }> | null;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type PlaylistQueryVariables = Exact<{
+export type IndexRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', playlists?: { __typename?: 'PlaylistConnection', edges: Array<{ __typename?: 'PlaylistEdge', node: { __typename?: 'Playlist', id: string, name: string, description?: string | null, uri: string, images?: Array<{ __typename?: 'Image', url: string }> | null } }> } | null } | null };
+
+export type PlaylistQueryQueryVariables = Exact<{
   id: Scalars['ID']['input'];
   offset?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type PlaylistQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    profile: { __typename: 'CurrentUserProfile'; id: string };
-  } | null;
-  playlist: {
-    __typename: 'Playlist';
-    id: string;
-    name: string;
-    uri: string;
-    images: Array<{
-      __typename: 'Image';
-      url: string;
-      vibrantColor: string | null;
-    }> | null;
-    owner: { __typename: 'User'; id: string; displayName: string | null };
-    tracks: {
-      __typename: 'PlaylistTrackConnection';
-      edges: Array<{
-        __typename: 'PlaylistTrackEdge';
-        addedAt: string | null;
-        node:
-          | {
-              __typename: 'Episode';
-              id: string;
-              name: string;
-              durationMs: number;
-              uri: string;
-              explicit: boolean;
-              releaseDate: {
-                __typename: 'ReleaseDate';
-                date: string;
-                precision: ReleaseDatePrecision;
-              };
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              name: string;
-              durationMs: number;
-              uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
-            };
-      }>;
-      pageInfo: {
-        __typename: 'PageInfo';
-        hasNextPage: boolean;
-        offset: number;
-        limit: number;
-        total: number;
-      };
-    };
-  } | null;
-};
 
-export type PlaylistRoutePlaybackStateFragment = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-};
+export type PlaylistQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', profile: { __typename?: 'CurrentUserProfile', id: string } } | null, playlist?: { __typename?: 'Playlist', id: string, name: string, uri: string, images?: Array<{ __typename?: 'Image', url: string, vibrantColor?: string | null }> | null, owner: { __typename?: 'User', id: string, displayName?: string | null }, tracks: { __typename?: 'PlaylistTrackConnection', edges: Array<{ __typename?: 'PlaylistTrackEdge', addedAt?: any | null, node: { __typename?: 'Episode', id: string, name: string, durationMs: number, uri: string, explicit: boolean, releaseDate: { __typename?: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, show: { __typename?: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename?: 'Track', id: string, name: string, durationMs: number, uri: string, trackNumber?: number | null, explicit: boolean, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, offset: number, limit: number, total: number } } } | null };
 
-export type QueueRouteQueryVariables = Exact<{ [key: string]: never }>;
+export type PlaylistRoutePlaybackStateFragmentFragment = { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename?: 'PlaybackContext', uri: string } | null };
 
-export type QueueRouteQuery = {
-  me: {
-    __typename: 'CurrentUser';
-    player: {
-      __typename: 'Player';
-      playbackQueue: {
-        __typename: 'PlaybackQueue';
-        currentlyPlaying:
-          | {
-              __typename: 'Episode';
-              id: string;
-              durationMs: number;
-              uri: string;
-              explicit: boolean;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              durationMs: number;
-              uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              name: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
-            }
-          | null;
-        queue: Array<
-          | {
-              __typename: 'Episode';
-              id: string;
-              durationMs: number;
-              uri: string;
-              explicit: boolean;
-              name: string;
-              show: {
-                __typename: 'Show';
-                id: string;
-                name: string;
-                publisher: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-            }
-          | {
-              __typename: 'Track';
-              id: string;
-              durationMs: number;
-              uri: string;
-              trackNumber: number | null;
-              explicit: boolean;
-              name: string;
-              album: {
-                __typename: 'Album';
-                id: string;
-                name: string;
-                images: Array<{ __typename: 'Image'; url: string }>;
-              };
-              artists: Array<{
-                __typename: 'Artist';
-                id: string;
-                name: string;
-              }>;
-            }
-        >;
-      } | null;
-    };
-  } | null;
-};
+export type QueueRouteQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-type QueueRoute_playbackItem_Episode = {
-  __typename: 'Episode';
-  id: string;
-  durationMs: number;
-  uri: string;
-  explicit: boolean;
-  name: string;
-  show: {
-    __typename: 'Show';
-    id: string;
-    name: string;
-    publisher: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-};
 
-type QueueRoute_playbackItem_Track = {
-  __typename: 'Track';
-  id: string;
-  durationMs: number;
-  uri: string;
-  trackNumber: number | null;
-  explicit: boolean;
-  name: string;
-  album: {
-    __typename: 'Album';
-    id: string;
-    name: string;
-    images: Array<{ __typename: 'Image'; url: string }>;
-  };
-  artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-};
+export type QueueRouteQueryQuery = { __typename?: 'Query', me?: { __typename?: 'CurrentUser', player: { __typename?: 'Player', playbackQueue?: { __typename?: 'PlaybackQueue', currentlyPlaying?: { __typename?: 'Episode', id: string, durationMs: number, uri: string, explicit: boolean, name: string, show: { __typename?: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename?: 'Track', id: string, durationMs: number, uri: string, trackNumber?: number | null, explicit: boolean, name: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } | null, queue: Array<{ __typename?: 'Episode', id: string, durationMs: number, uri: string, explicit: boolean, name: string, show: { __typename?: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } } | { __typename?: 'Track', id: string, durationMs: number, uri: string, trackNumber?: number | null, explicit: boolean, name: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> }> } | null } } | null };
 
-export type QueueRoute_playbackItem =
-  | QueueRoute_playbackItem_Episode
-  | QueueRoute_playbackItem_Track;
+type QueueRoutePlaybackItemEpisodeFragment = { __typename?: 'Episode', id: string, durationMs: number, uri: string, explicit: boolean, name: string, show: { __typename?: 'Show', id: string, name: string, publisher: string, images: Array<{ __typename?: 'Image', url: string }> } };
 
-export type QueueRoute_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  context: { __typename: 'PlaybackContext'; uri: string } | null;
-  item:
-    | { __typename: 'Episode'; id: string }
-    | { __typename: 'Track'; id: string }
-    | null;
-};
+type QueueRoutePlaybackItemTrackFragment = { __typename?: 'Track', id: string, durationMs: number, uri: string, trackNumber?: number | null, explicit: boolean, name: string, album: { __typename?: 'Album', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> }, artists: Array<{ __typename?: 'Artist', id: string, name: string }> };
 
-export type SearchRouteQueryVariables = Exact<{
+export type QueueRoutePlaybackItemFragment = QueueRoutePlaybackItemEpisodeFragment | QueueRoutePlaybackItemTrackFragment;
+
+export type QueueRoutePlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, context?: { __typename: 'PlaybackContext', uri: string } | null, item?: { __typename?: 'Episode', id: string } | { __typename?: 'Track', id: string } | null };
+
+export type SearchRouteQueryQueryVariables = Exact<{
   q: Scalars['String']['input'];
   type: Array<SearchType> | SearchType;
 }>;
 
-export type SearchRouteQuery = {
-  search: {
-    __typename: 'SearchResults';
-    artists: {
-      __typename: 'SearchArtistsConnection';
-      edges: Array<{
-        __typename: 'SearchArtistEdge';
-        node: {
-          __typename: 'Artist';
-          id: string;
-          name: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }>;
-    } | null;
-  } | null;
-};
 
-export type SettingsQueryVariables = Exact<{ [key: string]: never }>;
+export type SearchRouteQueryQuery = { __typename?: 'Query', search?: { __typename?: 'SearchResults', artists?: { __typename?: 'SearchArtistsConnection', edges: Array<{ __typename?: 'SearchArtistEdge', node: { __typename?: 'Artist', id: string, name: string, images: Array<{ __typename?: 'Image', url: string }> } }> } | null } | null };
 
-export type SettingsQuery = {
-  developer: {
-    __typename: 'Developer';
-    fieldConfigs: Array<{
-      __typename: 'FieldConfig';
-      timeout: number;
-      errorRate: number;
-      schemaField: {
-        __typename: 'SchemaField';
-        fieldName: string;
-        typename: string;
-      };
-    }>;
-  };
-};
+export type SettingsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type LimitedIntrospectionQueryVariables = Exact<{
-  [key: string]: never;
-}>;
 
-export type LimitedIntrospectionQuery = {
-  __schema: {
-    __typename: '__Schema';
-    types: Array<{
-      __typename: '__Type';
-      name: string | null;
-      kind: __TypeKind;
-      fields: Array<{
-        __typename: '__Field';
-        name: string;
-        description: string | null;
-        type: {
-          __typename: '__Type';
-          kind: __TypeKind;
-          name: string | null;
-          ofType: {
-            __typename: '__Type';
-            kind: __TypeKind;
-            name: string | null;
-            ofType: {
-              __typename: '__Type';
-              kind: __TypeKind;
-              name: string | null;
-              ofType: {
-                __typename: '__Type';
-                kind: __TypeKind;
-                name: string | null;
-                ofType: {
-                  __typename: '__Type';
-                  kind: __TypeKind;
-                  name: string | null;
-                  ofType: {
-                    __typename: '__Type';
-                    kind: __TypeKind;
-                    name: string | null;
-                    ofType: {
-                      __typename: '__Type';
-                      kind: __TypeKind;
-                      name: string | null;
-                      ofType: {
-                        __typename: '__Type';
-                        kind: __TypeKind;
-                        name: string | null;
-                      } | null;
-                    } | null;
-                  } | null;
-                } | null;
-              } | null;
-            } | null;
-          } | null;
-        };
-      }> | null;
-    }>;
-  };
-};
+export type SettingsQueryQuery = { __typename?: 'Query', developer: { __typename?: 'Developer', fieldConfigs: Array<{ __typename?: 'FieldConfig', timeout: number, errorRate: any, schemaField: { __typename?: 'SchemaField', fieldName: string, typename: string } }> } };
 
-export type TypeRef = {
-  __typename: '__Type';
-  kind: __TypeKind;
-  name: string | null;
-  ofType: {
-    __typename: '__Type';
-    kind: __TypeKind;
-    name: string | null;
-    ofType: {
-      __typename: '__Type';
-      kind: __TypeKind;
-      name: string | null;
-      ofType: {
-        __typename: '__Type';
-        kind: __TypeKind;
-        name: string | null;
-        ofType: {
-          __typename: '__Type';
-          kind: __TypeKind;
-          name: string | null;
-          ofType: {
-            __typename: '__Type';
-            kind: __TypeKind;
-            name: string | null;
-            ofType: {
-              __typename: '__Type';
-              kind: __TypeKind;
-              name: string | null;
-              ofType: {
-                __typename: '__Type';
-                kind: __TypeKind;
-                name: string | null;
-              } | null;
-            } | null;
-          } | null;
-        } | null;
-      } | null;
-    } | null;
-  } | null;
-};
+export type LimitedIntrospectionQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type ShowRouteQueryVariables = Exact<{
+
+export type LimitedIntrospectionQueryQuery = { __typename?: 'Query', __schema: { __typename?: '__Schema', types: Array<{ __typename?: '__Type', name?: string | null, kind: TypeKind, fields?: Array<{ __typename?: '__Field', name: string, description?: string | null, type: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null } | null } | null } | null } | null } | null } | null } | null } }> | null }> } };
+
+export type TypeRefFragment = { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null, ofType?: { __typename?: '__Type', kind: TypeKind, name?: string | null } | null } | null } | null } | null } | null } | null } | null };
+
+export type ShowRouteQueryQueryVariables = Exact<{
   showId: Scalars['ID']['input'];
 }>;
 
-export type ShowRouteQuery = {
-  show: {
-    __typename: 'Show';
-    id: string;
-    description: string;
-    name: string;
-    publisher: string;
-    episodes: {
-      __typename: 'ShowEpisodesConnection';
-      edges: Array<{
-        __typename: 'ShowEpisodeEdge';
-        node: {
-          __typename: 'Episode';
-          id: string;
-          name: string;
-          durationMs: number;
-          uri: string;
-          releaseDate: {
-            __typename: 'ReleaseDate';
-            date: string;
-            precision: ReleaseDatePrecision;
-          };
-          resumePoint: {
-            __typename: 'ResumePoint';
-            fullyPlayed: boolean;
-            resumePositionMs: number;
-          };
-        };
-      }>;
-    } | null;
-    images: Array<{
-      __typename: 'Image';
-      url: string;
-      vibrantColor: string | null;
-    }>;
-  } | null;
-};
 
-export type ShowRoute_playbackState = {
-  __typename: 'PlaybackState';
-  isPlaying: boolean;
-  item:
-    | { __typename: 'Episode'; id: string; uri: string }
-    | { __typename: 'Track'; id: string; uri: string }
-    | null;
-};
+export type ShowRouteQueryQuery = { __typename?: 'Query', show?: { __typename?: 'Show', id: string, description: string, name: string, publisher: string, episodes?: { __typename?: 'ShowEpisodesConnection', edges: Array<{ __typename?: 'ShowEpisodeEdge', node: { __typename?: 'Episode', id: string, name: string, durationMs: number, uri: string, releaseDate: { __typename?: 'ReleaseDate', date: string, precision: ReleaseDatePrecision }, resumePoint: { __typename?: 'ResumePoint', fullyPlayed: boolean, resumePositionMs: number } } }> } | null, images: Array<{ __typename?: 'Image', url: string, vibrantColor?: string | null }> } | null };
 
-export type TrackRouteQueryVariables = Exact<{
+export type ShowRoutePlaybackStateFragment = { __typename?: 'PlaybackState', isPlaying: boolean, item?: { __typename: 'Episode', id: string, uri: string } | { __typename: 'Track', id: string, uri: string } | null };
+
+export type TrackRouteQueryQueryVariables = Exact<{
   trackId: Scalars['ID']['input'];
 }>;
 
-export type TrackRouteQuery = {
-  track: {
-    __typename: 'Track';
-    id: string;
-    durationMs: number;
-    name: string;
-    album: {
-      __typename: 'Album';
-      id: string;
-      albumType: AlbumType;
-      name: string;
-      uri: string;
-      images: Array<{
-        __typename: 'Image';
-        url: string;
-        vibrantColor: string | null;
-      }>;
-      tracks: {
-        __typename: 'AlbumTrackConnection';
-        edges: Array<{
-          __typename: 'AlbumTrackEdge';
-          node: {
-            __typename: 'Track';
-            id: string;
-            uri: string;
-            durationMs: number;
-            trackNumber: number | null;
-            name: string;
-            explicit: boolean;
-            artists: Array<{ __typename: 'Artist'; id: string; name: string }>;
-          };
-        }>;
-      } | null;
-    };
-    artists: Array<{
-      __typename: 'Artist';
-      id: string;
-      name: string;
-      topTracks: Array<{
-        __typename: 'Track';
-        id: string;
-        durationMs: number;
-        explicit: boolean;
-        name: string;
-        album: {
-          __typename: 'Album';
-          id: string;
-          images: Array<{ __typename: 'Image'; url: string }>;
-        };
-      }>;
-      images: Array<{ __typename: 'Image'; url: string }>;
-    }>;
-  } | null;
-};
+
+export type TrackRouteQueryQuery = { __typename?: 'Query', track?: { __typename?: 'Track', id: string, durationMs: number, name: string, album: { __typename?: 'Album', id: string, albumType: AlbumType, name: string, uri: string, images: Array<{ __typename?: 'Image', url: string, vibrantColor?: string | null }>, tracks?: { __typename?: 'AlbumTrackConnection', edges: Array<{ __typename?: 'AlbumTrackEdge', node: { __typename?: 'Track', id: string, uri: string, durationMs: number, trackNumber?: number | null, name: string, explicit: boolean, artists: Array<{ __typename?: 'Artist', id: string, name: string }> } }> } | null }, artists: Array<{ __typename?: 'Artist', id: string, name: string, topTracks: Array<{ __typename?: 'Track', id: string, durationMs: number, explicit: boolean, name: string, album: { __typename?: 'Album', id: string, images: Array<{ __typename?: 'Image', url: string }> } }>, images: Array<{ __typename?: 'Image', url: string }> }> } | null };
+
+export const AlbumTrackTitleCellPlaybackStateFragmentDoc = gql`
+    fragment AlbumTrackTitleCell_playbackState on PlaybackState {
+  context {
+    uri
+  }
+  item {
+    id
+    uri
+  }
+}
+    `;
+export const AlbumTrackTitleCellTrackFragmentDoc = gql`
+    fragment AlbumTrackTitleCell_track on Track {
+  id
+  name
+  uri
+  explicit
+  artists {
+    id
+    name
+  }
+}
+    `;
+export const AlbumTrackTitleCellAlbumFragmentDoc = gql`
+    fragment AlbumTrackTitleCell_album on Album {
+  id
+  uri
+}
+    `;
+export const AlbumTracksTableAlbumFragmentDoc = gql`
+    fragment AlbumTracksTable_album on Album {
+  id
+  uri
+  tracks {
+    edges {
+      node {
+        id
+        uri
+        durationMs
+        trackNumber
+        artists {
+          id
+        }
+        ...AlbumTrackTitleCell_track
+      }
+    }
+  }
+  ...AlbumTrackTitleCell_album
+}
+    ${AlbumTrackTitleCellTrackFragmentDoc}
+${AlbumTrackTitleCellAlbumFragmentDoc}`;
+export const ArtistTileArtistFragmentDoc = gql`
+    fragment ArtistTile_artist on Artist {
+  id
+  name
+  images {
+    url
+  }
+}
+    `;
+export const ArtistTopTracksTracksFragmentDoc = gql`
+    fragment ArtistTopTracks_tracks on Track {
+  id
+  durationMs
+  explicit
+  name
+  album {
+    id
+    images {
+      url
+    }
+  }
+}
+    `;
+export const AvatarProfileFragmentDoc = gql`
+    fragment Avatar_profile on UserProfile {
+  id
+  images {
+    url
+  }
+}
+    `;
+export const DevicePopoverPlaybackStateFragmentDoc = gql`
+    fragment DevicePopover_playbackState on PlaybackState {
+  isPlaying
+  device {
+    id
+  }
+}
+    `;
+export const DevicePopoverDevicesFragmentDoc = gql`
+    fragment DevicePopover_devices on Device {
+  id
+  name
+  type
+}
+    `;
+export const EpisodeRemainingDurationEpisodeFragmentDoc = gql`
+    fragment EpisodeRemainingDuration_episode on Episode {
+  id
+  durationMs
+  resumePoint {
+    fullyPlayed
+    resumePositionMs
+  }
+}
+    `;
+export const LikedSongsTilePlaybackStateFragmentDoc = gql`
+    fragment LikedSongsTile_playbackState on PlaybackState {
+  isPlaying
+  context {
+    uri
+  }
+}
+    `;
+export const LikedSongsTileConnectionFragmentDoc = gql`
+    fragment LikedSongsTile_connection on SavedTracksConnection {
+  pageInfo {
+    total
+  }
+  edges {
+    node {
+      id
+      name
+      artists {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+export const NotificationManagerPlaybackStateFragmentDoc = gql`
+    fragment NotificationManager_playbackState on PlaybackState {
+  device {
+    id
+  }
+}
+    `;
+export const TrackPlaybackDetailsContextFragmentDoc = gql`
+    fragment TrackPlaybackDetails_context on PlaybackContext {
+  uri
+  type
+}
+    `;
+export const TrackPlaybackDetailsTrackFragmentDoc = gql`
+    fragment TrackPlaybackDetails_track on Track {
+  id
+  name
+  uri
+  album {
+    id
+    name
+  }
+  artists {
+    id
+    uri
+    name
+  }
+}
+    `;
+export const EpisodePlaybackDetailsEpisodeFragmentDoc = gql`
+    fragment EpisodePlaybackDetails_episode on Episode {
+  id
+  name
+  show {
+    id
+    name
+  }
+}
+    `;
+export const LikeControlPlaybackItemFragmentDoc = gql`
+    fragment LikeControl_playbackItem on PlaybackItem {
+  __typename
+  id
+}
+    `;
+export const PlaybackItemProgressBarPlaybackStateFragmentDoc = gql`
+    fragment PlaybackItemProgressBar_playbackState on PlaybackState {
+  isPlaying
+  progressMs
+  timestamp
+  item {
+    id
+    durationMs
+  }
+}
+    `;
+export const PlaybarPlaybackStateFragmentDoc = gql`
+    fragment Playbar_playbackState on PlaybackState {
+  isPlaying
+  repeatState
+  shuffleState
+  actions {
+    disallows
+  }
+  context {
+    ...TrackPlaybackDetails_context
+  }
+  device {
+    id
+    name
+    type
+    volumePercent
+  }
+  item {
+    id
+    ... on Track {
+      album {
+        id
+        images {
+          url
+        }
+      }
+      ...TrackPlaybackDetails_track
+    }
+    ... on Episode {
+      show {
+        id
+        images {
+          url
+        }
+      }
+      ...EpisodePlaybackDetails_episode
+    }
+    ...LikeControl_playbackItem
+  }
+  ...PlaybackItemProgressBar_playbackState
+}
+    ${TrackPlaybackDetailsContextFragmentDoc}
+${TrackPlaybackDetailsTrackFragmentDoc}
+${EpisodePlaybackDetailsEpisodeFragmentDoc}
+${LikeControlPlaybackItemFragmentDoc}
+${PlaybackItemProgressBarPlaybackStateFragmentDoc}`;
+export const PlaybackStateFragmentFragmentDoc = gql`
+    fragment PlaybackStateFragment on PlaybackState {
+  isPlaying
+  repeatState
+  shuffleState
+  actions {
+    disallows
+  }
+  context {
+    uri
+  }
+  device {
+    id
+    name
+    type
+    volumePercent
+  }
+  item {
+    id
+    ... on Track {
+      album {
+        id
+        images {
+          url
+        }
+      }
+    }
+    ... on Episode {
+      show {
+        id
+        images {
+          url
+        }
+      }
+    }
+  }
+  ...Playbar_playbackState
+}
+    ${PlaybarPlaybackStateFragmentDoc}`;
+export const PlaylistSidebarLinkPlaybackStateFragmentDoc = gql`
+    fragment PlaylistSidebarLink_playbackState on PlaybackState {
+  isPlaying
+  context {
+    uri
+  }
+}
+    `;
+export const PlaylistSidebarLinkCurrentUserFragmentDoc = gql`
+    fragment PlaylistSidebarLink_currentUser on CurrentUser {
+  profile {
+    id
+  }
+}
+    `;
+export const PlaylistSidebarLinkPlaylistFragmentDoc = gql`
+    fragment PlaylistSidebarLink_playlist on Playlist {
+  id
+  uri
+  name
+  owner {
+    id
+    displayName
+  }
+}
+    `;
+export const PlaylistTilePlaylistFragmentDoc = gql`
+    fragment PlaylistTile_playlist on Playlist {
+  id
+  name
+  description
+  uri
+  images {
+    url
+  }
+}
+    `;
+export const PlaylistTitleCellPlaybackStateFragmentDoc = gql`
+    fragment PlaylistTitleCell_playbackState on PlaybackState {
+  context {
+    uri
+  }
+  item {
+    id
+    uri
+  }
+}
+    `;
+export const PlaylistTitleCellPlaylistFragmentDoc = gql`
+    fragment PlaylistTitleCell_playlist on Playlist {
+  id
+  uri
+}
+    `;
+export const PlaylistTitleCellPlaylistTrackFragmentDoc = gql`
+    fragment PlaylistTitleCell_playlistTrack on PlaylistTrack {
+  id
+  name
+  uri
+  ... on Episode {
+    explicit
+    show {
+      id
+      publisher
+      images {
+        url
+      }
+    }
+  }
+  ... on Track {
+    explicit
+    artists {
+      id
+      name
+    }
+    album {
+      id
+      name
+      images {
+        url
+      }
+    }
+  }
+}
+    `;
+export const TrackNumberCellPlaybackStateFragmentDoc = gql`
+    fragment TrackNumberCell_playbackState on PlaybackState {
+  isPlaying
+  context {
+    uri
+  }
+  item {
+    id
+    uri
+  }
+}
+    `;
+export const TrackTitleCellPlaybackStateFragmentDoc = gql`
+    fragment TrackTitleCell_playbackState on PlaybackState {
+  context {
+    uri
+  }
+  item {
+    id
+    uri
+  }
+}
+    `;
+export const YourEpisodesTileConnectionFragmentDoc = gql`
+    fragment YourEpisodesTile_connection on SavedEpisodesConnection {
+  pageInfo {
+    total
+  }
+  edges {
+    node {
+      id
+      name
+      show {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+export const SavedTracksContainsFragmentFragmentDoc = gql`
+    fragment SavedTracksContainsFragment on CurrentUser {
+  tracksContains(ids: $ids)
+}
+    `;
+export const RemovedSavedAlbumsMutationFragmentFragmentDoc = gql`
+    fragment RemovedSavedAlbumsMutationFragment on CurrentUser {
+  albumsContains(ids: $ids)
+}
+    `;
+export const RemovedSavedTracksMutationFragmentFragmentDoc = gql`
+    fragment RemovedSavedTracksMutationFragment on CurrentUser {
+  tracksContains(ids: $ids)
+}
+    `;
+export const UseResumePlaybackStateFragmentFragmentDoc = gql`
+    fragment UseResumePlaybackStateFragment on PlaybackState {
+  context {
+    uri
+    type
+  }
+}
+    `;
+export const SaveAlbumsMutationFragmentFragmentDoc = gql`
+    fragment SaveAlbumsMutationFragment on CurrentUser {
+  albumsContains(ids: $ids)
+}
+    `;
+export const SaveTracksMutationFragmentFragmentDoc = gql`
+    fragment SaveTracksMutationFragment on CurrentUser {
+  tracksContains(ids: $ids)
+}
+    `;
+export const SetVolumeCacheFragmentFragmentDoc = gql`
+    fragment SetVolumeCacheFragment on PlaybackState {
+  device {
+    id
+    volumePercent
+  }
+}
+    `;
+export const AlbumRoutePlaybackStateFragmentFragmentDoc = gql`
+    fragment AlbumRoutePlaybackStateFragment on PlaybackState {
+  isPlaying
+  context {
+    uri
+  }
+}
+    `;
+export const AlbumTileAlbumFragmentDoc = gql`
+    fragment AlbumTile_album on Album {
+  id
+  name
+  albumType
+  totalTracks
+  releaseDate {
+    date
+  }
+  images {
+    url
+  }
+}
+    `;
+export const ArtistRouteQueryAlbumsFragmentDoc = gql`
+    fragment ArtistRouteQuery_albums on ArtistAlbumsConnection {
+  edges {
+    node {
+      id
+      ...AlbumTile_album
+    }
+  }
+}
+    ${AlbumTileAlbumFragmentDoc}`;
+export const CollectionTracksRoutePlaylistStateFragmentFragmentDoc = gql`
+    fragment CollectionTracksRoutePlaylistStateFragment on PlaybackState {
+  isPlaying
+  context {
+    uri
+  }
+}
+    `;
+export const CurrentUserFragmentFragmentDoc = gql`
+    fragment CurrentUserFragment on CurrentUser {
+  tracksContains(ids: $ids)
+}
+    `;
+export const PlaylistRoutePlaybackStateFragmentFragmentDoc = gql`
+    fragment PlaylistRoutePlaybackStateFragment on PlaybackState {
+  isPlaying
+  context {
+    uri
+  }
+}
+    `;
+export const TrackNumberCellTrackFragmentDoc = gql`
+    fragment TrackNumberCell_track on Track {
+  id
+  uri
+  trackNumber
+}
+    `;
+export const TrackTitleCellTrackFragmentDoc = gql`
+    fragment TrackTitleCell_track on Track {
+  id
+  explicit
+  name
+  uri
+  album {
+    id
+    images {
+      url
+    }
+  }
+  artists {
+    id
+    name
+  }
+}
+    `;
+export const EpisodeDetailsCellEpisodeFragmentDoc = gql`
+    fragment EpisodeDetailsCell_episode on Episode {
+  id
+  explicit
+  name
+  show {
+    id
+    publisher
+    images {
+      url
+    }
+  }
+}
+    `;
+export const QueueRoutePlaybackItemFragmentDoc = gql`
+    fragment QueueRoute_playbackItem on PlaybackItem {
+  id
+  durationMs
+  uri
+  ... on Track {
+    album {
+      id
+      name
+    }
+    ...TrackNumberCell_track
+    ...TrackTitleCell_track
+  }
+  ... on Episode {
+    show {
+      id
+      name
+    }
+    ...EpisodeDetailsCell_episode
+  }
+}
+    ${TrackNumberCellTrackFragmentDoc}
+${TrackTitleCellTrackFragmentDoc}
+${EpisodeDetailsCellEpisodeFragmentDoc}`;
+export const QueueRoutePlaybackStateFragmentDoc = gql`
+    fragment QueueRoute_playbackState on PlaybackState {
+  isPlaying
+  context {
+    __typename
+    uri
+  }
+  item {
+    id
+  }
+}
+    `;
+export const TypeRefFragmentDoc = gql`
+    fragment TypeRef on __Type {
+  kind
+  name
+  ofType {
+    kind
+    name
+    ofType {
+      kind
+      name
+      ofType {
+        kind
+        name
+        ofType {
+          kind
+          name
+          ofType {
+            kind
+            name
+            ofType {
+              kind
+              name
+              ofType {
+                kind
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export const ShowRoutePlaybackStateFragmentDoc = gql`
+    fragment ShowRoute_playbackState on PlaybackState {
+  isPlaying
+  item {
+    __typename
+    id
+    uri
+  }
+}
+    `;
+export const AddToPlaylistQueryDocument = gql`
+    query AddToPlaylistQuery($offset: Int, $limit: Int) {
+  me {
+    playlists(offset: $offset, limit: $limit) @connection(key: "addToPlaylistPlaylists") {
+      pageInfo {
+        hasNextPage
+        limit
+        offset
+      }
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useAddToPlaylistQueryQuery__
+ *
+ * To run a query within a React component, call `useAddToPlaylistQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAddToPlaylistQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAddToPlaylistQueryQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useAddToPlaylistQueryQuery(baseOptions?: Apollo.QueryHookOptions<AddToPlaylistQueryQuery, AddToPlaylistQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AddToPlaylistQueryQuery, AddToPlaylistQueryQueryVariables>(AddToPlaylistQueryDocument, options);
+      }
+export function useAddToPlaylistQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AddToPlaylistQueryQuery, AddToPlaylistQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AddToPlaylistQueryQuery, AddToPlaylistQueryQueryVariables>(AddToPlaylistQueryDocument, options);
+        }
+export function useAddToPlaylistQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AddToPlaylistQueryQuery, AddToPlaylistQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AddToPlaylistQueryQuery, AddToPlaylistQueryQueryVariables>(AddToPlaylistQueryDocument, options);
+        }
+export type AddToPlaylistQueryQueryHookResult = ReturnType<typeof useAddToPlaylistQueryQuery>;
+export type AddToPlaylistQueryLazyQueryHookResult = ReturnType<typeof useAddToPlaylistQueryLazyQuery>;
+export type AddToPlaylistQuerySuspenseQueryHookResult = ReturnType<typeof useAddToPlaylistQuerySuspenseQuery>;
+export type AddToPlaylistQueryQueryResult = Apollo.QueryResult<AddToPlaylistQueryQuery, AddToPlaylistQueryQueryVariables>;
+export const CurrentUserQueryDocument = gql`
+    query CurrentUserQuery {
+  me {
+    profile {
+      id
+      displayName
+      ...Avatar_profile
+    }
+  }
+}
+    ${AvatarProfileFragmentDoc}`;
+
+/**
+ * __useCurrentUserQueryQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQueryQuery(baseOptions?: Apollo.QueryHookOptions<CurrentUserQueryQuery, CurrentUserQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CurrentUserQueryQuery, CurrentUserQueryQueryVariables>(CurrentUserQueryDocument, options);
+      }
+export function useCurrentUserQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentUserQueryQuery, CurrentUserQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CurrentUserQueryQuery, CurrentUserQueryQueryVariables>(CurrentUserQueryDocument, options);
+        }
+export function useCurrentUserQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CurrentUserQueryQuery, CurrentUserQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CurrentUserQueryQuery, CurrentUserQueryQueryVariables>(CurrentUserQueryDocument, options);
+        }
+export type CurrentUserQueryQueryHookResult = ReturnType<typeof useCurrentUserQueryQuery>;
+export type CurrentUserQueryLazyQueryHookResult = ReturnType<typeof useCurrentUserQueryLazyQuery>;
+export type CurrentUserQuerySuspenseQueryHookResult = ReturnType<typeof useCurrentUserQuerySuspenseQuery>;
+export type CurrentUserQueryQueryResult = Apollo.QueryResult<CurrentUserQueryQuery, CurrentUserQueryQueryVariables>;
+export const LikeControlQueryDocument = gql`
+    query LikeControlQuery($ids: [ID!]!) {
+  me {
+    episodesContains(ids: $ids)
+    tracksContains(ids: $ids)
+  }
+}
+    `;
+
+/**
+ * __useLikeControlQueryQuery__
+ *
+ * To run a query within a React component, call `useLikeControlQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLikeControlQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLikeControlQueryQuery({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useLikeControlQueryQuery(baseOptions: Apollo.QueryHookOptions<LikeControlQueryQuery, LikeControlQueryQueryVariables> & ({ variables: LikeControlQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LikeControlQueryQuery, LikeControlQueryQueryVariables>(LikeControlQueryDocument, options);
+      }
+export function useLikeControlQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LikeControlQueryQuery, LikeControlQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LikeControlQueryQuery, LikeControlQueryQueryVariables>(LikeControlQueryDocument, options);
+        }
+export function useLikeControlQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<LikeControlQueryQuery, LikeControlQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LikeControlQueryQuery, LikeControlQueryQueryVariables>(LikeControlQueryDocument, options);
+        }
+export type LikeControlQueryQueryHookResult = ReturnType<typeof useLikeControlQueryQuery>;
+export type LikeControlQueryLazyQueryHookResult = ReturnType<typeof useLikeControlQueryLazyQuery>;
+export type LikeControlQuerySuspenseQueryHookResult = ReturnType<typeof useLikeControlQuerySuspenseQuery>;
+export type LikeControlQueryQueryResult = Apollo.QueryResult<LikeControlQueryQuery, LikeControlQueryQueryVariables>;
+export const SidebarQueryDocument = gql`
+    query SidebarQuery($offset: Int, $limit: Int) {
+  me {
+    profile {
+      id
+    }
+    playlists(offset: $offset, limit: $limit) @connection(key: "rootPlaylists") {
+      pageInfo {
+        offset
+        limit
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          images {
+            url
+          }
+          ...PlaylistSidebarLink_playlist
+        }
+      }
+    }
+  }
+}
+    ${PlaylistSidebarLinkPlaylistFragmentDoc}`;
+
+/**
+ * __useSidebarQueryQuery__
+ *
+ * To run a query within a React component, call `useSidebarQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSidebarQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSidebarQueryQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useSidebarQueryQuery(baseOptions?: Apollo.QueryHookOptions<SidebarQueryQuery, SidebarQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SidebarQueryQuery, SidebarQueryQueryVariables>(SidebarQueryDocument, options);
+      }
+export function useSidebarQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SidebarQueryQuery, SidebarQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SidebarQueryQuery, SidebarQueryQueryVariables>(SidebarQueryDocument, options);
+        }
+export function useSidebarQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SidebarQueryQuery, SidebarQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SidebarQueryQuery, SidebarQueryQueryVariables>(SidebarQueryDocument, options);
+        }
+export type SidebarQueryQueryHookResult = ReturnType<typeof useSidebarQueryQuery>;
+export type SidebarQueryLazyQueryHookResult = ReturnType<typeof useSidebarQueryLazyQuery>;
+export type SidebarQuerySuspenseQueryHookResult = ReturnType<typeof useSidebarQuerySuspenseQuery>;
+export type SidebarQueryQueryResult = Apollo.QueryResult<SidebarQueryQuery, SidebarQueryQueryVariables>;
+export const PlaybackStateSubscriberQueryDocument = gql`
+    query PlaybackStateSubscriberQuery {
+  me {
+    player {
+      playbackState {
+        ...PlaybackStateFragment
+      }
+    }
+  }
+}
+    ${PlaybackStateFragmentFragmentDoc}`;
+
+/**
+ * __usePlaybackStateSubscriberQueryQuery__
+ *
+ * To run a query within a React component, call `usePlaybackStateSubscriberQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlaybackStateSubscriberQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlaybackStateSubscriberQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePlaybackStateSubscriberQueryQuery(baseOptions?: Apollo.QueryHookOptions<PlaybackStateSubscriberQueryQuery, PlaybackStateSubscriberQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PlaybackStateSubscriberQueryQuery, PlaybackStateSubscriberQueryQueryVariables>(PlaybackStateSubscriberQueryDocument, options);
+      }
+export function usePlaybackStateSubscriberQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlaybackStateSubscriberQueryQuery, PlaybackStateSubscriberQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PlaybackStateSubscriberQueryQuery, PlaybackStateSubscriberQueryQueryVariables>(PlaybackStateSubscriberQueryDocument, options);
+        }
+export function usePlaybackStateSubscriberQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlaybackStateSubscriberQueryQuery, PlaybackStateSubscriberQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PlaybackStateSubscriberQueryQuery, PlaybackStateSubscriberQueryQueryVariables>(PlaybackStateSubscriberQueryDocument, options);
+        }
+export type PlaybackStateSubscriberQueryQueryHookResult = ReturnType<typeof usePlaybackStateSubscriberQueryQuery>;
+export type PlaybackStateSubscriberQueryLazyQueryHookResult = ReturnType<typeof usePlaybackStateSubscriberQueryLazyQuery>;
+export type PlaybackStateSubscriberQuerySuspenseQueryHookResult = ReturnType<typeof usePlaybackStateSubscriberQuerySuspenseQuery>;
+export type PlaybackStateSubscriberQueryQueryResult = Apollo.QueryResult<PlaybackStateSubscriberQueryQuery, PlaybackStateSubscriberQueryQueryVariables>;
+export const PlaybackStateSubscriberSubscriptionDocument = gql`
+    subscription PlaybackStateSubscriberSubscription {
+  playbackStateChanged {
+    ...PlaybackStateFragment
+  }
+}
+    ${PlaybackStateFragmentFragmentDoc}`;
+
+/**
+ * __usePlaybackStateSubscriberSubscriptionSubscription__
+ *
+ * To run a query within a React component, call `usePlaybackStateSubscriberSubscriptionSubscription` and pass it any options that fit your needs.
+ * When your component renders, `usePlaybackStateSubscriberSubscriptionSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlaybackStateSubscriberSubscriptionSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePlaybackStateSubscriberSubscriptionSubscription(baseOptions?: Apollo.SubscriptionHookOptions<PlaybackStateSubscriberSubscriptionSubscription, PlaybackStateSubscriberSubscriptionSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<PlaybackStateSubscriberSubscriptionSubscription, PlaybackStateSubscriberSubscriptionSubscriptionVariables>(PlaybackStateSubscriberSubscriptionDocument, options);
+      }
+export type PlaybackStateSubscriberSubscriptionSubscriptionHookResult = ReturnType<typeof usePlaybackStateSubscriberSubscriptionSubscription>;
+export type PlaybackStateSubscriberSubscriptionSubscriptionResult = Apollo.SubscriptionResult<PlaybackStateSubscriberSubscriptionSubscription>;
+export const PlaybarQueryDocument = gql`
+    query PlaybarQuery {
+  me {
+    player {
+      devices {
+        id
+        ...DevicePopover_devices
+      }
+    }
+  }
+}
+    ${DevicePopoverDevicesFragmentDoc}`;
+
+/**
+ * __usePlaybarQueryQuery__
+ *
+ * To run a query within a React component, call `usePlaybarQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlaybarQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlaybarQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePlaybarQueryQuery(baseOptions?: Apollo.QueryHookOptions<PlaybarQueryQuery, PlaybarQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PlaybarQueryQuery, PlaybarQueryQueryVariables>(PlaybarQueryDocument, options);
+      }
+export function usePlaybarQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlaybarQueryQuery, PlaybarQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PlaybarQueryQuery, PlaybarQueryQueryVariables>(PlaybarQueryDocument, options);
+        }
+export function usePlaybarQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlaybarQueryQuery, PlaybarQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PlaybarQueryQuery, PlaybarQueryQueryVariables>(PlaybarQueryDocument, options);
+        }
+export type PlaybarQueryQueryHookResult = ReturnType<typeof usePlaybarQueryQuery>;
+export type PlaybarQueryLazyQueryHookResult = ReturnType<typeof usePlaybarQueryLazyQuery>;
+export type PlaybarQuerySuspenseQueryHookResult = ReturnType<typeof usePlaybarQuerySuspenseQuery>;
+export type PlaybarQueryQueryResult = Apollo.QueryResult<PlaybarQueryQuery, PlaybarQueryQueryVariables>;
+export const PlaylistDetailsModalQueryDocument = gql`
+    query PlaylistDetailsModalQuery($id: ID!) {
+  playlist(id: $id) {
+    id
+    name
+    description
+    images {
+      url
+    }
+  }
+}
+    `;
+
+/**
+ * __usePlaylistDetailsModalQueryQuery__
+ *
+ * To run a query within a React component, call `usePlaylistDetailsModalQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlaylistDetailsModalQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlaylistDetailsModalQueryQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function usePlaylistDetailsModalQueryQuery(baseOptions: Apollo.QueryHookOptions<PlaylistDetailsModalQueryQuery, PlaylistDetailsModalQueryQueryVariables> & ({ variables: PlaylistDetailsModalQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PlaylistDetailsModalQueryQuery, PlaylistDetailsModalQueryQueryVariables>(PlaylistDetailsModalQueryDocument, options);
+      }
+export function usePlaylistDetailsModalQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlaylistDetailsModalQueryQuery, PlaylistDetailsModalQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PlaylistDetailsModalQueryQuery, PlaylistDetailsModalQueryQueryVariables>(PlaylistDetailsModalQueryDocument, options);
+        }
+export function usePlaylistDetailsModalQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlaylistDetailsModalQueryQuery, PlaylistDetailsModalQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PlaylistDetailsModalQueryQuery, PlaylistDetailsModalQueryQueryVariables>(PlaylistDetailsModalQueryDocument, options);
+        }
+export type PlaylistDetailsModalQueryQueryHookResult = ReturnType<typeof usePlaylistDetailsModalQueryQuery>;
+export type PlaylistDetailsModalQueryLazyQueryHookResult = ReturnType<typeof usePlaylistDetailsModalQueryLazyQuery>;
+export type PlaylistDetailsModalQuerySuspenseQueryHookResult = ReturnType<typeof usePlaylistDetailsModalQuerySuspenseQuery>;
+export type PlaylistDetailsModalQueryQueryResult = Apollo.QueryResult<PlaylistDetailsModalQueryQuery, PlaylistDetailsModalQueryQueryVariables>;
+export const SavedTracksContainsQueryDocument = gql`
+    query SavedTracksContainsQuery($ids: [ID!]!) {
+  me {
+    tracksContains(ids: $ids)
+  }
+}
+    `;
+
+/**
+ * __useSavedTracksContainsQueryQuery__
+ *
+ * To run a query within a React component, call `useSavedTracksContainsQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSavedTracksContainsQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSavedTracksContainsQueryQuery({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useSavedTracksContainsQueryQuery(baseOptions: Apollo.QueryHookOptions<SavedTracksContainsQueryQuery, SavedTracksContainsQueryQueryVariables> & ({ variables: SavedTracksContainsQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SavedTracksContainsQueryQuery, SavedTracksContainsQueryQueryVariables>(SavedTracksContainsQueryDocument, options);
+      }
+export function useSavedTracksContainsQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SavedTracksContainsQueryQuery, SavedTracksContainsQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SavedTracksContainsQueryQuery, SavedTracksContainsQueryQueryVariables>(SavedTracksContainsQueryDocument, options);
+        }
+export function useSavedTracksContainsQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SavedTracksContainsQueryQuery, SavedTracksContainsQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SavedTracksContainsQueryQuery, SavedTracksContainsQueryQueryVariables>(SavedTracksContainsQueryDocument, options);
+        }
+export type SavedTracksContainsQueryQueryHookResult = ReturnType<typeof useSavedTracksContainsQueryQuery>;
+export type SavedTracksContainsQueryLazyQueryHookResult = ReturnType<typeof useSavedTracksContainsQueryLazyQuery>;
+export type SavedTracksContainsQuerySuspenseQueryHookResult = ReturnType<typeof useSavedTracksContainsQuerySuspenseQuery>;
+export type SavedTracksContainsQueryQueryResult = Apollo.QueryResult<SavedTracksContainsQueryQuery, SavedTracksContainsQueryQueryVariables>;
+export const AddToPlaylistMutationDocument = gql`
+    mutation AddToPlaylistMutation($input: AddItemsToPlaylistInput!) {
+  addItemsToPlaylist(input: $input) {
+    playlist {
+      id
+    }
+  }
+}
+    `;
+export type AddToPlaylistMutationMutationFn = Apollo.MutationFunction<AddToPlaylistMutationMutation, AddToPlaylistMutationMutationVariables>;
+
+/**
+ * __useAddToPlaylistMutationMutation__
+ *
+ * To run a mutation, you first call `useAddToPlaylistMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToPlaylistMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addToPlaylistMutationMutation, { data, loading, error }] = useAddToPlaylistMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddToPlaylistMutationMutation(baseOptions?: Apollo.MutationHookOptions<AddToPlaylistMutationMutation, AddToPlaylistMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddToPlaylistMutationMutation, AddToPlaylistMutationMutationVariables>(AddToPlaylistMutationDocument, options);
+      }
+export type AddToPlaylistMutationMutationHookResult = ReturnType<typeof useAddToPlaylistMutationMutation>;
+export type AddToPlaylistMutationMutationResult = Apollo.MutationResult<AddToPlaylistMutationMutation>;
+export type AddToPlaylistMutationMutationOptions = Apollo.BaseMutationOptions<AddToPlaylistMutationMutation, AddToPlaylistMutationMutationVariables>;
+export const AddToQueueMutationDocument = gql`
+    mutation AddToQueueMutation($input: AddItemToPlaybackQueueInput!) {
+  addItemToPlaybackQueue(input: $input) {
+    playbackQueue {
+      currentlyPlaying {
+        __typename
+        id
+      }
+    }
+  }
+}
+    `;
+export type AddToQueueMutationMutationFn = Apollo.MutationFunction<AddToQueueMutationMutation, AddToQueueMutationMutationVariables>;
+
+/**
+ * __useAddToQueueMutationMutation__
+ *
+ * To run a mutation, you first call `useAddToQueueMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddToQueueMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addToQueueMutationMutation, { data, loading, error }] = useAddToQueueMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddToQueueMutationMutation(baseOptions?: Apollo.MutationHookOptions<AddToQueueMutationMutation, AddToQueueMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddToQueueMutationMutation, AddToQueueMutationMutationVariables>(AddToQueueMutationDocument, options);
+      }
+export type AddToQueueMutationMutationHookResult = ReturnType<typeof useAddToQueueMutationMutation>;
+export type AddToQueueMutationMutationResult = Apollo.MutationResult<AddToQueueMutationMutation>;
+export type AddToQueueMutationMutationOptions = Apollo.BaseMutationOptions<AddToQueueMutationMutation, AddToQueueMutationMutationVariables>;
+export const CreatePlaylistDocument = gql`
+    mutation CreatePlaylist($input: CreatePlaylistInput!) {
+  createPlaylist(input: $input) {
+    playlist {
+      id
+      name
+      description
+      public
+    }
+  }
+}
+    `;
+export type CreatePlaylistMutationFn = Apollo.MutationFunction<CreatePlaylistMutation, CreatePlaylistMutationVariables>;
+
+/**
+ * __useCreatePlaylistMutation__
+ *
+ * To run a mutation, you first call `useCreatePlaylistMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePlaylistMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPlaylistMutation, { data, loading, error }] = useCreatePlaylistMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreatePlaylistMutation(baseOptions?: Apollo.MutationHookOptions<CreatePlaylistMutation, CreatePlaylistMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePlaylistMutation, CreatePlaylistMutationVariables>(CreatePlaylistDocument, options);
+      }
+export type CreatePlaylistMutationHookResult = ReturnType<typeof useCreatePlaylistMutation>;
+export type CreatePlaylistMutationResult = Apollo.MutationResult<CreatePlaylistMutation>;
+export type CreatePlaylistMutationOptions = Apollo.BaseMutationOptions<CreatePlaylistMutation, CreatePlaylistMutationVariables>;
+export const PausePlaybackMutationDocument = gql`
+    mutation PausePlaybackMutation {
+  pausePlayback {
+    playbackState {
+      isPlaying
+    }
+  }
+}
+    `;
+export type PausePlaybackMutationMutationFn = Apollo.MutationFunction<PausePlaybackMutationMutation, PausePlaybackMutationMutationVariables>;
+
+/**
+ * __usePausePlaybackMutationMutation__
+ *
+ * To run a mutation, you first call `usePausePlaybackMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePausePlaybackMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [pausePlaybackMutationMutation, { data, loading, error }] = usePausePlaybackMutationMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function usePausePlaybackMutationMutation(baseOptions?: Apollo.MutationHookOptions<PausePlaybackMutationMutation, PausePlaybackMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<PausePlaybackMutationMutation, PausePlaybackMutationMutationVariables>(PausePlaybackMutationDocument, options);
+      }
+export type PausePlaybackMutationMutationHookResult = ReturnType<typeof usePausePlaybackMutationMutation>;
+export type PausePlaybackMutationMutationResult = Apollo.MutationResult<PausePlaybackMutationMutation>;
+export type PausePlaybackMutationMutationOptions = Apollo.BaseMutationOptions<PausePlaybackMutationMutation, PausePlaybackMutationMutationVariables>;
+export const RemoveFromPlaylistMutationDocument = gql`
+    mutation RemoveFromPlaylistMutation($input: RemoveItemFromPlaylistInput!) {
+  removeItemFromPlaylist(input: $input) {
+    playlist {
+      id
+    }
+  }
+}
+    `;
+export type RemoveFromPlaylistMutationMutationFn = Apollo.MutationFunction<RemoveFromPlaylistMutationMutation, RemoveFromPlaylistMutationMutationVariables>;
+
+/**
+ * __useRemoveFromPlaylistMutationMutation__
+ *
+ * To run a mutation, you first call `useRemoveFromPlaylistMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveFromPlaylistMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeFromPlaylistMutationMutation, { data, loading, error }] = useRemoveFromPlaylistMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRemoveFromPlaylistMutationMutation(baseOptions?: Apollo.MutationHookOptions<RemoveFromPlaylistMutationMutation, RemoveFromPlaylistMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveFromPlaylistMutationMutation, RemoveFromPlaylistMutationMutationVariables>(RemoveFromPlaylistMutationDocument, options);
+      }
+export type RemoveFromPlaylistMutationMutationHookResult = ReturnType<typeof useRemoveFromPlaylistMutationMutation>;
+export type RemoveFromPlaylistMutationMutationResult = Apollo.MutationResult<RemoveFromPlaylistMutationMutation>;
+export type RemoveFromPlaylistMutationMutationOptions = Apollo.BaseMutationOptions<RemoveFromPlaylistMutationMutation, RemoveFromPlaylistMutationMutationVariables>;
+export const RemoveSavedAlbumsMutationDocument = gql`
+    mutation RemoveSavedAlbumsMutation($input: RemoveSavedAlbumsInput!) {
+  removeSavedAlbums(input: $input) {
+    removedAlbums {
+      id
+    }
+  }
+}
+    `;
+export type RemoveSavedAlbumsMutationMutationFn = Apollo.MutationFunction<RemoveSavedAlbumsMutationMutation, RemoveSavedAlbumsMutationMutationVariables>;
+
+/**
+ * __useRemoveSavedAlbumsMutationMutation__
+ *
+ * To run a mutation, you first call `useRemoveSavedAlbumsMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveSavedAlbumsMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeSavedAlbumsMutationMutation, { data, loading, error }] = useRemoveSavedAlbumsMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRemoveSavedAlbumsMutationMutation(baseOptions?: Apollo.MutationHookOptions<RemoveSavedAlbumsMutationMutation, RemoveSavedAlbumsMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveSavedAlbumsMutationMutation, RemoveSavedAlbumsMutationMutationVariables>(RemoveSavedAlbumsMutationDocument, options);
+      }
+export type RemoveSavedAlbumsMutationMutationHookResult = ReturnType<typeof useRemoveSavedAlbumsMutationMutation>;
+export type RemoveSavedAlbumsMutationMutationResult = Apollo.MutationResult<RemoveSavedAlbumsMutationMutation>;
+export type RemoveSavedAlbumsMutationMutationOptions = Apollo.BaseMutationOptions<RemoveSavedAlbumsMutationMutation, RemoveSavedAlbumsMutationMutationVariables>;
+export const RemoveSavedTracksMutationDocument = gql`
+    mutation RemoveSavedTracksMutation($input: RemoveSavedTracksInput!) {
+  removeSavedTracks(input: $input) {
+    removedTracks {
+      id
+    }
+  }
+}
+    `;
+export type RemoveSavedTracksMutationMutationFn = Apollo.MutationFunction<RemoveSavedTracksMutationMutation, RemoveSavedTracksMutationMutationVariables>;
+
+/**
+ * __useRemoveSavedTracksMutationMutation__
+ *
+ * To run a mutation, you first call `useRemoveSavedTracksMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveSavedTracksMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeSavedTracksMutationMutation, { data, loading, error }] = useRemoveSavedTracksMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRemoveSavedTracksMutationMutation(baseOptions?: Apollo.MutationHookOptions<RemoveSavedTracksMutationMutation, RemoveSavedTracksMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveSavedTracksMutationMutation, RemoveSavedTracksMutationMutationVariables>(RemoveSavedTracksMutationDocument, options);
+      }
+export type RemoveSavedTracksMutationMutationHookResult = ReturnType<typeof useRemoveSavedTracksMutationMutation>;
+export type RemoveSavedTracksMutationMutationResult = Apollo.MutationResult<RemoveSavedTracksMutationMutation>;
+export type RemoveSavedTracksMutationMutationOptions = Apollo.BaseMutationOptions<RemoveSavedTracksMutationMutation, RemoveSavedTracksMutationMutationVariables>;
+export const ResetFieldConfigMutationDocument = gql`
+    mutation ResetFieldConfigMutation($input: ResetFieldConfigInput!) {
+  resetFieldConfig(input: $input) {
+    fieldConfig {
+      schemaField {
+        fieldName
+        typename
+      }
+    }
+  }
+}
+    `;
+export type ResetFieldConfigMutationMutationFn = Apollo.MutationFunction<ResetFieldConfigMutationMutation, ResetFieldConfigMutationMutationVariables>;
+
+/**
+ * __useResetFieldConfigMutationMutation__
+ *
+ * To run a mutation, you first call `useResetFieldConfigMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetFieldConfigMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resetFieldConfigMutationMutation, { data, loading, error }] = useResetFieldConfigMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useResetFieldConfigMutationMutation(baseOptions?: Apollo.MutationHookOptions<ResetFieldConfigMutationMutation, ResetFieldConfigMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResetFieldConfigMutationMutation, ResetFieldConfigMutationMutationVariables>(ResetFieldConfigMutationDocument, options);
+      }
+export type ResetFieldConfigMutationMutationHookResult = ReturnType<typeof useResetFieldConfigMutationMutation>;
+export type ResetFieldConfigMutationMutationResult = Apollo.MutationResult<ResetFieldConfigMutationMutation>;
+export type ResetFieldConfigMutationMutationOptions = Apollo.BaseMutationOptions<ResetFieldConfigMutationMutation, ResetFieldConfigMutationMutationVariables>;
+export const ResumePlaybackMutationDocument = gql`
+    mutation ResumePlaybackMutation($input: ResumePlaybackInput) {
+  resumePlayback(input: $input) {
+    playbackState {
+      context {
+        uri
+        type
+      }
+      isPlaying
+    }
+  }
+}
+    `;
+export type ResumePlaybackMutationMutationFn = Apollo.MutationFunction<ResumePlaybackMutationMutation, ResumePlaybackMutationMutationVariables>;
+
+/**
+ * __useResumePlaybackMutationMutation__
+ *
+ * To run a mutation, you first call `useResumePlaybackMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResumePlaybackMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [resumePlaybackMutationMutation, { data, loading, error }] = useResumePlaybackMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useResumePlaybackMutationMutation(baseOptions?: Apollo.MutationHookOptions<ResumePlaybackMutationMutation, ResumePlaybackMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ResumePlaybackMutationMutation, ResumePlaybackMutationMutationVariables>(ResumePlaybackMutationDocument, options);
+      }
+export type ResumePlaybackMutationMutationHookResult = ReturnType<typeof useResumePlaybackMutationMutation>;
+export type ResumePlaybackMutationMutationResult = Apollo.MutationResult<ResumePlaybackMutationMutation>;
+export type ResumePlaybackMutationMutationOptions = Apollo.BaseMutationOptions<ResumePlaybackMutationMutation, ResumePlaybackMutationMutationVariables>;
+export const SaveAlbumsMutationDocument = gql`
+    mutation SaveAlbumsMutation($input: SaveAlbumsInput!) {
+  saveAlbums(input: $input) {
+    savedAlbums {
+      id
+    }
+  }
+}
+    `;
+export type SaveAlbumsMutationMutationFn = Apollo.MutationFunction<SaveAlbumsMutationMutation, SaveAlbumsMutationMutationVariables>;
+
+/**
+ * __useSaveAlbumsMutationMutation__
+ *
+ * To run a mutation, you first call `useSaveAlbumsMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveAlbumsMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveAlbumsMutationMutation, { data, loading, error }] = useSaveAlbumsMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSaveAlbumsMutationMutation(baseOptions?: Apollo.MutationHookOptions<SaveAlbumsMutationMutation, SaveAlbumsMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SaveAlbumsMutationMutation, SaveAlbumsMutationMutationVariables>(SaveAlbumsMutationDocument, options);
+      }
+export type SaveAlbumsMutationMutationHookResult = ReturnType<typeof useSaveAlbumsMutationMutation>;
+export type SaveAlbumsMutationMutationResult = Apollo.MutationResult<SaveAlbumsMutationMutation>;
+export type SaveAlbumsMutationMutationOptions = Apollo.BaseMutationOptions<SaveAlbumsMutationMutation, SaveAlbumsMutationMutationVariables>;
+export const SaveTracksMutationDocument = gql`
+    mutation SaveTracksMutation($input: SaveTracksInput!) {
+  saveTracks(input: $input) {
+    savedTracks {
+      id
+    }
+  }
+}
+    `;
+export type SaveTracksMutationMutationFn = Apollo.MutationFunction<SaveTracksMutationMutation, SaveTracksMutationMutationVariables>;
+
+/**
+ * __useSaveTracksMutationMutation__
+ *
+ * To run a mutation, you first call `useSaveTracksMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSaveTracksMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [saveTracksMutationMutation, { data, loading, error }] = useSaveTracksMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSaveTracksMutationMutation(baseOptions?: Apollo.MutationHookOptions<SaveTracksMutationMutation, SaveTracksMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SaveTracksMutationMutation, SaveTracksMutationMutationVariables>(SaveTracksMutationDocument, options);
+      }
+export type SaveTracksMutationMutationHookResult = ReturnType<typeof useSaveTracksMutationMutation>;
+export type SaveTracksMutationMutationResult = Apollo.MutationResult<SaveTracksMutationMutation>;
+export type SaveTracksMutationMutationOptions = Apollo.BaseMutationOptions<SaveTracksMutationMutation, SaveTracksMutationMutationVariables>;
+export const SeekToPositionMutationDocument = gql`
+    mutation SeekToPositionMutation($positionMs: Int!) {
+  seekToPosition(positionMs: $positionMs) {
+    playbackState {
+      progressMs
+    }
+  }
+}
+    `;
+export type SeekToPositionMutationMutationFn = Apollo.MutationFunction<SeekToPositionMutationMutation, SeekToPositionMutationMutationVariables>;
+
+/**
+ * __useSeekToPositionMutationMutation__
+ *
+ * To run a mutation, you first call `useSeekToPositionMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSeekToPositionMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [seekToPositionMutationMutation, { data, loading, error }] = useSeekToPositionMutationMutation({
+ *   variables: {
+ *      positionMs: // value for 'positionMs'
+ *   },
+ * });
+ */
+export function useSeekToPositionMutationMutation(baseOptions?: Apollo.MutationHookOptions<SeekToPositionMutationMutation, SeekToPositionMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SeekToPositionMutationMutation, SeekToPositionMutationMutationVariables>(SeekToPositionMutationDocument, options);
+      }
+export type SeekToPositionMutationMutationHookResult = ReturnType<typeof useSeekToPositionMutationMutation>;
+export type SeekToPositionMutationMutationResult = Apollo.MutationResult<SeekToPositionMutationMutation>;
+export type SeekToPositionMutationMutationOptions = Apollo.BaseMutationOptions<SeekToPositionMutationMutation, SeekToPositionMutationMutationVariables>;
+export const SetRepeatModeMutationDocument = gql`
+    mutation SetRepeatModeMutation($state: RepeatMode!) {
+  setRepeatMode(state: $state) {
+    playbackState {
+      repeatState
+    }
+  }
+}
+    `;
+export type SetRepeatModeMutationMutationFn = Apollo.MutationFunction<SetRepeatModeMutationMutation, SetRepeatModeMutationMutationVariables>;
+
+/**
+ * __useSetRepeatModeMutationMutation__
+ *
+ * To run a mutation, you first call `useSetRepeatModeMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetRepeatModeMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setRepeatModeMutationMutation, { data, loading, error }] = useSetRepeatModeMutationMutation({
+ *   variables: {
+ *      state: // value for 'state'
+ *   },
+ * });
+ */
+export function useSetRepeatModeMutationMutation(baseOptions?: Apollo.MutationHookOptions<SetRepeatModeMutationMutation, SetRepeatModeMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetRepeatModeMutationMutation, SetRepeatModeMutationMutationVariables>(SetRepeatModeMutationDocument, options);
+      }
+export type SetRepeatModeMutationMutationHookResult = ReturnType<typeof useSetRepeatModeMutationMutation>;
+export type SetRepeatModeMutationMutationResult = Apollo.MutationResult<SetRepeatModeMutationMutation>;
+export type SetRepeatModeMutationMutationOptions = Apollo.BaseMutationOptions<SetRepeatModeMutationMutation, SetRepeatModeMutationMutationVariables>;
+export const SetVolumeMutationDocument = gql`
+    mutation SetVolumeMutation($volumePercent: Int!) {
+  setVolume(volumePercent: $volumePercent) {
+    playbackState {
+      device {
+        id
+        volumePercent
+      }
+    }
+  }
+}
+    `;
+export type SetVolumeMutationMutationFn = Apollo.MutationFunction<SetVolumeMutationMutation, SetVolumeMutationMutationVariables>;
+
+/**
+ * __useSetVolumeMutationMutation__
+ *
+ * To run a mutation, you first call `useSetVolumeMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSetVolumeMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [setVolumeMutationMutation, { data, loading, error }] = useSetVolumeMutationMutation({
+ *   variables: {
+ *      volumePercent: // value for 'volumePercent'
+ *   },
+ * });
+ */
+export function useSetVolumeMutationMutation(baseOptions?: Apollo.MutationHookOptions<SetVolumeMutationMutation, SetVolumeMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SetVolumeMutationMutation, SetVolumeMutationMutationVariables>(SetVolumeMutationDocument, options);
+      }
+export type SetVolumeMutationMutationHookResult = ReturnType<typeof useSetVolumeMutationMutation>;
+export type SetVolumeMutationMutationResult = Apollo.MutationResult<SetVolumeMutationMutation>;
+export type SetVolumeMutationMutationOptions = Apollo.BaseMutationOptions<SetVolumeMutationMutation, SetVolumeMutationMutationVariables>;
+export const ShufflePlaybackMutationDocument = gql`
+    mutation ShufflePlaybackMutation($state: Boolean!) {
+  shufflePlayback(state: $state) {
+    playbackState {
+      shuffleState
+    }
+  }
+}
+    `;
+export type ShufflePlaybackMutationMutationFn = Apollo.MutationFunction<ShufflePlaybackMutationMutation, ShufflePlaybackMutationMutationVariables>;
+
+/**
+ * __useShufflePlaybackMutationMutation__
+ *
+ * To run a mutation, you first call `useShufflePlaybackMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useShufflePlaybackMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [shufflePlaybackMutationMutation, { data, loading, error }] = useShufflePlaybackMutationMutation({
+ *   variables: {
+ *      state: // value for 'state'
+ *   },
+ * });
+ */
+export function useShufflePlaybackMutationMutation(baseOptions?: Apollo.MutationHookOptions<ShufflePlaybackMutationMutation, ShufflePlaybackMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ShufflePlaybackMutationMutation, ShufflePlaybackMutationMutationVariables>(ShufflePlaybackMutationDocument, options);
+      }
+export type ShufflePlaybackMutationMutationHookResult = ReturnType<typeof useShufflePlaybackMutationMutation>;
+export type ShufflePlaybackMutationMutationResult = Apollo.MutationResult<ShufflePlaybackMutationMutation>;
+export type ShufflePlaybackMutationMutationOptions = Apollo.BaseMutationOptions<ShufflePlaybackMutationMutation, ShufflePlaybackMutationMutationVariables>;
+export const SkipToNextMutationDocument = gql`
+    mutation SkipToNextMutation {
+  skipToNext {
+    playbackState {
+      progressMs
+      item {
+        __typename
+        ... on Track {
+          id
+          name
+          album {
+            id
+            name
+            images {
+              url
+            }
+          }
+          artists {
+            id
+            name
+          }
+        }
+        ... on Episode {
+          id
+          name
+          show {
+            id
+            name
+            images {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type SkipToNextMutationMutationFn = Apollo.MutationFunction<SkipToNextMutationMutation, SkipToNextMutationMutationVariables>;
+
+/**
+ * __useSkipToNextMutationMutation__
+ *
+ * To run a mutation, you first call `useSkipToNextMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSkipToNextMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [skipToNextMutationMutation, { data, loading, error }] = useSkipToNextMutationMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSkipToNextMutationMutation(baseOptions?: Apollo.MutationHookOptions<SkipToNextMutationMutation, SkipToNextMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SkipToNextMutationMutation, SkipToNextMutationMutationVariables>(SkipToNextMutationDocument, options);
+      }
+export type SkipToNextMutationMutationHookResult = ReturnType<typeof useSkipToNextMutationMutation>;
+export type SkipToNextMutationMutationResult = Apollo.MutationResult<SkipToNextMutationMutation>;
+export type SkipToNextMutationMutationOptions = Apollo.BaseMutationOptions<SkipToNextMutationMutation, SkipToNextMutationMutationVariables>;
+export const SkipToPreviousMutationDocument = gql`
+    mutation SkipToPreviousMutation {
+  skipToPrevious {
+    playbackState {
+      progressMs
+      item {
+        __typename
+        ... on Track {
+          id
+          name
+          album {
+            id
+            name
+            images {
+              url
+            }
+          }
+          artists {
+            id
+            name
+          }
+        }
+        ... on Episode {
+          id
+          name
+          show {
+            id
+            name
+            images {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+export type SkipToPreviousMutationMutationFn = Apollo.MutationFunction<SkipToPreviousMutationMutation, SkipToPreviousMutationMutationVariables>;
+
+/**
+ * __useSkipToPreviousMutationMutation__
+ *
+ * To run a mutation, you first call `useSkipToPreviousMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSkipToPreviousMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [skipToPreviousMutationMutation, { data, loading, error }] = useSkipToPreviousMutationMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSkipToPreviousMutationMutation(baseOptions?: Apollo.MutationHookOptions<SkipToPreviousMutationMutation, SkipToPreviousMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SkipToPreviousMutationMutation, SkipToPreviousMutationMutationVariables>(SkipToPreviousMutationDocument, options);
+      }
+export type SkipToPreviousMutationMutationHookResult = ReturnType<typeof useSkipToPreviousMutationMutation>;
+export type SkipToPreviousMutationMutationResult = Apollo.MutationResult<SkipToPreviousMutationMutation>;
+export type SkipToPreviousMutationMutationOptions = Apollo.BaseMutationOptions<SkipToPreviousMutationMutation, SkipToPreviousMutationMutationVariables>;
+export const TransferPlaybackMutationDocument = gql`
+    mutation TransferPlaybackMutation($input: TransferPlaybackInput!) {
+  transferPlayback(input: $input) {
+    playbackState {
+      device {
+        id
+      }
+    }
+  }
+}
+    `;
+export type TransferPlaybackMutationMutationFn = Apollo.MutationFunction<TransferPlaybackMutationMutation, TransferPlaybackMutationMutationVariables>;
+
+/**
+ * __useTransferPlaybackMutationMutation__
+ *
+ * To run a mutation, you first call `useTransferPlaybackMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTransferPlaybackMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [transferPlaybackMutationMutation, { data, loading, error }] = useTransferPlaybackMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTransferPlaybackMutationMutation(baseOptions?: Apollo.MutationHookOptions<TransferPlaybackMutationMutation, TransferPlaybackMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<TransferPlaybackMutationMutation, TransferPlaybackMutationMutationVariables>(TransferPlaybackMutationDocument, options);
+      }
+export type TransferPlaybackMutationMutationHookResult = ReturnType<typeof useTransferPlaybackMutationMutation>;
+export type TransferPlaybackMutationMutationResult = Apollo.MutationResult<TransferPlaybackMutationMutation>;
+export type TransferPlaybackMutationMutationOptions = Apollo.BaseMutationOptions<TransferPlaybackMutationMutation, TransferPlaybackMutationMutationVariables>;
+export const UpdateFieldConfigMutationDocument = gql`
+    mutation UpdateFieldConfigMutation($input: UpdateFieldConfigInput!) {
+  updateFieldConfig(input: $input) {
+    fieldConfig {
+      schemaField {
+        fieldName
+        typename
+      }
+      timeout
+      errorRate
+    }
+  }
+}
+    `;
+export type UpdateFieldConfigMutationMutationFn = Apollo.MutationFunction<UpdateFieldConfigMutationMutation, UpdateFieldConfigMutationMutationVariables>;
+
+/**
+ * __useUpdateFieldConfigMutationMutation__
+ *
+ * To run a mutation, you first call `useUpdateFieldConfigMutationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFieldConfigMutationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFieldConfigMutationMutation, { data, loading, error }] = useUpdateFieldConfigMutationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateFieldConfigMutationMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFieldConfigMutationMutation, UpdateFieldConfigMutationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFieldConfigMutationMutation, UpdateFieldConfigMutationMutationVariables>(UpdateFieldConfigMutationDocument, options);
+      }
+export type UpdateFieldConfigMutationMutationHookResult = ReturnType<typeof useUpdateFieldConfigMutationMutation>;
+export type UpdateFieldConfigMutationMutationResult = Apollo.MutationResult<UpdateFieldConfigMutationMutation>;
+export type UpdateFieldConfigMutationMutationOptions = Apollo.BaseMutationOptions<UpdateFieldConfigMutationMutation, UpdateFieldConfigMutationMutationVariables>;
+export const MyPlaylistsDocument = gql`
+    query MyPlaylists($limit: Int) {
+  me {
+    playlists(limit: $limit) {
+      edges {
+        node {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useMyPlaylistsQuery__
+ *
+ * To run a query within a React component, call `useMyPlaylistsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyPlaylistsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMyPlaylistsQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useMyPlaylistsQuery(baseOptions?: Apollo.QueryHookOptions<MyPlaylistsQuery, MyPlaylistsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MyPlaylistsQuery, MyPlaylistsQueryVariables>(MyPlaylistsDocument, options);
+      }
+export function useMyPlaylistsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyPlaylistsQuery, MyPlaylistsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MyPlaylistsQuery, MyPlaylistsQueryVariables>(MyPlaylistsDocument, options);
+        }
+export function useMyPlaylistsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<MyPlaylistsQuery, MyPlaylistsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<MyPlaylistsQuery, MyPlaylistsQueryVariables>(MyPlaylistsDocument, options);
+        }
+export type MyPlaylistsQueryHookResult = ReturnType<typeof useMyPlaylistsQuery>;
+export type MyPlaylistsLazyQueryHookResult = ReturnType<typeof useMyPlaylistsLazyQuery>;
+export type MyPlaylistsSuspenseQueryHookResult = ReturnType<typeof useMyPlaylistsSuspenseQuery>;
+export type MyPlaylistsQueryResult = Apollo.QueryResult<MyPlaylistsQuery, MyPlaylistsQueryVariables>;
+export const AlbumRouteQueryDocument = gql`
+    query AlbumRouteQuery($albumId: ID!) {
+  me {
+    albumsContains(ids: [$albumId])
+  }
+  album(id: $albumId) {
+    id
+    albumType
+    name
+    totalTracks
+    uri
+    artists {
+      id
+      name
+    }
+    copyrights {
+      text
+      type
+    }
+    images {
+      url
+      vibrantColor(format: RGB, alpha: 0.9) @client
+    }
+    releaseDate {
+      date
+      precision
+    }
+    ...AlbumTracksTable_album
+  }
+}
+    ${AlbumTracksTableAlbumFragmentDoc}`;
+
+/**
+ * __useAlbumRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useAlbumRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAlbumRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAlbumRouteQueryQuery({
+ *   variables: {
+ *      albumId: // value for 'albumId'
+ *   },
+ * });
+ */
+export function useAlbumRouteQueryQuery(baseOptions: Apollo.QueryHookOptions<AlbumRouteQueryQuery, AlbumRouteQueryQueryVariables> & ({ variables: AlbumRouteQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AlbumRouteQueryQuery, AlbumRouteQueryQueryVariables>(AlbumRouteQueryDocument, options);
+      }
+export function useAlbumRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AlbumRouteQueryQuery, AlbumRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AlbumRouteQueryQuery, AlbumRouteQueryQueryVariables>(AlbumRouteQueryDocument, options);
+        }
+export function useAlbumRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<AlbumRouteQueryQuery, AlbumRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<AlbumRouteQueryQuery, AlbumRouteQueryQueryVariables>(AlbumRouteQueryDocument, options);
+        }
+export type AlbumRouteQueryQueryHookResult = ReturnType<typeof useAlbumRouteQueryQuery>;
+export type AlbumRouteQueryLazyQueryHookResult = ReturnType<typeof useAlbumRouteQueryLazyQuery>;
+export type AlbumRouteQuerySuspenseQueryHookResult = ReturnType<typeof useAlbumRouteQuerySuspenseQuery>;
+export type AlbumRouteQueryQueryResult = Apollo.QueryResult<AlbumRouteQueryQuery, AlbumRouteQueryQueryVariables>;
+export const ArtistRouteQueryDocument = gql`
+    query ArtistRouteQuery($artistId: ID!) {
+  artist(id: $artistId) {
+    id
+    name
+    albums(includeGroups: [ALBUM]) {
+      ...ArtistRouteQuery_albums
+    }
+    singles: albums(includeGroups: [SINGLE]) {
+      ...ArtistRouteQuery_albums
+    }
+    appearsOn: albums(includeGroups: [APPEARS_ON]) {
+      ...ArtistRouteQuery_albums
+    }
+    followers {
+      total
+    }
+    images {
+      url
+    }
+    topTracks {
+      id
+      ...ArtistTopTracks_tracks
+    }
+  }
+}
+    ${ArtistRouteQueryAlbumsFragmentDoc}
+${ArtistTopTracksTracksFragmentDoc}`;
+
+/**
+ * __useArtistRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useArtistRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useArtistRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useArtistRouteQueryQuery({
+ *   variables: {
+ *      artistId: // value for 'artistId'
+ *   },
+ * });
+ */
+export function useArtistRouteQueryQuery(baseOptions: Apollo.QueryHookOptions<ArtistRouteQueryQuery, ArtistRouteQueryQueryVariables> & ({ variables: ArtistRouteQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ArtistRouteQueryQuery, ArtistRouteQueryQueryVariables>(ArtistRouteQueryDocument, options);
+      }
+export function useArtistRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ArtistRouteQueryQuery, ArtistRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ArtistRouteQueryQuery, ArtistRouteQueryQueryVariables>(ArtistRouteQueryDocument, options);
+        }
+export function useArtistRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ArtistRouteQueryQuery, ArtistRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ArtistRouteQueryQuery, ArtistRouteQueryQueryVariables>(ArtistRouteQueryDocument, options);
+        }
+export type ArtistRouteQueryQueryHookResult = ReturnType<typeof useArtistRouteQueryQuery>;
+export type ArtistRouteQueryLazyQueryHookResult = ReturnType<typeof useArtistRouteQueryLazyQuery>;
+export type ArtistRouteQuerySuspenseQueryHookResult = ReturnType<typeof useArtistRouteQuerySuspenseQuery>;
+export type ArtistRouteQueryQueryResult = Apollo.QueryResult<ArtistRouteQueryQuery, ArtistRouteQueryQueryVariables>;
+export const CollectionAlbumsRouteQueryDocument = gql`
+    query CollectionAlbumsRouteQuery($offset: Int, $limit: Int) {
+  me {
+    albums(offset: $offset, limit: $limit) {
+      pageInfo {
+        limit
+        offset
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          ...AlbumTile_album
+        }
+      }
+    }
+  }
+}
+    ${AlbumTileAlbumFragmentDoc}`;
+
+/**
+ * __useCollectionAlbumsRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useCollectionAlbumsRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionAlbumsRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionAlbumsRouteQueryQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useCollectionAlbumsRouteQueryQuery(baseOptions?: Apollo.QueryHookOptions<CollectionAlbumsRouteQueryQuery, CollectionAlbumsRouteQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CollectionAlbumsRouteQueryQuery, CollectionAlbumsRouteQueryQueryVariables>(CollectionAlbumsRouteQueryDocument, options);
+      }
+export function useCollectionAlbumsRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionAlbumsRouteQueryQuery, CollectionAlbumsRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CollectionAlbumsRouteQueryQuery, CollectionAlbumsRouteQueryQueryVariables>(CollectionAlbumsRouteQueryDocument, options);
+        }
+export function useCollectionAlbumsRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CollectionAlbumsRouteQueryQuery, CollectionAlbumsRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CollectionAlbumsRouteQueryQuery, CollectionAlbumsRouteQueryQueryVariables>(CollectionAlbumsRouteQueryDocument, options);
+        }
+export type CollectionAlbumsRouteQueryQueryHookResult = ReturnType<typeof useCollectionAlbumsRouteQueryQuery>;
+export type CollectionAlbumsRouteQueryLazyQueryHookResult = ReturnType<typeof useCollectionAlbumsRouteQueryLazyQuery>;
+export type CollectionAlbumsRouteQuerySuspenseQueryHookResult = ReturnType<typeof useCollectionAlbumsRouteQuerySuspenseQuery>;
+export type CollectionAlbumsRouteQueryQueryResult = Apollo.QueryResult<CollectionAlbumsRouteQueryQuery, CollectionAlbumsRouteQueryQueryVariables>;
+export const CollectionArtistsRouteQueryDocument = gql`
+    query CollectionArtistsRouteQuery($after: String) {
+  me {
+    followedArtists(after: $after) {
+      pageInfo {
+        cursors {
+          after
+        }
+      }
+      edges {
+        node {
+          id
+          ...ArtistTile_artist
+        }
+      }
+    }
+  }
+}
+    ${ArtistTileArtistFragmentDoc}`;
+
+/**
+ * __useCollectionArtistsRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useCollectionArtistsRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionArtistsRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionArtistsRouteQueryQuery({
+ *   variables: {
+ *      after: // value for 'after'
+ *   },
+ * });
+ */
+export function useCollectionArtistsRouteQueryQuery(baseOptions?: Apollo.QueryHookOptions<CollectionArtistsRouteQueryQuery, CollectionArtistsRouteQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CollectionArtistsRouteQueryQuery, CollectionArtistsRouteQueryQueryVariables>(CollectionArtistsRouteQueryDocument, options);
+      }
+export function useCollectionArtistsRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionArtistsRouteQueryQuery, CollectionArtistsRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CollectionArtistsRouteQueryQuery, CollectionArtistsRouteQueryQueryVariables>(CollectionArtistsRouteQueryDocument, options);
+        }
+export function useCollectionArtistsRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CollectionArtistsRouteQueryQuery, CollectionArtistsRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CollectionArtistsRouteQueryQuery, CollectionArtistsRouteQueryQueryVariables>(CollectionArtistsRouteQueryDocument, options);
+        }
+export type CollectionArtistsRouteQueryQueryHookResult = ReturnType<typeof useCollectionArtistsRouteQueryQuery>;
+export type CollectionArtistsRouteQueryLazyQueryHookResult = ReturnType<typeof useCollectionArtistsRouteQueryLazyQuery>;
+export type CollectionArtistsRouteQuerySuspenseQueryHookResult = ReturnType<typeof useCollectionArtistsRouteQuerySuspenseQuery>;
+export type CollectionArtistsRouteQueryQueryResult = Apollo.QueryResult<CollectionArtistsRouteQueryQuery, CollectionArtistsRouteQueryQueryVariables>;
+export const CollectionPlaylistsRouteQueryDocument = gql`
+    query CollectionPlaylistsRouteQuery($offset: Int, $limit: Int) {
+  me {
+    profile {
+      id
+    }
+    episodes {
+      pageInfo {
+        total
+      }
+    }
+    tracks(limit: 10) @connection(key: "collectionPlaylistsTracks") {
+      pageInfo {
+        total
+      }
+      edges {
+        node {
+          id
+          name
+          artists {
+            id
+            name
+          }
+        }
+      }
+      ...LikedSongsTile_connection
+    }
+    playlists(offset: $offset, limit: $limit) @connection(key: "collectionPlaylists") {
+      pageInfo {
+        offset
+        limit
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          ...PlaylistTile_playlist
+        }
+      }
+    }
+  }
+}
+    ${LikedSongsTileConnectionFragmentDoc}
+${PlaylistTilePlaylistFragmentDoc}`;
+
+/**
+ * __useCollectionPlaylistsRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useCollectionPlaylistsRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionPlaylistsRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionPlaylistsRouteQueryQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useCollectionPlaylistsRouteQueryQuery(baseOptions?: Apollo.QueryHookOptions<CollectionPlaylistsRouteQueryQuery, CollectionPlaylistsRouteQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CollectionPlaylistsRouteQueryQuery, CollectionPlaylistsRouteQueryQueryVariables>(CollectionPlaylistsRouteQueryDocument, options);
+      }
+export function useCollectionPlaylistsRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionPlaylistsRouteQueryQuery, CollectionPlaylistsRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CollectionPlaylistsRouteQueryQuery, CollectionPlaylistsRouteQueryQueryVariables>(CollectionPlaylistsRouteQueryDocument, options);
+        }
+export function useCollectionPlaylistsRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CollectionPlaylistsRouteQueryQuery, CollectionPlaylistsRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CollectionPlaylistsRouteQueryQuery, CollectionPlaylistsRouteQueryQueryVariables>(CollectionPlaylistsRouteQueryDocument, options);
+        }
+export type CollectionPlaylistsRouteQueryQueryHookResult = ReturnType<typeof useCollectionPlaylistsRouteQueryQuery>;
+export type CollectionPlaylistsRouteQueryLazyQueryHookResult = ReturnType<typeof useCollectionPlaylistsRouteQueryLazyQuery>;
+export type CollectionPlaylistsRouteQuerySuspenseQueryHookResult = ReturnType<typeof useCollectionPlaylistsRouteQuerySuspenseQuery>;
+export type CollectionPlaylistsRouteQueryQueryResult = Apollo.QueryResult<CollectionPlaylistsRouteQueryQuery, CollectionPlaylistsRouteQueryQueryVariables>;
+export const CollectionPlaylistsRoutePaginatedQueryDocument = gql`
+    query CollectionPlaylistsRoutePaginatedQuery($offset: Int, $limit: Int) {
+  me {
+    playlists(offset: $offset, limit: $limit) @connection(key: "collectionPlaylists") {
+      pageInfo {
+        offset
+        limit
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          ...PlaylistTile_playlist
+        }
+      }
+    }
+  }
+}
+    ${PlaylistTilePlaylistFragmentDoc}`;
+
+/**
+ * __useCollectionPlaylistsRoutePaginatedQueryQuery__
+ *
+ * To run a query within a React component, call `useCollectionPlaylistsRoutePaginatedQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionPlaylistsRoutePaginatedQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionPlaylistsRoutePaginatedQueryQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useCollectionPlaylistsRoutePaginatedQueryQuery(baseOptions?: Apollo.QueryHookOptions<CollectionPlaylistsRoutePaginatedQueryQuery, CollectionPlaylistsRoutePaginatedQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CollectionPlaylistsRoutePaginatedQueryQuery, CollectionPlaylistsRoutePaginatedQueryQueryVariables>(CollectionPlaylistsRoutePaginatedQueryDocument, options);
+      }
+export function useCollectionPlaylistsRoutePaginatedQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionPlaylistsRoutePaginatedQueryQuery, CollectionPlaylistsRoutePaginatedQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CollectionPlaylistsRoutePaginatedQueryQuery, CollectionPlaylistsRoutePaginatedQueryQueryVariables>(CollectionPlaylistsRoutePaginatedQueryDocument, options);
+        }
+export function useCollectionPlaylistsRoutePaginatedQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CollectionPlaylistsRoutePaginatedQueryQuery, CollectionPlaylistsRoutePaginatedQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CollectionPlaylistsRoutePaginatedQueryQuery, CollectionPlaylistsRoutePaginatedQueryQueryVariables>(CollectionPlaylistsRoutePaginatedQueryDocument, options);
+        }
+export type CollectionPlaylistsRoutePaginatedQueryQueryHookResult = ReturnType<typeof useCollectionPlaylistsRoutePaginatedQueryQuery>;
+export type CollectionPlaylistsRoutePaginatedQueryLazyQueryHookResult = ReturnType<typeof useCollectionPlaylistsRoutePaginatedQueryLazyQuery>;
+export type CollectionPlaylistsRoutePaginatedQuerySuspenseQueryHookResult = ReturnType<typeof useCollectionPlaylistsRoutePaginatedQuerySuspenseQuery>;
+export type CollectionPlaylistsRoutePaginatedQueryQueryResult = Apollo.QueryResult<CollectionPlaylistsRoutePaginatedQueryQuery, CollectionPlaylistsRoutePaginatedQueryQueryVariables>;
+export const CollectionPodcastsRouteQueryDocument = gql`
+    query CollectionPodcastsRouteQuery($limit: Int, $offset: Int) {
+  me {
+    episodes(limit: 10) {
+      ...YourEpisodesTile_connection
+    }
+    shows(offset: $offset, limit: $limit) {
+      pageInfo {
+        offset
+        limit
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          name
+          publisher
+          images {
+            url
+          }
+        }
+      }
+    }
+  }
+}
+    ${YourEpisodesTileConnectionFragmentDoc}`;
+
+/**
+ * __useCollectionPodcastsRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useCollectionPodcastsRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionPodcastsRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionPodcastsRouteQueryQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useCollectionPodcastsRouteQueryQuery(baseOptions?: Apollo.QueryHookOptions<CollectionPodcastsRouteQueryQuery, CollectionPodcastsRouteQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CollectionPodcastsRouteQueryQuery, CollectionPodcastsRouteQueryQueryVariables>(CollectionPodcastsRouteQueryDocument, options);
+      }
+export function useCollectionPodcastsRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionPodcastsRouteQueryQuery, CollectionPodcastsRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CollectionPodcastsRouteQueryQuery, CollectionPodcastsRouteQueryQueryVariables>(CollectionPodcastsRouteQueryDocument, options);
+        }
+export function useCollectionPodcastsRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CollectionPodcastsRouteQueryQuery, CollectionPodcastsRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CollectionPodcastsRouteQueryQuery, CollectionPodcastsRouteQueryQueryVariables>(CollectionPodcastsRouteQueryDocument, options);
+        }
+export type CollectionPodcastsRouteQueryQueryHookResult = ReturnType<typeof useCollectionPodcastsRouteQueryQuery>;
+export type CollectionPodcastsRouteQueryLazyQueryHookResult = ReturnType<typeof useCollectionPodcastsRouteQueryLazyQuery>;
+export type CollectionPodcastsRouteQuerySuspenseQueryHookResult = ReturnType<typeof useCollectionPodcastsRouteQuerySuspenseQuery>;
+export type CollectionPodcastsRouteQueryQueryResult = Apollo.QueryResult<CollectionPodcastsRouteQueryQuery, CollectionPodcastsRouteQueryQueryVariables>;
+export const CollectionPodcastsRoutePaginatedQueryDocument = gql`
+    query CollectionPodcastsRoutePaginatedQuery($limit: Int, $offset: Int) {
+  me {
+    shows(limit: $limit, offset: $offset) {
+      pageInfo {
+        offset
+        limit
+        hasNextPage
+      }
+      edges {
+        node {
+          id
+          name
+          publisher
+          images {
+            url
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useCollectionPodcastsRoutePaginatedQueryQuery__
+ *
+ * To run a query within a React component, call `useCollectionPodcastsRoutePaginatedQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionPodcastsRoutePaginatedQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionPodcastsRoutePaginatedQueryQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useCollectionPodcastsRoutePaginatedQueryQuery(baseOptions?: Apollo.QueryHookOptions<CollectionPodcastsRoutePaginatedQueryQuery, CollectionPodcastsRoutePaginatedQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CollectionPodcastsRoutePaginatedQueryQuery, CollectionPodcastsRoutePaginatedQueryQueryVariables>(CollectionPodcastsRoutePaginatedQueryDocument, options);
+      }
+export function useCollectionPodcastsRoutePaginatedQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionPodcastsRoutePaginatedQueryQuery, CollectionPodcastsRoutePaginatedQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CollectionPodcastsRoutePaginatedQueryQuery, CollectionPodcastsRoutePaginatedQueryQueryVariables>(CollectionPodcastsRoutePaginatedQueryDocument, options);
+        }
+export function useCollectionPodcastsRoutePaginatedQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CollectionPodcastsRoutePaginatedQueryQuery, CollectionPodcastsRoutePaginatedQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CollectionPodcastsRoutePaginatedQueryQuery, CollectionPodcastsRoutePaginatedQueryQueryVariables>(CollectionPodcastsRoutePaginatedQueryDocument, options);
+        }
+export type CollectionPodcastsRoutePaginatedQueryQueryHookResult = ReturnType<typeof useCollectionPodcastsRoutePaginatedQueryQuery>;
+export type CollectionPodcastsRoutePaginatedQueryLazyQueryHookResult = ReturnType<typeof useCollectionPodcastsRoutePaginatedQueryLazyQuery>;
+export type CollectionPodcastsRoutePaginatedQuerySuspenseQueryHookResult = ReturnType<typeof useCollectionPodcastsRoutePaginatedQuerySuspenseQuery>;
+export type CollectionPodcastsRoutePaginatedQueryQueryResult = Apollo.QueryResult<CollectionPodcastsRoutePaginatedQueryQuery, CollectionPodcastsRoutePaginatedQueryQueryVariables>;
+export const CollectionTracksRouteQueryDocument = gql`
+    query CollectionTracksRouteQuery($offset: Int, $limit: Int) {
+  me {
+    profile {
+      id
+      displayName
+    }
+    tracks(offset: $offset, limit: $limit) {
+      pageInfo {
+        hasNextPage
+        offset
+        limit
+        total
+      }
+      edges {
+        addedAt
+        node {
+          id
+          name
+          durationMs
+          album {
+            id
+          }
+          ...TrackNumberCell_track
+          ...TrackTitleCell_track
+        }
+      }
+    }
+  }
+}
+    ${TrackNumberCellTrackFragmentDoc}
+${TrackTitleCellTrackFragmentDoc}`;
+
+/**
+ * __useCollectionTracksRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useCollectionTracksRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCollectionTracksRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCollectionTracksRouteQueryQuery({
+ *   variables: {
+ *      offset: // value for 'offset'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useCollectionTracksRouteQueryQuery(baseOptions?: Apollo.QueryHookOptions<CollectionTracksRouteQueryQuery, CollectionTracksRouteQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CollectionTracksRouteQueryQuery, CollectionTracksRouteQueryQueryVariables>(CollectionTracksRouteQueryDocument, options);
+      }
+export function useCollectionTracksRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CollectionTracksRouteQueryQuery, CollectionTracksRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CollectionTracksRouteQueryQuery, CollectionTracksRouteQueryQueryVariables>(CollectionTracksRouteQueryDocument, options);
+        }
+export function useCollectionTracksRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CollectionTracksRouteQueryQuery, CollectionTracksRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<CollectionTracksRouteQueryQuery, CollectionTracksRouteQueryQueryVariables>(CollectionTracksRouteQueryDocument, options);
+        }
+export type CollectionTracksRouteQueryQueryHookResult = ReturnType<typeof useCollectionTracksRouteQueryQuery>;
+export type CollectionTracksRouteQueryLazyQueryHookResult = ReturnType<typeof useCollectionTracksRouteQueryLazyQuery>;
+export type CollectionTracksRouteQuerySuspenseQueryHookResult = ReturnType<typeof useCollectionTracksRouteQuerySuspenseQuery>;
+export type CollectionTracksRouteQueryQueryResult = Apollo.QueryResult<CollectionTracksRouteQueryQuery, CollectionTracksRouteQueryQueryVariables>;
+export const EpisodeRouteQueryDocument = gql`
+    query EpisodeRouteQuery($episodeId: ID!) {
+  episode(id: $episodeId) {
+    id
+    name
+    releaseDate {
+      date
+      precision
+    }
+    show {
+      id
+      name
+      images {
+        url
+        vibrantColor(format: RGB, alpha: 0.9) @client
+      }
+    }
+    ...EpisodeRemainingDuration_episode
+  }
+}
+    ${EpisodeRemainingDurationEpisodeFragmentDoc}`;
+
+/**
+ * __useEpisodeRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useEpisodeRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEpisodeRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEpisodeRouteQueryQuery({
+ *   variables: {
+ *      episodeId: // value for 'episodeId'
+ *   },
+ * });
+ */
+export function useEpisodeRouteQueryQuery(baseOptions: Apollo.QueryHookOptions<EpisodeRouteQueryQuery, EpisodeRouteQueryQueryVariables> & ({ variables: EpisodeRouteQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EpisodeRouteQueryQuery, EpisodeRouteQueryQueryVariables>(EpisodeRouteQueryDocument, options);
+      }
+export function useEpisodeRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EpisodeRouteQueryQuery, EpisodeRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EpisodeRouteQueryQuery, EpisodeRouteQueryQueryVariables>(EpisodeRouteQueryDocument, options);
+        }
+export function useEpisodeRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<EpisodeRouteQueryQuery, EpisodeRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<EpisodeRouteQueryQuery, EpisodeRouteQueryQueryVariables>(EpisodeRouteQueryDocument, options);
+        }
+export type EpisodeRouteQueryQueryHookResult = ReturnType<typeof useEpisodeRouteQueryQuery>;
+export type EpisodeRouteQueryLazyQueryHookResult = ReturnType<typeof useEpisodeRouteQueryLazyQuery>;
+export type EpisodeRouteQuerySuspenseQueryHookResult = ReturnType<typeof useEpisodeRouteQuerySuspenseQuery>;
+export type EpisodeRouteQueryQueryResult = Apollo.QueryResult<EpisodeRouteQueryQuery, EpisodeRouteQueryQueryVariables>;
+export const IndexRouteQueryDocument = gql`
+    query IndexRouteQuery($limit: Int!) {
+  me {
+    playlists(limit: $limit) {
+      edges {
+        node {
+          id
+          ...PlaylistTile_playlist
+        }
+      }
+    }
+  }
+}
+    ${PlaylistTilePlaylistFragmentDoc}`;
+
+/**
+ * __useIndexRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useIndexRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIndexRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useIndexRouteQueryQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useIndexRouteQueryQuery(baseOptions: Apollo.QueryHookOptions<IndexRouteQueryQuery, IndexRouteQueryQueryVariables> & ({ variables: IndexRouteQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<IndexRouteQueryQuery, IndexRouteQueryQueryVariables>(IndexRouteQueryDocument, options);
+      }
+export function useIndexRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<IndexRouteQueryQuery, IndexRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<IndexRouteQueryQuery, IndexRouteQueryQueryVariables>(IndexRouteQueryDocument, options);
+        }
+export function useIndexRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<IndexRouteQueryQuery, IndexRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<IndexRouteQueryQuery, IndexRouteQueryQueryVariables>(IndexRouteQueryDocument, options);
+        }
+export type IndexRouteQueryQueryHookResult = ReturnType<typeof useIndexRouteQueryQuery>;
+export type IndexRouteQueryLazyQueryHookResult = ReturnType<typeof useIndexRouteQueryLazyQuery>;
+export type IndexRouteQuerySuspenseQueryHookResult = ReturnType<typeof useIndexRouteQuerySuspenseQuery>;
+export type IndexRouteQueryQueryResult = Apollo.QueryResult<IndexRouteQueryQuery, IndexRouteQueryQueryVariables>;
+export const PlaylistQueryDocument = gql`
+    query PlaylistQuery($id: ID!, $offset: Int) {
+  me {
+    profile {
+      id
+    }
+  }
+  playlist(id: $id) {
+    id
+    name
+    uri
+    images {
+      url
+      vibrantColor(format: RGB, alpha: 0.9) @client
+    }
+    owner {
+      id
+      displayName
+    }
+    tracks(offset: $offset) {
+      edges {
+        addedAt
+        node {
+          id
+          name
+          durationMs
+          uri
+          ... on Track {
+            album {
+              id
+              name
+            }
+            ...TrackNumberCell_track
+          }
+          ... on Episode {
+            releaseDate {
+              date
+              precision
+            }
+            show {
+              id
+              name
+            }
+          }
+          ...PlaylistTitleCell_playlistTrack
+        }
+      }
+      pageInfo {
+        hasNextPage
+        offset
+        limit
+        total
+      }
+    }
+    ...PlaylistTitleCell_playlist
+  }
+}
+    ${TrackNumberCellTrackFragmentDoc}
+${PlaylistTitleCellPlaylistTrackFragmentDoc}
+${PlaylistTitleCellPlaylistFragmentDoc}`;
+
+/**
+ * __usePlaylistQueryQuery__
+ *
+ * To run a query within a React component, call `usePlaylistQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlaylistQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePlaylistQueryQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function usePlaylistQueryQuery(baseOptions: Apollo.QueryHookOptions<PlaylistQueryQuery, PlaylistQueryQueryVariables> & ({ variables: PlaylistQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<PlaylistQueryQuery, PlaylistQueryQueryVariables>(PlaylistQueryDocument, options);
+      }
+export function usePlaylistQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlaylistQueryQuery, PlaylistQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<PlaylistQueryQuery, PlaylistQueryQueryVariables>(PlaylistQueryDocument, options);
+        }
+export function usePlaylistQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<PlaylistQueryQuery, PlaylistQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<PlaylistQueryQuery, PlaylistQueryQueryVariables>(PlaylistQueryDocument, options);
+        }
+export type PlaylistQueryQueryHookResult = ReturnType<typeof usePlaylistQueryQuery>;
+export type PlaylistQueryLazyQueryHookResult = ReturnType<typeof usePlaylistQueryLazyQuery>;
+export type PlaylistQuerySuspenseQueryHookResult = ReturnType<typeof usePlaylistQuerySuspenseQuery>;
+export type PlaylistQueryQueryResult = Apollo.QueryResult<PlaylistQueryQuery, PlaylistQueryQueryVariables>;
+export const QueueRouteQueryDocument = gql`
+    query QueueRouteQuery {
+  me {
+    player {
+      playbackQueue {
+        currentlyPlaying {
+          ...QueueRoute_playbackItem
+        }
+        queue {
+          ...QueueRoute_playbackItem
+        }
+      }
+    }
+  }
+}
+    ${QueueRoutePlaybackItemFragmentDoc}`;
+
+/**
+ * __useQueueRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useQueueRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueueRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueueRouteQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useQueueRouteQueryQuery(baseOptions?: Apollo.QueryHookOptions<QueueRouteQueryQuery, QueueRouteQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueueRouteQueryQuery, QueueRouteQueryQueryVariables>(QueueRouteQueryDocument, options);
+      }
+export function useQueueRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueueRouteQueryQuery, QueueRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueueRouteQueryQuery, QueueRouteQueryQueryVariables>(QueueRouteQueryDocument, options);
+        }
+export function useQueueRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<QueueRouteQueryQuery, QueueRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<QueueRouteQueryQuery, QueueRouteQueryQueryVariables>(QueueRouteQueryDocument, options);
+        }
+export type QueueRouteQueryQueryHookResult = ReturnType<typeof useQueueRouteQueryQuery>;
+export type QueueRouteQueryLazyQueryHookResult = ReturnType<typeof useQueueRouteQueryLazyQuery>;
+export type QueueRouteQuerySuspenseQueryHookResult = ReturnType<typeof useQueueRouteQuerySuspenseQuery>;
+export type QueueRouteQueryQueryResult = Apollo.QueryResult<QueueRouteQueryQuery, QueueRouteQueryQueryVariables>;
+export const SearchRouteQueryDocument = gql`
+    query SearchRouteQuery($q: String!, $type: [SearchType!]!) {
+  search(q: $q, type: $type) {
+    artists {
+      edges {
+        node {
+          id
+          ...ArtistTile_artist
+        }
+      }
+    }
+  }
+}
+    ${ArtistTileArtistFragmentDoc}`;
+
+/**
+ * __useSearchRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useSearchRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchRouteQueryQuery({
+ *   variables: {
+ *      q: // value for 'q'
+ *      type: // value for 'type'
+ *   },
+ * });
+ */
+export function useSearchRouteQueryQuery(baseOptions: Apollo.QueryHookOptions<SearchRouteQueryQuery, SearchRouteQueryQueryVariables> & ({ variables: SearchRouteQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SearchRouteQueryQuery, SearchRouteQueryQueryVariables>(SearchRouteQueryDocument, options);
+      }
+export function useSearchRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SearchRouteQueryQuery, SearchRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SearchRouteQueryQuery, SearchRouteQueryQueryVariables>(SearchRouteQueryDocument, options);
+        }
+export function useSearchRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SearchRouteQueryQuery, SearchRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SearchRouteQueryQuery, SearchRouteQueryQueryVariables>(SearchRouteQueryDocument, options);
+        }
+export type SearchRouteQueryQueryHookResult = ReturnType<typeof useSearchRouteQueryQuery>;
+export type SearchRouteQueryLazyQueryHookResult = ReturnType<typeof useSearchRouteQueryLazyQuery>;
+export type SearchRouteQuerySuspenseQueryHookResult = ReturnType<typeof useSearchRouteQuerySuspenseQuery>;
+export type SearchRouteQueryQueryResult = Apollo.QueryResult<SearchRouteQueryQuery, SearchRouteQueryQueryVariables>;
+export const SettingsQueryDocument = gql`
+    query SettingsQuery {
+  developer {
+    fieldConfigs {
+      schemaField {
+        fieldName
+        typename
+      }
+      timeout
+      errorRate
+    }
+  }
+}
+    `;
+
+/**
+ * __useSettingsQueryQuery__
+ *
+ * To run a query within a React component, call `useSettingsQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSettingsQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSettingsQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSettingsQueryQuery(baseOptions?: Apollo.QueryHookOptions<SettingsQueryQuery, SettingsQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SettingsQueryQuery, SettingsQueryQueryVariables>(SettingsQueryDocument, options);
+      }
+export function useSettingsQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SettingsQueryQuery, SettingsQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SettingsQueryQuery, SettingsQueryQueryVariables>(SettingsQueryDocument, options);
+        }
+export function useSettingsQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<SettingsQueryQuery, SettingsQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<SettingsQueryQuery, SettingsQueryQueryVariables>(SettingsQueryDocument, options);
+        }
+export type SettingsQueryQueryHookResult = ReturnType<typeof useSettingsQueryQuery>;
+export type SettingsQueryLazyQueryHookResult = ReturnType<typeof useSettingsQueryLazyQuery>;
+export type SettingsQuerySuspenseQueryHookResult = ReturnType<typeof useSettingsQuerySuspenseQuery>;
+export type SettingsQueryQueryResult = Apollo.QueryResult<SettingsQueryQuery, SettingsQueryQueryVariables>;
+export const LimitedIntrospectionQueryDocument = gql`
+    query LimitedIntrospectionQuery {
+  __schema {
+    types {
+      name
+      kind
+      fields {
+        name
+        description
+        type {
+          ...TypeRef
+        }
+      }
+    }
+  }
+}
+    ${TypeRefFragmentDoc}`;
+
+/**
+ * __useLimitedIntrospectionQueryQuery__
+ *
+ * To run a query within a React component, call `useLimitedIntrospectionQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLimitedIntrospectionQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLimitedIntrospectionQueryQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLimitedIntrospectionQueryQuery(baseOptions?: Apollo.QueryHookOptions<LimitedIntrospectionQueryQuery, LimitedIntrospectionQueryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<LimitedIntrospectionQueryQuery, LimitedIntrospectionQueryQueryVariables>(LimitedIntrospectionQueryDocument, options);
+      }
+export function useLimitedIntrospectionQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LimitedIntrospectionQueryQuery, LimitedIntrospectionQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<LimitedIntrospectionQueryQuery, LimitedIntrospectionQueryQueryVariables>(LimitedIntrospectionQueryDocument, options);
+        }
+export function useLimitedIntrospectionQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<LimitedIntrospectionQueryQuery, LimitedIntrospectionQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<LimitedIntrospectionQueryQuery, LimitedIntrospectionQueryQueryVariables>(LimitedIntrospectionQueryDocument, options);
+        }
+export type LimitedIntrospectionQueryQueryHookResult = ReturnType<typeof useLimitedIntrospectionQueryQuery>;
+export type LimitedIntrospectionQueryLazyQueryHookResult = ReturnType<typeof useLimitedIntrospectionQueryLazyQuery>;
+export type LimitedIntrospectionQuerySuspenseQueryHookResult = ReturnType<typeof useLimitedIntrospectionQuerySuspenseQuery>;
+export type LimitedIntrospectionQueryQueryResult = Apollo.QueryResult<LimitedIntrospectionQueryQuery, LimitedIntrospectionQueryQueryVariables>;
+export const ShowRouteQueryDocument = gql`
+    query ShowRouteQuery($showId: ID!) {
+  show(id: $showId) {
+    id
+    description(format: HTML)
+    name
+    publisher
+    episodes {
+      edges {
+        node {
+          id
+          name
+          durationMs
+          uri
+          releaseDate {
+            date
+            precision
+          }
+          ...EpisodeRemainingDuration_episode
+        }
+      }
+    }
+    images {
+      url
+      vibrantColor(format: RGB, alpha: 0.9) @client
+    }
+  }
+}
+    ${EpisodeRemainingDurationEpisodeFragmentDoc}`;
+
+/**
+ * __useShowRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useShowRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useShowRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useShowRouteQueryQuery({
+ *   variables: {
+ *      showId: // value for 'showId'
+ *   },
+ * });
+ */
+export function useShowRouteQueryQuery(baseOptions: Apollo.QueryHookOptions<ShowRouteQueryQuery, ShowRouteQueryQueryVariables> & ({ variables: ShowRouteQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ShowRouteQueryQuery, ShowRouteQueryQueryVariables>(ShowRouteQueryDocument, options);
+      }
+export function useShowRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ShowRouteQueryQuery, ShowRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ShowRouteQueryQuery, ShowRouteQueryQueryVariables>(ShowRouteQueryDocument, options);
+        }
+export function useShowRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<ShowRouteQueryQuery, ShowRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ShowRouteQueryQuery, ShowRouteQueryQueryVariables>(ShowRouteQueryDocument, options);
+        }
+export type ShowRouteQueryQueryHookResult = ReturnType<typeof useShowRouteQueryQuery>;
+export type ShowRouteQueryLazyQueryHookResult = ReturnType<typeof useShowRouteQueryLazyQuery>;
+export type ShowRouteQuerySuspenseQueryHookResult = ReturnType<typeof useShowRouteQuerySuspenseQuery>;
+export type ShowRouteQueryQueryResult = Apollo.QueryResult<ShowRouteQueryQuery, ShowRouteQueryQueryVariables>;
+export const TrackRouteQueryDocument = gql`
+    query TrackRouteQuery($trackId: ID!) {
+  track(id: $trackId) {
+    id
+    durationMs
+    name
+    album {
+      id
+      albumType
+      name
+      images {
+        url
+        vibrantColor(format: RGB, alpha: 0.9) @client
+      }
+      ...AlbumTracksTable_album
+    }
+    artists {
+      id
+      name
+      topTracks {
+        id
+        ...ArtistTopTracks_tracks
+      }
+      ...ArtistTile_artist
+    }
+  }
+}
+    ${AlbumTracksTableAlbumFragmentDoc}
+${ArtistTopTracksTracksFragmentDoc}
+${ArtistTileArtistFragmentDoc}`;
+
+/**
+ * __useTrackRouteQueryQuery__
+ *
+ * To run a query within a React component, call `useTrackRouteQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTrackRouteQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTrackRouteQueryQuery({
+ *   variables: {
+ *      trackId: // value for 'trackId'
+ *   },
+ * });
+ */
+export function useTrackRouteQueryQuery(baseOptions: Apollo.QueryHookOptions<TrackRouteQueryQuery, TrackRouteQueryQueryVariables> & ({ variables: TrackRouteQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<TrackRouteQueryQuery, TrackRouteQueryQueryVariables>(TrackRouteQueryDocument, options);
+      }
+export function useTrackRouteQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrackRouteQueryQuery, TrackRouteQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<TrackRouteQueryQuery, TrackRouteQueryQueryVariables>(TrackRouteQueryDocument, options);
+        }
+export function useTrackRouteQuerySuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<TrackRouteQueryQuery, TrackRouteQueryQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<TrackRouteQueryQuery, TrackRouteQueryQueryVariables>(TrackRouteQueryDocument, options);
+        }
+export type TrackRouteQueryQueryHookResult = ReturnType<typeof useTrackRouteQueryQuery>;
+export type TrackRouteQueryLazyQueryHookResult = ReturnType<typeof useTrackRouteQueryLazyQuery>;
+export type TrackRouteQuerySuspenseQueryHookResult = ReturnType<typeof useTrackRouteQuerySuspenseQuery>;
+export type TrackRouteQueryQueryResult = Apollo.QueryResult<TrackRouteQueryQuery, TrackRouteQueryQueryVariables>;

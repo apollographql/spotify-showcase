@@ -30,6 +30,7 @@ import * as SearchEmptyRoute from './routes/search/empty';
 import * as TrackRoute from './routes/tracks/track';
 import * as LoginRoute from './routes/login';
 import * as OAuthRoute from './routes/oauth/finalize';
+import * as AiAgentRoute from './routes/ai-agent/ai-agent';
 
 import RootErrorBoundary from './components/RootErrorBoundary';
 import { isLoggedInVar } from './vars';
@@ -188,6 +189,14 @@ const routes = createRoutesFromElements(
             }
           />
         </Route>
+        <Route
+          path="ai-agent"
+          element={
+            <Suspense fallback={<AiAgentRoute.LoadingState />}>
+              <AiAgentRoute.RouteComponent />
+            </Suspense>
+          }
+        />
       </Route>
     </Route>
   </Route>

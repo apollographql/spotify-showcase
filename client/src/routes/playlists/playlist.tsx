@@ -119,6 +119,30 @@ export const RouteComponent = () => {
     throw new Error('Must be logged in');
   }
 
+  // Se playlist.tracks ou playlist.tracks.edges não existem ou estão vazios, mostrar estado vazio
+  if (!playlist.tracks || !playlist.tracks.edges || playlist.tracks.edges.length === 0) {
+    return (
+      <Page>
+        <Page.Header
+          mediaType="playlist"
+          coverPhoto={<CoverPhoto image={playlist.images?.[0]} />}
+          title={playlist.name}
+          details={[
+            <EntityLink key="owner" entity={playlist.owner}>
+              {playlist.owner.displayName}
+            </EntityLink>,
+            <span key="numSongs">0 songs</span>,
+          ]}
+        />
+        <Page.Content>
+          <div className="text-center text-muted py-12">
+            Nenhuma música nesta playlist.
+          </div>
+        </Page.Content>
+      </Page>
+    );
+  }
+
   const currentUser = data.me.profile;
 
   const tracksContains = useSavedTracksContains(

@@ -2,12 +2,11 @@ import { useCallback } from 'react';
 import { gql } from '@apollo/client';
 import { useMutation } from '@apollo/client/react';
 import {
-  PlaybackContextType,
-  ResumePlaybackInput,
-  ResumePlaybackMutation,
-  ResumePlaybackMutationVariables,
-  UseResumePlaybackStateFragment,
+  ResumePlaybackMutationMutation,
+  ResumePlaybackMutationMutationVariables,
+  UseResumePlaybackStateFragmentFragment,
 } from '../types/api';
+import { PlaybackContextType } from '../types/api.schema';
 import usePlaybackState from '../hooks/usePlaybackState';
 import { Get } from 'type-fest';
 import {
@@ -17,7 +16,7 @@ import {
 } from '../utils/spotify';
 
 type PlaybackState = NonNullable<
-  Get<ResumePlaybackMutation, 'resumePlayback.playbackState'>
+  Get<ResumePlaybackMutationMutation, 'resumePlayback.playbackState'>
 >;
 
 const RESUME_PLAYBACK_MUTATION = gql`
@@ -46,17 +45,17 @@ const USE_RESUME_PLAYBACK_STATE_FRAGMENT = gql`
 const getContextTypeFromURI = (contextURI: string) => {
   switch (parseSpotifyTypeFromURI(contextURI)) {
     case 'album':
-      return PlaybackContextType.Album;
+  return PlaybackContextType.ALBUM;
     case 'artist':
-      return PlaybackContextType.Artist;
+  return PlaybackContextType.ARTIST;
     case 'collection':
-      return PlaybackContextType.Collection;
+  return PlaybackContextType.COLLECTION;
     case 'collectionyourepisodes':
-      return PlaybackContextType.CollectionYourEpisodes;
+  return PlaybackContextType.COLLECTION_YOUR_EPISODES;
     case 'playlist':
-      return PlaybackContextType.Playlist;
+  return PlaybackContextType.PLAYLIST;
     case 'show':
-      return PlaybackContextType.Show;
+  return PlaybackContextType.SHOW;
     default:
       throw new Error('Could not parse context type from URI');
   }

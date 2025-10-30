@@ -12,7 +12,8 @@ import {
   ValidationSchema,
 } from '../utils/formValidation';
 import useForm from '../hooks/useForm';
-import { LimitedIntrospectionQuery, __TypeKind } from '../types/api';
+import { LimitedIntrospectionQueryQuery } from '../types/api';
+import { TypeKind } from '../types/api.schema';
 import { useReadQuery } from '@apollo/client/react';
 import type { QueryRef } from '@apollo/client/react';
 

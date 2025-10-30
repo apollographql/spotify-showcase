@@ -65,9 +65,16 @@ const generatePlaylistWorkflow = entrypoint(
           ? formatted.content
           : JSON.stringify(formatted.content);
 
-      // 🧹 remove markdown wrappers (```json ... ```)
-      text = text.replace(/```json|```/g, "").trim();
-      parsed = JSON.parse(text);
+      // 🧹 remove qualquer bloco de markdown e espaços extras
+      text = text.replace(/```[a-z]*|```/gi, "").trim();
+
+      // Tenta encontrar o primeiro array JSON na resposta
+      const match = text.match(/\[.*\]/s);
+      if (match) {
+        parsed = JSON.parse(match[0]);
+      } else {
+        throw new Error("No JSON array found in model output");
+      }
     } catch (e) {
       console.warn("⚠️ Failed to parse model JSON output:", e);
     }

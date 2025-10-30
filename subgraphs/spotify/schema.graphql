@@ -292,6 +292,11 @@ type Mutation {
   addItemsToPlaylist(input: AddItemsToPlaylistInput!): AddItemsToPlaylistPayload
 
   """
+  Create a playlist for the current user.
+  """
+  createPlaylist(input: CreatePlaylistInput!): CreatePlaylistPayload
+
+  """
   Update configuration for a field in the schema. Allows tweaks to the
   synthetic timeouts and error rates associated with the field. By default, both
   the timeout and error rate are set to 0.
@@ -415,6 +420,23 @@ type AddItemsToPlaylistPayload {
   """
   The playlist that contains the newly added items
   """
+  playlist: Playlist
+}
+
+
+input CreatePlaylistInput {
+  "The name of the new playlist."
+  name: String!
+
+  "An optional description for the playlist."
+  description: String
+
+  "Whether the playlist should be public. If omitted, Spotify's default is used."
+  public: Boolean
+}
+
+type CreatePlaylistPayload {
+  "The newly created playlist"
   playlist: Playlist
 }
 

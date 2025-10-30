@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client';
 import {
-  TrackPlaybackDetails_context as Context,
-  TrackPlaybackDetails_track as Track,
-  PlaybackContextType,
+  TrackPlaybackDetailsContextFragment as Context,
+  TrackPlaybackDetailsTrackFragment as Track,
 } from '../types/api';
+import { PlaybackContextType } from '../types/api.schema';
 import ContextMenuAction from './ContextMenuAction';
 import ContextMenu from './ContextMenu';
 import DelimitedList from './DelimitedList';
@@ -33,7 +33,7 @@ const TrackPlaybackDetails = ({
               Go to album
             </ContextMenu.Link>
             <ContextMenu.Separator />
-            {context?.type === PlaybackContextType.Playlist && (
+            {context?.type === PlaybackContextType.PLAYLIST && (
               <>
                 <ContextMenuAction.RemoveFromPlaylist
                   playlistId={parseSpotifyIDFromURI(context.uri)}

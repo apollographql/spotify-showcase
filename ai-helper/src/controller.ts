@@ -1,9 +1,11 @@
 import bodyParser from "body-parser";
 import express from "express";
+import cors from "cors";
 import { generatePlaylistWorkflow } from "./api_workflows";
 import { createMcpClient } from "./client";
 
 const app = express();
+app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
 
 app.post("/api/suggest-playlist", async (req, res) => {

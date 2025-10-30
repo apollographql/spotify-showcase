@@ -1,10 +1,10 @@
 import { gql } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/client/react';
 import {
-  SearchType,
   SearchRouteQuery,
   SearchRouteQueryVariables,
 } from '../../types/api';
+import { SearchType } from '../../types/api.schema';
 import Skeleton from '../../components/Skeleton';
 import ArtistTile from '../../components/ArtistTile';
 import Page from '../../components/Page';
@@ -47,7 +47,7 @@ export const RouteComponent = () => {
     SearchRouteQuery,
     SearchRouteQueryVariables
   >(SEARCH_ROUTE_QUERY, {
-    variables: { q: query, type: SearchType.Artist },
+  variables: { q: query, type: [SearchType.ARTIST] },
   });
   const artists = data.search?.artists?.edges?.map((edge) => edge.node) ?? [];
 

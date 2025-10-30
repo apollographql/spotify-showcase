@@ -1,0 +1,29 @@
+schema:
+  - ./schema.graphql
+  - ./src/apollo/localSchema.graphql
+
+documents: ./src/**/*.{ts,tsx,graphql}
+
+generates:
+  ./src/types/api.schema.ts:
+    plugins:
+      - typescript
+    config:
+      namingConvention:
+        typeNames: change-case#pascalCase
+        enumValues: change-case#upperCase
+
+  ./src/types/api.ts:
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      skipTypename: false
+      namingConvention:
+        typeNames: change-case#pascalCase
+        enumValues: change-case#upperCase
+      useTypeImports: true
+      onlyOperationTypes: false

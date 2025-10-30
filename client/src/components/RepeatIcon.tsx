@@ -1,4 +1,4 @@
-import { RepeatMode } from '../types/api';
+import { RepeatMode } from '../types/api.schema';
 import { LucideProps, Repeat, Repeat1 } from 'lucide-react';
 
 interface RepeatIconProps extends LucideProps {
