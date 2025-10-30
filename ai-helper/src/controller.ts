@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.post("/api/suggest-playlist", async (req, res) => {
   const { query } = req.body;
-  const token = req.headers.spotify_token as string;
+  const token = req.headers.authorization as string;
 
   if (!token) {
     return res.status(401).json({ error: "Missing Spotify Auth Token" });
