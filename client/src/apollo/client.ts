@@ -1,29 +1,29 @@
 import {
   ApolloClient,
-  InMemoryCache,
   ApolloLink,
   HttpLink,
+  InMemoryCache,
 } from '@apollo/client';
 import { Defer20220824Handler } from '@apollo/client/incremental';
-import { LocalState } from '@apollo/client/local-state';
-import { createQueryPreloader } from '@apollo/client/react';
 import { SetContextLink } from '@apollo/client/link/context';
 import { PersistedQueryLink } from '@apollo/client/link/persisted-queries';
+import { LocalState } from '@apollo/client/local-state';
+import { createQueryPreloader } from '@apollo/client/react';
 import {
-  generatePersistedQueryIdsFromManifest,
   createPersistedQueryManifestVerificationLink,
+  generatePersistedQueryIdsFromManifest,
   PersistedQueryManifestForVerification,
 } from '@apollo/persisted-query-lists';
-import introspection from './introspection.json';
+import { version } from '../../package.json';
+import { getAccessToken } from '../auth';
+import cursorConnectionPagination from '../fieldPolicies/cursorConnectionPagination';
 import libraryContains from '../fieldPolicies/libraryContains';
 import offsetConnectionPagination from '../fieldPolicies/offsetConnectionPagination';
-import cursorConnectionPagination from '../fieldPolicies/cursorConnectionPagination';
-import { getAccessToken } from '../auth';
-import { version } from '../../package.json';
 import { persistedQueryModeVar } from '../vars';
-import { fragmentRegistry } from './fragmentRegistry';
-import { resolvers } from './resolvers';
 import { Resolvers } from './__generated__/local-resolvers';
+import { fragmentRegistry } from './fragmentRegistry';
+import introspection from './introspection.json';
+import { resolvers } from './resolvers';
 
 let persistedQueriesImport: Promise<PersistedQueryManifestForVerification>;
 

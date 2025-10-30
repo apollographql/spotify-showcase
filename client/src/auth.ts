@@ -1,4 +1,3 @@
-import { isLoggedInVar } from './vars';
 import client from './apollo/client';
 import { STORAGE_KEYS } from './constants';
 import {
@@ -6,6 +5,7 @@ import {
   RefreshAccessTokenResponse,
   refreshAccessToken,
 } from './utils/oauth';
+import { isLoggedInVar } from './vars';
 
 type TokenType = 'access' | 'refresh';
 

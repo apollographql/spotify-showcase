@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "engines": {
     "node": ">=18"
@@ -43,7 +44,32 @@
     "remark-parse": "^10.0.1",
     "serve": "^14.2.0",
     "strip-markdown": "^5.0.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@langchain/core": "latest",
+    "@langchain/langgraph": "latest",
+    "@langchain/openai": "latest",
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "dotenv": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@apollo/rover": "^0.16.2",
+    "@mdx-js/rollup": "^2.3.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/mdx": "^2.0.3",
+    "@types/node": "^20.4.5",
+    "@types/prismjs": "^1.26.0",
+    "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.13",
+    "babel-plugin-prismjs": "^2.1.0",
+    "postcss": "^8.4.21",
+    "remark-frontmatter": "^4.0.1",
+    "remark-mdx-frontmatter": "^2.1.1",
+    "tailwindcss": "^3.2.7",
+    "type-fest": "^3.6.1",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.4",    
+    "tsx": "latest"    
   },
   "scripts": {
     "start": "vite --host 127.0.0.1",
@@ -62,24 +88,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@apollo/rover": "^0.16.2",
-    "@mdx-js/rollup": "^2.3.0",
-    "@tailwindcss/line-clamp": "^0.4.2",
-    "@types/mdx": "^2.0.3",
-    "@types/node": "^20.4.5",
-    "@types/prismjs": "^1.26.0",
-    "@vitejs/plugin-react": "^3.1.0",
-    "autoprefixer": "^10.4.13",
-    "babel-plugin-prismjs": "^2.1.0",
-    "postcss": "^8.4.21",
-    "remark-frontmatter": "^4.0.1",
-    "remark-mdx-frontmatter": "^2.1.1",
-    "tailwindcss": "^3.2.7",
-    "type-fest": "^3.6.1",
-    "typescript": "^5.1.6",
-    "vite": "^4.4.4"
   },
   "volta": {
     "node": "18.16.1"

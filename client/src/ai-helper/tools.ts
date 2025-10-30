@@ -4,8 +4,12 @@ import { tool } from "@langchain/core/tools";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import * as z from "zod";
+//import { getAccessToken } from "../auth";
 import { MCP_ENDPOINT, SPOTIFY_TOKEN } from "./constants";
 import model from "./model";
+
+const spotifyAccessToken: string = SPOTIFY_TOKEN; //FIXME TEMP
+//await getAccessToken();
 
 // --- MCP Client Setup ---
 const transport = new StreamableHTTPClientTransport(
@@ -13,7 +17,7 @@ const transport = new StreamableHTTPClientTransport(
   {
     requestInit: {
       headers: {
-        Authorization:SPOTIFY_TOKEN,
+        Authorization: spotifyAccessToken,
       },
     },
   }
