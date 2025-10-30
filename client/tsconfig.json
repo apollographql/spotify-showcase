@@ -12,17 +12,13 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-
-    // ✅ Mantém compatibilidade com Vite, mas permite ESM no tsx
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    // "noEmit": true,
     "outDir": "dist",
-    "jsx": "react-jsx",
-
-    // 👇 adicionado pra garantir top-level await e evitar conflitos
-    "noEmit": true
+    "jsx": "react-jsx"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

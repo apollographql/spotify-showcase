@@ -1,0 +1,22 @@
+{
+  "name": "ai-helper",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "tsx src/agent.ts"
+  },
+  "dependencies": {
+    "@langchain/core": "latest",
+    "@langchain/langgraph": "latest",
+    "@langchain/openai": "latest",
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "body-parser": "^2.2.0",
+    "dotenv": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

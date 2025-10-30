@@ -41,12 +41,12 @@ services:
   # 🤖 Apollo MCP Server
   mcp_server:
     image: ghcr.io/apollographql/apollo-mcp-server:latest
-    container_name: apollo_mcp_server
+    container_name: mcp_server
     ports:
       - "8000:8000"
     volumes:      
-      - ./ai-helper/mcp/operations:/operations
-      - ./ai-helper/mcp/config.yaml:/config.yaml
+      - ./mcp/operations:/operations
+      - ./mcp/config.yaml:/config.yaml
     environment:
       LOG_LEVEL: debug
       APOLLO_KEY: ${APOLLO_KEY}
@@ -54,3 +54,23 @@ services:
     command: ["/config.yaml"]
     expose:
       - 8000
+
+  ai-helper:
+    build: 
+      context: ./ai-helper
+    command: ["npx", "tsx", "src/controller.ts"]
+    #command: ["tail", "-f", "/dev/null"]
+    container_name: ai-helper
+    ports:
+      - "4005:4005"
+    volumes:
+      - ./ai-helper:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=production      
+      - MCP_ENDPOINT=${MCP_ENDPOINT}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      - mcp_server
+    expose:
+      - 4005
