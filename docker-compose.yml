@@ -14,6 +14,7 @@ services:
       APOLLO_KEY: ${APOLLO_KEY}
       APOLLO_GRAPH_REF: ${APOLLO_GRAPH_REF}
       CALLBACK_URL: ${CALLBACK_URL}
+      APOLLO_ROUTER_LOG: error
       WAIT: true
     build: router
     ports:
