@@ -9,7 +9,7 @@ export const readEnv = (key: string, options?: ReadEnvOptions) => {
 
   invariant(
     value,
-    `\`process.env.${key}\` must be defined. To get started, visit the home page at http://localhost:3000.`
+    `\`process.env.${key}\` must be defined. To get started, visit the home page at http://127.0.0.1:3000.`
   );
 
   return value;
